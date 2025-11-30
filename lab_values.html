@@ -50,20 +50,39 @@
         .threshold-value { font-size: 14px; color: #fff; font-weight: 500; }
         .list-item { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; line-height: 1.5; }
         .list-item:last-child { border-bottom: none; }
-        .imcrg-link { color: #4fc3f7; text-decoration: none; border-bottom: 1px dotted #4fc3f7; transition: all 0.2s; }
+        .imcrg-link { color: #4fc3f7; text-decoration: none; border-bottom: 1px dotted #4fc3f7; transition: all 0.2s; cursor: pointer; }
         .imcrg-link:hover { color: #81d4fa; background: rgba(79, 195, 247, 0.1); border-bottom-style: solid; }
-        .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: #4a90d9; border: none; border-radius: 50%; color: #fff; font-size: 20px; cursor: pointer; display: none; z-index: 1000; box-shadow: 0 4px 15px rgba(74,144,217,0.4); }
+        .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: #4a90d9; border: none; border-radius: 50%; color: #fff; font-size: 20px; cursor: pointer; display: none; z-index: 100; box-shadow: 0 4px 15px rgba(74,144,217,0.4); }
         .back-to-top.show { display: flex; align-items: center; justify-content: center; }
-        @media (max-width: 768px) { body { padding: 10px; } .header h1 { font-size: 22px; } .lab-card { padding: 20px; } .threshold-grid { grid-template-columns: repeat(2, 1fr); } }
+        
+        /* Slide-in Panel Styles */
+        .panel-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+        .panel-overlay.active { opacity: 1; visibility: visible; }
+        .slide-panel { position: fixed; top: 0; right: -80%; width: 80%; height: 100%; background: #1a1a2e; z-index: 1001; transition: right 0.3s ease-out; box-shadow: -5px 0 30px rgba(0,0,0,0.5); display: flex; flex-direction: column; }
+        .slide-panel.active { right: 0; }
+        .panel-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; flex-shrink: 0; }
+        .panel-title { font-size: 16px; font-weight: 600; }
+        .panel-close { background: rgba(255,255,255,0.2); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .panel-close:hover { background: rgba(255,255,255,0.3); }
+        .panel-content { flex: 1; overflow: hidden; }
+        .panel-content iframe { width: 100%; height: 100%; border: none; }
+        
+        @media (max-width: 768px) { 
+            body { padding: 10px; } 
+            .header h1 { font-size: 22px; } 
+            .lab-card { padding: 20px; } 
+            .threshold-grid { grid-template-columns: repeat(2, 1fr); }
+            .slide-panel { width: 95%; right: -95%; }
+        }
     </style>
 </head>
 <body>
-    <div style="background: linear-gradient(135deg, #e74c3c, #c0392b); padding: 8px 15px; text-align: center; position: sticky; top: 0; z-index: 1000;">
-        <a href="im_guide.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 12px;">📚 Open IM Clinical Reference Guide →</a>
+    <div style="background: linear-gradient(135deg, #e74c3c, #c0392b); padding: 8px 15px; text-align: center; position: sticky; top: 0; z-index: 100;">
+        <a href="im_guide.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 12px;">📚 Open Full IM Clinical Reference Guide →</a>
     </div>
     <div class="header">
         <h1>🔬 Laboratory Values Clinical Reference</h1>
-        <p>100 Laboratory Tests | Linked to IM Clinical Reference Guide</p>
+        <p>100 Laboratory Tests | Tap conditions to view IMCRG details</p>
     </div>
 
     <div class="controls">
@@ -109,11 +128,21 @@
     <div class="lab-grid" id="labGrid"></div>
     <button class="back-to-top" id="backToTop">↑</button>
 
+    <!-- Slide-in Panel -->
+    <div class="panel-overlay" id="panelOverlay"></div>
+    <div class="slide-panel" id="slidePanel">
+        <div class="panel-header">
+            <span class="panel-title" id="panelTitle">IMCRG Reference</span>
+            <button class="panel-close" id="panelClose">✕</button>
+        </div>
+        <div class="panel-content">
+            <iframe id="panelIframe" src="about:blank"></iframe>
+        </div>
+    </div>
+
     <script>
-        // Comprehensive IMCRG condition mapping
-        // Maps text patterns (case-insensitive) to IMCRG anchors
+        // Comprehensive IMCRG condition mapping with display names
         const imcrgMap = {
-            // Cardiovascular
             "acs": "acs", "acute coronary syndrome": "acs", "mi": "acs", "myocardial infarction": "acs", "nstemi": "acs", "stemi": "acs",
             "heart failure": "heart-failure", "chf": "heart-failure", "hfref": "heart-failure", "hfpef": "heart-failure", "decompensated heart failure": "heart-failure",
             "atrial fibrillation": "afib", "afib": "afib", "a-fib": "afib", "af": "afib",
@@ -127,8 +156,6 @@
             "bradycardia": "bradycardia", "heart block": "bradycardia", "av block": "bradycardia",
             "vt": "vt-vf", "vf": "vt-vf", "ventricular tachycardia": "vt-vf", "ventricular fibrillation": "vt-vf",
             "limb ischemia": "limb-ischemia", "acute limb ischemia": "limb-ischemia", "ali": "limb-ischemia",
-            
-            // Pulmonary
             "pneumonia": "cap", "cap": "cap", "community-acquired pneumonia": "cap",
             "copd": "copd", "copd exacerbation": "copd",
             "asthma": "asthma", "asthma exacerbation": "asthma", "status asthmaticus": "asthma",
@@ -140,8 +167,6 @@
             "hypercapnic respiratory failure": "hypercapnic-failure", "hypercapnia": "hypercapnic-failure", "co2 retention": "hypercapnic-failure",
             "influenza": "influenza", "flu": "influenza", "viral pneumonia": "influenza",
             "covid": "covid", "covid-19": "covid", "sars-cov-2": "covid",
-            
-            // Infectious
             "sepsis": "sepsis", "septic shock": "sepsis", "severe sepsis": "sepsis",
             "cellulitis": "cellulitis",
             "uti": "uti", "pyelonephritis": "uti", "urinary tract infection": "uti",
@@ -152,8 +177,6 @@
             "tuberculosis": "tb", "tb": "tb", "active tb": "tb",
             "hiv": "hiv-aids", "aids": "hiv-aids", "hiv/aids": "hiv-aids",
             "opportunistic infection": "opportunistic", "oi": "opportunistic", "pcp": "opportunistic", "pneumocystis": "opportunistic",
-            
-            // Renal/Electrolytes
             "aki": "aki", "acute kidney injury": "aki", "acute renal failure": "aki", "arf": "aki",
             "hyperkalemia": "hyperkalemia", "elevated potassium": "hyperkalemia",
             "hyponatremia": "hyponatremia", "low sodium": "hyponatremia",
@@ -166,8 +189,6 @@
             "hypermagnesemia": "hypomag",
             "hypophosphatemia": "phosphate", "hyperphosphatemia": "phosphate",
             "metabolic alkalosis": "metabolic-alkalosis",
-            
-            // GI/Hepatic
             "cirrhosis": "cirrhosis", "liver cirrhosis": "cirrhosis", "hepatic cirrhosis": "cirrhosis",
             "hepatic encephalopathy": "he", "he": "he", "encephalopathy": "he",
             "sbp": "sbp", "spontaneous bacterial peritonitis": "sbp",
@@ -180,8 +201,6 @@
             "ibd": "ibd", "inflammatory bowel disease": "ibd", "crohn": "ibd", "ulcerative colitis": "ibd",
             "acute diarrhea": "acute-diarrhea", "diarrhea": "acute-diarrhea",
             "mesenteric ischemia": "mesenteric-ischemia", "ischemic bowel": "mesenteric-ischemia",
-            
-            // Endocrine
             "dka": "dka", "diabetic ketoacidosis": "dka",
             "hhs": "hhs", "hyperosmolar hyperglycemic": "hhs", "hyperosmolar state": "hhs",
             "hypothyroidism": "hypothyroid", "hypothyroid": "hypothyroid", "myxedema": "hypothyroid", "myxedema coma": "hypothyroid",
@@ -189,8 +208,6 @@
             "adrenal insufficiency": "adrenal", "adrenal crisis": "adrenal", "addison": "adrenal", "primary adrenal insufficiency": "adrenal", "secondary adrenal insufficiency": "adrenal",
             "diabetes insipidus": "diabetes-insipidus", "di": "diabetes-insipidus",
             "pheochromocytoma": "pheo", "pheo": "pheo",
-            
-            // Heme/Onc
             "anemia": "anemia",
             "hemolytic anemia": "hemolytic-anemia", "hemolysis": "hemolytic-anemia", "autoimmune hemolytic": "hemolytic-anemia", "aiha": "hemolytic-anemia",
             "thrombocytopenia": "thrombocytopenia", "low platelets": "thrombocytopenia", "itp": "thrombocytopenia", "ttp": "thrombocytopenia", "hus": "thrombocytopenia", "hit": "thrombocytopenia",
@@ -200,8 +217,6 @@
             "transfusion reaction": "transfusion", "transfusion": "transfusion",
             "anticoagulation reversal": "anticoag-reversal", "bleeding reversal": "anticoag-reversal",
             "oncologic emergency": "onc-emergencies", "svc syndrome": "onc-emergencies", "spinal cord compression": "cord-compression",
-            
-            // Neuro
             "stroke": "stroke", "cva": "stroke", "ischemic stroke": "stroke", "acute stroke": "stroke",
             "tia": "tia", "transient ischemic attack": "tia",
             "seizure": "seizure", "status epilepticus": "seizure", "convulsion": "seizure",
@@ -210,43 +225,95 @@
             "gbs": "gbs", "guillain-barre": "gbs", "guillain-barré": "gbs",
             "myasthenia gravis": "myasthenia", "myasthenic crisis": "myasthenia",
             "cord compression": "cord-compression", "spinal cord compression": "cord-compression",
-            
-            // Rheum/Other
             "gout": "gout", "pseudogout": "gout", "gouty arthritis": "gout",
             "gca": "gca", "giant cell arteritis": "gca", "temporal arteritis": "gca",
             "sle": "sle", "lupus": "sle", "systemic lupus": "sle",
             "anaphylaxis": "anaphylaxis", "anaphylactic shock": "anaphylaxis",
             "rhabdomyolysis": "rhabdo", "rhabdo": "rhabdo",
-            
-            // Tox/Psych
             "alcohol withdrawal": "etoh-withdrawal", "etoh withdrawal": "etoh-withdrawal", "delirium tremens": "etoh-withdrawal", "dts": "etoh-withdrawal",
             "opioid overdose": "opioid", "opioid withdrawal": "opioid", "narcan": "opioid",
             "overdose": "overdose", "drug overdose": "overdose", "toxidrome": "overdose"
         };
 
-        // Function to auto-link text with IMCRG conditions
-        function autoLinkText(text) {
-            // Sort keys by length (longest first) to match longer phrases before shorter ones
-            const sortedKeys = Object.keys(imcrgMap).sort((a, b) => b.length - a.length);
+        // Condition display names for panel title
+        const conditionNames = {
+            "acs": "Acute Coronary Syndrome", "heart-failure": "Heart Failure", "afib": "Atrial Fibrillation",
+            "htn-emergency": "Hypertensive Emergency", "dvt": "Deep Vein Thrombosis", "syncope": "Syncope",
+            "pericarditis": "Pericarditis", "endocarditis": "Endocarditis", "myocarditis": "Myocarditis",
+            "cardiogenic-shock": "Cardiogenic Shock", "bradycardia": "Bradycardia", "vt-vf": "VT/VF",
+            "limb-ischemia": "Acute Limb Ischemia", "cap": "Community-Acquired Pneumonia", "copd": "COPD",
+            "asthma": "Asthma", "pe": "Pulmonary Embolism", "pleural-effusion": "Pleural Effusion",
+            "pneumothorax": "Pneumothorax", "ild": "Interstitial Lung Disease", "hemoptysis": "Hemoptysis",
+            "hypercapnic-failure": "Hypercapnic Respiratory Failure", "influenza": "Influenza", "covid": "COVID-19",
+            "sepsis": "Sepsis", "cellulitis": "Cellulitis", "uti": "UTI/Pyelonephritis", "cdiff": "C. difficile",
+            "meningitis": "Meningitis", "neutropenic-fever": "Neutropenic Fever", "ssti": "SSTI",
+            "tb": "Tuberculosis", "hiv-aids": "HIV/AIDS", "opportunistic": "Opportunistic Infections",
+            "aki": "Acute Kidney Injury", "hyperkalemia": "Hyperkalemia", "hyponatremia": "Hyponatremia",
+            "siadh": "SIADH", "ckd-complications": "CKD Complications", "uremia": "Uremia",
+            "hypomag": "Magnesium Disorders", "phosphate": "Phosphate Disorders", "metabolic-alkalosis": "Metabolic Alkalosis",
+            "cirrhosis": "Cirrhosis", "he": "Hepatic Encephalopathy", "sbp": "Spontaneous Bacterial Peritonitis",
+            "cirrhosis-complications": "Cirrhosis Complications", "aclf": "Acute-on-Chronic Liver Failure",
+            "ugib": "Upper GI Bleeding", "pancreatitis": "Pancreatitis", "bowel-obstruction": "Bowel Obstruction",
+            "diverticulitis": "Diverticulitis", "ibd": "Inflammatory Bowel Disease", "acute-diarrhea": "Acute Diarrhea",
+            "mesenteric-ischemia": "Mesenteric Ischemia", "dka": "DKA", "hhs": "HHS",
+            "hypothyroid": "Hypothyroidism", "hyperthyroid": "Hyperthyroidism", "adrenal": "Adrenal Insufficiency",
+            "diabetes-insipidus": "Diabetes Insipidus", "pheo": "Pheochromocytoma", "anemia": "Anemia",
+            "hemolytic-anemia": "Hemolytic Anemia", "thrombocytopenia": "Thrombocytopenia", "dic": "DIC",
+            "sickle-cell": "Sickle Cell Disease", "tls": "Tumor Lysis Syndrome", "transfusion": "Transfusion Reactions",
+            "anticoag-reversal": "Anticoagulation Reversal", "onc-emergencies": "Oncologic Emergencies",
+            "cord-compression": "Spinal Cord Compression", "stroke": "Stroke", "tia": "TIA", "seizure": "Seizure",
+            "delirium": "Delirium", "increased-icp": "Increased ICP", "gbs": "Guillain-Barré Syndrome",
+            "myasthenia": "Myasthenia Gravis", "gout": "Gout", "gca": "Giant Cell Arteritis", "sle": "SLE",
+            "anaphylaxis": "Anaphylaxis", "rhabdo": "Rhabdomyolysis", "etoh-withdrawal": "Alcohol Withdrawal",
+            "opioid": "Opioid Toxicity", "overdose": "Overdose/Toxicology"
+        };
+
+        // Panel functions
+        function openPanel(anchor, displayText) {
+            const panel = document.getElementById('slidePanel');
+            const overlay = document.getElementById('panelOverlay');
+            const iframe = document.getElementById('panelIframe');
+            const title = document.getElementById('panelTitle');
             
+            title.textContent = conditionNames[anchor] || displayText;
+            iframe.src = `im_guide.html#${anchor}`;
+            
+            panel.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePanel() {
+            const panel = document.getElementById('slidePanel');
+            const overlay = document.getElementById('panelOverlay');
+            const iframe = document.getElementById('panelIframe');
+            
+            panel.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            setTimeout(() => { iframe.src = 'about:blank'; }, 300);
+        }
+
+        // Auto-link function that creates clickable spans instead of anchor tags
+        function autoLinkText(text) {
+            const sortedKeys = Object.keys(imcrgMap).sort((a, b) => b.length - a.length);
             let result = text;
-            const linkedTerms = new Set(); // Track what we've already linked to avoid duplicates
+            const linkedTerms = new Set();
             
             for (const term of sortedKeys) {
                 const anchor = imcrgMap[term];
-                if (linkedTerms.has(anchor)) continue; // Skip if we already linked to this condition
+                if (linkedTerms.has(anchor)) continue;
                 
-                // Create case-insensitive regex with word boundaries
                 const regex = new RegExp(`\\b(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\b`, 'gi');
                 
                 if (regex.test(result)) {
                     result = result.replace(regex, (match) => {
                         linkedTerms.add(anchor);
-                        return `<a href="im_guide.html#${anchor}" class="imcrg-link" target="_top">${match}</a>`;
+                        return `<span class="imcrg-link" data-anchor="${anchor}" data-term="${match}">${match}</span>`;
                     });
                 }
             }
-            
             return result;
         }
 
@@ -257,7 +324,6 @@
             abg: "ABG", bodyfluid: "Body Fluids", infectious: "Infectious",
             tumor: "Tumor Markers", drugs: "Drug Levels", misc: "Misc"
         };
-
         const labValues = [
             // ELECTROLYTES (1-14)
             { id: 1, name: "Hyponatremia", subtitle: "Low Sodium", category: "electrolytes", direction: "low", severity: "severe",
@@ -804,7 +870,6 @@
                 </div>
             `).join('');
 
-            // Auto-link differential and management text
             const differentialHtml = lab.differential.map(d => `<div class="list-item">${autoLinkText(d)}</div>`).join('');
             const managementHtml = lab.management.map(m => `<div class="list-item">${autoLinkText(m)}</div>`).join('');
 
@@ -836,7 +901,6 @@
             `;
         }
 
-        // Render filtered lab cards
         function renderLabCards() {
             const filtered = labValues.filter(lab => {
                 const matchesCategory = activeFilters.category === 'all' || lab.category === activeFilters.category;
@@ -857,7 +921,6 @@
                     : `Showing ${filtered.length} of ${labValues.length} laboratory values`;
         }
 
-        // Build TOC
         function buildTOC() {
             const categories = {};
             labValues.forEach(lab => {
@@ -917,7 +980,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Smooth scroll for TOC links
+        // TOC smooth scroll
         document.getElementById('tocGrid').addEventListener('click', (e) => {
             if (e.target.classList.contains('toc-link')) {
                 e.preventDefault();
@@ -926,6 +989,25 @@
                 document.getElementById('tocContent').classList.remove('show');
                 document.getElementById('tocArrow').textContent = '▼';
             }
+        });
+
+        // IMCRG link click handler - opens slide panel
+        document.getElementById('labGrid').addEventListener('click', (e) => {
+            if (e.target.classList.contains('imcrg-link')) {
+                e.preventDefault();
+                const anchor = e.target.dataset.anchor;
+                const term = e.target.dataset.term;
+                openPanel(anchor, term);
+            }
+        });
+
+        // Panel close handlers
+        document.getElementById('panelClose').addEventListener('click', closePanel);
+        document.getElementById('panelOverlay').addEventListener('click', closePanel);
+        
+        // Escape key closes panel
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closePanel();
         });
 
         // Initialize
