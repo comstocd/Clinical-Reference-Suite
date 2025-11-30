@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Antibiotic & Infection Guide — Complete</title>
+<link rel="icon" href="mutant-icon.png" type="image/png">
+<style>
+  :root{
+    --nav-w:300px;
+    --header-h:64px;
+    --blue:#004080;
+    --muted:#f6f8fb;
+    --card:#ffffff;
+  }
+  html,body{height:100%;margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:#fbfcfe;color:#1f2937}
+  /* Layout */
+  header{
+    position:fixed;
+    left:var(--nav-w);
+    right:0;
+    top:0;
+    height:var(--header-h);
+    background:var(--blue);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:0 16px;
+    z-index:1200;
+  }
+  header img{height:44px;width:44px;object-fit:contain}
+  header h1{font-size:1.05rem;margin:0;font-weight:600}
+  header .search { margin-left:auto; width:420px; max-width:40vw; }
+  header .search input{width:100%;padding:8px;border-radius:8px;border:0;font-size:0.95rem}
+
+  nav#sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:var(--nav-w);
+    height:100vh;
+    background:var(--muted);
+    border-right:1px solid #e2e8f0;
+    padding:8px 12px;
+    box-sizing:border-box;
+    overflow:auto;
+  }
+  #sidebar .title{padding:6px 8px;font-weight:700;color:var(--blue);font-size:1rem}
+  #sidebar .search-small{padding:8px}
+  #sidebar input[type="text"]{width:100%;padding:8px;border-radius:8px;border:1px solid #e6eef8}
+
+  #sidebar ul{list-style:none;padding:6px;margin:0}
+  #sidebar li{margin:6px 0}
+  #sidebar a{display:block;padding:8px 10px;color:#0b2545;text-decoration:none;border-radius:6px}
+  #sidebar a:hover{background:#e8f1ff}
+
+  main{
+    margin-left:var(--nav-w);
+    padding:calc(var(--header-h) + 18px) 22px 40px 22px;
+    min-height:100vh;
+    box-sizing:border-box;
+  }
+
+  section{margin-bottom:20px; scroll-margin-top: calc(var(--header-h) + 12px);}
+  h2{color:var(--blue); margin:0 0 10px 0}
+  .muted{color:#475569;font-size:0.95rem}
+  p, li {color:#0b2338;line-height:1.4}
+
+  /* Collapsible */
+  .collapsible{
+    background:#eef6ff;
+    border:1px solid #d7eafc;
+    color:var(--blue);
+    padding:10px 12px;
+    width:100%;
+    text-align:left;
+    cursor:pointer;
+    border-radius:8px;
+    font-weight:700;
+    margin-top:12px;
+    box-sizing:border-box;
+  }
+  .collapsible:after{content:'+';float:right;font-weight:700}
+  .collapsible.active{background:#e3f0ff}
+  .collapsible.active:after{content:'−'}
+  .panel{
+    display:none;
+    padding:12px;
+    margin-top:8px;
+    background:var(--card);
+    border-radius:8px;
+    border:1px solid #eef2f6;
+  }
+
+  table{width:100%;border-collapse:collapse;margin-top:8px}
+  th,td{border:1px solid #e6edf6;padding:8px;text-align:left;font-size:14px}
+  th{background:#eaf4ff;color:#023e73;font-weight:700}
+
+  .calculator{border:1px solid #e6edf6;padding:12px;border-radius:8px;background:#fff;margin-top:10px}
+  .small{font-size:0.92rem;color:#475569}
+  .badge{display:inline-block;padding:4px 8px;border-radius:16px;background:#fff;border:1px solid #e6eef8;font-size:12px;margin-right:6px}
+
+  @media (max-width:980px){
+    header{left:0}
+    nav#sidebar{position:relative;width:100%;height:auto;border-right:none;border-bottom:1px solid #e6edf6;padding-bottom:12px}
+    main{margin-left:0;padding-top:calc(var(--header-h) + 10px)}
+  }
+</style>
+</head>
+<body>
+
+<nav id="sidebar" aria-label="Main navigation">
+  <div class="title">Antimicrobial Guide</div>
+
+  <div class="search-small">
+    <input type="text" id="sidebarSearch" placeholder="Quick search (pathogen / drug / syndrome)" />
+  </div>
+
+  <ul>
+    <li><a href="#homepage">Home — ID Approach</a></li>
+    <li><a href="#empiric-therapy">Empiric Therapy</a></li>
+    <li><a href="#anatomic-infections">Infections by Site</a></li>
+    <li><a href="#sepsis">Sepsis</a></li>
+    <li><a href="#pathogen-guidance">Pathogen Guidance</a></li>
+    <li><a href="#pathogen-overview">Pathogen Overview</a></li>
+    <li><a href="#antibiotic-classes">Antibiotic Classes</a></li>
+    <li><a href="#fungal-infections">Fungal Infections</a></li>
+    <li><a href="#viral-infections">Viral Infections</a></li>
+    <li><a href="#tickborne-infections">Tickborne Infections</a></li>
+    <li><a href="#viral-encephalopathies">Viral Encephalopathies</a></li>
+    <li><a href="#calculators">Calculators</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+
+  <div style="padding:12px;color:#334155;font-size:13px">Tip: use the top search for full-text filtering across all sections.</div>
+</nav>
+
+<header role="banner">
+  <img src="mutant-icon.png" alt="logo" onerror="this.style.display='none'">
+  <h1>Antibiotic & Infection Guide</h1>
+  <div class="search">
+    <input id="globalSearch" type="text" placeholder="Search everything — pathogen, drug, syndrome..." />
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HOME -->
+<section id="homepage" aria-labelledby="home-heading">
+  <h2 id="home-heading">Home — Basic ID Approach</h2>
+  <p class="muted">Concise inpatient approach: history, source identification, empiric therapy, source control, stewardship.</p>
+  <ul>
+    <li>History: travel, exposures (ticks, animals), recent healthcare/antibiotics, devices.</li>
+    <li>Exam: targeted to suspected source; document entry points, devices, neurologic status.</li>
+    <li>Diagnostics: obtain blood cultures (2 sets), urine, wound or respiratory cultures before antibiotics when possible.</li>
+    <li>Empiric therapy: cover likely pathogens given site, severity, and local antibiogram; reassess at 48–72 hrs.</li>
+    <li>Source control: drain abscess, remove infected devices, debride necrotic tissue — essential.</li>
+  </ul>
+
+  <h3>Clinical pearls</h3>
+  <ul>
+    <li>Sepsis: give broad-spectrum antibiotics within 1 hour of recognition; fluids and source control.</li>
+    <li>Neutropenic fever: immediate anti-pseudomonal IV therapy.</li>
+    <li>Always check renal function before dosing; many agents require adjustment.</li>
+  </ul>
+</section>
+
+<!-- EMPIRIC THERAPY -->
+<section id="empiric-therapy">
+  <h2>Empiric Therapy</h2>
+
+  <button class="collapsible">Gram-Positive Cocci (common regimens)</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Organism/Group</th><th>Empiric</th><th>Dose / Route</th><th>Notes / Duration</th></tr></thead>
+      <tbody>
+        <tr><td>MSSA</td><td>Nafcillin / Oxacillin</td><td>Nafcillin 2 g IV q4h</td><td>7–14 d; longer for endocarditis/osteomyelitis</td></tr>
+        <tr><td>MRSA</td><td>Vancomycin</td><td>15 mg/kg IV q12h (AUC/CrCl adjust)</td><td>Monitor levels; 7–21 d</td></tr>
+        <tr><td>Streptococci</td><td>Penicillin G / Ceftriaxone</td><td>Pen G 4 MU IV q4h; Ceftriaxone 2 g IV q24h</td><td>10–14 d (site dependent)</td></tr>
+        <tr><td>Enterococcus spp.</td><td>Ampicillin ± Gentamicin (synergy)</td><td>Ampicillin 2 g IV q4h</td><td>UTI shorter; endocarditis 4–6 weeks</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Gram-Negative Rods (common regimens)</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Group</th><th>Empiric</th><th>Dose</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Enterobacteriaceae (E. coli, Klebsiella)</td><td>Ceftriaxone / Cefepime / Piperacillin-tazobactam</td><td>Ceftriaxone 1–2 g IV q24h; Cefepime 2 g IV q8h; Pip-tazo 4.5 g IV q6–8h</td><td>Consider carbapenem for ESBL</td></tr>
+        <tr><td>Pseudomonas</td><td>Cefepime / Piperacillin-tazobactam / Meropenem</td><td>Cefepime 2 g IV q8h; Meropenem 1 g IV q8h</td><td>Consider combination therapy if critically ill</td></tr>
+        <tr><td>Burkholderia</td><td>Ceftazidime ± TMP-SMX</td><td>Ceftazidime 2 g IV q8h</td><td>CF isolates often resistant; tailor to suscept</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Anaerobes / Mixed</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Group</th><th>Empiric</th><th>Dose</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Bacteroides / Prevotella</td><td>Pip-tazo or Carbapenem or Metronidazole combo</td><td>Metronidazole 500 mg IV q8h</td><td>Source control critical in IAIs</td></tr>
+        <tr><td>Clostridioides difficile</td><td>Oral Vancomycin or Fidaxomicin</td><td>Vancomycin 125–500 mg PO q6h</td><td>Follow current guideline durations</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Intracellular / Atypical</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Organism</th><th>Empiric</th><th>Dose</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Legionella</td><td>Levofloxacin or Azithromycin</td><td>Levo 750 mg IV/PO q24h</td><td>Consider in severe CAP</td></tr>
+        <tr><td>Chlamydia / Mycoplasma</td><td>Doxycycline</td><td>Doxy 100 mg PO/IV q12h</td><td>Atypical coverage for CAP</td></tr>
+        <tr><td>Nocardia</td><td>TMP-SMX (high-dose)</td><td>TMP 15 mg/kg/day IV divided q6–8h</td><td>Long courses; CNS requires higher dose</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ANATOMIC -->
+<section id="anatomic-infections">
+  <h2>Infections by Anatomic Site</h2>
+
+  <button class="collapsible">Head & Neck</button>
+  <div class="panel">
+    <ul>
+      <li>Sinusitis (bacterial): Amoxicillin-clavulanate 875/125 mg PO BID ×5–7 days (adult outpatient).</li>
+      <li>Mastoiditis: Ceftriaxone 2 g IV q24h; ENT consult for drainage; 10–14 days.</li>
+      <li>Otitis media: Amoxicillin 500 mg PO q8h ×5–7 days (adjust for pediatrics).</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Respiratory</button>
+  <div class="panel">
+    <ul>
+      <li>CAP (inpatient non-ICU): Ceftriaxone 2 g IV q24h + Azithro 500 mg IV/PO day1 then 250 mg daily ×5–7 d.</li>
+      <li>HAP/VAP: Anti-pseudomonal β-lactam ± MRSA agent; 7 days if good response.</li>
+      <li>Aspiration pneumonia: cover anaerobes (ampicillin-sulbactam or pip-tazo).</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Urinary Tract</button>
+  <div class="panel">
+    <ul>
+      <li>Uncomplicated cystitis: Nitrofurantoin 100 mg PO BID ×5 days (if susceptible).</li>
+      <li>Pyelonephritis (inpatient): Ceftriaxone 1–2 g IV q24h or Pip-tazo 4.5 g IV q6–8h; 7–14 days depending on severity.</li>
+      <li>Catheter-associated UTI: Remove/replace catheter and treat per culture.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Intra-abdominal</button>
+  <div class="panel">
+    <ul>
+      <li>Complicated IAI: Pip-tazo 4.5 g IV q6–8h or meropenem 1 g IV q8h; drainage of abscesses; 4–14 days depending on source control.</li>
+      <li>Appendicitis prophylaxis: Single pre-op cefazolin 2 g IV (add metronidazole if contamination).</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Skin & Soft Tissue</button>
+  <div class="panel">
+    <ul>
+      <li>Non-purulent cellulitis: Cefazolin 1–2 g IV q8h (switch to oral cephalexin when improving) — 5–7 days.</li>
+      <li>Purulent SSTI: I&D; TMP-SMX or doxycycline if MRSA suspected.</li>
+      <li>Necrotizing fasciitis: Broad-spectrum (vancomycin + pip-tazo or carbapenem) + urgent surgical debridement.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Bone & Joint</button>
+  <div class="panel">
+    <ul>
+      <li>Osteomyelitis: Empiric vancomycin ± ceftriaxone pending cultures; 4–6+ weeks therapy guided by ID.</li>
+      <li>Septic arthritis: Drainage + empiric vancomycin ± GN coverage; 2–4 weeks therapy.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SEPSIS -->
+<section id="sepsis">
+  <h2>Sepsis</h2>
+
+  <button class="collapsible">Immediate Actions (Sepsis Bundle)</button>
+  <div class="panel">
+    <ul>
+      <li>Obtain cultures (blood ×2, site-specific) before antibiotics if feasible — do not delay critical therapy.</li>
+      <li>Administer broad-spectrum IV antibiotics within 1 hour.</li>
+      <li>Give 30 mL/kg crystalloid bolus for hypotension or lactate ≥4 mmol/L.</li>
+      <li>Start vasopressors (norepinephrine preferred) to maintain MAP ≥65 mmHg if hypotension persists.</li>
+      <li>Reassess daily; de-escalate when appropriate.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Complications & Monitoring</button>
+  <div class="panel">
+    <ul>
+      <li>Monitor lactate, urine output, mental status, organ function.</li>
+      <li>Adjust dosing in renal/hepatic failure and ECMO/CRRT settings.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PATHOGEN GUIDANCE -->
+<section id="pathogen-guidance">
+  <h2>Pathogen-Based Guidance (Quick)</h2>
+
+  <button class="collapsible">Gram-Positive Cocci</button>
+  <div class="panel">
+    <ul>
+      <li>MSSA: Anti-staphylococcal penicillins (nafcillin/oxacillin) or cefazolin.</li>
+      <li>MRSA: Vancomycin (AUC-based), alternatives: daptomycin (not for pneumonia), linezolid (pneumonia option).</li>
+      <li>Enterococcus: Ampicillin if susceptible; VRE → linezolid or daptomycin (dose per weight).</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Gram-Negative Rods</button>
+  <div class="panel">
+    <ul>
+      <li>Enterobacteriaceae: ceftriaxone/cefepime/pip-tazo; escalate to carbapenem for ESBL.</li>
+      <li>Pseudomonas: cefepime/meropenem/pip-tazo; consider aminoglycoside synergy in severe cases.</li>
+      <li>Burkholderia: often multidrug-resistant; use ceftazidime/meropenem/TMP-SMX guided by susceptibilities.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Anaerobes</button>
+  <div class="panel">
+    <ul>
+      <li>Bacteroides: metronidazole with beta-lactam partner, or beta-lactam/beta-lactamase inhibitor; carbapenems for severe disease.</li>
+      <li>Actinomyces: prolonged high-dose penicillin therapy (months).</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Intracellular/Fastidious</button>
+  <div class="panel">
+    <ul>
+      <li>Legionella: fluoroquinolone or macrolide.</li>
+      <li>Chlamydia: doxycycline or macrolide.</li>
+      <li>Nocardia: TMP-SMX (often high-dose), alternatives include linezolid, imipenem guided by susceptibility.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PATHOGEN OVERVIEW -->
+<section id="pathogen-overview">
+  <h2>Pathogen Overview — Selected Genera (expanded)</h2>
+
+  <button class="collapsible">Escherichia coli</button>
+  <div class="panel">
+    <ul>
+      <li>Gram-negative rod; common cause of UTI, intra-abdominal infection, bacteremia.</li>
+      <li>ESBL prevalence variable — check local antibiogram; resistant isolates often require carbapenem.</li>
+      <li>Virulence: adhesins, endotoxin; therapy guided by susceptibility.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Klebsiella spp.</button>
+  <div class="panel">
+    <ul>
+      <li>Encapsulated gram-negative rod; causes pneumonia, UTI, liver abscess.</li>
+      <li>Carbapenemase producers (KPC, NDM) are significant — infection control & ID consultation recommended.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Pseudomonas aeruginosa</button>
+  <div class="panel">
+    <ul>
+      <li>Non-fermenter; common in HAP/VAP, wound infections, device-related infections.</li>
+      <li>Resistance via efflux pumps, porin loss, beta-lactamases; biofilms complicate device infections.</li>
+      <li>Therapy: higher dosing, extended infusions of beta-lactams often beneficial; tailor to MICs.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Burkholderia cepacia complex</button>
+  <div class="panel">
+    <ul>
+      <li>Important in cystic fibrosis and immunocompromised hosts; often intrinsically resistant.</li>
+      <li>Combination therapy frequently required; consult susceptibility/ID.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Bacteroides fragilis</button>
+  <div class="panel">
+    <ul>
+      <li>Anaerobic gram-negative rod common in intra-abdominal infections; beta-lactamase production common.</li>
+      <li>Prefer agents with anaerobic coverage: metronidazole, beta-lactam/beta-lactamase inhibitors, carbapenems.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Actinomyces</button>
+  <div class="panel">
+    <ul>
+      <li>Filamentous, gram-positive anaerobe associated with dental disease and cervicofacial infections.</li>
+      <li>Treatment: prolonged high-dose penicillin (months), surgical drainage when required.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Mycobacterium tuberculosis (brief)</button>
+  <div class="panel">
+    <ul>
+      <li>Acid-fast bacillus; RIPE therapy (rifampin, isoniazid, pyrazinamide, ethambutol) initial phase.</li>
+      <li>Diagnosis and management require public health and specialist involvement due to public health implications and prolonged therapy.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Nocardia</button>
+  <div class="panel">
+    <ul>
+      <li>Branching, weakly acid-fast filamentous bacterium; pulmonary, disseminated and CNS disease seen in immunocompromised.</li>
+      <li>Treatment: TMP-SMX backbone; duration 6–12 months depending on site; consider linezolid/imipenem depending on species.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Clostridioides difficile</button>
+  <div class="panel">
+    <ul>
+      <li>Spore-forming anaerobe causing antibiotic-associated colitis; severe disease may cause toxic megacolon.</li>
+      <li>Treatment: oral vancomycin or fidaxomicin for initial episode; fecal microbiota transplant for recurrent disease per guidelines.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ANTIBIOTIC CLASSES -->
+<section id="antibiotic-classes">
+  <h2>Antibiotic Classes & Escalation</h2>
+  <table>
+    <thead><tr><th>Class</th><th>Examples</th><th>Typical Use</th><th>Key Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Penicillins</td><td>Amoxicillin, Ampicillin, Piperacillin-tazobactam</td><td>Strep, Enterococcus (amp), GN/anaerobes (pip-tazo)</td><td>Check allergy; renal adjust</td></tr>
+      <tr><td>Cephalosporins</td><td>Cefazolin, Ceftriaxone, Cefepime</td><td>Varies by generation; cefepime for Pseudomonas</td><td>ESBL producers resistant</td></tr>
+      <tr><td>Carbapenems</td><td>Meropenem, Imipenem</td><td>Broad GN including ESBL; severe polymicrobial</td><td>Reserve when possible</td></tr>
+      <tr><td>Glycopeptides</td><td>Vancomycin</td><td>MRSA, serious GP infections</td><td>Monitor AUC/renal</td></tr>
+      <tr><td>Oxazolidinones</td><td>Linezolid</td><td>VRE, MRSA alternatives</td><td>Thrombocytopenia risk, serotonin interactions</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- FUNGAL -->
+<section id="fungal-infections">
+  <h2>Fungal Infections</h2>
+
+  <button class="collapsible">Candida (candidemia)</button>
+  <div class="panel">
+    <ul>
+      <li>Empiric: Echinocandin (micafungin/caspofungin) IV for critically ill.</li>
+      <li>Step-down: Fluconazole for susceptible species after clearance and ID consultation.</li>
+      <li>Duration: 14 days after first negative blood culture if uncomplicated.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Aspergillus</button>
+  <div class="panel">
+    <ul>
+      <li>Voriconazole first-line for invasive aspergillosis (weight-based IV dosing then PO); consider TDM.</li>
+      <li>Liposomal amphotericin B for intolerance or certain species.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Cryptococcus</button>
+  <div class="panel">
+    <ul>
+      <li>Induction: liposomal amphotericin B + flucytosine; consolidation/maintenance with fluconazole per guidelines.</li>
+      <li>Consult ID for CNS disease and immunocompromised hosts.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Mucorales</button>
+  <div class="panel">
+    <ul>
+      <li>Liposomal amphotericin B 5–10 mg/kg IV daily; urgent surgical debridement and control of underlying risk factors (e.g., hyperglycemia).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- VIRAL -->
+<section id="viral-infections">
+  <h2>Viral Infections</h2>
+  <table>
+    <thead><tr><th>Virus</th><th>Therapy</th><th>Dose / Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Influenza A/B</td><td>Oseltamivir</td><td>75 mg PO BID ×5 d (longer if severe)</td></tr>
+      <tr><td>HSV-1 / HSV-2 (severe/encephalitis)</td><td>Acyclovir</td><td>10 mg/kg IV q8h ×14–21 d for encephalitis (adjust renal)</td></tr>
+      <tr><td>CMV (organ-invasive)</td><td>Ganciclovir / Valganciclovir</td><td>Ganciclovir 5 mg/kg IV q12h induction; monitor counts</td></tr>
+      <tr><td>RSV (severe)</td><td>Supportive / Ribavirin in select</td><td>Consider in transplant/infants per local protocols</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- TICKBORNE -->
+<section id="tickborne-infections">
+  <h2>Tickborne Infections</h2>
+
+  <button class="collapsible">Lyme disease — Borrelia burgdorferi</button>
+  <div class="panel">
+    <ul>
+      <li>Early localized (erythema migrans): Doxycycline 100 mg PO BID ×10–21 d.</li>
+      <li>Pregnancy/children <8: Amoxicillin 500 mg PO TID ×14–21 d (weight/age adjust) or cefuroxime.</li>
+      <li>Neurocardiac Lyme: Ceftriaxone 2 g IV q24h ×14–28 d for neurologic or severe cardiac involvement.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Anaplasmosis / Ehrlichiosis</button>
+  <div class="panel">
+    <ul>
+      <li>Empiric: Doxycycline 100 mg PO/IV twice daily ×10–14 d; treat promptly on suspicion regardless of age.</li>
+      <li>Presentation: fever, cytopenias, elevated LFTs; can be severe in immunocompromised.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Babesiosis</button>
+  <div class="panel">
+    <ul>
+      <li>Mild–moderate: Atovaquone 750 mg PO BID + Azithromycin 500 mg PO day1 then 250 mg PO daily ×7–10 d.</li>
+      <li>Severe: Clindamycin + Quinine IV; consider exchange transfusion for high parasitemia or severe hemolysis.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Rocky Mountain Spotted Fever</button>
+  <div class="panel">
+    <ul>
+      <li>Empiric: Doxycycline 100 mg PO/IV BID for adults and children; treat immediately on suspicion.</li>
+      <li>Duration typically 5–14 d depending on clinical course.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- VIRAL ENCEPHALOPATHIES -->
+<section id="viral-encephalopathies">
+  <h2>Viral Encephalopathies / Arboviral Encephalitis</h2>
+
+  <button class="collapsible">West Nile Virus (WNV)</button>
+  <div class="panel">
+    <ul>
+      <li>Flavivirus transmitted by Culex mosquitoes; most infections asymptomatic or mild febrile illness.</li>
+      <li>Neuroinvasive disease: meningitis, encephalitis, acute flaccid paralysis — supportive care only (ICU as needed).</li>
+      <li>Diagnosis: CSF/serum IgM, PCR early; consider neuroimaging and EEG for encephalopathy.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Eastern Equine Encephalitis (EEE)</button>
+  <div class="panel">
+    <ul>
+      <li>Alphavirus with high mortality; supportive ICU care, aggressive management of seizures and intracranial pressure.</li>
+      <li>No proven antiviral therapy; early recognition and supportive measures crucial.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">St. Louis Encephalitis (SLE)</button>
+  <div class="panel">
+    <ul>
+      <li>Flavivirus transmitted by mosquitoes; elderly at higher risk for severe neuroinvasive disease.</li>
+      <li>Treatment supportive; involve neurology/ICU for severe cases.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Japanese Encephalitis (JEV)</button>
+  <div class="panel">
+    <ul>
+      <li>Flavivirus endemic in Asia; severe encephalitis possible in a subset.</li>
+      <li>Prevention: vaccine for travelers/residents in endemic areas; treatment supportive.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Rabies (neurologic phase)</button>
+  <div class="panel">
+    <ul>
+      <li>Once symptomatic, rabies is almost universally fatal; immediate post-exposure prophylaxis (vaccine + RIG) is critical after exposures.</li>
+      <li>If symptomatic, supportive ICU care; consult public health and infectious disease immediately.</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">HSV Encephalitis</button>
+  <div class="panel">
+    <ul>
+      <li>HSV-1 is the most common cause of sporadic viral encephalitis in adults.</li>
+      <li>Treatment: Acyclovir 10 mg/kg IV q8h (adjust renal) for 14–21 days; start immediately if suspected.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CALCULATORS -->
+<section id="calculators">
+  <h2>Calculators</h2>
+
+  <div class="calculator" aria-labelledby="crcl-heading">
+    <h3 id="crcl-heading">CrCl (Cockcroft-Gault)</h3>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <label>Weight (kg): <input id="wt" type="number" style="width:110px"></label>
+      <label>Age (yr): <input id="age" type="number" style="width:90px"></label>
+      <label>Serum Cr (mg/dL): <input id="cr" type="number" step="0.01" style="width:110px"></label>
+      <label>Female? <input id="female" type="checkbox" /></label>
+      <button onclick="calcCrCl()" style="padding:6px 10px">Calculate</button>
+    </div>
+    <p id="crclResult" class="muted" style="margin-top:8px"></p>
+  </div>
+
+  <div class="calculator" aria-labelledby="sirs-heading">
+    <h3 id="sirs-heading">SIRS / qSOFA Quick</h3>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <label>Temp (°C): <input id="temp" type="number" step="0.1" style="width:90px"></label>
+      <label>HR: <input id="hr" type="number" style="width:80px"></label>
+      <label>RR: <input id="rr" type="number" style="width:80px"></label>
+      <label>MAP: <input id="map" type="number" style="width:90px"></label>
+      <label>Mental: 
+        <select id="mental">
+          <option value="alert">alert</option>
+          <option value="confused">confused</option>
+          <option value="unresponsive">unresponsive</option>
+        </select>
+      </label>
+      <button onclick="calcSIRS_qSOFA()" style="padding:6px 10px">Calculate</button>
+    </div>
+    <p id="sirsResult" class="muted" style="margin-top:8px"></p>
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<section id="references">
+  <h2>References</h2>
+  <ul>
+    <li><a href="https://www.idsociety.org/practice-guideline/" target="_blank" rel="noopener noreferrer">IDSA Practice Guidelines</a></li>
+    <li><a href="https://www.cdc.gov/antibiotic-use/index.html" target="_blank" rel="noopener noreferrer">CDC — Antibiotic Use & Stewardship</a></li>
+    <li><a href="https://www.who.int/" target="_blank" rel="noopener noreferrer">WHO</a></li>
+    <li>Harrison's Principles of Internal Medicine</li>
+    <li>Mandell, Douglas, and Bennett's Principles and Practice of Infectious Diseases</li>
+  </ul>
+</section>
+
+</main>
+
+<script>
+/* Smooth anchor scrolling (sidebar links) */
+document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    e.preventDefault();
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+
+/* Collapsible panels: initialization */
+function initCollapsibles(){
+  document.querySelectorAll('.collapsible').forEach(btn=>{
+    // remove previous listener if any to avoid duplicates
+    if(btn._listener) btn.removeEventListener('click', btn._listener);
+    const listener = function(){
+      btn.classList.toggle('active');
+      const panel = btn.nextElementSibling;
+      if(!panel) return;
+      if(panel.style.display === 'block'){
+        panel.style.display = 'none';
+      } else {
+        panel.style.display = 'block';
+      }
+    };
+    btn.addEventListener('click', listener);
+    btn._listener = listener;
+  });
+}
+document.addEventListener('DOMContentLoaded', initCollapsibles);
+
+/* Global search/filter that shows matching sections and panels */
+function filterAll(query){
+  const q = (query||'').trim().toLowerCase();
+  // Sections
+  document.querySelectorAll('main section').forEach(sec=>{
+    const text = sec.innerText.toLowerCase();
+    if(!q || text.includes(q)) {
+      sec.style.display = '';
+    } else {
+      sec.style.display = 'none';
+    }
+  });
+  // Buttons & panels
+  document.querySelectorAll('.collapsible').forEach(btn=>{
+    const panel = btn.nextElementSibling;
+    const combined = (btn.innerText + ' ' + (panel?panel.innerText:'' )).toLowerCase();
+    if(!q || combined.includes(q)){
+      btn.style.display = '';
+      if(q && panel && panel.innerText.toLowerCase().includes(q)){
+        panel.style.display = 'block';
+        btn.classList.add('active');
+      }
+    } else {
+      btn.style.display = 'none';
+      if(panel){ panel.style.display = 'none'; btn.classList.remove('active'); }
+    }
+  });
+}
+
+/* Hook global and sidebar search inputs */
+const globalSearch = document.getElementById('globalSearch');
+const sidebarSearch = document.getElementById('sidebarSearch');
+if(globalSearch){
+  globalSearch.addEventListener('input', e=>{
+    const q = e.target.value;
+    if(sidebarSearch) sidebarSearch.value = q;
+    filterAll(q);
+  });
+}
+if(sidebarSearch){
+  sidebarSearch.addEventListener('input', e=>{
+    const q = e.target.value;
+    if(globalSearch) globalSearch.value = q;
+    filterAll(q);
+  });
+}
+
+/* Backwards compatibility small helper */
+function filterContent(){
+  const input = document.getElementById('searchInput');
+  if(input) filterAll(input.value);
+}
+
+/* Cockcroft-Gault CrCl */
+function calcCrCl(){
+  const wt = parseFloat(document.getElementById('wt').value);
+  const age = parseFloat(document.getElementById('age').value);
+  const cr = parseFloat(document.getElementById('cr').value);
+  const female = document.getElementById('female').checked;
+  const out = document.getElementById('crclResult');
+  if(!wt || !age || !cr) { out.innerText = 'Enter weight, age, and serum creatinine.'; return; }
+  let crcl = ((140 - age) * wt) / (72 * cr);
+  if(female) crcl *= 0.85;
+  out.innerText = `Estimated CrCl (Cockcroft-Gault): ${crcl.toFixed(1)} mL/min`;
+}
+
+/* SIRS / qSOFA quick */
+function calcSIRS_qSOFA(){
+  const temp = parseFloat(document.getElementById('temp').value);
+  const hr = parseFloat(document.getElementById('hr').value);
+  const rr = parseFloat(document.getElementById('rr').value);
+  const map = parseFloat(document.getElementById('map').value);
+  const mental = document.getElementById('mental').value;
+  let sirs = 0;
+  if(!isNaN(temp) && (temp < 36 || temp > 38)) sirs++;
+  if(!isNaN(hr) && hr > 90) sirs++;
+  if(!isNaN(rr) && rr > 20) sirs++;
+  let qsofa = 0;
+  if(!isNaN(rr) && rr >= 22) qsofa++;
+  if(!isNaN(map) && map <= 65) qsofa++;
+  if(mental !== 'alert') qsofa++;
+  const out = document.getElementById('sirsResult');
+  out.innerHTML = `SIRS (partial) criteria met: ${sirs} ${sirs>=2?'<strong>(≥2 suggests SIRS)</strong>':''}<br>qSOFA score: ${qsofa} ${qsofa>=2?'<strong>(≥2 high risk)</strong>':''}`;
+}
+
+/* Initialize open state if page has hash */
+(function openHash(){
+  if(location.hash){
+    const id = location.hash.slice(1);
+    const el = document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+})();
+
+/* Re-init collapsibles if main content changes */
+new MutationObserver(()=> initCollapsibles()).observe(document.getElementById('main'), {childList:true, subtree:true});
+</script>
+
+</body>
+</html>

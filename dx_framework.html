@@ -1,0 +1,2693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Interactive Presentation-Based Diagnostic Framework</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            color: #24292e;
+            background: #f6f8fa;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+        }
+        
+        .nav-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-header h1 {
+            margin: 0;
+            font-size: 20pt;
+            font-weight: 700;
+        }
+        
+        .nav-header .subtitle {
+            margin: 6px 0 0 0;
+            opacity: 0.95;
+            font-size: 9.5pt;
+        }
+        
+        .reset-btn {
+            background: rgba(255,255,255,0.3);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 10pt;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: all 0.2s;
+        }
+        
+        .reset-btn:hover {
+            background: rgba(255,255,255,0.5);
+        }
+        
+        .reset-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .nav-links {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        
+        .nav-links a {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 5px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 8.5pt;
+            transition: all 0.2s;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .presentation-page {
+            padding: 25px 30px;
+            border-bottom: 3px solid #e1e4e8;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 18px 25px;
+            margin: 0 -30px 20px -30px;
+        }
+        
+        .page-header h2 {
+            margin: 0;
+            font-size: 19pt;
+        }
+        
+        .two-col-container {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 25px;
+        }
+        
+        @media (max-width: 900px) {
+            .two-col-container { grid-template-columns: 1fr; }
+        }
+        
+        .section-title {
+            background: #0366d6;
+            color: white;
+            padding: 8px 12px;
+            font-weight: 600;
+            font-size: 10pt;
+            margin-bottom: 12px;
+            border-radius: 4px;
+        }
+        
+        /* TIER BOXES WITH CHECKBOXES */
+        .tier-box {
+            background: #f6f8fa;
+            border-left: 3px solid #0366d6;
+            padding: 12px 14px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .tier-title {
+            font-weight: 600;
+            color: #0366d6;
+            font-size: 10.5pt;
+            margin-bottom: 10px;
+        }
+        
+        /* CHECKBOX ITEMS - iPad optimized */
+        .criteria-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 6px 0;
+            background: white;
+            border-radius: 5px;
+            border: 2px solid #e1e4e8;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-height: 48px; /* iPad touch target */
+        }
+        
+        .criteria-item:hover {
+            border-color: #0366d6;
+            background: #f0f7ff;
+        }
+        
+        .criteria-item.selected {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .criteria-item input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .criteria-item label {
+            cursor: pointer;
+            font-size: 10pt;
+            flex-grow: 1;
+            user-select: none;
+        }
+        
+        /* CONDITION ITEMS WITH MATCH SCORING */
+        .category-box {
+            background: #e1f5ff;
+            border-left: 3px solid #0366d6;
+            padding: 10px 12px;
+            margin: 8px 0;
+            border-radius: 4px;
+        }
+        
+        .category-title {
+            font-weight: 600;
+            color: #0366d6;
+            font-size: 10pt;
+            margin-bottom: 8px;
+        }
+        
+        .condition-item {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+            font-size: 9.5pt;
+            line-height: 1.5;
+            transition: all 0.3s;
+        }
+        
+        /* Matched conditions - highlighted */
+        .condition-item.matched {
+            background: #fff9db;
+            border-left: 4px solid #ffc107;
+            padding-left: 12px;
+            font-weight: 600;
+        }
+        
+        /* Non-matched conditions - grayed but visible */
+        .condition-item.unmatched {
+            opacity: 0.4;
+        }
+        
+        /* Match score badge */
+        .match-score {
+            display: inline-block;
+            background: #ffc107;
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 8.5pt;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        
+        .must-not-miss-box {
+            background: #fff5f5;
+            border-left: 3px solid #d73a49;
+            padding: 12px 14px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .must-not-miss-title {
+            font-weight: 600;
+            color: #d73a49;
+            font-size: 10.5pt;
+            margin-bottom: 8px;
+        }
+        
+        .must-not-miss-box ul {
+            margin: 5px 0;
+            padding-left: 18px;
+        }
+        
+        .must-not-miss-box li {
+            margin: 5px 0;
+            font-size: 9.5pt;
+            line-height: 1.5;
+        }
+        
+        .workup-box {
+            background: #f0fff4;
+            border-left: 3px solid #28a745;
+            padding: 12px 14px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .workup-title {
+            font-weight: 600;
+            color: #28a745;
+            font-size: 10.5pt;
+            margin-bottom: 8px;
+        }
+        
+        .workup-box ul {
+            margin: 5px 0;
+            padding-left: 18px;
+        }
+        
+        .workup-box li {
+            margin: 5px 0;
+            font-size: 9.5pt;
+            line-height: 1.5;
+        }
+        
+        .back-link {
+            color: #0366d6;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 9pt;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="top" class="nav-header">
+            <h1>🔍 Interactive Presentation-Based Diagnostic Framework</h1>
+            <div class="subtitle">Click criteria to filter conditions • Real-time differential diagnosis narrowing</div>
+            <button class="reset-btn" onclick="resetAllSelections()">🔄 Reset All Filters</button>
+            <div class="nav-links">
+                <a href="#chest_pain">Chest Pain</a>
+                <a href="#dyspnea">Dyspnea</a>
+                <a href="#altered_mental_status">AMS</a>
+                <a href="#fever">Fever</a>
+                <a href="#hypotension_shock">Hypotension/Shock</a>
+                <a href="#abdominal_pain">Abdominal Pain</a>
+                <a href="#hyponatremia">Hyponatremia</a>
+                <a href="#hyperkalemia">Hyperkalemia</a>
+                <a href="#gi_bleeding">GI Bleeding</a>
+                <a href="#aki">AKI</a>
+                <a href="#neurologic_deficit">Neuro Deficit</a>
+                <a href="#seizure">Seizure</a>
+                <a href="#anemia">Anemia</a>
+                <a href="#thrombocytopenia">Thrombocytopenia</a>
+                <a href="index.html" style="background: rgba(255,255,255,0.3); font-weight: 600;">📚 Disease Guide</a>
+            </div>
+        </div>
+
+        <!-- CHEST PAIN -->
+        <div id="chest_pain" class="presentation-page">
+            <div class="page-header">
+                <h2>Acute Chest Pain</h2>
+            </div>
+            
+            <div class="two-col-container">
+                <!-- LEFT COLUMN -->
+                <div class="left-column">
+                    <div class="section-title">TIERED DIAGNOSTIC APPROACH</div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 1: Acuity/Severity Assessment</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'cp_unstable')">
+                            <input type="checkbox" id="cp_unstable">
+                            <label for="cp_unstable">Hemodynamically unstable?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'cp_ste')">
+                            <input type="checkbox" id="cp_ste">
+                            <label for="cp_ste">ST elevation present?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'cp_tearing')">
+                            <input type="checkbox" id="cp_tearing">
+                            <label for="cp_tearing">Severe sudden onset with radiation to back?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'cp_tamponade')">
+                            <input type="checkbox" id="cp_tamponade">
+                            <label for="cp_tamponade">Hypotension + muffled heart sounds + JVD?</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 2: Timing Pattern</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'cp_sudden')">
+                            <input type="checkbox" id="cp_sudden">
+                            <label for="cp_sudden">Sudden onset (seconds-minutes)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'cp_acute')">
+                            <input type="checkbox" id="cp_acute">
+                            <label for="cp_acute">Acute onset (minutes-hours)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'cp_progressive')">
+                            <input type="checkbox" id="cp_progressive">
+                            <label for="cp_progressive">Progressive (hours-days)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'cp_intermittent')">
+                            <input type="checkbox" id="cp_intermittent">
+                            <label for="cp_intermittent">Intermittent/recurrent</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 3: Quality & Radiation</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'cp_pressure')">
+                            <input type="checkbox" id="cp_pressure">
+                            <label for="cp_pressure">Pressure/squeezing radiating to jaw/arm</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'cp_pleuritic')">
+                            <input type="checkbox" id="cp_pleuritic">
+                            <label for="cp_pleuritic">Sharp, pleuritic, positional</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'cp_burning')">
+                            <input type="checkbox" id="cp_burning">
+                            <label for="cp_burning">Burning, worse after meals</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'cp_reproducible')">
+                            <input type="checkbox" id="cp_reproducible">
+                            <label for="cp_reproducible">Reproducible with palpation</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 4: Pathophysiologic Category</div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Cardiovascular</div>
+                            
+                            <div class="condition-item" data-condition="1" data-criteria="cp_unstable,cp_ste,cp_sudden,cp_acute,cp_pressure">
+                                <a href="index.html#acs" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#1 ACS/STEMI/NSTEMI</a> - Troponin elevation, ECG changes
+                            </div>
+                            
+                            <div class="condition-item" data-condition="2" data-criteria="cp_progressive,cp_pressure">
+                                <a href="index.html#heart-failure" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#2 Acute Heart Failure</a> - Exertional dyspnea, crackles, edema
+                            </div>
+                            
+                            <div class="condition-item" data-condition="17" data-criteria="cp_unstable,cp_sudden,cp_pleuritic">
+                                <a href="index.html#pe" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#17 Pulmonary Embolism</a> - Unilateral leg swelling, hypoxia, pleuritic
+                            </div>
+                            
+                            <div class="condition-item" data-condition="7" data-criteria="cp_acute,cp_pleuritic">
+                                <a href="index.html#pericarditis" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#7 Pericarditis/Tamponade</a> - Positional, friction rub, electrical alternans
+                            </div>
+                            
+                            <div class="condition-item" data-condition="0" data-criteria="cp_unstable,cp_tearing,cp_sudden">
+                                Aortic Dissection - Sudden tearing, pulse/BP differential, widened mediastinum
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Pulmonary</div>
+                            
+                            <div class="condition-item" data-condition="14" data-criteria="cp_progressive,cp_pleuritic">
+                                <a href="index.html#cap" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#14 Pneumonia</a> - Fever, cough, infiltrate on CXR
+                            </div>
+                            
+                            <div class="condition-item" data-condition="19" data-criteria="cp_sudden,cp_pleuritic">
+                                <a href="index.html#pneumothorax" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#19 Pneumothorax</a> - Sudden onset, decreased breath sounds
+                            </div>
+                            
+                            <div class="condition-item" data-condition="18" data-criteria="cp_progressive,cp_pleuritic">
+                                <a href="index.html#pleural-effusion" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#18 Pleural Effusion</a> - Dullness to percussion, decreased breath sounds
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">GI/Other</div>
+                            
+                            <div class="condition-item" data-condition="0" data-criteria="cp_burning,cp_progressive">
+                                GERD/Esophagitis - Burning, worse supine, response to antacids
+                            </div>
+                            
+                            <div class="condition-item" data-condition="0" data-criteria="cp_intermittent">
+                                Esophageal spasm - Intermittent, may have dysphagia
+                            </div>
+                            
+                            <div class="condition-item" data-condition="0" data-criteria="cp_reproducible,cp_intermittent">
+                                Musculoskeletal - Reproducible, worse with movement
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- RIGHT COLUMN -->
+                <div class="right-column">
+                    <div class="must-not-miss-box">
+                        <div class="must-not-miss-title">⚠️ MUST NOT MISS</div>
+                        <ul>
+                            <li><strong><a href="index.html#acs" target="disease_guide">#1 STEMI</a> - Activate cath lab within 90 minutes</strong></li>
+                            <li><strong><a href="index.html#pe" target="disease_guide">#17 Massive PE</a> - Hypotension, consider thrombolytics</strong></li>
+                            <li><strong>Aortic Dissection - Hold anticoagulation, emergent CT, cardiothoracic surgery</strong></li>
+                            <li><strong><a href="index.html#pericarditis" target="disease_guide">#7 Cardiac Tamponade</a> - Emergent pericardiocentesis</strong></li>
+                            <li><strong><a href="index.html#pneumothorax" target="disease_guide">#19 Tension Pneumothorax</a> - Needle decompression</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workup-box">
+                        <div class="workup-title">🔬 INITIAL WORKUP</div>
+                        <ul>
+                            <li>ECG within 10 minutes - look for STEMI, NSTEMI, PE (S1Q3T3)</li>
+                            <li>Troponin at 0, 3, 6 hours if initially negative</li>
+                            <li>Chest X-ray - PTX, infiltrate, widened mediastinum</li>
+                            <li>D-dimer if intermediate PE probability</li>
+                            <li>CT chest with contrast (PE protocol) if high suspicion PE</li>
+                            <li>CT angiography if dissection suspected</li>
+                            <li>BNP if heart failure suspected</li>
+                            <li>Bedside echo if tamponade suspected</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 18px;"><a href="#top" class="back-link">↑ Back to Top</a> | <a href="index.html" class="back-link">📚 Disease Guide</a></p>
+        </div>
+
+        <!-- DYSPNEA (using demo structure) -->
+        <div id="dyspnea" class="presentation-page">
+            <div class="page-header">
+                <h2>Acute Dyspnea</h2>
+            </div>
+            
+            <div class="two-col-container">
+                <div class="left-column">
+                    <div class="section-title">TIERED DIAGNOSTIC APPROACH</div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 1: Acuity/Severity Assessment</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'dysp_unstable')">
+                            <input type="checkbox" id="dysp_unstable">
+                            <label for="dysp_unstable">Hemodynamically unstable?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'dysp_severe_hypoxia')">
+                            <input type="checkbox" id="dysp_severe_hypoxia">
+                            <label for="dysp_severe_hypoxia">Severe hypoxia (SpO₂ <88% on high-flow O₂)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'dysp_stridor')">
+                            <input type="checkbox" id="dysp_stridor">
+                            <label for="dysp_stridor">Stridor or upper airway obstruction?</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 2: Timing Pattern</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'dysp_sudden')">
+                            <input type="checkbox" id="dysp_sudden">
+                            <label for="dysp_sudden">Sudden onset (seconds-minutes)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'dysp_acute')">
+                            <input type="checkbox" id="dysp_acute">
+                            <label for="dysp_acute">Acute onset (minutes-hours)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'dysp_progressive')">
+                            <input type="checkbox" id="dysp_progressive">
+                            <label for="dysp_progressive">Progressive (hours-days)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'dysp_chronic')">
+                            <input type="checkbox" id="dysp_chronic">
+                            <label for="dysp_chronic">Chronic/recurrent episodes</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 3: Associated Features</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'dysp_wheezing')">
+                            <input type="checkbox" id="dysp_wheezing">
+                            <label for="dysp_wheezing">Wheezing or prolonged expiration</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'dysp_clear_hypoxia')">
+                            <input type="checkbox" id="dysp_clear_hypoxia">
+                            <label for="dysp_clear_hypoxia">Hypoxia with clear lung exam</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'dysp_unilateral')">
+                            <input type="checkbox" id="dysp_unilateral">
+                            <label for="dysp_unilateral">Unilateral chest findings</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'dysp_crackles')">
+                            <input type="checkbox" id="dysp_crackles">
+                            <label for="dysp_crackles">Bilateral crackles or rales</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 4: Pathophysiologic Category</div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Cardiac</div>
+                            <div class="condition-item" data-condition="1" data-criteria="dysp_unstable,dysp_acute,dysp_crackles">
+                                <a href="index.html#acs" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#1 Acute Coronary Syndrome</a> - Troponin elevation, chest pain
+                            </div>
+                            <div class="condition-item" data-condition="2" data-criteria="dysp_progressive,dysp_crackles">
+                                <a href="index.html#heart-failure" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#2 Acute Heart Failure / Flash Pulmonary Edema</a> - Elevated BNP, edema
+                            </div>
+                            <div class="condition-item" data-condition="17" data-criteria="dysp_unstable,dysp_severe_hypoxia,dysp_sudden,dysp_unilateral,dysp_clear_hypoxia">
+                                <a href="index.html#pe" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#17 Pulmonary Embolism</a> - Leg swelling, pleuritic pain, hypoxia with clear lungs
+                            </div>
+                            <div class="condition-item" data-condition="7" data-criteria="dysp_unstable">
+                                <a href="index.html#pericarditis" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#7 Cardiac Tamponade</a> - Hypotension, JVD, muffled heart sounds
+                            </div>
+                            <div class="condition-item" data-condition="10" data-criteria="dysp_unstable">
+                                <a href="index.html#cardiogenic-shock" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#10 Cardiogenic Shock</a> - Hypotension, cold extremities
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Pulmonary - Airway</div>
+                            <div class="condition-item" data-condition="16" data-criteria="dysp_severe_hypoxia,dysp_acute,dysp_wheezing">
+                                <a href="index.html#asthma" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#16 Asthma Exacerbation</a> - Wheezing, prolonged expiration
+                            </div>
+                            <div class="condition-item" data-condition="15" data-criteria="dysp_acute,dysp_wheezing">
+                                <a href="index.html#copd" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#15 COPD Exacerbation</a> - Wheezing, increased sputum
+                            </div>
+                            <div class="condition-item" data-condition="22" data-criteria="dysp_wheezing">
+                                <a href="index.html#hypercapnic-failure" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#22 Hypercapnic Respiratory Failure</a> - Altered mental status, CO₂ retention
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Pulmonary - Alveolar</div>
+                            <div class="condition-item" data-condition="14" data-criteria="dysp_severe_hypoxia,dysp_acute,dysp_unilateral">
+                                <a href="index.html#cap" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#14 Community-Acquired Pneumonia</a> - Fever, cough, infiltrate
+                            </div>
+                            <div class="condition-item" data-condition="23" data-criteria="dysp_severe_hypoxia,dysp_acute">
+                                <a href="index.html#influenza" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#23 Influenza</a> - Fever, myalgias, diffuse infiltrates
+                            </div>
+                            <div class="condition-item" data-condition="24" data-criteria="dysp_severe_hypoxia,dysp_acute">
+                                <a href="index.html#covid" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#24 COVID-19</a> - Fever, bilateral infiltrates
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Pulmonary - Pleural/Mechanical</div>
+                            <div class="condition-item" data-condition="19" data-criteria="dysp_unstable,dysp_severe_hypoxia,dysp_sudden,dysp_unilateral">
+                                <a href="index.html#pneumothorax" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#19 Pneumothorax</a> - Sudden onset, unilateral decreased breath sounds
+                            </div>
+                            <div class="condition-item" data-condition="18" data-criteria="dysp_unilateral">
+                                <a href="index.html#pleural-effusion" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#18 Pleural Effusion</a> - Dullness, decreased breath sounds
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Inflammatory/Allergic</div>
+                            <div class="condition-item" data-condition="84" data-criteria="dysp_unstable,dysp_stridor,dysp_wheezing">
+                                <a href="index.html#anaphylaxis" target="disease_guide" style="color: #0366d6; text-decoration: none; font-weight: 600;">#84 Anaphylaxis</a> - Urticaria, angioedema, wheezing, hypotension
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="must-not-miss-box">
+                        <div class="must-not-miss-title">⚠️ MUST NOT MISS</div>
+                        <ul>
+                            <li><strong>#17 Massive PE</strong> - Hypotension, consider thrombolytics</li>
+                            <li><strong>#19 Tension Pneumothorax</strong> - Needle decompression immediately</li>
+                            <li><strong>#1 ACS</strong> - Troponin, ECG, consider cath</li>
+                            <li><strong>#2 Flash Pulmonary Edema</strong> - IV diuretics, BiPAP</li>
+                            <li><strong>#16 Status Asthmaticus</strong> - ICU, consider intubation</li>
+                            <li><strong>#84 Anaphylaxis</strong> - IM epinephrine immediately</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workup-box">
+                        <div class="workup-title">🔬 INITIAL WORKUP</div>
+                        <ul>
+                            <li>Chest X-ray - First test for almost all dyspnea</li>
+                            <li>Pulse oximetry and ABG/VBG if hypoxic</li>
+                            <li>ECG - Rule out ACS, look for PE pattern</li>
+                            <li>BNP/NT-proBNP - Elevated in CHF</li>
+                            <li>Troponin - Rule out ACS</li>
+                            <li>CBC - Anemia, leukocytosis</li>
+                            <li>D-dimer if intermediate PE probability</li>
+                            <li>CT chest with PE protocol if high suspicion</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 18px;"><a href="#top" class="back-link">↑ Back to Top</a> | <a href="index.html" class="back-link">📚 Disease Guide</a></p>
+        </div>
+
+        <!-- FEVER -->
+        <div id="fever" class="presentation-page">
+            <div class="page-header">
+                <h2>Fever (Hospital Admission)</h2>
+            </div>
+            
+            <div class="two-col-container">
+                <div class="left-column">
+                    <div class="section-title">TIERED DIAGNOSTIC APPROACH</div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 1: Acuity/Severity Assessment</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'fever_septic')">
+                            <input type="checkbox" id="fever_septic">
+                            <label for="fever_septic">Septic shock (hypotension + organ dysfunction)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'fever_neutropenic')">
+                            <input type="checkbox" id="fever_neutropenic">
+                            <label for="fever_neutropenic">Neutropenic (ANC <500)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'fever_immunocomp')">
+                            <input type="checkbox" id="fever_immunocomp">
+                            <label for="fever_immunocomp">Immunocompromised (HIV, transplant, chemo)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'fever_meningeal')">
+                            <input type="checkbox" id="fever_meningeal">
+                            <label for="fever_meningeal">Meningeal signs (stiff neck, Kernig/Brudzinski)?</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 2: Fever Pattern</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'fever_high')">
+                            <input type="checkbox" id="fever_high">
+                            <label for="fever_high">High fever (>40°C / 104°F)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'fever_prolonged')">
+                            <input type="checkbox" id="fever_prolonged">
+                            <label for="fever_prolonged">Prolonged (>2 weeks) or fever of unknown origin</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'fever_recurrent')">
+                            <input type="checkbox" id="fever_recurrent">
+                            <label for="fever_recurrent">Recurrent/intermittent spikes</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 3: Source/Associated Features</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'fever_resp')">
+                            <input type="checkbox" id="fever_resp">
+                            <label for="fever_resp">Respiratory symptoms (cough, dyspnea, infiltrate)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'fever_uti')">
+                            <input type="checkbox" id="fever_uti">
+                            <label for="fever_uti">Urinary symptoms (dysuria, flank pain)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'fever_abd')">
+                            <input type="checkbox" id="fever_abd">
+                            <label for="fever_abd">Abdominal pain or tenderness</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'fever_skin')">
+                            <input type="checkbox" id="fever_skin">
+                            <label for="fever_skin">Skin/soft tissue infection or rash</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'fever_travel')">
+                            <input type="checkbox" id="fever_travel">
+                            <label for="fever_travel">Recent travel (endemic disease exposure)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 4: Pathophysiologic Category</div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Sepsis/Critical</div>
+                            <div class="condition-item" data-condition="25" data-criteria="fever_septic,fever_high">
+                                <a href="index.html#sepsis" target="disease_guide">#25 Sepsis/Septic Shock</a> - SIRS + source + organ dysfunction
+                            </div>
+                            <div class="condition-item" data-condition="26" data-criteria="fever_neutropenic,fever_immunocomp">
+                                <a href="index.html#neutropenic-fever" target="disease_guide">#26 Neutropenic Fever</a> - ANC <500, empiric broad-spectrum abx
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Respiratory</div>
+                            <div class="condition-item" data-condition="14" data-criteria="fever_resp,fever_high">
+                                <a href="index.html#cap" target="disease_guide">#14 Community-Acquired Pneumonia</a> - Cough, infiltrate, CURB-65
+                            </div>
+                            <div class="condition-item" data-condition="23" data-criteria="fever_resp,fever_high">
+                                <a href="index.html#influenza" target="disease_guide">#23 Influenza</a> - Myalgias, diffuse infiltrates
+                            </div>
+                            <div class="condition-item" data-condition="24" data-criteria="fever_resp">
+                                <a href="index.html#covid" target="disease_guide">#24 COVID-19</a> - Bilateral infiltrates, hypoxia
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">CNS</div>
+                            <div class="condition-item" data-condition="29" data-criteria="fever_meningeal,fever_high">
+                                <a href="index.html#meningitis" target="disease_guide">#29 Bacterial Meningitis</a> - Headache, photophobia, LP needed
+                            </div>
+                            <div class="condition-item" data-condition="66" data-criteria="fever_meningeal,fever_immunocomp">
+                                <a href="index.html#encephalitis" target="disease_guide">#66 Encephalitis</a> - AMS, seizures, focal deficits
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Urinary</div>
+                            <div class="condition-item" data-condition="27" data-criteria="fever_uti">
+                                #27 UTI/Pyelonephritis - Dysuria, CVA tenderness, pyuria
+                            </div>
+                            <div class="condition-item" data-condition="28" data-criteria="fever_uti,fever_septic">
+                                #28 Urosepsis - UTI + hypotension/organ dysfunction
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Intra-abdominal</div>
+                            <div class="condition-item" data-condition="30" data-criteria="fever_abd">
+                                #30 Intra-abdominal Abscess - Localized tenderness, CT shows collection
+                            </div>
+                            <div class="condition-item" data-condition="57" data-criteria="fever_abd">
+                                <a href="index.html#sbb" target="disease_guide">#57 Spontaneous Bacterial Peritonitis</a> - Cirrhosis, ascites, peritoneal signs
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Skin/Soft Tissue</div>
+                            <div class="condition-item" data-condition="31" data-criteria="fever_skin,fever_high">
+                                #31 Necrotizing Fasciitis - Pain out of proportion, crepitus, surgical emergency
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="fever_skin">
+                                Cellulitis - Erythema, warmth, no crepitus
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Endemic/Travel</div>
+                            <div class="condition-item" data-condition="32" data-criteria="fever_travel,fever_prolonged,fever_immunocomp">
+                                <a href="index.html#tb" target="disease_guide">#32 Tuberculosis</a> - Night sweats, weight loss, apical infiltrate
+                            </div>
+                            <div class="condition-item" data-condition="33" data-criteria="fever_travel,fever_recurrent">
+                                #33 Malaria - Cyclical fevers, travel to endemic area
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="must-not-miss-box">
+                        <div class="must-not-miss-title">⚠️ MUST NOT MISS</div>
+                        <ul>
+                            <li><strong>#25 Septic Shock</strong> - Fluids, broad-spectrum abx within 1 hour</li>
+                            <li><strong>#26 Neutropenic Fever</strong> - Empiric cefepime/zosyn immediately</li>
+                            <li><strong>#29 Bacterial Meningitis</strong> - Antibiotics before LP if unstable</li>
+                            <li><strong>#31 Necrotizing Fasciitis</strong> - Surgical consult emergently</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workup-box">
+                        <div class="workup-title">🔬 INITIAL WORKUP</div>
+                        <ul>
+                            <li>Blood cultures × 2 sets before antibiotics</li>
+                            <li>CBC with differential (check ANC if immunocompromised)</li>
+                            <li>BMP - Renal function, electrolytes</li>
+                            <li>Lactate - Tissue perfusion in sepsis</li>
+                            <li>Urinalysis and urine culture</li>
+                            <li>Chest X-ray - Pneumonia</li>
+                            <li>Procalcitonin - Bacterial vs viral</li>
+                            <li>Lumbar puncture if meningitis suspected (after CT if focal deficits)</li>
+                            <li>CT abdomen/pelvis if abdominal source</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 18px;"><a href="#top" class="back-link">↑ Back to Top</a> | <a href="index.html" class="back-link">📚 Disease Guide</a></p>
+        </div>
+
+        <!-- AKI -->
+        <div id="aki" class="presentation-page">
+            <div class="page-header">
+                <h2>Acute Kidney Injury (Elevated Creatinine)</h2>
+            </div>
+            
+            <div class="two-col-container">
+                <div class="left-column">
+                    <div class="section-title">TIERED DIAGNOSTIC APPROACH</div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 1: Acuity/Severity Assessment</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'aki_severe')">
+                            <input type="checkbox" id="aki_severe">
+                            <label for="aki_severe">Severe AKI (Cr >4 or >3x baseline)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'aki_anuric')">
+                            <input type="checkbox" id="aki_anuric">
+                            <label for="aki_anuric">Anuric or oliguric (<400mL/24h)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'aki_hyperk')">
+                            <input type="checkbox" id="aki_hyperk">
+                            <label for="aki_hyperk">Hyperkalemia (K >6.0 or ECG changes)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'aki_acidosis')">
+                            <input type="checkbox" id="aki_acidosis">
+                            <label for="aki_acidosis">Severe acidosis (pH <7.1)?</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 2: Volume Status</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'aki_hypovolemic')">
+                            <input type="checkbox" id="aki_hypovolemic">
+                            <label for="aki_hypovolemic">Hypovolemic (dry mucosa, poor skin turgor, orthostasis)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'aki_euvolemic')">
+                            <input type="checkbox" id="aki_euvolemic">
+                            <label for="aki_euvolemic">Euvolemic (normal volume status)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'aki_hypervolemic')">
+                            <input type="checkbox" id="aki_hypervolemic">
+                            <label for="aki_hypervolemic">Hypervolemic (edema, crackles, JVD)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 3: Associated Features</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'aki_hematuria')">
+                            <input type="checkbox" id="aki_hematuria">
+                            <label for="aki_hematuria">Hematuria or RBC casts</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'aki_proteinuria')">
+                            <input type="checkbox" id="aki_proteinuria">
+                            <label for="aki_proteinuria">Heavy proteinuria (>3g/day)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'aki_obstruct')">
+                            <input type="checkbox" id="aki_obstruct">
+                            <label for="aki_obstruct">Anuria or urinary retention symptoms</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'aki_rash')">
+                            <input type="checkbox" id="aki_rash">
+                            <label for="aki_rash">Rash, eosinophilia, or drug exposure</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 4: Pathophysiologic Category</div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Pre-Renal (Hypoperfusion)</div>
+                            <div class="condition-item" data-condition="35" data-criteria="aki_hypovolemic">
+                                <a href="index.html#aki" target="disease_guide">#35 Pre-Renal AKI</a> - Volume depletion, FENa <1%, BUN/Cr >20
+                            </div>
+                            <div class="condition-item" data-condition="10" data-criteria="aki_hypovolemic,aki_severe">
+                                <a href="index.html#cardiogenic-shock" target="disease_guide">#10 Cardiogenic Shock</a> - Low CO, hypotension
+                            </div>
+                            <div class="condition-item" data-condition="54" data-criteria="aki_hypovolemic">
+                                <a href="index.html#cirrhosis" target="disease_guide">#54 Hepatorenal Syndrome</a> - Cirrhosis, ascites, progressive AKI
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Intrinsic Renal</div>
+                            <div class="condition-item" data-condition="35" data-criteria="aki_rash,aki_euvolemic">
+                                <a href="index.html#aki" target="disease_guide">#35 Acute Interstitial Nephritis</a> - Drug exposure, eosinophils, WBC casts
+                            </div>
+                            <div class="condition-item" data-condition="35" data-criteria="aki_severe,aki_anuric">
+                                <a href="index.html#aki" target="disease_guide">#35 Acute Tubular Necrosis</a> - Muddy brown casts, FENa >2%
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="aki_hematuria,aki_proteinuria">
+                                Glomerulonephritis - RBC casts, hematuria, proteinuria
+                            </div>
+                            <div class="condition-item" data-condition="41" data-criteria="aki_severe,aki_hypervolemic">
+                                #41 Tumor Lysis Syndrome - High K/phos/uric acid, low Ca, chemo
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Post-Renal (Obstruction)</div>
+                            <div class="condition-item" data-condition="35" data-criteria="aki_obstruct,aki_anuric">
+                                <a href="index.html#aki" target="disease_guide">#35 Obstructive Uropathy</a> - Hydronephrosis on US, anuria
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="must-not-miss-box">
+                        <div class="must-not-miss-title">⚠️ MUST NOT MISS</div>
+                        <ul>
+                            <li><strong>Hyperkalemia with ECG changes</strong> - Calcium gluconate, insulin/dextrose immediately</li>
+                            <li><strong>Obstructive uropathy</strong> - Foley or nephrostomy tubes emergently</li>
+                            <li><strong>Dialysis indications</strong> - AEIOU: Acidosis, Electrolytes (K >6.5), Ingestion, Overload, Uremia</li>
+                            <li><strong>#41 Tumor Lysis</strong> - Allopurinol, aggressive hydration, monitor Q6h lytes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workup-box">
+                        <div class="workup-title">🔬 INITIAL WORKUP</div>
+                        <ul>
+                            <li>BMP - Baseline Cr, K, bicarb, BUN</li>
+                            <li>Urinalysis with microscopy - Casts, protein, blood</li>
+                            <li>Urine electrolytes (FENa, FEUrea) - Pre-renal vs ATN</li>
+                            <li>Renal ultrasound - Hydronephrosis, kidney size</li>
+                            <li>CBC - Anemia of CKD, TTP schistocytes</li>
+                            <li>Urine protein/creatinine ratio if nephrotic range proteinuria</li>
+                            <li>ECG - Hyperkalemia changes</li>
+                            <li>Consider: Autoimmune workup (ANA, ANCA, complement) if GN suspected</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 18px;"><a href="#top" class="back-link">↑ Back to Top</a> | <a href="index.html" class="back-link">📚 Disease Guide</a></p>
+        </div>
+
+        <!-- HYPERKALEMIA -->
+        <div id="hyperkalemia" class="presentation-page">
+            <div class="page-header">
+                <h2>Hyperkalemia (K >5.5)</h2>
+            </div>
+            
+            <div class="two-col-container">
+                <div class="left-column">
+                    <div class="section-title">TIERED DIAGNOSTIC APPROACH</div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 1: Acuity/Severity Assessment</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'k_critical')">
+                            <input type="checkbox" id="k_critical">
+                            <label for="k_critical">Critical (K >6.5)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'k_ecg')">
+                            <input type="checkbox" id="k_ecg">
+                            <label for="k_ecg">ECG changes (peaked T, wide QRS)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'k_weakness')">
+                            <input type="checkbox" id="k_weakness">
+                            <label for="k_weakness">Muscle weakness or paralysis?</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 2: Renal Function</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'k_aki')">
+                            <input type="checkbox" id="k_aki">
+                            <label for="k_aki">Acute kidney injury (elevated Cr)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'k_ckd')">
+                            <input type="checkbox" id="k_ckd">
+                            <label for="k_ckd">Chronic kidney disease (baseline elevated Cr)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'k_normal_renal')">
+                            <input type="checkbox" id="k_normal_renal">
+                            <label for="k_normal_renal">Normal renal function</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 3: Contributing Factors</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'k_acidosis')">
+                            <input type="checkbox" id="k_acidosis">
+                            <label for="k_acidosis">Metabolic acidosis (pH <7.3)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'k_meds')">
+                            <input type="checkbox" id="k_meds">
+                            <label for="k_meds">K-sparing meds (ACEi, ARB, spironolactone, NSAIDs)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'k_rhabdo')">
+                            <input type="checkbox" id="k_rhabdo">
+                            <label for="k_rhabdo">Rhabdomyolysis (CK >5000)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'k_hemolysis')">
+                            <input type="checkbox" id="k_hemolysis">
+                            <label for="k_hemolysis">Tumor lysis or hemolysis</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 4: Pathophysiologic Category</div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Decreased Excretion</div>
+                            <div class="condition-item" data-condition="35" data-criteria="k_aki,k_critical">
+                                <a href="index.html#aki" target="disease_guide">#35 Acute Kidney Injury</a> - Elevated Cr, oliguria
+                            </div>
+                            <div class="condition-item" data-condition="34" data-criteria="k_ckd,k_critical">
+                                <a href="index.html#ckd" target="disease_guide">#34 CKD/ESRD</a> - Baseline elevated Cr, anemia
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="k_meds,k_normal_renal">
+                                Medication-Induced - ACEi, ARB, K-sparing diuretics
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="k_ckd">
+                                Type IV RTA - Low aldosterone, mild hyperchloremic acidosis
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Transcellular Shift</div>
+                            <div class="condition-item" data-condition="47" data-criteria="k_acidosis,k_critical">
+                                <a href="index.html#dka" target="disease_guide">#47 DKA</a> - High glucose, anion gap, total body K depleted
+                            </div>
+                            <div class="condition-item" data-condition="41" data-criteria="k_hemolysis,k_critical">
+                                #41 Tumor Lysis Syndrome - High uric acid, phos, LDH, low Ca
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="k_rhabdo,k_critical">
+                                Rhabdomyolysis - Dark urine, elevated CK, myoglobinuria
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Increased Intake</div>
+                            <div class="condition-item" data-condition="0" data-criteria="k_normal_renal">
+                                Dietary Excess - High K foods, salt substitutes
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="k_critical">
+                                IV Potassium Overdose - Iatrogenic, rapid infusion
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Pseudohyperkalemia</div>
+                            <div class="condition-item" data-condition="0" data-criteria="k_normal_renal">
+                                Hemolyzed Specimen - Repeat non-hemolyzed sample
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="k_normal_renal">
+                                Thrombocytosis/Leukocytosis - Platelets >1M or WBC >100K
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="must-not-miss-box">
+                        <div class="must-not-miss-title">⚠️ MUST NOT MISS</div>
+                        <ul>
+                            <li><strong>ECG changes</strong> - Peaked T waves → Membrane stabilization with Ca gluconate</li>
+                            <li><strong>K >6.5</strong> - Insulin/dextrose, albuterol, consider dialysis</li>
+                            <li><strong>#47 DKA</strong> - TOTAL body K depleted despite high serum K - add K to fluids</li>
+                            <li><strong>#41 Tumor Lysis</strong> - Allopurinol, aggressive hydration, monitor Q6h</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workup-box">
+                        <div class="workup-title">🔬 INITIAL WORKUP</div>
+                        <ul>
+                            <li>ECG immediately - Peaked T, wide QRS, sine wave</li>
+                            <li>Repeat K (non-hemolyzed) - Confirm if asymptomatic</li>
+                            <li>BMP - Cr, bicarb, glucose</li>
+                            <li>ABG/VBG - pH, assess acidosis</li>
+                            <li>Medication review - ACEi, ARB, spironolactone, NSAIDs</li>
+                            <li>If suspected tumor lysis: Uric acid, phosphorus, calcium, LDH</li>
+                            <li>If suspected rhabdo: CK, urinalysis for myoglobin</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 18px;"><a href="#top" class="back-link">↑ Back to Top</a> | <a href="index.html" class="back-link">📚 Disease Guide</a></p>
+        </div>
+
+        <!-- ALTERED MENTAL STATUS -->
+        <div id="altered_mental_status" class="presentation-page">
+            <div class="page-header">
+                <h2>Altered Mental Status / Confusion</h2>
+            </div>
+            
+            <div class="two-col-container">
+                <div class="left-column">
+                    <div class="section-title">TIERED DIAGNOSTIC APPROACH</div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 1: Acuity/Severity Assessment</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'ams_coma')">
+                            <input type="checkbox" id="ams_coma">
+                            <label for="ams_coma">Coma/unresponsive (GCS <8)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'ams_focal')">
+                            <input type="checkbox" id="ams_focal">
+                            <label for="ams_focal">Focal neurologic deficits?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'ams_seizure')">
+                            <input type="checkbox" id="ams_seizure">
+                            <label for="ams_seizure">Seizure activity?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'ams_hypogly')">
+                            <input type="checkbox" id="ams_hypogly">
+                            <label for="ams_hypogly">Severe hypoglycemia (<40)?</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 2: Timing Pattern</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'ams_hyperacute')">
+                            <input type="checkbox" id="ams_hyperacute">
+                            <label for="ams_hyperacute">Hyperacute (seconds-minutes)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'ams_acute')">
+                            <input type="checkbox" id="ams_acute">
+                            <label for="ams_acute">Acute (hours)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'ams_subacute')">
+                            <input type="checkbox" id="ams_subacute">
+                            <label for="ams_subacute">Subacute (days)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'ams_chronic')">
+                            <input type="checkbox" id="ams_chronic">
+                            <label for="ams_chronic">Chronic/progressive</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 3: Associated Features</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'ams_meningeal')">
+                            <input type="checkbox" id="ams_meningeal">
+                            <label for="ams_meningeal">Fever + headache + neck stiffness</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'ams_fever_focal')">
+                            <input type="checkbox" id="ams_fever_focal">
+                            <label for="ams_fever_focal">Fever + focal deficits</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'ams_asterixis')">
+                            <input type="checkbox" id="ams_asterixis">
+                            <label for="ams_asterixis">Asterixis + jaundice</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'ams_trauma')">
+                            <input type="checkbox" id="ams_trauma">
+                            <label for="ams_trauma">Recent trauma</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'ams_kussmaul')">
+                            <input type="checkbox" id="ams_kussmaul">
+                            <label for="ams_kussmaul">Kussmaul breathing + fruity odor</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'ams_ophthal')">
+                            <input type="checkbox" id="ams_ophthal">
+                            <label for="ams_ophthal">Ophthalmoplegia + ataxia + confusion</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 4: Pathophysiologic Category</div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Vascular/Neurologic</div>
+                            <div class="condition-item" data-condition="67" data-criteria="ams_focal,ams_hyperacute,ams_coma">
+                                <a href="index.html#stroke" target="disease_guide">#67 Ischemic Stroke</a> - Focal deficits, acute onset, NIHSS
+                            </div>
+                            <div class="condition-item" data-condition="68" data-criteria="ams_focal,ams_hyperacute,ams_coma">
+                                <a href="index.html#ich" target="disease_guide">#68 Hemorrhagic Stroke</a> - Headache, HTN, focal deficits
+                            </div>
+                            <div class="condition-item" data-condition="73" data-criteria="ams_coma,ams_acute">
+                                <a href="index.html#increased-icp" target="disease_guide">#73 Increased ICP</a> - Headache, vomiting, Cushing triad
+                            </div>
+                            <div class="condition-item" data-condition="69" data-criteria="ams_hyperacute,ams_meningeal">
+                                <a href="index.html#sah" target="disease_guide">#69 Subarachnoid Hemorrhage</a> - Worst headache of life, nuchal rigidity
+                            </div>
+                            <div class="condition-item" data-condition="70" data-criteria="ams_focal,ams_hyperacute">
+                                <a href="index.html#tia" target="disease_guide">#70 TIA</a> - Transient deficits that resolved
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Infectious</div>
+                            <div class="condition-item" data-condition="29" data-criteria="ams_meningeal,ams_acute">
+                                <a href="index.html#meningitis" target="disease_guide">#29 Bacterial Meningitis</a> - Fever, headache, neck stiffness
+                            </div>
+                            <div class="condition-item" data-condition="66" data-criteria="ams_fever_focal,ams_seizure,ams_acute">
+                                <a href="index.html#encephalitis" target="disease_guide">#66 Encephalitis</a> - Fever, focal deficits, seizures
+                            </div>
+                            <div class="condition-item" data-condition="25" data-criteria="ams_acute,ams_coma">
+                                <a href="index.html#sepsis" target="disease_guide">#25 Sepsis</a> - SIRS, hypotension, source of infection
+                            </div>
+                            <div class="condition-item" data-condition="27" data-criteria="ams_subacute">
+                                #27 UTI (elderly) - Dysuria may be absent, leukocytosis
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Metabolic</div>
+                            <div class="condition-item" data-condition="47" data-criteria="ams_kussmaul,ams_acute">
+                                <a href="index.html#dka" target="disease_guide">#47 DKA</a> - Glucose >250, anion gap, Kussmaul breathing
+                            </div>
+                            <div class="condition-item" data-condition="48" data-criteria="ams_acute">
+                                <a href="index.html#hhs" target="disease_guide">#48 HHS</a> - Glucose >600, profound dehydration
+                            </div>
+                            <div class="condition-item" data-condition="37" data-criteria="ams_seizure,ams_acute">
+                                <a href="index.html#hyponatremia" target="disease_guide">#37 Severe Hyponatremia</a> - Na <120, seizures possible
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="ams_hypogly,ams_hyperacute">
+                                Hypoglycemia - Glucose <50, diaphoresis, responds to D50
+                            </div>
+                            <div class="condition-item" data-condition="40" data-criteria="ams_subacute">
+                                <a href="index.html#hypercalcemia" target="disease_guide">#40 Hypercalcemia</a> - Calcium >14
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Toxic/Medication</div>
+                            <div class="condition-item" data-condition="81" data-criteria="ams_hyperacute,ams_acute">
+                                <a href="index.html#overdose" target="disease_guide">#81 Drug Overdose</a> - Toxidrome pattern, history
+                            </div>
+                            <div class="condition-item" data-condition="82" data-criteria="ams_coma,ams_hyperacute">
+                                <a href="index.html#opioid" target="disease_guide">#82 Opioid Overdose</a> - Miosis, respiratory depression
+                            </div>
+                            <div class="condition-item" data-condition="83" data-criteria="ams_seizure,ams_acute">
+                                <a href="index.html#etoh-withdrawal" target="disease_guide">#83 Alcohol Withdrawal</a> - Tremor, hallucinations, seizures
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="ams_ophthal,ams_acute">
+                                Wernicke Encephalopathy - Ophthalmoplegia, ataxia, alcoholism
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Organ Failure</div>
+                            <div class="condition-item" data-condition="56" data-criteria="ams_asterixis,ams_subacute">
+                                <a href="index.html#he" target="disease_guide">#56 Hepatic Encephalopathy</a> - Asterixis, jaundice, ammonia >100
+                            </div>
+                            <div class="condition-item" data-condition="35" data-criteria="ams_asterixis,ams_acute">
+                                <a href="index.html#aki" target="disease_guide">#35 Uremic Encephalopathy</a> - Severe AKI/ESRD
+                            </div>
+                            <div class="condition-item" data-condition="22" data-criteria="ams_acute">
+                                <a href="index.html#hypercapnic-failure" target="disease_guide">#22 Hypercapnic Failure</a> - CO2 retention, somnolence
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="must-not-miss-box">
+                        <div class="must-not-miss-title">⚠️ MUST NOT MISS</div>
+                        <ul>
+                            <li><strong>#67 Ischemic Stroke</strong> - tPA window 4.5 hours, thrombectomy 24 hours</li>
+                            <li><strong>#68 Hemorrhagic Stroke</strong> - Hold anticoagulation, neurosurgery consult</li>
+                            <li><strong>#29 Bacterial Meningitis</strong> - Antibiotics within 1 hour</li>
+                            <li><strong>#65 Status Epilepticus</strong> - Benzos immediately, don't wait for labs</li>
+                            <li><strong>Hypoglycemia</strong> - Check glucose first, give D50 if <50</li>
+                            <li><strong>#47 DKA</strong> - Fluids, insulin, monitor K closely</li>
+                            <li><strong>#25 Sepsis</strong> - Antibiotics within 1 hour, fluids</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workup-box">
+                        <div class="workup-title">🔬 INITIAL WORKUP</div>
+                        <ul>
+                            <li>Fingerstick glucose - FIRST TEST, treat if <50</li>
+                            <li>Head CT non-contrast - Rule out bleed, mass, herniation</li>
+                            <li>CBC, BMP (Na, glucose, Ca, renal function)</li>
+                            <li>Ammonia if liver disease</li>
+                            <li>Troponin, ECG - Cardiac cause</li>
+                            <li>Urinalysis and culture - UTI common in elderly</li>
+                            <li>Chest X-ray - Pneumonia</li>
+                            <li>Blood cultures if febrile</li>
+                            <li>Lumbar puncture if meningitis/encephalitis suspected (after CT)</li>
+                            <li>Toxicology screen</li>
+                            <li>Thiamine 500mg IV empirically</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 18px;"><a href="#top" class="back-link">↑ Back to Top</a> | <a href="index.html" class="back-link">📚 Disease Guide</a></p>
+        </div>
+
+        <!-- HYPOTENSION/SHOCK -->
+        <div id="hypotension_shock" class="presentation-page">
+            <div class="page-header">
+                <h2>Hypotension / Shock</h2>
+            </div>
+            
+            <div class="two-col-container">
+                <div class="left-column">
+                    <div class="section-title">TIERED DIAGNOSTIC APPROACH</div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 1: Acuity/Severity Assessment</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'shock_severe')">
+                            <input type="checkbox" id="shock_severe">
+                            <label for="shock_severe">SBP <90 or MAP <65?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'shock_lactate')">
+                            <input type="checkbox" id="shock_lactate">
+                            <label for="shock_lactate">Elevated lactate (>2) or end-organ dysfunction?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'shock_unresponsive')">
+                            <input type="checkbox" id="shock_unresponsive">
+                            <label for="shock_unresponsive">Fluid-unresponsive hypotension?</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 2: Physical Exam Pattern</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'shock_warm')">
+                            <input type="checkbox" id="shock_warm">
+                            <label for="shock_warm">Warm extremities, bounding pulses</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'shock_cold')">
+                            <input type="checkbox" id="shock_cold">
+                            <label for="shock_cold">Cold extremities, weak pulses</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'shock_jvd')">
+                            <input type="checkbox" id="shock_jvd">
+                            <label for="shock_jvd">Elevated JVD or crackles</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 3: Associated Features</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'shock_fever')">
+                            <input type="checkbox" id="shock_fever">
+                            <label for="shock_fever">Fever or hypothermia</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'shock_bleeding')">
+                            <input type="checkbox" id="shock_bleeding">
+                            <label for="shock_bleeding">Active bleeding or blood loss</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'shock_chest_pain')">
+                            <input type="checkbox" id="shock_chest_pain">
+                            <label for="shock_chest_pain">Chest pain or troponin elevation</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'shock_anaphylaxis')">
+                            <input type="checkbox" id="shock_anaphylaxis">
+                            <label for="shock_anaphylaxis">Urticaria, angioedema, wheezing</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 4: Pathophysiologic Category</div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Distributive (Warm)</div>
+                            <div class="condition-item" data-condition="25" data-criteria="shock_severe,shock_warm,shock_fever,shock_lactate">
+                                <a href="index.html#sepsis" target="disease_guide">#25 Septic Shock</a> - Infection source, SIRS, organ dysfunction
+                            </div>
+                            <div class="condition-item" data-condition="84" data-criteria="shock_warm,shock_anaphylaxis">
+                                <a href="index.html#anaphylaxis" target="disease_guide">#84 Anaphylaxis</a> - Urticaria, angioedema, recent exposure
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="shock_warm">
+                                Neurogenic Shock - Spinal cord injury, loss of sympathetic tone
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Cardiogenic (Cold)</div>
+                            <div class="condition-item" data-condition="10" data-criteria="shock_cold,shock_jvd,shock_chest_pain,shock_unresponsive">
+                                <a href="index.html#cardiogenic-shock" target="disease_guide">#10 Cardiogenic Shock</a> - Low CO, pulmonary edema, cool extremities
+                            </div>
+                            <div class="condition-item" data-condition="1" data-criteria="shock_chest_pain,shock_cold">
+                                <a href="index.html#acs" target="disease_guide">#1 Acute MI</a> - Troponin elevation, ECG changes
+                            </div>
+                            <div class="condition-item" data-condition="7" data-criteria="shock_jvd,shock_unresponsive">
+                                <a href="index.html#pericarditis" target="disease_guide">#7 Cardiac Tamponade</a> - Muffled heart sounds, pulsus paradoxus
+                            </div>
+                            <div class="condition-item" data-condition="17" data-criteria="shock_severe,shock_cold">
+                                <a href="index.html#pe" target="disease_guide">#17 Massive PE</a> - Hypoxia, RV strain on echo
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Hypovolemic</div>
+                            <div class="condition-item" data-condition="59" data-criteria="shock_bleeding,shock_severe">
+                                <a href="index.html#gi-bleeding" target="disease_guide">#59 GI Bleeding</a> - Melena, hematemesis, hematochezia
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="shock_bleeding">
+                                Hemorrhagic Shock - Trauma, surgery, ruptured AAA
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="shock_severe">
+                                Volume Depletion - Dehydration, vomiting, diarrhea
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Obstructive</div>
+                            <div class="condition-item" data-condition="19" data-criteria="shock_severe,shock_jvd">
+                                <a href="index.html#pneumothorax" target="disease_guide">#19 Tension Pneumothorax</a> - Decreased breath sounds, tracheal deviation
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="must-not-miss-box">
+                        <div class="must-not-miss-title">⚠️ MUST NOT MISS</div>
+                        <ul>
+                            <li><strong>#25 Septic Shock</strong> - Fluids 30mL/kg, broad-spectrum antibiotics within 1 hour</li>
+                            <li><strong>#84 Anaphylaxis</strong> - IM epinephrine 0.3mg immediately</li>
+                            <li><strong>#10 Cardiogenic Shock</strong> - Inotropes, consider cath lab or mechanical support</li>
+                            <li><strong>#7 Cardiac Tamponade</strong> - Emergent pericardiocentesis</li>
+                            <li><strong>#17 Massive PE</strong> - Consider thrombolytics if unstable</li>
+                            <li><strong>#19 Tension PTX</strong> - Needle decompression immediately</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workup-box">
+                        <div class="workup-title">🔬 INITIAL WORKUP</div>
+                        <ul>
+                            <li>CBC - Hgb for bleeding, WBC for infection</li>
+                            <li>BMP - Renal function, electrolytes</li>
+                            <li>Lactate - Tissue perfusion marker</li>
+                            <li>Blood cultures × 2 if febrile</li>
+                            <li>ECG - MI, PE pattern</li>
+                            <li>Troponin - Cardiogenic</li>
+                            <li>Chest X-ray - Pneumothorax, infiltrate</li>
+                            <li>Bedside echo - Cardiac function, tamponade, IVC</li>
+                            <li>Urinalysis - Source of infection</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 18px;"><a href="#top" class="back-link">↑ Back to Top</a> | <a href="index.html" class="back-link">📚 Disease Guide</a></p>
+        </div>
+
+        <!-- ABDOMINAL PAIN -->
+        <div id="abdominal_pain" class="presentation-page">
+            <div class="page-header">
+                <h2>Acute Abdominal Pain</h2>
+            </div>
+            
+            <div class="two-col-container">
+                <div class="left-column">
+                    <div class="section-title">TIERED DIAGNOSTIC APPROACH</div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 1: Acuity/Severity Assessment</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'abd_peritoneal')">
+                            <input type="checkbox" id="abd_peritoneal">
+                            <label for="abd_peritoneal">Peritoneal signs (rigidity, guarding, rebound)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'abd_unstable')">
+                            <input type="checkbox" id="abd_unstable">
+                            <label for="abd_unstable">Hemodynamically unstable?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'abd_vascular')">
+                            <input type="checkbox" id="abd_vascular">
+                            <label for="abd_vascular">Sudden onset with vascular risk factors?</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 2: Location</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'abd_ruq')">
+                            <input type="checkbox" id="abd_ruq">
+                            <label for="abd_ruq">Right upper quadrant</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'abd_epigastric')">
+                            <input type="checkbox" id="abd_epigastric">
+                            <label for="abd_epigastric">Epigastric</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'abd_rlq')">
+                            <input type="checkbox" id="abd_rlq">
+                            <label for="abd_rlq">Right lower quadrant</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'abd_llq')">
+                            <input type="checkbox" id="abd_llq">
+                            <label for="abd_llq">Left lower quadrant</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'abd_diffuse')">
+                            <input type="checkbox" id="abd_diffuse">
+                            <label for="abd_diffuse">Diffuse or poorly localized</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 3: Associated Features</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'abd_fever')">
+                            <input type="checkbox" id="abd_fever">
+                            <label for="abd_fever">Fever</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'abd_jaundice')">
+                            <input type="checkbox" id="abd_jaundice">
+                            <label for="abd_jaundice">Jaundice or elevated bilirubin</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'abd_nausea')">
+                            <input type="checkbox" id="abd_nausea">
+                            <label for="abd_nausea">Nausea/vomiting</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'abd_obstruction')">
+                            <input type="checkbox" id="abd_obstruction">
+                            <label for="abd_obstruction">No bowel movements, obstipation, distension</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 4: Pathophysiologic Category</div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Hepatobiliary</div>
+                            <div class="condition-item" data-condition="51" data-criteria="abd_ruq,abd_fever,abd_jaundice">
+                                <a href="index.html#cholangitis" target="disease_guide">#51 Cholangitis</a> - Charcot triad: RUQ pain, fever, jaundice
+                            </div>
+                            <div class="condition-item" data-condition="50" data-criteria="abd_ruq,abd_nausea">
+                                <a href="index.html#cholecystitis" target="disease_guide">#50 Acute Cholecystitis</a> - Murphy's sign, gallbladder wall thickening
+                            </div>
+                            <div class="condition-item" data-condition="52" data-criteria="abd_epigastric,abd_jaundice">
+                                <a href="index.html#pancreatitis" target="disease_guide">#52 Acute Pancreatitis</a> - Lipase >3x, epigastric radiating to back
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Surgical Emergencies</div>
+                            <div class="condition-item" data-condition="60" data-criteria="abd_rlq,abd_peritoneal,abd_fever">
+                                <a href="index.html#appendicitis" target="disease_guide">#60 Appendicitis</a> - RLQ pain, periumbilical → RLQ migration
+                            </div>
+                            <div class="condition-item" data-condition="61" data-criteria="abd_peritoneal,abd_diffuse">
+                                <a href="index.html#perforation" target="disease_guide">#61 Perforated Viscus</a> - Free air on imaging, rigid abdomen
+                            </div>
+                            <div class="condition-item" data-condition="62" data-criteria="abd_obstruction,abd_nausea,abd_diffuse">
+                                <a href="index.html#sbo" target="disease_guide">#62 Small Bowel Obstruction</a> - Distended loops, air-fluid levels
+                            </div>
+                            <div class="condition-item" data-condition="63" data-criteria="abd_llq,abd_fever,abd_peritoneal">
+                                <a href="index.html#diverticulitis" target="disease_guide">#63 Diverticulitis</a> - LLQ pain, CT shows inflammation
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Vascular</div>
+                            <div class="condition-item" data-condition="64" data-criteria="abd_vascular,abd_unstable,abd_diffuse">
+                                <a href="index.html#mesenteric-ischemia" target="disease_guide">#64 Mesenteric Ischemia</a> - Pain out of proportion, afib, acidosis
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="abd_unstable,abd_vascular">
+                                Ruptured AAA - Pulsatile mass, back pain, shock
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="must-not-miss-box">
+                        <div class="must-not-miss-title">⚠️ MUST NOT MISS</div>
+                        <ul>
+                            <li><strong>Ruptured AAA</strong> - Emergent vascular surgery</li>
+                            <li><strong>#64 Mesenteric Ischemia</strong> - CT angiography, vascular surgery</li>
+                            <li><strong>#61 Perforated Viscus</strong> - Emergent surgery, antibiotics</li>
+                            <li><strong>#51 Cholangitis</strong> - ERCP within 24 hours, antibiotics</li>
+                            <li><strong>#60 Appendicitis</strong> - Surgical consult</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workup-box">
+                        <div class="workup-title">🔬 INITIAL WORKUP</div>
+                        <ul>
+                            <li>CBC - Leukocytosis for infection</li>
+                            <li>BMP - Renal function, electrolytes</li>
+                            <li>Lipase - Pancreatitis</li>
+                            <li>LFTs - Hepatobiliary pathology</li>
+                            <li>Lactate - Ischemia</li>
+                            <li>Urinalysis - Exclude UTI</li>
+                            <li>Pregnancy test (females)</li>
+                            <li>CT abdomen/pelvis with contrast - Most definitive</li>
+                            <li>Ultrasound RUQ if cholecystitis suspected</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 18px;"><a href="#top" class="back-link">↑ Back to Top</a> | <a href="index.html" class="back-link">📚 Disease Guide</a></p>
+        </div>
+
+        <!-- HYPONATREMIA -->
+        <div id="hyponatremia" class="presentation-page">
+            <div class="page-header">
+                <h2>Hyponatremia (Na <135)</h2>
+            </div>
+            
+            <div class="two-col-container">
+                <div class="left-column">
+                    <div class="section-title">TIERED DIAGNOSTIC APPROACH</div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 1: Acuity/Severity Assessment</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'na_severe')">
+                            <input type="checkbox" id="na_severe">
+                            <label for="na_severe">Severe (Na <120)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'na_symptomatic')">
+                            <input type="checkbox" id="na_symptomatic">
+                            <label for="na_symptomatic">Symptomatic (seizures, AMS, coma)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'na_acute')">
+                            <input type="checkbox" id="na_acute">
+                            <label for="na_acute">Acute onset (<48 hours)?</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 2: Volume Status</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'na_hypovolemic')">
+                            <input type="checkbox" id="na_hypovolemic">
+                            <label for="na_hypovolemic">Hypovolemic (dry mucosa, orthostasis, low UNa)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'na_euvolemic')">
+                            <input type="checkbox" id="na_euvolemic">
+                            <label for="na_euvolemic">Euvolemic (normal volume status)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'na_hypervolemic')">
+                            <input type="checkbox" id="na_hypervolemic">
+                            <label for="na_hypervolemic">Hypervolemic (edema, crackles)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 3: Associated Features</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'na_urine_conc')">
+                            <input type="checkbox" id="na_urine_conc">
+                            <label for="na_urine_conc">Urine osmolality >100 (concentrated)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'na_high_una')">
+                            <input type="checkbox" id="na_high_una">
+                            <label for="na_high_una">Urine sodium >40</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'na_diuretics')">
+                            <input type="checkbox" id="na_diuretics">
+                            <label for="na_diuretics">On diuretics</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 4: Pathophysiologic Category</div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Hypovolemic</div>
+                            <div class="condition-item" data-condition="0" data-criteria="na_hypovolemic">
+                                Renal losses - Diuretics, salt-wasting nephropathy, cerebral salt wasting
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="na_hypovolemic">
+                                GI losses - Vomiting, diarrhea, NG suction
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="na_hypovolemic">
+                                Third-spacing - Burns, pancreatitis
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Euvolemic</div>
+                            <div class="condition-item" data-condition="37" data-criteria="na_euvolemic,na_urine_conc,na_high_una">
+                                <a href="index.html#hyponatremia" target="disease_guide">#37 SIADH</a> - High urine Na/osm, euvolemic, normal thyroid/adrenal
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="na_euvolemic,na_severe">
+                                Hypothyroidism - Low TSH, hypothyroid symptoms
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="na_euvolemic">
+                                Adrenal Insufficiency - Hypotension, hyperkalemia, low cortisol
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="na_euvolemic">
+                                Psychogenic Polydipsia - Dilute urine, psychiatric history
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Hypervolemic</div>
+                            <div class="condition-item" data-condition="2" data-criteria="na_hypervolemic">
+                                <a href="index.html#heart-failure" target="disease_guide">#2 Heart Failure</a> - Edema, elevated BNP, crackles
+                            </div>
+                            <div class="condition-item" data-condition="54" data-criteria="na_hypervolemic">
+                                <a href="index.html#cirrhosis" target="disease_guide">#54 Cirrhosis</a> - Ascites, jaundice, hypoalbuminemia
+                            </div>
+                            <div class="condition-item" data-condition="34" data-criteria="na_hypervolemic">
+                                <a href="index.html#ckd" target="disease_guide">#34 Nephrotic Syndrome</a> - Proteinuria >3g, hypoalbuminemia, edema
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="must-not-miss-box">
+                        <div class="must-not-miss-title">⚠️ MUST NOT MISS</div>
+                        <ul>
+                            <li><strong>Severe symptomatic</strong> - 3% saline cautiously, target 4-6 mEq/L rise in 24h</li>
+                            <li><strong>Osmotic demyelination</strong> - Don't correct >8-10 mEq/L in 24h</li>
+                            <li><strong>Adrenal crisis</strong> - Hypotension, hyperkalemia, give hydrocortisone</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workup-box">
+                        <div class="workup-title">🔬 INITIAL WORKUP</div>
+                        <ul>
+                            <li>Serum osmolality - True vs pseudo-hyponatremia</li>
+                            <li>Urine osmolality - Dilute vs concentrated</li>
+                            <li>Urine sodium - Renal vs extrarenal losses</li>
+                            <li>Volume status assessment - Physical exam</li>
+                            <li>TSH, cortisol - Rule out hypothyroid, adrenal insufficiency</li>
+                            <li>BMP - Check K, glucose, BUN/Cr</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 18px;"><a href="#top" class="back-link">↑ Back to Top</a> | <a href="index.html" class="back-link">📚 Disease Guide</a></p>
+        </div>
+
+        <!-- GI BLEEDING -->
+        <div id="gi_bleeding" class="presentation-page">
+            <div class="page-header">
+                <h2>GI Bleeding</h2>
+            </div>
+            
+            <div class="two-col-container">
+                <div class="left-column">
+                    <div class="section-title">TIERED DIAGNOSTIC APPROACH</div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 1: Acuity/Severity Assessment</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'gib_unstable')">
+                            <input type="checkbox" id="gib_unstable">
+                            <label for="gib_unstable">Hemodynamically unstable (SBP <90, HR >100)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'gib_massive')">
+                            <input type="checkbox" id="gib_massive">
+                            <label for="gib_massive">Massive bleeding (requiring transfusion)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'gib_active')">
+                            <input type="checkbox" id="gib_active">
+                            <label for="gib_active">Active ongoing bleeding?</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 2: Upper vs Lower Source</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'gib_upper')">
+                            <input type="checkbox" id="gib_upper">
+                            <label for="gib_upper">Hematemesis or coffee-ground emesis</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'gib_melena')">
+                            <input type="checkbox" id="gib_melena">
+                            <label for="gib_melena">Melena (black, tarry stools)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'gib_hematochezia')">
+                            <input type="checkbox" id="gib_hematochezia">
+                            <label for="gib_hematochezia">Hematochezia (bright red blood per rectum)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 3: Associated Features</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'gib_cirrhosis')">
+                            <input type="checkbox" id="gib_cirrhosis">
+                            <label for="gib_cirrhosis">Known cirrhosis or portal hypertension</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'gib_nsaids')">
+                            <input type="checkbox" id="gib_nsaids">
+                            <label for="gib_nsaids">NSAID use or aspirin</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'gib_anticoag')">
+                            <input type="checkbox" id="gib_anticoag">
+                            <label for="gib_anticoag">On anticoagulation</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'gib_abd_pain')">
+                            <input type="checkbox" id="gib_abd_pain">
+                            <label for="gib_abd_pain">Abdominal pain</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 4: Pathophysiologic Category</div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Upper GI</div>
+                            <div class="condition-item" data-condition="59" data-criteria="gib_upper,gib_nsaids,gib_abd_pain">
+                                <a href="index.html#gi-bleeding" target="disease_guide">#59 Peptic Ulcer Disease</a> - NSAID use, H. pylori
+                            </div>
+                            <div class="condition-item" data-condition="59" data-criteria="gib_upper,gib_cirrhosis,gib_massive">
+                                <a href="index.html#gi-bleeding" target="disease_guide">#59 Esophageal Varices</a> - Cirrhosis, massive hematemesis
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="gib_upper">
+                                Mallory-Weiss Tear - Retching, then hematemesis
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="gib_upper,gib_nsaids">
+                                Gastritis/Erosions - NSAID use, alcohol
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Lower GI</div>
+                            <div class="condition-item" data-condition="0" data-criteria="gib_hematochezia,gib_abd_pain">
+                                Diverticular Bleeding - Painless, brisk bleeding
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="gib_hematochezia">
+                                Angiodysplasia - Elderly, chronic bleeding
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="gib_hematochezia">
+                                Hemorrhoids - Bright red on toilet paper
+                            </div>
+                            <div class="condition-item" data-condition="63" data-criteria="gib_hematochezia,gib_abd_pain">
+                                <a href="index.html#diverticulitis" target="disease_guide">#63 Ischemic Colitis</a> - Abdominal pain, bloody diarrhea
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="must-not-miss-box">
+                        <div class="must-not-miss-title">⚠️ MUST NOT MISS</div>
+                        <ul>
+                            <li><strong>#59 Variceal Bleeding</strong> - Octreotide, antibiotics, emergent EGD</li>
+                            <li><strong>Massive UGIB</strong> - 2 large-bore IVs, type & cross, GI consult</li>
+                            <li><strong>Hemodynamic instability</strong> - Resuscitate before endoscopy</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workup-box">
+                        <div class="workup-title">🔬 INITIAL WORKUP</div>
+                        <ul>
+                            <li>CBC - Hgb (may lag acutely), platelets</li>
+                            <li>Type & cross - Prepare for transfusion</li>
+                            <li>PT/INR, PTT - Coagulopathy</li>
+                            <li>BMP - Renal function, BUN/Cr ratio elevated in UGIB</li>
+                            <li>LFTs - Cirrhosis</li>
+                            <li>NG lavage - Upper vs lower (if unclear)</li>
+                            <li>EGD - Upper GI bleeding within 24 hours</li>
+                            <li>Colonoscopy - Lower GI bleeding when stable</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 18px;"><a href="#top" class="back-link">↑ Back to Top</a> | <a href="index.html" class="back-link">📚 Disease Guide</a></p>
+        </div>
+
+        <!-- NEUROLOGIC DEFICIT -->
+        <div id="neurologic_deficit" class="presentation-page">
+            <div class="page-header">
+                <h2>Acute Focal Neurologic Deficit</h2>
+            </div>
+            
+            <div class="two-col-container">
+                <div class="left-column">
+                    <div class="section-title">TIERED DIAGNOSTIC APPROACH</div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 1: Acuity/Severity Assessment</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'neuro_severe')">
+                            <input type="checkbox" id="neuro_severe">
+                            <label for="neuro_severe">Severe deficit (complete hemiplegia, aphasia)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'neuro_sudden')">
+                            <input type="checkbox" id="neuro_sudden">
+                            <label for="neuro_sudden">Sudden onset (seconds to minutes)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'neuro_ams')">
+                            <input type="checkbox" id="neuro_ams">
+                            <label for="neuro_ams">Altered mental status or decreased consciousness?</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 2: Deficit Pattern</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'neuro_hemiparesis')">
+                            <input type="checkbox" id="neuro_hemiparesis">
+                            <label for="neuro_hemiparesis">Hemiparesis or hemiplegia</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'neuro_aphasia')">
+                            <input type="checkbox" id="neuro_aphasia">
+                            <label for="neuro_aphasia">Aphasia or dysarthria</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'neuro_visual')">
+                            <input type="checkbox" id="neuro_visual">
+                            <label for="neuro_visual">Visual field defect or diplopia</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'neuro_ataxia')">
+                            <input type="checkbox" id="neuro_ataxia">
+                            <label for="neuro_ataxia">Ataxia or vertigo</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 3: Associated Features</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'neuro_headache')">
+                            <input type="checkbox" id="neuro_headache">
+                            <label for="neuro_headache">Severe headache</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'neuro_seizure')">
+                            <input type="checkbox" id="neuro_seizure">
+                            <label for="neuro_seizure">Seizure at onset</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'neuro_resolved')">
+                            <input type="checkbox" id="neuro_resolved">
+                            <label for="neuro_resolved">Symptoms already resolved</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 4: Pathophysiologic Category</div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Ischemic</div>
+                            <div class="condition-item" data-condition="67" data-criteria="neuro_sudden,neuro_hemiparesis,neuro_aphasia">
+                                <a href="index.html#stroke" target="disease_guide">#67 Ischemic Stroke</a> - Sudden focal deficit, vascular territory
+                            </div>
+                            <div class="condition-item" data-condition="70" data-criteria="neuro_resolved,neuro_sudden">
+                                <a href="index.html#tia" target="disease_guide">#70 TIA</a> - Transient, resolved within 24 hours
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Hemorrhagic</div>
+                            <div class="condition-item" data-condition="68" data-criteria="neuro_severe,neuro_headache,neuro_ams">
+                                <a href="index.html#ich" target="disease_guide">#68 Intracranial Hemorrhage</a> - Headache, HTN, blood on CT
+                            </div>
+                            <div class="condition-item" data-condition="69" data-criteria="neuro_headache,neuro_sudden">
+                                <a href="index.html#sah" target="disease_guide">#69 Subarachnoid Hemorrhage</a> - Worst headache ever
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Other</div>
+                            <div class="condition-item" data-condition="0" data-criteria="neuro_seizure">
+                                Todd's Paralysis - Post-ictal focal deficit, resolves
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="neuro_headache">
+                                Hemiplegic Migraine - History of migraines, resolves
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="must-not-miss-box">
+                        <div class="must-not-miss-title">⚠️ MUST NOT MISS</div>
+                        <ul>
+                            <li><strong>#67 Ischemic Stroke</strong> - tPA within 4.5 hours, thrombectomy 24 hours</li>
+                            <li><strong>#68 ICH</strong> - Hold anticoagulation, reverse if on warfarin</li>
+                            <li><strong>#69 SAH</strong> - Neurosurgery consult, nimodipine</li>
+                            <li><strong>#70 TIA</strong> - High stroke risk, admit for workup</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workup-box">
+                        <div class="workup-title">🔬 INITIAL WORKUP</div>
+                        <ul>
+                            <li>STAT non-contrast head CT - Hemorrhage vs ischemic</li>
+                            <li>NIHSS score - Quantify deficit</li>
+                            <li>Fingerstick glucose - Hypoglycemia mimics stroke</li>
+                            <li>ECG - Afib (cardioembolic source)</li>
+                            <li>PT/INR - Coagulopathy</li>
+                            <li>MRI brain with DWI - More sensitive for acute ischemia</li>
+                            <li>CT/MR angiography - Large vessel occlusion</li>
+                            <li>Echocardiogram - Cardioembolic source</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 18px;"><a href="#top" class="back-link">↑ Back to Top</a> | <a href="index.html" class="back-link">📚 Disease Guide</a></p>
+        </div>
+
+        <!-- SEIZURE -->
+        <div id="seizure" class="presentation-page">
+            <div class="page-header">
+                <h2>Seizure / Status Epilepticus</h2>
+            </div>
+            
+            <div class="two-col-container">
+                <div class="left-column">
+                    <div class="section-title">TIERED DIAGNOSTIC APPROACH</div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 1: Acuity/Severity Assessment</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'szr_ongoing')">
+                            <input type="checkbox" id="szr_ongoing">
+                            <label for="szr_ongoing">Ongoing seizure >5 minutes?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'szr_recurrent')">
+                            <input type="checkbox" id="szr_recurrent">
+                            <label for="szr_recurrent">Recurrent seizures without recovery?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'szr_postictal')">
+                            <input type="checkbox" id="szr_postictal">
+                            <label for="szr_postictal">Post-ictal with persistent AMS >30 min?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'szr_first')">
+                            <input type="checkbox" id="szr_first">
+                            <label for="szr_first">First seizure ever?</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 2: Seizure Type & Context</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'szr_focal')">
+                            <input type="checkbox" id="szr_focal">
+                            <label for="szr_focal">Focal onset (one body part)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'szr_generalized')">
+                            <input type="checkbox" id="szr_generalized">
+                            <label for="szr_generalized">Generalized onset (both sides)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'szr_known_epilepsy')">
+                            <input type="checkbox" id="szr_known_epilepsy">
+                            <label for="szr_known_epilepsy">Known epilepsy with medication compliance</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'szr_provoked')">
+                            <input type="checkbox" id="szr_provoked">
+                            <label for="szr_provoked">Provoked (fever, drugs, alcohol withdrawal, hypoglycemia)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 3: Associated Features</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'szr_meningeal')">
+                            <input type="checkbox" id="szr_meningeal">
+                            <label for="szr_meningeal">Fever + headache + neck stiffness</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'szr_focal_deficit')">
+                            <input type="checkbox" id="szr_focal_deficit">
+                            <label for="szr_focal_deficit">Focal deficits persisting after seizure</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'szr_trauma')">
+                            <input type="checkbox" id="szr_trauma">
+                            <label for="szr_trauma">Recent head trauma</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'szr_hyponatremia')">
+                            <input type="checkbox" id="szr_hyponatremia">
+                            <label for="szr_hyponatremia">Severe hyponatremia (Na <120)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'szr_etoh')">
+                            <input type="checkbox" id="szr_etoh">
+                            <label for="szr_etoh">Recent alcohol cessation</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 4: Pathophysiologic Category</div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Structural</div>
+                            <div class="condition-item" data-condition="67" data-criteria="szr_focal,szr_first,szr_focal_deficit">
+                                <a href="index.html#stroke" target="disease_guide">#67 Ischemic Stroke</a> - New focal seizure in elderly
+                            </div>
+                            <div class="condition-item" data-condition="68" data-criteria="szr_focal,szr_first">
+                                <a href="index.html#ich" target="disease_guide">#68 Intracranial Hemorrhage</a> - Headache, HTN
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="szr_trauma">
+                                Traumatic Brain Injury - Recent head trauma
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Infectious</div>
+                            <div class="condition-item" data-condition="29" data-criteria="szr_meningeal,szr_provoked">
+                                <a href="index.html#meningitis" target="disease_guide">#29 Bacterial Meningitis</a> - Fever, neck stiffness
+                            </div>
+                            <div class="condition-item" data-condition="66" data-criteria="szr_meningeal,szr_focal">
+                                <a href="index.html#encephalitis" target="disease_guide">#66 Encephalitis</a> - Fever, altered mental status
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Metabolic</div>
+                            <div class="condition-item" data-condition="37" data-criteria="szr_hyponatremia,szr_provoked">
+                                <a href="index.html#hyponatremia" target="disease_guide">#37 Severe Hyponatremia</a> - Na <120
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="szr_provoked">
+                                Hypoglycemia - Check glucose first, give D50 if <50
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Toxic</div>
+                            <div class="condition-item" data-condition="83" data-criteria="szr_etoh,szr_provoked">
+                                <a href="index.html#etoh-withdrawal" target="disease_guide">#83 Alcohol Withdrawal</a> - 24-48 hours after last drink
+                            </div>
+                            <div class="condition-item" data-condition="81" data-criteria="szr_provoked">
+                                <a href="index.html#overdose" target="disease_guide">#81 Drug Intoxication</a> - Cocaine, amphetamines
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Idiopathic/Primary Epilepsy</div>
+                            <div class="condition-item" data-condition="65" data-criteria="szr_known_epilepsy">
+                                <a href="index.html#status-epilepticus" target="disease_guide">#65 Known epilepsy</a> - Medication non-compliance or breakthrough
+                            </div>
+                            <div class="condition-item" data-condition="65" data-criteria="szr_first">
+                                New-onset idiopathic (diagnosis of exclusion)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="must-not-miss-box">
+                        <div class="must-not-miss-title">⚠️ MUST NOT MISS</div>
+                        <ul>
+                            <li><strong>#65 Status Epilepticus</strong> - Benzos immediately (lorazepam 4mg)</li>
+                            <li><strong>#67 Acute Stroke</strong> - CT, consider thrombolytics</li>
+                            <li><strong>#29 Meningitis</strong> - LP after CT, antibiotics within 1 hour</li>
+                            <li><strong>#66 Encephalitis</strong> - Acyclovir empirically</li>
+                            <li><strong>Hypoglycemia</strong> - Check glucose, give D50 if <50</li>
+                            <li><strong>#37 Severe Hyponatremia</strong> - 3% saline cautiously</li>
+                            <li><strong>#83 Alcohol Withdrawal</strong> - Benzos, thiamine</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workup-box">
+                        <div class="workup-title">🔬 INITIAL WORKUP</div>
+                        <ul>
+                            <li>Fingerstick glucose - FIRST TEST</li>
+                            <li>BMP - Sodium, glucose, Ca, Mg</li>
+                            <li>CBC - Infection</li>
+                            <li>Toxicology screen - Drug intoxication</li>
+                            <li>Anticonvulsant levels if on medications</li>
+                            <li>Head CT non-contrast - Bleed, mass, stroke</li>
+                            <li>LP if concern for meningitis/encephalitis (after CT)</li>
+                            <li>MRI brain if new-onset (more sensitive than CT)</li>
+                            <li>EEG - Non-convulsive status epilepticus</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 18px;"><a href="#top" class="back-link">↑ Back to Top</a> | <a href="index.html" class="back-link">📚 Disease Guide</a></p>
+        </div>
+
+        <!-- ANEMIA -->
+        <div id="anemia" class="presentation-page">
+            <div class="page-header">
+                <h2>Acute Anemia (Hgb Drop)</h2>
+            </div>
+            
+            <div class="two-col-container">
+                <div class="left-column">
+                    <div class="section-title">TIERED DIAGNOSTIC APPROACH</div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 1: Acuity/Severity Assessment</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'anemia_severe')">
+                            <input type="checkbox" id="anemia_severe">
+                            <label for="anemia_severe">Severe (Hgb <7)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'anemia_symptomatic')">
+                            <input type="checkbox" id="anemia_symptomatic">
+                            <label for="anemia_symptomatic">Symptomatic (chest pain, dyspnea, hypotension)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'anemia_bleeding')">
+                            <input type="checkbox" id="anemia_bleeding">
+                            <label for="anemia_bleeding">Active bleeding or blood loss?</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 2: MCV Pattern</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'anemia_micro')">
+                            <input type="checkbox" id="anemia_micro">
+                            <label for="anemia_micro">Microcytic (MCV <80)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'anemia_normo')">
+                            <input type="checkbox" id="anemia_normo">
+                            <label for="anemia_normo">Normocytic (MCV 80-100)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'anemia_macro')">
+                            <input type="checkbox" id="anemia_macro">
+                            <label for="anemia_macro">Macrocytic (MCV >100)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 3: Associated Features</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'anemia_hemolysis')">
+                            <input type="checkbox" id="anemia_hemolysis">
+                            <label for="anemia_hemolysis">Hemolysis markers (high LDH, low haptoglobin, elevated bilirubin)</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'anemia_schistocytes')">
+                            <input type="checkbox" id="anemia_schistocytes">
+                            <label for="anemia_schistocytes">Schistocytes on smear</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'anemia_jaundice')">
+                            <input type="checkbox" id="anemia_jaundice">
+                            <label for="anemia_jaundice">Jaundice</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'anemia_pancytopenia')">
+                            <input type="checkbox" id="anemia_pancytopenia">
+                            <label for="anemia_pancytopenia">Pancytopenia (low WBC/RBC/PLT)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 4: Pathophysiologic Category</div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Blood Loss</div>
+                            <div class="condition-item" data-condition="59" data-criteria="anemia_bleeding,anemia_severe">
+                                <a href="index.html#gi-bleeding" target="disease_guide">#59 GI Bleeding</a> - Melena, hematemesis, hematochezia
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="anemia_bleeding">
+                                Surgical/Traumatic Bleeding - Post-op, trauma
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Hemolysis - Microangiopathic</div>
+                            <div class="condition-item" data-condition="79" data-criteria="anemia_hemolysis,anemia_schistocytes,anemia_severe">
+                                <a href="index.html#thrombocytopenia" target="disease_guide">#79 TTP</a> - Pentad: MAHA, thrombocytopenia, AKI, fever, neuro
+                            </div>
+                            <div class="condition-item" data-condition="79" data-criteria="anemia_hemolysis,anemia_schistocytes">
+                                <a href="index.html#thrombocytopenia" target="disease_guide">#79 HUS</a> - Triad: MAHA, thrombocytopenia, AKI
+                            </div>
+                            <div class="condition-item" data-condition="78" data-criteria="anemia_hemolysis,anemia_schistocytes">
+                                <a href="index.html#dic" target="disease_guide">#78 DIC</a> - Prolonged PT/PTT, low fibrinogen
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Hemolysis - Other</div>
+                            <div class="condition-item" data-condition="0" data-criteria="anemia_hemolysis,anemia_jaundice">
+                                Autoimmune Hemolytic Anemia - Positive DAT
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="anemia_hemolysis">
+                                Sickle Cell Crisis - Known sickle cell disease
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Decreased Production</div>
+                            <div class="condition-item" data-condition="0" data-criteria="anemia_micro">
+                                Iron Deficiency - Low ferritin, high TIBC
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="anemia_macro">
+                                B12/Folate Deficiency - Low B12/folate
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="anemia_normo,anemia_pancytopenia">
+                                Bone Marrow Failure - Aplastic anemia, MDS
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="must-not-miss-box">
+                        <div class="must-not-miss-title">⚠️ MUST NOT MISS</div>
+                        <ul>
+                            <li><strong>#79 TTP</strong> - Plasmapheresis emergently, avoid platelets</li>
+                            <li><strong>#59 Massive GI Bleeding</strong> - Resuscitate, emergent EGD</li>
+                            <li><strong>#78 DIC</strong> - Treat underlying cause, transfuse as needed</li>
+                            <li><strong>Symptomatic Anemia</strong> - Transfuse if Hgb <7 or symptomatic</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workup-box">
+                        <div class="workup-title">🔬 INITIAL WORKUP</div>
+                        <ul>
+                            <li>CBC with reticulocyte count - Assess marrow response</li>
+                            <li>Peripheral smear - Morphology (schistocytes, spherocytes)</li>
+                            <li>BMP - Renal function (HUS/TTP)</li>
+                            <li>LDH, indirect bilirubin, haptoglobin - Hemolysis markers</li>
+                            <li>PT/INR, PTT, fibrinogen - DIC screen</li>
+                            <li>Type and screen - Prepare for transfusion</li>
+                            <li>Stool guaiac - Occult GI bleeding</li>
+                            <li>Iron studies, B12, folate - If chronic or macrocytic</li>
+                            <li>DAT (Coombs) if hemolysis suspected</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 18px;"><a href="#top" class="back-link">↑ Back to Top</a> | <a href="index.html" class="back-link">📚 Disease Guide</a></p>
+        </div>
+
+        <!-- THROMBOCYTOPENIA -->
+        <div id="thrombocytopenia" class="presentation-page">
+            <div class="page-header">
+                <h2>Thrombocytopenia (Platelets <150k)</h2>
+            </div>
+            
+            <div class="two-col-container">
+                <div class="left-column">
+                    <div class="section-title">TIERED DIAGNOSTIC APPROACH</div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 1: Acuity/Severity Assessment</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'plt_severe')">
+                            <input type="checkbox" id="plt_severe">
+                            <label for="plt_severe">Severe (<20k)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'plt_bleeding')">
+                            <input type="checkbox" id="plt_bleeding">
+                            <label for="plt_bleeding">Active bleeding (ICH, GI, etc.)?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'plt_ttp')">
+                            <input type="checkbox" id="plt_ttp">
+                            <label for="plt_ttp">Schistocytes + AKI + neuro changes?</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'plt_hit')">
+                            <input type="checkbox" id="plt_hit">
+                            <label for="plt_hit">Recent heparin exposure + drop >50%?</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 2: Isolated vs Multi-lineage</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'plt_isolated')">
+                            <input type="checkbox" id="plt_isolated">
+                            <label for="plt_isolated">Isolated thrombocytopenia</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'plt_anemia')">
+                            <input type="checkbox" id="plt_anemia">
+                            <label for="plt_anemia">Thrombocytopenia + anemia</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'plt_pancytopenia')">
+                            <input type="checkbox" id="plt_pancytopenia">
+                            <label for="plt_pancytopenia">Pancytopenia (low WBC/RBC/PLT)</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 3: Associated Features</div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'plt_schistocytes')">
+                            <input type="checkbox" id="plt_schistocytes">
+                            <label for="plt_schistocytes">Schistocytes on smear</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'plt_bruising')">
+                            <input type="checkbox" id="plt_bruising">
+                            <label for="plt_bruising">Bleeding/bruising</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'plt_coag')">
+                            <input type="checkbox" id="plt_coag">
+                            <label for="plt_coag">Prolonged PT/PTT + low fibrinogen</label>
+                        </div>
+                        
+                        <div class="criteria-item" onclick="toggleCriteria(this, 'plt_spleen')">
+                            <input type="checkbox" id="plt_spleen">
+                            <label for="plt_spleen">Splenomegaly</label>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-box">
+                        <div class="tier-title">TIER 4: Pathophysiologic Category</div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Decreased Production</div>
+                            <div class="condition-item" data-condition="0" data-criteria="plt_pancytopenia">
+                                Bone Marrow Failure - Aplastic anemia, MDS
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="plt_pancytopenia">
+                                Leukemia/Lymphoma - Blasts on smear
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Increased Destruction - Immune</div>
+                            <div class="condition-item" data-condition="79" data-criteria="plt_isolated,plt_severe">
+                                <a href="index.html#thrombocytopenia" target="disease_guide">#79 ITP</a> - Isolated low platelets, otherwise well
+                            </div>
+                            <div class="condition-item" data-condition="0" data-criteria="plt_hit">
+                                Drug-Induced - Heparin, quinine, sulfonamides
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Increased Destruction - Non-Immune</div>
+                            <div class="condition-item" data-condition="79" data-criteria="plt_hit,plt_severe">
+                                <a href="index.html#thrombocytopenia" target="disease_guide">#79 HIT</a> - Drop >50%, thrombosis, 4Ts score
+                            </div>
+                            <div class="condition-item" data-condition="79" data-criteria="plt_ttp,plt_schistocytes,plt_anemia">
+                                <a href="index.html#thrombocytopenia" target="disease_guide">#79 TTP</a> - MAHA, thrombocytopenia, AKI, fever, neuro
+                            </div>
+                            <div class="condition-item" data-condition="79" data-criteria="plt_schistocytes,plt_anemia">
+                                <a href="index.html#thrombocytopenia" target="disease_guide">#79 HUS</a> - Triad: MAHA, thrombocytopenia, AKI
+                            </div>
+                            <div class="condition-item" data-condition="78" data-criteria="plt_coag,plt_bleeding">
+                                <a href="index.html#dic" target="disease_guide">#78 DIC</a> - Prolonged PT/PTT, low fibrinogen
+                            </div>
+                        </div>
+                        
+                        <div class="category-box">
+                            <div class="category-title">Sequestration</div>
+                            <div class="condition-item" data-condition="54" data-criteria="plt_spleen">
+                                <a href="index.html#cirrhosis" target="disease_guide">#54 Hypersplenism</a> - Splenomegaly, cirrhosis
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="must-not-miss-box">
+                        <div class="must-not-miss-title">⚠️ MUST NOT MISS</div>
+                        <ul>
+                            <li><strong>#79 TTP</strong> - Plasmapheresis emergently, avoid platelets</li>
+                            <li><strong>#79 HIT</strong> - Stop ALL heparin, start alternative anticoagulation</li>
+                            <li><strong>#78 DIC</strong> - Treat underlying cause, transfuse as needed</li>
+                            <li><strong>Acute Leukemia</strong> - Blasts on smear, oncology consult</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workup-box">
+                        <div class="workup-title">🔬 INITIAL WORKUP</div>
+                        <ul>
+                            <li>CBC with peripheral smear - Assess other cell lines, schistocytes/blasts</li>
+                            <li>PT/INR, PTT, fibrinogen - DIC screen</li>
+                            <li>LDH, indirect bilirubin, haptoglobin - Hemolysis (TTP/HUS)</li>
+                            <li>BMP - Renal function (HUS/TTP)</li>
+                            <li>Medication review - Heparin, quinine, antibiotics</li>
+                            <li>HIT antibody (PF4) if recent heparin exposure</li>
+                            <li>Consider: HIV, HCV, ANA, bone marrow biopsy if unexplained</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 18px;"><a href="#top" class="back-link">↑ Back to Top</a> | <a href="index.html" class="back-link">📚 Disease Guide</a></p>
+        </div>
+
+    </div>
+    
+    <script>
+        // Track selected criteria
+        let selectedCriteria = new Set();
+        
+        // Toggle criteria selection
+        function toggleCriteria(element, criteriaId) {
+            const checkbox = document.getElementById(criteriaId);
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                element.classList.add('selected');
+                selectedCriteria.add(criteriaId);
+            } else {
+                element.classList.remove('selected');
+                selectedCriteria.delete(criteriaId);
+            }
+            
+            updateFiltering();
+        }
+        
+        // Update filtering based on selected criteria
+        function updateFiltering() {
+            const conditionItems = document.querySelectorAll('.condition-item[data-condition]');
+            const numSelected = selectedCriteria.size;
+            
+            conditionItems.forEach(item => {
+                const conditionCriteria = item.dataset.criteria ? item.dataset.criteria.split(',') : [];
+                
+                // If no criteria selected, show all normally
+                if (numSelected === 0) {
+                    item.classList.remove('matched', 'unmatched');
+                    const existingScore = item.querySelector('.match-score');
+                    if (existingScore) existingScore.remove();
+                    return;
+                }
+                
+                // Count how many selected criteria this condition matches
+                let matchCount = 0;
+                conditionCriteria.forEach(criteria => {
+                    if (selectedCriteria.has(criteria.trim())) {
+                        matchCount++;
+                    }
+                });
+                
+                // Update display based on match
+                if (matchCount > 0) {
+                    item.classList.add('matched');
+                    item.classList.remove('unmatched');
+                    
+                    // Add/update match score
+                    let scoreSpan = item.querySelector('.match-score');
+                    if (!scoreSpan) {
+                        scoreSpan = document.createElement('span');
+                        scoreSpan.className = 'match-score';
+                        item.insertBefore(scoreSpan, item.firstChild);
+                    }
+                    scoreSpan.textContent = `${matchCount}/${numSelected}`;
+                } else {
+                    item.classList.remove('matched');
+                    item.classList.add('unmatched');
+                    
+                    const existingScore = item.querySelector('.match-score');
+                    if (existingScore) existingScore.remove();
+                }
+            });
+        }
+        
+        // Reset all selections
+        function resetAllSelections() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                cb.checked = false;
+            });
+            
+            document.querySelectorAll('.criteria-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            selectedCriteria.clear();
+            updateFiltering();
+        }
+        
+        // Prevent checkbox click from triggering parent div click
+        document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+            cb.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        });
+    </script>
+</body>
+</html>
