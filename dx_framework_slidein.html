@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Interactive Presentation-Based Diagnostic Framework</title>
     <style>
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-            font-size: 11pt;
+            font-size: 12pt;
             line-height: 1.5;
             margin: 0;
             padding: 0;
             color: #24292e;
             background: #f6f8fa;
+            -webkit-overflow-scrolling: touch;
         }
         
         .container {
@@ -126,31 +132,35 @@
         /* TIER BOXES WITH CHECKBOXES */
         .tier-box {
             background: #f6f8fa;
-            border-left: 3px solid #0366d6;
-            padding: 12px 14px;
-            margin: 10px 0;
-            border-radius: 4px;
+            border-left: 4px solid #0366d6;
+            padding: 16px 18px;
+            margin: 14px 0;
+            border-radius: 6px;
         }
         
         .tier-title {
             font-weight: 600;
             color: #0366d6;
-            font-size: 10.5pt;
-            margin-bottom: 10px;
+            font-size: 12pt;
+            margin-bottom: 14px;
         }
         
         /* CHECKBOX ITEMS - iPad optimized */
         .criteria-item {
             display: flex;
             align-items: center;
-            padding: 10px;
-            margin: 6px 0;
+            padding: 14px 12px;
+            margin: 10px 0;
             background: white;
-            border-radius: 5px;
+            border-radius: 8px;
             border: 2px solid #e1e4e8;
             cursor: pointer;
-            transition: all 0.2s;
-            min-height: 48px; /* iPad touch target */
+            transition: background 0.15s, border-color 0.15s;
+            min-height: 54px; /* Larger iPad touch target */
+            -webkit-tap-highlight-color: rgba(3, 102, 214, 0.2);
+            touch-action: manipulation;
+            position: relative;
+            isolation: isolate;
         }
         
         .criteria-item:hover {
@@ -158,56 +168,68 @@
             background: #f0f7ff;
         }
         
+        .criteria-item:active {
+            background: #e0f0ff;
+        }
+        
         .criteria-item.selected {
             background: #d4edda;
             border-color: #28a745;
         }
         
+        .criteria-item.selected:active {
+            background: #c3e6cb;
+        }
+        
         .criteria-item input[type="checkbox"] {
-            width: 24px;
-            height: 24px;
-            margin-right: 12px;
+            width: 28px;
+            height: 28px;
+            margin-right: 14px;
             cursor: pointer;
             flex-shrink: 0;
+            pointer-events: none; /* Let parent handle all clicks */
         }
         
         .criteria-item label {
             cursor: pointer;
-            font-size: 10pt;
+            font-size: 11pt;
             flex-grow: 1;
             user-select: none;
+            pointer-events: none; /* Let parent handle all clicks */
+            line-height: 1.4;
         }
         
         /* CONDITION ITEMS WITH MATCH SCORING */
         .category-box {
             background: #e1f5ff;
-            border-left: 3px solid #0366d6;
-            padding: 10px 12px;
-            margin: 8px 0;
-            border-radius: 4px;
+            border-left: 4px solid #0366d6;
+            padding: 14px 16px;
+            margin: 12px 0;
+            border-radius: 6px;
         }
         
         .category-title {
             font-weight: 600;
             color: #0366d6;
-            font-size: 10pt;
-            margin-bottom: 8px;
+            font-size: 11pt;
+            margin-bottom: 10px;
         }
         
         .condition-item {
-            padding: 8px;
-            margin: 5px 0;
-            border-radius: 4px;
-            font-size: 9.5pt;
+            padding: 12px 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            font-size: 10.5pt;
             line-height: 1.5;
-            transition: all 0.3s;
+            transition: background 0.2s, opacity 0.2s;
+            min-height: 44px;
         }
         
         /* Matched conditions - highlighted */
         .condition-item.matched {
             background: #fff9db;
             border-left: 4px solid #ffc107;
-            padding-left: 12px;
+            padding-left: 14px;
             font-weight: 600;
         }
         
@@ -221,19 +243,19 @@
             display: inline-block;
             background: #ffc107;
             color: #000;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 8.5pt;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 9pt;
             font-weight: 700;
-            margin-right: 8px;
+            margin-right: 10px;
         }
         
         .must-not-miss-box {
             background: #fff5f5;
-            border-left: 3px solid #d73a49;
-            padding: 12px 14px;
-            margin: 10px 0;
-            border-radius: 4px;
+            border-left: 4px solid #d73a49;
+            padding: 16px 18px;
+            margin: 14px 0;
+            border-radius: 6px;
         }
         
         .must-not-miss-title {
@@ -381,10 +403,53 @@
             border-bottom-style: solid;
         }
         
-        @media (max-width: 768px) {
+        /* iPad Portrait (768px) */
+        @media (max-width: 850px) {
             .slide-panel {
-                width: 95%;
-                right: -95%;
+                width: 92%;
+                right: -92%;
+            }
+            .nav-header h1 {
+                font-size: 18pt;
+            }
+            .page-header h2 {
+                font-size: 17pt;
+            }
+        }
+        
+        /* iPad and smaller - ensure touch-friendly sizing */
+        @media (max-width: 1024px) {
+            .criteria-item {
+                padding: 16px 14px;
+                margin: 12px 0;
+                min-height: 58px;
+            }
+            .criteria-item input[type="checkbox"] {
+                width: 30px;
+                height: 30px;
+            }
+            .nav-links a {
+                padding: 8px 14px;
+                font-size: 9.5pt;
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+            }
+            .reset-btn {
+                padding: 12px 24px;
+                font-size: 11pt;
+                min-height: 48px;
+            }
+        }
+        
+        /* Smaller phones */
+        @media (max-width: 480px) {
+            .slide-panel {
+                width: 100%;
+                right: -100%;
+            }
+            .presentation-page {
+                padding: 15px;
             }
         }
     </style>
@@ -2899,12 +2964,8 @@
             updateFiltering();
         }
         
-        // Prevent checkbox click from triggering parent div click
-        document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-            cb.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
-        });
+        // Checkbox clicks are now handled by parent div (pointer-events: none on checkbox)
+        // No separate handler needed
     </script>
 </body>
 </html>
