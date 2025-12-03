@@ -31,7 +31,7 @@
         .toc-link:hover { color: #fff; background: rgba(255,255,255,0.05); }
         .results-info { color: #888; font-size: 14px; margin-bottom: 15px; padding-left: 5px; }
         .lab-grid { display: grid; gap: 20px; }
-        .lab-card { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); scroll-margin-top: 70px; }
+        .lab-card { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); scroll-margin-top: 50px; }
         .lab-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
         .lab-title { font-size: 20px; font-weight: 600; color: #fff; }
         .lab-subtitle { font-size: 14px; color: #888; margin-top: 4px; }
@@ -1099,15 +1099,20 @@
                 e.preventDefault();
                 const targetId = link.getAttribute('href').slice(1);
                 const targetEl = document.getElementById(targetId);
-                if (targetEl) {
-                    // Manual scroll calculation to account for sticky header
-                    const headerOffset = 70;
-                    const elementPosition = targetEl.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-                }
+                
+                // Collapse ToC FIRST
                 document.getElementById('tocContent').classList.remove('show');
                 document.getElementById('tocArrow').textContent = '▼';
+                
+                // Wait for DOM to update after collapse, then scroll
+                if (targetEl) {
+                    setTimeout(() => {
+                        const headerOffset = 50;
+                        const elementPosition = targetEl.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }, 50);
+                }
             }
         });
 
