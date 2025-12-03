@@ -77,8 +77,8 @@
     </style>
 </head>
 <body>
-    <div style="background: linear-gradient(135deg, #e74c3c, #c0392b); padding: 8px 15px; text-align: center; position: sticky; top: 0; z-index: 100;">
-        <a href="im_guide.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 12px;">📚 Open Full IM Clinical Reference Guide →</a>
+    <div style="background: linear-gradient(135deg, #e74c3c, #c0392b); text-align: center; position: sticky; top: 0; z-index: 100;">
+        <a href="im_guide.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 12px; display: block; padding: 8px 15px; -webkit-tap-highlight-color: rgba(255,255,255,0.3);">📚 Open Full IM Clinical Reference Guide →</a>
     </div>
     <div class="header">
         <h1>🔬 Laboratory Values Clinical Reference</h1>
@@ -388,27 +388,38 @@
 
         // Auto-link function that creates clickable spans instead of anchor tags
         function autoLinkText(text) {
-            const sortedKeys = Object.keys(imcrgMap).sort((a, b) => b.length - a.length);
-            let result = text;
-            const linkedTerms = new Set();
+            // Helper to escape HTML special chars for attributes
+            const escapeAttr = (str) => str.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
             
+            const sortedKeys = Object.keys(imcrgMap).sort((a, b) => b.length - a.length);
+            const linkedAnchors = new Set();
+            const placeholders = [];
+            let result = text;
+            
+            // First pass: replace matches with placeholders to prevent nesting
             for (const term of sortedKeys) {
                 const anchor = imcrgMap[term];
-                if (linkedTerms.has(anchor)) continue;
+                if (linkedAnchors.has(anchor)) continue;
                 
-                // Use non-global regex for test to avoid lastIndex issues
                 const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                const testRegex = new RegExp(`\\b${escapedTerm}\\b`, 'i');
+                const regex = new RegExp(`\\b(${escapedTerm})\\b`, 'gi');
                 
-                if (testRegex.test(result)) {
-                    // Create fresh global regex for replace
-                    const replaceRegex = new RegExp(`\\b(${escapedTerm})\\b`, 'gi');
-                    result = result.replace(replaceRegex, (match) => {
-                        linkedTerms.add(anchor);
-                        return `<span class="imcrg-link" data-anchor="${anchor}" data-term="${match}">${match}</span>`;
+                if (regex.test(result)) {
+                    linkedAnchors.add(anchor);
+                    result = result.replace(new RegExp(`\\b(${escapedTerm})\\b`, 'gi'), (match) => {
+                        const idx = placeholders.length;
+                        placeholders.push({anchor: anchor, match: match});
+                        return `@@LINK${idx}@@`;
                     });
                 }
             }
+            
+            // Second pass: restore placeholders with actual HTML
+            placeholders.forEach((item, i) => {
+                result = result.replace(`@@LINK${i}@@`, 
+                    `<span class="imcrg-link" data-anchor="${escapeAttr(item.anchor)}" data-term="${escapeAttr(item.match)}">${item.match}</span>`);
+            });
+            
             return result;
         }
 
