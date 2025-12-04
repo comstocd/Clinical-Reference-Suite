@@ -6,6 +6,7 @@
     <title>Laboratory Values Clinical Reference</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; padding: 20px; color: #e0e0e0; }
         .header { text-align: center; padding: 30px 20px; background: rgba(255,255,255,0.05); border-radius: 16px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
         .header h1 { font-size: 28px; color: #fff; margin-bottom: 8px; }
@@ -1092,27 +1093,14 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // TOC smooth scroll - use closest() to handle clicks on child elements
+        // TOC link click - let browser handle anchor navigation, just collapse ToC
         document.getElementById('tocGrid').addEventListener('click', (e) => {
             const link = e.target.closest('.toc-link');
             if (link) {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').slice(1);
-                const targetEl = document.getElementById(targetId);
-                
-                // Collapse ToC FIRST
+                // Collapse ToC - browser will handle the anchor scroll naturally via href
                 document.getElementById('tocContent').classList.remove('show');
                 document.getElementById('tocArrow').textContent = '▼';
-                
-                // Wait for DOM to update after collapse, then scroll
-                if (targetEl) {
-                    setTimeout(() => {
-                        const headerOffset = 50;
-                        const elementPosition = targetEl.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-                    }, 50);
-                }
+                // Don't preventDefault - let browser do native anchor navigation
             }
         });
 

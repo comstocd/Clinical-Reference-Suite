@@ -13,6 +13,7 @@
     --muted:#f6f8fb;
     --card:#ffffff;
   }
+  html{scroll-behavior:smooth}
   html,body{height:100%;margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:#fbfcfe;color:#1f2937}
   /* Layout */
   header{
@@ -628,13 +629,11 @@
 </main>
 
 <script>
-/* Smooth anchor scrolling (sidebar links) */
+/* Sidebar link click - let browser handle anchor navigation natively */
 document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
   a.addEventListener('click', e=>{
-    e.preventDefault();
-    const id = a.getAttribute('href').slice(1);
-    const el = document.getElementById(id);
-    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    // Don't preventDefault - let browser do native anchor navigation
+    // scroll-behavior: smooth in CSS handles smooth scrolling
   });
 });
 
