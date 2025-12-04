@@ -191,7 +191,7 @@
             padding: 30px;
             background: #f6f8fa;
             border-bottom: 3px solid #e1e4e8;
-            scroll-margin-top: 95px;
+            scroll-margin-top: 140px;
         }
         
         .toc h2 {
@@ -207,6 +207,8 @@
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 12px;
             margin-top: 20px;
+            position: relative;
+            overflow: visible;
         }
         
         .toc-item {
@@ -214,12 +216,13 @@
             border: 1px solid #e1e4e8;
             border-radius: 6px;
             transition: all 0.2s;
+            position: relative;
+            isolation: isolate;
         }
         
         .toc-item:hover {
             border-color: #0366d6;
             box-shadow: 0 2px 8px rgba(3,102,214,0.15);
-            transform: translateY(-2px);
         }
         
         .toc-item a {
@@ -230,6 +233,8 @@
             display: block;
             padding: 12px;
             -webkit-tap-highlight-color: rgba(3,102,214,0.2);
+            touch-action: manipulation;
+            -webkit-touch-callout: none;
         }
         
         .toc-item a:hover {
@@ -245,7 +250,7 @@
         .condition-page {
             padding: 0px 30px 30px 30px;
             border-bottom: 3px solid #e1e4e8;
-            scroll-margin-top: 130px;
+            scroll-margin-top: 140px;
         }
         
         .page-header {
@@ -392,7 +397,7 @@
         </div>
         
                 <!-- TABLE OF CONTENTS -->
-        <div id="toc" class="toc-container">
+        <div id="toc" class="toc">
             <h1 class="toc-title">📚 Internal Medicine Clinical Reference Guide (IMCRG)</h1>
             <p class="toc-subtitle">Comprehensive iPad-Optimized Clinical Decision Support</p>
             <p class="toc-subtitle">Version 3.0 • 118 Conditions</p>
