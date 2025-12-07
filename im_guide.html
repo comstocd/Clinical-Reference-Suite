@@ -204,19 +204,13 @@
         
         .toc-grid {
             margin-top: 20px;
-            font-size: 0; /* Remove whitespace between inline-blocks */
         }
         
         .toc-item {
             background: white;
             border: 1px solid #e1e4e8;
             border-radius: 6px;
-            margin: 0 8px 8px 0;
-            display: inline-block;
-            vertical-align: top;
-            width: calc(33.333% - 8px);
-            box-sizing: border-box;
-            font-size: 10pt; /* Reset font-size */
+            margin-bottom: 8px;
         }
         
         .toc-item:hover {
@@ -306,10 +300,6 @@
         @media (max-width: 768px) {
             .two-column {
                 grid-template-columns: 1fr;
-            }
-            .toc-item {
-                width: 100%;
-                margin-right: 0;
             }
         }
         
