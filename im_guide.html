@@ -154,7 +154,8 @@
             background: #24292e;
             color: white;
             padding: 20px 30px;
-            position: relative;
+            position: sticky;
+            top: 35px;
             z-index: 100;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -190,7 +191,7 @@
             padding: 30px;
             background: #f6f8fa;
             border-bottom: 3px solid #e1e4e8;
-            scroll-margin-top: 20px;
+            scroll-margin-top: 160px;
         }
         
         .toc h2 {
@@ -202,18 +203,20 @@
         }
         
         .toc-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 12px;
             margin-top: 20px;
+            font-size: 0; /* Remove whitespace between inline-blocks */
         }
         
         .toc-item {
             background: white;
             border: 1px solid #e1e4e8;
             border-radius: 6px;
-            transition: all 0.2s;
-            overflow: hidden;
+            margin: 0 8px 8px 0;
+            display: inline-block;
+            vertical-align: top;
+            width: calc(33.333% - 8px);
+            box-sizing: border-box;
+            font-size: 10pt; /* Reset font-size */
         }
         
         .toc-item:hover {
@@ -226,12 +229,8 @@
             color: #0366d6;
             font-weight: 600;
             font-size: 10pt;
-            display: flex;
-            align-items: center;
+            display: block;
             padding: 12px;
-            min-height: 44px;
-            -webkit-tap-highlight-color: rgba(3,102,214,0.2);
-            touch-action: manipulation;
         }
         
         .toc-item a:hover {
@@ -243,17 +242,16 @@
             font-size: 9pt;
             font-weight: normal;
             margin-right: 8px;
-            flex-shrink: 0;
         }
         
         .toc-item .toc-title {
-            flex: 1;
+            display: inline;
         }
         
         .condition-page {
             padding: 0px 30px 30px 30px;
             border-bottom: 3px solid #e1e4e8;
-            scroll-margin-top: 20px;
+            scroll-margin-top: 160px;
         }
         
         .page-header {
@@ -309,8 +307,9 @@
             .two-column {
                 grid-template-columns: 1fr;
             }
-            .toc-grid {
-                grid-template-columns: 1fr;
+            .toc-item {
+                width: 100%;
+                margin-right: 0;
             }
         }
         
@@ -389,7 +388,7 @@
     </style>
 </head>
 <body>
-    <div style="background: linear-gradient(135deg, #3498db, #2980b9); padding: 8px 15px; text-align: center;">
+    <div style="background: linear-gradient(135deg, #3498db, #2980b9); padding: 8px 15px; text-align: center; position: sticky; top: 0; z-index: 1000;">
         <a href="lab_values.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 12px;">🔬 Open Laboratory Values Reference →</a>
     </div>
     <div class="container">
@@ -403,7 +402,7 @@
         <div id="toc" class="toc">
             <h1 class="toc-title">📚 Internal Medicine Clinical Reference Guide (IMCRG)</h1>
             <p class="toc-subtitle">Comprehensive iPad-Optimized Clinical Decision Support</p>
-            <p class="toc-subtitle">Version 3.0 • 118 Conditions</p>
+            <p class="toc-subtitle">Version 3.0 • 122 Conditions</p>
             
             <div class="toc-instructions">
                 <p><strong>How to Use:</strong> Tap any condition below to jump directly to its detailed management protocol.</p>
@@ -1116,6 +1115,30 @@
                     <a href="#gca">
                         <span class="toc-number">118</span>
                         <span class="toc-title">GIANT CELL ARTERITIS / TEMPORAL ARTERITIS</span>
+                    </a>
+                </div>
+                <div class="toc-item">
+                    <a href="#ards">
+                        <span class="toc-number">119</span>
+                        <span class="toc-title">ARDS (ACUTE RESPIRATORY DISTRESS SYNDROME)</span>
+                    </a>
+                </div>
+                <div class="toc-item">
+                    <a href="#pulmonary-edema">
+                        <span class="toc-number">120</span>
+                        <span class="toc-title">ACUTE PULMONARY EDEMA / FLASH PULMONARY EDEMA</span>
+                    </a>
+                </div>
+                <div class="toc-item">
+                    <a href="#viral-hepatitis">
+                        <span class="toc-number">121</span>
+                        <span class="toc-title">VIRAL HEPATITIS (ACUTE)</span>
+                    </a>
+                </div>
+                <div class="toc-item">
+                    <a href="#ischemic-hepatitis">
+                        <span class="toc-number">122</span>
+                        <span class="toc-title">ISCHEMIC HEPATITIS (SHOCK LIVER)</span>
                     </a>
                 </div>
             </div>
@@ -24608,6 +24631,565 @@
             
             <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
 </div>
+
+<div id="ards" class="condition-page">
+    <div class="page-header">
+        <h2>119. ARDS (ACUTE RESPIRATORY DISTRESS SYNDROME)</h2>
+        <div class="subtitle">Berlin Criteria • P/F Ratio • Lung-Protective Ventilation • Prone Positioning</div>
     </div>
-</body>
-</html>
+    
+    <div class="section">
+        <div class="section-title">CLINICAL PRESENTATION</div>
+        <div class="section-content">
+            <p><span class="label">Classic:</span> Acute onset of severe hypoxemic respiratory failure within 1 week of known clinical insult, with bilateral opacities on CXR/CT not fully explained by effusions, lobar collapse, or nodules.</p>
+            <p><span class="label">Key Features:</span></p>
+            <ul>
+                <li><strong>Timing:</strong> Acute onset within 1 week of known clinical insult or new/worsening respiratory symptoms</li>
+                <li><strong>Hypoxemia:</strong> PaO2/FiO2 ratio ≤300 mmHg with PEEP ≥5 cm H2O</li>
+                <li><strong>Bilateral infiltrates:</strong> On CXR or CT, not fully explained by effusions, collapse, or nodules</li>
+                <li><strong>Non-cardiogenic:</strong> Respiratory failure not fully explained by cardiac failure or fluid overload (may need echo to rule out)</li>
+            </ul>
+            <p><span class="label">Common Etiologies:</span></p>
+            <ul>
+                <li><strong>Pulmonary (Direct):</strong> Pneumonia (most common), aspiration, pulmonary contusion, inhalation injury, drowning</li>
+                <li><strong>Extrapulmonary (Indirect):</strong> Sepsis (most common), pancreatitis, trauma, massive transfusion (TRALI), burns, drug overdose</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">DIAGNOSTIC WORKUP</div>
+        <div class="section-content">
+            <p><span class="label">Berlin Criteria (2012) - All 4 Required:</span></p>
+            <ul>
+                <li><strong>Timing:</strong> Within 1 week of known clinical insult or new/worsening respiratory symptoms</li>
+                <li><strong>Imaging:</strong> Bilateral opacities not fully explained by effusions, lobar/lung collapse, or nodules</li>
+                <li><strong>Origin of edema:</strong> Not fully explained by cardiac failure or fluid overload</li>
+                <li><strong>Oxygenation (with PEEP ≥5):</strong> Mild (P/F 200-300), Moderate (P/F 100-200), Severe (P/F <100)</li>
+            </ul>
+            <p><span class="label">Labs:</span> ABG (P/F ratio calculation), CBC, CMP, lactate, procalcitonin, blood cultures, BNP/NT-proBNP (rule out cardiogenic)</p>
+            <p><span class="label">Imaging:</span> CXR (bilateral infiltrates), CT chest if diagnostic uncertainty, Echo (rule out cardiogenic pulmonary edema, assess RV function)</p>
+            <p><span class="label">Additional:</span> BAL if pneumonia suspected, respiratory viral panel, consider bronchoscopy</p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">SEVERITY CLASSIFICATION (P/F Ratio with PEEP ≥5)</div>
+        <div class="section-content">
+            <ul>
+                <li><strong>Mild ARDS:</strong> P/F 201-300 mmHg (mortality ~27%)</li>
+                <li><strong>Moderate ARDS:</strong> P/F 101-200 mmHg (mortality ~32%)</li>
+                <li><strong>Severe ARDS:</strong> P/F ≤100 mmHg (mortality ~45%)</li>
+            </ul>
+            <p><span class="label">P/F Ratio Calculation:</span> PaO2 (from ABG) ÷ FiO2 (as decimal). Example: PaO2 80 on 60% FiO2 = 80/0.6 = 133 (moderate ARDS)</p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">MANAGEMENT</div>
+        <div class="section-content">
+            <p><span class="label">Lung-Protective Ventilation (ARDSNet Protocol):</span></p>
+            <ul>
+                <li><strong>Low Tidal Volume:</strong> 6 mL/kg PREDICTED body weight (PBW), range 4-8 mL/kg</li>
+                <li><strong>PBW Calculation:</strong> Male: 50 + 2.3 × (height in inches - 60); Female: 45.5 + 2.3 × (height in inches - 60)</li>
+                <li><strong>Plateau Pressure Goal:</strong> ≤30 cm H2O (measure with inspiratory hold)</li>
+                <li><strong>PEEP:</strong> Use ARDSNet PEEP/FiO2 tables, start moderate PEEP (8-12), titrate up for refractory hypoxemia</li>
+                <li><strong>Driving Pressure:</strong> Target <15 cm H2O (Driving Pressure = Plateau Pressure - PEEP)</li>
+                <li><strong>Permissive Hypercapnia:</strong> Accept pH >7.20, PaCO2 up to 60-80 if needed to maintain lung protection</li>
+            </ul>
+            <p><span class="label">Oxygenation Goals:</span></p>
+            <ul>
+                <li><strong>SpO2:</strong> 88-95% (avoid hyperoxia)</li>
+                <li><strong>PaO2:</strong> 55-80 mmHg</li>
+            </ul>
+            <p><span class="label">Adjunctive Therapies for Moderate-Severe ARDS:</span></p>
+            <ul>
+                <li><strong>Prone Positioning:</strong> For P/F <150, prone for ≥16 hours/day. Reduces mortality by ~16% in severe ARDS (PROSEVA trial)</li>
+                <li><strong>Neuromuscular Blockade:</strong> Consider cisatracurium for 48 hours in severe ARDS with ventilator dyssynchrony (controversial after ROSE trial)</li>
+                <li><strong>Conservative Fluid Management:</strong> Target CVP <4 or PAOP <8 after initial resuscitation (FACTT trial - improved ventilator-free days)</li>
+                <li><strong>Corticosteroids:</strong> Consider dexamethasone 20mg IV daily × 5 days, then 10mg × 5 days for moderate-severe ARDS (DEXA-ARDS trial)</li>
+            </ul>
+            <p><span class="label">Refractory Hypoxemia:</span></p>
+            <ul>
+                <li><strong>Recruitment Maneuvers:</strong> Brief sustained inflation (controversial, use with caution)</li>
+                <li><strong>Inhaled Pulmonary Vasodilators:</strong> Inhaled nitric oxide or epoprostenol (rescue therapy, no mortality benefit)</li>
+                <li><strong>ECMO:</strong> Consider VV-ECMO for refractory hypoxemia despite optimal ventilation (EOLIA trial)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">TREAT UNDERLYING CAUSE</div>
+        <div class="section-content">
+            <ul>
+                <li><strong>Sepsis:</strong> Early antibiotics, source control</li>
+                <li><strong>Pneumonia:</strong> Broad-spectrum antibiotics, consider fungal/viral coverage</li>
+                <li><strong>Aspiration:</strong> Antibiotics only if clear infection (not routine for aspiration pneumonitis)</li>
+                <li><strong>Pancreatitis:</strong> Supportive care, NPO, IV fluids</li>
+                <li><strong>TRALI:</strong> Supportive care, avoid implicated donor</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="pearl-box">
+        <div class="pearl-title">🔑 TEACHING PEARLS</div>
+        <ul>
+            <li><strong>PREDICTED Body Weight is Critical:</strong> ALWAYS use predicted (ideal) body weight for tidal volume calculation, NOT actual weight. Obese patients don't have bigger lungs. Using actual weight in obesity leads to dangerous over-ventilation and VILI.</li>
+            <li><strong>Driving Pressure May Be the Best Predictor:</strong> Driving pressure (Plateau - PEEP) <15 is associated with survival benefit. It reflects lung stress better than tidal volume or plateau pressure alone. If Pplat is 28 and PEEP is 16, driving pressure is only 12 - that's good!</li>
+            <li><strong>Prone Early and Prone Long:</strong> Don't wait until patient is moribund to prone. Start when P/F <150 and prone for at least 16 hours/day. The PROSEVA trial showed 16% absolute mortality reduction - one of the largest benefits in critical care.</li>
+            <li><strong>Conservative Fluids AFTER Resuscitation:</strong> FACTT trial showed benefit of conservative fluid strategy, but this is AFTER initial sepsis resuscitation. Don't withhold fluids from a hypotensive septic patient to "keep lungs dry."</li>
+            <li><strong>ARDS is a Syndrome, Not a Disease:</strong> Always search for and treat the underlying cause. ARDS from pneumonia needs antibiotics; ARDS from pancreatitis needs supportive care. The ventilator strategy is the same, but disease-specific treatment differs.</li>
+            <li><strong>High PEEP vs. Low PEEP:</strong> Three major trials (ALVEOLI, LOV, ExPress) showed no mortality difference. Use PEEP/FiO2 tables, individualize based on mechanics, and avoid over-distension (watch plateau pressure).</li>
+            <li><strong>Don't Anchor on the CXR:</strong> Bilateral infiltrates can look identical in ARDS vs cardiogenic pulmonary edema. Use BNP, echo, clinical context to differentiate. If uncertain, treat both empirically while sorting it out.</li>
+        </ul>
+    </div>
+    
+    <div class="two-column">
+        <div class="box">
+            <div class="box-title">⚠️ ESCALATE TO ICU IF:</div>
+            <ul>
+                <li>All ARDS patients require ICU care</li>
+                <li>Need for invasive mechanical ventilation</li>
+                <li>Refractory hypoxemia despite high-flow nasal cannula or NIV</li>
+                <li>P/F ratio <200 (moderate-severe ARDS)</li>
+                <li>Hemodynamic instability requiring vasopressors</li>
+                <li>Need for prone positioning</li>
+                <li>Consideration for ECMO</li>
+            </ul>
+        </div>
+        
+        <div class="box">
+            <div class="box-title">✓ DISCHARGE CRITERIA</div>
+            <ul>
+                <li>Liberated from mechanical ventilation for >48 hours</li>
+                <li>Stable on room air or low-flow O2 (≤4L NC) with SpO2 >92%</li>
+                <li>P/F ratio >300 on room air or minimal supplemental O2</li>
+                <li>Underlying cause treated and resolving</li>
+                <li>No ongoing need for ICU-level monitoring</li>
+                <li>Pulmonary rehab referral if prolonged ventilation</li>
+                <li>Follow-up arranged (pulmonary clinic in 2-4 weeks)</li>
+                <li>Patient educated on gradual recovery timeline (weeks to months)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+</div>
+
+<div id="pulmonary-edema" class="condition-page">
+    <div class="page-header">
+        <h2>120. ACUTE PULMONARY EDEMA / FLASH PULMONARY EDEMA</h2>
+        <div class="subtitle">Cardiogenic vs Non-Cardiogenic • BiPAP • Diuresis • Afterload Reduction</div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">CLINICAL PRESENTATION</div>
+        <div class="section-content">
+            <p><span class="label">Classic:</span> Acute onset severe dyspnea, orthopnea, pink frothy sputum, diffuse crackles/rales, hypoxemia. Often with hypertension, tachycardia, diaphoresis, and anxiety ("air hunger").</p>
+            <p><span class="label">Flash Pulmonary Edema:</span> Rapid onset (minutes to hours), often with severe hypertension, may occur without significant fluid overload. Common in renal artery stenosis, acute MR, acute MI, and hypertensive crisis.</p>
+            <p><span class="label">Key Features:</span></p>
+            <ul>
+                <li><strong>Symptoms:</strong> Severe dyspnea, orthopnea, PND, cough with pink frothy sputum</li>
+                <li><strong>Signs:</strong> Tachypnea, hypoxemia, diffuse crackles, JVD, S3 gallop, lower extremity edema (may be absent in flash)</li>
+                <li><strong>Vital Signs:</strong> Hypertension common (may be hypotensive if cardiogenic shock), tachycardia, low SpO2</li>
+            </ul>
+            <p><span class="label">Differentiate from ARDS:</span></p>
+            <ul>
+                <li><strong>Cardiogenic Pulmonary Edema:</strong> Elevated BNP (>500), elevated PCWP (>18), rapid response to diuretics/nitrates, cardiac history</li>
+                <li><strong>ARDS/Non-cardiogenic:</strong> Normal/low BNP, normal PCWP, clear precipitant (sepsis, pneumonia), no response to diuretics</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">DIAGNOSTIC WORKUP</div>
+        <div class="section-content">
+            <p><span class="label">Immediate:</span> SpO2, ECG (ischemia, arrhythmia), CXR (cardiomegaly, cephalization, Kerley B lines, effusions, bat-wing infiltrates)</p>
+            <p><span class="label">Labs:</span> BNP/NT-proBNP (elevated in cardiogenic), troponin (rule out ACS), BMP (renal function, electrolytes), CBC, ABG if severe</p>
+            <p><span class="label">Imaging:</span> CXR portable, bedside echo (LV function, valve pathology, pericardial effusion), lung ultrasound (B-lines)</p>
+            <p><span class="label">Consider:</span> CT chest if uncertain etiology, cardiac catheterization if ACS suspected</p>
+            <p><span class="label">BNP Interpretation:</span></p>
+            <ul>
+                <li>BNP <100 pg/mL or NT-proBNP <300 pg/mL: Heart failure unlikely</li>
+                <li>BNP >400 pg/mL or NT-proBNP >900 pg/mL (age <50) / >1800 (age >50): Heart failure likely</li>
+                <li>Gray zone values: Use clinical context</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">MANAGEMENT</div>
+        <div class="section-content">
+            <p><span class="label">Immediate Interventions (First 30 Minutes):</span></p>
+            <ul>
+                <li><strong>Position:</strong> Sit patient upright (reduces preload)</li>
+                <li><strong>Oxygen:</strong> High-flow O2, target SpO2 >92%</li>
+                <li><strong>BiPAP/CPAP:</strong> First-line respiratory support. BiPAP 10/5, titrate to 15/10. Reduces preload, afterload, and work of breathing. Decreases intubation rates by 50%</li>
+                <li><strong>IV Access:</strong> Establish immediately for medications</li>
+            </ul>
+            <p><span class="label">Medical Therapy:</span></p>
+            <ul>
+                <li><strong>Furosemide:</strong> 40-80mg IV (or 2.5× home dose if on chronic diuretics). Can repeat in 30-60 min if inadequate response. Target urine output 100-150 mL/hr initially</li>
+                <li><strong>Nitroglycerin:</strong> 400mcg SL q5min × 3, then IV infusion 10-20 mcg/min, titrate to 200 mcg/min for BP control. AVOID if SBP <90 or recent PDE5 inhibitor</li>
+                <li><strong>Morphine:</strong> 2-4mg IV - controversial, may cause respiratory depression. Consider for severe anxiety/dyspnea only. Generally avoid</li>
+            </ul>
+            <p><span class="label">Hypertensive Pulmonary Edema (SBP >140):</span></p>
+            <ul>
+                <li><strong>Goal:</strong> Reduce SBP by 25% in first hour</li>
+                <li><strong>Preferred agents:</strong> IV nitroglycerin (vasodilator), IV nicardipine (if refractory HTN), nitroprusside (if severe, watch for cyanide toxicity)</li>
+                <li><strong>Avoid:</strong> Beta-blockers acutely (negative inotropy), excessive diuresis before afterload reduction</li>
+            </ul>
+            <p><span class="label">Hypotensive Pulmonary Edema (Cardiogenic Shock):</span></p>
+            <ul>
+                <li><strong>Vasopressors:</strong> Norepinephrine first-line if SBP <90</li>
+                <li><strong>Inotropes:</strong> Dobutamine or milrinone if low output state</li>
+                <li><strong>Mechanical support:</strong> IABP, Impella, or ECMO if refractory</li>
+                <li><strong>Avoid:</strong> Aggressive diuresis without hemodynamic support</li>
+            </ul>
+            <p><span class="label">Refractory Cases:</span></p>
+            <ul>
+                <li><strong>Ultrafiltration:</strong> Consider if diuretic-resistant</li>
+                <li><strong>Intubation:</strong> If failing BiPAP, declining mental status, or severe acidosis</li>
+                <li><strong>Urgent cardiology/cardiac surgery:</strong> If acute valvular pathology (acute MR, acute AI)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">IDENTIFY AND TREAT PRECIPITANTS</div>
+        <div class="section-content">
+            <ul>
+                <li><strong>ACS:</strong> Troponin, ECG → cardiology/cath lab</li>
+                <li><strong>Arrhythmia:</strong> Rate control for AF with RVR, cardioversion if unstable</li>
+                <li><strong>Hypertensive crisis:</strong> Aggressive BP control</li>
+                <li><strong>Acute valvular disease:</strong> Urgent echo, surgical evaluation</li>
+                <li><strong>Medication non-adherence:</strong> Restart home medications</li>
+                <li><strong>Dietary indiscretion:</strong> Sodium/fluid restriction education</li>
+                <li><strong>Renal artery stenosis:</strong> Consider if flash pulmonary edema with minimal fluid overload</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="pearl-box">
+        <div class="pearl-title">🔑 TEACHING PEARLS</div>
+        <ul>
+            <li><strong>BiPAP is a Diuretic:</strong> Not really, but BiPAP reduces preload (positive intrathoracic pressure decreases venous return) and afterload (reduces LV transmural pressure). Many patients improve dramatically on BiPAP before diuretics even kick in. Don't skip BiPAP!</li>
+            <li><strong>Flash Pulmonary Edema ≠ Fluid Overload:</strong> Flash pulmonary edema is often due to acute afterload increase (hypertensive crisis) or acute valvular pathology, NOT total body volume overload. These patients may have normal weight and no peripheral edema. Treat with vasodilators, not just diuretics.</li>
+            <li><strong>Renal Artery Stenosis Pearl:</strong> Bilateral RAS is a classic cause of "flash pulmonary edema" - acute, severe pulmonary edema that resolves quickly but recurs. Suspect in patients with resistant hypertension, acute rise in creatinine with ACE-I, or minimal peripheral edema during episodes.</li>
+            <li><strong>Morphine is Falling Out of Favor:</strong> Traditional teaching was "LMNOP" (Lasix, Morphine, Nitrates, Oxygen, Position). However, morphine may increase mortality in acute heart failure (observational data). Reserve for severe anxiety/dyspnea only, and use with caution.</li>
+            <li><strong>Wet and Warm vs. Wet and Cold:</strong> "Wet and warm" (congested but adequate perfusion) - diurese aggressively. "Wet and cold" (congested AND hypoperfused) - need inotropes/vasopressors before aggressive diuresis or patient will crash.</li>
+            <li><strong>The BNP Gray Zone:</strong> BNP 100-400 is the "gray zone." Use clinical context: obese patients have lower BNP, renal failure causes higher BNP, AF causes higher BNP. Trend from baseline is often more useful than absolute value.</li>
+            <li><strong>Don't Forget the Echo:</strong> Bedside echo in the ED/ICU can rapidly differentiate cardiogenic (reduced EF, elevated E/e', valve pathology) from non-cardiogenic (normal LV function) pulmonary edema. This guides therapy immediately.</li>
+        </ul>
+    </div>
+    
+    <div class="two-column">
+        <div class="box">
+            <div class="box-title">⚠️ ESCALATE TO ICU IF:</div>
+            <ul>
+                <li>Requiring intubation or failing BiPAP</li>
+                <li>Hypotension (SBP <90) or cardiogenic shock</li>
+                <li>Need for IV vasoactive medications (pressors, inotropes, nitroprusside)</li>
+                <li>Acute coronary syndrome as precipitant</li>
+                <li>New/worsening acute valvular pathology</li>
+                <li>Refractory hypoxemia despite BiPAP</li>
+                <li>Hemodynamic instability or arrhythmias</li>
+                <li>Need for mechanical circulatory support</li>
+            </ul>
+        </div>
+        
+        <div class="box">
+            <div class="box-title">✓ DISCHARGE CRITERIA</div>
+            <ul>
+                <li>Symptoms resolved or returned to baseline</li>
+                <li>Off supplemental O2 or at baseline O2 requirement</li>
+                <li>Stable on oral diuretics with adequate urine output</li>
+                <li>Weight stable or decreasing (not gaining)</li>
+                <li>No IV vasoactive medications for >24 hours</li>
+                <li>Precipitant identified and addressed</li>
+                <li>Transitioned to oral heart failure medications</li>
+                <li>Cardiology follow-up within 7 days</li>
+                <li>Patient educated on daily weights, sodium restriction, medication adherence</li>
+                <li>Clear return precautions given</li>
+            </ul>
+        </div>
+    </div>
+    
+    <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+</div>
+
+<div id="viral-hepatitis" class="condition-page">
+    <div class="page-header">
+        <h2>121. VIRAL HEPATITIS (ACUTE)</h2>
+        <div class="subtitle">HAV • HBV • HCV • Acute Liver Failure Risk • Serologic Diagnosis</div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">CLINICAL PRESENTATION</div>
+        <div class="section-content">
+            <p><span class="label">Classic:</span> Prodrome of fatigue, malaise, anorexia, nausea, RUQ discomfort, followed by jaundice, dark urine (bilirubinuria), pale stools. May have low-grade fever. Many cases are anicteric (subclinical).</p>
+            <p><span class="label">By Virus Type:</span></p>
+            <ul>
+                <li><strong>Hepatitis A (HAV):</strong> Fecal-oral transmission, travel to endemic areas, contaminated food/water, MSM, IVDU. Acute onset, self-limited, no chronic state. Peak ALT often >1000</li>
+                <li><strong>Hepatitis B (HBV):</strong> Blood/body fluid exposure (sexual, perinatal, needlestick, IVDU). Incubation 6 weeks-6 months. May become chronic (90% if perinatal, 5% if adult-acquired)</li>
+                <li><strong>Hepatitis C (HCV):</strong> Blood exposure (IVDU most common, transfusion before 1992, needlestick). Often asymptomatic acutely. 75-85% become chronic</li>
+                <li><strong>Hepatitis D (HDV):</strong> Only with HBV co-infection (requires HBsAg). More severe disease</li>
+                <li><strong>Hepatitis E (HEV):</strong> Fecal-oral, endemic in developing countries. Self-limited except in pregnancy (high mortality) and immunocompromised (can become chronic)</li>
+            </ul>
+            <p><span class="label">Severity Spectrum:</span></p>
+            <ul>
+                <li><strong>Mild:</strong> Elevated transaminases, no jaundice, preserved synthetic function</li>
+                <li><strong>Moderate:</strong> Jaundice, symptoms, but normal INR and mental status</li>
+                <li><strong>Severe/Fulminant:</strong> Coagulopathy (INR >1.5), encephalopathy → acute liver failure (ALF)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">DIAGNOSTIC WORKUP</div>
+        <div class="section-content">
+            <p><span class="label">Initial Labs:</span> AST/ALT (often >10× ULN in acute viral), total/direct bilirubin, alkaline phosphatase, GGT, albumin, INR/PT, CBC</p>
+            <p><span class="label">Viral Serologies:</span></p>
+            <ul>
+                <li><strong>Hepatitis A:</strong> IgM anti-HAV (acute), IgG anti-HAV (past infection/immunity)</li>
+                <li><strong>Hepatitis B:</strong> HBsAg, anti-HBs, anti-HBc (IgM for acute, total for any exposure), HBeAg, anti-HBe, HBV DNA</li>
+                <li><strong>Hepatitis C:</strong> Anti-HCV (screen), HCV RNA (confirmatory, also for acute infection before antibody develops)</li>
+                <li><strong>Hepatitis D:</strong> Anti-HDV (only if HBsAg positive)</li>
+                <li><strong>Hepatitis E:</strong> IgM anti-HEV (if travel to endemic area, pregnant, immunocompromised)</li>
+            </ul>
+            <p><span class="label">HBV Serology Interpretation:</span></p>
+            <ul>
+                <li><strong>Acute HBV:</strong> HBsAg+, IgM anti-HBc+, anti-HBs-</li>
+                <li><strong>Chronic HBV:</strong> HBsAg+, IgM anti-HBc-, anti-HBs-</li>
+                <li><strong>Resolved HBV:</strong> HBsAg-, anti-HBc+, anti-HBs+</li>
+                <li><strong>Vaccinated:</strong> HBsAg-, anti-HBc-, anti-HBs+</li>
+                <li><strong>Isolated anti-HBc:</strong> Window period, resolved with waned anti-HBs, occult HBV, or false positive</li>
+            </ul>
+            <p><span class="label">Additional Studies:</span> RUQ ultrasound (rule out biliary obstruction), consider other causes of acute hepatitis (autoimmune hepatitis panel, Wilson's, drug-induced)</p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">MANAGEMENT</div>
+        <div class="section-content">
+            <p><span class="label">General Supportive Care (All Types):</span></p>
+            <ul>
+                <li><strong>Hydration:</strong> IV fluids if poor oral intake or vomiting</li>
+                <li><strong>Antiemetics:</strong> Ondansetron for nausea</li>
+                <li><strong>Avoid hepatotoxins:</strong> No alcohol, minimize acetaminophen, review all medications</li>
+                <li><strong>Avoid sedatives:</strong> Risk of encephalopathy if liver function declining</li>
+                <li><strong>Contact precautions:</strong> HAV and HEV (fecal-oral)</li>
+            </ul>
+            <p><span class="label">Hepatitis A:</span></p>
+            <ul>
+                <li>Supportive care only - self-limited</li>
+                <li>Post-exposure prophylaxis for close contacts: HAV vaccine (preferred if age 1-40) or IG (if <1 or >40, immunocompromised)</li>
+                <li>Rarely causes acute liver failure (<1%)</li>
+            </ul>
+            <p><span class="label">Hepatitis B (Acute):</span></p>
+            <ul>
+                <li>Most adults clear spontaneously (95%) - supportive care</li>
+                <li><strong>Antiviral therapy indicated if:</strong> Severe/protracted course, acute liver failure, immunocompromised</li>
+                <li><strong>Preferred antivirals:</strong> Tenofovir or entecavir</li>
+                <li>Post-exposure prophylaxis: HBIG + vaccine series if unvaccinated exposure</li>
+            </ul>
+            <p><span class="label">Hepatitis C (Acute):</span></p>
+            <ul>
+                <li>Spontaneous clearance in 15-25%</li>
+                <li>Consider antiviral therapy (direct-acting antivirals) in acute phase - may prevent chronicity</li>
+                <li>Consult hepatology - timing of treatment debated (some wait 12-16 weeks to see if spontaneous clearance)</li>
+            </ul>
+            <p><span class="label">Acute Liver Failure Management:</span></p>
+            <ul>
+                <li>Transfer to liver transplant center</li>
+                <li>Monitor for cerebral edema, coagulopathy, hypoglycemia, infection</li>
+                <li>N-acetylcysteine may benefit even in non-acetaminophen ALF (grade I-II encephalopathy)</li>
+                <li>Early transplant evaluation - King's College Criteria for prognosis</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="pearl-box">
+        <div class="pearl-title">🔑 TEACHING PEARLS</div>
+        <ul>
+            <li><strong>The "Hepatitis A Doesn't Kill" Myth:</strong> While rare (<1%), HAV CAN cause acute liver failure, especially in older adults and those with underlying liver disease. Mortality increases significantly with age. HAV superinfection in chronic HBV or HCV can be devastating - vaccinate these patients!</li>
+            <li><strong>IgM Anti-HBc is the Key to Acute HBV:</strong> During the "window period" of acute HBV, HBsAg may be negative (cleared) but anti-HBs hasn't appeared yet. IgM anti-HBc will be positive and is diagnostic. Don't miss acute HBV because you only checked HBsAg.</li>
+            <li><strong>Acute HCV is a Diagnosis of Exclusion... Sort Of:</strong> Anti-HCV takes 8-12 weeks to become positive. In acute HCV, you'll have HCV RNA positive with anti-HCV negative or newly positive (document seroconversion). Recent exposure history is key.</li>
+            <li><strong>AST/ALT >10,000 is Usually Ischemic, Not Viral:</strong> While viral hepatitis causes very high transaminases, levels >10,000 U/L are more suggestive of ischemic hepatitis (shock liver) or acetaminophen toxicity. Viral hepatitis typically peaks in the 1,000-3,000 range.</li>
+            <li><strong>Always Check INR, Not Just Transaminases:</strong> A patient with ALT 50 and INR 3.0 is sicker than a patient with ALT 5000 and INR 1.0. Synthetic function (INR, albumin) reflects true liver function. Transaminases just reflect hepatocyte injury.</li>
+            <li><strong>HBV Reactivation is a Real and Preventable Problem:</strong> Always screen for HBsAg and anti-HBc before immunosuppressive therapy (chemo, biologics, high-dose steroids). HBsAg+ or even isolated anti-HBc+ patients need antiviral prophylaxis to prevent potentially fatal reactivation.</li>
+            <li><strong>Hepatitis E in Pregnancy is an Emergency:</strong> HEV has 20-25% mortality in pregnant women (especially 3rd trimester). If pregnant patient presents with acute hepatitis and travel to endemic area, test for HEV and consult OB/hepatology immediately.</li>
+        </ul>
+    </div>
+    
+    <div class="two-column">
+        <div class="box">
+            <div class="box-title">⚠️ ESCALATE TO ICU IF:</div>
+            <ul>
+                <li>INR >1.5 (indicates severe hepatic dysfunction)</li>
+                <li>Any sign of hepatic encephalopathy (confusion, asterixis)</li>
+                <li>Hypoglycemia (liver unable to maintain glucose)</li>
+                <li>Acute kidney injury (hepatorenal physiology)</li>
+                <li>Hemodynamic instability</li>
+                <li>Need for frequent monitoring (q1-2h labs)</li>
+                <li>Consideration for liver transplant evaluation</li>
+            </ul>
+        </div>
+        
+        <div class="box">
+            <div class="box-title">✓ DISCHARGE CRITERIA</div>
+            <ul>
+                <li>Tolerating oral intake without significant nausea/vomiting</li>
+                <li>INR ≤1.5 and stable or improving</li>
+                <li>Bilirubin stable or downtrending (peak may take 1-2 weeks)</li>
+                <li>No hepatic encephalopathy</li>
+                <li>Transaminases downtrending (don't need to be normal)</li>
+                <li>Hepatology/GI follow-up arranged within 1-2 weeks</li>
+                <li>Patient educated on alcohol avoidance, hepatotoxic medication avoidance</li>
+                <li>Close contacts notified/prophylaxed if HAV or HBV</li>
+                <li>Return precautions: confusion, worsening jaundice, bleeding</li>
+            </ul>
+        </div>
+    </div>
+    
+    <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+</div>
+
+<div id="ischemic-hepatitis" class="condition-page">
+    <div class="page-header">
+        <h2>122. ISCHEMIC HEPATITIS (SHOCK LIVER)</h2>
+        <div class="subtitle">Hypoperfusion Injury • Massive Transaminase Elevation • Rapid Resolution</div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">CLINICAL PRESENTATION</div>
+        <div class="section-content">
+            <p><span class="label">Classic:</span> Dramatic transaminase elevation (often >10,000 U/L) occurring 24-72 hours after an episode of systemic hypoperfusion (cardiogenic shock, septic shock, cardiac arrest, severe hypoxemia). Patient is often critically ill with underlying cause.</p>
+            <p><span class="label">The Triad:</span></p>
+            <ul>
+                <li><strong>Underlying condition causing hypoperfusion:</strong> Heart failure, shock, cardiac arrest, respiratory failure, severe hypotension</li>
+                <li><strong>Dramatic transaminase elevation:</strong> AST/ALT often >20× ULN (frequently >5,000-10,000 U/L)</li>
+                <li><strong>Rapid improvement:</strong> Transaminases fall 50% within 24-72 hours once perfusion restored</li>
+            </ul>
+            <p><span class="label">Common Causes:</span></p>
+            <ul>
+                <li><strong>Cardiac:</strong> Acute heart failure, cardiogenic shock, cardiac arrest, acute MI, arrhythmias with hypotension</li>
+                <li><strong>Sepsis:</strong> Septic shock with hypotension</li>
+                <li><strong>Respiratory:</strong> Severe hypoxemia, pulmonary embolism, respiratory failure</li>
+                <li><strong>Hypovolemic:</strong> Hemorrhagic shock, severe dehydration</li>
+                <li><strong>Obstructive:</strong> Massive PE, cardiac tamponade</li>
+            </ul>
+            <p><span class="label">Key Differentiator:</span> Unlike viral hepatitis or drug-induced liver injury, ischemic hepatitis occurs in the setting of clear hemodynamic instability, and transaminases fall rapidly (often 50% decline in 24-48 hours) once perfusion is restored.</p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">DIAGNOSTIC WORKUP</div>
+        <div class="section-content">
+            <p><span class="label">Laboratory Pattern:</span></p>
+            <ul>
+                <li><strong>AST/ALT:</strong> Massively elevated, often >5,000-10,000 U/L (can exceed 20,000)</li>
+                <li><strong>AST > ALT:</strong> Typically AST predominates early (zone 3 hepatocyte injury)</li>
+                <li><strong>LDH:</strong> Markedly elevated (often >5,000 U/L) - released from ischemic hepatocytes</li>
+                <li><strong>Bilirubin:</strong> Mildly elevated initially, may rise as transaminases fall (delayed hepatic processing)</li>
+                <li><strong>INR:</strong> May be elevated if severe, but often preserved unless prolonged shock</li>
+                <li><strong>Lactate:</strong> Often elevated due to underlying shock</li>
+            </ul>
+            <p><span class="label">Timeline:</span></p>
+            <ul>
+                <li><strong>Peak transaminases:</strong> 24-72 hours after hypotensive event</li>
+                <li><strong>Peak bilirubin:</strong> 48-96 hours (lags behind transaminases)</li>
+                <li><strong>Resolution:</strong> Transaminases fall 50% within 24-72 hours if perfusion restored</li>
+            </ul>
+            <p><span class="label">Exclude Other Causes:</span></p>
+            <ul>
+                <li><strong>Acetaminophen toxicity:</strong> Check level, history</li>
+                <li><strong>Viral hepatitis:</strong> HAV IgM, HBsAg, IgM anti-HBc, HCV RNA</li>
+                <li><strong>Budd-Chiari syndrome:</strong> RUQ ultrasound with Doppler (hepatic vein thrombosis)</li>
+                <li><strong>Biliary obstruction:</strong> RUQ ultrasound</li>
+                <li><strong>Autoimmune hepatitis:</strong> ANA, ASMA, IgG levels (in appropriate clinical context)</li>
+            </ul>
+            <p><span class="label">Imaging:</span> RUQ ultrasound with Doppler to rule out Budd-Chiari syndrome and biliary obstruction</p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">MANAGEMENT</div>
+        <div class="section-content">
+            <p><span class="label">Primary Goal: Restore Hepatic Perfusion</span></p>
+            <ul>
+                <li><strong>Treat underlying cause:</strong> This is the definitive therapy</li>
+                <li><strong>Optimize cardiac output:</strong> Treat heart failure, arrhythmias</li>
+                <li><strong>Restore blood pressure:</strong> Vasopressors if shock (target MAP >65)</li>
+                <li><strong>Correct hypoxemia:</strong> Oxygen, mechanical ventilation if needed</li>
+                <li><strong>Volume resuscitation:</strong> If hypovolemic (caution if cardiogenic shock)</li>
+            </ul>
+            <p><span class="label">Supportive Care:</span></p>
+            <ul>
+                <li><strong>Avoid hepatotoxins:</strong> Hold unnecessary medications, avoid acetaminophen</li>
+                <li><strong>Monitor for complications:</strong> Hypoglycemia (check glucose q4-6h), coagulopathy (INR), encephalopathy</li>
+                <li><strong>Nutrition:</strong> Enteral nutrition when stable, avoid excessive protein restriction unless encephalopathy</li>
+                <li><strong>No specific liver-directed therapy:</strong> N-acetylcysteine not proven beneficial (unlike acetaminophen toxicity)</li>
+            </ul>
+            <p><span class="label">Monitoring:</span></p>
+            <ul>
+                <li>Daily LFTs initially - expect 50% reduction in transaminases within 24-72 hours</li>
+                <li>Monitor INR, glucose, mental status for hepatic dysfunction</li>
+                <li>If transaminases NOT falling as expected, reconsider diagnosis</li>
+            </ul>
+            <p><span class="label">Prognosis:</span></p>
+            <ul>
+                <li>Mortality primarily determined by underlying condition, not liver injury itself</li>
+                <li>If patient survives underlying illness, liver typically recovers completely</li>
+                <li>Persistent elevation beyond 7-14 days suggests ongoing injury or alternate diagnosis</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="pearl-box">
+        <div class="pearl-title">🔑 TEACHING PEARLS</div>
+        <ul>
+            <li><strong>The "Shock Liver" Misnomer:</strong> Ischemic hepatitis often occurs WITHOUT overt shock. Passive hepatic congestion (right heart failure) + transient hypotension can cause it. Look for JVD, hepatomegaly, and elevated CVP - even brief hypotension in a congested liver can cause massive injury.</li>
+            <li><strong>LDH is Your Friend:</strong> Markedly elevated LDH (often >5,000 U/L) with equally elevated AST/ALT strongly suggests ischemic hepatitis over viral or drug-induced. In viral hepatitis, LDH is only mildly elevated. LDH >AST is classic for ischemic hepatitis.</li>
+            <li><strong>The 50% Rule:</strong> If transaminases don't fall by ~50% within 48-72 hours of restoring perfusion, reconsider the diagnosis. Viral hepatitis has a more prolonged course. Ongoing shock/hypoperfusion will prevent improvement.</li>
+            <li><strong>Don't Chase the Transaminases:</strong> AST 15,000 sounds terrifying, but the absolute number is less important than the trend and synthetic function. A patient with ALT 15,000 and INR 1.1 who is clinically improving will likely be fine. A patient with ALT 500 and INR 4.0 may need transplant evaluation.</li>
+            <li><strong>Congestive Hepatopathy vs. Ischemic Hepatitis:</strong> Chronic right heart failure causes congestive hepatopathy (mild transaminase elevation, elevated bilirubin, elevated INR). Acute-on-chronic decompensation with hypotension can cause superimposed ischemic hepatitis (sudden spike in transaminases).</li>
+            <li><strong>The Bilirubin Lag:</strong> Don't be surprised when bilirubin rises as transaminases fall - this is expected. Damaged hepatocytes release transaminases immediately but take time to process bilirubin. Peak bilirubin occurs 48-96 hours after the event.</li>
+            <li><strong>Zone 3 Necrosis:</strong> The centrilobular hepatocytes (zone 3, around the central vein) are most susceptible to hypoxia because they receive blood AFTER zones 1 and 2 have extracted oxygen. This explains the pattern of injury in ischemic hepatitis and why AST often exceeds ALT early.</li>
+            <li><strong>Cardiac Arrest Pearl:</strong> After cardiac arrest with ROSC, expect transaminases to peak at 24-72 hours. This does NOT necessarily predict poor neurologic outcome. The liver usually recovers if the patient survives.</li>
+        </ul>
+    </div>
+    
+    <div class="two-column">
+        <div class="box">
+            <div class="box-title">⚠️ ESCALATE TO ICU IF:</div>
+            <ul>
+                <li>All patients with ischemic hepatitis require ICU-level care (underlying shock/instability)</li>
+                <li>Hemodynamic instability requiring vasopressors</li>
+                <li>Respiratory failure requiring mechanical ventilation</li>
+                <li>INR >2.0 (suggests severe hepatic dysfunction)</li>
+                <li>Hepatic encephalopathy</li>
+                <li>Hypoglycemia requiring dextrose infusion</li>
+                <li>Underlying cardiac arrest or cardiogenic shock</li>
+                <li>Multi-organ failure</li>
+            </ul>
+        </div>
+        
+        <div class="box">
+            <div class="box-title">✓ DISCHARGE CRITERIA</div>
+            <ul>
+                <li>Underlying cause treated and hemodynamically stable</li>
+                <li>Transaminases clearly downtrending (usually >50% from peak)</li>
+                <li>INR normal or stable/improving</li>
+                <li>No hepatic encephalopathy</li>
+                <li>Glucose stable without IV dextrose</li>
+                <li>Off vasopressors and mechanical ventilation</li>
+                <li>Able to tolerate oral medications and nutrition</li>
+                <li>Follow-up arranged (may need cardiology, hepatology depending on underlying cause)</li>
+                <li>Patient and family understand diagnosis and expected recovery</li>
+            </ul>
+        </div>
+    </div>
+    
+    <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+</div>
