@@ -83,7 +83,7 @@
     </div>
     <div class="header">
         <h1>🔬 Laboratory Values Clinical Reference</h1>
-        <p>100 Laboratory Tests | Tap conditions to view IMCRG details</p>
+        <p>134 Laboratory Tests | Tap conditions to view IMCRG details | <span style="color: #ff6b6b; font-weight: 600;">BUILD #1</span></p>
     </div>
 
     <div class="controls">
@@ -107,6 +107,8 @@
                 <button class="filter-btn" data-category="infectious">Infectious</button>
                 <button class="filter-btn" data-category="tumor">Tumor Markers</button>
                 <button class="filter-btn" data-category="drugs">Drug Levels</button>
+                <button class="filter-btn" data-category="autoimmune">Autoimmune</button>
+                <button class="filter-btn" data-category="toxicology">Toxicology</button>
                 <button class="filter-btn" data-category="misc">Misc</button>
             </div>
         </div>
@@ -121,7 +123,7 @@
     </div>
 
     <div class="toc-section">
-        <button class="toc-toggle" id="tocToggle"><span>📋 Table of Contents (100 Laboratory Tests)</span><span id="tocArrow">▼</span></button>
+        <button class="toc-toggle" id="tocToggle"><span>📋 Table of Contents (134 Laboratory Tests)</span><span id="tocArrow">▼</span></button>
         <div class="toc-content" id="tocContent"><div class="toc-grid" id="tocGrid"></div></div>
     </div>
 
@@ -429,7 +431,8 @@
             cardiac: "Cardiac", endocrine: "Endocrine", coagulation: "Coagulation",
             inflammatory: "Inflammatory", iron: "Iron Studies", lipids: "Lipids",
             abg: "ABG", bodyfluid: "Body Fluids", infectious: "Infectious",
-            tumor: "Tumor Markers", drugs: "Drug Levels", misc: "Misc"
+            tumor: "Tumor Markers", drugs: "Drug Levels", autoimmune: "Autoimmune",
+            toxicology: "Toxicology", misc: "Misc"
         };
         const labValues = [
             // ELECTROLYTES (1-14)
@@ -962,6 +965,183 @@
                 thresholds: { normal: "30-200 mg/dL", low: "<30", absent: "<10", elevated: ">200 (acute phase)" },
                 differential: ["<b>Low:</b> Intravascular hemolysis (binds free hemoglobin and is cleared)", "<b>Very low/absent:</b> Significant hemolysis, TTP, autoimmune hemolytic anemia, transfusion reaction, mechanical heart valve hemolysis", "<b>Elevated:</b> Acute inflammation (acute phase reactant)"],
                 management: ["Low haptoglobin + elevated LDH + indirect bilirubin = hemolysis", "Absent haptoglobin highly specific for hemolysis", "Check Coombs test (DAT) to distinguish autoimmune vs non-immune hemolysis", "Peripheral smear for schistocytes (mechanical hemolysis)", "Can be normal in extravascular hemolysis (splenic sequestration)"]
+            },
+            // ===== AUTOIMMUNE/RHEUMATOLOGIC =====
+            { id: 101, name: "ANA", subtitle: "Antinuclear Antibody", category: "autoimmune", direction: "high", severity: "moderate",
+                thresholds: { normal: "Negative or <1:40", mild: "1:40-1:80", moderate: "1:160-1:320", severe: "≥1:640", critical: "N/A" },
+                differential: ["SLE (high titers, homogeneous/rim pattern)", "Drug-induced lupus", "Scleroderma (nucleolar pattern)", "Sjögren syndrome (speckled)", "Mixed connective tissue disease", "Autoimmune hepatitis", "Rheumatoid arthritis", "Healthy individuals (low titers, especially elderly)"],
+                management: ["Positive ANA alone is not diagnostic—10-15% of healthy people are ANA+", "Titer matters: ≥1:160 more clinically significant", "Pattern guides further testing: Homogeneous→dsDNA, Speckled→ENA panel, Nucleolar→Scl-70", "Order reflex ENA panel if ANA ≥1:160", "Correlate with clinical findings (rash, arthritis, serositis, cytopenias)"]
+            },
+            { id: 102, name: "Anti-dsDNA", subtitle: "Double-Stranded DNA Antibody", category: "autoimmune", direction: "high", severity: "moderate",
+                thresholds: { normal: "<30 IU/mL", mild: "30-75", moderate: "76-200", severe: ">200", critical: "N/A" },
+                differential: ["SLE (highly specific, 70% sensitive)", "Lupus nephritis (correlates with activity)", "Drug-induced lupus (rare)"],
+                management: ["Highly specific for SLE (95-97%)", "Rising titers often precede flares by 4-8 weeks", "Correlates with disease activity, especially nephritis", "Monitor serially in known SLE patients", "Check complement (C3, C4) concurrently—both drop in active lupus"]
+            },
+            { id: 103, name: "ANCA", subtitle: "c-ANCA/PR3 and p-ANCA/MPO", category: "autoimmune", direction: "high", severity: "moderate",
+                thresholds: { normal: "Negative", mild: "Weakly positive", moderate: "Positive", severe: "Strongly positive", critical: "N/A" },
+                differential: ["c-ANCA/PR3: Granulomatosis with polyangiitis (GPA/Wegener's) 90%", "p-ANCA/MPO: Microscopic polyangiitis (MPA), Eosinophilic GPA (Churg-Strauss), Drug-induced vasculitis", "p-ANCA without MPO: IBD, autoimmune hepatitis, PSC"],
+                management: ["c-ANCA/PR3: Think upper/lower respiratory + renal (sinusitis, lung nodules, GN)", "p-ANCA/MPO: Think pulmonary-renal syndrome, pauci-immune GN", "Urgent workup if suspected vasculitis: UA, Cr, CXR, consider tissue biopsy", "Rising titers may predict relapse but don't treat titers alone", "Consult rheumatology for immunosuppression (rituximab, cyclophosphamide)"]
+            },
+            { id: 104, name: "Complement C3/C4", subtitle: "Low Complement", category: "autoimmune", direction: "low", severity: "moderate",
+                thresholds: { normal: "C3: 90-180 mg/dL, C4: 16-47 mg/dL", mild: "Mildly low", moderate: "Moderately low", severe: "Very low", critical: "Undetectable" },
+                differential: ["SLE (both low, especially with nephritis)", "Cryoglobulinemia (C4 very low)", "Membranoproliferative GN", "Infective endocarditis", "Serum sickness", "Hereditary angioedema (C4 low, C3 normal)", "Liver disease (decreased production)"],
+                management: ["Low C3 + C4 with high dsDNA = active SLE, especially nephritis", "C4 low alone: Think hereditary angioedema (check C1 esterase inhibitor)", "Track serially in SLE—rising complement suggests improving disease", "Combined with dsDNA for monitoring lupus activity", "Very low levels + fever: Consider endocarditis or cryoglobulinemia"]
+            },
+            { id: 105, name: "Rheumatoid Factor", subtitle: "RF", category: "autoimmune", direction: "high", severity: "moderate",
+                thresholds: { normal: "<14 IU/mL", mild: "14-39", moderate: "40-100", severe: ">100", critical: "N/A" },
+                differential: ["Rheumatoid arthritis (70-80% sensitive)", "Sjögren syndrome", "Cryoglobulinemia", "Infective endocarditis", "Hepatitis C", "Sarcoidosis", "Healthy elderly (up to 10-15%)"],
+                management: ["Present in 70-80% of RA but not specific—check anti-CCP for confirmation", "High titers associated with more aggressive RA, rheumatoid nodules, vasculitis", "Not useful for monitoring disease activity", "Can be positive years before clinical RA", "If RF+/anti-CCP-, consider other diagnoses"]
+            },
+            { id: 106, name: "Anti-CCP", subtitle: "Cyclic Citrullinated Peptide Ab", category: "autoimmune", direction: "high", severity: "moderate",
+                thresholds: { normal: "<20 U/mL", mild: "20-39", moderate: "40-59", severe: "≥60", critical: "N/A" },
+                differential: ["Rheumatoid arthritis (highly specific 95-98%)", "Pre-clinical RA (can precede symptoms by years)", "Rarely positive in other autoimmune diseases"],
+                management: ["More specific than RF for RA diagnosis (95-98%)", "Positive anti-CCP + RF = high probability of RA", "Predicts more erosive disease course", "Can be positive 10+ years before clinical symptoms", "If anti-CCP+ with joint symptoms, initiate DMARD therapy early"]
+            },
+            { id: 107, name: "Anti-Smith/RNP/SSA/SSB", subtitle: "Extractable Nuclear Antigens", category: "autoimmune", direction: "high", severity: "moderate",
+                thresholds: { normal: "Negative", mild: "Weakly positive", moderate: "Positive", severe: "Strongly positive", critical: "N/A" },
+                differential: ["Anti-Smith: SLE (highly specific, 30% sensitive)", "Anti-RNP: Mixed connective tissue disease (high titers), SLE, Scleroderma overlap", "Anti-SSA (Ro): Sjögren (70%), SLE (30%), Neonatal lupus/heart block, Subacute cutaneous lupus", "Anti-SSB (La): Sjögren (60%), SLE (15%)—almost always with SSA"],
+                management: ["Anti-Smith: Most specific for SLE but low sensitivity", "Anti-RNP high titer + swollen hands + Raynaud's = think MCTD", "Anti-SSA in pregnancy: Screen for fetal heart block (2% risk), monitor with fetal echo", "Anti-SSA+ photosensitive rash = consider subacute cutaneous lupus", "SSA without SSB more associated with systemic disease"]
+            },
+            // ===== HEMATOLOGY SPECIAL =====
+            { id: 108, name: "Direct Coombs (DAT)", subtitle: "Direct Antiglobulin Test", category: "cbc", direction: "high", severity: "moderate",
+                thresholds: { normal: "Negative", mild: "Weakly positive (1+)", moderate: "Positive (2+)", severe: "Strongly positive (3-4+)", critical: "N/A" },
+                differential: ["Autoimmune hemolytic anemia (warm IgG or cold IgM)", "Drug-induced hemolysis (PCN, cephalosporins, methyldopa)", "Transfusion reaction (acute or delayed)", "Hemolytic disease of newborn", "Post-HSCT", "Lymphoproliferative disorders (CLL)", "Infections (Mycoplasma, EBV—cold agglutinins)"],
+                management: ["DAT+ with hemolysis: Check LDH↑, haptoglobin↓, indirect bili↑, reticulocytes↑", "Warm AIHA (IgG): Steroids first-line, consider rituximab", "Cold AIHA (IgM/C3): Avoid cold exposure, rituximab (steroids less effective)", "DAT+ without hemolysis can be incidental—prevalence 1-15%", "Always check medication history for drug-induced causes"]
+            },
+            { id: 109, name: "Peripheral Smear", subtitle: "Manual Differential", category: "cbc", direction: "high", severity: "moderate",
+                thresholds: { normal: "Normal morphology", mild: "Minor abnormalities", moderate: "Significant abnormalities", severe: "Diagnostic findings", critical: "Blasts present" },
+                differential: ["Schistocytes: TTP/HUS, DIC, mechanical valve, HELLP", "Spherocytes: Hereditary spherocytosis, warm AIHA", "Target cells: Liver disease, thalassemia, hemoglobin C", "Tear drops: Myelofibrosis, marrow infiltration", "Rouleaux: Multiple myeloma, Waldenström's", "Blasts: Acute leukemia—EMERGENCY", "Hypersegmented neutrophils: B12/folate deficiency"],
+                management: ["Schistocytes + thrombocytopenia + AKI = TTP until proven otherwise—STAT heme consult", "Blasts on smear = possible acute leukemia—urgent heme/onc consult, avoid steroids until diagnosed", "Always correlate with CBC indices and clinical picture", "Request smear review if automated diff shows flags", "Howell-Jolly bodies = functional asplenia—needs pneumococcal vaccination"]
+            },
+            { id: 110, name: "ADAMTS13", subtitle: "TTP Workup", category: "cbc", direction: "low", severity: "critical",
+                thresholds: { normal: ">50%", mild: "30-50%", moderate: "10-29%", severe: "<10%", critical: "<5% (diagnostic of TTP)" },
+                differential: ["TTP: ADAMTS13 <10% (usually <5%) with inhibitor", "Congenital TTP (Upshaw-Schulman): ADAMTS13 <10% without inhibitor", "Secondary TMA (sepsis, malignancy, drugs, transplant): ADAMTS13 usually >10-20%", "HUS: ADAMTS13 normal (>50%)"],
+                management: ["ADAMTS13 <10% = TTP—START PLASMA EXCHANGE IMMEDIATELY, do not wait for result", "Classic pentad (rare): Thrombocytopenia, MAHA, AKI, fever, neuro changes", "PLASMIC score helps predict ADAMTS13 <10% while awaiting results", "Do NOT transfuse platelets in TTP—may worsen thrombosis", "Add steroids + rituximab to plasmapheresis for acquired TTP"]
+            },
+            { id: 111, name: "Cold Agglutinins", subtitle: "Cold AIHA Workup", category: "cbc", direction: "high", severity: "moderate",
+                thresholds: { normal: "<1:64 titer", mild: "1:64-1:256", moderate: "1:512-1:1024", severe: ">1:1024", critical: "N/A" },
+                differential: ["Primary cold agglutinin disease (lymphoproliferative)", "Secondary: Mycoplasma pneumoniae (transient), EBV/CMV (transient)", "Lymphoma, CLL, Waldenström's macroglobulinemia"],
+                management: ["Keep patient warm—avoid cold exposure", "Warm blood products before transfusion", "Steroids less effective than in warm AIHA", "Rituximab first-line for treatment-requiring disease", "Treat underlying infection if secondary (Mycoplasma, EBV)—usually resolves", "May cause spurious MCV elevation and low RBC count (agglutination in analyzer)"]
+            },
+            { id: 112, name: "SPEP/UPEP/Free Light Chains", subtitle: "Paraprotein Workup", category: "cbc", direction: "high", severity: "moderate",
+                thresholds: { normal: "No M-spike; FLC ratio 0.26-1.65", mild: "Small M-spike <1.5g/dL", moderate: "M-spike 1.5-3g/dL", severe: "M-spike >3g/dL", critical: "N/A" },
+                differential: ["MGUS (monoclonal gammopathy of undetermined significance)", "Multiple myeloma", "Waldenström's macroglobulinemia (IgM)", "AL amyloidosis (lambda > kappa)", "Smoldering myeloma", "Light chain deposition disease", "Lymphoma with paraprotein"],
+                management: ["SPEP detects M-spike, immunofixation confirms type (IgG/IgA/IgM, kappa/lambda)", "Free light chains: More sensitive for light chain only disease, AL amyloidosis", "Abnormal FLC ratio suggests clonal process even without M-spike", "MGUS: M-spike <3g/dL, <10% plasma cells, no end-organ damage (CRAB)", "CRAB criteria (myeloma): Calcium↑, Renal insufficiency, Anemia, Bone lesions"]
+            },
+            // ===== CHEMISTRY/GAPS =====
+            { id: 113, name: "Anion Gap", subtitle: "Metabolic Acidosis Workup", category: "electrolytes", direction: "high", severity: "moderate",
+                thresholds: { normal: "8-12 mEq/L (or 3-11 if K+ included)", mild: "13-16", moderate: "17-24", severe: "25-30", critical: ">30" },
+                differential: ["MUDPILES: Methanol, Uremia, DKA, Propylene glycol, INH/Iron, Lactic acidosis, Ethylene glycol, Salicylates", "D-lactic acidosis (short gut)", "Starvation ketosis", "Alcoholic ketoacidosis"],
+                management: ["Calculate: Na - (Cl + HCO3); normal 8-12", "Always calculate corrected AG for albumin: Add 2.5 for each 1g/dL albumin below 4", "AG >20 highly suggests organic acidosis", "Check lactate, ketones, renal function, tox screen", "Calculate osmolar gap if AG elevated and toxic alcohol suspected"]
+            },
+            { id: 114, name: "Osmolar Gap", subtitle: "Toxic Alcohol Workup", category: "electrolytes", direction: "high", severity: "severe",
+                thresholds: { normal: "<10 mOsm/kg", mild: "10-15", moderate: "15-25", severe: ">25", critical: ">50" },
+                differential: ["Toxic alcohols: Methanol, Ethylene glycol, Isopropyl alcohol, Propylene glycol", "Ethanol intoxication", "Severe hyperglycemia", "Mannitol administration", "Contrast dye", "Chronic kidney disease"],
+                management: ["Calculate: Measured osmolality - Calculated osmolality", "Calculated = 2(Na) + Glucose/18 + BUN/2.8 + EtOH/4.6", "Gap >10 with AG acidosis = methanol or ethylene glycol until proven otherwise", "Fomepizole (alcohol dehydrogenase inhibitor) if toxic alcohol suspected", "Hemodialysis for severe poisoning", "Isopropyl alcohol: High osmolar gap but NO AG (metabolizes to acetone)"]
+            },
+            { id: 115, name: "Delta-Delta Ratio", subtitle: "Gap-Gap Analysis", category: "electrolytes", direction: "high", severity: "moderate",
+                thresholds: { normal: "1-2", mild: "<1 (concurrent non-AG)", moderate: "1-2 (pure AG acidosis)", severe: ">2 (concurrent metabolic alkalosis)", critical: "N/A" },
+                differential: ["<1: AG acidosis + non-AG acidosis (diarrhea, RTA)", "1-2: Pure anion gap metabolic acidosis", ">2: AG acidosis + metabolic alkalosis (vomiting, diuretics)"],
+                management: ["Calculate: ΔAG/ΔHCO3 = (AG-12)/(24-HCO3)", "Helps identify mixed acid-base disorders", "Ratio <1: Concurrent non-AG acidosis lowering bicarb more than expected", "Ratio >2: Underlying metabolic alkalosis raising bicarb higher than expected", "Essential for interpreting complex acid-base cases (DKA with vomiting)"]
+            },
+            { id: 116, name: "Urine Osmolality", subtitle: "Concentrating Ability", category: "renal", direction: "high", severity: "moderate",
+                thresholds: { normal: "300-900 mOsm/kg (varies)", mild: "Variable interpretation", moderate: "Context-dependent", severe: "Context-dependent", critical: "N/A" },
+                differential: ["HIGH (>600): SIADH, volume depletion, CHF, cirrhosis (appropriate ADH)", "LOW (<300): Diabetes insipidus, psychogenic polydipsia, beer potomania", "EQUAL to plasma (~300): Renal failure, osmotic diuresis, early DI"],
+                management: ["Interpret with serum osmolality and clinical context", "Hyponatremia + high urine osm (>100): SIADH, hypothyroid, adrenal insufficiency", "Hyponatremia + low urine osm (<100): Primary polydipsia, beer potomania", "Hypernatremia + low urine osm: Diabetes insipidus (central vs nephrogenic)", "Water deprivation test distinguishes DI types if diagnosis unclear"]
+            },
+            // ===== ENDOCRINE =====
+            { id: 117, name: "Free T4/Free T3", subtitle: "Thyroid Function", category: "endocrine", direction: "high", severity: "moderate",
+                thresholds: { normal: "FT4: 0.8-1.8 ng/dL, FT3: 2.3-4.2 pg/mL", mild: "Slightly abnormal", moderate: "Moderately abnormal", severe: "Markedly abnormal", critical: "N/A" },
+                differential: ["HIGH: Graves disease, Toxic nodule/MNG, Thyroiditis, Exogenous thyroid hormone, Struma ovarii, TSH-secreting pituitary adenoma", "LOW: Primary hypothyroidism, Central hypothyroidism, Sick euthyroid syndrome, Drugs (amiodarone, lithium)"],
+                management: ["Always interpret with TSH—primary vs central dysfunction", "Low TSH + High FT4/FT3 = hyperthyroidism", "High TSH + Low FT4 = primary hypothyroidism", "Low TSH + Low FT4 = central hypothyroidism or sick euthyroid", "T3 useful for T3-toxicosis (normal T4, elevated T3, suppressed TSH)"]
+            },
+            { id: 118, name: "ACTH", subtitle: "Adrenal Axis", category: "endocrine", direction: "high", severity: "moderate",
+                thresholds: { normal: "10-60 pg/mL (AM)", mild: "Variable", moderate: "Variable", severe: "Variable", critical: "N/A" },
+                differential: ["HIGH ACTH + high cortisol: Cushing disease (pituitary), Ectopic ACTH (lung cancer)", "HIGH ACTH + low cortisol: Primary adrenal insufficiency (Addison's)", "LOW ACTH + high cortisol: Adrenal adenoma/carcinoma, Exogenous steroids", "LOW ACTH + low cortisol: Secondary adrenal insufficiency, Steroid withdrawal"],
+                management: ["Must interpret with cortisol and clinical context", "Draw AM cortisol + ACTH together (diurnal variation)", "Cosyntropin stim test if adrenal insufficiency suspected", "High-dose dexamethasone suppression distinguishes pituitary vs ectopic ACTH", "Stress dosing: If AI suspected, give stress-dose steroids, don't wait for results"]
+            },
+            { id: 119, name: "Prolactin", subtitle: "Hyperprolactinemia", category: "endocrine", direction: "high", severity: "moderate",
+                thresholds: { normal: "<20-25 ng/mL", mild: "25-50", moderate: "50-100", severe: "100-200", critical: ">200 (likely macroadenoma)" },
+                differential: ["Prolactinoma (level correlates with tumor size)", "Stalk effect (any sellar mass compressing stalk)", "Medications (antipsychotics, metoclopramide, SSRIs)", "Primary hypothyroidism", "Pregnancy/lactation", "Chest wall irritation", "Renal failure"],
+                management: ["Level >200 ng/mL highly suggestive of prolactinoma (not stalk effect)", "Level 25-100: Consider medications, hypothyroidism, stalk effect", "MRI pituitary if no clear cause", "Dopamine agonists (cabergoline) first-line for prolactinoma—even large tumors", "Hook effect: Very high prolactin may read falsely normal—request dilution"]
+            },
+            { id: 120, name: "IGF-1", subtitle: "Growth Hormone Axis", category: "endocrine", direction: "high", severity: "moderate",
+                thresholds: { normal: "Age-dependent", mild: "Mildly elevated", moderate: "Moderately elevated", severe: "Markedly elevated", critical: "N/A" },
+                differential: ["HIGH: Acromegaly, GH-secreting pituitary adenoma, Ectopic GHRH", "LOW: GH deficiency (children—growth failure; adults—metabolic syndrome), Malnutrition, Liver disease, Poorly controlled diabetes"],
+                management: ["Better marker than random GH (GH is pulsatile)", "If elevated, confirm with oral glucose tolerance test (GH should suppress <1)", "Age-matched reference ranges essential", "Acromegaly features: Enlarged hands/feet, coarse facies, OSA, carpal tunnel, DM, HTN", "MRI pituitary if acromegaly suspected"]
+            },
+            { id: 121, name: "FSH/LH/Testosterone/Estradiol", subtitle: "Gonadal Axis", category: "endocrine", direction: "high", severity: "moderate",
+                thresholds: { normal: "Age/sex/menstrual cycle dependent", mild: "Mildly abnormal", moderate: "Moderately abnormal", severe: "Markedly abnormal", critical: "N/A" },
+                differential: ["High FSH/LH + Low sex hormones: Primary gonadal failure (menopause, Klinefelter, Turner)", "Low FSH/LH + Low sex hormones: Hypogonadotropic hypogonadism (pituitary/hypothalamic)", "High testosterone (women): PCOS, Adrenal tumor, Ovarian tumor", "Low testosterone (men): Primary vs secondary hypogonadism"],
+                management: ["Check AM testosterone in men (diurnal variation)", "Low testosterone: Check LH/FSH to distinguish primary vs secondary", "Women: Interpret with menstrual cycle phase", "PCOS: Elevated LH:FSH ratio (>2:1), elevated androgens, anovulation", "Evaluate pituitary if secondary hypogonadism suspected"]
+            },
+            // ===== INFECTIOUS =====
+            { id: 122, name: "QuantiFERON/TB Gold", subtitle: "IGRA for TB", category: "infectious", direction: "high", severity: "moderate",
+                thresholds: { normal: "Negative", mild: "Borderline/indeterminate", moderate: "Positive", severe: "Positive", critical: "N/A" },
+                differential: ["Latent TB infection", "Active TB (cannot distinguish from latent)", "False positive rare", "Indeterminate: Immunocompromise, improper handling, young children"],
+                management: ["Positive = TB exposure, cannot distinguish latent vs active", "CXR required to rule out active disease if positive", "No booster phenomenon (unlike PPD)", "Preferred over PPD in BCG-vaccinated patients", "Latent TB treatment: 4R (rifampin 4 months) or 3HP (isoniazid + rifapentine 12 doses) or 9H"]
+            },
+            { id: 123, name: "Beta-D-Glucan", subtitle: "Fungal Infection Marker", category: "infectious", direction: "high", severity: "moderate",
+                thresholds: { normal: "<60 pg/mL", mild: "60-79", moderate: "80-200", severe: ">200", critical: "N/A" },
+                differential: ["Positive: Candida, Aspergillus, Pneumocystis jirovecii (PJP)", "NOT elevated: Mucor/Rhizopus, Cryptococcus, Blastomyces", "False positive: Hemodialysis (cellulose membranes), IVIG, Albumin, Gauze packing, Amoxicillin-clavulanate"],
+                management: ["Good negative predictive value for invasive fungal infection", "Elevated in PJP—useful adjunct to diagnosis in HIV/immunocompromised", "Serial monitoring can track response to antifungal therapy", "Not useful for Mucor—if suspected, need tissue diagnosis", "Consider in neutropenic fever not responding to antibiotics"]
+            },
+            { id: 124, name: "Galactomannan", subtitle: "Aspergillus Marker", category: "infectious", direction: "high", severity: "moderate",
+                thresholds: { normal: "<0.5 index", mild: "0.5-0.99", moderate: "1.0-1.99", severe: "≥2.0", critical: "N/A" },
+                differential: ["Invasive aspergillosis", "False positive: Piperacillin-tazobactam, Amoxicillin-clavulanate, Mucorales cross-reaction, Some foods"],
+                management: ["More specific for Aspergillus than beta-D-glucan", "Serum GM less sensitive than BAL GM", "BAL galactomannan ≥1.0 highly suggestive of invasive pulmonary aspergillosis", "Check in high-risk patients: Prolonged neutropenia, HSCT, solid organ transplant", "Serial monitoring can track treatment response"]
+            },
+            { id: 125, name: "CMV/EBV Viral Loads", subtitle: "PCR Monitoring", category: "infectious", direction: "high", severity: "moderate",
+                thresholds: { normal: "Not detected", mild: "<1000 IU/mL", moderate: "1000-10000 IU/mL", severe: ">10000 IU/mL", critical: ">100000 IU/mL" },
+                differential: ["CMV: Reactivation in transplant/immunocompromised, CMV disease (colitis, pneumonitis, retinitis)", "EBV: PTLD in transplant, Infectious mononucleosis, EBV-associated malignancies"],
+                management: ["CMV: Trend viral loads weekly in high-risk transplant patients", "CMV reactivation vs disease: Viremia alone ≠ disease, need end-organ involvement", "Preemptive therapy: Treat rising CMV viral load before symptoms in transplant", "EBV: Rising EBV viral load in transplant = PTLD concern, consider reducing immunosuppression", "Valganciclovir for CMV; Reduce immunosuppression ± rituximab for PTLD"]
+            },
+            // ===== TOXICOLOGY =====
+            { id: 126, name: "Acetaminophen Level", subtitle: "APAP Toxicity", category: "toxicology", direction: "high", severity: "critical",
+                thresholds: { normal: "10-20 mcg/mL (therapeutic)", mild: "Below treatment line", moderate: "Near treatment line", severe: "Above treatment line", critical: "Above treatment line at 4h" },
+                differential: ["Intentional overdose", "Unintentional (chronic supratherapeutic ingestion)", "Combination products (Vicodin, Percocet, Nyquil)"],
+                management: ["Rumack-Matthew nomogram: Plot level vs time since ingestion (single acute ingestion only)", "4-hour level ≥150 mcg/mL or above treatment line = NAC indicated", "NAC most effective within 8 hours but give up to 24h or later if hepatotoxicity", "Check AST, ALT, INR, creatinine—hepatotoxicity peaks 72-96 hours", "Chronic ingestion: Nomogram not applicable, treat if any hepatotoxicity + detectable APAP"]
+            },
+            { id: 127, name: "Salicylate Level", subtitle: "Aspirin Toxicity", category: "toxicology", direction: "high", severity: "critical",
+                thresholds: { normal: "15-30 mg/dL (therapeutic)", mild: "30-50 mg/dL", moderate: "50-70 mg/dL", severe: "70-100 mg/dL", critical: ">100 mg/dL" },
+                differential: ["Intentional overdose", "Chronic toxicity (elderly, renal impairment)", "Oil of wintergreen ingestion"],
+                management: ["Mixed respiratory alkalosis + metabolic acidosis classic", "Early: Tachypnea, tinnitus, nausea. Late: Altered mental status, hyperthermia, pulmonary edema", "Treatment: Alkalinize urine (bicarb drip to maintain urine pH 7.5-8), IVF", "Hemodialysis if: Level >90-100, renal failure, pulmonary edema, AMS, acidemia despite treatment", "Serial levels q2-4h—may rise with enteric-coated or bezoar formation"]
+            },
+            { id: 128, name: "Ethanol Level", subtitle: "Alcohol Intoxication", category: "toxicology", direction: "high", severity: "moderate",
+                thresholds: { normal: "0 mg/dL", mild: "50-100 mg/dL", moderate: "100-200 mg/dL", severe: "200-300 mg/dL", critical: ">300-400 mg/dL" },
+                differential: ["Acute intoxication", "Chronic alcoholism (may tolerate higher levels)", "Consider other toxic alcohols if high osmolar gap but low/absent ethanol"],
+                management: ["Legal limit 80 mg/dL (0.08%) in most states", "Chronic drinkers may appear less impaired at higher levels", "Calculate contribution to osmolar gap: Osm contribution = EtOH (mg/dL) / 4.6", "If altered with low ethanol, search for other causes (toxic alcohols, head trauma, infection)", "Supportive care; thiamine before glucose to prevent Wernicke's"]
+            },
+            { id: 129, name: "Toxic Alcohol Panel", subtitle: "Methanol/Ethylene Glycol", category: "toxicology", direction: "high", severity: "critical",
+                thresholds: { normal: "Not detected", mild: "<20 mg/dL", moderate: "20-50 mg/dL", severe: ">50 mg/dL", critical: "Any level with acidosis/symptoms" },
+                differential: ["Methanol: Windshield washer fluid, antifreeze, moonshine. Metabolite (formic acid) causes blindness", "Ethylene glycol: Antifreeze (sweet taste). Metabolites cause AKI, calcium oxalate crystals", "Isopropyl alcohol: Rubbing alcohol. Causes osmolar gap but NO acidosis (acetone metabolite)"],
+                management: ["High osmolar gap + AG metabolic acidosis = toxic alcohol until proven otherwise", "Fomepizole (preferred) or ethanol infusion blocks alcohol dehydrogenase", "Hemodialysis if: Severe acidosis, renal failure, visual changes (methanol), level >50", "Methanol: Add folic acid (enhances formate metabolism)", "Ethylene glycol: Add pyridoxine and thiamine"]
+            },
+            // ===== OTHER =====
+            { id: 130, name: "Vitamin B12", subtitle: "Cobalamin", category: "misc", direction: "low", severity: "moderate",
+                thresholds: { normal: "200-900 pg/mL", mild: "150-200", moderate: "100-149", severe: "<100", critical: "N/A" },
+                differential: ["Pernicious anemia (anti-IF, anti-parietal cell antibodies)", "Vegan/vegetarian diet", "Gastrectomy, ileal resection", "Metformin use", "Crohn's disease", "Chronic PPI use", "Fish tapeworm (Diphyllobothrium)"],
+                management: ["If borderline (200-400), check methylmalonic acid (MMA)—elevated confirms B12 deficiency", "Neurologic symptoms: Subacute combined degeneration, peripheral neuropathy, cognitive changes", "Severe deficiency: IM cyanocobalamin 1000mcg daily × 7 days, then weekly × 4, then monthly", "Oral B12 1000-2000mcg daily can be effective even in pernicious anemia (1% passive absorption)", "Check folate concurrently—folate alone can mask B12 deficiency and worsen neuro damage"]
+            },
+            { id: 131, name: "Folate", subtitle: "Folic Acid", category: "misc", direction: "low", severity: "moderate",
+                thresholds: { normal: ">3 ng/mL (serum), >280 ng/mL RBC", mild: "2-3 ng/mL", moderate: "1-2 ng/mL", severe: "<1 ng/mL", critical: "N/A" },
+                differential: ["Poor dietary intake (alcoholism, elderly)", "Increased requirements (pregnancy, hemolysis)", "Malabsorption (celiac, tropical sprue)", "Medications (methotrexate, trimethoprim, phenytoin)"],
+                management: ["RBC folate more accurate than serum (reflects stores over 120 days)", "Causes megaloblastic anemia identical to B12 deficiency", "ALWAYS check B12 before treating folate—folate repletes anemia but worsens B12 neuro damage", "Supplement: Folic acid 1-5mg PO daily", "Pregnancy: 400mcg daily prevents neural tube defects; 4mg if prior NTD"]
+            },
+            { id: 132, name: "Methylmalonic Acid/Homocysteine", subtitle: "B12/Folate Confirmation", category: "misc", direction: "high", severity: "moderate",
+                thresholds: { normal: "MMA <0.4 µmol/L, Homocysteine <15 µmol/L", mild: "MMA 0.4-0.7", moderate: "MMA 0.7-1.0", severe: "MMA >1.0", critical: "N/A" },
+                differential: ["Elevated MMA + elevated homocysteine: B12 deficiency", "Normal MMA + elevated homocysteine: Folate deficiency (or B6 deficiency)", "Elevated MMA alone: Renal insufficiency (can cause false elevation)"],
+                management: ["MMA more specific for B12 deficiency than serum B12 alone", "Useful when B12 is borderline (200-400 pg/mL)", "Homocysteine elevated in both B12 and folate deficiency", "MMA >1.0 µmol/L highly suggests B12 deficiency even with normal serum B12", "Correct for renal function—MMA can be mildly elevated in CKD"]
+            },
+            { id: 133, name: "NT-proBNP (Expanded)", subtitle: "Age-Adjusted Heart Failure", category: "cardiac", direction: "high", severity: "moderate",
+                thresholds: { normal: "Age <50: <300, Age 50-75: <900, Age >75: <1800 pg/mL", mild: "Elevated above age cutoff", moderate: "2-3x age cutoff", severe: ">5x age cutoff", critical: ">10x age cutoff" },
+                differential: ["Heart failure (systolic or diastolic)", "ACS", "Pulmonary embolism", "Atrial fibrillation", "Renal failure (reduced clearance)", "Sepsis", "Pulmonary hypertension"],
+                management: ["Rule-out cutoff <300 pg/mL regardless of age (high NPV)", "Age-adjusted rule-in: <50y: >450, 50-75y: >900, >75y: >1800", "Obesity: BNP/NT-proBNP may be lower than expected", "Renal failure: Levels chronically elevated, trend more useful than absolute", "Grey zone: Clinical judgment, trending, and echo important"]
+            },
+            { id: 134, name: "Beta-hCG", subtitle: "Pregnancy/GTD/Tumor Marker", category: "misc", direction: "high", severity: "moderate",
+                thresholds: { normal: "<5 mIU/mL (non-pregnant)", mild: "5-25 (early pregnancy or tumor)", moderate: "Varies by gestational age", severe: "Very high for dates (molar, multiple)", critical: "N/A" },
+                differential: ["Intrauterine pregnancy", "Ectopic pregnancy", "Molar pregnancy (very high levels)", "Choriocarcinoma", "Germ cell tumors (ovarian, testicular)", "False positive (heterophilic antibodies, pituitary hCG in menopause)"],
+                management: ["Doubles every 48-72h in normal early pregnancy", "Discriminatory zone: hCG 1500-2000 = should see IUP on transvaginal US", "If hCG above discriminatory zone + no IUP = ectopic until proven otherwise", "Very high levels (>100,000): Consider molar pregnancy or choriocarcinoma", "Men with elevated hCG: Testicular germ cell tumor"]
             }
         ];
 
