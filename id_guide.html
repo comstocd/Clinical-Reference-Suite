@@ -122,6 +122,7 @@
     <li><a href="#homepage">Home — ID Approach</a></li>
     <li><a href="#empiric-therapy">Empiric Therapy</a></li>
     <li><a href="#anatomic-infections">Infections by Site</a></li>
+    <li><a href="#high-yield-syndromes">High-Yield Syndromes</a></li>
     <li><a href="#sepsis">Sepsis</a></li>
     <li><a href="#pathogen-guidance">Pathogen Guidance</a></li>
     <li><a href="#pathogen-overview">Pathogen Overview</a></li>
@@ -139,7 +140,7 @@
 
 <header role="banner">
   <img src="mutant-icon.png" alt="logo" onerror="this.style.display='none'">
-  <h1>Antibiotic & Infection Guide</h1>
+  <h1>Antibiotic & Infection Guide <span style="font-size: 0.6em; color: #ff6b6b; font-weight: 600;">BUILD #1</span></h1>
   <div class="search">
     <input id="globalSearch" type="text" placeholder="Search everything — pathogen, drug, syndrome..." />
   </div>
@@ -273,6 +274,338 @@
     <ul>
       <li>Osteomyelitis: Empiric vancomycin ± ceftriaxone pending cultures; 4–6+ weeks therapy guided by ID.</li>
       <li>Septic arthritis: Drainage + empiric vancomycin ± GN coverage; 2–4 weeks therapy.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- HIGH-YIELD SYNDROMES -->
+<section id="high-yield-syndromes">
+  <h2>High-Yield Syndromes</h2>
+  <p class="muted">Detailed management for common hospitalist infectious disease scenarios.</p>
+
+  <button class="collapsible">Infective Endocarditis</button>
+  <div class="panel">
+    <h4>Modified Duke Criteria (2023 ESC Update)</h4>
+    <p><strong>Definite IE:</strong> 2 major, OR 1 major + 3 minor, OR 5 minor criteria</p>
+    <p><strong>Major Criteria:</strong></p>
+    <ul>
+      <li><strong>Blood cultures:</strong> Typical organisms (S. aureus, viridans strep, S. gallolyticus, HACEK, Enterococcus) from 2 separate cultures; OR persistently positive cultures 12h apart; OR ≥3 positive cultures over >1h</li>
+      <li><strong>Imaging:</strong> Vegetation, abscess, pseudoaneurysm, dehiscence, or new valve regurgitation on echo; OR abnormal activity on 18F-FDG PET/CT (prosthetic) or cardiac CT showing abscess/pseudoaneurysm</li>
+    </ul>
+    <p><strong>Minor Criteria:</strong></p>
+    <ul>
+      <li>Predisposition (IVDU, prosthetic valve, prior IE, structural heart disease)</li>
+      <li>Fever ≥38°C</li>
+      <li>Vascular phenomena (emboli, mycotic aneurysm, Janeway lesions, conjunctival hemorrhage)</li>
+      <li>Immunologic phenomena (Osler nodes, Roth spots, glomerulonephritis, positive RF)</li>
+      <li>Microbiologic evidence not meeting major criteria</li>
+    </ul>
+
+    <h4>Empiric Therapy (Before Culture Results)</h4>
+    <table>
+      <tr><th>Scenario</th><th>Regimen</th><th>Notes</th></tr>
+      <tr><td>Native valve, community-acquired</td><td>Vancomycin + Ceftriaxone</td><td>Covers MSSA, MRSA, strep, enterococcus</td></tr>
+      <tr><td>Native valve, IVDU</td><td>Vancomycin + Ceftriaxone</td><td>High MRSA prevalence; add gentamicin if critically ill</td></tr>
+      <tr><td>Prosthetic valve (early <1yr)</td><td>Vancomycin + Gentamicin + Rifampin + Cefepime</td><td>Cover staph, GNR, enterococcus</td></tr>
+      <tr><td>Prosthetic valve (late >1yr)</td><td>Vancomycin + Ceftriaxone</td><td>Similar to native valve</td></tr>
+    </table>
+
+    <h4>Duration by Organism & Valve</h4>
+    <table>
+      <tr><th>Organism</th><th>Native Valve</th><th>Prosthetic Valve</th></tr>
+      <tr><td>Streptococci (MIC ≤0.12)</td><td>4 weeks (2 wks if + gent)</td><td>6 weeks</td></tr>
+      <tr><td>Enterococcus</td><td>4-6 weeks (+ gent synergy)</td><td>6 weeks minimum</td></tr>
+      <tr><td>Staphylococcus (MSSA)</td><td>6 weeks</td><td>≥6 weeks + rifampin + gent × 2wks</td></tr>
+      <tr><td>Staphylococcus (MRSA)</td><td>6 weeks vanc</td><td>≥6 weeks + rifampin + gent × 2wks</td></tr>
+      <tr><td>HACEK</td><td>4 weeks</td><td>6 weeks</td></tr>
+    </table>
+
+    <h4>Surgical Indications</h4>
+    <ul>
+      <li><strong>Emergent (within 24h):</strong> Refractory pulmonary edema, cardiogenic shock from severe AI/MR</li>
+      <li><strong>Urgent (within days):</strong> Uncontrolled infection despite abx, abscess, enlarging vegetation, persistent bacteremia >7d, fungal IE</li>
+      <li><strong>Elective:</strong> Large vegetation >10mm with embolic event, severe valve dysfunction once stabilized</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Bacterial Meningitis</button>
+  <div class="panel">
+    <h4>Empiric Therapy by Age/Risk</h4>
+    <table>
+      <tr><th>Population</th><th>Likely Pathogens</th><th>Empiric Regimen</th></tr>
+      <tr><td>Adults 18-50</td><td>S. pneumoniae, N. meningitidis</td><td>Ceftriaxone 2g IV q12h + Vancomycin 15-20mg/kg IV q8-12h</td></tr>
+      <tr><td>Adults >50 or immunocompromised</td><td>+ Listeria monocytogenes</td><td>Above + Ampicillin 2g IV q4h</td></tr>
+      <tr><td>Neurosurgery/head trauma/CSF shunt</td><td>S. aureus, GNR, Pseudomonas</td><td>Vancomycin + Cefepime 2g IV q8h (or Meropenem)</td></tr>
+    </table>
+
+    <h4>Dexamethasone</h4>
+    <ul>
+      <li><strong>Indication:</strong> Give BEFORE or WITH first antibiotic dose if bacterial meningitis suspected</li>
+      <li><strong>Dose:</strong> Dexamethasone 0.15 mg/kg IV q6h × 4 days</li>
+      <li><strong>Benefit:</strong> Reduces mortality and hearing loss in pneumococcal meningitis; less clear for other organisms</li>
+      <li><strong>Discontinue if:</strong> CSF gram stain/culture shows non-pneumococcal organism (some experts continue regardless)</li>
+    </ul>
+
+    <h4>CSF Interpretation</h4>
+    <table>
+      <tr><th>Parameter</th><th>Bacterial</th><th>Viral</th><th>TB/Fungal</th></tr>
+      <tr><td>WBC</td><td>>1000 (often >5000)</td><td>10-500</td><td>50-500</td></tr>
+      <tr><td>Differential</td><td>>80% PMN</td><td>Lymphocyte predominant</td><td>Lymphocyte predominant</td></tr>
+      <tr><td>Glucose</td><td><40 mg/dL (or CSF:serum <0.4)</td><td>Normal</td><td>Low</td></tr>
+      <tr><td>Protein</td><td>>200 mg/dL</td><td>50-100</td><td>100-500</td></tr>
+      <tr><td>Opening pressure</td><td>Elevated (>20 cmH2O)</td><td>Normal/mild ↑</td><td>Often elevated</td></tr>
+    </table>
+    <p><strong>Pearl:</strong> Early bacterial meningitis or partially treated may show lymphocyte predominance. Repeat LP in 12-24h if uncertain.</p>
+  </div>
+
+  <button class="collapsible">Necrotizing Fasciitis</button>
+  <div class="panel">
+    <h4>Key Principles</h4>
+    <ul>
+      <li><strong>SURGICAL EMERGENCY:</strong> Mortality increases 7-9% for every hour of delay in debridement</li>
+      <li><strong>Types:</strong> Type I (polymicrobial, diabetics/elderly), Type II (Group A Strep or S. aureus monomicrobial)</li>
+      <li><strong>Clinical clues:</strong> Pain out of proportion, rapid progression, crepitus, bullae, skin necrosis, systemic toxicity</li>
+    </ul>
+
+    <h4>LRINEC Score (Laboratory Risk Indicator for Necrotizing Fasciitis)</h4>
+    <table>
+      <tr><th>Variable</th><th>Value</th><th>Points</th></tr>
+      <tr><td>CRP</td><td>≥150 mg/L</td><td>4</td></tr>
+      <tr><td>WBC</td><td>15-25</td><td>1</td></tr>
+      <tr><td>WBC</td><td>>25</td><td>2</td></tr>
+      <tr><td>Hemoglobin</td><td>11-13.5 g/dL</td><td>1</td></tr>
+      <tr><td>Hemoglobin</td><td><11 g/dL</td><td>2</td></tr>
+      <tr><td>Sodium</td><td><135 mEq/L</td><td>2</td></tr>
+      <tr><td>Creatinine</td><td>>1.6 mg/dL</td><td>2</td></tr>
+      <tr><td>Glucose</td><td>>180 mg/dL</td><td>1</td></tr>
+    </table>
+    <p><strong>Interpretation:</strong> ≥6 = high suspicion (PPV 92%); ≥8 = strongly predictive. But <strong>do NOT use to rule out</strong>—low score doesn't exclude nec fasc!</p>
+
+    <h4>Empiric Therapy</h4>
+    <ul>
+      <li><strong>Broad-spectrum:</strong> Vancomycin + Piperacillin-tazobactam (or Meropenem) + Clindamycin</li>
+      <li><strong>Clindamycin rationale:</strong> Inhibits toxin production (Eagle effect—severe GAS may not respond to beta-lactams alone in high inoculum)</li>
+      <li><strong>Duration:</strong> Continue until debridements complete, clinically stable, cultures guide de-escalation</li>
+    </ul>
+
+    <h4>Surgical Principles</h4>
+    <ul>
+      <li>OR within 12-24 hours of presentation (ideally within 6h)</li>
+      <li>Finger test: If tissue planes dissect easily with blunt finger, confirms diagnosis</li>
+      <li>Repeat debridement every 24-48h until clean margins</li>
+      <li>Consider IVIG for streptococcal toxic shock (2g/kg single dose)</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Diabetic Foot Infections</button>
+  <div class="panel">
+    <h4>IDSA/IWGDF Classification</h4>
+    <table>
+      <tr><th>Grade</th><th>Clinical Features</th><th>Management</th></tr>
+      <tr><td><strong>1 - Uninfected</strong></td><td>Wound without signs of infection</td><td>Wound care, offloading</td></tr>
+      <tr><td><strong>2 - Mild</strong></td><td>Local infection, erythema ≤2cm from wound, limited to skin/subQ</td><td>Oral abx, outpatient (1-2 weeks)</td></tr>
+      <tr><td><strong>3 - Moderate</strong></td><td>Erythema >2cm, or deeper than skin/subQ (abscess, fascia, muscle, bone, joint)</td><td>IV abx, hospitalize, surgical eval (2-4 weeks)</td></tr>
+      <tr><td><strong>4 - Severe</strong></td><td>Local infection + SIRS (fever, HR >90, RR >20, WBC >12k or <4k)</td><td>IV abx, hospitalize, urgent surgery (2-4 weeks)</td></tr>
+    </table>
+
+    <h4>Microbiology</h4>
+    <ul>
+      <li><strong>Acute, mild:</strong> Often gram-positive (S. aureus, Strep)</li>
+      <li><strong>Chronic, severe, prior abx:</strong> Polymicrobial—add GNR, Pseudomonas, anaerobes</li>
+      <li><strong>Always culture:</strong> Deep tissue or bone, not superficial swab</li>
+    </ul>
+
+    <h4>Empiric Antibiotic Selection</h4>
+    <table>
+      <tr><th>Severity</th><th>No MRSA/Pseudomonas Risk</th><th>MRSA/Pseudomonas Risk</th></tr>
+      <tr><td>Mild</td><td>Amoxicillin-clavulanate OR TMP-SMX + Amoxicillin</td><td>TMP-SMX or Doxycycline</td></tr>
+      <tr><td>Moderate</td><td>Ampicillin-sulbactam OR Ceftriaxone + Metronidazole</td><td>Vancomycin + Ceftazidime or Pip-Tazo</td></tr>
+      <tr><td>Severe</td><td>Piperacillin-tazobactam</td><td>Vancomycin + Piperacillin-tazobactam (or Meropenem)</td></tr>
+    </table>
+
+    <h4>Osteomyelitis Considerations</h4>
+    <ul>
+      <li><strong>Probe-to-bone test:</strong> If sterile probe reaches bone through ulcer → 87% PPV for osteo</li>
+      <li><strong>MRI:</strong> Most sensitive/specific imaging; get if probe positive or high clinical suspicion</li>
+      <li><strong>Duration:</strong> 4-6 weeks if residual infected bone; may be shorter if complete resection</li>
+    </ul>
+
+    <h4>Amputation Considerations</h4>
+    <ul>
+      <li>Unreconstructable vascular disease with tissue loss</li>
+      <li>Uncontrolled sepsis despite debridement</li>
+      <li>Non-functional limb even if infection controlled</li>
+      <li>Extensive tissue necrosis beyond salvage</li>
+      <li>Patient preference (especially if prolonged treatment/disability expected)</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Prosthetic Joint Infection (PJI)</button>
+  <div class="panel">
+    <h4>MSIS Criteria (2018 Definition)</h4>
+    <p><strong>Definite PJI:</strong> ≥1 major criterion OR ≥3 minor criteria (≥6 points)</p>
+    <p><strong>Major Criteria (diagnostic):</strong></p>
+    <ul>
+      <li>Two positive periprosthetic cultures with identical organism</li>
+      <li>Sinus tract communicating with joint</li>
+    </ul>
+    <p><strong>Minor Criteria (weighted scoring):</strong></p>
+    <table>
+      <tr><th>Criterion</th><th>Points</th></tr>
+      <tr><td>Elevated serum CRP (>10 mg/L) AND ESR (>30)</td><td>2</td></tr>
+      <tr><td>Elevated synovial WBC (>3000) OR ++ leukocyte esterase</td><td>3</td></tr>
+      <tr><td>Elevated synovial PMN% (>80%)</td><td>2</td></tr>
+      <tr><td>Single positive culture</td><td>2</td></tr>
+      <tr><td>Positive histopathology</td><td>3</td></tr>
+    </table>
+
+    <h4>Treatment Strategy</h4>
+    <table>
+      <tr><th>Scenario</th><th>Strategy</th></tr>
+      <tr><td>Acute (<4 wks from implant) or acute hematogenous (<3 wks symptoms)</td><td>DAIR (Debridement, Antibiotics, Implant Retention) + 6 weeks IV then oral suppression</td></tr>
+      <tr><td>Chronic (>4 wks from implant, >3 wks symptoms)</td><td>Two-stage exchange (spacer with abx cement, 6+ wks abx, then reimplant)</td></tr>
+      <tr><td>Highly virulent/difficult organism (MRSA, resistant GNR)</td><td>Two-stage exchange preferred</td></tr>
+    </table>
+
+    <h4>Antibiotic Principles</h4>
+    <ul>
+      <li><strong>Staph:</strong> Add rifampin (biofilm activity) once wound stable; use with companion drug (quinolone, TMP-SMX)</li>
+      <li><strong>Duration:</strong> 6 weeks for hip, 12 weeks for knee (if DAIR); may extend for two-stage</li>
+      <li><strong>Suppressive therapy:</strong> May be lifelong if implant retained and high risk of relapse</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">CLABSI (Central Line-Associated Bloodstream Infection)</button>
+  <div class="panel">
+    <h4>Definition (NHSN/CDC)</h4>
+    <ul>
+      <li>Central line in place >2 days AND on day of or day before BSI</li>
+      <li>Blood culture positive for recognized pathogen OR common commensal from ≥2 separate cultures</li>
+      <li>No other apparent source</li>
+    </ul>
+
+    <h4>Common Pathogens</h4>
+    <ul>
+      <li>Coagulase-negative Staphylococci (most common)</li>
+      <li>S. aureus (MSSA & MRSA)</li>
+      <li>Enterococcus</li>
+      <li>Candida species</li>
+      <li>Gram-negative rods (Klebsiella, E. coli, Pseudomonas, Enterobacter)</li>
+    </ul>
+
+    <h4>Management by Organism</h4>
+    <table>
+      <tr><th>Organism</th><th>Line Removal</th><th>Duration</th></tr>
+      <tr><td>S. aureus</td><td><strong>REMOVE</strong> (always)</td><td>4-6 weeks if complicated; 2 weeks if uncomplicated, TEE negative</td></tr>
+      <tr><td>Candida</td><td><strong>REMOVE</strong> (always)</td><td>14 days from first negative culture</td></tr>
+      <tr><td>Pseudomonas</td><td><strong>REMOVE</strong></td><td>7-14 days</td></tr>
+      <tr><td>Enterococcus</td><td>Remove recommended</td><td>7-14 days</td></tr>
+      <tr><td>Coag-neg Staph</td><td>May salvage with abx lock therapy</td><td>5-7 days if line removed; 10-14 days if retained</td></tr>
+      <tr><td>GNR (non-Pseudomonas)</td><td>Attempt salvage possible</td><td>7-14 days</td></tr>
+    </table>
+
+    <h4>Complicated CLABSI (Requires Longer Therapy)</h4>
+    <ul>
+      <li>Persistent bacteremia >72h despite appropriate therapy and line removal</li>
+      <li>Endocarditis (get TTE, consider TEE especially for S. aureus)</li>
+      <li>Septic thrombophlebitis</li>
+      <li>Osteomyelitis or metastatic infection</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Spinal Epidural Abscess</button>
+  <div class="panel">
+    <h4>Classic Triad (present in <15%)</h4>
+    <ul>
+      <li>Fever</li>
+      <li>Back pain (most common presenting symptom—95%)</li>
+      <li>Neurologic deficit (late finding)</li>
+    </ul>
+
+    <h4>Risk Factors</h4>
+    <ul>
+      <li>IVDU, diabetes, immunosuppression, alcoholism</li>
+      <li>Recent spinal procedure or epidural catheter</li>
+      <li>Distant infection (bacteremia, skin/soft tissue)</li>
+      <li>Degenerative spine disease</li>
+    </ul>
+
+    <h4>Diagnosis</h4>
+    <ul>
+      <li><strong>MRI with gadolinium:</strong> Imaging of choice—entire spine if clinical localization unclear</li>
+      <li><strong>Blood cultures:</strong> Positive in 60-70%</li>
+      <li><strong>Labs:</strong> Elevated WBC, ESR (usually >30), CRP</li>
+    </ul>
+
+    <h4>Microbiology</h4>
+    <ul>
+      <li>S. aureus: 60-70% (MRSA common)</li>
+      <li>Gram-negative rods: 15% (especially with UTI source)</li>
+      <li>Streptococci: 10%</li>
+      <li>TB: Consider in endemic areas or immunocompromised</li>
+    </ul>
+
+    <h4>Management</h4>
+    <ul>
+      <li><strong>Empiric:</strong> Vancomycin + Ceftriaxone (or Cefepime if Pseudomonas risk)</li>
+      <li><strong>Surgery:</strong> Urgent decompression if neurologic deficits or progression, failure of medical therapy, or instability</li>
+      <li><strong>Medical management alone:</strong> Consider if no neuro deficits, small abscess, high surgical risk, improving on abx</li>
+      <li><strong>Duration:</strong> 6-8 weeks IV (longer if vertebral osteomyelitis)</li>
+    </ul>
+
+    <h4>Prognosis</h4>
+    <ul>
+      <li>Neurologic outcome correlates with severity and duration of deficits pre-op</li>
+      <li>Paralysis >24-48 hours rarely recovers—emphasizes urgency</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Febrile Neutropenia</button>
+  <div class="panel">
+    <h4>Definitions</h4>
+    <ul>
+      <li><strong>Fever:</strong> Single temp ≥38.3°C OR ≥38.0°C sustained for ≥1 hour</li>
+      <li><strong>Neutropenia:</strong> ANC <500/µL OR <1000/µL with expected decline to <500 within 48h</li>
+      <li><strong>Profound neutropenia:</strong> ANC <100/µL</li>
+      <li><strong>Prolonged neutropenia:</strong> Expected >7 days</li>
+    </ul>
+
+    <h4>MASCC Risk Index (Multinational Association for Supportive Care in Cancer)</h4>
+    <table>
+      <tr><th>Characteristic</th><th>Points</th></tr>
+      <tr><td>Burden of illness: Mild or no symptoms</td><td>5</td></tr>
+      <tr><td>Burden of illness: Moderate symptoms</td><td>3</td></tr>
+      <tr><td>No hypotension (SBP ≥90)</td><td>5</td></tr>
+      <tr><td>No COPD</td><td>4</td></tr>
+      <tr><td>Solid tumor or no prior fungal infection</td><td>4</td></tr>
+      <tr><td>Outpatient at fever onset</td><td>3</td></tr>
+      <tr><td>No dehydration</td><td>3</td></tr>
+      <tr><td>Age <60 years</td><td>2</td></tr>
+    </table>
+    <p><strong>Score ≥21:</strong> Low risk—may consider outpatient oral therapy (quinolone + amoxicillin-clavulanate)</p>
+    <p><strong>Score <21:</strong> High risk—requires inpatient IV therapy</p>
+
+    <h4>Empiric Therapy</h4>
+    <table>
+      <tr><th>Risk</th><th>Regimen</th></tr>
+      <tr><td>Standard (high-risk)</td><td>Cefepime 2g IV q8h OR Piperacillin-tazobactam 4.5g IV q6h OR Meropenem 1g IV q8h</td></tr>
+      <tr><td>+ MRSA risk factors</td><td>Add Vancomycin (hemodynamic instability, skin/catheter infection, pneumonia, known MRSA colonization)</td></tr>
+      <tr><td>+ Pseudomonas risk</td><td>Use anti-pseudomonal beta-lactam (cefepime, pip-tazo, meropenem)</td></tr>
+      <tr><td>Low risk (outpatient)</td><td>Ciprofloxacin 750mg PO q12h + Amoxicillin-clavulanate 875mg PO q12h</td></tr>
+    </table>
+
+    <h4>Add Antifungal If:</h4>
+    <ul>
+      <li>Persistent fever >4-7 days despite broad-spectrum antibiotics</li>
+      <li>Prolonged neutropenia (>10 days expected)</li>
+      <li>Hematologic malignancy or HSCT recipient</li>
+      <li><strong>Options:</strong> Caspofungin, Micafungin, Liposomal Amphotericin B, Voriconazole (if Aspergillus suspected)</li>
+    </ul>
+
+    <h4>Duration</h4>
+    <ul>
+      <li>Continue until ANC ≥500 AND afebrile for 48h (if source unidentified)</li>
+      <li>If documented infection, complete appropriate course for that infection</li>
     </ul>
   </div>
 </section>
@@ -416,6 +749,249 @@
     <ul>
       <li>Spore-forming anaerobe causing antibiotic-associated colitis; severe disease may cause toxic megacolon.</li>
       <li>Treatment: oral vancomycin or fidaxomicin for initial episode; fecal microbiota transplant for recurrent disease per guidelines.</li>
+    </ul>
+  </div>
+
+  <!-- Additional High-Yield Pathogens -->
+  <button class="collapsible">VRE (Vancomycin-Resistant Enterococcus)</button>
+  <div class="panel">
+    <ul>
+      <li><strong>Species:</strong> Primarily E. faecium (vanA, vanB genes); E. faecalis less common</li>
+      <li><strong>Risk factors:</strong> Prior vancomycin, prolonged hospitalization, ICU, immunosuppression, GI colonization</li>
+      <li><strong>Treatment:</strong>
+        <ul>
+          <li>Linezolid 600mg IV/PO q12h (preferred for many infections, oral bioavailability 100%)</li>
+          <li>Daptomycin 6-8 mg/kg IV daily (higher doses for bacteremia 8-12 mg/kg; NOT for pneumonia)</li>
+          <li>Tigecycline (for intra-abdominal/skin only; poor serum levels)</li>
+        </ul>
+      </li>
+      <li><strong>Duration:</strong> UTI 5-7 days; bacteremia 7-14 days; endocarditis 6 weeks (ID consult)</li>
+      <li><strong>Pearl:</strong> VRE bacteremia—remove lines if present; search for intra-abdominal/biliary source</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">ESBL Producers (Extended-Spectrum Beta-Lactamase)</button>
+  <div class="panel">
+    <ul>
+      <li><strong>Organisms:</strong> E. coli, Klebsiella pneumoniae, Proteus mirabilis most common</li>
+      <li><strong>Resistance pattern:</strong> Resistant to 3rd-gen cephalosporins (ceftriaxone, ceftazidime), aztreonam; often co-resistant to fluoroquinolones, TMP-SMX</li>
+      <li><strong>Risk factors:</strong> Prior 3rd-gen cephalosporin or fluoroquinolone use, healthcare exposure, travel to endemic areas (India, Middle East)</li>
+      <li><strong>Treatment:</strong>
+        <ul>
+          <li><strong>Severe infections/bacteremia:</strong> Meropenem 1g IV q8h or Ertapenem 1g IV daily (carbapenems are treatment of choice)</li>
+          <li><strong>UTI (uncomplicated):</strong> May use nitrofurantoin, fosfomycin if susceptible; TMP-SMX if susceptible</li>
+          <li><strong>Pip-tazo:</strong> May be used if MIC ≤16 and non-critically ill (controversial—MERINO trial suggests carbapenem superiority for bacteremia)</li>
+        </ul>
+      </li>
+      <li><strong>Pearl:</strong> Always confirm susceptibilities; report may show cephalosporin "susceptible" but clinical failure can occur</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">CRE (Carbapenem-Resistant Enterobacteriaceae)</button>
+  <div class="panel">
+    <ul>
+      <li><strong>Organisms:</strong> K. pneumoniae (KPC most common in US), E. coli, Enterobacter</li>
+      <li><strong>Mechanisms:</strong> KPC (Klebsiella pneumoniae carbapenemase), NDM, OXA-48, VIM, IMP</li>
+      <li><strong>Risk factors:</strong> Prior carbapenems, prolonged hospitalization, ICU, mechanical ventilation, international travel (NDM—South Asia)</li>
+      <li><strong>Treatment (ID consult strongly recommended):</strong>
+        <ul>
+          <li><strong>Ceftazidime-avibactam:</strong> 2.5g IV q8h—covers KPC and OXA-48 (NOT NDM)</li>
+          <li><strong>Meropenem-vaborbactam:</strong> 4g IV q8h—covers KPC</li>
+          <li><strong>Imipenem-relebactam:</strong> Alternative for KPC</li>
+          <li><strong>Cefiderocol:</strong> Siderophore cephalosporin—covers NDM, difficult GNRs</li>
+          <li><strong>Combination therapy:</strong> Consider for severe infections (e.g., high-dose meropenem + polymyxin or aminoglycoside)</li>
+        </ul>
+      </li>
+      <li><strong>Mortality:</strong> 40-50% for CRE bacteremia—highlights severity</li>
+      <li><strong>Infection control:</strong> Contact precautions, aggressive screening, single rooms</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Acinetobacter baumannii</button>
+  <div class="panel">
+    <ul>
+      <li><strong>Characteristics:</strong> Gram-negative coccobacillus, environmental persistence, rapid resistance development</li>
+      <li><strong>Clinical syndromes:</strong> VAP (most common), CLABSI, wound infections, meningitis (post-neurosurgical)</li>
+      <li><strong>Risk factors:</strong> ICU, mechanical ventilation, prior broad-spectrum antibiotics, wounds/burns, deployed military</li>
+      <li><strong>Treatment:</strong>
+        <ul>
+          <li><strong>MDR Acinetobacter:</strong> Ampicillin-sulbactam (high dose 9g IV q8h—sulbactam has intrinsic activity)</li>
+          <li><strong>XDR/pan-resistant:</strong> Polymyxin B or Colistin (often in combination)</li>
+          <li><strong>Sulbactam-durlobactam (Xacduro):</strong> Newly approved for hospital-acquired pneumonia</li>
+          <li><strong>Tigecycline:</strong> May be used for non-bacteremic infections (achieves poor serum levels)</li>
+          <li><strong>Combination therapy:</strong> Often used for severe infections (carbapenem + polymyxin if any susceptibility)</li>
+        </ul>
+      </li>
+      <li><strong>Pearl:</strong> Colonization vs. infection distinction important—may not need treatment if just colonizing respiratory tract</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Stenotrophomonas maltophilia</button>
+  <div class="panel">
+    <ul>
+      <li><strong>Characteristics:</strong> Intrinsically resistant to carbapenems (L1 and L2 beta-lactamases)</li>
+      <li><strong>Clinical syndromes:</strong> Pneumonia (especially VAP), CLABSI, wound infections, often in immunocompromised/CF patients</li>
+      <li><strong>Risk factors:</strong> Prior carbapenems, prolonged hospitalization, ICU, malignancy, steroids, CF</li>
+      <li><strong>Treatment:</strong>
+        <ul>
+          <li><strong>First-line:</strong> TMP-SMX 15-20 mg/kg/day (TMP component) IV divided q6-8h</li>
+          <li><strong>Alternatives:</strong> Levofloxacin, Minocycline, Ticarcillin-clavulanate, Ceftazidime-avibactam (check susceptibility)</li>
+          <li><strong>Severe infections:</strong> Consider combination therapy (TMP-SMX + fluoroquinolone or minocycline)</li>
+        </ul>
+      </li>
+      <li><strong>Duration:</strong> 7-14 days depending on source</li>
+      <li><strong>Pearl:</strong> Do NOT use carbapenems—intrinsic resistance; monotherapy may select further resistance</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Listeria monocytogenes</button>
+  <div class="panel">
+    <ul>
+      <li><strong>Characteristics:</strong> Gram-positive rod, facultative intracellular, grows at refrigerator temps</li>
+      <li><strong>Clinical syndromes:</strong> Meningitis, bacteremia, rhombencephalitis (brainstem), gastroenteritis, maternal-fetal infection</li>
+      <li><strong>Risk factors:</strong> Age >50, pregnancy, immunocompromise (steroids, transplant, HIV), cirrhosis, diabetes, iron overload</li>
+      <li><strong>Source:</strong> Contaminated food—deli meats, soft cheeses, unpasteurized dairy, cantaloupe</li>
+      <li><strong>Treatment:</strong>
+        <ul>
+          <li><strong>First-line:</strong> Ampicillin 2g IV q4h (± Gentamicin for synergy in severe/meningitis)</li>
+          <li><strong>Penicillin allergy:</strong> TMP-SMX (Bactrim) 10-20 mg/kg/day TMP component</li>
+          <li><strong>NOT susceptible to:</strong> Cephalosporins (important—why ampicillin added to meningitis empiric regimen in elderly)</li>
+        </ul>
+      </li>
+      <li><strong>Duration:</strong> Bacteremia 2 weeks; meningitis 3+ weeks; rhombencephalitis/brain abscess 6+ weeks</li>
+      <li><strong>Pearl:</strong> CSF may show mononuclear predominance and only mildly elevated protein—can mimic viral/TB</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Legionella pneumophila</button>
+  <div class="panel">
+    <ul>
+      <li><strong>Characteristics:</strong> Gram-negative rod (stains poorly), obligate intracellular, environmental (water systems)</li>
+      <li><strong>Clinical syndromes:</strong> Atypical pneumonia, Pontiac fever (self-limited febrile illness)</li>
+      <li><strong>Risk factors:</strong> Smoking, COPD, immunosuppression, age >50, recent travel, hospital water exposure</li>
+      <li><strong>Clinical clues:</strong> High fever, relative bradycardia, hyponatremia, diarrhea, confusion, elevated LFTs, low phosphorus</li>
+      <li><strong>Diagnosis:</strong>
+        <ul>
+          <li><strong>Urine antigen:</strong> Serogroup 1 only (most common), 80% sensitive, 99% specific, remains positive for weeks</li>
+          <li><strong>Respiratory culture:</strong> Requires special media (BCYE agar)—specify Legionella if suspected</li>
+          <li><strong>PCR:</strong> Increasingly available</li>
+        </ul>
+      </li>
+      <li><strong>Treatment:</strong>
+        <ul>
+          <li><strong>Preferred:</strong> Levofloxacin 750mg IV/PO daily OR Azithromycin 500mg IV/PO daily</li>
+          <li><strong>Severe/immunocompromised:</strong> Consider combination (fluoroquinolone + azithromycin) initially</li>
+        </ul>
+      </li>
+      <li><strong>Duration:</strong> 5-10 days (mild); 14-21 days (severe/immunocompromised)</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">PJP (Pneumocystis jirovecii Pneumonia)</button>
+  <div class="panel">
+    <ul>
+      <li><strong>Epidemiology:</strong> Fungal infection in immunocompromised—HIV (CD4 <200), transplant, high-dose steroids, hematologic malignancy</li>
+      <li><strong>Clinical:</strong> Subacute dyspnea (days to weeks), dry cough, fever, hypoxemia with exertion; desaturation with ambulation</li>
+      <li><strong>Imaging:</strong> Bilateral interstitial/ground-glass infiltrates, often perihilar; can be normal early or atypical (nodules, cysts, pneumothorax)</li>
+      <li><strong>Diagnosis:</strong>
+        <ul>
+          <li><strong>Induced sputum:</strong> 50-90% sensitive if available</li>
+          <li><strong>BAL:</strong> >95% sensitive—gold standard</li>
+          <li><strong>Beta-D-glucan:</strong> Elevated (>80 pg/mL), good negative predictive value</li>
+          <li><strong>LDH:</strong> Typically elevated (non-specific)</li>
+        </ul>
+      </li>
+      <li><strong>Treatment:</strong>
+        <ul>
+          <li><strong>First-line:</strong> TMP-SMX 15-20 mg/kg/day (TMP component) IV divided q6-8h × 21 days</li>
+          <li><strong>Adjunctive steroids (if PaO2 <70 or A-a gradient >35):</strong> Prednisone 40mg PO BID × 5 days, then 40mg daily × 5, then 20mg daily × 11</li>
+          <li><strong>Alternatives:</strong> Pentamidine IV, Atovaquone (mild), Clindamycin + Primaquine (moderate)</li>
+        </ul>
+      </li>
+      <li><strong>Prophylaxis indications:</strong> HIV with CD4 <200, HSCT, high-dose steroids (≥20mg prednisone × 4+ weeks), certain chemo/biologics</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">CMV in Immunocompromised</button>
+  <div class="panel">
+    <ul>
+      <li><strong>Populations:</strong> Transplant (SOT, HSCT), HIV (CD4 <50), high-dose steroids/biologics</li>
+      <li><strong>Clinical syndromes:</strong> Colitis (diarrhea, bleeding), Pneumonitis, Retinitis, Hepatitis, Encephalitis</li>
+      <li><strong>Diagnosis:</strong>
+        <ul>
+          <li><strong>CMV PCR (blood):</strong> Quantitative viral load—for monitoring, rising VL suggests active disease</li>
+          <li><strong>Tissue biopsy:</strong> Owl's eye inclusions, immunohistochemistry—gold standard for end-organ disease</li>
+        </ul>
+      </li>
+      <li><strong>Treatment:</strong>
+        <ul>
+          <li><strong>Ganciclovir:</strong> 5 mg/kg IV q12h (induction 2-3 weeks), then 5 mg/kg IV daily (maintenance)</li>
+          <li><strong>Valganciclovir:</strong> 900mg PO BID (induction), then 900mg PO daily—oral option if absorbing</li>
+          <li><strong>Foscarnet:</strong> For ganciclovir-resistant CMV or if neutropenic; nephrotoxic, electrolyte wasting</li>
+        </ul>
+      </li>
+      <li><strong>Monitoring:</strong> Weekly CMV PCR during treatment; toxicities (neutropenia, thrombocytopenia, renal for foscarnet)</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">HSV/VZV in Immunocompromised</button>
+  <div class="panel">
+    <ul>
+      <li><strong>HSV Reactivation:</strong>
+        <ul>
+          <li>Mucocutaneous (oral, genital)—can be severe, hemorrhagic, disseminated</li>
+          <li>Esophagitis: Odynophagia, discrete ulcers on EGD</li>
+          <li>Hepatitis: Rare, severe, high mortality</li>
+          <li>Encephalitis: Even in immunocompetent—temporal lobe</li>
+        </ul>
+      </li>
+      <li><strong>HSV Treatment:</strong>
+        <ul>
+          <li><strong>Mucocutaneous:</strong> Acyclovir 400mg PO TID or Valacyclovir 1g BID × 7-14 days; IV if severe</li>
+          <li><strong>Disseminated/Visceral:</strong> Acyclovir 10 mg/kg IV q8h × 14-21 days</li>
+          <li><strong>Encephalitis:</strong> Acyclovir 10 mg/kg IV q8h × 14-21 days</li>
+        </ul>
+      </li>
+      <li><strong>VZV Reactivation (Shingles):</strong>
+        <ul>
+          <li>Dermatomal vesicles on erythematous base; can disseminate in immunocompromised</li>
+          <li>Complications: PHN, HZO (ophthalmic), Ramsay Hunt, meningoencephalitis, VZV vasculopathy</li>
+        </ul>
+      </li>
+      <li><strong>VZV Treatment:</strong>
+        <ul>
+          <li><strong>Localized (immunocompetent):</strong> Valacyclovir 1g PO TID × 7 days</li>
+          <li><strong>Immunocompromised or disseminated:</strong> Acyclovir 10 mg/kg IV q8h until no new lesions × 48h, then oral to complete 10-14 days</li>
+        </ul>
+      </li>
+      <li><strong>Pearl:</strong> Adjust acyclovir for renal function; ensure adequate hydration (crystalluria risk)</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">MAC (Mycobacterium avium Complex)</button>
+  <div class="panel">
+    <ul>
+      <li><strong>Epidemiology:</strong> Environmental NTM (water, soil); disease in HIV (CD4 <50), structural lung disease, bronchiectasis, CF</li>
+      <li><strong>Clinical Syndromes:</strong>
+        <ul>
+          <li><strong>Disseminated (HIV):</strong> Fever, night sweats, weight loss, diarrhea, hepatosplenomegaly, cytopenias</li>
+          <li><strong>Pulmonary (non-HIV):</strong> Chronic cough, nodular infiltrates, bronchiectasis (Lady Windermere syndrome—RML/lingula)</li>
+        </ul>
+      </li>
+      <li><strong>Diagnosis:</strong>
+        <ul>
+          <li><strong>Disseminated:</strong> Blood culture (isolator/lysis centrifugation), bone marrow biopsy</li>
+          <li><strong>Pulmonary:</strong> ATS/IDSA criteria—symptoms + imaging + microbiology (2+ sputum cultures OR 1 BAL OR tissue)</li>
+        </ul>
+      </li>
+      <li><strong>Treatment (always multidrug):</strong>
+        <ul>
+          <li><strong>Core regimen:</strong> Azithromycin 250-500mg daily (or Clarithromycin) + Ethambutol 15 mg/kg daily + Rifampin (or Rifabutin for HIV)</li>
+          <li><strong>Severe/disseminated:</strong> Add Amikacin or Streptomycin initially</li>
+        </ul>
+      </li>
+      <li><strong>Duration:</strong> 12 months after culture-negative (pulmonary); lifelong suppression may be needed in HIV</li>
+      <li><strong>Prophylaxis (HIV with CD4 <50):</strong> Azithromycin 1200mg weekly (less common now with effective ART)</li>
     </ul>
   </div>
 </section>
