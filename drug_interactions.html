@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Drug Interactions Reference — Clinical Reference Suite</title>
+<link rel="icon" href="mutant-icon.png" type="image/png">
+<style>
+  :root{
+    --nav-w:280px;
+    --header-h:64px;
+    --blue:#5c4d7d;
+    --muted:#f8f7fb;
+    --card:#ffffff;
+    --accent:#7c3aed;
+  }
+  html{scroll-behavior:smooth}
+  html,body{height:100%;margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:#fbfbfe;color:#1f2937}
+  
+  header{
+    position:fixed;
+    left:var(--nav-w);
+    right:0;
+    top:0;
+    height:var(--header-h);
+    background:var(--blue);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:0 16px;
+    z-index:1200;
+  }
+  header img{height:44px;width:44px;object-fit:contain}
+  header h1{font-size:1.05rem;margin:0;font-weight:600}
+
+  nav#sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:var(--nav-w);
+    height:100vh;
+    background:var(--muted);
+    border-right:1px solid #e2e8f0;
+    padding:8px 12px;
+    box-sizing:border-box;
+    overflow:auto;
+  }
+  #sidebar .title{padding:6px 8px;font-weight:700;color:var(--blue);font-size:1rem}
+  #sidebar ul{list-style:none;padding:6px;margin:0}
+  #sidebar li{margin:6px 0}
+  #sidebar a{display:block;padding:8px 10px;color:#0b2545;text-decoration:none;border-radius:6px}
+  #sidebar a:hover{background:#ede9f8}
+
+  main{
+    margin-left:var(--nav-w);
+    padding:calc(var(--header-h) + 18px) 22px 40px 22px;
+    min-height:100vh;
+    box-sizing:border-box;
+  }
+
+  section{margin-bottom:20px; scroll-margin-top: calc(var(--header-h) + 12px);}
+  h2{color:var(--blue); margin:0 0 10px 0}
+  h3{color:#4a4168; margin:15px 0 8px 0}
+  h4{color:#5c4d7d; margin:12px 0 6px 0; font-size:1rem}
+  .muted{color:#475569;font-size:0.95rem}
+  p, li {color:#0b2338;line-height:1.5}
+
+  .collapsible{
+    background:#f3f0ff;
+    border:1px solid #e0d9f6;
+    color:var(--blue);
+    padding:10px 12px;
+    width:100%;
+    text-align:left;
+    cursor:pointer;
+    border-radius:8px;
+    font-weight:700;
+    margin-top:12px;
+    box-sizing:border-box;
+  }
+  .collapsible:after{content:'+';float:right;font-weight:700}
+  .collapsible.active{background:#ebe5ff}
+  .collapsible.active:after{content:'−'}
+  .panel{
+    display:none;
+    padding:12px;
+    margin-top:8px;
+    background:var(--card);
+    border-radius:8px;
+    border:1px solid #eef2f6;
+  }
+
+  table{width:100%;border-collapse:collapse;margin-top:8px}
+  th,td{border:1px solid #e6edf6;padding:8px;text-align:left;font-size:14px}
+  th{background:#f3f0ff;color:#4a4168;font-weight:700}
+  
+  .danger{background:#fef2f2;color:#991b1b;font-weight:600}
+  .warning{background:#fffbeb;color:#92400e;font-weight:600}
+  .caution{background:#fefce8;color:#854d0e}
+  .safe{background:#f0fdf4;color:#166534}
+  
+  .interaction-box{
+    border:1px solid #e6edf6;
+    padding:12px;
+    border-radius:8px;
+    background:#fff;
+    margin-top:10px;
+  }
+  .interaction-box h4{margin-top:0}
+  
+  .badge{display:inline-block;padding:4px 10px;border-radius:16px;font-size:12px;font-weight:600;margin-right:6px}
+  .badge-danger{background:#fecaca;color:#991b1b}
+  .badge-warning{background:#fde68a;color:#92400e}
+  .badge-caution{background:#fef9c3;color:#854d0e}
+  .badge-safe{background:#bbf7d0;color:#166534}
+  
+  .small{font-size:0.92rem;color:#475569}
+  
+  .cross-link{
+    display:inline-block;
+    background:#f3f0ff;
+    color:#5c4d7d;
+    padding:4px 10px;
+    border-radius:6px;
+    text-decoration:none;
+    font-size:13px;
+    margin:4px 4px 4px 0;
+  }
+  .cross-link:hover{background:#ebe5ff}
+
+  @media (max-width:900px){
+    header{left:0}
+    nav#sidebar{position:relative;width:100%;height:auto;border-right:none;border-bottom:1px solid #e6edf6;padding-bottom:12px}
+    main{margin-left:0;padding-top:calc(var(--header-h) + 10px)}
+  }
+</style>
+</head>
+<body>
+
+<nav id="sidebar" aria-label="Main navigation">
+  <div class="title">💊 Drug Interactions</div>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#warfarin">Warfarin Interactions</a></li>
+    <li><a href="#doacs">DOAC Interactions</a></li>
+    <li><a href="#immunosuppressants">Immunosuppressants</a></li>
+    <li><a href="#cyp450">CYP450 Quick Reference</a></li>
+    <li><a href="#qt-prolongation">QT Prolongation</a></li>
+    <li><a href="#serotonin-syndrome">Serotonin Syndrome</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+  <div style="padding:12px;color:#334155;font-size:13px">
+    <strong>Suite Links:</strong><br>
+    <a href="im_guide.html" class="cross-link">📚 IM Guide</a>
+    <a href="id_guide.html" class="cross-link">🦠 ID Guide</a>
+    <a href="lab_values.html" class="cross-link">🔬 Lab Values</a>
+  </div>
+</nav>
+
+<header role="banner">
+  <h1>Drug Interactions Reference <span style="font-size: 0.6em; color: #fbbf24; font-weight: 600;">BUILD #1</span></h1>
+</header>
+
+<main>
+
+<!-- HOME -->
+<section id="home">
+  <h2>Drug Interactions Reference</h2>
+  <p class="muted">High-yield drug interactions for hospital medicine. Focus on warfarin, DOACs, and immunosuppressants.</p>
+  
+  <div class="interaction-box">
+    <h4>Interaction Severity Key</h4>
+    <p>
+      <span class="badge badge-danger">CONTRAINDICATED</span> Avoid combination entirely<br>
+      <span class="badge badge-warning">MAJOR</span> Significant clinical effect; requires intervention<br>
+      <span class="badge badge-caution">MODERATE</span> May require dose adjustment or monitoring<br>
+      <span class="badge badge-safe">MINOR/SAFE</span> Minimal clinical significance
+    </p>
+  </div>
+  
+  <div class="interaction-box">
+    <h4>General Principles</h4>
+    <ul>
+      <li><strong>Always check interactions</strong> when starting new medications in patients on anticoagulants or immunosuppressants</li>
+      <li><strong>CYP450 enzymes</strong> mediate most drug interactions – know the major ones (3A4, 2C9, 2D6, 1A2)</li>
+      <li><strong>P-glycoprotein (P-gp)</strong> affects absorption and elimination of many drugs including DOACs</li>
+      <li><strong>Renal function</strong> affects drug levels independent of CYP interactions</li>
+    </ul>
+  </div>
+</section>
+
+<!-- WARFARIN -->
+<section id="warfarin">
+  <h2>Warfarin Interactions</h2>
+  <p class="muted">Warfarin is metabolized primarily by CYP2C9, with contributions from CYP3A4 and CYP1A2. It has a narrow therapeutic index making interactions clinically significant.</p>
+
+  <button class="collapsible">Drugs That INCREASE INR (Potentiate Warfarin)</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Drug/Class</th><th>Mechanism</th><th>Severity</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr class="danger"><td><strong>Fluconazole</strong></td><td>CYP2C9 inhibition</td><td><span class="badge badge-danger">MAJOR</span></td><td>Reduce warfarin dose 25-50%. Check INR in 3-5 days.</td></tr>
+        <tr class="danger"><td><strong>Metronidazole</strong></td><td>CYP2C9 inhibition</td><td><span class="badge badge-danger">MAJOR</span></td><td>Reduce warfarin dose 25-50%. Check INR in 3-5 days.</td></tr>
+        <tr class="danger"><td><strong>TMP-SMX (Bactrim)</strong></td><td>CYP2C9 inhibition</td><td><span class="badge badge-danger">MAJOR</span></td><td>Reduce warfarin dose 25-50%. Check INR in 3-5 days.</td></tr>
+        <tr class="warning"><td><strong>Amiodarone</strong></td><td>CYP2C9, 3A4 inhibition</td><td><span class="badge badge-warning">MAJOR</span></td><td>Reduce warfarin dose 30-50%. Effect persists weeks after amiodarone stopped.</td></tr>
+        <tr class="warning"><td><strong>Ciprofloxacin</strong></td><td>CYP1A2 inhibition</td><td><span class="badge badge-warning">MAJOR</span></td><td>Monitor INR closely. Consider alternative antibiotic.</td></tr>
+        <tr class="warning"><td><strong>Azithromycin</strong></td><td>Unclear mechanism</td><td><span class="badge badge-caution">MODERATE</span></td><td>Monitor INR. Less interaction than other macrolides.</td></tr>
+        <tr class="warning"><td><strong>Omeprazole</strong></td><td>CYP2C19 inhibition (S-warfarin)</td><td><span class="badge badge-caution">MODERATE</span></td><td>Monitor INR. Pantoprazole may have less interaction.</td></tr>
+        <tr class="warning"><td><strong>Acetaminophen (>2g/day)</strong></td><td>Unknown; affects vitamin K cycle</td><td><span class="badge badge-caution">MODERATE</span></td><td>Limit to <2g/day or monitor INR closely.</td></tr>
+        <tr class="warning"><td><strong>SSRIs (fluoxetine, sertraline)</strong></td><td>CYP2C9 inhibition + platelet effects</td><td><span class="badge badge-caution">MODERATE</span></td><td>Monitor INR. Increased bleeding risk independent of INR.</td></tr>
+        <tr class="warning"><td><strong>Statins (simvastatin, atorvastatin)</strong></td><td>CYP3A4 competition</td><td><span class="badge badge-caution">MODERATE</span></td><td>Monitor INR when starting/stopping. Pravastatin safest.</td></tr>
+        <tr><td><strong>Alcohol (acute binge)</strong></td><td>CYP2C9 inhibition</td><td><span class="badge badge-caution">MODERATE</span></td><td>Acute intoxication increases INR.</td></tr>
+        <tr><td><strong>Levothyroxine</strong></td><td>Increased clotting factor catabolism</td><td><span class="badge badge-caution">MODERATE</span></td><td>Monitor INR when thyroid dose changes.</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Clinical Pearl:</strong> "If in doubt, check the INR." When starting any antibiotic in a patient on warfarin, check INR in 3-5 days.</p>
+  </div>
+
+  <button class="collapsible">Drugs That DECREASE INR (Antagonize Warfarin)</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Drug/Class</th><th>Mechanism</th><th>Severity</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr class="danger"><td><strong>Rifampin</strong></td><td>Potent CYP inducer (2C9, 3A4, 1A2)</td><td><span class="badge badge-danger">MAJOR</span></td><td>May need 2-3× warfarin dose. Consider alternative anticoagulation.</td></tr>
+        <tr class="warning"><td><strong>Carbamazepine</strong></td><td>CYP3A4, 2C9 induction</td><td><span class="badge badge-warning">MAJOR</span></td><td>Increase warfarin dose. Monitor closely.</td></tr>
+        <tr class="warning"><td><strong>Phenytoin</strong></td><td>CYP2C9 induction (complex – initial increase then decrease)</td><td><span class="badge badge-warning">MAJOR</span></td><td>Complex interaction. Monitor INR frequently.</td></tr>
+        <tr class="warning"><td><strong>Phenobarbital</strong></td><td>CYP enzyme induction</td><td><span class="badge badge-warning">MAJOR</span></td><td>May need significant dose increase.</td></tr>
+        <tr class="warning"><td><strong>St. John's Wort</strong></td><td>CYP3A4, 2C9 induction</td><td><span class="badge badge-warning">MAJOR</span></td><td>Avoid combination. Unpredictable effect.</td></tr>
+        <tr><td><strong>Vitamin K (dietary)</strong></td><td>Bypasses warfarin effect</td><td><span class="badge badge-caution">MODERATE</span></td><td>Maintain consistent vitamin K intake. Large changes affect INR.</td></tr>
+        <tr><td><strong>Sucralfate</strong></td><td>Decreased absorption</td><td><span class="badge badge-caution">MODERATE</span></td><td>Separate administration by 2 hours.</td></tr>
+        <tr><td><strong>Cholestyramine</strong></td><td>Decreased absorption</td><td><span class="badge badge-caution">MODERATE</span></td><td>Separate administration by 4-6 hours.</td></tr>
+        <tr><td><strong>Chronic alcohol use</strong></td><td>CYP2C9 induction</td><td><span class="badge badge-caution">MODERATE</span></td><td>Chronic heavy use decreases INR (opposite of acute).</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>High-Yield:</strong> Rifampin is the most potent CYP inducer. When starting rifampin, expect to need 2-3× the warfarin dose. When stopping rifampin, taper warfarin carefully over 2-3 weeks.</p>
+  </div>
+
+  <button class="collapsible">Increased Bleeding Risk (Without INR Change)</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Drug/Class</th><th>Mechanism</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Aspirin</strong></td><td>Platelet inhibition + GI ulceration</td><td>Use only if indicated (CAD, stroke). Add PPI.</td></tr>
+        <tr><td><strong>NSAIDs</strong></td><td>Platelet inhibition + GI ulceration</td><td>Avoid if possible. If needed, use lowest dose + PPI.</td></tr>
+        <tr><td><strong>Clopidogrel/Prasugrel</strong></td><td>Platelet inhibition</td><td>Triple therapy (warfarin + DAPT) = high bleeding risk. Minimize duration.</td></tr>
+        <tr><td><strong>SSRIs/SNRIs</strong></td><td>Decreased platelet serotonin</td><td>Consider PPI. Monitor for bleeding.</td></tr>
+        <tr><td><strong>Fish oil (high dose)</strong></td><td>Platelet effects</td><td>Usually safe at standard doses. High doses may increase bleeding.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Warfarin Reversal Quick Reference</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Scenario</th><th>INR</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr><td>Supratherapeutic, no bleeding</td><td>4.5-10</td><td>Hold warfarin. Consider vitamin K 1-2.5 mg PO if high bleeding risk.</td></tr>
+        <tr><td>Supratherapeutic, no bleeding</td><td>>10</td><td>Hold warfarin. Vitamin K 2.5-5 mg PO.</td></tr>
+        <tr><td>Minor bleeding</td><td>Any</td><td>Hold warfarin. Vitamin K 2.5-5 mg PO/IV. Local measures.</td></tr>
+        <tr class="danger"><td><strong>Major/life-threatening bleeding</strong></td><td>Any</td><td><strong>4-Factor PCC</strong> (25-50 units/kg) + Vitamin K 10 mg IV. FFP if PCC unavailable.</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>4-Factor PCC dosing by INR:</strong> INR 2-4: 25 units/kg; INR 4-6: 35 units/kg; INR >6: 50 units/kg (max 5000 units)</p>
+    <a href="im_guide.html#anticoag-reversal" class="cross-link">📚 Full Anticoagulation Reversal Protocol</a>
+  </div>
+</section>
+
+<!-- DOACs -->
+<section id="doacs">
+  <h2>DOAC Interactions</h2>
+  <p class="muted">DOACs (apixaban, rivaroxaban, dabigatran, edoxaban) have fewer interactions than warfarin but P-gp and CYP3A4 interactions are clinically important.</p>
+
+  <button class="collapsible">Apixaban (Eliquis)</button>
+  <div class="panel">
+    <p><strong>Metabolism:</strong> CYP3A4 (major), P-gp substrate</p>
+    <table>
+      <thead><tr><th>Interacting Drug</th><th>Effect</th><th>Severity</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr class="danger"><td><strong>Ketoconazole, itraconazole</strong></td><td>↑ Apixaban levels 2×</td><td><span class="badge badge-danger">MAJOR</span></td><td>Reduce apixaban dose 50% (2.5 mg BID). Avoid if already on 2.5 mg BID.</td></tr>
+        <tr class="danger"><td><strong>Ritonavir, HIV protease inhibitors</strong></td><td>↑ Apixaban levels</td><td><span class="badge badge-danger">MAJOR</span></td><td>Reduce dose 50%. Consider alternative anticoagulation.</td></tr>
+        <tr class="danger"><td><strong>Rifampin</strong></td><td>↓ Apixaban levels 50%</td><td><span class="badge badge-danger">MAJOR</span></td><td>Avoid combination. Consider warfarin if rifampin required.</td></tr>
+        <tr class="warning"><td><strong>Diltiazem</strong></td><td>↑ Apixaban levels ~40%</td><td><span class="badge badge-caution">MODERATE</span></td><td>No dose adjustment per labeling, but monitor for bleeding.</td></tr>
+        <tr class="warning"><td><strong>Carbamazepine, phenytoin</strong></td><td>↓ Apixaban levels</td><td><span class="badge badge-warning">MAJOR</span></td><td>Avoid combination or consider alternative anticoagulation.</td></tr>
+        <tr><td><strong>Amiodarone</strong></td><td>Modest ↑ apixaban levels</td><td><span class="badge badge-caution">MODERATE</span></td><td>No dose adjustment, but monitor.</td></tr>
+        <tr class="safe"><td><strong>Fluconazole</strong></td><td>Weak CYP3A4 inhibitor</td><td><span class="badge badge-safe">MINOR</span></td><td>No dose adjustment needed. Less interaction than with warfarin.</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Key Point:</strong> Combined P-gp + strong CYP3A4 inhibitors are the concern. Single-mechanism inhibitors usually don't require dose adjustment.</p>
+  </div>
+
+  <button class="collapsible">Rivaroxaban (Xarelto)</button>
+  <div class="panel">
+    <p><strong>Metabolism:</strong> CYP3A4 (major), CYP2J2, P-gp substrate. <strong>Take with food</strong> (improves absorption of 15/20 mg doses).</p>
+    <table>
+      <thead><tr><th>Interacting Drug</th><th>Effect</th><th>Severity</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr class="danger"><td><strong>Ketoconazole, itraconazole</strong></td><td>↑ Rivaroxaban levels ~160%</td><td><span class="badge badge-danger">MAJOR</span></td><td>Avoid combination.</td></tr>
+        <tr class="danger"><td><strong>Ritonavir, HIV protease inhibitors</strong></td><td>↑ Rivaroxaban levels</td><td><span class="badge badge-danger">MAJOR</span></td><td>Avoid combination.</td></tr>
+        <tr class="danger"><td><strong>Rifampin</strong></td><td>↓ Rivaroxaban levels 50%</td><td><span class="badge badge-danger">MAJOR</span></td><td>Avoid combination.</td></tr>
+        <tr class="warning"><td><strong>Carbamazepine, phenytoin</strong></td><td>↓ Rivaroxaban levels</td><td><span class="badge badge-warning">MAJOR</span></td><td>Avoid combination.</td></tr>
+        <tr><td><strong>Erythromycin, clarithromycin</strong></td><td>↑ Rivaroxaban levels ~30-50%</td><td><span class="badge badge-caution">MODERATE</span></td><td>Use with caution in renal impairment.</td></tr>
+        <tr><td><strong>Amiodarone</strong></td><td>Modest increase</td><td><span class="badge badge-caution">MODERATE</span></td><td>Monitor for bleeding, no dose adjustment.</td></tr>
+        <tr><td><strong>Fluconazole</strong></td><td>↑ Rivaroxaban levels ~40%</td><td><span class="badge badge-caution">MODERATE</span></td><td>Use with caution, especially in renal impairment.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Dabigatran (Pradaxa)</button>
+  <div class="panel">
+    <p><strong>Metabolism:</strong> P-gp substrate (NOT CYP metabolized). <strong>Renal elimination 80%</strong> – more affected by renal function than other DOACs.</p>
+    <table>
+      <thead><tr><th>Interacting Drug</th><th>Effect</th><th>Severity</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr class="danger"><td><strong>Ketoconazole, itraconazole (systemic)</strong></td><td>↑ Dabigatran via P-gp</td><td><span class="badge badge-danger">MAJOR</span></td><td>Contraindicated with CrCl <50. Reduce dose if CrCl 30-50.</td></tr>
+        <tr class="danger"><td><strong>Dronedarone</strong></td><td>↑ Dabigatran levels</td><td><span class="badge badge-danger">MAJOR</span></td><td>Contraindicated combination.</td></tr>
+        <tr class="danger"><td><strong>Rifampin</strong></td><td>↓ Dabigatran levels 66%</td><td><span class="badge badge-danger">MAJOR</span></td><td>Avoid combination.</td></tr>
+        <tr class="warning"><td><strong>Verapamil</strong></td><td>↑ Dabigatran levels 12-180%</td><td><span class="badge badge-warning">MAJOR</span></td><td>Reduce dabigatran to 75 mg BID if CrCl 30-50. Avoid if CrCl <30.</td></tr>
+        <tr><td><strong>Amiodarone</strong></td><td>↑ Dabigatran levels ~60%</td><td><span class="badge badge-caution">MODERATE</span></td><td>Reduce to 75 mg BID if CrCl 30-50.</td></tr>
+        <tr><td><strong>Clarithromycin</strong></td><td>↑ Dabigatran via P-gp</td><td><span class="badge badge-caution">MODERATE</span></td><td>Monitor for bleeding, especially with renal impairment.</td></tr>
+        <tr><td><strong>PPIs, H2 blockers</strong></td><td>↓ Absorption (dabigatran needs acid)</td><td><span class="badge badge-safe">MINOR</span></td><td>May reduce levels ~15%, usually not clinically significant.</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Reversal:</strong> Idarucizumab (Praxbind) 5g IV is specific reversal agent. Dialyzable (unlike other DOACs).</p>
+  </div>
+
+  <button class="collapsible">Edoxaban (Savaysa)</button>
+  <div class="panel">
+    <p><strong>Metabolism:</strong> P-gp substrate, minimal CYP metabolism. <strong>Note:</strong> Reduce dose to 30 mg daily if CrCl 15-50 or body weight ≤60 kg or with P-gp inhibitors.</p>
+    <table>
+      <thead><tr><th>Interacting Drug</th><th>Effect</th><th>Severity</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr class="warning"><td><strong>Cyclosporine, dronedarone, erythromycin, ketoconazole</strong></td><td>↑ Edoxaban via P-gp</td><td><span class="badge badge-warning">MAJOR</span></td><td>Reduce edoxaban to 30 mg daily.</td></tr>
+        <tr class="danger"><td><strong>Rifampin</strong></td><td>↓ Edoxaban levels</td><td><span class="badge badge-danger">MAJOR</span></td><td>Avoid combination.</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Unique feature:</strong> Do NOT use in CrCl >95 mL/min (reduced efficacy in ENGAGE AF-TIMI trial).</p>
+  </div>
+
+  <button class="collapsible">DOAC Reversal Quick Reference</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Agent</th><th>Reversal</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Dabigatran</strong></td><td><strong>Idarucizumab (Praxbind)</strong> 5g IV</td><td>Specific reversal. Complete reversal in minutes.</td></tr>
+        <tr><td><strong>Apixaban, Rivaroxaban, Edoxaban</strong></td><td><strong>Andexanet alfa (Andexxa)</strong> or <strong>4-Factor PCC</strong></td><td>Andexanet preferred if available. PCC 50 units/kg if not.</td></tr>
+        <tr><td><strong>All DOACs</strong></td><td>Activated charcoal if <2-4h post-ingestion</td><td>May reduce absorption.</td></tr>
+      </tbody>
+    </table>
+    <a href="im_guide.html#anticoag-reversal" class="cross-link">📚 Full Anticoagulation Reversal Protocol</a>
+  </div>
+</section>
+
+<!-- IMMUNOSUPPRESSANTS -->
+<section id="immunosuppressants">
+  <h2>Immunosuppressant Interactions</h2>
+  <p class="muted">Calcineurin inhibitors (tacrolimus, cyclosporine) and mTOR inhibitors (sirolimus, everolimus) have critical CYP3A4 and P-gp interactions. Levels must be monitored.</p>
+
+  <button class="collapsible">Tacrolimus (Prograf)</button>
+  <div class="panel">
+    <p><strong>Metabolism:</strong> CYP3A4 (major), P-gp substrate. Narrow therapeutic index – small changes cause toxicity or rejection.</p>
+    
+    <h4>Drugs That INCREASE Tacrolimus Levels (Toxicity Risk)</h4>
+    <table>
+      <thead><tr><th>Drug</th><th>Effect</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr class="danger"><td><strong>Azole antifungals (fluconazole, voriconazole, posaconazole, itraconazole)</strong></td><td>↑ Tacro 2-10×</td><td>Reduce tacrolimus dose 50-70%. Check level in 3-5 days.</td></tr>
+        <tr class="danger"><td><strong>Clarithromycin, erythromycin</strong></td><td>↑ Tacro 2-5×</td><td>Use azithromycin instead (minimal interaction). If must use, reduce tacro dose.</td></tr>
+        <tr class="danger"><td><strong>Diltiazem, verapamil</strong></td><td>↑ Tacro 50-100%</td><td>Reduce tacro dose 25-50%. Some centers use intentionally for dose-sparing.</td></tr>
+        <tr class="warning"><td><strong>Amiodarone</strong></td><td>↑ Tacro levels</td><td>Reduce tacro dose, monitor levels closely.</td></tr>
+        <tr class="warning"><td><strong>Grapefruit juice</strong></td><td>↑ Tacro (CYP3A4 in gut)</td><td>Avoid grapefruit entirely.</td></tr>
+        <tr><td><strong>Amlodipine</strong></td><td>Modest ↑ tacro</td><td>Monitor levels; often preferred over diltiazem.</td></tr>
+        <tr><td><strong>Metoclopramide</strong></td><td>↑ Absorption</td><td>May need dose adjustment.</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Drugs That DECREASE Tacrolimus Levels (Rejection Risk)</h4>
+    <table>
+      <thead><tr><th>Drug</th><th>Effect</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr class="danger"><td><strong>Rifampin</strong></td><td>↓ Tacro 80-90%</td><td>May need 5-10× tacro dose. Consider rifabutin instead. Check levels q2-3 days.</td></tr>
+        <tr class="danger"><td><strong>Phenytoin, carbamazepine, phenobarbital</strong></td><td>↓ Tacro significantly</td><td>Increase tacro dose. Consider alternative anticonvulsant (levetiracetam).</td></tr>
+        <tr class="warning"><td><strong>St. John's Wort</strong></td><td>↓ Tacro levels</td><td>Avoid completely.</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Drugs That Increase NEPHROTOXICITY</h4>
+    <table>
+      <thead><tr><th>Drug</th><th>Risk</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr class="warning"><td><strong>NSAIDs</strong></td><td>Additive nephrotoxicity</td><td>Avoid if possible. Short courses with close Cr monitoring if needed.</td></tr>
+        <tr class="warning"><td><strong>Aminoglycosides</strong></td><td>Additive nephrotoxicity</td><td>Avoid if possible. If used, monitor tacro levels and Cr closely.</td></tr>
+        <tr class="warning"><td><strong>Amphotericin B</strong></td><td>Severe additive nephrotoxicity</td><td>Liposomal formulation preferred. Monitor closely.</td></tr>
+        <tr><td><strong>IV contrast</strong></td><td>Additive nephrotoxicity</td><td>Hydrate well. Consider holding tacro around contrast if high risk.</td></tr>
+        <tr><td><strong>ACE-I/ARBs</strong></td><td>Additive renal effects</td><td>Can use but monitor Cr and K closely.</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Tacrolimus Toxicity Signs:</strong> Tremor, headache, hyperkalemia, hypomagnesemia, hyperglycemia, nephrotoxicity, posterior reversible encephalopathy syndrome (PRES).</p>
+  </div>
+
+  <button class="collapsible">Cyclosporine (Neoral, Sandimmune)</button>
+  <div class="panel">
+    <p><strong>Metabolism:</strong> CYP3A4 (major), P-gp substrate. Similar interactions to tacrolimus.</p>
+    <p class="small">Interactions are similar to tacrolimus. Key differences:</p>
+    <ul>
+      <li>Cyclosporine is a <strong>CYP3A4 and P-gp inhibitor</strong> itself – affects other drug levels (statins, colchicine)</li>
+      <li>Increased risk of <strong>gingival hyperplasia and hirsutism</strong></li>
+      <li>More <strong>hyperlipidemia</strong> than tacrolimus</li>
+    </ul>
+    
+    <h4>Drugs Affected BY Cyclosporine</h4>
+    <table>
+      <thead><tr><th>Drug</th><th>Effect</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr class="danger"><td><strong>Statins (especially simvastatin, atorvastatin)</strong></td><td>↑ Statin levels → myopathy/rhabdo</td><td>Use pravastatin, fluvastatin, or low-dose rosuvastatin. Max simvastatin 10 mg.</td></tr>
+        <tr class="danger"><td><strong>Colchicine</strong></td><td>↑ Colchicine levels → toxicity</td><td>Reduce colchicine dose significantly (0.3 mg daily max). Avoid if renal impairment.</td></tr>
+        <tr class="warning"><td><strong>Digoxin</strong></td><td>↑ Digoxin levels</td><td>Reduce digoxin dose 50%. Monitor levels.</td></tr>
+        <tr><td><strong>Repaglinide</strong></td><td>↑ Repaglinide levels</td><td>Use alternative diabetes medication.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Sirolimus & Everolimus (mTOR Inhibitors)</button>
+  <div class="panel">
+    <p><strong>Metabolism:</strong> CYP3A4, P-gp substrates. Long half-life (sirolimus ~60h). Interactions similar to tacrolimus.</p>
+    
+    <table>
+      <thead><tr><th>Interaction</th><th>Effect</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr class="danger"><td><strong>Azole antifungals</strong></td><td>↑ Levels dramatically</td><td>Reduce dose. Voriconazole can increase sirolimus 10×.</td></tr>
+        <tr class="danger"><td><strong>Rifampin</strong></td><td>↓ Levels 90%</td><td>Avoid combination.</td></tr>
+        <tr class="danger"><td><strong>Cyclosporine</strong></td><td>↑ Sirolimus levels</td><td>If used together, give sirolimus 4h after cyclosporine.</td></tr>
+        <tr class="warning"><td><strong>Diltiazem, verapamil</strong></td><td>↑ Levels</td><td>Reduce dose. Monitor levels.</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Unique toxicities:</strong> Hyperlipidemia (treat aggressively), pneumonitis, impaired wound healing, mouth ulcers, cytopenias.</p>
+  </div>
+
+  <button class="collapsible">Mycophenolate (CellCept, Myfortic)</button>
+  <div class="panel">
+    <p><strong>Metabolism:</strong> Glucuronidation (not CYP450). Enterohepatic circulation is important.</p>
+    
+    <table>
+      <thead><tr><th>Interacting Drug</th><th>Effect</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr class="warning"><td><strong>Antacids (Mg/Al), cholestyramine</strong></td><td>↓ Absorption</td><td>Separate administration by 2 hours.</td></tr>
+        <tr class="warning"><td><strong>Rifampin</strong></td><td>↓ MPA levels via ↑ glucuronidation</td><td>May need dose increase. Monitor clinically.</td></tr>
+        <tr><td><strong>Acyclovir, ganciclovir</strong></td><td>Competition for tubular secretion</td><td>Both levels may increase. Monitor for toxicity (leukopenia).</td></tr>
+        <tr><td><strong>PPIs</strong></td><td>May ↓ absorption of Myfortic</td><td>Clinical significance unclear. Monitor.</td></tr>
+        <tr class="safe"><td><strong>Azole antifungals</strong></td><td>Minimal interaction</td><td>Unlike tacrolimus, azoles don't significantly affect MMF.</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Key point:</strong> MMF has fewer drug interactions than calcineurin inhibitors. Main concerns are GI absorption and additive myelosuppression.</p>
+  </div>
+
+  <button class="collapsible">Azathioprine & 6-Mercaptopurine</button>
+  <div class="panel">
+    <p><strong>Metabolism:</strong> Xanthine oxidase, TPMT (thiopurine methyltransferase).</p>
+    
+    <table>
+      <thead><tr><th>Interacting Drug</th><th>Effect</th><th>Severity</th><th>Management</th></tr></thead>
+      <tbody>
+        <tr class="danger"><td><strong>Allopurinol, febuxostat</strong></td><td>↓ Xanthine oxidase → ↑ 6-MP levels 3-5×</td><td><span class="badge badge-danger">MAJOR</span></td><td>If must use together, reduce azathioprine dose to 25-33% of standard.</td></tr>
+        <tr class="warning"><td><strong>Warfarin</strong></td><td>↓ Warfarin effect</td><td><span class="badge badge-caution">MODERATE</span></td><td>May need increased warfarin dose. Monitor INR.</td></tr>
+        <tr><td><strong>ACE inhibitors</strong></td><td>Additive leukopenia risk</td><td><span class="badge badge-caution">MODERATE</span></td><td>Monitor CBC more frequently.</td></tr>
+        <tr><td><strong>TMP-SMX</strong></td><td>Additive myelosuppression</td><td><span class="badge badge-caution">MODERATE</span></td><td>Monitor CBC closely.</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>CRITICAL:</strong> Check TPMT genotype before starting. TPMT-deficient patients have dramatically increased toxicity risk.</p>
+  </div>
+</section>
+
+<!-- CYP450 -->
+<section id="cyp450">
+  <h2>CYP450 Quick Reference</h2>
+  <p class="muted">Key CYP450 enzymes and their common substrates, inhibitors, and inducers.</p>
+
+  <button class="collapsible">CYP3A4 (Most Common)</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Category</th><th>Drugs</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Substrates</strong></td><td>Tacrolimus, cyclosporine, sirolimus, apixaban, rivaroxaban, statins (simva, atorva), CCBs, benzodiazepines (midazolam, alprazolam), fentanyl, carbamazepine</td></tr>
+        <tr class="warning"><td><strong>Strong Inhibitors</strong> (↑ substrate levels)</td><td>Ketoconazole, itraconazole, voriconazole, posaconazole, clarithromycin, ritonavir, grapefruit juice</td></tr>
+        <tr><td><strong>Moderate Inhibitors</strong></td><td>Fluconazole, erythromycin, diltiazem, verapamil, amiodarone</td></tr>
+        <tr class="warning"><td><strong>Strong Inducers</strong> (↓ substrate levels)</td><td>Rifampin, phenytoin, carbamazepine, phenobarbital, St. John's Wort</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">CYP2C9 (Warfarin)</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Category</th><th>Drugs</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Substrates</strong></td><td>Warfarin (S-isomer), phenytoin, losartan, glipizide, NSAIDs</td></tr>
+        <tr class="warning"><td><strong>Inhibitors</strong></td><td>Fluconazole, metronidazole, TMP-SMX, amiodarone, fluoxetine</td></tr>
+        <tr class="warning"><td><strong>Inducers</strong></td><td>Rifampin, carbamazepine, phenobarbital</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">CYP2D6 (Codeine, Tamoxifen)</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Category</th><th>Drugs</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Substrates</strong></td><td>Codeine (prodrug), tramadol, tamoxifen (prodrug), metoprolol, carvedilol, SSRIs (paroxetine, fluoxetine), TCAs</td></tr>
+        <tr class="warning"><td><strong>Inhibitors</strong></td><td>Paroxetine, fluoxetine, bupropion, duloxetine, quinidine</td></tr>
+        <tr><td><strong>Inducers</strong></td><td>No clinically significant inducers</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Clinical Pearl:</strong> CYP2D6 polymorphisms are common. Poor metabolizers don't activate codeine; ultra-rapid metabolizers may have toxicity.</p>
+  </div>
+
+  <button class="collapsible">CYP1A2 (Theophylline, Caffeine)</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Category</th><th>Drugs</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Substrates</strong></td><td>Theophylline, caffeine, clozapine, olanzapine, warfarin (R-isomer)</td></tr>
+        <tr class="warning"><td><strong>Inhibitors</strong></td><td>Ciprofloxacin, fluvoxamine, cimetidine</td></tr>
+        <tr class="warning"><td><strong>Inducers</strong></td><td>Smoking (PAHs), rifampin, charred foods</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Clinical Pearl:</strong> When patients quit smoking, clozapine and theophylline levels can rise significantly. Reduce doses.</p>
+  </div>
+</section>
+
+<!-- QT PROLONGATION -->
+<section id="qt-prolongation">
+  <h2>QT Prolongation Risk</h2>
+  <p class="muted">Drugs that prolong QT interval increase risk of Torsades de Pointes, especially when combined.</p>
+
+  <button class="collapsible">High-Risk QT-Prolonging Drugs</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Class</th><th>High-Risk Drugs</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Antiarrhythmics</strong></td><td>Amiodarone, sotalol, dofetilide, dronedarone, quinidine, procainamide</td><td>Amiodarone has lower TdP risk despite significant QT prolongation</td></tr>
+        <tr><td><strong>Antibiotics</strong></td><td>Fluoroquinolones (especially moxifloxacin), macrolides (azithromycin, erythromycin), TMP-SMX</td><td>Azithromycin risk is dose-dependent</td></tr>
+        <tr><td><strong>Antifungals</strong></td><td>Fluconazole, voriconazole</td><td>Risk increases at higher doses</td></tr>
+        <tr><td><strong>Antipsychotics</strong></td><td>Haloperidol (especially IV), thioridazine, ziprasidone, droperidol</td><td>IV haloperidol higher risk than oral</td></tr>
+        <tr><td><strong>Antiemetics</strong></td><td>Ondansetron, granisetron, droperidol</td><td>Ondansetron max 16 mg IV per FDA</td></tr>
+        <tr><td><strong>Methadone</strong></td><td>Dose-dependent QT prolongation</td><td>ECG monitoring recommended at doses >100 mg/day</td></tr>
+        <tr><td><strong>Others</strong></td><td>Citalopram, escitalopram, hydroxychloroquine</td><td>Citalopram max 40 mg (20 mg if >60 years old)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Risk Factors for Torsades de Pointes</button>
+  <div class="panel">
+    <ul>
+      <li><strong>Female sex</strong> (2-3× risk)</li>
+      <li><strong>Hypokalemia</strong> (most important electrolyte)</li>
+      <li><strong>Hypomagnesemia</strong></li>
+      <li><strong>Hypocalcemia</strong></li>
+      <li><strong>Bradycardia</strong></li>
+      <li><strong>Heart failure / structural heart disease</strong></li>
+      <li><strong>Congenital long QT syndrome</strong></li>
+      <li><strong>Recent cardioversion</strong></li>
+      <li><strong>Multiple QT-prolonging drugs</strong></li>
+    </ul>
+    <p class="small"><strong>Management:</strong> Before starting QT-prolonging drugs in high-risk patients, check K, Mg, baseline ECG. Avoid combinations when possible.</p>
+    <a href="lab_values.html#electrolytes" class="cross-link">🔬 Electrolytes Reference</a>
+  </div>
+</section>
+
+<!-- SEROTONIN SYNDROME -->
+<section id="serotonin-syndrome">
+  <h2>Serotonin Syndrome</h2>
+  <p class="muted">Life-threatening condition from serotonergic drug combinations. Classic triad: altered mental status, autonomic instability, neuromuscular abnormalities.</p>
+
+  <button class="collapsible">Serotonergic Drugs by Mechanism</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Mechanism</th><th>Drugs</th><th>Risk Level</th></tr></thead>
+      <tbody>
+        <tr><td><strong>MAO inhibitors</strong></td><td>Phenelzine, tranylcypromine, selegiline, linezolid, methylene blue</td><td><span class="badge badge-danger">HIGH</span></td></tr>
+        <tr><td><strong>Serotonin releasers</strong></td><td>MDMA, amphetamines, mirtazapine</td><td><span class="badge badge-danger">HIGH</span></td></tr>
+        <tr><td><strong>Serotonin reuptake inhibitors</strong></td><td>SSRIs, SNRIs, TCAs, tramadol, fentanyl, meperidine, dextromethorphan</td><td><span class="badge badge-warning">MODERATE</span></td></tr>
+        <tr><td><strong>Serotonin agonists</strong></td><td>Triptans, buspirone, LSD</td><td><span class="badge badge-caution">VARIABLE</span></td></tr>
+        <tr><td><strong>Others</strong></td><td>Lithium, St. John's Wort, ondansetron (weak)</td><td><span class="badge badge-caution">VARIABLE</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">High-Risk Combinations</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Combination</th><th>Risk</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr class="danger"><td><strong>MAOI + ANY serotonergic drug</strong></td><td><span class="badge badge-danger">SEVERE</span></td><td>Most dangerous combination. Contraindicated.</td></tr>
+        <tr class="danger"><td><strong>Linezolid + SSRI/SNRI</strong></td><td><span class="badge badge-danger">SEVERE</span></td><td>Linezolid is an MAO inhibitor. 2-week washout needed.</td></tr>
+        <tr class="danger"><td><strong>Methylene blue + SSRI/SNRI</strong></td><td><span class="badge badge-danger">SEVERE</span></td><td>Often forgotten! Methylene blue is MAO inhibitor.</td></tr>
+        <tr class="warning"><td><strong>SSRI + tramadol</strong></td><td><span class="badge badge-warning">MODERATE</span></td><td>Common combination, significant risk.</td></tr>
+        <tr class="warning"><td><strong>SSRI + fentanyl</strong></td><td><span class="badge badge-warning">MODERATE</span></td><td>Risk with high-dose fentanyl.</td></tr>
+        <tr><td><strong>SSRI + triptan</strong></td><td><span class="badge badge-caution">LOW</span></td><td>FDA warning, but actual risk is low. Can use with caution.</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Clinical Pearl:</strong> When starting linezolid, hold SSRIs/SNRIs. If urgent, can restart serotonergic drugs 24h after linezolid stopped (short half-life).</p>
+  </div>
+
+  <button class="collapsible">Recognition and Management</button>
+  <div class="panel">
+    <h4>Hunter Criteria (Most Sensitive/Specific)</h4>
+    <p>In patient with serotonergic drug exposure, serotonin syndrome if ANY of:</p>
+    <ul>
+      <li>Spontaneous clonus</li>
+      <li>Inducible clonus + agitation or diaphoresis</li>
+      <li>Ocular clonus + agitation or diaphoresis</li>
+      <li>Tremor + hyperreflexia</li>
+      <li>Hypertonia + temperature >38°C + ocular or inducible clonus</li>
+    </ul>
+    
+    <h4>Management</h4>
+    <ul>
+      <li><strong>Stop all serotonergic drugs</strong></li>
+      <li><strong>Supportive care:</strong> IV fluids, cooling if hyperthermic</li>
+      <li><strong>Benzodiazepines:</strong> For agitation, muscle rigidity, seizures</li>
+      <li><strong>Cyproheptadine:</strong> Serotonin antagonist. 12 mg initial, then 2 mg q2h until improvement (max 32 mg/day)</li>
+      <li><strong>Avoid:</strong> Physical restraints (increase muscle rigidity and rhabdo risk)</li>
+      <li><strong>ICU admission</strong> for severe cases (hyperthermia >40°C, seizures, respiratory failure)</li>
+    </ul>
+    <p class="small">Most cases resolve within 24-72 hours after stopping offending drugs.</p>
+    <a href="im_guide.html#serotonin-syndrome" class="cross-link">📚 Serotonin Syndrome (IMCRG)</a>
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<section id="references">
+  <h2>References</h2>
+  <ul>
+    <li><a href="https://www.uptodate.com" target="_blank" rel="noopener noreferrer">UpToDate — Drug Interactions</a></li>
+    <li><a href="https://www.drugs.com/drug_interactions.html" target="_blank" rel="noopener noreferrer">Drugs.com Interaction Checker</a></li>
+    <li>Lexicomp Drug Interactions</li>
+    <li><a href="https://crediblemeds.org" target="_blank" rel="noopener noreferrer">CredibleMeds — QT Drug Lists</a></li>
+    <li>KDIGO Guidelines — Immunosuppression</li>
+    <li>ASH/ACC Anticoagulation Guidelines</li>
+  </ul>
+</section>
+
+</main>
+
+<script>
+document.querySelectorAll('.collapsible').forEach(btn => {
+  btn.addEventListener('click', function() {
+    this.classList.toggle('active');
+    const panel = this.nextElementSibling;
+    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+  });
+});
+</script>
+
+</body>
+</html>
