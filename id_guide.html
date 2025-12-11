@@ -132,6 +132,15 @@
     <li><a href="#tickborne-infections">Tickborne Infections</a></li>
     <li><a href="#viral-encephalopathies">Viral Encephalopathies</a></li>
     <li><a href="#calculators">Calculators</a></li>
+    <li><a href="#renal-dosing">Renal Dosing</a></li>
+    <li><a href="#iv-to-po">IV to PO Conversion</a></li>
+    <li><a href="#duration-therapy">Duration of Therapy</a></li>
+    <li><a href="#penicillin-allergy">Penicillin Allergy</a></li>
+    <li><a href="#blood-culture-interpretation">Blood Culture Interpretation</a></li>
+    <li><a href="#opportunistic-infections">Opportunistic Infections</a></li>
+    <li><a href="#antibiogram-guide">Antibiogram Guidance</a></li>
+    <li><a href="#opat">OPAT Guide</a></li>
+    <li><a href="#prophylaxis">Prophylaxis Tables</a></li>
     <li><a href="#references">References</a></li>
   </ul>
 
@@ -140,7 +149,7 @@
 
 <header role="banner">
   <img src="mutant-icon.png" alt="logo" onerror="this.style.display='none'">
-  <h1>Antibiotic & Infection Guide <span style="font-size: 0.6em; color: #ff6b6b; font-weight: 600;">BUILD #1</span></h1>
+  <h1>Antibiotic & Infection Guide <span style="font-size: 0.6em; color: #ff6b6b; font-weight: 600;">BUILD #3</span></h1>
   <div class="search">
     <input id="globalSearch" type="text" placeholder="Search everything — pathogen, drug, syndrome..." />
   </div>
@@ -1200,6 +1209,1214 @@
       <button onclick="calcSIRS_qSOFA()" style="padding:6px 10px">Calculate</button>
     </div>
     <p id="sirsResult" class="muted" style="margin-top:8px"></p>
+  </div>
+</section>
+
+<!-- RENAL DOSING -->
+<section id="renal-dosing">
+  <h2>Antibiotic Dosing in Renal Impairment</h2>
+  <p class="muted">Adjust doses based on CrCl (Cockcroft-Gault). Always verify with pharmacy for critically ill patients.</p>
+
+  <button class="collapsible">Beta-Lactams</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Drug</th><th>Normal Dose</th><th>CrCl 30-50</th><th>CrCl 10-30</th><th>CrCl <10 / HD</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Piperacillin-Tazobactam</strong></td><td>4.5g IV q6h</td><td>3.375g IV q6h</td><td>2.25g IV q6h</td><td>2.25g IV q8h (give after HD)</td><td>Extended infusion (4h) preferred for serious infections</td></tr>
+        <tr><td><strong>Cefepime</strong></td><td>2g IV q8h</td><td>2g IV q12h</td><td>1-2g IV q24h</td><td>1g IV q24h (give after HD)</td><td>Neurotoxicity risk increases in renal impairment</td></tr>
+        <tr><td><strong>Ceftriaxone</strong></td><td>1-2g IV q24h</td><td>No adjustment</td><td>No adjustment</td><td>No adjustment</td><td>Biliary excretion; rare agent that doesn't need renal adjustment</td></tr>
+        <tr><td><strong>Ceftazidime</strong></td><td>2g IV q8h</td><td>2g IV q12h</td><td>1-2g IV q24h</td><td>1g IV q24h (give after HD)</td><td></td></tr>
+        <tr><td><strong>Meropenem</strong></td><td>1g IV q8h</td><td>1g IV q12h</td><td>500mg IV q12h</td><td>500mg IV q24h (give after HD)</td><td>Preferred carbapenem in CNS infections</td></tr>
+        <tr><td><strong>Ampicillin-Sulbactam</strong></td><td>3g IV q6h</td><td>3g IV q8h</td><td>3g IV q12h</td><td>3g IV q24h (give after HD)</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Vancomycin</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>CrCl (mL/min)</th><th>Loading Dose</th><th>Maintenance Dose</th><th>Monitoring</th></tr></thead>
+      <tbody>
+        <tr><td>>90</td><td>25-30 mg/kg × 1</td><td>15-20 mg/kg IV q8-12h</td><td>AUC-guided dosing preferred; target AUC/MIC 400-600</td></tr>
+        <tr><td>50-90</td><td>25-30 mg/kg × 1</td><td>15-20 mg/kg IV q12h</td><td>Trough-based: target 15-20 mcg/mL for serious infections</td></tr>
+        <tr><td>30-50</td><td>25-30 mg/kg × 1</td><td>15-20 mg/kg IV q24h</td><td>Consider pharmacy consult</td></tr>
+        <tr><td>10-30</td><td>25-30 mg/kg × 1</td><td>15-20 mg/kg IV q24-48h</td><td>Check level before 3rd dose</td></tr>
+        <tr><td><10 / HD</td><td>25-30 mg/kg × 1</td><td>Re-dose when level <15-20</td><td>Give after HD; HD removes ~30-40%</td></tr>
+        <tr><td>CRRT</td><td>25-30 mg/kg × 1</td><td>10-15 mg/kg q24h</td><td>Highly variable; frequent level monitoring</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Key Points:</strong> Always give loading dose regardless of renal function. AUC-guided dosing is now preferred over trough-based monitoring per 2020 IDSA/ASHP guidelines.</p>
+  </div>
+
+  <button class="collapsible">Aminoglycosides</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Drug</th><th>Normal Dose (Extended Interval)</th><th>CrCl 40-59</th><th>CrCl 20-39</th><th>CrCl <20</th><th>HD</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Gentamicin / Tobramycin</strong></td><td>5-7 mg/kg IV q24h</td><td>5-7 mg/kg q36h</td><td>5-7 mg/kg q48h</td><td>Re-dose based on levels</td><td>2 mg/kg post-HD</td></tr>
+        <tr><td><strong>Amikacin</strong></td><td>15-20 mg/kg IV q24h</td><td>15-20 mg/kg q36h</td><td>15-20 mg/kg q48h</td><td>Re-dose based on levels</td><td>7.5 mg/kg post-HD</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Key Points:</strong> Extended-interval (once-daily) dosing preferred. Check random level at 6-14h post-dose for Hartford nomogram. Avoid in CrCl <20 if possible. Nephrotoxicity and ototoxicity risks increase with renal impairment.</p>
+  </div>
+
+  <button class="collapsible">Fluoroquinolones</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Drug</th><th>Normal Dose</th><th>CrCl 20-49</th><th>CrCl <20 / HD</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Levofloxacin</strong></td><td>750mg PO/IV q24h</td><td>750mg q48h</td><td>500mg q48h (give after HD)</td><td>Excellent oral bioavailability</td></tr>
+        <tr><td><strong>Ciprofloxacin</strong></td><td>400mg IV q8-12h / 500-750mg PO q12h</td><td>400mg IV q12h / 500mg PO q12h</td><td>400mg IV q24h / 500mg PO q24h</td><td>Oral absorption affected by divalent cations</td></tr>
+        <tr><td><strong>Moxifloxacin</strong></td><td>400mg PO/IV q24h</td><td>No adjustment</td><td>No adjustment</td><td>Hepatic metabolism; no renal adjustment needed</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Other Common Antibiotics</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Drug</th><th>Normal Dose</th><th>CrCl 30-50</th><th>CrCl 10-30</th><th>CrCl <10 / HD</th></tr></thead>
+      <tbody>
+        <tr><td><strong>TMP-SMX (Bactrim)</strong></td><td>5-20 mg/kg/day TMP divided q6-12h</td><td>50-100% dose</td><td>50% dose q12-24h</td><td>Avoid if possible; if required, 50% dose q24h after HD</td></tr>
+        <tr><td><strong>Metronidazole</strong></td><td>500mg IV/PO q8h</td><td>No adjustment</td><td>No adjustment</td><td>No adjustment (but give after HD to avoid removal)</td></tr>
+        <tr><td><strong>Azithromycin</strong></td><td>500mg IV/PO q24h</td><td>No adjustment</td><td>No adjustment</td><td>No adjustment</td></tr>
+        <tr><td><strong>Doxycycline</strong></td><td>100mg PO/IV q12h</td><td>No adjustment</td><td>No adjustment</td><td>No adjustment</td></tr>
+        <tr><td><strong>Linezolid</strong></td><td>600mg IV/PO q12h</td><td>No adjustment</td><td>No adjustment</td><td>No adjustment (metabolites accumulate; use with caution >2wk)</td></tr>
+        <tr><td><strong>Daptomycin</strong></td><td>6-10 mg/kg IV q24h</td><td>No adjustment</td><td>6-10 mg/kg IV q48h</td><td>6-10 mg/kg IV q48h (give after HD)</td></tr>
+        <tr><td><strong>Fluconazole</strong></td><td>Loading then 400mg IV/PO q24h</td><td>50% dose</td><td>50% dose</td><td>50% dose (give after HD)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- IV TO PO CONVERSION -->
+<section id="iv-to-po">
+  <h2>IV to PO Conversion Guide</h2>
+  <p class="muted">Transition to oral therapy when patient is hemodynamically stable, afebrile, tolerating PO, and GI tract functional.</p>
+
+  <button class="collapsible">Excellent Oral Bioavailability (>90%) — Prefer PO</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Drug</th><th>Oral Bioavailability</th><th>IV Dose → PO Dose</th><th>Key Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Fluoroquinolones</strong></td><td>~95-100%</td><td>IV = PO (1:1)</td><td>Avoid with divalent cations (Ca, Mg, Fe, antacids). Levofloxacin 750mg IV = 750mg PO</td></tr>
+        <tr><td><strong>Linezolid</strong></td><td>~100%</td><td>IV = PO (1:1)</td><td>600mg IV = 600mg PO. Can switch immediately.</td></tr>
+        <tr><td><strong>Metronidazole</strong></td><td>~100%</td><td>IV = PO (1:1)</td><td>500mg IV = 500mg PO. Excellent absorption.</td></tr>
+        <tr><td><strong>TMP-SMX</strong></td><td>~95%</td><td>IV = PO (1:1)</td><td>DS (160/800mg) = standard oral dose</td></tr>
+        <tr><td><strong>Fluconazole</strong></td><td>~90%</td><td>IV = PO (1:1)</td><td>Can switch day 1 if tolerating PO</td></tr>
+        <tr><td><strong>Doxycycline</strong></td><td>~95%</td><td>IV = PO (1:1)</td><td>100mg IV = 100mg PO. Take with food to reduce GI upset.</td></tr>
+        <tr><td><strong>Clindamycin</strong></td><td>~90%</td><td>IV = PO (1:1)</td><td>600mg IV q8h = 450mg PO q6h (adjust for frequency)</td></tr>
+        <tr><td><strong>Voriconazole</strong></td><td>~96%</td><td>IV = PO (1:1)</td><td>Loading then maintenance. Take 1h before or 1h after meals.</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Clinical Pearl:</strong> For drugs with excellent bioavailability, there is NO benefit to continuing IV when PO is tolerated. Switch early to reduce line days, cost, and infection risk.</p>
+  </div>
+
+  <button class="collapsible">Good Oral Bioavailability (50-80%) — PO Often Acceptable</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Drug</th><th>Oral Bioavailability</th><th>Conversion</th><th>Key Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Amoxicillin-Clavulanate</strong></td><td>~75-90%</td><td>Use PO for step-down</td><td>875/125mg PO BID is standard</td></tr>
+        <tr><td><strong>Cephalexin</strong></td><td>~90%</td><td>Use for PO step-down from cefazolin</td><td>500mg PO QID or 1g PO TID</td></tr>
+        <tr><td><strong>Ciprofloxacin</strong></td><td>~70-80%</td><td>400mg IV q12h = 500mg PO q12h</td><td>Absorption reduced by dairy, antacids</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Poor Oral Bioavailability — IV Required</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Drug</th><th>Oral Bioavailability</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Vancomycin (IV)</strong></td><td>~0% systemic</td><td>Oral vancomycin is for C. diff only (stays in GI tract). No PO equivalent for systemic infections.</td></tr>
+        <tr><td><strong>Aminoglycosides</strong></td><td>~0% systemic</td><td>No oral option. Must complete IV course.</td></tr>
+        <tr><td><strong>Amphotericin B</strong></td><td>~0% systemic</td><td>No oral option for systemic infections.</td></tr>
+        <tr><td><strong>Beta-lactams (most)</strong></td><td>Variable, often <50%</td><td>Piperacillin-tazobactam, cefepime, meropenem have no PO equivalents. Step down to different oral agent.</td></tr>
+        <tr><td><strong>Daptomycin</strong></td><td>~0%</td><td>IV only. No oral option.</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Step-Down Strategy for IV-Only Drugs:</strong> Transition to a different antibiotic class with PO option. Example: Pip-tazo → amoxicillin-clavulanate; Cefepime → levofloxacin; Vancomycin → linezolid (if appropriate).</p>
+  </div>
+</section>
+
+<!-- DURATION OF THERAPY -->
+<section id="duration-therapy">
+  <h2>Duration of Therapy Summary</h2>
+  <p class="muted">Evidence-based duration recommendations. Shorter courses often equivalent; longer courses increase resistance risk.</p>
+
+  <button class="collapsible">Respiratory Infections</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Infection</th><th>Duration</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Community-Acquired Pneumonia</strong></td><td>5 days (minimum)</td><td>Stop when afebrile ≥48h and clinically stable. Longer not better.</td></tr>
+        <tr><td><strong>Hospital-Acquired / VAP</strong></td><td>7 days</td><td>Per 2016 IDSA guidelines. Longer for Pseudomonas or slow response.</td></tr>
+        <tr><td><strong>Aspiration Pneumonia</strong></td><td>5-7 days</td><td>Same as CAP if no abscess/empyema.</td></tr>
+        <tr><td><strong>Lung Abscess</strong></td><td>4-6 weeks (minimum)</td><td>Until imaging shows resolution or significant improvement.</td></tr>
+        <tr><td><strong>Empyema</strong></td><td>2-4 weeks</td><td>With drainage. Duration based on clinical response.</td></tr>
+        <tr><td><strong>COPD Exacerbation (if antibiotics indicated)</strong></td><td>5 days</td><td>Azithromycin × 3d or doxycycline × 5d typically used.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Urinary Tract Infections</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Infection</th><th>Duration</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Uncomplicated Cystitis (women)</strong></td><td>3-5 days</td><td>Nitrofurantoin 5d, TMP-SMX 3d, fosfomycin ×1 dose</td></tr>
+        <tr><td><strong>Uncomplicated Pyelonephritis</strong></td><td>5-7 days</td><td>FQ 5-7d; TMP-SMX 14d; beta-lactams 10-14d</td></tr>
+        <tr><td><strong>Complicated UTI / Pyelonephritis</strong></td><td>7-14 days</td><td>Depends on clinical response, source control</td></tr>
+        <tr><td><strong>Catheter-Associated UTI</strong></td><td>7 days</td><td>Remove/replace catheter. 5 days may be adequate for rapid response.</td></tr>
+        <tr><td><strong>UTI in Men</strong></td><td>7-14 days</td><td>All UTIs in men are considered complicated.</td></tr>
+        <tr><td><strong>Prostatitis (acute bacterial)</strong></td><td>2-4 weeks</td><td>FQ preferred for prostatic penetration.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Skin & Soft Tissue Infections</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Infection</th><th>Duration</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Uncomplicated Cellulitis</strong></td><td>5 days</td><td>Extend to 10-14d if slow response. Elevation, compression important.</td></tr>
+        <tr><td><strong>Purulent SSTI (Abscess)</strong></td><td>5-7 days (post-I&D)</td><td>Small abscesses with adequate drainage may not need antibiotics.</td></tr>
+        <tr><td><strong>Necrotizing Fasciitis</strong></td><td>Until debridements complete + stable</td><td>Duration based on source control; typically 2-4 weeks total.</td></tr>
+        <tr><td><strong>Diabetic Foot Infection (soft tissue only)</strong></td><td>1-2 weeks</td><td>Longer if osteomyelitis present.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Bloodstream Infections</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Organism / Situation</th><th>Duration</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Uncomplicated Gram-negative bacteremia</strong></td><td>7 days</td><td>From day of first negative blood culture or clinical improvement.</td></tr>
+        <tr><td><strong>S. aureus bacteremia (uncomplicated)</strong></td><td>14 days (minimum)</td><td>"Uncomplicated" = removable focus, no endocarditis on TEE, negative repeat cultures ≤4 days, no metastatic infection, no prosthetic material.</td></tr>
+        <tr><td><strong>S. aureus bacteremia (complicated)</strong></td><td>4-6 weeks</td><td>ID consult strongly recommended. TEE required.</td></tr>
+        <tr><td><strong>Candida fungemia</strong></td><td>14 days (minimum)</td><td>From first negative blood culture. Remove all lines. Ophtho exam for endophthalmitis.</td></tr>
+        <tr><td><strong>Coag-negative Staph (if true pathogen)</strong></td><td>5-7 days</td><td>Remove line. Often contaminant — see Blood Culture Interpretation section.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Bone & Joint / Endocarditis</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Infection</th><th>Duration</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Septic Arthritis (native joint)</strong></td><td>2-4 weeks</td><td>Drainage essential. Duration based on organism and response.</td></tr>
+        <tr><td><strong>Osteomyelitis (no hardware)</strong></td><td>4-6 weeks</td><td>IV vs. PO: OVIVA trial showed oral non-inferior if good bioavailability agent used.</td></tr>
+        <tr><td><strong>Osteomyelitis (with hardware)</strong></td><td>6 weeks → chronic suppression</td><td>If hardware retained, may need indefinite suppression.</td></tr>
+        <tr><td><strong>Native Valve Endocarditis (Strep)</strong></td><td>4 weeks</td><td>2 weeks possible with gentamicin synergy for highly susceptible strains.</td></tr>
+        <tr><td><strong>Native Valve Endocarditis (Staph)</strong></td><td>6 weeks</td><td>ID and cardiology involvement essential.</td></tr>
+        <tr><td><strong>Prosthetic Valve Endocarditis</strong></td><td>≥6 weeks</td><td>Usually requires surgical intervention. Complex management.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Intra-Abdominal & GI</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Infection</th><th>Duration</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Uncomplicated Intra-Abdominal Infection</strong></td><td>4 days (max)</td><td>STOP-IT trial: 4d vs. 8d equivalent if adequate source control.</td></tr>
+        <tr><td><strong>Complicated Intra-Abdominal Infection</strong></td><td>4-7 days</td><td>After source control. Longer only if inadequate source control.</td></tr>
+        <tr><td><strong>C. difficile (initial, non-severe)</strong></td><td>10 days</td><td>Fidaxomicin or oral vancomycin.</td></tr>
+        <tr><td><strong>C. difficile (fulminant)</strong></td><td>10 days minimum</td><td>Oral vancomycin + IV metronidazole. Surgical consult if toxic megacolon.</td></tr>
+        <tr><td><strong>Cholangitis (post-biliary drainage)</strong></td><td>4-7 days</td><td>Shorter if source control adequate and rapid defervescence.</td></tr>
+        <tr><td><strong>Spontaneous Bacterial Peritonitis</strong></td><td>5 days</td><td>Repeat paracentesis not required if clinical improvement.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PENICILLIN ALLERGY -->
+<section id="penicillin-allergy">
+  <h2>Penicillin Allergy Evaluation</h2>
+  <p class="muted">~90% of reported penicillin allergies are NOT true IgE-mediated allergies. Evaluation enables optimal antibiotic selection.</p>
+
+  <button class="collapsible">Classifying Penicillin Allergy</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Type</th><th>Characteristics</th><th>Examples</th><th>Risk Level</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Type I (IgE-mediated)</strong></td><td>Immediate (<1-6 hours), urticaria, angioedema, anaphylaxis, bronchospasm</td><td>"Throat swelling", "couldn't breathe", "hives all over", "needed epinephrine"</td><td>HIGH — avoid unless skin testing negative</td></tr>
+        <tr><td><strong>Severe non-IgE</strong></td><td>SJS/TEN, DRESS, serum sickness, hemolytic anemia, interstitial nephritis</td><td>Blistering rash, fever + rash + organ involvement, onset days-weeks</td><td>HIGH — avoid penicillins AND cephalosporins</td></tr>
+        <tr><td><strong>Benign/Low-risk</strong></td><td>Delayed, mild rash, GI upset, "unknown", childhood reaction not remembered</td><td>"Rash as a kid", "stomach upset", "not sure what happened"</td><td>LOW — likely can use cephalosporins, possibly penicillins</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Cephalosporin Cross-Reactivity (THE REAL DATA)</button>
+  <div class="panel">
+    <p><strong>Historical teaching of 10% cross-reactivity is WRONG.</strong></p>
+    <p>Actual cross-reactivity rates based on R1 side chain similarity:</p>
+    <table>
+      <thead><tr><th>Scenario</th><th>Cross-Reactivity</th><th>Clinical Implication</th></tr></thead>
+      <tbody>
+        <tr><td>Overall cephalosporin cross-reactivity with penicillin allergy</td><td><strong>~1-2%</strong></td><td>Low risk. Most patients with "penicillin allergy" can receive cephalosporins.</td></tr>
+        <tr><td><strong>Aminopenicillins → 1st/2nd gen cephalosporins</strong> (similar R1 side chain)</td><td>~10-15%</td><td>Amoxicillin/ampicillin share side chain with cefadroxil, cephalexin, cefaclor. Avoid these specific agents.</td></tr>
+        <tr><td><strong>Any penicillin → 3rd/4th gen cephalosporins</strong></td><td><strong><1%</strong></td><td>Ceftriaxone, cefepime, ceftazidime have distinct R1 side chains. SAFE in most penicillin-allergic patients.</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Bottom Line:</strong> Ceftriaxone and cefepime can be safely given to most patients with penicillin allergy (except anaphylaxis or severe reactions). 1st/2nd gen cephalosporins have higher cross-reactivity with aminopenicillins specifically.</p>
+  </div>
+
+  <button class="collapsible">Decision Algorithm</button>
+  <div class="panel">
+    <h4>Step 1: Characterize the Reaction</h4>
+    <ul>
+      <li>What happened? (specific symptoms)</li>
+      <li>How soon after taking the drug? (minutes vs. days)</li>
+      <li>Did they need treatment? (epinephrine, hospitalization)</li>
+      <li>How long ago? (>10 years, IgE wanes)</li>
+      <li>Have they tolerated penicillins or cephalosporins since?</li>
+    </ul>
+    
+    <h4>Step 2: Risk Stratify</h4>
+    <table>
+      <thead><tr><th>Risk Category</th><th>History</th><th>Recommendation</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Low Risk</strong></td><td>Unknown reaction, GI upset, non-urticarial rash, reaction >10 years ago, tolerated cephalosporins since</td><td>Give cephalosporins (any generation) without testing. Consider penicillin challenge if needed.</td></tr>
+        <tr><td><strong>Moderate Risk</strong></td><td>Urticaria or pruritic rash within 6 hours, isolated angioedema</td><td>Give 3rd/4th gen cephalosporins (ceftriaxone, cefepime). Consider penicillin skin testing if penicillin strongly preferred.</td></tr>
+        <tr><td><strong>High Risk</strong></td><td>Anaphylaxis, bronchospasm, hypotension, required epinephrine</td><td>Avoid penicillins and consider avoiding cephalosporins. Penicillin skin testing before use. Use alternative class.</td></tr>
+        <tr><td><strong>Contraindicated</strong></td><td>SJS/TEN, DRESS, hemolytic anemia, interstitial nephritis</td><td>NEVER rechallenge with penicillins or cephalosporins. Absolute contraindication.</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Step 3: Alternatives When Avoiding Beta-Lactams</h4>
+    <ul>
+      <li><strong>Gram-positive coverage:</strong> Vancomycin, daptomycin, linezolid</li>
+      <li><strong>Gram-negative coverage:</strong> Fluoroquinolones, aminoglycosides, aztreonam (NO cross-reactivity with penicillins)</li>
+      <li><strong>Anaerobic coverage:</strong> Metronidazole, clindamycin</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Penicillin Skin Testing & Desensitization</button>
+  <div class="panel">
+    <h4>Penicillin Skin Testing</h4>
+    <ul>
+      <li><strong>Indication:</strong> High-risk allergy history when penicillin is strongly preferred (e.g., syphilis in pregnancy, enterococcal endocarditis)</li>
+      <li><strong>NPV:</strong> >95% — negative test means <1% chance of IgE-mediated reaction</li>
+      <li><strong>Process:</strong> Prick test followed by intradermal testing with penicillin G, penicilloyl-polylysine (Pre-Pen), and minor determinant mixture</li>
+      <li><strong>If negative:</strong> Can give penicillins safely (consider supervised first dose)</li>
+    </ul>
+    
+    <h4>Desensitization</h4>
+    <ul>
+      <li><strong>Indication:</strong> TRUE IgE-mediated allergy AND no alternative antibiotic acceptable</li>
+      <li><strong>Process:</strong> Incremental doses given over 4-12 hours in monitored setting (ICU or allergy clinic)</li>
+      <li><strong>Duration:</strong> Desensitization is temporary — must maintain continuous drug exposure. If stopped >24-48h, must repeat desensitization.</li>
+      <li><strong>Contraindicated:</strong> SJS/TEN, DRESS, other severe non-IgE reactions</li>
+    </ul>
+  </div>
+</section>
+
+<!-- BLOOD CULTURE INTERPRETATION -->
+<section id="blood-culture-interpretation">
+  <h2>Blood Culture Interpretation</h2>
+  <p class="muted">Distinguishing true pathogens from contaminants is critical for appropriate antibiotic use.</p>
+
+  <button class="collapsible">Always Pathogens (Treat if Isolated)</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Organism</th><th>Clinical Significance</th><th>Key Actions</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Staphylococcus aureus</strong></td><td>ALWAYS significant — even 1 positive bottle</td><td>Repeat cultures, TEE (within 5-7 days), evaluate for metastatic infection, ID consult recommended. Minimum 14 days IV therapy.</td></tr>
+        <tr><td><strong>Streptococcus pneumoniae</strong></td><td>Always significant</td><td>Source: usually pneumonia, meningitis, or spontaneous. Look for immunocompromise if recurrent.</td></tr>
+        <tr><td><strong>Streptococcus pyogenes (GAS)</strong></td><td>Always significant</td><td>Source: skin/soft tissue, pharyngitis, necrotizing fasciitis. Aggressive infection — evaluate for deep source.</td></tr>
+        <tr><td><strong>Streptococcus agalactiae (GBS)</strong></td><td>Always significant</td><td>Common in diabetics, elderly, pregnancy. Look for skin, UTI, or endovascular source.</td></tr>
+        <tr><td><strong>Enterobacteriaceae</strong> (E. coli, Klebsiella, etc.)</td><td>Always significant</td><td>Source: UTI, biliary, intra-abdominal, line infection. Repeat cultures to document clearance.</td></tr>
+        <tr><td><strong>Pseudomonas aeruginosa</strong></td><td>Always significant</td><td>Often healthcare-associated. Look for pneumonia, UTI, line infection, neutropenia.</td></tr>
+        <tr><td><strong>Candida species</strong></td><td>ALWAYS significant — even 1 positive bottle</td><td>Remove all lines, repeat cultures until negative, ophtho exam, echocardiogram if risk factors. ID consult. Minimum 14 days from first negative culture.</td></tr>
+        <tr><td><strong>Neisseria meningitidis</strong></td><td>Always significant</td><td>Meningitis, meningococcemia. Droplet precautions. Prophylaxis for close contacts.</td></tr>
+        <tr><td><strong>Listeria monocytogenes</strong></td><td>Always significant</td><td>Meningitis, bacteremia in immunocompromised, elderly, pregnancy. Requires ampicillin (not cephalosporins).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="collapsible">Common Contaminants (Evaluate Before Treating)</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Organism</th><th>Contaminant Probability</th><th>When to Consider True Pathogen</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Coagulase-negative Staphylococci</strong> (S. epidermidis, etc.)</td><td>~70-80% are contaminants</td><td>True pathogen if: ≥2 bottles positive with same species, prosthetic device/hardware, central line, immunocompromised. Single positive bottle usually contaminant.</td></tr>
+        <tr><td><strong>Corynebacterium (Diphtheroids)</strong></td><td>Usually contaminant</td><td>True pathogen if: prosthetic valve, hardware, immunocompromised, multiple positive bottles</td></tr>
+        <tr><td><strong>Cutibacterium acnes</strong> (formerly Propionibacterium)</td><td>Usually contaminant</td><td>True pathogen if: shoulder hardware, CNS shunt, prosthetic joint. Takes 5-14 days to grow.</td></tr>
+        <tr><td><strong>Bacillus species (not B. anthracis)</strong></td><td>Usually contaminant</td><td>True pathogen if: IV drug use, central line, immunocompromised, multiple positive bottles</td></tr>
+        <tr><td><strong>Viridans group Streptococci</strong></td><td>Sometimes contaminant</td><td>True pathogen if: endocarditis risk factors, multiple positive bottles, neutropenia. Single bottle in healthy patient may be contaminant.</td></tr>
+        <tr><td><strong>Micrococcus</strong></td><td>Almost always contaminant</td><td>Rarely pathogenic. Repeat cultures if clinically concerned.</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Key Principle:</strong> For likely contaminants, repeat blood cultures before starting antibiotics (unless critically ill). Two positive bottles with same organism = more likely true pathogen.</p>
+  </div>
+
+  <button class="collapsible">Interpreting Positive Bottles: 1 vs. 2</button>
+  <div class="panel">
+    <h4>Why 2 Sets (4 Bottles) Are Recommended</h4>
+    <ul>
+      <li>Single positive bottle more likely to represent contamination</li>
+      <li>Sensitivity for detecting bacteremia increases with volume cultured</li>
+      <li>Two positive bottles with same organism = high specificity for true bacteremia</li>
+    </ul>
+    
+    <h4>Decision Framework</h4>
+    <table>
+      <thead><tr><th>Scenario</th><th>Interpretation</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>1/4 bottles positive with <strong>S. aureus</strong> or <strong>Candida</strong></td><td>TRUE PATHOGEN</td><td>Full workup and treatment. These are never contaminants.</td></tr>
+        <tr><td>1/4 bottles positive with coag-neg Staph</td><td>Likely contaminant (~80%)</td><td>Repeat cultures. If repeat negative and low-risk patient, observe. If prosthetic device, treat as pathogen.</td></tr>
+        <tr><td>2/4 bottles positive with coag-neg Staph (same species)</td><td>More likely pathogen (~50-70%)</td><td>Evaluate for line infection, hardware. Consider treatment, especially if clinical signs of infection.</td></tr>
+        <tr><td>1/4 bottles positive with Gram-negative rod</td><td>Usually pathogen</td><td>Repeat cultures, evaluate source, treat. GNRs are rarely contaminants.</td></tr>
+        <tr><td>Polymicrobial bacteremia</td><td>Consider GI source</td><td>Evaluate for intra-abdominal abscess, perforation, biliary infection. May need imaging.</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Time to Positivity</h4>
+    <p><strong>Clinical Pearl:</strong> Faster time to positivity generally correlates with higher bacterial burden and more severe infection. Cultures positive in <12 hours suggest high-grade bacteremia.</p>
+  </div>
+
+  <button class="collapsible">Special Situations</button>
+  <div class="panel">
+    <h4>Culture-Negative Endocarditis Organisms (HACEK and Beyond)</h4>
+    <ul>
+      <li><strong>HACEK organisms:</strong> Haemophilus, Aggregatibacter, Cardiobacterium, Eikenella, Kingella — slow-growing, cause culture-negative endocarditis</li>
+      <li><strong>Coxiella burnetii (Q fever):</strong> Requires serology</li>
+      <li><strong>Bartonella:</strong> Serology and PCR; associated with cat exposure, homelessness</li>
+      <li><strong>Tropheryma whipplei:</strong> Whipple disease; PCR for diagnosis</li>
+      <li><strong>Brucella:</strong> Prolonged incubation needed; notify lab if suspected</li>
+    </ul>
+    
+    <h4>When to Suspect Anaerobic Bacteremia</h4>
+    <ul>
+      <li>Intra-abdominal source (especially with polymicrobial cultures)</li>
+      <li>Female genital tract infections</li>
+      <li>Aspiration pneumonia with abscess</li>
+      <li>Decubitus ulcers or diabetic foot infections</li>
+      <li><strong>Common anaerobes:</strong> Bacteroides fragilis, Clostridium species, Fusobacterium</li>
+    </ul>
+    
+    <h4>Persistent Bacteremia — Red Flag</h4>
+    <p>If cultures remain positive >48-72 hours despite appropriate antibiotics:</p>
+    <ul>
+      <li>Endocarditis (get TEE)</li>
+      <li>Undrained abscess (get imaging)</li>
+      <li>Infected hardware/device (may need removal)</li>
+      <li>Wrong antibiotic (check susceptibilities)</li>
+      <li>Septic thrombophlebitis (consider anticoagulation)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- OPPORTUNISTIC INFECTIONS -->
+<section id="opportunistic-infections">
+  <h2>Opportunistic Infections in Immunocompromised Hosts</h2>
+  <p class="muted">HIV/AIDS, transplant recipients, and immunosuppressed patients. CD4 count guides prophylaxis and differential. Cross-reference: <a href="im_guide.html#hiv" style="color: #0366d6;">📚 IMCRG: HIV/AIDS</a></p>
+
+  <button class="collapsible">Pneumocystis jirovecii Pneumonia (PCP)</button>
+  <div class="panel">
+    <h4>Risk Groups</h4>
+    <ul>
+      <li><strong>HIV:</strong> CD4 <200 cells/μL (most common)</li>
+      <li><strong>Transplant:</strong> Especially first 6-12 months post-transplant</li>
+      <li><strong>Hematologic malignancy:</strong> Particularly with prolonged lymphopenia</li>
+      <li><strong>High-dose corticosteroids:</strong> ≥20 mg prednisone equivalent for ≥4 weeks</li>
+    </ul>
+    <h4>Clinical Features</h4>
+    <ul>
+      <li>Subacute dyspnea, dry cough, fever over days to weeks (HIV) vs. more acute (non-HIV)</li>
+      <li>Hypoxia out of proportion to exam findings</li>
+      <li>Bilateral interstitial infiltrates, "ground glass" on CT</li>
+      <li>Elevated LDH (nonspecific but supportive)</li>
+      <li>Elevated beta-D-glucan (very sensitive)</li>
+    </ul>
+    <h4>Diagnosis</h4>
+    <ul>
+      <li><strong>Induced sputum:</strong> Sensitivity ~50-90% with immunofluorescent staining</li>
+      <li><strong>BAL:</strong> Sensitivity >95%; gold standard if sputum negative</li>
+      <li><strong>Beta-D-glucan:</strong> Highly sensitive; negative BDG essentially rules out PCP</li>
+      <li><strong>PCR:</strong> Very sensitive but may detect colonization; use with clinical context</li>
+    </ul>
+    <h4>Treatment</h4>
+    <table>
+      <thead><tr><th>Severity</th><th>Treatment</th><th>Duration</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Mild-Moderate</strong> (PaO2 >70, A-a gradient <35)</td><td>TMP-SMX 15-20 mg/kg/day (TMP component) PO divided TID</td><td>21 days (HIV), 14 days (non-HIV)</td></tr>
+        <tr><td><strong>Severe</strong> (PaO2 ≤70 or A-a gradient ≥35)</td><td>TMP-SMX 15-20 mg/kg/day IV divided q6-8h + Prednisone 40mg BID × 5d, then 40mg daily × 5d, then 20mg daily × 11d</td><td>21 days (HIV)</td></tr>
+      </tbody>
+    </table>
+    <h4>Alternative Regimens (Sulfa Allergy)</h4>
+    <ul>
+      <li><strong>Primaquine + Clindamycin:</strong> Primaquine 30mg PO daily + Clindamycin 600mg IV/PO q8h (check G6PD first)</li>
+      <li><strong>Atovaquone:</strong> 750mg PO BID with food (mild disease only)</li>
+      <li><strong>Pentamidine IV:</strong> 4 mg/kg IV daily (significant toxicity)</li>
+    </ul>
+    <h4>Adjunctive Steroids</h4>
+    <ul>
+      <li><strong>Indication:</strong> PaO2 <70 mmHg on room air or A-a gradient ≥35</li>
+      <li><strong>Benefit:</strong> Reduces mortality in moderate-severe PCP (HIV patients)</li>
+      <li><strong>Start within 72 hours</strong> of PCP treatment</li>
+    </ul>
+    <h4>Prophylaxis</h4>
+    <table>
+      <thead><tr><th>Regimen</th><th>Dose</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>TMP-SMX (first-line)</strong></td><td>1 DS tablet daily OR 1 SS tablet daily</td><td>Also covers Toxoplasma, some bacterial infections</td></tr>
+        <tr><td><strong>Dapsone</strong></td><td>100mg PO daily</td><td>Check G6PD first</td></tr>
+        <tr><td><strong>Atovaquone</strong></td><td>1500mg PO daily</td><td>Take with food; expensive</td></tr>
+        <tr><td><strong>Pentamidine (inhaled)</strong></td><td>300mg via nebulizer monthly</td><td>Does not prevent extrapulmonary disease or Toxoplasma</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>When to Start/Stop Prophylaxis (HIV):</strong> Start when CD4 <200; stop when CD4 >200 for ≥3 months on ART.</p>
+  </div>
+
+  <button class="collapsible">Cytomegalovirus (CMV)</button>
+  <div class="panel">
+    <h4>Risk Groups</h4>
+    <ul>
+      <li><strong>Solid organ transplant:</strong> Highest risk with D+/R- (donor positive, recipient negative)</li>
+      <li><strong>HSCT:</strong> Especially allogeneic, with GVHD</li>
+      <li><strong>HIV:</strong> CD4 <50 cells/μL</li>
+    </ul>
+    <h4>Clinical Syndromes</h4>
+    <table>
+      <thead><tr><th>Syndrome</th><th>Features</th><th>Diagnosis</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CMV Syndrome</strong></td><td>Fever, malaise, leukopenia, thrombocytopenia, elevated LFTs</td><td>CMV viremia (PCR)</td></tr>
+        <tr><td><strong>CMV Colitis</strong></td><td>Diarrhea (often bloody), abdominal pain, fever</td><td>Colonoscopy with biopsy showing CMV inclusions ("owl's eye"); tissue PCR</td></tr>
+        <tr><td><strong>CMV Retinitis</strong></td><td>"Pizza pie" retinitis — hemorrhages with white/yellow exudates; floaters, vision loss</td><td>Fundoscopic exam by ophthalmology</td></tr>
+        <tr><td><strong>CMV Pneumonitis</strong></td><td>Interstitial pneumonia; common in HSCT</td><td>BAL with CMV PCR or culture + compatible clinical picture</td></tr>
+        <tr><td><strong>CMV Esophagitis</strong></td><td>Odynophagia, large shallow ulcers (vs. multiple small ulcers in HSV)</td><td>EGD with biopsy</td></tr>
+      </tbody>
+    </table>
+    <h4>Treatment</h4>
+    <table>
+      <thead><tr><th>Setting</th><th>First-Line</th><th>Duration</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CMV Disease (induction)</strong></td><td>Ganciclovir 5 mg/kg IV q12h OR Valganciclovir 900mg PO BID</td><td>14-21 days until viremia cleared</td></tr>
+        <tr><td><strong>CMV Retinitis (induction)</strong></td><td>Ganciclovir 5 mg/kg IV q12h × 14-21 days, then maintenance</td><td>Until immune reconstitution (CD4 >100 × 6mo)</td></tr>
+        <tr><td><strong>Maintenance (retinitis)</strong></td><td>Valganciclovir 900mg PO daily</td><td>Continue until CD4 >100 for 3-6 months</td></tr>
+      </tbody>
+    </table>
+    <h4>Key Points</h4>
+    <ul>
+      <li><strong>Ganciclovir toxicity:</strong> Myelosuppression (neutropenia, thrombocytopenia) — monitor CBC</li>
+      <li><strong>Renal dosing required:</strong> Adjust ganciclovir and valganciclovir for CrCl (see <a href="#renal-dosing" style="color: #0366d6;">Renal Dosing</a>)</li>
+      <li><strong>Foscarnet:</strong> Alternative for ganciclovir-resistant CMV or intolerance. Nephrotoxic, electrolyte abnormalities.</li>
+      <li><strong>Cidofovir:</strong> Third-line; significant nephrotoxicity (give with probenecid and hydration)</li>
+    </ul>
+    <h4>Prophylaxis vs. Preemptive Therapy (Transplant)</h4>
+    <ul>
+      <li><strong>Prophylaxis:</strong> Valganciclovir 900mg PO daily for 3-6 months post-transplant (high-risk: D+/R-)</li>
+      <li><strong>Preemptive:</strong> Monitor CMV PCR weekly; treat when viremia detected before symptoms</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Mycobacterium avium Complex (MAC)</button>
+  <div class="panel">
+    <h4>Risk Groups</h4>
+    <ul>
+      <li><strong>HIV:</strong> CD4 <50 cells/μL</li>
+      <li><strong>Other:</strong> Severe immunosuppression, particularly T-cell defects</li>
+    </ul>
+    <h4>Clinical Features (Disseminated MAC)</h4>
+    <ul>
+      <li>Fever, night sweats, weight loss</li>
+      <li>Hepatosplenomegaly, lymphadenopathy</li>
+      <li>Anemia, elevated alkaline phosphatase</li>
+      <li>Diarrhea, abdominal pain</li>
+    </ul>
+    <h4>Diagnosis</h4>
+    <ul>
+      <li><strong>Blood culture:</strong> Gold standard for disseminated disease (isolator or BACTEC mycobacterial culture)</li>
+      <li><strong>Bone marrow biopsy:</strong> If blood cultures negative and high suspicion</li>
+      <li><strong>AFB stain and culture</strong> from involved sites (lymph node, liver, stool)</li>
+    </ul>
+    <h4>Treatment</h4>
+    <table>
+      <thead><tr><th>Regimen</th><th>Dose</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Clarithromycin</strong> (or Azithromycin)</td><td>500mg PO BID (Clarith) or 500-600mg PO daily (Azith)</td><td>Macrolide is cornerstone — never use as monotherapy</td></tr>
+        <tr><td><strong>Ethambutol</strong></td><td>15 mg/kg PO daily</td><td>Always combine with macrolide</td></tr>
+        <tr><td><strong>± Rifabutin</strong></td><td>300mg PO daily</td><td>Add for severe disease; significant drug interactions (CYP3A4)</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Duration:</strong> Continue for at least 12 months AND until CD4 >100 for ≥6 months on ART.</p>
+    <h4>Prophylaxis</h4>
+    <ul>
+      <li><strong>Indication:</strong> CD4 <50 cells/μL (after ruling out active MAC)</li>
+      <li><strong>Regimen:</strong> Azithromycin 1200mg PO weekly OR Clarithromycin 500mg PO BID</li>
+      <li><strong>Stop when:</strong> CD4 >100 for ≥3 months on ART</li>
+    </ul>
+    <h4>Immune Reconstitution Inflammatory Syndrome (IRIS)</h4>
+    <ul>
+      <li>Can occur when starting ART with underlying MAC infection</li>
+      <li>Presents with fever, lymphadenitis, worsening symptoms despite appropriate MAC treatment</li>
+      <li>Manage with NSAIDs; severe cases may need steroids</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Cryptococcal Meningitis</button>
+  <div class="panel">
+    <h4>Risk Groups</h4>
+    <ul>
+      <li><strong>HIV:</strong> CD4 <100 cells/μL (most common)</li>
+      <li><strong>Transplant recipients</strong></li>
+      <li><strong>Corticosteroid use</strong></li>
+      <li><strong>Cirrhosis, sarcoidosis</strong></li>
+    </ul>
+    <h4>Clinical Features</h4>
+    <ul>
+      <li>Subacute meningitis: Headache, fever, neck stiffness (may be subtle)</li>
+      <li>Altered mental status, cranial nerve palsies</li>
+      <li><strong>Elevated intracranial pressure</strong> — major cause of morbidity/mortality</li>
+      <li>May have pulmonary or disseminated disease</li>
+    </ul>
+    <h4>Diagnosis</h4>
+    <table>
+      <thead><tr><th>Test</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Serum CrAg (Cryptococcal Antigen)</strong></td><td>Highly sensitive and specific (>95%); positive in disseminated disease</td></tr>
+        <tr><td><strong>CSF CrAg</strong></td><td>Diagnostic for meningitis</td></tr>
+        <tr><td><strong>CSF India ink</strong></td><td>Classic encapsulated yeast; less sensitive than CrAg</td></tr>
+        <tr><td><strong>CSF culture</strong></td><td>Gold standard; takes days-weeks</td></tr>
+        <tr><td><strong>Opening pressure</strong></td><td>Often elevated (>20-25 cm H2O); measure with every LP</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Cross-link:</strong> <a href="lab_values.html#csf" style="color: #0366d6;">🔬 CSF Reference</a>, <a href="im_guide.html#meningitis" style="color: #0366d6;">📚 IMCRG: Meningitis</a></p>
+    <h4>Treatment (HIV-Associated)</h4>
+    <table>
+      <thead><tr><th>Phase</th><th>Regimen</th><th>Duration</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Induction</strong></td><td>Amphotericin B deoxycholate 0.7-1 mg/kg/day IV + Flucytosine 100 mg/kg/day PO divided q6h</td><td>≥2 weeks (until CSF sterile)</td></tr>
+        <tr><td><strong>Consolidation</strong></td><td>Fluconazole 400mg PO daily</td><td>8 weeks</td></tr>
+        <tr><td><strong>Maintenance</strong></td><td>Fluconazole 200mg PO daily</td><td>≥1 year, until CD4 >100 × 3mo + undetectable VL</td></tr>
+      </tbody>
+    </table>
+    <h4>Liposomal Amphotericin B</h4>
+    <ul>
+      <li>3-4 mg/kg/day IV — preferred if available (less nephrotoxic)</li>
+      <li>WHO recommends single high-dose liposomal AmB (10 mg/kg) + flucytosine + fluconazole in resource-limited settings</li>
+    </ul>
+    <h4>Managing Elevated ICP — CRITICAL</h4>
+    <ul>
+      <li><strong>Opening pressure >25 cm H2O:</strong> Remove CSF to reduce pressure to <20 or by 50%</li>
+      <li><strong>Repeat LP daily</strong> if symptomatic or persistently elevated pressure</li>
+      <li>Consider temporary lumbar drain or VP shunt if refractory</li>
+      <li>Mannitol and steroids NOT effective and may be harmful</li>
+    </ul>
+    <h4>ART Timing</h4>
+    <ul>
+      <li><strong>Delay ART 4-6 weeks</strong> after starting antifungal therapy</li>
+      <li>Early ART initiation increases mortality (IRIS, elevated ICP)</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Toxoplasma gondii Encephalitis</button>
+  <div class="panel">
+    <h4>Risk Groups</h4>
+    <ul>
+      <li><strong>HIV:</strong> CD4 <100 cells/μL with positive Toxoplasma IgG (reactivation)</li>
+      <li><strong>Transplant recipients:</strong> Especially heart transplant (D+/R-)</li>
+    </ul>
+    <h4>Clinical Features</h4>
+    <ul>
+      <li>Headache, fever, altered mental status</li>
+      <li>Focal neurologic deficits (hemiparesis, ataxia, cranial nerve palsies)</li>
+      <li>Seizures</li>
+    </ul>
+    <h4>Diagnosis</h4>
+    <ul>
+      <li><strong>MRI Brain:</strong> Multiple ring-enhancing lesions, typically in basal ganglia. Surrounding edema.</li>
+      <li><strong>Toxoplasma IgG:</strong> Usually positive (reactivation). Negative IgG makes diagnosis unlikely.</li>
+      <li><strong>Response to empiric therapy:</strong> Clinical and radiographic improvement within 2 weeks supports diagnosis</li>
+      <li><strong>Brain biopsy:</strong> If no response to treatment or atypical features</li>
+    </ul>
+    <h4>Differential: Toxoplasma vs. CNS Lymphoma</h4>
+    <table>
+      <thead><tr><th>Feature</th><th>Toxoplasmosis</th><th>Primary CNS Lymphoma</th></tr></thead>
+      <tbody>
+        <tr><td>Lesions</td><td>Multiple, basal ganglia</td><td>Often single, periventricular</td></tr>
+        <tr><td>Toxo IgG</td><td>Usually positive</td><td>May be negative</td></tr>
+        <tr><td>CD4 count</td><td>Usually <100</td><td>Usually <50</td></tr>
+        <tr><td>CSF EBV PCR</td><td>Negative</td><td>Often positive</td></tr>
+        <tr><td>Response to empiric Tx</td><td>Yes (2 weeks)</td><td>No</td></tr>
+      </tbody>
+    </table>
+    <h4>Treatment</h4>
+    <table>
+      <thead><tr><th>Regimen</th><th>Dose</th><th>Duration</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Pyrimethamine</strong></td><td>200mg PO × 1 load, then 50-75mg PO daily</td><td>≥6 weeks</td></tr>
+        <tr><td><strong>Sulfadiazine</strong></td><td>1000-1500mg PO q6h</td><td>≥6 weeks</td></tr>
+        <tr><td><strong>Leucovorin</strong></td><td>10-25mg PO daily</td><td>Continue with pyrimethamine (prevents bone marrow suppression)</td></tr>
+      </tbody>
+    </table>
+    <h4>Alternative (Sulfa Allergy)</h4>
+    <ul>
+      <li><strong>Pyrimethamine + Clindamycin:</strong> Clindamycin 600mg IV/PO q6h + Pyrimethamine + Leucovorin</li>
+      <li><strong>TMP-SMX:</strong> 5 mg/kg (TMP) IV/PO BID (alternative if available)</li>
+    </ul>
+    <h4>Maintenance Therapy</h4>
+    <ul>
+      <li>After ≥6 weeks acute therapy, continue at half doses as maintenance</li>
+      <li>Discontinue when CD4 >200 for ≥6 months on ART</li>
+    </ul>
+    <h4>Prophylaxis</h4>
+    <ul>
+      <li><strong>Indication:</strong> CD4 <100 AND positive Toxoplasma IgG</li>
+      <li><strong>Regimen:</strong> TMP-SMX 1 DS daily (also covers PCP)</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Other Opportunistic Infections</button>
+  <div class="panel">
+    <h4>Histoplasmosis (Disseminated)</h4>
+    <ul>
+      <li><strong>Risk:</strong> CD4 <150; endemic areas (Ohio/Mississippi River valleys)</li>
+      <li><strong>Features:</strong> Fever, weight loss, hepatosplenomegaly, pancytopenia, skin lesions</li>
+      <li><strong>Diagnosis:</strong> Urine/serum Histoplasma antigen (very sensitive), blood culture (fungal isolator)</li>
+      <li><strong>Treatment:</strong> Liposomal AmB 3 mg/kg/day IV × 1-2 weeks (induction), then itraconazole 200mg PO TID × 3 days, then BID × ≥12 months</li>
+    </ul>
+    <h4>Coccidioidomycosis (Disseminated)</h4>
+    <ul>
+      <li><strong>Risk:</strong> CD4 <250; endemic areas (Southwest US, Central America)</li>
+      <li><strong>Features:</strong> Pneumonia, meningitis, skin lesions, bone involvement</li>
+      <li><strong>Diagnosis:</strong> Coccidioides IgM/IgG, urine/serum antigen, culture</li>
+      <li><strong>Treatment:</strong> Fluconazole 400-800mg daily (non-meningeal) or AmB (severe). Meningitis: Fluconazole 800-1200mg daily lifelong.</li>
+    </ul>
+    <h4>Progressive Multifocal Leukoencephalopathy (PML)</h4>
+    <ul>
+      <li><strong>Cause:</strong> JC virus reactivation</li>
+      <li><strong>Risk:</strong> CD4 <100; also natalizumab, rituximab</li>
+      <li><strong>Features:</strong> Focal neurologic deficits, cognitive decline, no fever/headache</li>
+      <li><strong>Diagnosis:</strong> MRI (white matter lesions, no enhancement, no mass effect), CSF JC virus PCR</li>
+      <li><strong>Treatment:</strong> No specific antiviral. Immune reconstitution (ART) is only treatment. May develop IRIS.</li>
+    </ul>
+    <h4>Microsporidiosis</h4>
+    <ul>
+      <li><strong>Risk:</strong> CD4 <100</li>
+      <li><strong>Features:</strong> Chronic watery diarrhea, wasting</li>
+      <li><strong>Diagnosis:</strong> Modified trichrome stain of stool, PCR</li>
+      <li><strong>Treatment:</strong> Albendazole 400mg PO BID + ART</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ANTIBIOGRAM GUIDANCE -->
+<section id="antibiogram-guide">
+  <h2>Antibiogram Interpretation & Use</h2>
+  <p class="muted">Local resistance patterns guide empiric therapy. The antibiogram is your hospital's susceptibility report card.</p>
+
+  <button class="collapsible">What is an Antibiogram?</button>
+  <div class="panel">
+    <h4>Definition</h4>
+    <p>An antibiogram is a summary of antimicrobial susceptibility test results for organisms isolated at a specific institution over a defined period (usually 1 year). It shows the percentage of isolates susceptible to each antibiotic tested.</p>
+    <h4>Why It Matters</h4>
+    <ul>
+      <li>Resistance patterns vary significantly by hospital, unit, and region</li>
+      <li>National guidelines provide general recommendations; local antibiogram provides YOUR hospital's data</li>
+      <li>Empiric therapy should target >80-90% susceptibility for serious infections</li>
+    </ul>
+    <h4>Limitations</h4>
+    <ul>
+      <li>Reflects past patterns (typically 1 year old data)</li>
+      <li>Aggregates all isolates — doesn't distinguish ICU vs. floor, inpatient vs. outpatient</li>
+      <li>May not reflect individual patient's prior cultures or risk factors</li>
+      <li>Only includes tested isolates (selection bias)</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">How to Read an Antibiogram</button>
+  <div class="panel">
+    <h4>Example Antibiogram (Simplified)</h4>
+    <table>
+      <thead><tr><th>Organism</th><th>Amp</th><th>Pip-Tazo</th><th>Ceftriaxone</th><th>Cefepime</th><th>Cipro</th><th>Gent</th><th>TMP-SMX</th></tr></thead>
+      <tbody>
+        <tr><td><strong>E. coli (n=500)</strong></td><td>55%</td><td>92%</td><td>88%</td><td>94%</td><td>72%</td><td>89%</td><td>75%</td></tr>
+        <tr><td><strong>Klebsiella pneumoniae (n=200)</strong></td><td>0%</td><td>88%</td><td>85%</td><td>91%</td><td>90%</td><td>92%</td><td>85%</td></tr>
+        <tr><td><strong>Pseudomonas aeruginosa (n=150)</strong></td><td>-</td><td>85%</td><td>-</td><td>87%</td><td>78%</td><td>88%</td><td>-</td></tr>
+        <tr><td><strong>MSSA (n=300)</strong></td><td>-</td><td>100%</td><td>100%</td><td>100%</td><td>-</td><td>100%</td><td>98%</td></tr>
+        <tr><td><strong>MRSA (n=100)</strong></td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>-</td><td>-</td><td>95%</td></tr>
+      </tbody>
+    </table>
+    <p class="small">Numbers represent % of isolates susceptible. "-" = not tested or not applicable.</p>
+    <h4>Interpreting the Numbers</h4>
+    <ul>
+      <li><strong>>90%:</strong> Excellent choice for empiric therapy</li>
+      <li><strong>80-90%:</strong> Acceptable for non-severe infections; consider alternatives for severe infections</li>
+      <li><strong><80%:</strong> Generally avoid for empiric therapy; may use if culture-directed</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Applying Antibiogram to Clinical Decisions</button>
+  <div class="panel">
+    <h4>Scenario 1: Uncomplicated UTI</h4>
+    <p>Your antibiogram shows E. coli susceptibility: TMP-SMX 75%, Ciprofloxacin 72%, Nitrofurantoin 95%</p>
+    <ul>
+      <li><strong>Best empiric choice:</strong> Nitrofurantoin (95% susceptibility)</li>
+      <li>Avoid TMP-SMX and ciprofloxacin empirically (<80%)</li>
+      <li>This is why IDSA now recommends nitrofurantoin first-line for uncomplicated cystitis</li>
+    </ul>
+    
+    <h4>Scenario 2: Hospital-Acquired Pneumonia</h4>
+    <p>High-risk patient, your antibiogram shows: P. aeruginosa susceptibility to pip-tazo 85%, cefepime 87%, meropenem 95%</p>
+    <ul>
+      <li>For severe infection, want >90% coverage</li>
+      <li><strong>Best empiric choice:</strong> Meropenem (or combination therapy with pip-tazo + aminoglycoside for double coverage)</li>
+    </ul>
+    
+    <h4>Scenario 3: Skin/Soft Tissue Infection</h4>
+    <p>Your antibiogram shows MRSA prevalence 35% of all S. aureus isolates</p>
+    <ul>
+      <li>If MRSA prevalence >10-20%, consider empiric MRSA coverage (vancomycin, doxycycline, TMP-SMX) for purulent SSTIs</li>
+      <li>If MRSA prevalence <10%, empiric MSSA coverage (cephalexin, dicloxacillin) may be reasonable</li>
+    </ul>
+    
+    <h4>General Principles</h4>
+    <ul>
+      <li><strong>Match severity to susceptibility threshold:</strong> Severe infections need >90% coverage; mild infections may accept lower</li>
+      <li><strong>Consider individual risk factors:</strong> Recent antibiotics, prior cultures, healthcare exposure may shift probability toward resistance</li>
+      <li><strong>De-escalate when cultures return:</strong> Antibiogram guides empiric therapy; definitive therapy is culture-directed</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">ESBL and Resistance Patterns to Watch</button>
+  <div class="panel">
+    <h4>ESBL (Extended-Spectrum Beta-Lactamase) Producers</h4>
+    <ul>
+      <li><strong>Organisms:</strong> E. coli, Klebsiella, Proteus</li>
+      <li><strong>Resistance:</strong> All penicillins and cephalosporins (including 3rd/4th gen), aztreonam</li>
+      <li><strong>Treatment:</strong> Carbapenems (meropenem, ertapenem); pip-tazo may work for UTI with low inoculum</li>
+      <li><strong>Clue on antibiogram:</strong> Susceptible to cefepime in vitro but cephalosporin failure clinically. Some labs report "ESBL screen positive."</li>
+    </ul>
+    
+    <h4>AmpC Producers</h4>
+    <ul>
+      <li><strong>Organisms:</strong> "SPICE" — Serratia, Providencia, Indole-positive Proteus, Citrobacter, Enterobacter</li>
+      <li><strong>Risk:</strong> May appear susceptible to 3rd-gen cephalosporins but develop resistance during therapy</li>
+      <li><strong>Treatment:</strong> Cefepime (stable to AmpC), carbapenems, fluoroquinolones if susceptible</li>
+    </ul>
+    
+    <h4>CRE (Carbapenem-Resistant Enterobacteriaceae)</h4>
+    <ul>
+      <li><strong>Mechanisms:</strong> KPC (most common in US), NDM, OXA-48</li>
+      <li><strong>Treatment:</strong> Ceftazidime-avibactam (KPC), meropenem-vaborbactam, combination therapy; ID consult recommended</li>
+    </ul>
+    
+    <h4>MRSA</h4>
+    <ul>
+      <li>Check your antibiogram for MRSA prevalence (% of S. aureus that is MRSA)</li>
+      <li>Also check susceptibility to clindamycin (D-test for inducible resistance), TMP-SMX, doxycycline</li>
+    </ul>
+    
+    <h4>VRE (Vancomycin-Resistant Enterococcus)</h4>
+    <ul>
+      <li>Usually E. faecium (E. faecalis resistance less common)</li>
+      <li><strong>Treatment:</strong> Linezolid, daptomycin (not for pulmonary infections)</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Stratified Antibiograms</button>
+  <div class="panel">
+    <h4>Why Stratification Matters</h4>
+    <p>A single hospital antibiogram aggregates very different patient populations. Resistance patterns differ significantly between:</p>
+    <ul>
+      <li>ICU vs. general medical floors</li>
+      <li>Inpatient vs. outpatient (ED, clinic)</li>
+      <li>Different specimen types (blood vs. urine vs. respiratory)</li>
+      <li>Community-onset vs. hospital-onset infections</li>
+    </ul>
+    
+    <h4>Example: E. coli Cipro Susceptibility</h4>
+    <table>
+      <thead><tr><th>Population</th><th>Cipro Susceptibility</th></tr></thead>
+      <tbody>
+        <tr><td>Overall hospital</td><td>72%</td></tr>
+        <tr><td>Outpatient urine (ED)</td><td>85%</td></tr>
+        <tr><td>Inpatient urine (floor)</td><td>68%</td></tr>
+        <tr><td>ICU urine</td><td>55%</td></tr>
+        <tr><td>Blood cultures</td><td>60%</td></tr>
+      </tbody>
+    </table>
+    <p class="small">Using the stratified data, you might use cipro empirically for an ED UTI (85%) but not for an ICU patient (55%).</p>
+    
+    <h4>Ask Your Pharmacy/Micro Lab</h4>
+    <ul>
+      <li>Many hospitals now produce unit-specific or specimen-specific antibiograms</li>
+      <li>If not available, ask — this data may exist but not be widely distributed</li>
+    </ul>
+  </div>
+</section>
+
+<!-- OPAT GUIDE -->
+<section id="opat">
+  <h2>Outpatient Parenteral Antimicrobial Therapy (OPAT)</h2>
+  <p class="muted">Criteria for safe discharge on IV antibiotics, monitoring, and common regimens. Cross-reference: <a href="#duration-therapy" style="color: #0366d6;">Duration of Therapy</a>, <a href="#renal-dosing" style="color: #0366d6;">Renal Dosing</a></p>
+
+  <button class="collapsible">Patient Selection Criteria</button>
+  <div class="panel">
+    <h4>Appropriate Candidates</h4>
+    <ul>
+      <li>Infection requiring IV antibiotics that cannot be treated with oral alternatives</li>
+      <li>Clinically stable (afebrile, hemodynamically stable, no acute decompensation)</li>
+      <li>Reliable IV access (PICC line, midline, or port)</li>
+      <li>Able to manage home infusion or has caregiver support</li>
+      <li>Access to OPAT services (infusion center, home health, or self-administration)</li>
+      <li>Reliable follow-up and monitoring capability</li>
+    </ul>
+    
+    <h4>Relative Contraindications</h4>
+    <ul>
+      <li>Active IV drug use (high risk of line misuse) — consider supervised infusion or oral alternatives</li>
+      <li>Unstable housing or lack of refrigeration (for some drugs)</li>
+      <li>Cognitive impairment without reliable caregiver</li>
+      <li>History of severe allergic reaction or line complications</li>
+      <li>Ongoing diagnostic uncertainty</li>
+    </ul>
+    
+    <h4>Before Discharge Checklist</h4>
+    <ul>
+      <li>□ Source control achieved (if applicable)</li>
+      <li>□ PICC/Midline placed and functioning</li>
+      <li>□ Culture data available and therapy appropriate</li>
+      <li>□ Duration of therapy defined</li>
+      <li>□ OPAT referral placed (infusion services, home health)</li>
+      <li>□ Labs scheduled (see monitoring below)</li>
+      <li>□ Follow-up appointments (ID clinic, PCP)</li>
+      <li>□ Patient/caregiver education completed</li>
+      <li>□ Drug supply secured (prior authorization if needed)</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">OPAT-Friendly Antibiotics</button>
+  <div class="panel">
+    <h4>Once-Daily IV Antibiotics (Preferred for OPAT)</h4>
+    <table>
+      <thead><tr><th>Drug</th><th>Typical Dose</th><th>Common Indications</th><th>Key Monitoring</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Ceftriaxone</strong></td><td>1-2g IV q24h</td><td>Bone/joint, endocarditis (Strep), UTI, skin</td><td>CBC, LFTs; well-tolerated</td></tr>
+        <tr><td><strong>Ertapenem</strong></td><td>1g IV q24h</td><td>Intra-abdominal, diabetic foot (polymicrobial), ESBL</td><td>CBC; seizure risk (rare)</td></tr>
+        <tr><td><strong>Daptomycin</strong></td><td>6-10 mg/kg IV q24h</td><td>MRSA bacteremia, endocarditis, bone/joint</td><td>CK weekly (myopathy), BMP</td></tr>
+        <tr><td><strong>Dalbavancin</strong></td><td>1500mg IV × 1 or 1000mg then 500mg week 2</td><td>ABSSSI, bone/joint (selected cases)</td><td>Minimal; single/two-dose regimen</td></tr>
+        <tr><td><strong>Oritavancin</strong></td><td>1200mg IV × 1</td><td>ABSSSI</td><td>Single dose; avoid with warfarin (interferes with INR)</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Antibiotics Requiring More Frequent Dosing</h4>
+    <table>
+      <thead><tr><th>Drug</th><th>Typical Dose</th><th>OPAT Considerations</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Vancomycin</strong></td><td>15-20 mg/kg IV q8-12h</td><td>Requires trough monitoring; consider AUC-based dosing. Nephrotoxic.</td></tr>
+        <tr><td><strong>Cefazolin</strong></td><td>2g IV q8h (or 2g q12h with probenecid)</td><td>MSSA bone/joint, endocarditis. Can give via elastomeric pump.</td></tr>
+        <tr><td><strong>Cefepime</strong></td><td>2g IV q8h (or extended infusion)</td><td>Pseudomonas coverage. Neurotoxicity in renal impairment.</td></tr>
+        <tr><td><strong>Piperacillin-Tazobactam</strong></td><td>3.375-4.5g IV q6-8h</td><td>Broad-spectrum; requires frequent dosing or extended infusion.</td></tr>
+        <tr><td><strong>Ampicillin</strong></td><td>2g IV q4h</td><td>Enterococcal infections, Listeria. Difficult for OPAT due to frequent dosing.</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Oral Alternatives to Consider (Avoid OPAT if Possible)</h4>
+    <p>Per OVIVA trial and other data, oral antibiotics with excellent bioavailability may be equivalent to IV for many infections including osteomyelitis:</p>
+    <ul>
+      <li><strong>Fluoroquinolones:</strong> Levofloxacin, ciprofloxacin (excellent bioavailability)</li>
+      <li><strong>Linezolid:</strong> 100% bioavailability; MRSA coverage</li>
+      <li><strong>TMP-SMX:</strong> Good for MRSA, some GNRs</li>
+      <li><strong>Doxycycline:</strong> MRSA SSTIs, some respiratory</li>
+      <li><strong>Metronidazole:</strong> Anaerobic coverage</li>
+    </ul>
+    <p class="small"><strong>Bottom Line:</strong> Before committing to OPAT, always ask: "Is there an oral option with equivalent efficacy?"</p>
+  </div>
+
+  <button class="collapsible">Laboratory Monitoring on OPAT</button>
+  <div class="panel">
+    <h4>General Monitoring Schedule</h4>
+    <table>
+      <thead><tr><th>Timeframe</th><th>Labs</th></tr></thead>
+      <tbody>
+        <tr><td>Baseline (before discharge)</td><td>CBC, BMP, LFTs</td></tr>
+        <tr><td>Weekly</td><td>CBC, BMP (Cr), LFTs</td></tr>
+        <tr><td>As indicated</td><td>Drug levels, CK, additional tests per drug</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Drug-Specific Monitoring</h4>
+    <table>
+      <thead><tr><th>Drug</th><th>Specific Monitoring</th><th>Frequency</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Vancomycin</strong></td><td>Trough (or AUC), BMP (nephrotoxicity)</td><td>Trough: 48-72h after start, then weekly. BMP weekly.</td></tr>
+        <tr><td><strong>Aminoglycosides</strong></td><td>Random level (Hartford), BMP, audiometry if prolonged</td><td>Level per nomogram; BMP weekly</td></tr>
+        <tr><td><strong>Daptomycin</strong></td><td>CK (myopathy)</td><td>Weekly; hold if CK >10× ULN or symptoms</td></tr>
+        <tr><td><strong>Linezolid</strong></td><td>CBC (myelosuppression), especially platelets</td><td>Weekly; risk increases after 2 weeks</td></tr>
+        <tr><td><strong>Beta-lactams</strong></td><td>CBC (neutropenia, eosinophilia), LFTs, BMP</td><td>Weekly; neutropenia more common with prolonged use</td></tr>
+        <tr><td><strong>TMP-SMX (IV)</strong></td><td>CBC, BMP (hyperkalemia), LFTs</td><td>Weekly</td></tr>
+        <tr><td><strong>Amphotericin B</strong></td><td>BMP (K, Mg, Cr), CBC</td><td>Daily initially, then 2-3× weekly</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>When to Hold and Call</h4>
+    <ul>
+      <li><strong>Fever or new symptoms:</strong> Treatment failure, new infection, drug reaction</li>
+      <li><strong>Rash:</strong> Drug allergy (may need to switch)</li>
+      <li><strong>Line issues:</strong> Redness, swelling, pain at site; difficulty infusing</li>
+      <li><strong>Lab abnormalities:</strong> Significant Cr rise, cytopenias, LFT elevations >3× ULN</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Common OPAT Regimens by Indication</button>
+  <div class="panel">
+    <h4>Osteomyelitis</h4>
+    <table>
+      <thead><tr><th>Organism</th><th>IV Option</th><th>Oral Option</th><th>Duration</th></tr></thead>
+      <tbody>
+        <tr><td><strong>MSSA</strong></td><td>Cefazolin 2g IV q8h</td><td>Cephalexin 1g PO QID or Dicloxacillin 500mg PO QID</td><td>6 weeks</td></tr>
+        <tr><td><strong>MRSA</strong></td><td>Vancomycin or Daptomycin</td><td>Linezolid 600mg PO BID or TMP-SMX DS 2 tabs PO BID + Rifampin</td><td>6 weeks</td></tr>
+        <tr><td><strong>Pseudomonas</strong></td><td>Cefepime 2g IV q8h or Ceftazidime</td><td>Ciprofloxacin 750mg PO BID (if susceptible)</td><td>6 weeks</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Endocarditis (Native Valve)</h4>
+    <table>
+      <thead><tr><th>Organism</th><th>Regimen</th><th>Duration</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Viridans Strep (penicillin-susceptible)</strong></td><td>Ceftriaxone 2g IV q24h</td><td>4 weeks (or 2 weeks with gentamicin synergy)</td></tr>
+        <tr><td><strong>MSSA</strong></td><td>Cefazolin 2g IV q8h</td><td>6 weeks</td></tr>
+        <tr><td><strong>MRSA</strong></td><td>Vancomycin or Daptomycin 8-10 mg/kg IV q24h</td><td>6 weeks</td></tr>
+        <tr><td><strong>Enterococcus (ampicillin-susceptible)</strong></td><td>Ampicillin 2g IV q4h + Ceftriaxone 2g IV q12h</td><td>6 weeks</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Note:</strong> Endocarditis OPAT requires close ID follow-up and careful patient selection.</p>
+    
+    <h4>Septic Arthritis (Native Joint)</h4>
+    <ul>
+      <li><strong>MSSA:</strong> Cefazolin 2g IV q8h → 2-4 weeks total (with adequate drainage)</li>
+      <li><strong>MRSA:</strong> Vancomycin (trough 15-20) or Daptomycin → 2-4 weeks total</li>
+      <li><strong>GNR:</strong> Based on susceptibilities; 2-4 weeks total</li>
+    </ul>
+    
+    <h4>Intra-Abdominal Infections</h4>
+    <ul>
+      <li><strong>Ertapenem 1g IV q24h:</strong> Excellent once-daily option for polymicrobial infections after source control</li>
+      <li><strong>Duration:</strong> 4-7 days after source control (per STOP-IT trial)</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Line Care and Complications</button>
+  <div class="panel">
+    <h4>Types of IV Access for OPAT</h4>
+    <table>
+      <thead><tr><th>Type</th><th>Duration</th><th>Pros</th><th>Cons</th></tr></thead>
+      <tbody>
+        <tr><td><strong>PICC</strong></td><td>Weeks to months</td><td>Durable, easy to place, suitable for most infusions</td><td>DVT risk (~3-5%), infection risk, may not be placed if small veins</td></tr>
+        <tr><td><strong>Midline</strong></td><td>1-4 weeks</td><td>Lower DVT risk than PICC, no chest X-ray needed</td><td>Cannot infuse vesicants, shorter duration</td></tr>
+        <tr><td><strong>Port</strong></td><td>Months to years</td><td>Very durable, lower infection rate when not accessed</td><td>Requires surgical placement, more expensive</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Line Complications</h4>
+    <ul>
+      <li><strong>Occlusion:</strong> Unable to infuse or withdraw. Try TPA (alteplase) instillation.</li>
+      <li><strong>Infection:</strong> Exit site infection vs. CLABSI. Exit site: local care, may salvage line. CLABSI: usually requires line removal.</li>
+      <li><strong>Thrombosis:</strong> Arm swelling, pain. Confirm with ultrasound. Anticoagulate; line removal often not necessary if functional.</li>
+      <li><strong>Dislodgement:</strong> Confirm position; may need replacement.</li>
+    </ul>
+    
+    <h4>Patient Education</h4>
+    <ul>
+      <li>Keep dressing clean and dry</li>
+      <li>Flush line per protocol (usually heparin or saline)</li>
+      <li>Signs to report: fever, redness/swelling at site, arm swelling, difficulty infusing</li>
+      <li>Never use line for non-prescribed purposes</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PROPHYLAXIS TABLES -->
+<section id="prophylaxis">
+  <h2>Antimicrobial Prophylaxis Tables</h2>
+  <p class="muted">Surgical prophylaxis, neutropenia/transplant prophylaxis, and asplenia management.</p>
+
+  <button class="collapsible">Surgical Antimicrobial Prophylaxis</button>
+  <div class="panel">
+    <h4>General Principles</h4>
+    <ul>
+      <li><strong>Timing:</strong> Give within 60 minutes before incision (120 min for vancomycin and fluoroquinolones)</li>
+      <li><strong>Re-dosing:</strong> Re-dose intraoperatively for prolonged procedures (>2 half-lives) or significant blood loss</li>
+      <li><strong>Duration:</strong> Single dose or ≤24 hours postoperatively for most procedures</li>
+      <li><strong>No benefit</strong> from continuing antibiotics based on drains, catheters, or "until lines removed"</li>
+    </ul>
+    
+    <h4>Surgical Prophylaxis by Procedure</h4>
+    <table>
+      <thead><tr><th>Procedure</th><th>First-Line</th><th>PCN Allergy</th><th>MRSA Risk*</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cardiac (sternotomy, CABG, valve)</strong></td><td>Cefazolin 2g IV</td><td>Vancomycin 15 mg/kg</td><td>Add Vancomycin</td></tr>
+        <tr><td><strong>Orthopedic (arthroplasty, spine fusion, ORIF)</strong></td><td>Cefazolin 2g IV</td><td>Vancomycin 15 mg/kg</td><td>Add Vancomycin</td></tr>
+        <tr><td><strong>Vascular (arterial, lower extremity amputation)</strong></td><td>Cefazolin 2g IV</td><td>Vancomycin 15 mg/kg</td><td>Add Vancomycin</td></tr>
+        <tr><td><strong>Colorectal</strong></td><td>Cefazolin 2g + Metronidazole 500mg IV (or Ertapenem 1g)</td><td>Clindamycin 900mg + Gentamicin; or Metronidazole + Fluoroquinolone</td><td>Add Vancomycin</td></tr>
+        <tr><td><strong>Appendectomy</strong></td><td>Cefazolin 2g + Metronidazole 500mg (or Cefoxitin 2g)</td><td>Metronidazole + Fluoroquinolone</td><td>—</td></tr>
+        <tr><td><strong>Cholecystectomy (high-risk only)</strong></td><td>Cefazolin 2g IV</td><td>Clindamycin + Gentamicin</td><td>—</td></tr>
+        <tr><td><strong>Hysterectomy</strong></td><td>Cefazolin 2g IV</td><td>Clindamycin 900mg + Gentamicin</td><td>—</td></tr>
+        <tr><td><strong>Cesarean section</strong></td><td>Cefazolin 2g IV (before incision)</td><td>Clindamycin 900mg + Gentamicin</td><td>—</td></tr>
+        <tr><td><strong>Craniotomy</strong></td><td>Cefazolin 2g IV</td><td>Vancomycin 15 mg/kg</td><td>Add Vancomycin</td></tr>
+        <tr><td><strong>Head and neck (clean-contaminated)</strong></td><td>Cefazolin 2g + Metronidazole 500mg (or Ampicillin-Sulbactam 3g)</td><td>Clindamycin 900mg</td><td>—</td></tr>
+        <tr><td><strong>Urologic (clean-contaminated)</strong></td><td>Cefazolin 2g IV or Fluoroquinolone</td><td>Fluoroquinolone or Aminoglycoside</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <p class="small">*MRSA risk factors: known MRSA colonization, recent MRSA infection, institution with high MRSA prevalence. Add vancomycin to (not replace) cefazolin.</p>
+    
+    <h4>Weight-Based Dosing</h4>
+    <ul>
+      <li><strong>Cefazolin:</strong> 2g if <120 kg; 3g if ≥120 kg</li>
+      <li><strong>Vancomycin:</strong> 15 mg/kg (round to nearest 250mg); max 2g single dose</li>
+    </ul>
+    
+    <h4>Re-dosing Intervals</h4>
+    <table>
+      <thead><tr><th>Drug</th><th>Re-dose Interval</th></tr></thead>
+      <tbody>
+        <tr><td>Cefazolin</td><td>Every 4 hours</td></tr>
+        <tr><td>Cefoxitin</td><td>Every 2 hours</td></tr>
+        <tr><td>Ampicillin-Sulbactam</td><td>Every 2 hours</td></tr>
+        <tr><td>Clindamycin</td><td>Every 6 hours</td></tr>
+        <tr><td>Metronidazole</td><td>Every 8 hours</td></tr>
+        <tr><td>Vancomycin</td><td>Not typically re-dosed (long half-life)</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Cross-link:</strong> <a href="im_guide.html#periop" style="color: #0366d6;">📚 IMCRG: Perioperative Management</a></p>
+  </div>
+
+  <button class="collapsible">Neutropenic Fever Prophylaxis</button>
+  <div class="panel">
+    <h4>Definitions</h4>
+    <ul>
+      <li><strong>Neutropenia:</strong> ANC <500 cells/μL, or <1000 and expected to fall to <500</li>
+      <li><strong>Prolonged neutropenia:</strong> >7 days</li>
+      <li><strong>Profound neutropenia:</strong> ANC <100 cells/μL</li>
+    </ul>
+    
+    <h4>Antibacterial Prophylaxis</h4>
+    <table>
+      <thead><tr><th>Risk Group</th><th>Prophylaxis</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>High-risk</strong> (expected prolonged/profound neutropenia: AML induction, HSCT conditioning)</td><td>Levofloxacin 500mg PO daily</td><td>Start with chemotherapy; reduces GNR bacteremia. Continue until ANC recovery or fever develops.</td></tr>
+        <tr><td><strong>Standard-risk</strong> (most solid tumor chemo)</td><td>Generally not recommended</td><td>Risk does not outweigh benefit of fluoroquinolone exposure.</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Antifungal Prophylaxis</h4>
+    <table>
+      <thead><tr><th>Setting</th><th>Regimen</th><th>Target Organisms</th></tr></thead>
+      <tbody>
+        <tr><td><strong>AML induction, MDS</strong></td><td>Posaconazole 300mg PO daily (or 200mg TID suspension)</td><td>Candida + Aspergillus (mold-active)</td></tr>
+        <tr><td><strong>Allogeneic HSCT (pre-engraftment)</strong></td><td>Fluconazole 400mg PO daily OR Posaconazole/Voriconazole</td><td>Candida; mold-active agents if high Aspergillus risk</td></tr>
+        <tr><td><strong>Allogeneic HSCT (with GVHD)</strong></td><td>Posaconazole 300mg PO daily</td><td>Candida + Aspergillus (high mold risk)</td></tr>
+        <tr><td><strong>Autologous HSCT</strong></td><td>Fluconazole 400mg PO daily</td><td>Candida (lower mold risk)</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Antiviral Prophylaxis</h4>
+    <table>
+      <thead><tr><th>Indication</th><th>Regimen</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>HSV seropositive + high-intensity chemo or HSCT</strong></td><td>Acyclovir 400mg PO BID or Valacyclovir 500mg PO daily</td><td>Prevents HSV reactivation (mucositis, esophagitis)</td></tr>
+        <tr><td><strong>CMV high-risk (D+/R- transplant)</strong></td><td>Valganciclovir 900mg PO daily OR preemptive monitoring</td><td>See CMV section above</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>PCP Prophylaxis in Hematologic Malignancy</h4>
+    <ul>
+      <li><strong>Indications:</strong> ALL, alemtuzumab, fludarabine, high-dose steroids (≥20 mg × ≥4 weeks), allogeneic HSCT</li>
+      <li><strong>Regimen:</strong> TMP-SMX 1 DS daily or 1 DS 3× weekly</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Asplenia / Hyposplenia Prophylaxis</button>
+  <div class="panel">
+    <h4>High-Risk Organisms</h4>
+    <ul>
+      <li><strong>Encapsulated bacteria:</strong> <em>Streptococcus pneumoniae</em> (most common), <em>Haemophilus influenzae</em>, <em>Neisseria meningitidis</em></li>
+      <li><strong>Other:</strong> <em>Capnocytophaga canimorsus</em> (dog bites), <em>Babesia</em> (endemic areas), <em>Plasmodium</em> (malaria)</li>
+    </ul>
+    <p><strong>Overwhelming Post-Splenectomy Infection (OPSI):</strong> Fulminant sepsis with high mortality (50-70%). Risk is lifelong but highest in first 2 years post-splenectomy.</p>
+    
+    <h4>Vaccinations (Critical)</h4>
+    <table>
+      <thead><tr><th>Vaccine</th><th>Timing (Elective Splenectomy)</th><th>Timing (Emergent/Unvaccinated)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Pneumococcal (PCV20 or PCV15 → PPSV23)</strong></td><td>≥2 weeks pre-op</td><td>≥2 weeks post-op. PCV15 then PPSV23 ≥8 weeks later.</td></tr>
+        <tr><td><strong>Meningococcal (MenACWY + MenB)</strong></td><td>≥2 weeks pre-op</td><td>≥2 weeks post-op</td></tr>
+        <tr><td><strong>Haemophilus influenzae type b (Hib)</strong></td><td>≥2 weeks pre-op</td><td>≥2 weeks post-op</td></tr>
+        <tr><td><strong>Influenza</strong></td><td>Annually</td><td>Annually</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Note:</strong> If splenectomy is urgent, vaccinate ≥2 weeks post-op (immune response is suboptimal immediately after surgery).</p>
+    
+    <h4>Antibiotic Prophylaxis</h4>
+    <table>
+      <thead><tr><th>Setting</th><th>Recommendation</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Children <5 years</strong></td><td>Penicillin VK 125-250mg PO BID until age 5 (at minimum)</td></tr>
+        <tr><td><strong>Adults post-splenectomy</strong></td><td>Consider prophylaxis for 1-2 years (especially if immunocompromised). Amoxicillin 250-500mg PO daily or Penicillin VK 250mg PO BID.</td></tr>
+        <tr><td><strong>Lifelong prophylaxis</strong></td><td>Consider if: immunocompromised, history of OPSI, poor antibody response to vaccination</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Patient Education — Wallet Card</h4>
+    <ul>
+      <li>Carry a wallet card indicating asplenic status</li>
+      <li><strong>Fever = Emergency:</strong> Seek immediate medical attention for any fever. Do not wait.</li>
+      <li><strong>Standby antibiotics:</strong> Prescribe amoxicillin-clavulanate 875/125mg to take at first sign of illness if unable to reach medical care quickly</li>
+      <li><strong>Animal bites:</strong> High risk for <em>Capnocytophaga</em>; seek care immediately and start antibiotics</li>
+      <li><strong>Travel:</strong> Malaria prophylaxis essential in endemic areas; Babesia risk in Northeast US</li>
+    </ul>
+    
+    <h4>Management of Febrile Asplenic Patient</h4>
+    <ul>
+      <li><strong>Empiric antibiotics IMMEDIATELY</strong> — do not wait for cultures</li>
+      <li><strong>Regimen:</strong> Ceftriaxone 2g IV + Vancomycin (if MRSA risk or critically ill)</li>
+      <li>Blood cultures, but do not delay antibiotics</li>
+      <li>Consider ICU admission for close monitoring</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Endocarditis Prophylaxis</button>
+  <div class="panel">
+    <h4>Who Needs Prophylaxis?</h4>
+    <p>Prophylaxis is recommended only for patients at <strong>highest risk</strong> of adverse outcomes from endocarditis:</p>
+    <ul>
+      <li>Prosthetic cardiac valve or prosthetic material used for valve repair</li>
+      <li>Previous infective endocarditis</li>
+      <li>Certain congenital heart diseases:
+        <ul>
+          <li>Unrepaired cyanotic CHD</li>
+          <li>Repaired CHD with residual defects at or near prosthetic material</li>
+          <li>Repaired CHD with prosthetic material <6 months post-procedure</li>
+        </ul>
+      </li>
+      <li>Cardiac transplant recipients with valvulopathy</li>
+    </ul>
+    <p class="small"><strong>Note:</strong> MVP, bicuspid aortic valve, and most other valve disorders do NOT require prophylaxis per current AHA guidelines.</p>
+    
+    <h4>Which Procedures?</h4>
+    <ul>
+      <li><strong>Dental:</strong> Procedures involving gingival tissue, periapical region of teeth, or perforation of oral mucosa</li>
+      <li><strong>NOT indicated:</strong> Routine GI or GU procedures (including EGD, colonoscopy)</li>
+    </ul>
+    
+    <h4>Regimens</h4>
+    <table>
+      <thead><tr><th>Situation</th><th>Regimen</th><th>Dose (30-60 min before procedure)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Standard</strong></td><td>Amoxicillin</td><td>2g PO</td></tr>
+        <tr><td><strong>Unable to take PO</strong></td><td>Ampicillin OR Cefazolin/Ceftriaxone</td><td>2g IV/IM OR 1g IV/IM</td></tr>
+        <tr><td><strong>Penicillin allergy (non-severe)</strong></td><td>Cephalexin</td><td>2g PO</td></tr>
+        <tr><td><strong>Penicillin allergy (severe/anaphylaxis)</strong></td><td>Azithromycin OR Clindamycin</td><td>500mg PO OR 600mg PO</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Cross-link:</strong> <a href="im_guide.html#endocarditis" style="color: #0366d6;">📚 IMCRG: Infective Endocarditis</a>, <a href="#penicillin-allergy" style="color: #0366d6;">Penicillin Allergy Evaluation</a></p>
   </div>
 </section>
 
