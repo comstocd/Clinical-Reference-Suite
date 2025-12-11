@@ -388,7 +388,7 @@
         <div id="toc" class="toc">
             <h1 class="toc-title">📚 Internal Medicine Clinical Reference Guide (IMCRG)</h1>
             <p class="toc-subtitle">Comprehensive iPad-Optimized Clinical Decision Support</p>
-            <p class="toc-subtitle">Version 3.0 • 148 Conditions • <strong style="color: #e74c3c;">BUILD #13</strong></p>
+            <p class="toc-subtitle">Version 3.0 • 148 Conditions • <strong style="color: #e74c3c;">BUILD #14</strong></p>
             <p class="toc-subtitle"><em>Tap any condition below to jump to its management protocol.</em></p>
             
             <div class="toc-grid">
@@ -1734,7 +1734,7 @@
             <div class="section">
                 <div class="section-title">COMPLICATIONS TO MONITOR</div>
                 <div class="section-content">
-                    <p><strong>During Admission:</strong> Cardiorenal syndrome, electrolyte abnormalities (hypokalemia, hypomagnesemia, hyponatremia), arrhythmias (AF most common), worsening renal function</p>
+                    <p><strong>During Admission:</strong> Cardiorenal syndrome (<a href="#aki" style="color: #0366d6;">AKI</a>), electrolyte abnormalities (<a href="#hyponatremia" style="color: #0366d6;">hyponatremia</a>), arrhythmias (<a href="#afib" style="color: #0366d6;">AF</a> most common), worsening renal function</p>
                     <p><strong>Long-term:</strong> Recurrent admissions (50% at 6 months), progressive renal dysfunction, sudden cardiac death, need for advanced therapies (LVAD, transplant)</p>
                 </div>
             </div>
@@ -2588,7 +2588,7 @@
             <div class="section">
                 <div class="section-title">COMPLICATIONS TO MONITOR</div>
                 <div class="section-content">
-                    <p><strong>Acute:</strong> ARDS, AKI requiring dialysis, DIC, multiorgan failure, cardiac dysfunction, death (mortality 10-40%)</p>
+                    <p><strong>Acute:</strong> ARDS, <a href="#aki" style="color: #0366d6;">AKI</a> requiring dialysis, <a href="#dic" style="color: #0366d6;">DIC</a>, multiorgan failure, cardiac dysfunction, death (mortality 10-40%)</p>
                     <p><strong>Long-term:</strong> Post-sepsis syndrome (cognitive impairment, weakness, PTSD), recurrent infections, chronic organ dysfunction</p>
                 </div>
             </div>
@@ -2609,7 +2609,7 @@
                     <p><span class="label">Alternate Presentations:</span></p>
                     <ul>
                         <li><strong>Non-oliguric AKI:</strong> Cr rising but urine output preserved (often ATN from nephrotoxins)</li>
-                        <li><strong>Hyperkalemia:</strong> May be presenting sign, can be life-threatening</li>
+                        <li><strong>Hyperkalemia:</strong> May be presenting sign, can be life-threatening. <a href="#hyperkalemia" style="color: #0366d6;">See Hyperkalemia management</a></li>
                         <li><strong>Metabolic Acidosis:</strong> High anion gap from uremia</li>
                         <li><strong>Elderly:</strong> Minimal symptoms despite significant Cr elevation</li>
                     </ul>
@@ -2666,7 +2666,7 @@
                         </div>
                         
                         <button class="calc-button" onclick="calculateFENa()">Calculate FENa</button>
-                        <div id="fena-result"></div>
+                        <div id="fena-result" class="calc-result" style="display:none;"></div>
                     </div>
                 </div>
             </div>
@@ -2705,10 +2705,10 @@
                     <p><span class="label">Indications for Dialysis (AEIOU):</span></p>
                     <ul>
                         <li><strong>A</strong>cidosis - severe metabolic acidosis (pH <7.1) refractory to medical management</li>
-                        <li><strong>E</strong>lectrolytes - hyperkalemia refractory to medical therapy</li>
+                        <li><strong>E</strong>lectrolytes - <a href="#hyperkalemia" style="color: #0366d6;">hyperkalemia</a> refractory to medical therapy</li>
                         <li><strong>I</strong>ngestions - toxic alcohols, lithium, salicylates</li>
-                        <li><strong>O</strong>verload - volume overload refractory to diuretics, pulmonary edema</li>
-                        <li><strong>U</strong>remia - uremic pericarditis, encephalopathy, bleeding</li>
+                        <li><strong>O</strong>verload - <a href="#pulmonary-edema" style="color: #0366d6;">volume overload</a> refractory to diuretics, pulmonary edema</li>
+                        <li><strong>U</strong>remia - <a href="#uremia" style="color: #0366d6;">uremic pericarditis</a>, encephalopathy, bleeding</li>
                     </ul>
                 </div>
             </div>
@@ -2729,10 +2729,10 @@
                 <div class="box">
                     <div class="box-title">⚠️ ESCALATE TO ICU IF:</div>
                     <ul>
-                        <li>Hyperkalemia >6.5 with ECG changes</li>
+                        <li><a href="#hyperkalemia" style="color: #0366d6;">Hyperkalemia</a> >6.5 with ECG changes</li>
                         <li>Severe metabolic acidosis (pH <7.2)</li>
-                        <li>Volume overload with respiratory failure</li>
-                        <li>Uremic encephalopathy/pericarditis</li>
+                        <li><a href="#pulmonary-edema" style="color: #0366d6;">Volume overload</a> with respiratory failure</li>
+                        <li><a href="#uremia" style="color: #0366d6;">Uremic encephalopathy/pericarditis</a></li>
                         <li>Need for emergent dialysis</li>
                         <li>Hemodynamic instability</li>
                     </ul>
@@ -2756,7 +2756,7 @@
             <div class="section">
                 <div class="section-title">COMPLICATIONS TO MONITOR</div>
                 <div class="section-content">
-                    <p><strong>Acute:</strong> Hyperkalemia, metabolic acidosis, volume overload, uremia, need for dialysis, death</p>
+                    <p><strong>Acute:</strong> <a href="#hyperkalemia" style="color: #0366d6;">Hyperkalemia</a>, metabolic acidosis, <a href="#pulmonary-edema" style="color: #0366d6;">volume overload</a>, <a href="#uremia" style="color: #0366d6;">uremia</a>, need for dialysis, death</p>
                     <p><strong>Chronic:</strong> Chronic kidney disease, progression to ESRD, recurrent AKI episodes</p>
                 </div>
             </div>
@@ -3508,8 +3508,8 @@
             <div class="section">
                 <div class="section-title">COMPLICATIONS TO MONITOR</div>
                 <div class="section-content">
-                    <p><strong>From Disease:</strong> SBP, hepatorenal syndrome, hepatic hydrothorax, umbilical/inguinal hernia rupture, respiratory compromise, hepatic encephalopathy</p>
-                    <p><strong>From Treatment:</strong> Hyponatremia, hyperkalemia, hypokalemia, AKI, muscle cramps, gynecomastia (spironolactone), metabolic alkalosis</p>
+                    <p><strong>From Disease:</strong> <a href="#sbp" style="color: #0366d6;">SBP</a>, hepatorenal syndrome, hepatic hydrothorax, umbilical/inguinal hernia rupture, respiratory compromise, <a href="#he" style="color: #0366d6;">hepatic encephalopathy</a></p>
+                    <p><strong>From Treatment:</strong> <a href="#hyponatremia" style="color: #0366d6;">Hyponatremia</a>, <a href="#hyperkalemia" style="color: #0366d6;">hyperkalemia</a>, hypokalemia, <a href="#aki" style="color: #0366d6;">AKI</a>, muscle cramps, gynecomastia (spironolactone), metabolic alkalosis</p>
                 </div>
             </div>
             
@@ -6810,13 +6810,13 @@
                 <div class="section-content">
                     <p><span class="label">Causes - "CRAMPS":</span> Crush injury/trauma, Recreational drugs (cocaine, PCP, MDMA, amphetamines), Alcohol/Anesthetics (malignant hyperthermia, NMS), Meds (statins, fibrates, colchicine), Prolonged immobilization/seizures, Strenuous exercise, Heat stroke, Infections (influenza, HIV)</p>
                     <p><span class="label">Classic Triad (only 10% have all 3):</span> Myalgias, weakness, dark urine (tea/cola-colored from myoglobinuria)</p>
-                    <p><span class="label">Presentation:</strong> Muscle pain/tenderness/swelling, weakness, dark urine. May have compartment syndrome (tense compartments, pain out of proportion, 5 P's). Severe: AKI, hyperkalemia, arrhythmias</p>
+                    <p><span class="label">Presentation:</strong> Muscle pain/tenderness/swelling, weakness, dark urine. May have compartment syndrome (tense compartments, pain out of proportion, 5 P's). Severe: <a href="#aki" style="color: #0366d6;">AKI</a>, <a href="#hyperkalemia" style="color: #0366d6;">hyperkalemia</a>, arrhythmias</p>
                     
                     <p><span class="label">Labs:</span></p>
                     <ul>
                         <li><strong>CK (creatine kinase):</strong> >1000 (often >5000, can be >100,000). Peak 24-36hr, normalize in 3-5 days. Trend daily</li>
                         <li><strong>Urine:</strong> Dipstick positive for blood (myoglobin cross-reacts) but NO RBCs on microscopy. Urine myoglobin (rarely sent, not needed)</li>
-                        <li><strong>BMP:</strong> AKI (Cr rising), hyperkalemia (released from muscle - LIFE-THREATENING), hypocalcemia early (Ca deposits in necrotic muscle), hypercalcemia late (resorption), hyperphosphatemia (released from muscle), elevated anion gap (lactate)</li>
+                        <li><strong>BMP:</strong> <a href="#aki" style="color: #0366d6;">AKI</a> (Cr rising), <a href="#hyperkalemia" style="color: #0366d6;">hyperkalemia</a> (released from muscle - LIFE-THREATENING), hypocalcemia early (Ca deposits in necrotic muscle), hypercalcemia late (resorption), hyperphosphatemia (released from muscle), elevated anion gap (lactate)</li>
                         <li><strong>ABG:</strong> Metabolic acidosis</li>
                         <li><strong>Check:</strong> LDH, AST/ALT (elevated from muscle, not liver), uric acid (elevated)</li>
                     </ul>
@@ -28232,10 +28232,62 @@
 <div class="footer-section">
     <p><strong>Internal Medicine Clinical Reference Guide</strong></p>
     <p>148 Essential Conditions for Hospital Medicine</p>
-    <p><strong style="color: #ff6b6b;">BUILD #13</strong></p>
+    <p><strong style="color: #ff6b6b;">BUILD #14</strong></p>
     <p style="font-size: 9pt; margin-top: 15px;">For educational purposes only. Always use clinical judgment and consult current guidelines.</p>
 </div>
 
 </div>
+
+<script>
+// FENa Calculator
+function calculateFENa() {
+    const urineNa = parseFloat(document.getElementById('fena-urine-na').value);
+    const serumNa = parseFloat(document.getElementById('fena-serum-na').value);
+    const urineCr = parseFloat(document.getElementById('fena-urine-cr').value);
+    const serumCr = parseFloat(document.getElementById('fena-serum-cr').value);
+    const resultDiv = document.getElementById('fena-result');
+    
+    if (isNaN(urineNa) || isNaN(serumNa) || isNaN(urineCr) || isNaN(serumCr)) {
+        resultDiv.style.display = 'block';
+        resultDiv.className = 'calc-result high-risk';
+        resultDiv.innerHTML = '⚠️ Please enter all values';
+        return;
+    }
+    
+    if (urineCr === 0 || serumNa === 0) {
+        resultDiv.style.display = 'block';
+        resultDiv.className = 'calc-result high-risk';
+        resultDiv.innerHTML = '⚠️ Invalid values (division by zero)';
+        return;
+    }
+    
+    // FENa = (Urine Na × Serum Cr) / (Serum Na × Urine Cr) × 100
+    const fena = ((urineNa * serumCr) / (serumNa * urineCr)) * 100;
+    
+    let interpretation = '';
+    let riskClass = '';
+    
+    if (fena < 1) {
+        interpretation = '<strong>Prerenal AKI</strong> — Suggests volume depletion, decreased effective circulating volume, or early obstruction. Consider fluid challenge.';
+        riskClass = '';
+    } else if (fena >= 1 && fena <= 2) {
+        interpretation = '<strong>Indeterminate</strong> — Could be prerenal or intrinsic. Consider clinical context, FEUrea if on diuretics, and urine microscopy.';
+        riskClass = '';
+    } else {
+        interpretation = '<strong>Intrinsic Renal (ATN)</strong> — Suggests tubular injury. Common causes: ischemia, nephrotoxins, sepsis.';
+        riskClass = 'high-risk';
+    }
+    
+    resultDiv.style.display = 'block';
+    resultDiv.className = 'calc-result ' + riskClass;
+    resultDiv.innerHTML = `
+        <div style="font-size: 1.2em; margin-bottom: 8px;">FENa = <strong>${fena.toFixed(2)}%</strong></div>
+        <div>${interpretation}</div>
+        <div style="font-size: 0.85em; color: #666; margin-top: 8px;">
+            ⚠️ <strong>Limitations:</strong> Not valid with diuretics (use FEUrea <35% for prerenal), CKD, contrast, or rhabdomyolysis.
+        </div>
+    `;
+}
+</script>
 </body>
 </html>
