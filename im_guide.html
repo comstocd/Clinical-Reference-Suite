@@ -27,11 +27,40 @@
             margin: 15px 0;
         }
         
+        .calculator.collapsed .calculator-content {
+            display: none;
+        }
+        
         .calculator-title {
             font-weight: 600;
             color: #856404;
             font-size: 11pt;
             margin-bottom: 10px;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .calculator-title:hover {
+            color: #6c5303;
+        }
+        
+        .calculator-title::before {
+            content: '▼ ';
+            font-size: 9pt;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        
+        .calculator.collapsed .calculator-title::before {
+            transform: rotate(-90deg);
+        }
+        
+        .calculator.collapsed .calculator-title {
+            margin-bottom: 0;
+        }
+        
+        .calculator-content {
+            /* Content wrapper */
         }
         
         .calc-item {
@@ -1456,8 +1485,9 @@
                     <p><span class="label">Calculations:</span> <a href="#calc-heart" style="color: #0366d6;">HEART Score</a>, <a href="#calc-timi-stemi" style="color: #0366d6;">TIMI STEMI</a>, <a href="#calc-timi-nstemi" style="color: #0366d6;">TIMI NSTEMI</a>, <a href="#calc-grace" style="color: #0366d6;">GRACE Score</a></p>
                     
                     <!-- HEART Score Calculator -->
-                    <div id="calc-heart" class="calculator">
-                        <div class="calculator-title">🧮 HEART Score Calculator</div>
+                    <div id="calc-heart" class="calculator collapsed">
+                        <div class="calculator-title" onclick="this.parentElement.classList.toggle('collapsed')">🧮 HEART Score Calculator</div>
+                        <div class="calculator-content">
                         <div class="calc-description">
                             <strong>Use:</strong> Risk stratification for chest pain patients to determine if safe for outpatient evaluation. Score 0-3 = low risk (outpatient), 4-6 = moderate risk (observe), 7-10 = high risk (admit).
                         </div>
@@ -1467,8 +1497,9 @@
                                 <span class="hint">How suspicious is the patient's story for ACS?</span>
                             </label>
                             <select id="heart-history">
+                                <option value="" disabled selected>-- Select --</option>
                                 <option value="0">Slightly suspicious - probably not cardiac (0)</option>
-                                <option value="1" selected>Moderately suspicious - could be cardiac (1)</option>
+                                <option value="1">Moderately suspicious - could be cardiac (1)</option>
                                 <option value="2">Highly suspicious - typical angina (2)</option>
                             </select>
                         </div>
@@ -1478,7 +1509,8 @@
                                 <span class="hint">Initial ECG findings</span>
                             </label>
                             <select id="heart-ecg">
-                                <option value="0" selected>Normal (0)</option>
+                                <option value="" disabled selected>-- Select --</option>
+                                <option value="0">Normal (0)</option>
                                 <option value="1">Non-specific repolarization changes (1)</option>
                                 <option value="2">Significant ST deviation (2)</option>
                             </select>
@@ -1489,10 +1521,11 @@
                                 <span class="hint">Patient's age in years</span>
                             </label>
                             <select id="heart-age">
-                                <option value="0"><21 years (0)</option>
+                                <option value="" disabled selected>-- Select --</option>
+                                <option value="0">&lt;21 years (0)</option>
                                 <option value="1">21-45 years (1)</option>
-                                <option value="2" selected>45-65 years (2)</option>
-                                <option value="2">>65 years (2)</option>
+                                <option value="2">45-65 years (2)</option>
+                                <option value="2">&gt;65 years (2)</option>
                             </select>
                         </div>
                         
@@ -1501,8 +1534,9 @@
                                 <span class="hint">Count: HTN, DM, smoking, high cholesterol, family history, obesity</span>
                             </label>
                             <select id="heart-risk">
+                                <option value="" disabled selected>-- Select --</option>
                                 <option value="0">None (0)</option>
-                                <option value="1" selected>1-2 risk factors (1)</option>
+                                <option value="1">1-2 risk factors (1)</option>
                                 <option value="2">≥3 risk factors or history of atherosclerotic disease (2)</option>
                             </select>
                         </div>
@@ -1512,19 +1546,22 @@
                                 <span class="hint">Initial troponin level relative to upper limit of normal</span>
                             </label>
                             <select id="heart-trop">
-                                <option value="0" selected>Normal - below upper limit (0)</option>
+                                <option value="" disabled selected>-- Select --</option>
+                                <option value="0">Normal - below upper limit (0)</option>
                                 <option value="1">1-3× upper limit of normal (1)</option>
-                                <option value="2">>3× upper limit of normal (2)</option>
+                                <option value="2">&gt;3× upper limit of normal (2)</option>
                             </select>
                         </div>
                         
                         <button class="calc-button" onclick="calculateHEART()">Calculate HEART Score</button>
-                        <div id="heart-result"></div>
+                        <div id="heart-result" class="calc-result" style="display:none;"></div>
+                        </div>
                     </div>
                     
                     <!-- TIMI STEMI Calculator -->
-                    <div id="calc-timi-stemi" class="calculator">
-                        <div class="calculator-title">🧮 TIMI Risk Score - STEMI</div>
+                    <div id="calc-timi-stemi" class="calculator collapsed">
+                        <div class="calculator-title" onclick="this.parentElement.classList.toggle('collapsed')">🧮 TIMI Risk Score - STEMI</div>
+                        <div class="calculator-content">
                         <div class="calc-description">
                             <strong>Use:</strong> Predicts 30-day mortality in STEMI patients. Score 0-2 = 2% mortality, 3-4 = 5%, 5-6 = 12%, >6 = 36%.
                         </div>
@@ -1576,12 +1613,14 @@
                         </div>
                         
                         <button class="calc-button" onclick="calculateTIMI_STEMI()">Calculate TIMI STEMI Score</button>
-                        <div id="timi-stemi-result"></div>
+                        <div id="timi-stemi-result" class="calc-result" style="display:none;"></div>
+                        </div>
                     </div>
                     
                     <!-- TIMI NSTEMI Calculator -->
-                    <div id="calc-timi-nstemi" class="calculator">
-                        <div class="calculator-title">🧮 TIMI Risk Score - NSTEMI/UA</div>
+                    <div id="calc-timi-nstemi" class="calculator collapsed">
+                        <div class="calculator-title" onclick="this.parentElement.classList.toggle('collapsed')">🧮 TIMI Risk Score - NSTEMI/UA</div>
+                        <div class="calculator-content">
                         <div class="calc-description">
                             <strong>Use:</strong> Risk of death, MI, or urgent revascularization within 14 days. Score 0-2 = 5% risk (low), 3-4 = 13% (moderate), 5-7 = 41% (high).
                         </div>
@@ -1623,12 +1662,14 @@
                         </div>
                         
                         <button class="calc-button" onclick="calculateTIMI_NSTEMI()">Calculate TIMI NSTEMI Score</button>
-                        <div id="timi-nstemi-result"></div>
+                        <div id="timi-nstemi-result" class="calc-result" style="display:none;"></div>
+                        </div>
                     </div>
                     
                     <!-- GRACE Score Calculator -->
-                    <div id="calc-grace" class="calculator">
-                        <div class="calculator-title">🧮 GRACE Score Calculator</div>
+                    <div id="calc-grace" class="calculator collapsed">
+                        <div class="calculator-title" onclick="this.parentElement.classList.toggle('collapsed')">🧮 GRACE Score Calculator</div>
+                        <div class="calculator-content">
                         <div class="calc-description">
                             <strong>Use:</strong> Estimates in-hospital and 6-month mortality in ACS. Low risk <109, intermediate 109-140, high >140. More accurate than TIMI for mortality prediction.
                         </div>
@@ -1637,28 +1678,28 @@
                             <label>Age (years)
                                 <span class="hint">Patient's age - typical range 40-80</span>
                             </label>
-                            <input type="number" id="grace-age" placeholder="e.g., 65" min="18" max="120" value="65">
+                            <input type="number" id="grace-age" placeholder="e.g., 65" min="18" max="120" >
                         </div>
                         
                         <div class="calc-item">
                             <label>Heart Rate (bpm)
                                 <span class="hint">Beats per minute - typical range 60-100</span>
                             </label>
-                            <input type="number" id="grace-hr" placeholder="e.g., 85" min="30" max="250" value="85">
+                            <input type="number" id="grace-hr" placeholder="e.g., 85" min="30" max="250" >
                         </div>
                         
                         <div class="calc-item">
                             <label>Systolic Blood Pressure (mmHg)
                                 <span class="hint">SBP at presentation - typical range 100-160</span>
                             </label>
-                            <input type="number" id="grace-sbp" placeholder="e.g., 130" min="50" max="250" value="130">
+                            <input type="number" id="grace-sbp" placeholder="e.g., 130" min="50" max="250" >
                         </div>
                         
                         <div class="calc-item">
                             <label>Creatinine (mg/dL)
                                 <span class="hint">Serum creatinine - normal 0.6-1.2 mg/dL</span>
                             </label>
-                            <input type="number" id="grace-cr" placeholder="e.g., 1.0" step="0.1" min="0.1" max="15" value="1.0">
+                            <input type="number" id="grace-cr" placeholder="e.g., 1.0" step="0.1" min="0.1" max="15" >
                         </div>
                         
                         <div class="calc-item checkbox-item">
@@ -1684,7 +1725,8 @@
                                 <span class="hint">Clinical heart failure classification</span>
                             </label>
                             <select id="grace-killip">
-                                <option value="0" selected>I - No heart failure signs (0)</option>
+                                <option value="" disabled selected>-- Select --</option>
+                                <option value="0">I - No heart failure signs (0)</option>
                                 <option value="20">II - Rales or S3 gallop (+20)</option>
                                 <option value="39">III - Pulmonary edema (+39)</option>
                                 <option value="59">IV - Cardiogenic shock (+59)</option>
@@ -1692,7 +1734,8 @@
                         </div>
                         
                         <button class="calc-button" onclick="calculateGRACE()">Calculate GRACE Score</button>
-                        <div id="grace-result"></div>
+                        <div id="grace-result" class="calc-result" style="display:none;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2467,8 +2510,9 @@
                     <p><span class="label">ECG:</span> Sinus tachycardia most common. Classic S1Q3T3 pattern rare. Right heart strain pattern</p>
                     
                     <!-- Wells Score Calculator -->
-                    <div id="calc-wells-pe" class="calculator">
-                        <div class="calculator-title">🧮 Wells Score for PE</div>
+                    <div id="calc-wells-pe" class="calculator collapsed">
+                        <div class="calculator-title" onclick="this.parentElement.classList.toggle('collapsed')">🧮 Wells Score for PE</div>
+                        <div class="calculator-content">
                         <div class="calc-description">
                             <strong>Use:</strong> Pre-test probability of PE. Score ≤4 = PE unlikely (consider D-dimer), >4 = PE likely (proceed to CTPA).
                         </div>
@@ -2511,11 +2555,13 @@
                         
                         <button class="calc-button" onclick="calculateWells()">Calculate Wells Score</button>
                         <div id="wells-result" class="calc-result" style="display:none;"></div>
+                        </div>
                     </div>
                     
                     <!-- PERC Rule Calculator -->
-                    <div id="calc-perc" class="calculator">
-                        <div class="calculator-title">🧮 PERC Rule (Pulmonary Embolism Rule-out Criteria)</div>
+                    <div id="calc-perc" class="calculator collapsed">
+                        <div class="calculator-title" onclick="this.parentElement.classList.toggle('collapsed')">🧮 PERC Rule (Pulmonary Embolism Rule-out Criteria)</div>
+                        <div class="calculator-content">
                         <div class="calc-description">
                             <strong>Use:</strong> In LOW pre-test probability patients only. If ALL criteria are ABSENT (unchecked), PE is ruled out without D-dimer.
                         </div>
@@ -2549,6 +2595,7 @@
                         
                         <button class="calc-button" onclick="calculatePERC()">Apply PERC Rule</button>
                         <div id="perc-result" class="calc-result" style="display:none;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2656,8 +2703,9 @@
                     <p><span class="label">Calculate:</span> qSOFA score (see below), SOFA score, lactate clearance</p>
                     
                     <!-- qSOFA Calculator -->
-                    <div id="calc-qsofa" class="calculator">
-                        <div class="calculator-title">🧮 qSOFA Calculator</div>
+                    <div id="calc-qsofa" class="calculator collapsed">
+                        <div class="calculator-title" onclick="this.parentElement.classList.toggle('collapsed')">🧮 qSOFA Calculator</div>
+                        <div class="calculator-content">
                         <div class="calc-description">
                             <strong>Use:</strong> Quick screening for sepsis outside ICU. Score ≥2 suggests high risk for poor outcomes. NOT diagnostic, but prompts further evaluation.
                         </div>
@@ -2679,7 +2727,8 @@
                         </div>
                         
                         <button class="calc-button" onclick="calculateQSOFA()">Calculate qSOFA Score</button>
-                        <div id="qsofa-result"></div>
+                        <div id="qsofa-result" class="calc-result" style="display:none;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2811,8 +2860,9 @@
                     </ul>
                     
                     <!-- FENa Calculator -->
-                    <div id="calc-fena" class="calculator">
-                        <div class="calculator-title">🧮 FENa Calculator</div>
+                    <div id="calc-fena" class="calculator collapsed">
+                        <div class="calculator-title" onclick="this.parentElement.classList.toggle('collapsed')">🧮 FENa Calculator</div>
+                        <div class="calculator-content">
                         <div class="calc-description">
                             <strong>Use:</strong> Differentiate prerenal AKI (<1%) from ATN (>2%). FENa 1-2% is indeterminate. If on diuretics, use FEUrea instead.
                         </div>
@@ -2828,7 +2878,7 @@
                             <label>Serum Sodium (mEq/L)
                                 <span class="hint">From BMP - typically 135-145</span>
                             </label>
-                            <input type="number" id="fena-serum-na" placeholder="e.g., 140" min="100" max="180" value="140">
+                            <input type="number" id="fena-serum-na" placeholder="e.g., 140" min="100" max="180" >
                         </div>
                         
                         <div class="calc-item">
@@ -2847,6 +2897,7 @@
                         
                         <button class="calc-button" onclick="calculateFENa()">Calculate FENa</button>
                         <div id="fena-result" class="calc-result" style="display:none;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -6805,6 +6856,32 @@
                     <p><span class="label">Outpatient Hyperthyroidism:</span> Methimazole 10-20mg daily (first-line) OR PTU 50mg TID (if pregnant 1st trimester, intolerant to methimazole). Propranolol 20-40mg TID for symptoms. Definitive: Radioiodine ablation or thyroidectomy after euthyroid</p>
                 </div>
             </div>
+            
+            <div class="section">
+                <div class="box warning-box">
+                    <div class="box-title">⚠️ ESCALATE TO ICU IF:</div>
+                    <ul>
+                        <li>Thyroid storm (Burch-Wartofsky ≥45)</li>
+                        <li>Hemodynamic instability or arrhythmias (AFib with RVR, VT)</li>
+                        <li>Altered mental status, seizures</li>
+                        <li>High-output heart failure</li>
+                        <li>Hyperthermia not responding to treatment</li>
+                    </ul>
+                </div>
+                
+                <div class="box">
+                    <div class="box-title">✓ DISCHARGE CRITERIA</div>
+                    <ul>
+                        <li>Heart rate controlled (<100 at rest)</li>
+                        <li>Afebrile, mentating normally</li>
+                        <li>Tolerating oral medications</li>
+                        <li>On appropriate thionamide dose with β-blocker</li>
+                        <li>Endocrinology follow-up arranged within 1-2 weeks</li>
+                        <li>Labs improving (repeat TFTs in 4-6 weeks)</li>
+                    </ul>
+                </div>
+            </div>
+            
             <div class="pearl-box">
                 <div class="pearl-title">💎 PEARLS</div>
                 <ul>
@@ -6842,6 +6919,34 @@
                     </ul>
                 </div>
             </div>
+            
+            <div class="section">
+                <div class="box warning-box">
+                    <div class="box-title">⚠️ ESCALATE TO ICU IF:</div>
+                    <ul>
+                        <li>Myxedema coma or impending coma</li>
+                        <li>Hypothermia (<95°F/35°C)</li>
+                        <li>Respiratory failure or hypoventilation</li>
+                        <li>Hemodynamic instability, severe bradycardia (<40)</li>
+                        <li>Severe hyponatremia (<120 mEq/L)</li>
+                        <li>Altered mental status</li>
+                    </ul>
+                </div>
+                
+                <div class="box">
+                    <div class="box-title">✓ DISCHARGE CRITERIA</div>
+                    <ul>
+                        <li>Mentating normally, afebrile</li>
+                        <li>Hemodynamically stable, HR >50</li>
+                        <li>Tolerating oral levothyroxine</li>
+                        <li>Sodium >130 mEq/L and stable</li>
+                        <li>Precipitating cause treated</li>
+                        <li>Endocrinology follow-up arranged</li>
+                        <li>TSH recheck scheduled in 6-8 weeks</li>
+                    </ul>
+                </div>
+            </div>
+            
             <div class="pearl-box">
                 <div class="pearl-title">💎 PEARLS</div>
                 <ul>
@@ -6889,6 +6994,33 @@
                     </ul>
                 </div>
             </div>
+            
+            <div class="section">
+                <div class="box warning-box">
+                    <div class="box-title">⚠️ ESCALATE TO ICU IF:</div>
+                    <ul>
+                        <li>Adrenal crisis with refractory hypotension</li>
+                        <li>Shock requiring vasopressors</li>
+                        <li>Severe altered mental status</li>
+                        <li>Severe electrolyte abnormalities (K >6.5, Na <120)</li>
+                        <li>Hypoglycemia not responding to dextrose</li>
+                    </ul>
+                </div>
+                
+                <div class="box">
+                    <div class="box-title">✓ DISCHARGE CRITERIA</div>
+                    <ul>
+                        <li>Hemodynamically stable off pressors</li>
+                        <li>Tolerating oral hydrocortisone ± fludrocortisone</li>
+                        <li>Electrolytes normalized (Na >130, K <5.5)</li>
+                        <li>Precipitating cause treated</li>
+                        <li>Patient educated on stress dosing and MedicAlert bracelet</li>
+                        <li>Endocrinology follow-up arranged</li>
+                        <li>Emergency injection kit prescribed if indicated</li>
+                    </ul>
+                </div>
+            </div>
+            
             <div class="pearl-box">
                 <div class="pearl-title">💎 PEARLS</div>
                 <ul>
@@ -6934,6 +7066,34 @@
                     </ul>
                 </div>
             </div>
+            
+            <div class="section">
+                <div class="box warning-box">
+                    <div class="box-title">⚠️ ESCALATE TO ICU IF:</div>
+                    <ul>
+                        <li>Severe hypercalcemia (Ca >14 mg/dL)</li>
+                        <li>Altered mental status, obtundation, coma</li>
+                        <li>Cardiac arrhythmias (short QT, bradycardia, heart block)</li>
+                        <li>Hemodynamic instability</li>
+                        <li>Refractory to IV fluids and bisphosphonates</li>
+                        <li>Need for emergent dialysis</li>
+                    </ul>
+                </div>
+                
+                <div class="box">
+                    <div class="box-title">✓ DISCHARGE CRITERIA</div>
+                    <ul>
+                        <li>Calcium <12 mg/dL and downtrending</li>
+                        <li>Mentally at baseline, tolerating PO</li>
+                        <li>Hemodynamically stable, euvolemic</li>
+                        <li>Underlying cause addressed (malignancy workup initiated if indicated)</li>
+                        <li>Offending medications stopped</li>
+                        <li>Appropriate follow-up (oncology, endocrinology) arranged</li>
+                        <li>Recheck calcium in 1-2 weeks scheduled</li>
+                    </ul>
+                </div>
+            </div>
+            
             <div class="pearl-box">
                 <div class="pearl-title">💎 PEARLS</div>
                 <ul>
@@ -6968,6 +7128,32 @@
                     </ul>
                 </div>
             </div>
+            
+            <div class="section">
+                <div class="box warning-box">
+                    <div class="box-title">⚠️ ESCALATE TO ICU IF:</div>
+                    <ul>
+                        <li>Torsades de pointes or other malignant arrhythmias</li>
+                        <li>Seizures</li>
+                        <li>Severe tetany or respiratory muscle weakness</li>
+                        <li>Mg <1.0 mg/dL with symptoms</li>
+                        <li>Refractory arrhythmias despite repletion</li>
+                    </ul>
+                </div>
+                
+                <div class="box">
+                    <div class="box-title">✓ DISCHARGE CRITERIA</div>
+                    <ul>
+                        <li>Mg >1.5 mg/dL and stable</li>
+                        <li>Potassium and calcium normalized</li>
+                        <li>No arrhythmias on telemetry</li>
+                        <li>Tolerating oral magnesium supplementation</li>
+                        <li>Underlying cause addressed (medication adjusted, PPI stopped)</li>
+                        <li>Recheck labs in 1 week arranged</li>
+                    </ul>
+                </div>
+            </div>
+            
             <div class="pearl-box">
                 <div class="pearl-title">💎 PEARLS</div>
                 <ul>
@@ -7014,6 +7200,34 @@
                     </ul>
                 </div>
             </div>
+            
+            <div class="section">
+                <div class="box warning-box">
+                    <div class="box-title">⚠️ ESCALATE TO ICU IF:</div>
+                    <ul>
+                        <li>CK >100,000 or rapidly rising</li>
+                        <li>Severe hyperkalemia (K >6.5) or cardiac arrhythmias</li>
+                        <li>AKI with oliguria (<0.5 mL/kg/hr) or need for RRT</li>
+                        <li>Compartment syndrome (surgical emergency)</li>
+                        <li>Severe metabolic acidosis (pH <7.2)</li>
+                        <li>Volume overload from aggressive resuscitation</li>
+                    </ul>
+                </div>
+                
+                <div class="box">
+                    <div class="box-title">✓ DISCHARGE CRITERIA</div>
+                    <ul>
+                        <li>CK downtrending <5000 U/L</li>
+                        <li>Creatinine stable or improving</li>
+                        <li>Potassium normalized</li>
+                        <li>Good urine output maintained</li>
+                        <li>Underlying cause addressed (medication stopped, dehydration corrected)</li>
+                        <li>No compartment syndrome concerns</li>
+                        <li>Recheck CK/BMP in 2-3 days arranged</li>
+                    </ul>
+                </div>
+            </div>
+            
             <div class="pearl-box">
                 <div class="pearl-title">💎 PEARLS</div>
                 <ul>
@@ -7082,6 +7296,32 @@
                     </ul>
                 </div>
             </div>
+            
+            <div class="section">
+                <div class="box warning-box">
+                    <div class="box-title">⚠️ ESCALATE TO ICU IF:</div>
+                    <ul>
+                        <li>Acute hemolytic reaction with shock or DIC</li>
+                        <li>TRALI with respiratory failure requiring intubation</li>
+                        <li>Anaphylaxis not responding to epinephrine</li>
+                        <li>TACO with severe respiratory distress not responding to diuretics</li>
+                        <li>Hemodynamic instability</li>
+                    </ul>
+                </div>
+                
+                <div class="box">
+                    <div class="box-title">✓ DISCHARGE CRITERIA</div>
+                    <ul>
+                        <li>Reaction resolved, hemodynamically stable</li>
+                        <li>No evidence of ongoing hemolysis (labs stable)</li>
+                        <li>Respiratory status at baseline</li>
+                        <li>Blood bank notified and documentation complete</li>
+                        <li>Future transfusion recommendations documented (leukoreduced, premedication, washed cells if indicated)</li>
+                        <li>Original indication for transfusion addressed</li>
+                    </ul>
+                </div>
+            </div>
+            
             <div class="pearl-box">
                 <div class="pearl-title">💎 PEARLS</div>
                 <ul>
@@ -7151,6 +7391,32 @@
                     </ul>
                 </div>
             </div>
+            
+            <div class="section">
+                <div class="box warning-box">
+                    <div class="box-title">⚠️ ESCALATE TO ICU IF:</div>
+                    <ul>
+                        <li>Empyema with sepsis/septic shock</li>
+                        <li>Massive effusion with respiratory failure</li>
+                        <li>Re-expansion pulmonary edema after thoracentesis</li>
+                        <li>Hemodynamic instability</li>
+                        <li>Hemothorax requiring surgical intervention</li>
+                    </ul>
+                </div>
+                
+                <div class="box">
+                    <div class="box-title">✓ DISCHARGE CRITERIA</div>
+                    <ul>
+                        <li>Dyspnea improved, stable oxygen requirements</li>
+                        <li>Underlying cause addressed (CHF optimized, infection treated)</li>
+                        <li>If chest tube placed, removed with no reaccumulation on CXR</li>
+                        <li>No signs of complicated parapneumonic/empyema</li>
+                        <li>Follow-up imaging and appointments arranged</li>
+                        <li>Outpatient thoracentesis arranged if needed for symptomatic malignant effusion</li>
+                    </ul>
+                </div>
+            </div>
+            
             <div class="pearl-box">
                 <div class="pearl-title">💎 PEARLS</div>
                 <ul>
@@ -7218,6 +7484,36 @@
                     </ul>
                 </div>
             </div>
+            
+            <div class="section">
+                <div class="box warning-box">
+                    <div class="box-title">⚠️ ESCALATE TO ICU IF:</div>
+                    <ul>
+                        <li>Tension pneumothorax</li>
+                        <li>Bilateral pneumothorax</li>
+                        <li>Respiratory failure requiring intubation</li>
+                        <li>Hemodynamic instability</li>
+                        <li>Hemopneumothorax</li>
+                        <li>SSP with severe underlying lung disease</li>
+                        <li>Persistent large air leak</li>
+                    </ul>
+                </div>
+                
+                <div class="box">
+                    <div class="box-title">✓ DISCHARGE CRITERIA</div>
+                    <ul>
+                        <li>Lung fully re-expanded on CXR</li>
+                        <li>Chest tube removed (if placed) with no reaccumulation at 4-6 hours</li>
+                        <li>Stable oxygen requirements, minimal dyspnea</li>
+                        <li>No air leak × 24 hours (if tube was in place)</li>
+                        <li>Patient educated on return precautions</li>
+                        <li>No flying for 1-2 weeks post-resolution</li>
+                        <li>Follow-up CXR in 1-2 weeks arranged</li>
+                        <li>Smoking cessation counseling provided</li>
+                    </ul>
+                </div>
+            </div>
+            
             <div class="pearl-box">
                 <div class="pearl-title">💎 TEACHING PEARLS</div>
                 <ul>
@@ -28525,6 +28821,232 @@ function calculateFENa() {
         <div style="font-size: 0.85em; color: #666; margin-top: 8px;">
             ⚠️ <strong>Limitations:</strong> Not valid with diuretics (use FEUrea <35% for prerenal), CKD, contrast, or rhabdomyolysis.
         </div>
+    `;
+}
+
+// HEART Score Calculator
+function calculateHEART() {
+    const history = document.getElementById('heart-history').value;
+    const ecg = document.getElementById('heart-ecg').value;
+    const age = document.getElementById('heart-age').value;
+    const risk = document.getElementById('heart-risk').value;
+    const trop = document.getElementById('heart-trop').value;
+    
+    const resultDiv = document.getElementById('heart-result');
+    
+    if (history === '' || ecg === '' || age === '' || risk === '' || trop === '') {
+        resultDiv.style.display = 'block';
+        resultDiv.className = 'calc-result high-risk';
+        resultDiv.innerHTML = '⚠️ Please select all values';
+        return;
+    }
+    
+    const score = parseInt(history) + parseInt(ecg) + parseInt(age) + parseInt(risk) + parseInt(trop);
+    
+    let interpretation = '';
+    let riskClass = '';
+    
+    if (score <= 3) {
+        interpretation = '<strong>Low Risk (0-3)</strong> — 1.7% risk of MACE at 6 weeks. Consider early discharge with outpatient follow-up.';
+        riskClass = '';
+    } else if (score <= 6) {
+        interpretation = '<strong>Moderate Risk (4-6)</strong> — 12-16% risk of MACE. Admit for observation and serial troponins.';
+        riskClass = '';
+    } else {
+        interpretation = '<strong>High Risk (7-10)</strong> — 50-65% risk of MACE. Admit, early cardiology consult, consider early invasive strategy.';
+        riskClass = 'high-risk';
+    }
+    
+    resultDiv.style.display = 'block';
+    resultDiv.className = 'calc-result ' + riskClass;
+    resultDiv.innerHTML = `
+        <div style="font-size: 1.2em; margin-bottom: 8px;">HEART Score = <strong>${score}</strong></div>
+        <div>${interpretation}</div>
+    `;
+}
+
+// TIMI STEMI Score Calculator
+function calculateTIMI_STEMI() {
+    let score = 0;
+    if (document.getElementById('timi-stemi-age65').checked) score += 2;
+    if (document.getElementById('timi-stemi-age75').checked) score += 3;
+    if (document.getElementById('timi-stemi-dm').checked) score += 1;
+    if (document.getElementById('timi-stemi-bp').checked) score += 3;
+    if (document.getElementById('timi-stemi-hr').checked) score += 2;
+    if (document.getElementById('timi-stemi-killip').checked) score += 2;
+    if (document.getElementById('timi-stemi-weight').checked) score += 1;
+    if (document.getElementById('timi-stemi-anterior').checked) score += 1;
+    if (document.getElementById('timi-stemi-time').checked) score += 1;
+    
+    const resultDiv = document.getElementById('timi-stemi-result');
+    
+    let mortality = '';
+    let riskClass = '';
+    
+    if (score <= 2) {
+        mortality = '~2% 30-day mortality';
+        riskClass = '';
+    } else if (score <= 4) {
+        mortality = '~5% 30-day mortality';
+        riskClass = '';
+    } else if (score <= 6) {
+        mortality = '~12% 30-day mortality';
+        riskClass = 'high-risk';
+    } else {
+        mortality = '~30%+ 30-day mortality';
+        riskClass = 'high-risk';
+    }
+    
+    resultDiv.style.display = 'block';
+    resultDiv.className = 'calc-result ' + riskClass;
+    resultDiv.innerHTML = `
+        <div style="font-size: 1.2em; margin-bottom: 8px;">TIMI STEMI Score = <strong>${score}</strong></div>
+        <div>${mortality}</div>
+    `;
+}
+
+// TIMI NSTEMI Score Calculator
+function calculateTIMI_NSTEMI() {
+    let score = 0;
+    if (document.getElementById('timi-nstemi-age').checked) score += 1;
+    if (document.getElementById('timi-nstemi-risk').checked) score += 1;
+    if (document.getElementById('timi-nstemi-cad').checked) score += 1;
+    if (document.getElementById('timi-nstemi-asa').checked) score += 1;
+    if (document.getElementById('timi-nstemi-angina').checked) score += 1;
+    if (document.getElementById('timi-nstemi-ecg').checked) score += 1;
+    if (document.getElementById('timi-nstemi-trop').checked) score += 1;
+    
+    const resultDiv = document.getElementById('timi-nstemi-result');
+    
+    let risk = '';
+    let riskClass = '';
+    
+    if (score <= 2) {
+        risk = '<strong>Low Risk (0-2)</strong> — ~5% risk of death/MI/urgent revasc at 14 days.';
+        riskClass = '';
+    } else if (score <= 4) {
+        risk = '<strong>Moderate Risk (3-4)</strong> — ~13% risk. Consider early invasive strategy.';
+        riskClass = '';
+    } else {
+        risk = '<strong>High Risk (5-7)</strong> — ~41% risk. Early invasive strategy recommended.';
+        riskClass = 'high-risk';
+    }
+    
+    resultDiv.style.display = 'block';
+    resultDiv.className = 'calc-result ' + riskClass;
+    resultDiv.innerHTML = `
+        <div style="font-size: 1.2em; margin-bottom: 8px;">TIMI NSTEMI Score = <strong>${score}</strong></div>
+        <div>${risk}</div>
+    `;
+}
+
+// GRACE Score Calculator
+function calculateGRACE() {
+    const age = parseFloat(document.getElementById('grace-age').value);
+    const hr = parseFloat(document.getElementById('grace-hr').value);
+    const sbp = parseFloat(document.getElementById('grace-sbp').value);
+    const cr = parseFloat(document.getElementById('grace-cr').value);
+    const killip = document.getElementById('grace-killip').value;
+    
+    const resultDiv = document.getElementById('grace-result');
+    
+    if (isNaN(age) || isNaN(hr) || isNaN(sbp) || isNaN(cr) || killip === '') {
+        resultDiv.style.display = 'block';
+        resultDiv.className = 'calc-result high-risk';
+        resultDiv.innerHTML = '⚠️ Please enter all values';
+        return;
+    }
+    
+    // Simplified GRACE score calculation
+    let score = 0;
+    
+    // Age points
+    if (age < 30) score += 0;
+    else if (age < 40) score += 8;
+    else if (age < 50) score += 25;
+    else if (age < 60) score += 41;
+    else if (age < 70) score += 58;
+    else if (age < 80) score += 75;
+    else if (age < 90) score += 91;
+    else score += 100;
+    
+    // Heart rate points
+    if (hr < 50) score += 0;
+    else if (hr < 70) score += 3;
+    else if (hr < 90) score += 9;
+    else if (hr < 110) score += 15;
+    else if (hr < 150) score += 24;
+    else if (hr < 200) score += 38;
+    else score += 46;
+    
+    // SBP points (inverse)
+    if (sbp < 80) score += 58;
+    else if (sbp < 100) score += 53;
+    else if (sbp < 120) score += 43;
+    else if (sbp < 140) score += 34;
+    else if (sbp < 160) score += 24;
+    else if (sbp < 200) score += 10;
+    else score += 0;
+    
+    // Creatinine points
+    if (cr < 0.4) score += 1;
+    else if (cr < 0.8) score += 4;
+    else if (cr < 1.2) score += 7;
+    else if (cr < 1.6) score += 10;
+    else if (cr < 2.0) score += 13;
+    else if (cr < 4.0) score += 21;
+    else score += 28;
+    
+    // Killip class
+    score += parseInt(killip);
+    
+    let interpretation = '';
+    let riskClass = '';
+    
+    if (score < 109) {
+        interpretation = '<strong>Low Risk</strong> — <1% in-hospital mortality.';
+        riskClass = '';
+    } else if (score <= 140) {
+        interpretation = '<strong>Intermediate Risk</strong> — 1-3% in-hospital mortality.';
+        riskClass = '';
+    } else {
+        interpretation = '<strong>High Risk</strong> — >3% in-hospital mortality. Consider early invasive strategy.';
+        riskClass = 'high-risk';
+    }
+    
+    resultDiv.style.display = 'block';
+    resultDiv.className = 'calc-result ' + riskClass;
+    resultDiv.innerHTML = `
+        <div style="font-size: 1.2em; margin-bottom: 8px;">GRACE Score = <strong>${score}</strong></div>
+        <div>${interpretation}</div>
+    `;
+}
+
+// qSOFA Calculator
+function calculateQSOFA() {
+    let score = 0;
+    if (document.getElementById('qsofa-rr').checked) score += 1;
+    if (document.getElementById('qsofa-ams').checked) score += 1;
+    if (document.getElementById('qsofa-sbp').checked) score += 1;
+    
+    const resultDiv = document.getElementById('qsofa-result');
+    
+    let interpretation = '';
+    let riskClass = '';
+    
+    if (score < 2) {
+        interpretation = '<strong>qSOFA Negative (0-1)</strong> — Low risk for poor outcomes. Continue monitoring but sepsis not excluded.';
+        riskClass = '';
+    } else {
+        interpretation = '<strong>qSOFA Positive (≥2)</strong> — High risk for poor outcomes. Evaluate for organ dysfunction, consider ICU level care.';
+        riskClass = 'high-risk';
+    }
+    
+    resultDiv.style.display = 'block';
+    resultDiv.className = 'calc-result ' + riskClass;
+    resultDiv.innerHTML = `
+        <div style="font-size: 1.2em; margin-bottom: 8px;">qSOFA Score = <strong>${score}</strong></div>
+        <div>${interpretation}</div>
     `;
 }
 </script>
