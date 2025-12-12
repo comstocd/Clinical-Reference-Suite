@@ -146,7 +146,6 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            margin-left: 220px;
             background: white;
             box-shadow: 0 1px 3px rgba(0,0,0,0.12);
         }
@@ -367,108 +366,14 @@
             }
             body {
                 background: white;
-                margin-left: 0;
             }
             .container {
                 box-shadow: none;
-            }
-            #suite-sidebar {
-                display: none;
-            }
-        }
-        
-        /* Fixed Left Sidebar for Suite Navigation */
-        #suite-sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 220px;
-            height: 100vh;
-            background: #f6f8fa;
-            border-right: 1px solid #e1e4e8;
-            padding: 15px;
-            box-sizing: border-box;
-            overflow-y: auto;
-            z-index: 1000;
-        }
-        
-        #suite-sidebar .sidebar-title {
-            font-weight: 700;
-            color: #24292e;
-            font-size: 13px;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #0366d6;
-        }
-        
-        #suite-sidebar a {
-            display: block;
-            padding: 10px 12px;
-            color: #24292e;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 12px;
-            margin-bottom: 4px;
-            transition: background 0.2s;
-        }
-        
-        #suite-sidebar a:hover {
-            background: #e1e4e8;
-        }
-        
-        #suite-sidebar a.active {
-            background: #0366d6;
-            color: white;
-        }
-        
-        #suite-sidebar .section-label {
-            font-size: 10px;
-            color: #6a737d;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin: 20px 0 8px 0;
-            padding-left: 12px;
-        }
-        
-        @media (max-width: 900px) {
-            #suite-sidebar {
-                position: relative;
-                width: 100%;
-                height: auto;
-                border-right: none;
-                border-bottom: 1px solid #e1e4e8;
-            }
-            .container {
-                margin-left: 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Fixed Left Sidebar -->
-    <nav id="suite-sidebar">
-        <div class="sidebar-title">📚 Clinical Reference Suite</div>
-        
-        <div class="section-label">Suite Navigation</div>
-        <a href="index.html">🏠 Home</a>
-        <a href="im_guide.html" class="active">📚 IM Guide (148)</a>
-        <a href="id_guide.html">🦠 ID Guide</a>
-        <a href="lab_values.html">🔬 Lab Values</a>
-        <a href="dx_framework.html">🩺 Dx Framework</a>
-        <a href="drug_interactions.html">💊 Drug Interactions</a>
-        <a href="procedures_guide.html">🩺 Procedures</a>
-        
-        <div class="section-label">Quick Jump</div>
-        <a href="#toc">📋 Table of Contents</a>
-        <a href="#acs">❤️ Cardiology</a>
-        <a href="#cap">🫁 Pulmonology</a>
-        <a href="#sepsis">🦠 Infectious Disease</a>
-        <a href="#aki">🔬 Nephrology</a>
-        <a href="#dka">💉 Endocrine</a>
-        <a href="#ugib">🩸 GI / Hepatology</a>
-        <a href="#stroke">🧠 Neurology</a>
-        <a href="#dvt">🩺 Heme / Onc</a>
-    </nav>
 
     <div class="container">
         <div class="nav-header">
@@ -483,7 +388,7 @@
             <p class="toc-subtitle">Comprehensive iPad-Optimized Clinical Decision Support</p>
             <p class="toc-subtitle">Version 3.0 • 148 Conditions • <strong style="color: #e74c3c;">BUILD #15</strong></p>
             <p class="toc-subtitle"><em>Tap any condition below to jump to its management protocol.</em></p>
-            <p class="toc-subtitle" style="margin-top: 10px;"><a href="#system-toc" style="color: #0366d6; font-weight: 600;">📋 Or browse by Organ System →</a></p>
+            <p class="toc-subtitle" style="margin-top: 10px;"><a href="#system-toc" style="color: #0366d6; font-weight: 600;">Or browse by Organ System →</a></p>
             
             <div class="toc-grid">
                 <div class="toc-item">
@@ -1377,217 +1282,141 @@
             </div>
             
             <!-- SYSTEM-BASED TABLE OF CONTENTS -->
-            <div id="system-toc" style="margin-top: 40px; padding-top: 30px; border-top: 3px solid #e1e4e8;">
-                <h2 style="color: #24292e; font-size: 16pt; margin-bottom: 10px;">📋 Browse by Organ System</h2>
-                <p style="margin-bottom: 20px;"><a href="#toc" style="color: #0366d6; font-weight: 600;">← Back to Numerical ToC (1-148)</a></p>
+            <div id="system-toc" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e1e4e8;">
+                <h2 style="color: #24292e; font-size: 14pt; margin-bottom: 15px;">Browse by Organ System</h2>
                 
-                <!-- CARDIOLOGY -->
-                <div style="margin-bottom: 25px;">
-                    <h3 style="color: #c0392b; font-size: 13pt; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #e74c3c;">❤️ Cardiology</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <a href="#acs" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">ACS</a>
-                        <a href="#heart-failure" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Heart Failure</a>
-                        <a href="#afib" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Atrial Fibrillation</a>
-                        <a href="#htn-emergency" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Hypertensive Emergency</a>
-                        <a href="#syncope" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Syncope</a>
-                        <a href="#pericarditis" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Pericarditis</a>
-                        <a href="#endocarditis" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Endocarditis</a>
-                        <a href="#myocarditis" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Myocarditis</a>
-                        <a href="#cardiogenic-shock" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Cardiogenic Shock</a>
-                        <a href="#bradycardia" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Bradycardia/Heart Block</a>
-                        <a href="#vt-vf" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">VT/VF</a>
-                        <a href="#svt" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">SVT</a>
-                        <a href="#aortic-dissection" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Aortic Dissection</a>
-                        <a href="#cardiac-tamponade" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Cardiac Tamponade</a>
-                        <a href="#critical-as" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Critical Aortic Stenosis</a>
-                        <a href="#acute-mr" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Acute Mitral Regurgitation</a>
-                        <a href="#pulmonary-edema" style="background: #fdf2f2; color: #c0392b; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Pulmonary Edema</a>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px;">
+                    <div>
+                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Cardiology</strong>
+                        <a href="#acs" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">ACS</a>
+                        <a href="#heart-failure" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Heart Failure</a>
+                        <a href="#afib" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Atrial Fibrillation</a>
+                        <a href="#htn-emergency" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">HTN Emergency</a>
+                        <a href="#syncope" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Syncope</a>
+                        <a href="#pericarditis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Pericarditis</a>
+                        <a href="#endocarditis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Endocarditis</a>
+                        <a href="#cardiogenic-shock" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Cardiogenic Shock</a>
+                        <a href="#vt-vf" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">VT/VF</a>
+                        <a href="#svt" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">SVT</a>
+                        <a href="#aortic-dissection" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Aortic Dissection</a>
+                        <a href="#cardiac-tamponade" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Cardiac Tamponade</a>
+                        <a href="#critical-as" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Critical AS</a>
+                        <a href="#acute-mr" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Acute MR</a>
                     </div>
-                </div>
-                
-                <!-- PULMONOLOGY -->
-                <div style="margin-bottom: 25px;">
-                    <h3 style="color: #2980b9; font-size: 13pt; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #3498db;">🫁 Pulmonology</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <a href="#cap" style="background: #eef6fc; color: #2980b9; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">CAP</a>
-                        <a href="#copd" style="background: #eef6fc; color: #2980b9; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">COPD Exacerbation</a>
-                        <a href="#asthma" style="background: #eef6fc; color: #2980b9; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Asthma Exacerbation</a>
-                        <a href="#pe" style="background: #eef6fc; color: #2980b9; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Pulmonary Embolism</a>
-                        <a href="#pleural-effusion" style="background: #eef6fc; color: #2980b9; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Pleural Effusion</a>
-                        <a href="#pneumothorax" style="background: #eef6fc; color: #2980b9; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Pneumothorax</a>
-                        <a href="#ild" style="background: #eef6fc; color: #2980b9; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">ILD Exacerbation</a>
-                        <a href="#hemoptysis" style="background: #eef6fc; color: #2980b9; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Hemoptysis</a>
-                        <a href="#massive-hemoptysis" style="background: #eef6fc; color: #2980b9; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Massive Hemoptysis</a>
-                        <a href="#hypercapnic-failure" style="background: #eef6fc; color: #2980b9; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Hypercapnic Respiratory Failure</a>
-                        <a href="#ards" style="background: #eef6fc; color: #2980b9; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">ARDS</a>
-                        <a href="#aspiration-pneumonia" style="background: #eef6fc; color: #2980b9; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Aspiration Pneumonia</a>
-                        <a href="#hap-vap" style="background: #eef6fc; color: #2980b9; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">HAP/VAP</a>
-                        <a href="#ph-crisis" style="background: #eef6fc; color: #2980b9; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Pulmonary HTN Crisis</a>
+                    
+                    <div>
+                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Pulmonology</strong>
+                        <a href="#cap" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">CAP</a>
+                        <a href="#copd" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">COPD Exacerbation</a>
+                        <a href="#asthma" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Asthma Exacerbation</a>
+                        <a href="#pe" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Pulmonary Embolism</a>
+                        <a href="#pleural-effusion" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Pleural Effusion</a>
+                        <a href="#pneumothorax" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Pneumothorax</a>
+                        <a href="#ards" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">ARDS</a>
+                        <a href="#massive-hemoptysis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Massive Hemoptysis</a>
+                        <a href="#hap-vap" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">HAP/VAP</a>
+                        <a href="#ph-crisis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">PH Crisis</a>
                     </div>
-                </div>
-                
-                <!-- GI / HEPATOLOGY -->
-                <div style="margin-bottom: 25px;">
-                    <h3 style="color: #d35400; font-size: 13pt; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #e67e22;">🩺 GI / Hepatology</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <a href="#ugib" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Upper GI Bleed</a>
-                        <a href="#lower-gi-bleed" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Lower GI Bleed</a>
-                        <a href="#cirrhosis" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Cirrhosis</a>
-                        <a href="#sbp" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">SBP</a>
-                        <a href="#he" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Hepatic Encephalopathy</a>
-                        <a href="#pancreatitis" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Acute Pancreatitis</a>
-                        <a href="#bowel-obstruction" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Bowel Obstruction</a>
-                        <a href="#ibd" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">IBD Flare</a>
-                        <a href="#appendicitis" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Appendicitis</a>
-                        <a href="#cholangitis" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Cholangitis</a>
-                        <a href="#cholecystitis" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Cholecystitis</a>
-                        <a href="#perforation" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">GI Perforation</a>
-                        <a href="#diverticulitis" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Diverticulitis</a>
-                        <a href="#cirrhosis-complications" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Cirrhosis Complications</a>
-                        <a href="#aclf" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">ACLF</a>
-                        <a href="#mesenteric-ischemia" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Mesenteric Ischemia</a>
-                        <a href="#viral-hepatitis" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Viral Hepatitis</a>
-                        <a href="#ischemic-hepatitis" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Ischemic Hepatitis</a>
-                        <a href="#cdiff" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">C. diff</a>
-                        <a href="#mallory-weiss" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Mallory-Weiss</a>
-                        <a href="#acute-diarrhea" style="background: #fef5ec; color: #d35400; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Acute Diarrhea</a>
+                    
+                    <div>
+                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">GI / Hepatology</strong>
+                        <a href="#ugib" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Upper GI Bleed</a>
+                        <a href="#lower-gi-bleed" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Lower GI Bleed</a>
+                        <a href="#cirrhosis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Cirrhosis</a>
+                        <a href="#sbp" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">SBP</a>
+                        <a href="#he" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Hepatic Encephalopathy</a>
+                        <a href="#pancreatitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Pancreatitis</a>
+                        <a href="#bowel-obstruction" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Bowel Obstruction</a>
+                        <a href="#cholangitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Cholangitis</a>
+                        <a href="#mesenteric-ischemia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Mesenteric Ischemia</a>
+                        <a href="#cdiff" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">C. diff</a>
                     </div>
-                </div>
-                
-                <!-- NEPHROLOGY -->
-                <div style="margin-bottom: 25px;">
-                    <h3 style="color: #8e44ad; font-size: 13pt; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #9b59b6;">🔬 Nephrology</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <a href="#aki" style="background: #f5eef8; color: #8e44ad; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">AKI</a>
-                        <a href="#hyperkalemia" style="background: #f5eef8; color: #8e44ad; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Hyperkalemia</a>
-                        <a href="#hyponatremia" style="background: #f5eef8; color: #8e44ad; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Hyponatremia</a>
-                        <a href="#ckd-complications" style="background: #f5eef8; color: #8e44ad; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">CKD Complications</a>
-                        <a href="#uremia" style="background: #f5eef8; color: #8e44ad; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Uremia</a>
-                        <a href="#glomerulonephritis" style="background: #f5eef8; color: #8e44ad; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Glomerulonephritis</a>
-                        <a href="#nephrotic-syndrome" style="background: #f5eef8; color: #8e44ad; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Nephrotic Syndrome</a>
-                        <a href="#rta" style="background: #f5eef8; color: #8e44ad; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">RTA</a>
-                        <a href="#rhabdo" style="background: #f5eef8; color: #8e44ad; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Rhabdomyolysis</a>
-                        <a href="#uti" style="background: #f5eef8; color: #8e44ad; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">UTI/Pyelonephritis</a>
+                    
+                    <div>
+                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Nephrology</strong>
+                        <a href="#aki" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">AKI</a>
+                        <a href="#hyperkalemia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Hyperkalemia</a>
+                        <a href="#hyponatremia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Hyponatremia</a>
+                        <a href="#ckd-complications" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">CKD Complications</a>
+                        <a href="#uremia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Uremia</a>
+                        <a href="#glomerulonephritis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Glomerulonephritis</a>
+                        <a href="#nephrotic-syndrome" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Nephrotic Syndrome</a>
+                        <a href="#rhabdo" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Rhabdomyolysis</a>
+                        <a href="#uti" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">UTI / Pyelonephritis</a>
                     </div>
-                </div>
-                
-                <!-- ENDOCRINE / METABOLIC -->
-                <div style="margin-bottom: 25px;">
-                    <h3 style="color: #27ae60; font-size: 13pt; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #2ecc71;">💉 Endocrine / Metabolic</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <a href="#dka" style="background: #eafaf1; color: #27ae60; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">DKA</a>
-                        <a href="#hhs" style="background: #eafaf1; color: #27ae60; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">HHS</a>
-                        <a href="#hyperthyroid" style="background: #eafaf1; color: #27ae60; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Thyroid Storm</a>
-                        <a href="#hypothyroid" style="background: #eafaf1; color: #27ae60; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Myxedema Coma</a>
-                        <a href="#adrenal" style="background: #eafaf1; color: #27ae60; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Adrenal Crisis</a>
-                        <a href="#hypercalcemia" style="background: #eafaf1; color: #27ae60; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Hypercalcemia</a>
-                        <a href="#hypocalcemia" style="background: #eafaf1; color: #27ae60; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Hypocalcemia</a>
-                        <a href="#hypomag" style="background: #eafaf1; color: #27ae60; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Hypomagnesemia</a>
-                        <a href="#magnesium-disorders" style="background: #eafaf1; color: #27ae60; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Magnesium Disorders</a>
-                        <a href="#phosphate" style="background: #eafaf1; color: #27ae60; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Phosphate Disorders</a>
-                        <a href="#siadh" style="background: #eafaf1; color: #27ae60; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">SIADH</a>
-                        <a href="#diabetes-insipidus" style="background: #eafaf1; color: #27ae60; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Diabetes Insipidus</a>
-                        <a href="#pheo" style="background: #eafaf1; color: #27ae60; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Pheochromocytoma Crisis</a>
-                        <a href="#metabolic-alkalosis" style="background: #eafaf1; color: #27ae60; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Metabolic Alkalosis</a>
+                    
+                    <div>
+                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Endocrine</strong>
+                        <a href="#dka" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">DKA</a>
+                        <a href="#hhs" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">HHS</a>
+                        <a href="#hyperthyroid" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Thyroid Storm</a>
+                        <a href="#hypothyroid" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Myxedema Coma</a>
+                        <a href="#adrenal" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Adrenal Crisis</a>
+                        <a href="#hypercalcemia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Hypercalcemia</a>
+                        <a href="#hypocalcemia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Hypocalcemia</a>
+                        <a href="#siadh" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">SIADH</a>
+                        <a href="#diabetes-insipidus" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Diabetes Insipidus</a>
                     </div>
-                </div>
-                
-                <!-- NEUROLOGY -->
-                <div style="margin-bottom: 25px;">
-                    <h3 style="color: #34495e; font-size: 13pt; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #7f8c8d;">🧠 Neurology</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <a href="#stroke" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Ischemic Stroke</a>
-                        <a href="#tia" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">TIA</a>
-                        <a href="#ich" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">ICH</a>
-                        <a href="#sah" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">SAH</a>
-                        <a href="#seizure" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Seizure/Status</a>
-                        <a href="#meningitis" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Meningitis</a>
-                        <a href="#encephalitis" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Encephalitis</a>
-                        <a href="#gbs" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Guillain-Barré</a>
-                        <a href="#myasthenia" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Myasthenia Gravis</a>
-                        <a href="#myasthenic-crisis" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Myasthenic Crisis</a>
-                        <a href="#increased-icp" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Increased ICP</a>
-                        <a href="#cord-compression" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Cord Compression</a>
-                        <a href="#spinal-cord-compression" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Spinal Cord Compression</a>
-                        <a href="#delirium" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Delirium</a>
-                        <a href="#wernicke" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Wernicke Encephalopathy</a>
-                        <a href="#etoh-withdrawal" style="background: #f4f6f6; color: #34495e; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Alcohol Withdrawal</a>
+                    
+                    <div>
+                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Neurology</strong>
+                        <a href="#stroke" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Ischemic Stroke</a>
+                        <a href="#ich" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">ICH</a>
+                        <a href="#sah" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">SAH</a>
+                        <a href="#seizure" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Seizure / Status</a>
+                        <a href="#meningitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Meningitis</a>
+                        <a href="#encephalitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Encephalitis</a>
+                        <a href="#gbs" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Guillain-Barré</a>
+                        <a href="#myasthenic-crisis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Myasthenic Crisis</a>
+                        <a href="#increased-icp" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Increased ICP</a>
+                        <a href="#delirium" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Delirium</a>
+                        <a href="#wernicke" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Wernicke Encephalopathy</a>
                     </div>
-                </div>
-                
-                <!-- INFECTIOUS DISEASE -->
-                <div style="margin-bottom: 25px;">
-                    <h3 style="color: #16a085; font-size: 13pt; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #1abc9c;">🦠 Infectious Disease</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <a href="#sepsis" style="background: #e8f8f5; color: #16a085; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Sepsis/Septic Shock</a>
-                        <a href="#cellulitis" style="background: #e8f8f5; color: #16a085; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Cellulitis</a>
-                        <a href="#ssti" style="background: #e8f8f5; color: #16a085; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">SSTI/Nec Fasc</a>
-                        <a href="#neutropenic-fever" style="background: #e8f8f5; color: #16a085; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Neutropenic Fever</a>
-                        <a href="#influenza" style="background: #e8f8f5; color: #16a085; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Influenza</a>
-                        <a href="#covid" style="background: #e8f8f5; color: #16a085; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">COVID-19</a>
-                        <a href="#tb" style="background: #e8f8f5; color: #16a085; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">TB</a>
-                        <a href="#hiv-aids" style="background: #e8f8f5; color: #16a085; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">HIV/AIDS</a>
-                        <a href="#opportunistic" style="background: #e8f8f5; color: #16a085; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Opportunistic Infections</a>
-                        <a href="#malaria" style="background: #e8f8f5; color: #16a085; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Malaria</a>
+                    
+                    <div>
+                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Infectious Disease</strong>
+                        <a href="#sepsis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Sepsis</a>
+                        <a href="#cellulitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Cellulitis</a>
+                        <a href="#ssti" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Necrotizing Fasciitis</a>
+                        <a href="#neutropenic-fever" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Neutropenic Fever</a>
+                        <a href="#tb" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">TB</a>
+                        <a href="#hiv-aids" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">HIV/AIDS</a>
+                        <a href="#covid" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">COVID-19</a>
+                        <a href="#influenza" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Influenza</a>
                     </div>
-                </div>
-                
-                <!-- HEMATOLOGY / ONCOLOGY -->
-                <div style="margin-bottom: 25px;">
-                    <h3 style="color: #c0392b; font-size: 13pt; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #e74c3c;">🩸 Hematology / Oncology</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <a href="#anemia" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Anemia</a>
-                        <a href="#b12-folate-deficiency" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">B12/Folate Deficiency</a>
-                        <a href="#hemolytic-anemia" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Hemolytic Anemia</a>
-                        <a href="#sickle-cell" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Sickle Cell Crisis</a>
-                        <a href="#dvt" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">DVT</a>
-                        <a href="#thrombocytopenia" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Thrombocytopenia</a>
-                        <a href="#ttp-hus" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">TTP/HUS</a>
-                        <a href="#hit" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">HIT</a>
-                        <a href="#dic" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">DIC</a>
-                        <a href="#tls" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Tumor Lysis Syndrome</a>
-                        <a href="#hyperviscosity" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Hyperviscosity</a>
-                        <a href="#bone-marrow-failure" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Bone Marrow Failure</a>
-                        <a href="#acute-leukemia-lymphoma" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Acute Leukemia/Lymphoma</a>
-                        <a href="#onc-emergencies" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Oncologic Emergencies</a>
-                        <a href="#transfusion" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Transfusion Reactions</a>
-                        <a href="#anticoag-reversal" style="background: #fdf2f2; color: #922b21; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Anticoag Reversal</a>
+                    
+                    <div>
+                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Heme / Onc</strong>
+                        <a href="#anemia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Anemia</a>
+                        <a href="#dvt" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">DVT</a>
+                        <a href="#thrombocytopenia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Thrombocytopenia</a>
+                        <a href="#ttp-hus" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">TTP/HUS</a>
+                        <a href="#hit" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">HIT</a>
+                        <a href="#dic" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">DIC</a>
+                        <a href="#tls" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Tumor Lysis Syndrome</a>
+                        <a href="#sickle-cell" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Sickle Cell Crisis</a>
+                        <a href="#transfusion" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Transfusion Reactions</a>
+                        <a href="#anticoag-reversal" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Anticoag Reversal</a>
                     </div>
-                </div>
-                
-                <!-- RHEUMATOLOGY -->
-                <div style="margin-bottom: 25px;">
-                    <h3 style="color: #7d3c98; font-size: 13pt; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #8e44ad;">🦴 Rheumatology</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <a href="#gout" style="background: #f4ecf7; color: #7d3c98; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Gout/Pseudogout</a>
-                        <a href="#sle" style="background: #f4ecf7; color: #7d3c98; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">SLE Flare</a>
-                        <a href="#gca" style="background: #f4ecf7; color: #7d3c98; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Giant Cell Arteritis</a>
-                        <a href="#vasculitis-emergencies" style="background: #f4ecf7; color: #7d3c98; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Vasculitis Emergencies</a>
-                        <a href="#scleroderma-renal" style="background: #f4ecf7; color: #7d3c98; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Scleroderma Renal Crisis</a>
+                    
+                    <div>
+                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Rheumatology</strong>
+                        <a href="#gout" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Gout / Pseudogout</a>
+                        <a href="#sle" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">SLE Flare</a>
+                        <a href="#gca" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Giant Cell Arteritis</a>
+                        <a href="#vasculitis-emergencies" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Vasculitis</a>
+                        <a href="#scleroderma-renal" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Scleroderma Renal Crisis</a>
                     </div>
-                </div>
-                
-                <!-- TOXICOLOGY -->
-                <div style="margin-bottom: 25px;">
-                    <h3 style="color: #1f618d; font-size: 13pt; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #2980b9;">☠️ Toxicology</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <a href="#overdose" style="background: #eaf2f8; color: #1f618d; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Drug Overdose/Toxidromes</a>
-                        <a href="#opioid" style="background: #eaf2f8; color: #1f618d; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Opioid Overdose</a>
-                        <a href="#apap-overdose" style="background: #eaf2f8; color: #1f618d; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Acetaminophen Overdose</a>
-                        <a href="#salicylate-toxicity" style="background: #eaf2f8; color: #1f618d; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Salicylate Toxicity</a>
-                        <a href="#toxic-alcohol" style="background: #eaf2f8; color: #1f618d; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Toxic Alcohol Ingestion</a>
-                        <a href="#anaphylaxis" style="background: #eaf2f8; color: #1f618d; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Anaphylaxis</a>
-                    </div>
-                </div>
-                
-                <!-- VASCULAR / OTHER -->
-                <div style="margin-bottom: 25px;">
-                    <h3 style="color: #566573; font-size: 13pt; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #7f8c8d;">🩺 Vascular / Other</h3>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                        <a href="#limb-ischemia" style="background: #f2f4f4; color: #566573; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Acute Limb Ischemia</a>
-                        <a href="#ruptured-aaa" style="background: #f2f4f4; color: #566573; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Ruptured AAA</a>
-                        <a href="#neurogenic-shock" style="background: #f2f4f4; color: #566573; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Neurogenic Shock</a>
-                        <a href="#burns-third-spacing" style="background: #f2f4f4; color: #566573; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 10pt;">Burns/Third-Spacing</a>
+                    
+                    <div>
+                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Toxicology</strong>
+                        <a href="#overdose" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Toxidromes</a>
+                        <a href="#opioid" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Opioid Overdose</a>
+                        <a href="#apap-overdose" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Acetaminophen</a>
+                        <a href="#salicylate-toxicity" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Salicylate Toxicity</a>
+                        <a href="#toxic-alcohol" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Toxic Alcohols</a>
+                        <a href="#anaphylaxis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Anaphylaxis</a>
+                        <a href="#etoh-withdrawal" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Alcohol Withdrawal</a>
                     </div>
                 </div>
             </div>
@@ -2681,7 +2510,45 @@
                         </div>
                         
                         <button class="calc-button" onclick="calculateWells()">Calculate Wells Score</button>
-                        <div id="wells-result"></div>
+                        <div id="wells-result" class="calc-result" style="display:none;"></div>
+                    </div>
+                    
+                    <!-- PERC Rule Calculator -->
+                    <div id="calc-perc" class="calculator">
+                        <div class="calculator-title">🧮 PERC Rule (Pulmonary Embolism Rule-out Criteria)</div>
+                        <div class="calc-description">
+                            <strong>Use:</strong> In LOW pre-test probability patients only. If ALL criteria are ABSENT (unchecked), PE is ruled out without D-dimer.
+                        </div>
+                        
+                        <p style="font-weight: 600; margin: 10px 0 5px 0;">Check if ANY of these are PRESENT:</p>
+                        
+                        <div class="calc-item checkbox-item">
+                            <label><input type="checkbox" id="perc-age"> Age ≥50 years</label>
+                        </div>
+                        <div class="calc-item checkbox-item">
+                            <label><input type="checkbox" id="perc-hr"> Heart rate ≥100 bpm</label>
+                        </div>
+                        <div class="calc-item checkbox-item">
+                            <label><input type="checkbox" id="perc-spo2"> SpO2 &lt;95% on room air</label>
+                        </div>
+                        <div class="calc-item checkbox-item">
+                            <label><input type="checkbox" id="perc-hemo"> Hemoptysis</label>
+                        </div>
+                        <div class="calc-item checkbox-item">
+                            <label><input type="checkbox" id="perc-estrogen"> Estrogen use (OCP, HRT)</label>
+                        </div>
+                        <div class="calc-item checkbox-item">
+                            <label><input type="checkbox" id="perc-vte"> Prior DVT or PE</label>
+                        </div>
+                        <div class="calc-item checkbox-item">
+                            <label><input type="checkbox" id="perc-surgery"> Surgery or trauma within 4 weeks</label>
+                        </div>
+                        <div class="calc-item checkbox-item">
+                            <label><input type="checkbox" id="perc-leg"> Unilateral leg swelling</label>
+                        </div>
+                        
+                        <button class="calc-button" onclick="calculatePERC()">Apply PERC Rule</button>
+                        <div id="perc-result" class="calc-result" style="display:none;"></div>
                     </div>
                 </div>
             </div>
@@ -28552,6 +28419,65 @@
 </div>
 
 <script>
+// Wells Score Calculator for PE
+function calculateWells() {
+    let score = 0;
+    if (document.getElementById('wells-dvt').checked) score += 3;
+    if (document.getElementById('wells-alt').checked) score += 3;
+    if (document.getElementById('wells-hr').checked) score += 1.5;
+    if (document.getElementById('wells-immob').checked) score += 1.5;
+    if (document.getElementById('wells-prior').checked) score += 1.5;
+    if (document.getElementById('wells-hemo').checked) score += 1;
+    if (document.getElementById('wells-cancer').checked) score += 1;
+    
+    const resultDiv = document.getElementById('wells-result');
+    let interpretation = '';
+    let riskClass = '';
+    
+    if (score <= 4) {
+        interpretation = '<strong>PE Unlikely</strong> — Check D-dimer. If negative, PE excluded. If positive, proceed to CTPA.';
+        riskClass = '';
+    } else {
+        interpretation = '<strong>PE Likely</strong> — Proceed directly to CTPA. Do not rely on D-dimer alone.';
+        riskClass = 'high-risk';
+    }
+    
+    resultDiv.style.display = 'block';
+    resultDiv.className = 'calc-result ' + riskClass;
+    resultDiv.innerHTML = `
+        <div style="font-size: 1.2em; margin-bottom: 8px;">Wells Score = <strong>${score}</strong></div>
+        <div>${interpretation}</div>
+    `;
+}
+
+// PERC Rule Calculator
+function calculatePERC() {
+    let allNegative = true;
+    const criteria = ['perc-age', 'perc-hr', 'perc-spo2', 'perc-hemo', 'perc-estrogen', 'perc-vte', 'perc-surgery', 'perc-leg'];
+    
+    criteria.forEach(id => {
+        if (document.getElementById(id).checked) allNegative = false;
+    });
+    
+    const resultDiv = document.getElementById('perc-result');
+    
+    if (allNegative) {
+        resultDiv.style.display = 'block';
+        resultDiv.className = 'calc-result';
+        resultDiv.innerHTML = `
+            <div style="font-size: 1.1em;"><strong>PERC Negative</strong></div>
+            <div>If clinical suspicion is LOW, PE is effectively ruled out. No D-dimer or imaging needed.</div>
+        `;
+    } else {
+        resultDiv.style.display = 'block';
+        resultDiv.className = 'calc-result high-risk';
+        resultDiv.innerHTML = `
+            <div style="font-size: 1.1em;"><strong>PERC Positive</strong></div>
+            <div>Cannot rule out PE by PERC alone. Proceed with D-dimer or Wells score to guide further workup.</div>
+        `;
+    }
+}
+
 // FENa Calculator
 function calculateFENa() {
     const urineNa = parseFloat(document.getElementById('fena-urine-na').value);

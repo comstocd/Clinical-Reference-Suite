@@ -271,20 +271,113 @@
                 </div>
                 
                 <div style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); padding:25px; margin-top:20px;">
-                    <h3 style="color:#1a365d; margin:0 0 15px 0; font-size:1.1rem;">⚡ Quick Access — High-Yield Topics</h3>
-                    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:10px;">
-                        <div onclick="switchTool('imcrg','sepsis')" style="padding:12px 15px; background:#f7fafc; border-radius:8px; cursor:pointer; color:#2c5282; font-weight:500;">Sepsis & Septic Shock</div>
-                        <div onclick="switchTool('imcrg','acs')" style="padding:12px 15px; background:#f7fafc; border-radius:8px; cursor:pointer; color:#2c5282; font-weight:500;">Acute Coronary Syndrome</div>
-                        <div onclick="switchTool('imcrg','heart-failure')" style="padding:12px 15px; background:#f7fafc; border-radius:8px; cursor:pointer; color:#2c5282; font-weight:500;">Heart Failure</div>
-                        <div onclick="switchTool('imcrg','aki')" style="padding:12px 15px; background:#f7fafc; border-radius:8px; cursor:pointer; color:#2c5282; font-weight:500;">Acute Kidney Injury</div>
-                        <div onclick="switchTool('imcrg','dka')" style="padding:12px 15px; background:#f7fafc; border-radius:8px; cursor:pointer; color:#2c5282; font-weight:500;">DKA / HHS</div>
-                        <div onclick="switchTool('imcrg','ugib')" style="padding:12px 15px; background:#f7fafc; border-radius:8px; cursor:pointer; color:#2c5282; font-weight:500;">GI Bleeding</div>
-                        <div onclick="switchTool('imcrg','pe')" style="padding:12px 15px; background:#f7fafc; border-radius:8px; cursor:pointer; color:#2c5282; font-weight:500;">Pulmonary Embolism</div>
-                        <div onclick="switchTool('imcrg','stroke')" style="padding:12px 15px; background:#f7fafc; border-radius:8px; cursor:pointer; color:#2c5282; font-weight:500;">Stroke</div>
-                        <div onclick="switchTool('id','empiric-therapy')" style="padding:12px 15px; background:#f7fafc; border-radius:8px; cursor:pointer; color:#2c5282; font-weight:500;">Empiric Antibiotics</div>
-                        <div onclick="switchTool('id','renal-dosing')" style="padding:12px 15px; background:#f7fafc; border-radius:8px; cursor:pointer; color:#2c5282; font-weight:500;">Renal Dosing</div>
-                        <div onclick="switchTool('procedures','lumbar-puncture')" style="padding:12px 15px; background:#f7fafc; border-radius:8px; cursor:pointer; color:#2c5282; font-weight:500;">LP Interpretation</div>
-                        <div onclick="switchTool('drugs','warfarin')" style="padding:12px 15px; background:#f7fafc; border-radius:8px; cursor:pointer; color:#2c5282; font-weight:500;">Warfarin Interactions</div>
+                    <h3 style="color:#1a365d; margin:0 0 20px 0; font-size:1.1rem;">Browse by Organ System</h3>
+                    
+                    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:25px;">
+                        <!-- Cardiology -->
+                        <div>
+                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Cardiology</h4>
+                            <div onclick="switchTool('imcrg','acs')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">ACS</div>
+                            <div onclick="switchTool('imcrg','heart-failure')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Heart Failure</div>
+                            <div onclick="switchTool('imcrg','afib')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Atrial Fibrillation</div>
+                            <div onclick="switchTool('imcrg','htn-emergency')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">HTN Emergency</div>
+                            <div onclick="switchTool('imcrg','syncope')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Syncope</div>
+                            <div onclick="switchTool('imcrg','aortic-dissection')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Aortic Dissection</div>
+                            <div onclick="switchTool('imcrg','cardiogenic-shock')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Cardiogenic Shock</div>
+                        </div>
+                        
+                        <!-- Pulmonology -->
+                        <div>
+                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Pulmonology</h4>
+                            <div onclick="switchTool('imcrg','cap')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">CAP</div>
+                            <div onclick="switchTool('imcrg','copd')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">COPD Exacerbation</div>
+                            <div onclick="switchTool('imcrg','asthma')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Asthma Exacerbation</div>
+                            <div onclick="switchTool('imcrg','pe')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Pulmonary Embolism</div>
+                            <div onclick="switchTool('imcrg','ards')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">ARDS</div>
+                            <div onclick="switchTool('imcrg','pleural-effusion')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Pleural Effusion</div>
+                        </div>
+                        
+                        <!-- GI / Hepatology -->
+                        <div>
+                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">GI / Hepatology</h4>
+                            <div onclick="switchTool('imcrg','ugib')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Upper GI Bleed</div>
+                            <div onclick="switchTool('imcrg','lower-gi-bleed')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Lower GI Bleed</div>
+                            <div onclick="switchTool('imcrg','cirrhosis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Cirrhosis</div>
+                            <div onclick="switchTool('imcrg','pancreatitis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Pancreatitis</div>
+                            <div onclick="switchTool('imcrg','sbp')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">SBP</div>
+                            <div onclick="switchTool('imcrg','cholangitis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Cholangitis</div>
+                        </div>
+                        
+                        <!-- Nephrology -->
+                        <div>
+                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Nephrology</h4>
+                            <div onclick="switchTool('imcrg','aki')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">AKI</div>
+                            <div onclick="switchTool('imcrg','hyperkalemia')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Hyperkalemia</div>
+                            <div onclick="switchTool('imcrg','hyponatremia')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Hyponatremia</div>
+                            <div onclick="switchTool('imcrg','rhabdo')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Rhabdomyolysis</div>
+                            <div onclick="switchTool('imcrg','ckd-complications')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">CKD Complications</div>
+                        </div>
+                        
+                        <!-- Endocrine -->
+                        <div>
+                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Endocrine</h4>
+                            <div onclick="switchTool('imcrg','dka')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">DKA</div>
+                            <div onclick="switchTool('imcrg','hhs')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">HHS</div>
+                            <div onclick="switchTool('imcrg','hyperthyroid')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Thyroid Storm</div>
+                            <div onclick="switchTool('imcrg','adrenal')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Adrenal Crisis</div>
+                            <div onclick="switchTool('imcrg','hypercalcemia')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Hypercalcemia</div>
+                        </div>
+                        
+                        <!-- Neurology -->
+                        <div>
+                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Neurology</h4>
+                            <div onclick="switchTool('imcrg','stroke')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Ischemic Stroke</div>
+                            <div onclick="switchTool('imcrg','ich')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">ICH</div>
+                            <div onclick="switchTool('imcrg','seizure')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Seizure / Status</div>
+                            <div onclick="switchTool('imcrg','meningitis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Meningitis</div>
+                            <div onclick="switchTool('imcrg','delirium')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Delirium</div>
+                            <div onclick="switchTool('imcrg','etoh-withdrawal')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Alcohol Withdrawal</div>
+                        </div>
+                        
+                        <!-- Infectious Disease -->
+                        <div>
+                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Infectious Disease</h4>
+                            <div onclick="switchTool('imcrg','sepsis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Sepsis</div>
+                            <div onclick="switchTool('imcrg','cellulitis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Cellulitis</div>
+                            <div onclick="switchTool('imcrg','neutropenic-fever')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Neutropenic Fever</div>
+                            <div onclick="switchTool('id','empiric-therapy')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Empiric Abx</div>
+                            <div onclick="switchTool('id','renal-dosing')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Renal Dosing</div>
+                        </div>
+                        
+                        <!-- Hematology / Oncology -->
+                        <div>
+                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Heme / Onc</h4>
+                            <div onclick="switchTool('imcrg','dvt')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">DVT</div>
+                            <div onclick="switchTool('imcrg','anemia')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Anemia</div>
+                            <div onclick="switchTool('imcrg','dic')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">DIC</div>
+                            <div onclick="switchTool('imcrg','tls')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Tumor Lysis</div>
+                            <div onclick="switchTool('imcrg','transfusion')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Transfusion Reactions</div>
+                            <div onclick="switchTool('imcrg','anticoag-reversal')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Anticoag Reversal</div>
+                        </div>
+                        
+                        <!-- Toxicology -->
+                        <div>
+                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Toxicology</h4>
+                            <div onclick="switchTool('imcrg','overdose')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Toxidromes</div>
+                            <div onclick="switchTool('imcrg','apap-overdose')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Acetaminophen</div>
+                            <div onclick="switchTool('imcrg','salicylate-toxicity')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Salicylate</div>
+                            <div onclick="switchTool('imcrg','opioid')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Opioid OD</div>
+                            <div onclick="switchTool('drugs','warfarin')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Drug Interactions</div>
+                        </div>
+                        
+                        <!-- Procedures -->
+                        <div>
+                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Procedures</h4>
+                            <div onclick="switchTool('procedures','paracentesis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Paracentesis</div>
+                            <div onclick="switchTool('procedures','thoracentesis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Thoracentesis</div>
+                            <div onclick="switchTool('procedures','lumbar-puncture')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Lumbar Puncture</div>
+                            <div onclick="switchTool('procedures','arthrocentesis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Arthrocentesis</div>
+                        </div>
                     </div>
                 </div>
             </div>
