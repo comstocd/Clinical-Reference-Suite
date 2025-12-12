@@ -146,6 +146,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            margin-left: 220px;
             background: white;
             box-shadow: 0 1px 3px rgba(0,0,0,0.12);
         }
@@ -366,22 +367,109 @@
             }
             body {
                 background: white;
+                margin-left: 0;
             }
             .container {
                 box-shadow: none;
+            }
+            #suite-sidebar {
+                display: none;
+            }
+        }
+        
+        /* Fixed Left Sidebar for Suite Navigation */
+        #suite-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 220px;
+            height: 100vh;
+            background: #f6f8fa;
+            border-right: 1px solid #e1e4e8;
+            padding: 15px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        
+        #suite-sidebar .sidebar-title {
+            font-weight: 700;
+            color: #24292e;
+            font-size: 13px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #0366d6;
+        }
+        
+        #suite-sidebar a {
+            display: block;
+            padding: 10px 12px;
+            color: #24292e;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-bottom: 4px;
+            transition: background 0.2s;
+        }
+        
+        #suite-sidebar a:hover {
+            background: #e1e4e8;
+        }
+        
+        #suite-sidebar a.active {
+            background: #0366d6;
+            color: white;
+        }
+        
+        #suite-sidebar .section-label {
+            font-size: 10px;
+            color: #6a737d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 20px 0 8px 0;
+            padding-left: 12px;
+        }
+        
+        @media (max-width: 900px) {
+            #suite-sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #e1e4e8;
+            }
+            .container {
+                margin-left: 0;
             }
         }
     </style>
 </head>
 <body>
-    <div style="background: linear-gradient(135deg, #3498db, #2980b9); padding: 8px 15px; text-align: center;">
-        <a href="index.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 12px; margin-right: 15px;">🏠 Home</a>
-        <a href="id_guide.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 12px; margin-right: 15px;">🦠 ID Guide</a>
-        <a href="lab_values.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 12px; margin-right: 15px;">🔬 Labs</a>
-        <a href="dx_framework.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 12px; margin-right: 15px;">🩺 Dx Framework</a>
-        <a href="drug_interactions.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 12px; margin-right: 15px;">💊 Drug Interactions</a>
-        <a href="procedures_guide.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 12px;">🩺 Procedures</a>
-    </div>
+    <!-- Fixed Left Sidebar -->
+    <nav id="suite-sidebar">
+        <div class="sidebar-title">📚 Clinical Reference Suite</div>
+        
+        <div class="section-label">Suite Navigation</div>
+        <a href="index.html">🏠 Home</a>
+        <a href="im_guide.html" class="active">📚 IM Guide (148)</a>
+        <a href="id_guide.html">🦠 ID Guide</a>
+        <a href="lab_values.html">🔬 Lab Values</a>
+        <a href="dx_framework.html">🩺 Dx Framework</a>
+        <a href="drug_interactions.html">💊 Drug Interactions</a>
+        <a href="procedures_guide.html">🩺 Procedures</a>
+        
+        <div class="section-label">Quick Jump</div>
+        <a href="#toc">📋 Table of Contents</a>
+        <a href="#acs">❤️ Cardiology</a>
+        <a href="#cap">🫁 Pulmonology</a>
+        <a href="#sepsis">🦠 Infectious Disease</a>
+        <a href="#aki">🔬 Nephrology</a>
+        <a href="#dka">💉 Endocrine</a>
+        <a href="#ugib">🩸 GI / Hepatology</a>
+        <a href="#stroke">🧠 Neurology</a>
+        <a href="#dvt">🩺 Heme / Onc</a>
+    </nav>
+
     <div class="container">
         <div class="nav-header">
             <h1>Internal Medicine Clinical Reference Guide</h1>
