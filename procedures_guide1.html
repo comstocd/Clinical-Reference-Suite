@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Procedures Quick Reference — Clinical Reference Suite</title>
+<link rel="icon" href="mutant-icon.png" type="image/png">
+<style>
+  :root{
+    --nav-w:280px;
+    --header-h:64px;
+    --blue:#2d5a4a;
+    --muted:#f5f9f7;
+    --card:#ffffff;
+    --accent:#059669;
+  }
+  html{scroll-behavior:smooth}
+  html,body{height:100%;margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:#fbfdfb;color:#1f2937}
+  
+  header{
+    position:fixed;
+    left:var(--nav-w);
+    right:0;
+    top:0;
+    height:var(--header-h);
+    background:var(--blue);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:0 16px;
+    z-index:1200;
+  }
+  header h1{font-size:1.05rem;margin:0;font-weight:600}
+
+  nav#sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:var(--nav-w);
+    height:100vh;
+    background:var(--muted);
+    border-right:1px solid #d1e7dd;
+    padding:8px 12px;
+    box-sizing:border-box;
+    overflow:auto;
+  }
+  #sidebar .title{padding:6px 8px;font-weight:700;color:var(--blue);font-size:1rem}
+  #sidebar ul{list-style:none;padding:6px;margin:0}
+  #sidebar li{margin:6px 0}
+  #sidebar a{display:block;padding:8px 10px;color:#0b2545;text-decoration:none;border-radius:6px}
+  #sidebar a:hover{background:#d4edda}
+
+  main{
+    margin-left:var(--nav-w);
+    padding:calc(var(--header-h) + 18px) 22px 40px 22px;
+    min-height:100vh;
+    box-sizing:border-box;
+  }
+
+  section{margin-bottom:20px; scroll-margin-top: calc(var(--header-h) + 12px);}
+  h2{color:var(--blue); margin:0 0 10px 0}
+  h3{color:#1e4d3d; margin:15px 0 8px 0}
+  h4{color:#2d5a4a; margin:12px 0 6px 0; font-size:1rem}
+  .muted{color:#475569;font-size:0.95rem}
+  p, li {color:#0b2338;line-height:1.5}
+
+  .collapsible{
+    background:#e8f5e9;
+    border:1px solid #c8e6c9;
+    color:var(--blue);
+    padding:10px 12px;
+    width:100%;
+    text-align:left;
+    cursor:pointer;
+    border-radius:8px;
+    font-weight:700;
+    margin-top:12px;
+    box-sizing:border-box;
+  }
+  .collapsible:after{content:'+';float:right;font-weight:700}
+  .collapsible.active{background:#c8e6c9}
+  .collapsible.active:after{content:'−'}
+  .panel{
+    display:none;
+    padding:12px;
+    margin-top:8px;
+    background:var(--card);
+    border-radius:8px;
+    border:1px solid #e8f5e9;
+  }
+
+  table{width:100%;border-collapse:collapse;margin-top:8px}
+  th,td{border:1px solid #d1e7dd;padding:8px;text-align:left;font-size:14px}
+  th{background:#e8f5e9;color:#1e4d3d;font-weight:700}
+  
+  .warning-box{
+    background:#fff3cd;
+    border:1px solid #ffc107;
+    border-left:4px solid #ffc107;
+    padding:12px;
+    border-radius:6px;
+    margin:10px 0;
+  }
+  .warning-box h4{color:#856404;margin:0 0 8px 0}
+  
+  .danger-box{
+    background:#f8d7da;
+    border:1px solid #f5c2c7;
+    border-left:4px solid #dc3545;
+    padding:12px;
+    border-radius:6px;
+    margin:10px 0;
+  }
+  .danger-box h4{color:#842029;margin:0 0 8px 0}
+  
+  .info-box{
+    background:#e7f3ff;
+    border:1px solid #b6d4fe;
+    border-left:4px solid #0d6efd;
+    padding:12px;
+    border-radius:6px;
+    margin:10px 0;
+  }
+  .info-box h4{color:#084298;margin:0 0 8px 0}
+  
+  .success-box{
+    background:#d1e7dd;
+    border:1px solid #badbcc;
+    border-left:4px solid #198754;
+    padding:12px;
+    border-radius:6px;
+    margin:10px 0;
+  }
+  .success-box h4{color:#0f5132;margin:0 0 8px 0}
+  
+  .procedure-box{
+    border:1px solid #d1e7dd;
+    padding:12px;
+    border-radius:8px;
+    background:#fff;
+    margin-top:10px;
+  }
+  .procedure-box h4{margin-top:0}
+  
+  .step-list{
+    counter-reset: step;
+    list-style:none;
+    padding-left:0;
+  }
+  .step-list li{
+    counter-increment: step;
+    margin:10px 0;
+    padding:10px 10px 10px 45px;
+    background:#f8fdf9;
+    border-radius:6px;
+    position:relative;
+  }
+  .step-list li::before{
+    content: counter(step);
+    position:absolute;
+    left:10px;
+    top:10px;
+    background:var(--accent);
+    color:white;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    text-align:center;
+    line-height:24px;
+    font-weight:700;
+    font-size:13px;
+  }
+  
+  .small{font-size:0.92rem;color:#475569}
+  
+  .cross-link{
+    display:inline-block;
+    background:#e8f5e9;
+    color:#2d5a4a;
+    padding:4px 10px;
+    border-radius:6px;
+    text-decoration:none;
+    font-size:13px;
+    margin:4px 4px 4px 0;
+  }
+  .cross-link:hover{background:#c8e6c9}
+  
+  .interpretation-table td:first-child{font-weight:600}
+  
+  .badge{display:inline-block;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:600;margin-right:4px}
+  .badge-normal{background:#d1e7dd;color:#0f5132}
+  .badge-abnormal{background:#f8d7da;color:#842029}
+  .badge-critical{background:#dc3545;color:white}
+
+  @media (max-width:900px){
+    header{left:0}
+    nav#sidebar{position:relative;width:100%;height:auto;border-right:none;border-bottom:1px solid #d1e7dd;padding-bottom:12px}
+    main{margin-left:0;padding-top:calc(var(--header-h) + 10px)}
+  }
+</style>
+</head>
+<body>
+
+<nav id="sidebar" aria-label="Main navigation">
+  <div class="title">🩺 Procedures Guide</div>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#paracentesis">Paracentesis</a></li>
+    <li><a href="#thoracentesis">Thoracentesis</a></li>
+    <li><a href="#lumbar-puncture">Lumbar Puncture</a></li>
+    <li><a href="#arthrocentesis">Arthrocentesis</a></li>
+    <li><a href="#central-line">Central Line Basics</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+  <div style="padding:12px;color:#334155;font-size:13px">
+    <strong>Suite Links:</strong><br>
+    <a href="im_guide.html" class="cross-link">📚 IM Guide</a>
+    <a href="id_guide.html" class="cross-link">🦠 ID Guide</a>
+    <a href="lab_values.html" class="cross-link">🔬 Lab Values</a>
+    <a href="drug_interactions.html" class="cross-link">💊 Drug Interactions</a>
+  </div>
+</nav>
+
+<header role="banner">
+  <h1>Procedures Quick Reference <span style="font-size: 0.6em; color: #6ee7b7; font-weight: 600;">BUILD #1</span></h1>
+</header>
+
+<main>
+
+<!-- HOME -->
+<section id="home">
+  <h2>Procedures Quick Reference</h2>
+  <p class="muted">Practical guidance for common bedside procedures including technique tips, fluid interpretation, and troubleshooting.</p>
+  
+  <div class="info-box">
+    <h4>📋 Pre-Procedure Checklist (All Procedures)</h4>
+    <ul>
+      <li><strong>Indication:</strong> Document reason for procedure</li>
+      <li><strong>Consent:</strong> Informed consent obtained and documented</li>
+      <li><strong>Coagulation:</strong> Check INR, platelets (see specific thresholds below)</li>
+      <li><strong>Anticoagulation:</strong> Hold anticoagulants if needed (procedure-specific)</li>
+      <li><strong>Timeout:</strong> Verify patient, procedure, site</li>
+      <li><strong>Ultrasound:</strong> Mark site with US guidance when available</li>
+    </ul>
+  </div>
+  
+  <div class="procedure-box">
+    <h4>Coagulation Parameters by Procedure</h4>
+    <table>
+      <thead><tr><th>Procedure</th><th>Minimum Platelets</th><th>Maximum INR</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Paracentesis</strong></td><td>No minimum*</td><td>No maximum*</td><td>*Routine correction NOT recommended per AASLD</td></tr>
+        <tr><td><strong>Thoracentesis</strong></td><td>>25,000-50,000</td><td><3.0</td><td>US-guidance reduces bleeding risk</td></tr>
+        <tr><td><strong>Lumbar Puncture</strong></td><td>>50,000</td><td><1.5</td><td>More conservative if therapeutic anticoagulation</td></tr>
+        <tr><td><strong>Arthrocentesis</strong></td><td>>20,000</td><td><3.0</td><td>Rarely significant bleeding</td></tr>
+        <tr><td><strong>Central Line</strong></td><td>>20,000-50,000</td><td><3.0</td><td>Site-dependent; IJ safest if coagulopathic</td></tr>
+      </tbody>
+    </table>
+    <p class="small">*Cirrhotic patients have "rebalanced" coagulation. INR/platelets do not predict bleeding risk. Do NOT prophylactically transfuse before paracentesis.</p>
+  </div>
+</section>
+
+<!-- PARACENTESIS -->
+<section id="paracentesis">
+  <h2>Paracentesis</h2>
+  <p class="muted">Diagnostic and therapeutic removal of ascitic fluid. Most commonly performed for new-onset ascites evaluation or treatment of tense ascites.</p>
+
+  <button class="collapsible">Indications & Contraindications</button>
+  <div class="panel">
+    <h4>Indications</h4>
+    <ul>
+      <li><strong>Diagnostic:</strong> New-onset ascites, suspected SBP (fever, abdominal pain, encephalopathy, renal dysfunction in cirrhotic)</li>
+      <li><strong>Therapeutic:</strong> Tense ascites causing respiratory compromise or discomfort</li>
+      <li><strong>ALL hospital admissions with ascites</strong> should have diagnostic paracentesis to rule out SBP</li>
+    </ul>
+    
+    <h4>Absolute Contraindications</h4>
+    <ul>
+      <li>Acute abdomen requiring surgery</li>
+      <li>DIC with clinical bleeding</li>
+    </ul>
+    
+    <h4>Relative Contraindications (Proceed with Caution)</h4>
+    <ul>
+      <li>Severe bowel distension (use US guidance)</li>
+      <li>Previous abdominal surgery with adhesions</li>
+      <li>Pregnancy (use US guidance, adjust site)</li>
+    </ul>
+    
+    <div class="success-box">
+      <h4>✓ Key Point: Do NOT Delay for Coagulopathy</h4>
+      <p>Routine correction of INR or platelets is NOT recommended before paracentesis in cirrhotic patients. Bleeding complications are rare (<1%) and not predicted by lab values.</p>
+    </div>
+  </div>
+
+  <button class="collapsible">Technique Tips</button>
+  <div class="panel">
+    <h4>Site Selection</h4>
+    <ul>
+      <li><strong>Left lower quadrant (LLQ)</strong> preferred: 2-4 cm medial and superior to ASIS</li>
+      <li>Avoid scars, visible vessels, rectus muscles</li>
+      <li><strong>Always use ultrasound</strong> to confirm fluid pocket and mark site</li>
+    </ul>
+    
+    <h4>Procedure Steps</h4>
+    <ol class="step-list">
+      <li>Position patient supine or slightly lateral decubitus (LLQ down if LLQ approach)</li>
+      <li>Use ultrasound to identify largest pocket and mark site</li>
+      <li>Sterile prep and drape; infiltrate with lidocaine (skin → peritoneum)</li>
+      <li>Insert needle perpendicular to skin with "Z-track" technique (pull skin caudally before insertion)</li>
+      <li>Advance with gentle aspiration until fluid return</li>
+      <li>For large-volume paracentesis: use 8-French catheter over needle</li>
+      <li>Remove fluid; send labs from first tube (before contamination)</li>
+    </ol>
+    
+    <div class="info-box">
+      <h4>💡 Z-Track Technique</h4>
+      <p>Pull skin 2 cm caudally before needle insertion, then release after catheter placed. This creates an angled tract that seals when skin retracts, reducing post-procedure leakage.</p>
+    </div>
+    
+    <h4>Large-Volume Paracentesis (>5L)</h4>
+    <ul>
+      <li><strong>Albumin replacement:</strong> Give 6-8 g albumin per liter removed if >5L</li>
+      <li>Example: 8L removed → give 50g (2 vials of 25g) albumin</li>
+      <li>Albumin prevents post-paracentesis circulatory dysfunction (PPCD)</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Fluid Analysis & Interpretation</button>
+  <div class="panel">
+    <h4>Standard Studies to Order</h4>
+    <table>
+      <thead><tr><th>Always Order</th><th>If Indicated</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>
+            • Cell count with differential<br>
+            • Albumin (calculate SAAG)<br>
+            • Total protein<br>
+            • Culture (inoculate at bedside)
+          </td>
+          <td>
+            • Glucose, LDH, amylase (if secondary peritonitis suspected)<br>
+            • Cytology (if malignancy suspected)<br>
+            • Gram stain (low yield)<br>
+            • AFB, fungal culture (TB, fungal peritonitis)<br>
+            • Triglycerides (if chylous)
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>SAAG (Serum-Ascites Albumin Gradient)</h4>
+    <p><strong>SAAG = Serum albumin − Ascites albumin</strong></p>
+    <table class="interpretation-table">
+      <thead><tr><th>SAAG Value</th><th>Indicates</th><th>Causes</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-normal">≥1.1 g/dL</span><br>HIGH SAAG</td><td>Portal hypertension (97% accuracy)</td><td>Cirrhosis, heart failure, Budd-Chiari, portal vein thrombosis, hepatic metastases</td></tr>
+        <tr><td><span class="badge badge-abnormal"><1.1 g/dL</span><br>LOW SAAG</td><td>Non-portal hypertension</td><td>Peritoneal carcinomatosis, TB peritonitis, nephrotic syndrome, pancreatitis, serositis</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Cell Count Interpretation</h4>
+    <table class="interpretation-table">
+      <thead><tr><th>Finding</th><th>Interpretation</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-critical">PMN ≥250/mm³</span></td><td><strong>Spontaneous Bacterial Peritonitis (SBP)</strong></td><td>Start empiric antibiotics immediately (cefotaxime 2g IV q8h or ceftriaxone 2g IV daily)</td></tr>
+        <tr><td>PMN ≥250 + positive culture</td><td>Culture-positive SBP</td><td>Continue antibiotics, narrow based on culture</td></tr>
+        <tr><td>PMN ≥250 + negative culture</td><td>Culture-negative neutrocytic ascites (CNNA)</td><td>Treat as SBP (culture sensitivity ~80%)</td></tr>
+        <tr><td>PMN <250 + positive culture</td><td>Bacterascites (monomicrobial)</td><td>Repeat paracentesis in 48h; treat if symptomatic or repeat PMN ≥250</td></tr>
+        <tr><td>Lymphocyte predominant</td><td>Consider TB peritonitis, malignancy</td><td>Send ADA (adenosine deaminase), cytology, AFB</td></tr>
+      </tbody>
+    </table>
+    
+    <div class="danger-box">
+      <h4>⚠️ Correcting PMN for Bloody Tap</h4>
+      <p>If RBC >10,000/mm³, subtract 1 PMN for every 250 RBCs:<br>
+      <strong>Corrected PMN = Measured PMN − (RBC ÷ 250)</strong></p>
+    </div>
+    
+    <h4>Secondary vs Spontaneous Peritonitis</h4>
+    <p>Suspect <strong>secondary bacterial peritonitis</strong> (perforated viscus) if:</p>
+    <ul>
+      <li>Ascites protein >1 g/dL</li>
+      <li>Glucose <50 mg/dL</li>
+      <li>LDH > serum LDH</li>
+      <li>Polymicrobial culture</li>
+      <li>Poor response to antibiotics</li>
+    </ul>
+    <p class="small">Secondary peritonitis requires surgical evaluation, not just antibiotics.</p>
+    
+    <a href="im_guide.html#sbp" class="cross-link">📚 SBP Management (IMCRG)</a>
+    <a href="id_guide.html#anatomic-infections" class="cross-link">🦠 Intra-abdominal Infections</a>
+  </div>
+
+  <button class="collapsible">Complications & Troubleshooting</button>
+  <div class="panel">
+    <h4>Complications</h4>
+    <table>
+      <thead><tr><th>Complication</th><th>Incidence</th><th>Prevention/Management</th></tr></thead>
+      <tbody>
+        <tr><td>Persistent leakage</td><td>5%</td><td>Z-track technique; place stitch or ostomy bag if persistent</td></tr>
+        <tr><td>Bleeding (abdominal wall hematoma)</td><td><1%</td><td>Use US guidance; avoid inferior epigastric vessels</td></tr>
+        <tr><td>Bowel perforation</td><td><0.1%</td><td>Use US guidance; avoid distended bowel</td></tr>
+        <tr><td>Infection</td><td><0.1%</td><td>Sterile technique</td></tr>
+        <tr><td>PPCD (post-paracentesis circulatory dysfunction)</td><td>Variable</td><td>Albumin replacement for >5L removed</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Troubleshooting: No Fluid Return</h4>
+    <ul>
+      <li>Reposition patient (more lateral)</li>
+      <li>Re-ultrasound and confirm pocket location</li>
+      <li>May need longer needle if obese</li>
+      <li>Ensure needle hasn't kinked or clogged with omentum (withdraw slightly and redirect)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- THORACENTESIS -->
+<section id="thoracentesis">
+  <h2>Thoracentesis</h2>
+  <p class="muted">Diagnostic and therapeutic removal of pleural fluid. Essential for evaluating new effusions and relieving dyspnea from large effusions.</p>
+
+  <button class="collapsible">Indications & Contraindications</button>
+  <div class="panel">
+    <h4>Indications</h4>
+    <ul>
+      <li><strong>Diagnostic:</strong> Any new clinically significant pleural effusion (>1 cm on lateral decubitus or US)</li>
+      <li><strong>Therapeutic:</strong> Large effusion causing dyspnea</li>
+    </ul>
+    
+    <h4>Contraindications</h4>
+    <ul>
+      <li>Minimal fluid (<1 cm on US)</li>
+      <li>Overlying cellulitis</li>
+      <li>Bleeding diathesis (relative – use US guidance, may need correction)</li>
+    </ul>
+    
+    <div class="warning-box">
+      <h4>⚠️ Anticoagulation Considerations</h4>
+      <p>Consider holding anticoagulation if possible. If cannot hold, use US guidance with experienced operator. Risk of hemothorax is low but consequential.</p>
+    </div>
+  </div>
+
+  <button class="collapsible">Technique Tips</button>
+  <div class="panel">
+    <h4>Site Selection</h4>
+    <ul>
+      <li>Patient seated, leaning forward over bedside table</li>
+      <li>Use ultrasound to identify largest pocket, measure depth, mark site</li>
+      <li>Enter 1-2 interspaces below fluid level, above the diaphragm</li>
+      <li>Insert over TOP of rib (neurovascular bundle runs under rib)</li>
+      <li>Typically posterior axillary line, 7th-9th intercostal space</li>
+    </ul>
+    
+    <h4>Procedure Steps</h4>
+    <ol class="step-list">
+      <li>Position patient seated, arms supported on bedside table</li>
+      <li>Ultrasound to mark site and measure depth</li>
+      <li>Sterile prep and drape</li>
+      <li>Anesthetize skin, then advance along planned trajectory to parietal pleura (will feel "pop")</li>
+      <li>Insert needle (attached to syringe or catheter system) perpendicular to chest wall, advancing while aspirating</li>
+      <li>Once fluid returns, advance catheter (if using), remove needle</li>
+      <li>Aspirate fluid; for large-volume, connect to vacuum bottle</li>
+      <li>Stop if patient develops chest tightness, cough, or 1.5L removed (whichever first)</li>
+      <li>Withdraw catheter, apply occlusive dressing</li>
+    </ol>
+    
+    <div class="info-box">
+      <h4>💡 Maximum Volume</h4>
+      <p>Traditional teaching: limit to 1-1.5L per session to prevent re-expansion pulmonary edema (REPE). However, REPE is rare. More important: <strong>stop if patient develops chest tightness, cough, or discomfort</strong> (suggests lung re-expansion reaching chest wall).</p>
+    </div>
+  </div>
+
+  <button class="collapsible">Fluid Analysis & Interpretation</button>
+  <div class="panel">
+    <h4>Standard Studies to Order</h4>
+    <table>
+      <thead><tr><th>Always Order</th><th>If Indicated</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>
+            • Cell count with differential<br>
+            • Protein<br>
+            • LDH<br>
+            • Glucose<br>
+            • pH (if infection suspected)<br>
+            • Gram stain and culture
+          </td>
+          <td>
+            • Cytology (malignancy)<br>
+            • Triglycerides (chylothorax if milky)<br>
+            • Amylase (pancreatitis, esophageal rupture)<br>
+            • Hematocrit (hemothorax if bloody)<br>
+            • ADA (TB)<br>
+            • NT-proBNP (if uncertain about CHF)
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Light's Criteria: Exudate vs Transudate</h4>
+    <p><strong>EXUDATE if meets ANY ONE criterion:</strong></p>
+    <table class="interpretation-table">
+      <thead><tr><th>Criterion</th><th>Exudate Threshold</th></tr></thead>
+      <tbody>
+        <tr><td>Pleural protein / Serum protein</td><td>>0.5</td></tr>
+        <tr><td>Pleural LDH / Serum LDH</td><td>>0.6</td></tr>
+        <tr><td>Pleural LDH</td><td>>2/3 upper limit of normal serum LDH</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Sensitivity 98%, Specificity 83%</strong> — Light's criteria may misclassify transudates as exudates in diuresed CHF patients.</p>
+    
+    <div class="info-box">
+      <h4>💡 Diuresis Pitfall</h4>
+      <p>If Light's criteria suggest exudate but clinical picture is CHF (bilateral effusions, responding to diuresis), check <strong>serum-pleural albumin gradient</strong>. If >1.2 g/dL, likely transudate despite Light's criteria (diuresis concentrated the fluid).</p>
+    </div>
+    
+    <h4>Transudate Causes</h4>
+    <ul>
+      <li>Heart failure (most common)</li>
+      <li>Cirrhosis (hepatic hydrothorax)</li>
+      <li>Nephrotic syndrome</li>
+      <li>Hypoalbuminemia</li>
+      <li>Peritoneal dialysis</li>
+    </ul>
+    
+    <h4>Exudate Causes</h4>
+    <ul>
+      <li><strong>Infection:</strong> Pneumonia (parapneumonic), empyema, TB</li>
+      <li><strong>Malignancy:</strong> Lung cancer, breast cancer, lymphoma, mesothelioma</li>
+      <li><strong>Inflammatory:</strong> PE, pancreatitis, rheumatoid, lupus</li>
+      <li><strong>Other:</strong> Post-CABG, Dressler syndrome, chylothorax</li>
+    </ul>
+    
+    <h4>Complicated Parapneumonic vs Empyema</h4>
+    <table class="interpretation-table">
+      <thead><tr><th>Finding</th><th>Simple Parapneumonic</th><th>Complicated Parapneumonic</th><th>Empyema</th></tr></thead>
+      <tbody>
+        <tr><td>Appearance</td><td>Clear</td><td>Cloudy</td><td>Purulent/thick pus</td></tr>
+        <tr><td>pH</td><td>>7.3</td><td><span class="badge badge-abnormal"><7.2</span></td><td><span class="badge badge-critical"><7.0</span></td></tr>
+        <tr><td>Glucose</td><td>>60</td><td><span class="badge badge-abnormal"><60</span></td><td><span class="badge badge-critical"><40</span></td></tr>
+        <tr><td>LDH</td><td><1000</td><td>>1000</td><td>>>1000</td></tr>
+        <tr><td>Gram stain/Culture</td><td>Negative</td><td>May be positive</td><td>Often positive</td></tr>
+        <tr><td>Management</td><td>Antibiotics alone</td><td>Chest tube drainage</td><td>Chest tube ± surgery</td></tr>
+      </tbody>
+    </table>
+    
+    <div class="danger-box">
+      <h4>⚠️ Drainage Indications</h4>
+      <p>Insert chest tube if: pH <7.2, glucose <60, positive Gram stain/culture, frank pus (empyema), or loculated effusion.</p>
+    </div>
+    
+    <a href="im_guide.html#pleural-effusion" class="cross-link">📚 Pleural Effusion (IMCRG)</a>
+    <a href="id_guide.html#respiratory" class="cross-link">🦠 Respiratory Infections</a>
+  </div>
+
+  <button class="collapsible">Complications & Post-Procedure</button>
+  <div class="panel">
+    <h4>Complications</h4>
+    <table>
+      <thead><tr><th>Complication</th><th>Incidence</th><th>Prevention/Management</th></tr></thead>
+      <tbody>
+        <tr><td>Pneumothorax</td><td>5-15% (reduced with US)</td><td>US guidance, stop if patient coughs excessively; CXR if symptomatic</td></tr>
+        <tr><td>Re-expansion pulmonary edema</td><td><1%</td><td>Stop if chest discomfort; limit volume if lung chronically collapsed</td></tr>
+        <tr><td>Hemothorax</td><td><1%</td><td>Avoid intercostal vessels; US guidance</td></tr>
+        <tr><td>Infection</td><td>Rare</td><td>Sterile technique</td></tr>
+        <tr><td>Vasovagal</td><td>Variable</td><td>Have patient seated comfortably; slow procedure</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Post-Procedure</h4>
+    <ul>
+      <li>Routine CXR NOT required if asymptomatic and US-guided</li>
+      <li>CXR if: air aspirated during procedure, multiple attempts, patient symptomatic</li>
+      <li>Monitor for 1-2 hours if large volume removed</li>
+    </ul>
+  </div>
+</section>
+
+<!-- LUMBAR PUNCTURE -->
+<section id="lumbar-puncture">
+  <h2>Lumbar Puncture</h2>
+  <p class="muted">Diagnostic collection of cerebrospinal fluid (CSF). Essential for evaluating meningitis, SAH, inflammatory conditions.</p>
+
+  <button class="collapsible">Indications & Contraindications</button>
+  <div class="panel">
+    <h4>Indications</h4>
+    <ul>
+      <li><strong>Meningitis:</strong> Fever + headache + neck stiffness; altered mental status; sepsis without source</li>
+      <li><strong>Subarachnoid hemorrhage:</strong> Thunderclap headache with negative CT (need LP within 6-12h of symptom onset)</li>
+      <li><strong>Other:</strong> CNS malignancy, inflammatory conditions (MS, GBS), normal pressure hydrocephalus (therapeutic)</li>
+    </ul>
+    
+    <h4>Absolute Contraindications</h4>
+    <ul>
+      <li><strong>Evidence of increased ICP with mass effect</strong> (risk of herniation)</li>
+      <li>Skin infection over puncture site</li>
+    </ul>
+    
+    <h4>When to Get CT Before LP</h4>
+    <div class="warning-box">
+      <h4>⚠️ CT Head Before LP If:</h4>
+      <ul>
+        <li>Immunocompromised</li>
+        <li>History of CNS disease (mass, stroke, infection)</li>
+        <li>New-onset seizure (within 1 week)</li>
+        <li>Papilledema</li>
+        <li>Altered level of consciousness</li>
+        <li>Focal neurologic deficit</li>
+      </ul>
+      <p class="small">If none of these present, can proceed to LP without CT. <strong>Do NOT delay antibiotics</strong> for CT or LP in suspected bacterial meningitis.</p>
+    </div>
+    
+    <h4>Coagulation Requirements</h4>
+    <ul>
+      <li>Platelets >50,000 (some say >20,000 for diagnostic, >50,000 if therapeutic anticoagulation)</li>
+      <li>INR <1.5 (or reversal if urgent)</li>
+      <li>Hold DOAC/LMWH per half-life before procedure</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Technique Tips</button>
+  <div class="panel">
+    <h4>Positioning</h4>
+    <ul>
+      <li><strong>Lateral decubitus (fetal position):</strong> Preferred for opening pressure measurement</li>
+      <li><strong>Sitting:</strong> Opens up interspace (easier in obese patients); cannot measure OP accurately</li>
+    </ul>
+    
+    <h4>Landmark Identification</h4>
+    <ul>
+      <li>Posterior superior iliac crests → line between them crosses L3-L4 or L4-L5 interspace</li>
+      <li>Use L3-L4 or L4-L5 (cord ends at L1-L2 in adults)</li>
+      <li>Ultrasound can help identify midline and interspace in difficult anatomy</li>
+    </ul>
+    
+    <h4>Procedure Steps</h4>
+    <ol class="step-list">
+      <li>Position patient lateral decubitus with knees tucked to chest, or seated leaning forward</li>
+      <li>Identify interspace (L3-L4 or L4-L5) using landmarks ± ultrasound</li>
+      <li>Sterile prep and drape</li>
+      <li>Anesthetize skin and deeper tissues with lidocaine</li>
+      <li>Insert spinal needle (20-22G) with stylet in place, bevel parallel to spine (dural fibers run longitudinally)</li>
+      <li>Advance slowly; may feel "pop" through ligamentum flavum and dura</li>
+      <li>Remove stylet and check for CSF flow</li>
+      <li>Attach manometer if measuring opening pressure (normal 6-20 cm H2O; <25 cm H2O)</li>
+      <li>Collect CSF into numbered tubes (typically 4 tubes, 1-2 mL each)</li>
+      <li>Replace stylet before removing needle (may reduce post-LP headache)</li>
+    </ol>
+    
+    <div class="info-box">
+      <h4>💡 Atraumatic Needles</h4>
+      <p>Atraumatic (pencil-point) needles like Sprotte or Whitacre reduce post-LP headache compared to cutting needles. Use when available.</p>
+    </div>
+  </div>
+
+  <button class="collapsible">CSF Interpretation</button>
+  <div class="panel">
+    <h4>Normal CSF Values</h4>
+    <table>
+      <thead><tr><th>Parameter</th><th>Normal Value</th></tr></thead>
+      <tbody>
+        <tr><td>Opening pressure</td><td>6-20 cm H2O (up to 25 cm H2O may be normal in obese)</td></tr>
+        <tr><td>Appearance</td><td>Crystal clear</td></tr>
+        <tr><td>WBC</td><td>0-5/mm³ (all lymphocytes/monocytes)</td></tr>
+        <tr><td>RBC</td><td>0</td></tr>
+        <tr><td>Protein</td><td>15-45 mg/dL</td></tr>
+        <tr><td>Glucose</td><td>50-80 mg/dL (or >60% of serum glucose)</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>CSF Patterns by Condition</h4>
+    <table class="interpretation-table">
+      <thead><tr><th>Condition</th><th>WBC (cells/mm³)</th><th>Predominant Cell</th><th>Protein</th><th>Glucose</th><th>Other Findings</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Bacterial Meningitis</strong></td><td><span class="badge badge-critical">1000-10,000+</span></td><td>Neutrophils (>80%)</td><td><span class="badge badge-abnormal">↑↑ (100-500+)</span></td><td><span class="badge badge-critical">↓↓ (<40)</span></td><td>Gram stain + in 60-90%; turbid appearance</td></tr>
+        <tr><td><strong>Viral Meningitis</strong></td><td>50-1000</td><td>Lymphocytes*</td><td>Normal or ↑ (<200)</td><td>Normal</td><td>*May be PMN-predominant early</td></tr>
+        <tr><td><strong>TB Meningitis</strong></td><td>100-500</td><td>Lymphocytes</td><td><span class="badge badge-abnormal">↑↑ (100-500)</span></td><td><span class="badge badge-abnormal">↓ (<45)</span></td><td>AFB smear low sensitivity; ADA elevated</td></tr>
+        <tr><td><strong>Fungal Meningitis</strong></td><td>50-500</td><td>Lymphocytes</td><td><span class="badge badge-abnormal">↑ (50-200)</span></td><td><span class="badge badge-abnormal">↓ (<40)</span></td><td>Cryptococcal antigen, India ink</td></tr>
+        <tr><td><strong>SAH</strong></td><td>RBCs in all tubes</td><td>RBCs</td><td>↑</td><td>Normal</td><td>Xanthochromia (>6-12h from bleed)</td></tr>
+        <tr><td><strong>GBS</strong></td><td><10</td><td>—</td><td><span class="badge badge-abnormal">↑↑ (50-200)</span></td><td>Normal</td><td>Albuminocytologic dissociation</td></tr>
+        <tr><td><strong>MS</strong></td><td>0-50</td><td>Lymphocytes</td><td>Normal or ↑</td><td>Normal</td><td>Oligoclonal bands, elevated IgG index</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Traumatic Tap vs SAH</h4>
+    <table>
+      <thead><tr><th>Finding</th><th>Traumatic Tap</th><th>SAH</th></tr></thead>
+      <tbody>
+        <tr><td>RBC count tube 1 → tube 4</td><td>Decreasing (clearing)</td><td>Stable across tubes</td></tr>
+        <tr><td>Xanthochromia</td><td>Absent</td><td>Present (if >6-12h from bleed)</td></tr>
+        <tr><td>Supernatant</td><td>Clear after centrifuge</td><td>Yellow (xanthochromia)</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Xanthochromia:</strong> Yellow discoloration from RBC breakdown (bilirubin). Takes 6-12 hours to develop. Most specific finding for SAH.</p>
+    
+    <div class="danger-box">
+      <h4>⚠️ Correcting WBC for Traumatic Tap</h4>
+      <p>If bloody tap, estimate "true" WBC by subtracting expected WBCs from blood contamination:<br>
+      <strong>Expected WBC from blood = RBC × (Peripheral WBC ÷ Peripheral RBC)</strong><br>
+      Roughly: subtract 1 WBC for every 500-1000 RBCs</p>
+    </div>
+    
+    <a href="im_guide.html#meningitis" class="cross-link">📚 Meningitis (IMCRG)</a>
+    <a href="id_guide.html#cns" class="cross-link">🦠 CNS Infections</a>
+    <a href="lab_values.html#csf" class="cross-link">🔬 CSF Reference Values</a>
+  </div>
+
+  <button class="collapsible">Complications & Post-LP Headache</button>
+  <div class="panel">
+    <h4>Complications</h4>
+    <table>
+      <thead><tr><th>Complication</th><th>Incidence</th><th>Prevention/Management</th></tr></thead>
+      <tbody>
+        <tr><td>Post-LP headache</td><td>10-30%</td><td>Use atraumatic needle, smaller gauge; replace stylet before removal; see below</td></tr>
+        <tr><td>Back pain</td><td>Common</td><td>Usually resolves in days</td></tr>
+        <tr><td>Epidural hematoma</td><td>Rare</td><td>Correct coagulopathy; recognize by radicular symptoms</td></tr>
+        <tr><td>Infection (meningitis, epidural abscess)</td><td>Very rare</td><td>Sterile technique</td></tr>
+        <tr><td>Herniation</td><td>Rare</td><td>CT before LP if indicated; avoid LP if mass effect</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Post-LP Headache</h4>
+    <ul>
+      <li>Onset within 5 days of LP, typically within 48h</li>
+      <li>Positional: worse when upright, improves when supine</li>
+      <li>May be accompanied by neck stiffness, nausea, photophobia, tinnitus</li>
+    </ul>
+    
+    <h4>Management</h4>
+    <ol class="step-list">
+      <li><strong>Conservative:</strong> Bed rest (supine), hydration, caffeine (300-500 mg), analgesics</li>
+      <li><strong>If persists >48h or severe:</strong> Epidural blood patch (10-20 mL autologous blood). 90%+ effective.</li>
+    </ol>
+    <p class="small"><strong>Myth:</strong> Bed rest after LP does NOT prevent post-LP headache. Patient can mobilize normally after procedure.</p>
+  </div>
+</section>
+
+<!-- ARTHROCENTESIS -->
+<section id="arthrocentesis">
+  <h2>Arthrocentesis</h2>
+  <p class="muted">Aspiration of synovial fluid from joints. Essential for evaluating acute monoarticular arthritis (septic joint vs crystal arthropathy).</p>
+
+  <button class="collapsible">Indications & Technique Overview</button>
+  <div class="panel">
+    <h4>Indications</h4>
+    <ul>
+      <li><strong>Diagnostic:</strong> Acute monoarticular arthritis (MUST rule out septic arthritis), new joint effusion, suspected crystal arthropathy</li>
+      <li><strong>Therapeutic:</strong> Symptomatic effusion, hemarthrosis, steroid injection</li>
+    </ul>
+    
+    <div class="danger-box">
+      <h4>⚠️ Critical Rule</h4>
+      <p><strong>Every acute hot swollen joint is septic until proven otherwise.</strong> Delay in diagnosis leads to joint destruction. Tap it.</p>
+    </div>
+    
+    <h4>Contraindications</h4>
+    <ul>
+      <li>Cellulitis overlying joint (don't track bacteria in)</li>
+      <li>Prosthetic joint – refer to orthopedics (still needs aspiration, but sterile OR technique)</li>
+      <li>Severe coagulopathy (relative – bleeding rare from joint tap)</li>
+    </ul>
+    
+    <h4>General Technique Principles</h4>
+    <ul>
+      <li>Use largest gauge needle tolerated (18-20G) to ensure adequate flow</li>
+      <li>Approach from extensor surface when possible (fewer nerves/vessels)</li>
+      <li>Ultrasound guidance improves success, especially small joints</li>
+    </ul>
+  </div>
+
+  <button class="collapsible">Synovial Fluid Interpretation</button>
+  <div class="panel">
+    <h4>Standard Studies</h4>
+    <ul>
+      <li><strong>Always:</strong> Cell count with differential, Gram stain, culture, crystal analysis</li>
+      <li><strong>If indicated:</strong> Glucose (compare to serum), culture for TB/fungal</li>
+    </ul>
+    
+    <h4>Classification by WBC Count</h4>
+    <table class="interpretation-table">
+      <thead><tr><th>Category</th><th>WBC/mm³</th><th>PMN %</th><th>Appearance</th><th>Causes</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-normal">Normal</span></td><td><200</td><td><25%</td><td>Clear, colorless</td><td>Normal joint</td></tr>
+        <tr><td><strong>Non-inflammatory</strong></td><td>200-2,000</td><td><25%</td><td>Clear, yellow</td><td>OA, trauma, early RA</td></tr>
+        <tr><td><strong>Inflammatory</strong></td><td>2,000-50,000</td><td>>50%</td><td>Cloudy, yellow</td><td>Gout, pseudogout, RA, reactive arthritis</td></tr>
+        <tr><td><span class="badge badge-critical">Septic</span></td><td><span class="badge badge-critical">>50,000</span></td><td>>90%</td><td>Purulent</td><td>Bacterial infection</td></tr>
+      </tbody>
+    </table>
+    
+    <div class="warning-box">
+      <h4>⚠️ WBC Cutoffs are Guidelines</h4>
+      <p>Septic arthritis can occur with WBC <50,000 (especially partially treated, immunocompromised, or prosthetic joints). Crystal arthropathy can have WBC >50,000. <strong>Clinical context matters.</strong></p>
+    </div>
+    
+    <h4>Crystal Analysis</h4>
+    <table class="interpretation-table">
+      <thead><tr><th>Crystal</th><th>Shape</th><th>Birefringence</th><th>Color with Polarized Light (Parallel)</th><th>Condition</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Monosodium urate (MSU)</strong></td><td>Needle-shaped</td><td>Strongly negative</td><td>Yellow when parallel to axis</td><td>Gout</td></tr>
+        <tr><td><strong>Calcium pyrophosphate (CPPD)</strong></td><td>Rhomboid/rod</td><td>Weakly positive</td><td>Blue when parallel to axis</td><td>Pseudogout</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>Memory aid:</strong> "Yellow is parallel for gout" (negative birefringence). Blue for CPPD (positive birefringence).</p>
+    
+    <div class="info-box">
+      <h4>💡 Crystals Don't Exclude Infection</h4>
+      <p>Gout and septic arthritis can coexist. If high clinical suspicion for infection, treat empirically even if crystals seen. Send culture regardless.</p>
+    </div>
+    
+    <a href="im_guide.html#gout" class="cross-link">📚 Gout (IMCRG)</a>
+    <a href="im_guide.html#septic-arthritis" class="cross-link">📚 Septic Arthritis (IMCRG)</a>
+    <a href="id_guide.html#bone-joint" class="cross-link">🦠 Bone & Joint Infections</a>
+  </div>
+</section>
+
+<!-- CENTRAL LINE -->
+<section id="central-line">
+  <h2>Central Line Basics</h2>
+  <p class="muted">Key considerations for central venous catheter insertion and management.</p>
+
+  <button class="collapsible">Site Selection</button>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Site</th><th>Advantages</th><th>Disadvantages</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Internal Jugular (IJ)</strong></td><td>Compressible if bleeding, US-guided, straight path to SVC</td><td>Patient discomfort, limited neck mobility, infection risk</td><td>Most situations, coagulopathy (compressible)</td></tr>
+        <tr><td><strong>Subclavian</strong></td><td>Lowest infection rate, patient comfort</td><td>Non-compressible, higher pneumothorax risk, difficult US guidance</td><td>Longer-term access, avoiding femoral</td></tr>
+        <tr><td><strong>Femoral</strong></td><td>Easy access, compressible, no pneumothorax risk</td><td>Highest infection rate, DVT risk, limits mobility</td><td>Emergent access, temporary only, dialysis</td></tr>
+      </tbody>
+    </table>
+    <p class="small"><strong>CDC recommends:</strong> Subclavian preferred for non-dialysis catheters if no contraindications (lowest infection risk).</p>
+  </div>
+
+  <button class="collapsible">Complications & Prevention</button>
+  <div class="panel">
+    <h4>Immediate Complications</h4>
+    <table>
+      <thead><tr><th>Complication</th><th>Site</th><th>Prevention</th></tr></thead>
+      <tbody>
+        <tr><td>Pneumothorax</td><td>IJ, Subclavian</td><td>US guidance, avoid subclavian in COPD/ventilated patients</td></tr>
+        <tr><td>Arterial puncture</td><td>All</td><td>US guidance, verify venous placement before dilation</td></tr>
+        <tr><td>Hematoma</td><td>All</td><td>Correct coagulopathy if possible, use IJ (compressible)</td></tr>
+        <tr><td>Air embolism</td><td>All</td><td>Trendelenburg positioning, occlude hub when open</td></tr>
+      </tbody>
+    </table>
+    
+    <h4>Central Line-Associated Bloodstream Infection (CLABSI) Prevention</h4>
+    <ul>
+      <li><strong>Maximal sterile barriers:</strong> Cap, mask, sterile gown and gloves, full-body drape</li>
+      <li><strong>Chlorhexidine skin prep:</strong> 2% chlorhexidine with 70% alcohol, allow to dry</li>
+      <li><strong>Avoid femoral site</strong> when possible</li>
+      <li><strong>Daily review:</strong> "Is this line still needed?" Remove as soon as possible</li>
+      <li><strong>Chlorhexidine-impregnated dressings</strong> reduce infection</li>
+    </ul>
+    <a href="id_guide.html#clabsi" class="cross-link">🦠 CLABSI Management</a>
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<section id="references">
+  <h2>References</h2>
+  <ul>
+    <li><a href="https://www.uptodate.com" target="_blank" rel="noopener noreferrer">UpToDate — Procedures</a></li>
+    <li>AASLD Guidelines — Management of Ascites</li>
+    <li>BTS Guidelines — Pleural Procedures</li>
+    <li>IDSA Guidelines — Bacterial Meningitis</li>
+    <li>Light RW. Pleural Diseases (textbook)</li>
+    <li>Runyon BA. Management of adult patients with ascites due to cirrhosis. Hepatology.</li>
+    <li>CDC Guidelines — Prevention of Intravascular Catheter-Related Infections</li>
+  </ul>
+</section>
+
+</main>
+
+<script>
+document.querySelectorAll('.collapsible').forEach(btn => {
+  btn.addEventListener('click', function() {
+    this.classList.toggle('active');
+    const panel = this.nextElementSibling;
+    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+  });
+});
+</script>
+
+</body>
+</html>
