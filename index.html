@@ -254,8 +254,15 @@
                 
                 <h2 style="color:#1a365d; font-size:1.2rem; margin:0 0 15px 0; padding-bottom:10px; border-bottom:2px solid #e2e8f0;">🛠️ Practical Tools</h2>
                 <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:20px; margin-bottom:30px;">
+                    <div onclick="switchTool('drugref')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
+                        <div style="background:linear-gradient(135deg,#8e44ad,#9b59b6); color:#fff; padding:20px; font-weight:700;">💊 Drug Reference Guide</div>
+                        <div style="padding:20px;">
+                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Comprehensive medication reference with dosing, mechanisms, side effects, black box warnings, clinical pearls, and adjunct therapy recommendations.</p>
+                            <span style="background:#f0f4f8; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:600; color:#2c5282;">172 Medications</span>
+                        </div>
+                    </div>
                     <div onclick="switchTool('drugs')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#5c4d7d,#7c6a9a); color:#fff; padding:20px; font-weight:700;">💊 Drug Interactions Reference</div>
+                        <div style="background:linear-gradient(135deg,#5c4d7d,#7c6a9a); color:#fff; padding:20px; font-weight:700;">⚠️ Drug Interactions Reference</div>
                         <div style="padding:20px;">
                             <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">High-yield drug interactions for warfarin, DOACs, immunosuppressants, CYP450 interactions, QT prolongation risk, and serotonin syndrome.</p>
                             <span style="background:#f0f4f8; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:600; color:#2c5282;">BUILD #1</span>
@@ -432,6 +439,13 @@
                 icon: "💉",
                 file: "procedures_guide.html",
                 description: "Bedside Procedures Quick Reference"
+            },
+            {
+                id: "drugref",
+                name: "Drug Reference",
+                icon: "💊",
+                file: "Drug_Reference_Guide_v6.html",
+                description: "172 Medications - Dosing, Side Effects, Pearls"
             }
             // To add a new tool:
             // { id: "newid", name: "Tool Name", icon: "🆕", file: "filename.html", description: "Description" }
