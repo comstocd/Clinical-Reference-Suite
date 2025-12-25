@@ -11,7 +11,7 @@ A comprehensive, iPad-optimized clinical reference system designed for Internal 
 - **Offline-First**: All HTML files work without internet connection
 - **iPad Optimized**: Touch-friendly controls, appropriate tap targets, responsive layouts
 - **Cross-Referenced**: Bidirectional linking between guides for seamless navigation
-- **Evidence-Based**: Content sourced from UpToDate, Harrison's, IDSA guidelines, ACC/AHA guidelines
+- **Evidence-Based**: Content sourced from major society guidelines, landmark trials, and validated clinical tools
 - **Search & Filter**: Real-time search across all conditions, drugs, and lab values
 - **Clinical Calculators**: Integrated HEART, PERC, Wells, qSOFA, GRACE, FENa, CrCl, and more
 
@@ -140,6 +140,73 @@ The suite features **bidirectional cross-linking** for seamless navigation:
 - **Responsive design** — works on phone, tablet, and desktop
 - **Dark mode support** — respects system preferences where implemented
 - **Accessible** — semantic HTML, ARIA labels, keyboard navigation
+
+---
+
+## 📚 Evidence Sources & Methodology
+
+### Clinical Practice Guidelines
+
+| Organization | Abbreviation | Primary Coverage |
+|--------------|--------------|------------------|
+| Infectious Diseases Society of America | IDSA | Antimicrobial therapy, infection syndromes |
+| American College of Cardiology | ACC | Cardiovascular disease |
+| American Heart Association | AHA | Cardiovascular disease, resuscitation |
+| European Society of Cardiology | ESC | Cardiovascular disease |
+| American College of Physicians | ACP | General internal medicine |
+| Society of Hospital Medicine | SHM | Hospital medicine, VTE prophylaxis |
+| American Thoracic Society | ATS | Pulmonary/critical care |
+| Society of Critical Care Medicine | SCCM | Critical care, sepsis |
+| American Diabetes Association | ADA | Diabetes management |
+| KDIGO | — | Kidney disease, AKI, CKD, electrolytes |
+| American Gastroenterological Association | AGA | GI disorders |
+| American College of Gastroenterology | ACG | GI disorders |
+| American College of Rheumatology | ACR | Rheumatic diseases |
+| National Comprehensive Cancer Network | NCCN | Oncology |
+| American Society of Clinical Oncology | ASCO | Oncology |
+
+### Evidence Synthesis
+- **Cochrane Database of Systematic Reviews**
+- **GRADE-based evidence summaries**
+- **UpToDate** — clinical decision support
+- **Harrison's Principles of Internal Medicine** — foundational reference
+
+### Primary Literature
+Practice-changing trials and reviews from:
+- *New England Journal of Medicine* (NEJM)
+- *JAMA* and *JAMA Internal Medicine*
+- *The Lancet*
+- *Annals of Internal Medicine*
+- *Circulation*
+- *Chest*
+- *Gastroenterology*
+- *Kidney International*
+- *Journal of Clinical Endocrinology & Metabolism* (JCEM)
+
+### Pharmacology Resources
+- **Lexicomp / Micromedex** — dosing, interactions, renal/hepatic adjustments
+- **AHFS Drug Information** — comprehensive drug monographs
+- **Package inserts** — FDA-approved prescribing information
+
+### Clinical Decision Tools
+- **MDCalc-validated calculators** with evidence basis
+- Scoring systems cite original derivation/validation studies
+- Indicated populations and limitations noted
+
+### Content Standards
+
+✅ **Content reflects:**
+- Most recent guideline updates available at time of creation
+- Clear distinction between guideline-level recommendations vs. expert consensus
+- Major areas of controversy or evolving evidence explicitly noted
+- Suitability for bedside use by residents and hospitalists
+
+❌ **Content avoids:**
+- Unsupported opinion or anecdote
+- Outdated practice patterns
+- Recommendations beyond evidence basis
+
+⚠️ **When evidence is limited, this is explicitly stated.**
 
 ---
 
