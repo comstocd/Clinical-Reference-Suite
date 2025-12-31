@@ -676,7 +676,7 @@
     <h1>💊 Comprehensive Drug Reference Guide <span style="font-size: 0.5em; color: #8e44ad; font-weight: 600;">v1.1 BUILD #3</span></h1>
     <p class="subtitle">Clinical Pharmacology for Hospital Medicine • Cross-linked to IMCRG, Nephrology, Rheumatology & ID Guides</p>
     <div class="header-stats">
-        <span class="stat-badge">📊 200 Medications</span>
+        <span class="stat-badge">📊 203 Medications</span>
         <span class="stat-badge">🏥 12 Specialties (45 Subsections) • 📁 42 Categories</span>
         <span class="stat-badge">🔗 Cross-Referenced</span>
         <span class="stat-badge">📱 iPad Optimized</span>
@@ -766,6 +766,7 @@
                         <a href="#cardiac-antihypertensives">Beta-Blockers</a>
                         <a href="#cardiac-antihypertensives">Diuretics</a>
                         <a href="#cardiac-additional">ARNI</a>
+                        <a href="#hf-gdmt">SGLT2i</a>
                     </div>
                 </div>
                 <div class="subsection">
@@ -908,6 +909,7 @@
                         <a href="#heme-nephro">IV Iron</a>
                         <a href="#heme-nephro">Phosphate Binders</a>
                         <a href="#cardiac-antihypertensives">ACEi/ARB</a>
+                        <a href="#heme-nephro">SGLT2i</a>
                     </div>
                 </div>
                 <div class="subsection">
@@ -4747,7 +4749,60 @@
         <!-- HEART FAILURE GDMT - BUILD #3 -->
         <!-- ============================================== -->
         
-        <h2>❤️ Heart Failure GDMT</h2>
+        <h2 id="hf-gdmt">❤️ Heart Failure GDMT</h2>
+
+        <!-- EMPAGLIFLOZIN - HEART FAILURE -->
+        <div class="drug-card" id="empagliflozin-hf" data-search="empagliflozin jardiance sglt2 inhibitor heart failure hfref hfpef emperor-reduced emperor-preserved">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Empagliflozin</span>
+                <span class="drug-brand">(Jardiance)</span>
+                <span class="drug-class-badge">SGLT2 Inhibitor</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Inhibits SGLT2 in proximal tubule → glycosuria, natriuresis, osmotic diuresis. Reduces preload, afterload, and cardiac remodeling. Cardioprotective effects independent of glucose lowering.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Heart Failure Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>HFrEF (EF ≤40%):</strong> EMPEROR-Reduced — 25% reduction in CV death/HF hospitalization</li>
+                            <li><strong>HFpEF (EF &gt;40%):</strong> EMPEROR-Preserved — 21% reduction in CV death/HF hospitalization</li>
+                            <li><strong>Class I recommendation</strong> in ACC/AHA HF guidelines (2022)</li>
+                            <li>Benefit regardless of diabetes status</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Heart Failure</td><td>10 mg PO daily</td></tr>
+                            <tr><td>T2DM</td><td>10-25 mg PO daily</td></tr>
+                        </table>
+                        <p><strong>eGFR:</strong> Can initiate down to eGFR 20; continue below if tolerated</p>
+                        <p><strong>No titration needed</strong> — start at target dose</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Genital mycotic infections</strong> — most common</li>
+                            <li><strong>UTIs</strong></li>
+                            <li><strong>Volume depletion</strong> — may need to reduce diuretics</li>
+                            <li><strong>Euglycemic DKA</strong> — hold during acute illness/surgery</li>
+                            <li>Hypotension</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="warning-box">Euglycemic DKA: Can occur with normal glucose, even in non-diabetics. Hold SGLT2i during acute illness, surgery, or fasting. Check ketones if nausea/vomiting develops.</div>
+                <div class="pearl-box">SGLT2 inhibitors are now a PILLAR of GDMT — start in ALL HF patients (EF reduced, mildly reduced, OR preserved) regardless of diabetes status. Benefits seen within weeks.</div>
+            </div>
+        </div>
 
         <!-- DAPAGLIFLOZIN -->
         <div class="drug-card" id="dapagliflozin" data-search="dapagliflozin farxiga sglt2 inhibitor heart failure hfref hfpef ckd dapa-hf dapa-ckd">
@@ -10455,6 +10510,110 @@
 <div class="drug-category" id="heme-nephro">
     <div class="category-header" onclick="toggleCategory(this)">
         <h2>🩸 Heme/Nephrology Agents</h2>
+
+        <!-- SGLT2 INHIBITORS FOR CKD - Added to Nephrology Section -->
+        
+        <!-- DAPAGLIFLOZIN - NEPHROLOGY -->
+        <div class="drug-card" id="dapagliflozin-ckd" data-search="dapagliflozin farxiga sglt2 ckd chronic kidney disease dapa-ckd albuminuria proteinuria renoprotection">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Dapagliflozin</span>
+                <span class="drug-brand">(Farxiga)</span>
+                <span class="drug-class-badge">SGLT2 Inhibitor - CKD</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Inhibits SGLT2 in proximal tubule → reduces glomerular hyperfiltration via tubuloglomerular feedback. Decreases intraglomerular pressure independent of glucose. Also natriuresis, weight loss, BP reduction.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 CKD Indications (KDIGO 2024)</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>CKD with eGFR 20-90 + UACR ≥200 mg/g:</strong> First-line with max ACEi/ARB</li>
+                            <li><strong>CKD with T2DM:</strong> Regardless of albuminuria</li>
+                            <li><strong>DAPA-CKD:</strong> 39% reduction in kidney composite (eGFR decline, ESKD, renal/CV death)</li>
+                            <li><strong>Benefit WITHOUT diabetes:</strong> Works in non-diabetic CKD</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing in CKD</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>eGFR</th><th>Initiation</th><th>Continuation</th></tr>
+                            <tr><td>≥25</td><td>10 mg daily — can initiate</td><td>Continue</td></tr>
+                            <tr><td>20-24</td><td>10 mg daily — can initiate</td><td>Continue</td></tr>
+                            <tr><td>&lt;20</td><td>Do not initiate</td><td>May continue if tolerated</td></tr>
+                            <tr><td>Dialysis</td><td>No</td><td>Discontinue</td></tr>
+                        </table>
+                        <p><strong>Initial eGFR dip:</strong> Expected 10-30% drop — this is PROTECTIVE (reduced hyperfiltration). Do NOT stop unless &gt;30% decline.</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ CKD-Specific Concerns</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Volume depletion:</strong> May need to reduce other diuretics</li>
+                            <li><strong>Euglycemic DKA:</strong> Risk even in non-diabetics; hold for surgery/illness</li>
+                            <li><strong>UTI/genital infections:</strong> More common; counsel on hygiene</li>
+                            <li><strong>Less glycemic effect at low eGFR:</strong> Renoprotection persists</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">KDIGO 2024: SGLT2i is now FIRST-LINE for CKD with albuminuria — same priority as ACEi/ARB. Start even if eGFR as low as 20. Benefits are INDEPENDENT of diabetes status.</div>
+            </div>
+        </div>
+
+        <!-- EMPAGLIFLOZIN - NEPHROLOGY -->
+        <div class="drug-card" id="empagliflozin-ckd" data-search="empagliflozin jardiance sglt2 ckd chronic kidney disease empa-kidney albuminuria proteinuria renoprotection">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Empagliflozin</span>
+                <span class="drug-brand">(Jardiance)</span>
+                <span class="drug-class-badge">SGLT2 Inhibitor - CKD</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">SGLT2 inhibition → reduces intraglomerular pressure via tubuloglomerular feedback → slows CKD progression. Cardiorenal benefits independent of glucose lowering.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 CKD Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>CKD at risk of progression:</strong> eGFR 20-90 with albuminuria</li>
+                            <li><strong>EMPA-KIDNEY:</strong> 28% reduction in kidney progression or CV death</li>
+                            <li><strong>Included patients with/without diabetes</strong></li>
+                            <li><strong>Also FDA-approved for HFrEF/HFpEF</strong> — dual cardiorenal benefit</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing in CKD</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>eGFR</th><th>Dose</th></tr>
+                            <tr><td>≥20</td><td>10 mg PO daily</td></tr>
+                            <tr><td>&lt;20</td><td>Do not initiate; may continue if already on</td></tr>
+                        </table>
+                        <p><strong>No dose adjustment needed</strong> — same 10 mg dose across eGFR range</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">📋 KDIGO 2024 CKD Algorithm</div>
+                    <div class="drug-section-content">
+                        <ol>
+                            <li><strong>First-line:</strong> Max-tolerated ACEi/ARB + SGLT2 inhibitor</li>
+                            <li><strong>If T2DM + CKD:</strong> Add GLP-1 RA for additional CV benefit</li>
+                            <li><strong>If T2DM + CKD + albuminuria:</strong> Add finerenone (non-steroidal MRA)</li>
+                            <li><strong>BP goal:</strong> &lt;120 systolic if tolerated</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="pearl-box">EMPA-KIDNEY showed benefit even with eGFR as low as 20 and regardless of diabetes. The "eGFR dip" after starting is expected and PROTECTIVE — don't stop the drug!</div>
+            </div>
+        </div>
         <span class="toggle">▼</span>
     </div>
     <div class="category-content">
@@ -12416,7 +12575,7 @@
 
 <div class="footer">
     <p><strong>Comprehensive Drug Reference Guide</strong></p>
-    <p>200 Medications | Extracted from Clinical Reference Suite</p>
+    <p>203 Medications | Extracted from Clinical Reference Suite</p>
     <p>v1.1 BUILD #3 | December 2024 | For educational purposes</p>
     <a href="#toc" class="back-to-top">↑ Back to Top</a>
 </div>
