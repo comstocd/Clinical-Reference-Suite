@@ -673,10 +673,10 @@
 <body>
 
 <div class="main-header">
-    <h1>💊 Comprehensive Drug Reference Guide <span style="font-size: 0.5em; color: #8e44ad; font-weight: 600;">v1.1 BUILD #3</span></h1>
+    <h1>💊 Comprehensive Drug Reference Guide <span style="font-size: 0.5em; color: #8e44ad; font-weight: 600;">v1.2 BUILD #4</span></h1>
     <p class="subtitle">Clinical Pharmacology for Hospital Medicine • Cross-linked to IMCRG, Nephrology, Rheumatology & ID Guides</p>
     <div class="header-stats">
-        <span class="stat-badge">📊 203 Medications</span>
+        <span class="stat-badge">📊 230 Medications</span>
         <span class="stat-badge">🏥 12 Specialties (45 Subsections) • 📁 42 Categories</span>
         <span class="stat-badge">🔗 Cross-Referenced</span>
         <span class="stat-badge">📱 iPad Optimized</span>
@@ -1233,6 +1233,14 @@
         <a href="#antibiotics-additional" class="category-link">
             <span class="category-icon">💊</span>
             <span class="category-name">Additional Antibiotics</span>
+        </a>
+        <a href="#aminoglycosides" class="category-link">
+            <span class="category-icon">💊</span>
+            <span class="category-name">Aminoglycosides</span>
+        </a>
+        <a href="#antiplatelets" class="category-link">
+            <span class="category-icon">🩸</span>
+            <span class="category-name">Antiplatelets</span>
         </a>
         <a href="#anticoagulants" class="category-link">
             <span class="category-icon">🩸</span>
@@ -3133,6 +3141,188 @@
 </div>
 
 
+
+<!-- ======================= ANTIPLATELETS ======================= -->
+<div class="drug-category" id="antiplatelets">
+    <div class="category-header" onclick="toggleCategory(this)">
+        <h2>🩸 Antiplatelets</h2>
+        <span class="toggle">▼</span>
+    </div>
+    <div class="category-content">
+
+        <!-- ASPIRIN -->
+        <div class="drug-card" id="aspirin" data-search="aspirin asa acetylsalicylic acid antiplatelet acs mi stroke cad pad primary prevention">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Aspirin</span>
+                <span class="drug-brand">(ASA)</span>
+                <span class="drug-class-badge">COX Inhibitor / Antiplatelet</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Irreversibly inhibits COX-1 → blocks thromboxane A2 synthesis → inhibits platelet aggregation for platelet lifespan (7-10 days).</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>ACS:</strong> 325mg chewed immediately, then 81mg daily indefinitely</li>
+                            <li><strong>Secondary prevention:</strong> Post-MI, post-stroke/TIA, CAD, PAD</li>
+                            <li><strong>Post-PCI:</strong> With P2Y12 inhibitor (DAPT)</li>
+                            <li><strong>Primary prevention:</strong> NO longer routinely recommended (USPSTF 2022)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>ACS (loading)</td><td>325mg PO chewed (non-enteric)</td></tr>
+                            <tr><td>Secondary prevention</td><td>81mg PO daily</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">GI bleeding/ulcers, tinnitus (high doses), Reye syndrome (children), aspirin-exacerbated respiratory disease</div>
+                </div>
+                <div class="pearl-box">CHEW 325mg in ACS for faster absorption. Primary prevention no longer recommended — bleeding risk exceeds benefit in most low-risk patients.</div>
+            </div>
+        </div>
+
+        <!-- CLOPIDOGREL -->
+        <div class="drug-card" id="clopidogrel" data-search="clopidogrel plavix p2y12 inhibitor antiplatelet acs pci stent dapt dual antiplatelet">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Clopidogrel</span>
+                <span class="drug-brand">(Plavix)</span>
+                <span class="drug-class-badge">P2Y12 Inhibitor</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Prodrug requiring CYP2C19 activation → irreversibly blocks P2Y12 ADP receptor → inhibits platelet aggregation.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>ACS (with aspirin = DAPT)</strong></li>
+                            <li><strong>Post-PCI/stent:</strong> DAPT duration varies by stent type</li>
+                            <li><strong>Recent MI, stroke, or PAD</strong></li>
+                            <li><strong>Aspirin allergy:</strong> Monotherapy alternative</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Setting</th><th>Loading</th><th>Maintenance</th></tr>
+                            <tr><td>ACS (medical)</td><td>300mg</td><td>75mg daily</td></tr>
+                            <tr><td>ACS (PCI)</td><td>600mg</td><td>75mg daily</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Key Points</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>CYP2C19 poor metabolizers:</strong> ~30% reduced efficacy — consider ticagrelor</li>
+                            <li><strong>PPI interaction:</strong> Use pantoprazole (not omeprazole)</li>
+                            <li>Hold 5-7 days before surgery</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="warning-box">CYP2C19 polymorphisms affect efficacy. Consider genotyping or ticagrelor in high-risk PCI.</div>
+            </div>
+        </div>
+
+        <!-- TICAGRELOR -->
+        <div class="drug-card" id="ticagrelor" data-search="ticagrelor brilinta p2y12 inhibitor antiplatelet acs nstemi plato reversible">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Ticagrelor</span>
+                <span class="drug-brand">(Brilinta)</span>
+                <span class="drug-class-badge">P2Y12 Inhibitor (Reversible)</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Direct-acting reversible P2Y12 antagonist. Does NOT require hepatic activation — works regardless of CYP2C19 status.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>ACS (NSTEMI/STEMI):</strong> PLATO trial — superior to clopidogrel</li>
+                            <li><strong>Preferred P2Y12 in ACS per guidelines</strong></li>
+                            <li><strong>CYP2C19 poor metabolizers</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Phase</th><th>Dose</th></tr>
+                            <tr><td>Loading</td><td>180mg PO</td></tr>
+                            <tr><td>Maintenance</td><td>90mg PO BID</td></tr>
+                        </table>
+                        <p><strong>MUST use with aspirin 81mg only</strong> (not higher doses)</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">Dyspnea (14%), bleeding, bradycardia (ventricular pauses). No TTP risk.</div>
+                </div>
+                <div class="warning-box">Use only aspirin 81mg with ticagrelor — higher doses reduce efficacy.</div>
+                <div class="pearl-box">Preferred P2Y12 in ACS. BID dosing required. Hold 3-5 days before surgery (faster offset than clopidogrel).</div>
+            </div>
+        </div>
+
+        <!-- PRASUGREL -->
+        <div class="drug-card" id="prasugrel" data-search="prasugrel effient p2y12 inhibitor antiplatelet acs pci stemi triton">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Prasugrel</span>
+                <span class="drug-brand">(Effient)</span>
+                <span class="drug-class-badge">P2Y12 Inhibitor</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Thienopyridine prodrug — more efficient conversion than clopidogrel. Irreversibly blocks P2Y12. Most potent P2Y12 inhibitor.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>ACS managed with PCI only</strong> (not medical management)</li>
+                            <li><strong>STEMI:</strong> Particularly strong benefit</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Phase</th><th>Dose</th></tr>
+                            <tr><td>Loading (at PCI)</td><td>60mg PO</td></tr>
+                            <tr><td>Maintenance</td><td>10mg daily (5mg if &lt;60kg)</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="black-box"><strong>CONTRAINDICATED in prior stroke/TIA</strong> — increased ICH. Also avoid if age ≥75 or weight &lt;60kg (use reduced dose).</div>
+                <div class="pearl-box">Most potent P2Y12. Reserve for high-risk PCI (STEMI, diabetics) without stroke history. Once-daily advantage over ticagrelor.</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <!-- ======================= ANTICOAGULANTS ======================= -->
 <div class="drug-category" id="anticoagulants">
     <div class="category-header" onclick="toggleCategory(this)">
@@ -3492,6 +3682,57 @@
             </div>
         </div>
 
+        <!-- EDOXABAN -->
+        <div class="drug-card" id="edoxaban" data-search="edoxaban savaysa doac direct oral anticoagulant xa inhibitor afib dvt pe once daily">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Edoxaban</span>
+                <span class="drug-brand">(Savaysa)</span>
+                <span class="drug-class-badge">Direct Xa Inhibitor (DOAC)</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Direct, selective factor Xa inhibitor. Once-daily dosing. Does not require antithrombin.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Non-valvular AF:</strong> Stroke prevention</li>
+                            <li><strong>VTE treatment:</strong> DVT and PE (after 5-10 days parenteral anticoagulation)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>CrCl</th><th>AF Dose</th><th>VTE Dose</th></tr>
+                            <tr><td>50-95 mL/min</td><td>60 mg daily</td><td>60 mg daily</td></tr>
+                            <tr><td>15-50 mL/min</td><td>30 mg daily</td><td>30 mg daily</td></tr>
+                            <tr><td>&lt;15 or &gt;95</td><td>Avoid</td><td>Avoid</td></tr>
+                        </table>
+                        <p><strong>VTE:</strong> Requires 5-10 days parenteral lead-in first</p>
+                        <p><strong>Reduce to 30mg if:</strong> CrCl 15-50, weight ≤60kg, or on P-gp inhibitors</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Key Points</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>CrCl &gt;95:</strong> AVOID for AF — reduced efficacy vs warfarin (ENGAGE AF-TIMI 48)</li>
+                            <li>Bleeding risk similar to warfarin, less ICH</li>
+                            <li>No specific reversal agent (andexanet alfa may work)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="warning-box"><strong>Renal Paradox:</strong> Avoid if CrCl &gt;95 for AF — unique among DOACs. Less effective than warfarin in patients with good renal function.</div>
+                <div class="pearl-box">Once-daily DOAC. Requires parenteral lead-in for VTE (unlike rivaroxaban/apixaban). Fewer drug interactions than rivaroxaban.</div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
@@ -3642,6 +3883,137 @@
                 <div class="pearl-box">Dobutamine is an INOTROPE (increases contractility) not a vasopressor. It may DROP blood pressure due to β2 vasodilation. Often used with norepinephrine in cardiogenic shock.</div>
             </div>
         </div>
+
+<!-- ======================= AMINOGLYCOSIDES ======================= -->
+<div class="drug-category" id="aminoglycosides">
+    <div class="category-header" onclick="toggleCategory(this)">
+        <h2>💊 Aminoglycosides</h2>
+        <span class="toggle">▼</span>
+    </div>
+    <div class="category-content">
+
+        <!-- GENTAMICIN -->
+        <div class="drug-card" id="gentamicin" data-search="gentamicin aminoglycoside gram negative endocarditis synergy nephrotoxicity ototoxicity">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Gentamicin</span>
+                <span class="drug-brand">(Garamycin)</span>
+                <span class="drug-class-badge">Aminoglycoside</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Binds 30S ribosome → irreversible protein synthesis inhibition → bactericidal. Concentration-dependent killing.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Endocarditis synergy:</strong> With ampicillin (Enterococcus) or nafcillin (Staph)</li>
+                            <li><strong>Meningitis synergy:</strong> With ampicillin for Listeria</li>
+                            <li><strong>Severe gram-negative infections</strong></li>
+                            <li><strong>Tularemia, plague:</strong> First-line</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Strategy</th><th>Dose</th><th>Monitoring</th></tr>
+                            <tr><td>Extended-interval</td><td>5-7 mg/kg q24h</td><td>Hartford nomogram</td></tr>
+                            <tr><td>Traditional</td><td>1-2 mg/kg q8h</td><td>Peak 5-10, trough &lt;2</td></tr>
+                            <tr><td>Synergy (endocarditis)</td><td>1 mg/kg q8h</td><td>Peak 3-4, trough &lt;1</td></tr>
+                        </table>
+                        <p><strong>Use ideal body weight</strong></p>
+                    </div>
+                </div>
+                <div class="warning-box">Nephrotoxicity (usually reversible) and ototoxicity (may be irreversible). Monitor renal function. Extended-interval dosing reduces toxicity.</div>
+                <div class="pearl-box">Synergy dosing uses LOWER doses — goal is synergy, not standalone coverage. Extended-interval is standard for most indications.</div>
+            </div>
+        </div>
+
+        <!-- TOBRAMYCIN -->
+        <div class="drug-card" id="tobramycin" data-search="tobramycin aminoglycoside pseudomonas cystic fibrosis cf inhaled tobi">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Tobramycin</span>
+                <span class="drug-brand">(Nebcin, TOBI)</span>
+                <span class="drug-class-badge">Aminoglycoside</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Same as gentamicin. Slightly more active against Pseudomonas aeruginosa.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Pseudomonas infections:</strong> Preferred aminoglycoside</li>
+                            <li><strong>Cystic fibrosis:</strong> Inhaled TOBI for chronic Pseudomonas</li>
+                            <li><strong>Nosocomial pneumonia</strong></li>
+                            <li><strong>Febrile neutropenia:</strong> Pseudomonas double coverage</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Route</th><th>Dose</th></tr>
+                            <tr><td>IV Extended-interval</td><td>5-7 mg/kg q24h</td></tr>
+                            <tr><td>Inhaled (CF)</td><td>300 mg nebulized BID (28 on/28 off)</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="pearl-box">Preferred aminoglycoside for Pseudomonas. Inhaled TOBI is CF standard — cycled 28 days on/off.</div>
+            </div>
+        </div>
+
+        <!-- AMIKACIN -->
+        <div class="drug-card" id="amikacin" data-search="amikacin aminoglycoside mdr multidrug resistant gram negative mycobacteria mac">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Amikacin</span>
+                <span class="drug-brand">(Amikin)</span>
+                <span class="drug-class-badge">Aminoglycoside</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Resistant to aminoglycoside-modifying enzymes → active against gentamicin/tobramycin-resistant organisms.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>MDR gram-negatives:</strong> When gentamicin/tobramycin resistant</li>
+                            <li><strong>MAC (M. avium complex):</strong> Part of combination therapy</li>
+                            <li><strong>MDR tuberculosis:</strong> Second-line</li>
+                            <li><strong>Nocardia:</strong> Severe infections</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Setting</th><th>Dose</th></tr>
+                            <tr><td>Extended-interval</td><td>15-20 mg/kg q24h</td></tr>
+                            <tr><td>Traditional</td><td>5-7.5 mg/kg q8h (peak 20-35)</td></tr>
+                            <tr><td>MAC/TB</td><td>15 mg/kg IV/IM 3×/week</td></tr>
+                        </table>
+                        <p><strong>Higher doses than gentamicin/tobramycin</strong></p>
+                    </div>
+                </div>
+                <div class="pearl-box">Reserve for resistant organisms. For MAC: part of clarithromycin + ethambutol + amikacin regimen.</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <!-- ======================= ANTIFUNGALS ======================= -->
 <div class="drug-category" id="antifungals">
     <div class="category-header" onclick="toggleCategory(this)">
@@ -3944,6 +4316,62 @@
             </div>
         </div>
 
+        <!-- METHYLPREDNISOLONE -->
+        <div class="drug-card" id="methylprednisolone" data-search="methylprednisolone solumedrol medrol iv steroid pulse asthma copd ms spinal cord lupus">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Methylprednisolone</span>
+                <span class="drug-brand">(Solu-Medrol, Medrol)</span>
+                <span class="drug-class-badge">Glucocorticoid</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Synthetic glucocorticoid with less mineralocorticoid activity than prednisone. IV form (Solu-Medrol) for when PO not feasible.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Asthma/COPD exacerbation:</strong> When IV needed</li>
+                            <li><strong>MS relapse:</strong> High-dose pulse therapy</li>
+                            <li><strong>Lupus nephritis/vasculitis:</strong> Pulse therapy</li>
+                            <li><strong>Anaphylaxis:</strong> Adjunct to epinephrine</li>
+                            <li><strong>PCP pneumonia:</strong> If PaO2 &lt;70</li>
+                            <li><strong>Transplant rejection</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Asthma/COPD</td><td>125 mg IV × 1, then 40-60 mg daily</td></tr>
+                            <tr><td>MS pulse</td><td>1000 mg IV daily × 3-5 days</td></tr>
+                            <tr><td>Lupus/vasculitis pulse</td><td>500-1000 mg IV daily × 3 days</td></tr>
+                            <tr><td>PCP</td><td>40 mg IV BID × 5d, then taper</td></tr>
+                        </table>
+                        <p><strong>Conversion:</strong> Methylpred 4 mg = Prednisone 5 mg</p>
+                        <p><strong>Medrol Dosepak:</strong> 21 tablets tapered over 6 days</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Hyperglycemia:</strong> Monitor closely, especially diabetics</li>
+                            <li><strong>Psychiatric:</strong> Insomnia, agitation, psychosis (high doses)</li>
+                            <li><strong>Rapid IV:</strong> Arrhythmias, hypotension</li>
+                            <li>Infection risk, GI upset</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">IV Solu-Medrol when PO not feasible. Pulse dosing (500-1000mg × 3-5 days) for severe autoimmune flares — dramatically effective but monitor glucose and psych effects.</div>
+            </div>
+        </div>
+
+
         <!-- DEXAMETHASONE -->
         <div class="drug-card" id="dexamethasone" data-search="dexamethasone decadron glucocorticoid long-acting cerebral edema covid meningitis">
             <div class="drug-header" onclick="toggleDrug(this)">
@@ -4048,6 +4476,115 @@
                 </div>
             </div>
         </div>
+
+        <!-- PHENYLEPHRINE -->
+        <div class="drug-card" id="phenylephrine" data-search="phenylephrine neosynephrine alpha agonist vasopressor vasoconstriction tachyarrhythmia hocm">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Phenylephrine</span>
+                <span class="drug-brand">(Neo-Synephrine)</span>
+                <span class="drug-class-badge">Pure α1-Agonist</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Selective α1-agonist → vasoconstriction → ↑SVR and BP. NO β activity. Causes reflex bradycardia.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Hypotension with tachyarrhythmia:</strong> BP support without ↑HR</li>
+                            <li><strong>SVT with hypotension:</strong> ↑BP → baroreceptor → ↓HR</li>
+                            <li><strong>HOCM:</strong> ↑afterload reduces LVOT gradient</li>
+                            <li>NOT first-line in sepsis (reduces CO)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <p><strong>Bolus:</strong> 100-200 mcg IV q1-2 min PRN</p>
+                        <p><strong>Infusion:</strong> 0.5-5 mcg/kg/min (40-180 mcg/min)</p>
+                    </div>
+                </div>
+                <div class="pearl-box">"Pure pressor" — raises BP without raising HR. Reflex bradycardia is expected and often desired.</div>
+            </div>
+        </div>
+
+        <!-- DOPAMINE -->
+        <div class="drug-card" id="dopamine" data-search="dopamine intropin vasopressor inotrope dose-dependent septic shock bradycardia">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Dopamine</span>
+                <span class="drug-brand">(Intropin)</span>
+                <span class="drug-class-badge">Catecholamine</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Dose-dependent: Low (1-5 mcg/kg/min): D1 receptors. Mid (5-10): β1 → inotropy. High (>10): α1 → vasoconstriction.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Septic shock:</strong> Second-line to norepinephrine</li>
+                            <li><strong>Cardiogenic shock</strong></li>
+                            <li><strong>Symptomatic bradycardia:</strong> When atropine fails</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Dose</th><th>Effect</th></tr>
+                            <tr><td>5-10 mcg/kg/min</td><td>Inotropic (β1)</td></tr>
+                            <tr><td>10-20 mcg/kg/min</td><td>Vasopressor (α1)</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="warning-box">"Renal dose" (1-5 mcg/kg/min) does NOT prevent AKI — abandoned. More arrhythmogenic than norepinephrine.</div>
+            </div>
+        </div>
+
+        <!-- MILRINONE -->
+        <div class="drug-card" id="milrinone" data-search="milrinone primacor pde3 inhibitor inodilator heart failure cardiogenic shock rv failure pulmonary hypertension">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Milrinone</span>
+                <span class="drug-brand">(Primacor)</span>
+                <span class="drug-class-badge">PDE3 Inhibitor / Inodilator</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">PDE3 inhibitor → ↑cAMP → inotropy AND vasodilation. Works independently of β-receptors — effective even on β-blockers.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Acute decompensated HF:</strong> Low-output state</li>
+                            <li><strong>Cardiogenic shock:</strong> Especially with pulmonary HTN</li>
+                            <li><strong>RV failure, post-cardiac surgery</strong></li>
+                            <li><strong>Beta-blocker OD:</strong> Works despite β-blockade</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <p><strong>Loading (optional):</strong> 50 mcg/kg over 10 min — often skipped if hypotensive</p>
+                        <p><strong>Maintenance:</strong> 0.375-0.75 mcg/kg/min</p>
+                        <p><strong>Renal:</strong> Reduce if CrCl &lt;50</p>
+                    </div>
+                </div>
+                <div class="pearl-box">Inodilator: ↑contractility + ↓afterload + ↓pulmonary pressures. Particularly useful for RV failure. May need concurrent norepi for BP.</div>
+            </div>
+        </div>
+
 
     </div>
 </div>
@@ -4551,6 +5088,83 @@
             </div>
         </div>
 
+        <!-- NICARDIPINE -->
+        <div class="drug-card" id="nicardipine" data-search="nicardipine cardene calcium channel blocker htn emergency stroke iv antihypertensive">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Nicardipine</span>
+                <span class="drug-brand">(Cardene)</span>
+                <span class="drug-class-badge">IV Dihydropyridine CCB</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Dihydropyridine CCB → arterial vasodilation. Maintains cerebral blood flow — good for stroke BP management.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Hypertensive emergency:</strong> First-line agent</li>
+                            <li><strong>Stroke BP management:</strong> For tPA eligibility</li>
+                            <li><strong>ICH, aortic dissection</strong> (after β-blocker initiated)</li>
+                            <li><strong>Perioperative hypertension</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Phase</th><th>Dose</th></tr>
+                            <tr><td>Initial</td><td>5 mg/hr IV infusion</td></tr>
+                            <tr><td>Titration</td><td>↑ 2.5 mg/hr q5-15 min</td></tr>
+                            <tr><td>Maximum</td><td>15 mg/hr</td></tr>
+                        </table>
+                        <p>Onset 5-15 min, duration 30-60 min after stopping</p>
+                    </div>
+                </div>
+                <div class="pearl-box">First-line for most HTN emergencies. In dissection: start esmolol FIRST (prevent reflex tachy), then add nicardipine for BP goal.</div>
+            </div>
+        </div>
+
+        <!-- CLEVIDIPINE -->
+        <div class="drug-card" id="clevidipine" data-search="clevidipine cleviprex calcium channel blocker htn emergency ultra-short acting">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Clevidipine</span>
+                <span class="drug-brand">(Cleviprex)</span>
+                <span class="drug-class-badge">IV Ultra-Short CCB</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Ultra-short-acting DHP CCB. Metabolized by blood esterases (not liver/kidney) → very rapid offset (5-15 min).</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>HTN emergency:</strong> When precise/rapid control needed</li>
+                            <li><strong>Perioperative hypertension</strong></li>
+                            <li>When rapid offset desired (neuro checks)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <p><strong>Start:</strong> 1-2 mg/hr IV, double q90 sec initially</p>
+                        <p><strong>Maintenance:</strong> 4-6 mg/hr typical</p>
+                        <p><strong>Max:</strong> 21 mg/hr (1000 mL/24hr lipid limit)</p>
+                    </div>
+                </div>
+                <div class="warning-box">Contains lipid emulsion — contraindicated in soy/egg allergy. Count toward daily lipid intake (propofol, TPN).</div>
+                <div class="pearl-box">Ultra-short acting — effects gone within minutes. Ideal for frequent neuro checks. More expensive than nicardipine.</div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
@@ -4737,6 +5351,156 @@
                 </div>
             </div>
         </div>
+
+        <!-- FLECAINIDE -->
+        <div class="drug-card" id="flecainide" data-search="flecainide tambocor class ic antiarrhythmic afib pill in pocket svt">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Flecainide</span>
+                <span class="drug-brand">(Tambocor)</span>
+                <span class="drug-class-badge">Class IC Antiarrhythmic</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Potent sodium channel blocker → slows conduction. No significant QT prolongation.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>AF "Pill-in-pocket":</strong> Single dose for infrequent episodes</li>
+                            <li><strong>AF/Flutter maintenance:</strong> Structurally normal hearts only</li>
+                            <li><strong>SVT:</strong> AVNRT, AVRT, WPW</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Setting</th><th>Dose</th></tr>
+                            <tr><td>Pill-in-pocket</td><td>200-300mg PO × 1</td></tr>
+                            <tr><td>Maintenance</td><td>50-150mg PO BID</td></tr>
+                        </table>
+                        <p><strong>MUST co-administer AV nodal blocker</strong> (prevent 1:1 flutter)</p>
+                    </div>
+                </div>
+                <div class="black-box"><strong>CAST Trial:</strong> Increased mortality in structural heart disease/CAD. CONTRAINDICATED in: CAD, prior MI, HF, LV dysfunction.</div>
+                <div class="pearl-box">"Pill-in-pocket": Test first dose in monitored setting. Always combine with AV nodal blocker.</div>
+            </div>
+        </div>
+
+        <!-- SOTALOL -->
+        <div class="drug-card" id="sotalol" data-search="sotalol betapace class iii antiarrhythmic afib vt beta blocker qt prolongation">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Sotalol</span>
+                <span class="drug-brand">(Betapace)</span>
+                <span class="drug-class-badge">Class III + β-Blocker</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Non-selective β-blocker + K+ channel blocker (prolongs QT). Combines rate AND rhythm control.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>AF/Flutter rhythm control</strong></li>
+                            <li><strong>Ventricular tachycardia prevention</strong></li>
+                            <li>Can use in structural heart disease (unlike flecainide)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <p><strong>80mg PO BID</strong> starting, titrate to 80-160mg BID</p>
+                        <p><strong>IN-HOSPITAL INITIATION:</strong> 3 days QT monitoring required</p>
+                        <p><strong>Renal adjustment critical:</strong> Extend interval for CrCl &lt;60</p>
+                    </div>
+                </div>
+                <div class="black-box"><strong>QT Prolongation:</strong> Must initiate in hospital × 3 days. Contraindicated if QTc >450ms or CrCl &lt;40.</div>
+            </div>
+        </div>
+
+        <!-- DOFETILIDE -->
+        <div class="drug-card" id="dofetilide" data-search="dofetilide tikosyn class iii antiarrhythmic afib qt prolongation hospital initiation rems">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Dofetilide</span>
+                <span class="drug-brand">(Tikosyn)</span>
+                <span class="drug-class-badge">Class III Antiarrhythmic</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Pure class III — blocks IKr → prolongs QT. No β-blocking effects. Safe in HF (DIAMOND trials).</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>AF/Flutter cardioversion and maintenance</strong></li>
+                            <li><strong>Safe in heart failure</strong></li>
+                            <li>One of few safe options in structural heart disease</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>CrCl</th><th>Dose</th></tr>
+                            <tr><td>>60</td><td>500 mcg PO BID</td></tr>
+                            <tr><td>40-60</td><td>250 mcg PO BID</td></tr>
+                            <tr><td>20-39</td><td>125 mcg PO BID</td></tr>
+                            <tr><td>&lt;20</td><td>CONTRAINDICATED</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="black-box"><strong>REMS Program:</strong> Certified prescribers/pharmacies only. IN-HOSPITAL initiation × 3 days required.</div>
+                <div class="pearl-box">Dose is ENTIRELY based on CrCl. Check drug interactions — many increase levels. Safe in HF.</div>
+            </div>
+        </div>
+
+        <!-- IBUTILIDE -->
+        <div class="drug-card" id="ibutilide" data-search="ibutilide corvert class iii antiarrhythmic iv cardioversion afib aflutter">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Ibutilide</span>
+                <span class="drug-brand">(Corvert)</span>
+                <span class="drug-class-badge">Class III (IV)</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Prolongs action potential via Na+ and K+ channel effects → terminates reentrant arrhythmias.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Acute AF cardioversion:</strong> ~50% conversion</li>
+                            <li><strong>Atrial flutter:</strong> ~65% conversion (more effective)</li>
+                            <li>Alternative to DC cardioversion</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <p><strong>≥60 kg:</strong> 1 mg IV over 10 min; may repeat × 1</p>
+                        <p><strong>&lt;60 kg:</strong> 0.01 mg/kg IV</p>
+                        <p><strong>Monitor QT ≥4 hours after</strong></p>
+                    </div>
+                </div>
+                <div class="warning-box">Torsades risk ~4%. Correct K+/Mg+ first. Have defibrillator ready. Pre-treat with Mg 1-2g may reduce risk.</div>
+            </div>
+        </div>
+
 
     </div>
 </div>
@@ -7178,6 +7942,83 @@
             </div>
         </div>
 
+        <!-- PHYSOSTIGMINE -->
+        <div class="drug-card" id="physostigmine" data-search="physostigmine antilirium anticholinergic toxicity reversal acetylcholinesterase">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Physostigmine</span>
+                <span class="drug-brand">(Antilirium)</span>
+                <span class="drug-class-badge">Anticholinergic Antidote</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Reversible acetylcholinesterase inhibitor → increases ACh → reverses anticholinergic effects. Crosses BBB.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Anticholinergic toxicity with severe symptoms:</strong> Agitated delirium, seizures, hyperthermia</li>
+                            <li><strong>Pure anticholinergic OD:</strong> Diphenhydramine, antihistamines, jimson weed</li>
+                            <li><strong>NOT for TCA overdose</strong> (can cause asystole)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <p><strong>Adult:</strong> 0.5-2 mg IV slow push over 5 min</p>
+                        <p><strong>May repeat q10-30 min</strong> (short half-life ~20 min)</p>
+                        <p>Give SLOWLY — rapid push causes seizures, bradycardia</p>
+                    </div>
+                </div>
+                <div class="black-box"><strong>CONTRAINDICATED in TCA overdose</strong> — can cause asystole. If wide QRS or seizure history, do NOT give.</div>
+                <div class="pearl-box">"Hot as a hare, blind as a bat, dry as a bone, red as a beet, mad as a hatter" = anticholinergic. Have atropine at bedside before giving.</div>
+            </div>
+        </div>
+
+        <!-- LIPID EMULSION -->
+        <div class="drug-card" id="lipid-emulsion" data-search="lipid emulsion intralipid ivle local anesthetic toxicity last lipophilic overdose rescue">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Lipid Emulsion 20%</span>
+                <span class="drug-brand">(Intralipid)</span>
+                <span class="drug-class-badge">Lipophilic Drug Antidote</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">"Lipid sink" — sequesters lipophilic drugs from tissues. May also provide cardiac fatty acid substrate.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Local anesthetic systemic toxicity (LAST):</strong> Bupivacaine, lidocaine — CLASS I indication</li>
+                            <li><strong>Lipophilic drug OD:</strong> Beta-blockers, CCBs, TCAs, antipsychotics</li>
+                            <li><strong>Cardiac arrest from lipophilic drugs</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing (ASRA Guidelines)</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Phase</th><th>Dose</th></tr>
+                            <tr><td>Bolus</td><td>1.5 mL/kg IV over 1 min</td></tr>
+                            <tr><td>Infusion</td><td>0.25 mL/kg/min</td></tr>
+                            <tr><td>Repeat bolus</td><td>q5 min × 1-2 if unstable</td></tr>
+                            <tr><td>Max</td><td>~10-12 mL/kg in first 30 min</td></tr>
+                        </table>
+                        <p><strong>Use 20% lipid emulsion</strong></p>
+                    </div>
+                </div>
+                <div class="pearl-box">LAST: CNS sx first (tinnitus, metallic taste, seizures) → CV collapse. Give lipid early — don't wait for arrest.</div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
@@ -8358,6 +9199,191 @@
             </div>
         </div>
 
+
+        <!-- PHENOBARBITAL -->
+        <div class="drug-card" id="phenobarbital" data-search="phenobarbital barbiturate anticonvulsant status epilepticus alcohol withdrawal gaba">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Phenobarbital</span>
+                <span class="drug-brand">(Luminal)</span>
+                <span class="drug-class-badge">Barbiturate</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Enhances GABA-A (increases Cl- channel open duration). Different binding site than benzos.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Status epilepticus:</strong> 2nd/3rd line after benzos</li>
+                            <li><strong>Refractory alcohol withdrawal:</strong> When benzos inadequate</li>
+                            <li><strong>Neonatal seizures:</strong> First-line</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Status (load)</td><td>15-20 mg/kg IV at 50-100 mg/min</td></tr>
+                            <tr><td>ETOH withdrawal</td><td>10-15 mg/kg IV load</td></tr>
+                        </table>
+                        <p><strong>Half-life:</strong> 80-120 hours (very long)</p>
+                    </div>
+                </div>
+                <div class="warning-box">Synergistic respiratory depression with benzos — intubation may be needed. Effects persist for days.</div>
+            </div>
+        </div>
+
+        <!-- LACOSAMIDE -->
+        <div class="drug-card" id="lacosamide" data-search="lacosamide vimpat anticonvulsant sodium channel focal seizures pr prolongation">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Lacosamide</span>
+                <span class="drug-brand">(Vimpat)</span>
+                <span class="drug-class-badge">Sodium Channel Modulator</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Selectively enhances slow inactivation of voltage-gated Na+ channels (different from phenytoin).</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Focal (partial) seizures:</strong> Monotherapy or adjunct</li>
+                            <li><strong>Status epilepticus:</strong> Third-line option (IV available)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <p><strong>Start:</strong> 50 mg PO/IV BID, titrate to 100-200 mg BID</p>
+                        <p><strong>Status load:</strong> 200-400 mg IV over 15-30 min</p>
+                        <p>1:1 IV:PO conversion</p>
+                    </div>
+                </div>
+                <div class="warning-box">PR prolongation — avoid in 2nd/3rd degree AV block. Check baseline ECG.</div>
+            </div>
+        </div>
+
+        <!-- CARBAMAZEPINE -->
+        <div class="drug-card" id="carbamazepine" data-search="carbamazepine tegretol anticonvulsant trigeminal neuralgia bipolar cyp inducer siadh">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Carbamazepine</span>
+                <span class="drug-brand">(Tegretol)</span>
+                <span class="drug-class-badge">Sodium Channel Blocker</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Blocks voltage-gated Na+ channels → stabilizes neuronal membranes.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Focal seizures, GTC seizures</strong></li>
+                            <li><strong>Trigeminal neuralgia:</strong> First-line</li>
+                            <li><strong>Bipolar disorder:</strong> Mood stabilizer</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <p><strong>Start:</strong> 100-200 mg BID, titrate to 400-600 mg BID</p>
+                        <p><strong>Level:</strong> 4-12 mcg/mL</p>
+                        <p><strong>Autoinduction:</strong> May need dose increase after 2-4 weeks</p>
+                    </div>
+                </div>
+                <div class="black-box"><strong>HLA-B*1502:</strong> Screen Asians before starting — 10× SJS/TEN risk if positive.</div>
+                <div class="pearl-box">First-line for trigeminal neuralgia. Potent CYP inducer — many interactions. Monitor Na+ (SIADH common).</div>
+            </div>
+        </div>
+
+        <!-- DIAZEPAM -->
+        <div class="drug-card" id="diazepam" data-search="diazepam valium benzodiazepine seizure alcohol withdrawal muscle relaxant long acting">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Diazepam</span>
+                <span class="drug-brand">(Valium)</span>
+                <span class="drug-class-badge">Benzodiazepine (Long-acting)</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Enhances GABA-A receptor (increases Cl- channel opening frequency). Long half-life with active metabolites.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Status epilepticus:</strong> First-line (IV or rectal)</li>
+                            <li><strong>Alcohol withdrawal:</strong> Smooth withdrawal course</li>
+                            <li><strong>Muscle spasm, anxiety</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Status epilepticus</td><td>10 mg IV over 2-3 min (max 30 mg)</td></tr>
+                            <tr><td>Rectal (Diastat)</td><td>10-20 mg PR</td></tr>
+                            <tr><td>ETOH withdrawal</td><td>10-20 mg IV/PO q1-2h PRN</td></tr>
+                        </table>
+                        <p><strong>Half-life:</strong> 20-100 hours. Avoid IM (erratic absorption).</p>
+                    </div>
+                </div>
+                <div class="pearl-box">Long-acting = smoother ETOH withdrawal. Rectal Diastat for home seizure rescue. Avoid in liver disease — use lorazepam.</div>
+            </div>
+        </div>
+
+        <!-- CHLORDIAZEPOXIDE -->
+        <div class="drug-card" id="chlordiazepoxide" data-search="chlordiazepoxide librium benzodiazepine alcohol withdrawal detox long acting">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Chlordiazepoxide</span>
+                <span class="drug-brand">(Librium)</span>
+                <span class="drug-class-badge">Benzodiazepine (Long-acting)</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Same as other benzos. Very long half-life with active metabolites → "self-tapering" effect.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Alcohol withdrawal:</strong> Classic choice for mild-moderate</li>
+                            <li><strong>Outpatient detox:</strong> Long half-life = less frequent dosing</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Setting</th><th>Dose</th></tr>
+                            <tr><td>Symptom-triggered</td><td>50-100 mg PO q1-2h PRN CIWA ≥8</td></tr>
+                            <tr><td>Fixed taper</td><td>50 mg q6h × 4, then 25 mg q6h × 8</td></tr>
+                        </table>
+                        <p><strong>PO only</strong> — no IV. Half-life 24-48hr (metabolites to 200hr).</p>
+                    </div>
+                </div>
+                <div class="warning-box">AVOID in liver disease — accumulates. Use lorazepam instead. Not for severe withdrawal (need IV).</div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -8472,6 +9498,109 @@
                 </div>
                 <div class="black-box">FDA black box for cardiovascular death: CARES trial showed higher CV death with febuxostat vs allopurinol. Reserve for allopurinol failure/intolerance.</div>
                 <div class="pearl-box">Febuxostat is second-line due to CV concerns. Advantage: Can use in CKD without dose adjustment (hepatic metabolism).</div>
+            </div>
+        </div>
+
+
+        <!-- INDOMETHACIN -->
+        <div class="drug-card" id="indomethacin" data-search="indomethacin indocin nsaid gout pericarditis pda trigeminal neuralgia hemicrania">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Indomethacin</span>
+                <span class="drug-brand">(Indocin)</span>
+                <span class="drug-class-badge">NSAID</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Non-selective COX-1/COX-2 inhibitor. One of the most potent NSAIDs. Also inhibits PDA patency.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Acute gout:</strong> Traditional first-choice NSAID</li>
+                            <li><strong>Acute pericarditis:</strong> First-line with colchicine</li>
+                            <li><strong>Ankylosing spondylitis</strong></li>
+                            <li><strong>PDA closure:</strong> Neonates (IV)</li>
+                            <li><strong>"Indomethacin-responsive" headaches:</strong> Hemicrania continua, paroxysmal hemicrania</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Acute gout</td><td>50 mg PO TID × 2-3 days, then taper</td></tr>
+                            <tr><td>Pericarditis</td><td>25-50 mg PO TID × 1-2 weeks</td></tr>
+                            <tr><td>Max</td><td>200 mg/day</td></tr>
+                        </table>
+                        <p>Take with food. Extended-release: 75 mg daily-BID</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>GI:</strong> Highest GI toxicity of NSAIDs</li>
+                            <li><strong>CNS:</strong> Headache, dizziness, confusion (elderly)</li>
+                            <li>Renal: AKI, hyperkalemia</li>
+                            <li>CV: HTN, increased CV events</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">Most potent NSAID but most GI toxic. Pericarditis: indomethacin + colchicine is first-line. Diagnostic response to indomethacin defines certain headache syndromes.</div>
+            </div>
+        </div>
+
+        <!-- ANAKINRA -->
+        <div class="drug-card" id="anakinra" data-search="anakinra kineret il-1 receptor antagonist gout still disease autoinflammatory pericarditis">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Anakinra</span>
+                <span class="drug-brand">(Kineret)</span>
+                <span class="drug-class-badge">IL-1 Receptor Antagonist</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Recombinant IL-1 receptor antagonist → blocks IL-1α/β signaling → reduces inflammation. IL-1 central to crystal-induced and autoinflammatory disease.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Refractory acute gout:</strong> When NSAIDs/colchicine/steroids contraindicated</li>
+                            <li><strong>Adult-onset Still's disease:</strong> First-line biologic</li>
+                            <li><strong>Recurrent pericarditis:</strong> Steroid-dependent/refractory</li>
+                            <li><strong>MAS/HLH, autoinflammatory syndromes</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Acute gout</td><td>100 mg SC daily × 3-5 days</td></tr>
+                            <tr><td>Still's disease</td><td>100 mg SC daily</td></tr>
+                            <tr><td>Pericarditis</td><td>100 mg SC daily</td></tr>
+                        </table>
+                        <p><strong>Renal:</strong> Every other day if CrCl &lt;30</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Injection site reactions:</strong> ~70% — improve over time</li>
+                            <li><strong>Infections:</strong> Screen for TB first</li>
+                            <li><strong>Neutropenia:</strong> Monitor CBC</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">Gout rescue when NSAIDs (renal), colchicine (interactions), and steroids (DM) all contraindicated. Still's disease: often dramatically effective.</div>
             </div>
         </div>
 
