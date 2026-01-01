@@ -1,260 +1,287 @@
-# 🏥 Clinical Reference Suite
+# Clinical Reference Suite v2.1
+## Internal Medicine Clinical Tools for iPad
 
-A comprehensive, iPad-optimized clinical reference system designed for Internal Medicine residents and hospitalists. Built for rapid bedside access with touch-friendly navigation, offline capability, and extensive cross-referencing.
-
-[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
-
----
-
-## 📱 Features
-
-- **Offline-First**: All HTML files work without internet connection
-- **iPad Optimized**: Touch-friendly controls, appropriate tap targets, responsive layouts
-- **Cross-Referenced**: Bidirectional linking between guides for seamless navigation
-- **Evidence-Based**: Content sourced from major society guidelines, landmark trials, and validated clinical tools
-- **Search & Filter**: Real-time search across all conditions, drugs, and lab values
-- **Clinical Calculators**: Integrated HEART, PERC, Wells, qSOFA, GRACE, FENa, CrCl, and more
+**Author:** Dr. Michael Comstock, PGY-3 Internal Medicine  
+**Institution:** Guthrie Lourdes Hospital  
+**Last Updated:** January 2026  
+**Build:** #3
 
 ---
 
-## 📂 Suite Contents
+## Overview
 
-| File | Description | Build | Size |
-|------|-------------|-------|------|
-| `index.html` | Suite launcher/home page | #3 | 37 KB |
-| `im_guide.html` | Internal Medicine Clinical Reference Guide | #21 | 2.5 MB |
-| `id_guide.html` | Antibiotic & Infection Guide | #6 | 244 KB |
-| `drug_reference_guide.html` | Comprehensive Drug Reference | #1 | 625 KB |
-| `dx_framework.html` | Presentation-Based Diagnostic Framework | #2 | 171 KB |
-| `lab_values.html` | Laboratory Values Reference | #2 | 156 KB |
-| `procedures_guide.html` | Bedside Procedures Quick Reference | #2 | 42 KB |
-| `drug_interactions.html` | High-Yield Drug Interactions | #2 | 44 KB |
-| `nephrology_study_guide1.html` | Nephrology Reference | — | 55 KB |
-| `rheumatology_study_guide4.html` | Rheumatology Reference | — | 123 KB |
-
-**Total Suite Size**: ~4.1 MB
+The Clinical Reference Suite is a comprehensive collection of evidence-based clinical tools optimized for iPad use at the bedside. All guides feature responsive design, dark mode support, collapsible sections, and cross-linking between resources.
 
 ---
 
-## 📖 Guide Details
+## Core Components
 
-### Internal Medicine Clinical Reference Guide (`im_guide.html`)
-- **170 conditions** across 15 organ systems
-- Complete workup, treatment protocols, and disposition criteria
-- Integrated clinical calculators (HEART, Wells, qSOFA, GRACE, etc.)
-- Teaching pearls and board-style review points
-- Cross-links to Drug Reference, ID Guide, and Lab Values
+### 1. Internal Medicine Clinical Reference Guide (IMCRG)
+**File:** `im_guide.html`  
+**Version:** v3.7 BUILD #28  
+**Content:** 338 conditions
 
-### Drug Reference Guide (`drug_reference_guide.html`)
-- **172 medications** with comprehensive coverage
-- Organized by specialty with anatomical subsections
-- For each drug: mechanism, dosing, side effects, black box warnings, clinical pearls
-- **45 adjunct therapy recommendations** (e.g., folic acid with methotrexate)
-- Bidirectional links to condition guides
+The flagship reference covering acute inpatient conditions with:
+- Clinical presentations and diagnostic criteria
+- Evidence-based treatment protocols
+- Embedded calculators (CURB-65, Wells, MELD, CHA₂DS₂-VASc, etc.)
+- Disposition criteria and complications
+- Cross-links to Drug Reference Guide (81 unique drug targets)
 
-### Antibiotic & Infection Guide (`id_guide.html`)
-- **Interactive ID Differential Generator** (68 syndromes)
-- Empiric therapy by site and syndrome
-- Pathogen-specific guidance with resistance patterns
-- Renal dosing adjustments, IV-to-PO conversion
-- Duration of therapy tables, OPAT guidance
-
-### Diagnostic Framework (`dx_framework.html`)
-- **8 chief complaints**: Chest pain, Dyspnea, AMS, Fever, Hypotension, Abdominal pain, AKI, Hyponatremia
-- Click-to-filter differential narrowing
-- Real-time condition matching based on clinical criteria
-- Direct links to full condition pages in IM Guide
-
-### Laboratory Values Reference (`lab_values.html`)
-- **134 laboratory tests** with clinical interpretation
-- High/low differential diagnoses
-- Critical values highlighted
-- Filterable by category and clinical significance
-
-### Procedures Guide (`procedures_guide.html`)
-- Paracentesis, Thoracentesis, Lumbar Puncture, Arthrocentesis, Central Line
-- Step-by-step technique with anatomical landmarks
-- Contraindications, complications, fluid analysis interpretation
-- Links to relevant ID and IM Guide sections
+**Specialty Coverage:**
+- Cardiology (ACS, HF, AFib, HTN emergency, arrhythmias)
+- Pulmonology (COPD, asthma, PE, pneumonia, ARDS)
+- GI/Hepatology (GI bleed, cirrhosis, pancreatitis, SBP)
+- Infectious Disease (sepsis, meningitis, endocarditis, HIV)
+- Nephrology (AKI, CKD, electrolyte disorders, RRT)
+- Neurology (stroke, seizure, meningitis, delirium)
+- Hematology/Oncology (DIC, TTP, neutropenic fever, SCD)
+- Endocrinology (DKA, HHS, thyroid storm, adrenal crisis)
+- Rheumatology (gout, lupus flare, vasculitis)
+- Toxicology (overdoses, withdrawal syndromes)
 
 ---
 
-## 🔗 Cross-Reference Architecture
+### 2. Drug Reference Guide (DRG)
+**File:** `drug_reference_guide.html`  
+**Version:** v1.2 BUILD #4  
+**Content:** 230 medications across 49 categories
 
-The suite features **bidirectional cross-linking** for seamless navigation:
+Comprehensive drug monographs featuring:
+- Mechanism of action
+- Evidence-based indications
+- Dosing tables (including renal/hepatic adjustments)
+- Adverse effects and monitoring
+- Black box warnings
+- Clinical pearls
+- Cross-links back to IMCRG conditions
+
+**Drug Categories:**
+| Category | Count | Key Drugs |
+|----------|-------|-----------|
+| Antibiotics | 45+ | Penicillins, cephalosporins, carbapenems, fluoroquinolones, vancomycin |
+| Anticoagulants | 12 | UFH, enoxaparin, warfarin, apixaban, rivaroxaban, dabigatran, edoxaban |
+| Antiplatelets | 4 | Aspirin, clopidogrel, ticagrelor, prasugrel |
+| Antiarrhythmics | 8 | Amiodarone, flecainide, sotalol, dofetilide, ibutilide, digoxin |
+| Vasopressors | 6 | Norepinephrine, vasopressin, phenylephrine, dopamine, milrinone |
+| HTN Emergency | 5 | Nicardipine, clevidipine, labetalol, esmolol, hydralazine |
+| HF GDMT | 10 | Empagliflozin, dapagliflozin, sacubitril-valsartan, eplerenone, ivabradine |
+| Anticonvulsants | 6 | Levetiracetam, phenytoin, lacosamide, phenobarbital, carbamazepine |
+| Toxicology | 8 | Naloxone, flumazenil, NAC, fomepizole, physostigmine, lipid emulsion |
+| Aminoglycosides | 3 | Gentamicin, tobramycin, amikacin |
+
+---
+
+### 3. Infectious Disease Guide
+**File:** `id_guide.html`  
+**Version:** BUILD #6  
+
+Antimicrobial stewardship resource with:
+- Empiric therapy by infection site
+- Organism-specific coverage
+- Antibiotic spectra charts
+- Dosing adjustments
+- De-escalation guidance
+
+---
+
+### 4. Diagnostic Framework
+**File:** `dx_framework.html`  
+**Version:** BUILD #2
+
+Systematic approach to common presentations:
+- Chief complaint-based differentials
+- Red flags and "can't miss" diagnoses
+- Diagnostic algorithms
+- Pre-test probability assessment
+
+---
+
+### 5. Lab Values Reference
+**File:** `lab_values.html`  
+**Version:** BUILD #2
+
+Complete laboratory reference with:
+- Normal ranges
+- Critical values
+- Interpretation pearls
+- Reflex testing guidance
+
+---
+
+### 6. Drug Interactions Guide
+**File:** `drug_interactions.html`  
+**Version:** BUILD #2
+
+High-yield drug interactions for:
+- Anticoagulants
+- QT-prolonging agents
+- CYP450 interactions
+- Renal/hepatic considerations
+
+---
+
+### 7. High-Value Care Guide
+**File:** `high_value_care.html`  
+**Version:** BUILD #2
+
+Evidence-based recommendations for:
+- Appropriate testing
+- Choosing Wisely initiatives
+- Cost-effective care
+- Avoiding low-value interventions
+
+---
+
+### 8. Procedures Guide
+**File:** `procedures_guide.html`  
+**Version:** BUILD #2
+
+Step-by-step guidance for common procedures:
+- Indications/contraindications
+- Equipment and setup
+- Technique with images
+- Complications and management
+
+---
+
+## Subspecialty Study Guides
+
+Comprehensive board-style review guides optimized for IM-ITE and ABIM preparation:
+
+| Guide | File | Content |
+|-------|------|---------|
+| Cardiology | `cardio_study_guide.html` | ECG, HF, CAD, valvular, arrhythmias |
+| Pulmonology | `pulmonology_study_guide.html` | PFTs, COPD, ILD, sleep, critical care |
+| GI/Hepatology | `gi_study_guide.html` | Liver disease, IBD, pancreatitis, GI bleed |
+| Nephrology | `nephrology_study_guide1.html` | AKI, CKD, electrolytes, acid-base, RRT |
+| Infectious Disease | `id_study_guide.html` | Organisms, antimicrobials, syndromes |
+| Endocrinology | `endocrinology_study_guide.html` | Diabetes, thyroid, adrenal, pituitary |
+| Heme/Onc | `heme_onc_study_guide.html` | Anemias, coagulopathies, malignancies |
+| Neurology | `neurology_study_guide.html` | Stroke, seizure, MS, movement disorders |
+| Rheumatology | `rheumatology_study_guide.html` | RA, SLE, vasculitis, crystal arthropathies |
+| Allergy/Immunology | `allergy_immunology_study_guide.html` | Hypersensitivity, immunodeficiency |
+| Geriatrics | `geriatrics_study_guide.html` | Polypharmacy, falls, dementia, goals of care |
+| Psychiatry | `psychiatry_study_guide.html` | Depression, anxiety, psychosis, substance use |
+| General IM | `general_im_study_guide.html` | Preventive care, perioperative, ethics |
+
+**Study Guides Index:** `study_guides_index.html`
+
+---
+
+## Additional Resources
+
+| Resource | File | Description |
+|----------|------|-------------|
+| Board Pearls | `board_pearls.html` | High-yield facts for boards |
+| Rheumatology Extended | `rheumatology_study_guide4.html` | Advanced rheum topics |
+
+---
+
+## Technical Features
+
+### iPad Optimization
+- Responsive design for all screen sizes
+- Touch-friendly collapsible sections
+- Large tap targets for navigation
+- Landscape and portrait support
+
+### Dark Mode
+- System preference detection
+- Manual toggle available
+- Optimized contrast ratios
+
+### Search & Navigation
+- Real-time search filtering
+- Alphabetical and categorical views
+- Specialty-based quick access
+- Cross-document linking
+
+### Offline Access
+- All files are standalone HTML
+- No server dependency
+- Works without internet connection
+
+---
+
+## File Structure
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                      index.html                              │
-│                    (Suite Launcher)                          │
-└─────────────────────┬───────────────────────────────────────┘
-                      │
-    ┌─────────────────┼─────────────────┐
-    │                 │                 │
-    ▼                 ▼                 ▼
-┌─────────┐    ┌─────────────┐    ┌──────────────┐
-│im_guide │◄──►│drug_reference│◄──►│   id_guide   │
-│(170 cond)│    │ (172 drugs) │    │(ID/Antibx)   │
-└────┬────┘    └──────┬──────┘    └──────┬───────┘
-     │                │                   │
-     │    ┌───────────┼───────────┐      │
-     │    │           │           │      │
-     ▼    ▼           ▼           ▼      ▼
-┌─────────┐    ┌───────────┐    ┌────────────┐
-│lab_values│    │dx_framework│    │procedures  │
-└─────────┘    └───────────┘    └────────────┘
+Clinical Reference Suite/
+├── index.html                    # Main landing page
+├── README.md                     # This file
+│
+├── Core References/
+│   ├── im_guide.html            # IMCRG (338 conditions)
+│   ├── drug_reference_guide.html # DRG (230 medications)
+│   ├── id_guide.html            # ID/Antimicrobial guide
+│   ├── dx_framework.html        # Diagnostic framework
+│   ├── lab_values.html          # Lab reference
+│   ├── drug_interactions.html   # Drug interactions
+│   ├── high_value_care.html     # High-value care
+│   └── procedures_guide.html    # Procedures
+│
+└── Study Guides/
+    ├── study_guides_index.html  # Study guide hub
+    ├── cardio_study_guide.html
+    ├── pulmonology_study_guide.html
+    ├── gi_study_guide.html
+    ├── nephrology_study_guide1.html
+    ├── id_study_guide.html
+    ├── endocrinology_study_guide.html
+    ├── heme_onc_study_guide.html
+    ├── neurology_study_guide.html
+    ├── rheumatology_study_guide.html
+    ├── allergy_immunology_study_guide.html
+    ├── geriatrics_study_guide.html
+    ├── psychiatry_study_guide.html
+    ├── general_im_study_guide.html
+    └── board_pearls.html
 ```
 
-**Link Counts:**
-- drug_reference_guide → im_guide: 103 links
-- drug_reference_guide → id_guide: 29 links
-- im_guide → drug_reference_guide: 27 conditions linked
-- id_guide → drug_reference_guide: 14 sections linked
-- dx_framework → im_guide: 138 condition links
+---
+
+## Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| v2.1 BUILD #3 | Jan 2026 | DRG BUILD #4 (+27 drugs to 230), IMCRG BUILD #28 (81 cross-links) |
+| v2.0 BUILD #2 | Dec 2025 | DRG BUILD #3, SGLT2i, HF GDMT additions |
+| v1.0 | Dec 2025 | Initial release |
 
 ---
 
-## 🚀 Usage
+## Usage Notes
 
-### Local Use (Recommended)
-1. Download all HTML files to a single folder
-2. Open `index.html` in any modern browser
-3. Add to home screen on iPad for app-like experience
-
-### GitHub Pages Deployment
-1. Fork this repository
-2. Enable GitHub Pages in repository settings
-3. Access at `https://[username].github.io/[repo-name]/`
-
-### iPad Tips
-- Add to Home Screen for fullscreen experience
-- Works offline once cached
-- Use Safari Reader Mode for printing specific sections
+1. **Start at index.html** — Central hub with links to all resources
+2. **Use cross-links** — Click purple 💊 links in IMCRG to jump to drug monographs
+3. **Search functionality** — Type to filter conditions/drugs in real-time
+4. **Collapse sections** — Tap headers to expand/collapse content
+5. **Dark mode** — Respects system settings or use manual toggle
 
 ---
 
-## 🛠 Technical Details
+## Evidence Sources
 
-- **Pure HTML/CSS/JavaScript** — no build tools or dependencies required
-- **No external CDN calls** — fully self-contained for offline use
-- **Responsive design** — works on phone, tablet, and desktop
-- **Dark mode support** — respects system preferences where implemented
-- **Accessible** — semantic HTML, ARIA labels, keyboard navigation
-
----
-
-## 📚 Evidence Sources & Methodology
-
-### Clinical Practice Guidelines
-
-| Organization | Abbreviation | Primary Coverage |
-|--------------|--------------|------------------|
-| Infectious Diseases Society of America | IDSA | Antimicrobial therapy, infection syndromes |
-| American College of Cardiology | ACC | Cardiovascular disease |
-| American Heart Association | AHA | Cardiovascular disease, resuscitation |
-| European Society of Cardiology | ESC | Cardiovascular disease |
-| American College of Physicians | ACP | General internal medicine |
-| Society of Hospital Medicine | SHM | Hospital medicine, VTE prophylaxis |
-| American Thoracic Society | ATS | Pulmonary/critical care |
-| Society of Critical Care Medicine | SCCM | Critical care, sepsis |
-| American Diabetes Association | ADA | Diabetes management |
-| KDIGO | — | Kidney disease, AKI, CKD, electrolytes |
-| American Gastroenterological Association | AGA | GI disorders |
-| American College of Gastroenterology | ACG | GI disorders |
-| American College of Rheumatology | ACR | Rheumatic diseases |
-| National Comprehensive Cancer Network | NCCN | Oncology |
-| American Society of Clinical Oncology | ASCO | Oncology |
-
-### Evidence Synthesis
-- **Cochrane Database of Systematic Reviews**
-- **GRADE-based evidence summaries**
-- **UpToDate** — clinical decision support
-- **Harrison's Principles of Internal Medicine** — foundational reference
-
-### Primary Literature
-Practice-changing trials and reviews from:
-- *New England Journal of Medicine* (NEJM)
-- *JAMA* and *JAMA Internal Medicine*
-- *The Lancet*
-- *Annals of Internal Medicine*
-- *Circulation*
-- *Chest*
-- *Gastroenterology*
-- *Kidney International*
-- *Journal of Clinical Endocrinology & Metabolism* (JCEM)
-
-### Pharmacology Resources
-- **Lexicomp / Micromedex** — dosing, interactions, renal/hepatic adjustments
-- **AHFS Drug Information** — comprehensive drug monographs
-- **Package inserts** — FDA-approved prescribing information
-
-### Clinical Decision Tools
-- **MDCalc-validated calculators** with evidence basis
-- Scoring systems cite original derivation/validation studies
-- Indicated populations and limitations noted
-
-### Content Standards
-
-✅ **Content reflects:**
-- Most recent guideline updates available at time of creation
-- Clear distinction between guideline-level recommendations vs. expert consensus
-- Major areas of controversy or evolving evidence explicitly noted
-- Suitability for bedside use by residents and hospitalists
-
-❌ **Content avoids:**
-- Unsupported opinion or anecdote
-- Outdated practice patterns
-- Recommendations beyond evidence basis
-
-⚠️ **When evidence is limited, this is explicitly stated.**
+- UpToDate
+- Harrison's Principles of Internal Medicine
+- NEJM, JAMA, Lancet
+- IDSA Guidelines
+- ACC/AHA Guidelines
+- Surviving Sepsis Campaign
+- ATS/IDSA CAP Guidelines
+- KDIGO Guidelines
+- ACR Guidelines
 
 ---
 
-## 📋 Version History
+## Contact
 
-| Date | Changes |
-|------|---------|
-| 2025-12-25 | Drug Reference Guide v1: 172 drugs, anatomical navigation, adjunct therapy boxes |
-| 2025-12-25 | Suite-wide cross-reference validation and bidirectional linking |
-| 2025-12-25 | Build number standardization across all guides |
-
----
-
-## ⚠️ Disclaimer
-
-**This reference is intended for educational purposes and clinical decision support only.**
-
-- Not a substitute for clinical judgment or institutional protocols
-- Verify all drug dosing with pharmacy/institutional resources before prescribing
-- Content reflects evidence available at time of creation; guidelines evolve
-- Always consult primary sources (UpToDate, package inserts, specialty guidelines) for critical decisions
-
-**Do not use for direct patient care without verification.**
+For questions, corrections, or suggestions:  
+**Michael Comstock, MD**  
+PGY-3 Internal Medicine  
+Guthrie Lourdes Hospital
 
 ---
 
-## 📄 License
-
-This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/).
-
-- ✅ Free to use for personal education and non-commercial purposes
-- ✅ May be modified and redistributed with attribution
-- ❌ Commercial use prohibited without permission
-
----
-
-## 🤝 Contributing
-
-Contributions welcome! Please:
-1. Open an issue describing the proposed change
-2. Reference evidence sources for clinical content changes
-3. Maintain cross-reference integrity when adding/modifying content
-4. Test on iPad Safari before submitting PRs
-
----
-
-## 👨‍⚕️ Author
-
-Created by a PGY-3 Internal Medicine resident for bedside clinical use.
-
-*Built with the goal of having everything you need for 90% of inpatient encounters in one offline-capable reference.*
+*This suite is intended as a clinical reference tool and does not replace clinical judgment. Always verify critical information with primary sources.*
