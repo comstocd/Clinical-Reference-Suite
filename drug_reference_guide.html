@@ -673,10 +673,10 @@
 <body>
 
 <div class="main-header">
-    <h1>💊 Comprehensive Drug Reference Guide <span style="font-size: 0.5em; color: #8e44ad; font-weight: 600;">v1.2 BUILD #4</span></h1>
+    <h1>💊 Comprehensive Drug Reference Guide <span style="font-size: 0.5em; color: #8e44ad; font-weight: 600;">v1.3 BUILD #5</span></h1>
     <p class="subtitle">Clinical Pharmacology for Hospital Medicine • Cross-linked to IMCRG, Nephrology, Rheumatology & ID Guides</p>
     <div class="header-stats">
-        <span class="stat-badge">📊 230 Medications</span>
+        <span class="stat-badge">📊 249 Medications</span>
         <span class="stat-badge">🏥 12 Specialties (45 Subsections) • 📁 42 Categories</span>
         <span class="stat-badge">🔗 Cross-Referenced</span>
         <span class="stat-badge">📱 iPad Optimized</span>
@@ -6000,6 +6000,114 @@
                 </div>
                 <div class="warning-box">VERY potent when combined with loops — can cause massive diuresis and electrolyte derangements. Check BMP within 24-48h. Often used short-term (2-3 days) rather than continuously.</div>
                 <div class="pearl-box">Unlike HCTZ, metolazone remains effective at low GFR. Give 30-60 min BEFORE the loop diuretic to "prime" the distal nephron. Monitor electrolytes closely!</div>
+        <!-- ACETAZOLAMIDE -->
+        <div class="drug-card" id="acetazolamide" data-search="acetazolamide diamox carbonic anhydrase inhibitor metabolic alkalosis altitude glaucoma iih">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Acetazolamide</span>
+                <span class="drug-brand">(Diamox)</span>
+                <span class="drug-class-badge">Carbonic Anhydrase Inhibitor</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Inhibits carbonic anhydrase → ↓HCO3- reabsorption in proximal tubule → metabolic acidosis, diuresis. Also reduces aqueous humor and CSF production.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Metabolic alkalosis:</strong> Contraction alkalosis, diuretic-induced</li>
+                            <li><strong>Acute mountain sickness:</strong> Prevention and treatment</li>
+                            <li><strong>Glaucoma:</strong> Reduces intraocular pressure</li>
+                            <li><strong>Idiopathic intracranial hypertension (IIH):</strong> Reduces CSF production</li>
+                            <li><strong>Epilepsy:</strong> Adjunct (rarely used)</li>
+                            <li><strong>Central sleep apnea</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Metabolic alkalosis</td><td>250-500 mg IV/PO daily-BID</td></tr>
+                            <tr><td>Altitude sickness (prevention)</td><td>125-250 mg PO BID, start 1 day before</td></tr>
+                            <tr><td>Glaucoma</td><td>250 mg PO q6h or 500 mg SR BID</td></tr>
+                            <tr><td>IIH</td><td>500-1000 mg PO BID (up to 4g/day)</td></tr>
+                        </table>
+                        <p><strong>Renal:</strong> Avoid if CrCl &lt;10</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Paresthesias:</strong> Perioral, fingers (very common)</li>
+                            <li><strong>Metabolic acidosis:</strong> Expected effect</li>
+                            <li><strong>Hypokalemia</strong></li>
+                            <li>Nephrolithiasis (calcium phosphate stones)</li>
+                            <li>Dysgeusia (metallic taste, carbonated drinks taste flat)</li>
+                            <li>Sulfa allergy cross-reactivity</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="warning-box">Contains sulfonamide — caution in sulfa allergy. Avoid in hepatic cirrhosis (can precipitate encephalopathy by ↑ammonia).</div>
+                <div class="pearl-box">Paresthesias = expected, not dangerous. For altitude: start 1 day before ascent. Carbonated drinks taste flat on this drug (blocks CO2 sensing).</div>
+            </div>
+        </div>
+
+        <!-- TOLVAPTAN -->
+        <div class="drug-card" id="tolvaptan" data-search="tolvaptan samsca jynarque vasopressin antagonist siadh hyponatremia adpkd">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Tolvaptan</span>
+                <span class="drug-brand">(Samsca, Jynarque)</span>
+                <span class="drug-class-badge">V2 Receptor Antagonist (Vaptan)</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Selective V2 vasopressin receptor antagonist → blocks ADH effect on collecting duct → aquaresis (free water excretion without electrolyte loss).</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Euvolemic hyponatremia (SIADH):</strong> When fluid restriction fails</li>
+                            <li><strong>Hypervolemic hyponatremia:</strong> HF, cirrhosis (limited use)</li>
+                            <li><strong>ADPKD:</strong> Slows cyst growth and kidney decline (Jynarque)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Hyponatremia (Samsca)</td><td>15 mg PO daily, ↑ to 30-60 mg daily</td></tr>
+                            <tr><td>ADPKD (Jynarque)</td><td>45/15 mg (AM/PM), titrate to 90/30 mg</td></tr>
+                        </table>
+                        <p><strong>MUST initiate in hospital</strong> for hyponatremia</p>
+                        <p>Avoid fluid restriction during first 24 hours</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Rapid Na correction:</strong> ODS risk — monitor closely</li>
+                            <li><strong>Hepatotoxicity:</strong> Can be serious (BLACK BOX for Jynarque)</li>
+                            <li>Thirst, polyuria</li>
+                            <li>Hypernatremia</li>
+                            <li>Dehydration</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="black-box"><strong>Hepatotoxicity (Jynarque):</strong> REMS program required. Monitor LFTs monthly × 18 months, then q3 months. <strong>ODS Risk:</strong> Limit Na correction to ≤10-12 mEq/L/24hr.</div>
+                <div class="pearl-box">Must initiate in hospital to monitor Na closely. Allow patient to drink to thirst — do NOT restrict fluids initially. Very expensive.</div>
+            </div>
+        </div>
             </div>
         </div>
         <!-- ============================================== -->
@@ -6856,6 +6964,156 @@
             </div>
         </div>
 
+        <!-- URSODIOL -->
+        <div class="drug-card" id="ursodiol" data-search="ursodiol ursodeoxycholic acid udca actigall urso pbc gallstones cholestasis">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Ursodiol</span>
+                <span class="drug-brand">(Actigall, Urso)</span>
+                <span class="drug-class-badge">Bile Acid</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Hydrophilic bile acid → replaces toxic hydrophobic bile acids → hepatoprotective, immunomodulatory. Also ↓cholesterol secretion into bile.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Primary biliary cholangitis (PBC):</strong> First-line, slows progression</li>
+                            <li><strong>Gallstone dissolution:</strong> Small cholesterol stones in poor surgical candidates</li>
+                            <li><strong>Gallstone prevention:</strong> During rapid weight loss</li>
+                            <li><strong>Cholestasis of pregnancy</strong></li>
+                            <li><strong>CF-related liver disease</strong></li>
+                            <li><strong>TPN-associated cholestasis</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>PBC</td><td>13-15 mg/kg/day in 2-4 divided doses</td></tr>
+                            <tr><td>Gallstone dissolution</td><td>8-10 mg/kg/day in 2-3 doses</td></tr>
+                            <tr><td>Prevention (weight loss)</td><td>300 mg PO BID</td></tr>
+                        </table>
+                        <p>Take with food for better absorption</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>Diarrhea (most common)</li>
+                            <li>Headache</li>
+                            <li>Nausea</li>
+                            <li>Generally well tolerated</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">First-line for PBC — improves LFTs and survival. For gallstones: only works on cholesterol stones <20mm with functioning gallbladder. Takes 6-24 months.</div>
+            </div>
+        </div>
+
+        <!-- LOPERAMIDE -->
+        <div class="drug-card" id="loperamide" data-search="loperamide imodium antidiarrheal opioid peripheral">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Loperamide</span>
+                <span class="drug-brand">(Imodium)</span>
+                <span class="drug-class-badge">Peripheral Opioid</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Peripheral μ-opioid agonist → slows GI motility, ↓intestinal secretions. Minimal CNS penetration at normal doses.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Acute diarrhea:</strong> Symptomatic relief</li>
+                            <li><strong>Chronic diarrhea:</strong> IBS-D, short bowel syndrome</li>
+                            <li><strong>Ileostomy output:</strong> High-output management</li>
+                            <li><strong>Chemotherapy-induced diarrhea</strong></li>
+                        </ul>
+                        <p><strong>Avoid in:</strong> Bloody diarrhea, fever, C. diff, invasive bacterial diarrhea</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Setting</th><th>Dose</th></tr>
+                            <tr><td>Acute diarrhea</td><td>4 mg initially, then 2 mg after each loose stool</td></tr>
+                            <tr><td>Max (acute)</td><td>16 mg/day (OTC: 8 mg/day)</td></tr>
+                            <tr><td>Chronic diarrhea</td><td>4-8 mg/day divided</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>Constipation, abdominal cramping</li>
+                            <li>Nausea, dry mouth</li>
+                            <li><strong>High doses:</strong> QT prolongation, torsades, cardiac arrest</li>
+                            <li>Toxic megacolon (if used in colitis)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="warning-box"><strong>Avoid in C. diff and invasive diarrhea</strong> — can precipitate toxic megacolon. High-dose abuse can cause fatal cardiac arrhythmias.</div>
+                <div class="pearl-box">OTC max 8mg/day, Rx can go to 16mg/day. Avoid if dysentery (bloody stool + fever). Safe in most travelers' diarrhea with antibiotics.</div>
+            </div>
+        </div>
+
+        <!-- FIDAXOMICIN -->
+        <div class="drug-card" id="fidaxomicin" data-search="fidaxomicin dificid macrolide cdiff clostridioides difficile recurrence">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Fidaxomicin</span>
+                <span class="drug-brand">(Dificid)</span>
+                <span class="drug-class-badge">Macrocyclic Antibiotic</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Inhibits bacterial RNA polymerase. Narrow spectrum — active against C. diff with minimal effect on gut flora. Bactericidal, inhibits sporulation.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>C. difficile infection:</strong> First-line (IDSA 2021)</li>
+                            <li><strong>Recurrent C. diff:</strong> Preferred over vancomycin</li>
+                            <li><strong>Lower recurrence rate</strong> than oral vancomycin</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <p><strong>Standard:</strong> 200 mg PO BID × 10 days</p>
+                        <p><strong>Extended-pulsed:</strong> 200 mg BID × 5 days, then 200 mg once daily every other day × 20 days (for recurrence)</p>
+                        <p>No renal/hepatic adjustment. Take with or without food.</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>Nausea, vomiting</li>
+                            <li>Abdominal pain</li>
+                            <li>GI bleeding (rare)</li>
+                            <li>Generally well tolerated</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">IDSA 2021: Fidaxomicin preferred over oral vanco for initial and recurrent C. diff. Lower recurrence rate (13% vs 27%). More expensive but cost-effective if prevents recurrence.</div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -7034,6 +7292,61 @@
             </div>
         </div>
 
+        <!-- CYCLOPHOSPHAMIDE -->
+        <div class="drug-card" id="cyclophosphamide" data-search="cyclophosphamide cytoxan alkylating agent lupus nephritis vasculitis anca gpa">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Cyclophosphamide</span>
+                <span class="drug-brand">(Cytoxan)</span>
+                <span class="drug-class-badge">Alkylating Agent</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Alkylating agent → cross-links DNA → cytotoxic to rapidly dividing cells including lymphocytes → profound immunosuppression.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>ANCA vasculitis (GPA, MPA):</strong> Induction with rituximab alternative</li>
+                            <li><strong>Lupus nephritis:</strong> Class III/IV induction</li>
+                            <li><strong>Severe/refractory SLE</strong></li>
+                            <li><strong>Interstitial lung disease:</strong> CTD-associated</li>
+                            <li><strong>Malignancies:</strong> Lymphoma, leukemia, solid tumors</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Protocol</th><th>Dose</th></tr>
+                            <tr><td>Euro-Lupus (low-dose)</td><td>500 mg IV q2wk × 6 doses</td></tr>
+                            <tr><td>NIH (high-dose)</td><td>0.5-1 g/m² IV monthly × 6</td></tr>
+                            <tr><td>ANCA vasculitis</td><td>15 mg/kg IV q2-3wk or 2 mg/kg/day PO</td></tr>
+                        </table>
+                        <p><strong>Renal:</strong> Reduce dose for CrCl &lt;30</p>
+                        <p>Give with Mesna + aggressive hydration</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Hemorrhagic cystitis:</strong> Acrolein metabolite — prevent with Mesna</li>
+                            <li><strong>Myelosuppression:</strong> Nadir 10-14 days</li>
+                            <li><strong>Infections:</strong> PCP prophylaxis required</li>
+                            <li><strong>Gonadal toxicity:</strong> Infertility, premature ovarian failure</li>
+                            <li><strong>Malignancy:</strong> Bladder cancer, leukemia (long-term)</li>
+                            <li>Nausea/vomiting, alopecia, SIADH</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="black-box"><strong>Hemorrhagic cystitis:</strong> Hydrate + Mesna. <strong>Myelosuppression:</strong> Monitor CBC. <strong>Secondary malignancy.</strong> <strong>Teratogenic.</strong></div>
+                <div class="pearl-box">Give Mesna (same dose as cyclophosphamide) with each dose. Antiemetics: ondansetron + dexamethasone. Consider fertility preservation before starting. Rituximab now often preferred for ANCA vasculitis.</div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -7340,6 +7653,63 @@
             </div>
         </div>
 
+        <!-- TOCILIZUMAB -->
+        <!-- TOCILIZUMAB -->
+        <div class="drug-card" id="tocilizumab" data-search="tocilizumab actemra il-6 inhibitor rheumatoid arthritis gca giant cell arteritis crs cytokine">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Tocilizumab</span>
+                <span class="drug-brand">(Actemra)</span>
+                <span class="drug-class-badge">IL-6 Receptor Inhibitor</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Humanized monoclonal antibody against IL-6 receptor → blocks IL-6 signaling → ↓acute phase response, ↓inflammation. IL-6 drives CRP/ESR.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Rheumatoid arthritis:</strong> Moderate-severe, failed DMARDs</li>
+                            <li><strong>Giant cell arteritis:</strong> Steroid-sparing</li>
+                            <li><strong>Cytokine release syndrome (CRS):</strong> CAR-T toxicity</li>
+                            <li><strong>Polyarticular JIA, systemic JIA</strong></li>
+                            <li><strong>COVID-19:</strong> Severe/critical (with steroids)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>RA (IV)</td><td>4 mg/kg q4wk, may ↑ to 8 mg/kg</td></tr>
+                            <tr><td>RA (SC)</td><td>162 mg SC weekly or q2wk</td></tr>
+                            <tr><td>GCA</td><td>162 mg SC weekly + steroid taper</td></tr>
+                            <tr><td>CRS</td><td>8 mg/kg IV (max 800mg), may repeat</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Infections:</strong> Serious bacterial, TB reactivation, fungal</li>
+                            <li><strong>GI perforation:</strong> Especially with diverticulitis history</li>
+                            <li><strong>LFT elevation</strong></li>
+                            <li><strong>Neutropenia, thrombocytopenia</strong></li>
+                            <li><strong>Lipid elevation</strong></li>
+                            <li>Injection site reactions</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="black-box"><strong>Serious Infections:</strong> TB, invasive fungal, bacterial. Screen for TB before starting. <strong>GI Perforation:</strong> Use with caution in diverticulitis history.</div>
+                <div class="pearl-box">IL-6 blockade → CRP/ESR will NOT rise even with infection — cannot rely on inflammatory markers. For GCA: allows faster steroid taper, ↓relapse. CRS: dramatic response within hours.</div>
+            </div>
+        </div>
+
+        <!-- CYCLOPHOSPHAMIDE -->
     </div>
 </div>
 
@@ -8018,6 +8388,114 @@
             </div>
         </div>
 
+        <!-- METHYLENE BLUE -->
+        <div class="drug-card" id="methylene-blue" data-search="methylene blue provayblue methemoglobinemia antidote vasoplegic ifosfamide">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Methylene Blue</span>
+                <span class="drug-brand">(Provayblue)</span>
+                <span class="drug-class-badge">Antidote / Dye</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Acts as electron carrier → reduces methemoglobin back to hemoglobin via NADPH-methemoglobin reductase pathway. Also inhibits nitric oxide synthase → vasoconstriction.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Methemoglobinemia:</strong> Symptomatic (MetHb &gt;20-30%)</li>
+                            <li><strong>Vasoplegia:</strong> Refractory to vasopressors (post-cardiac surgery)</li>
+                            <li><strong>Ifosfamide encephalopathy:</strong> Prevention/treatment</li>
+                            <li><strong>Surgical dye:</strong> Parathyroid, sentinel node</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Methemoglobinemia</td><td>1-2 mg/kg IV over 5 min</td></tr>
+                            <tr><td>May repeat</td><td>1 mg/kg in 30-60 min if needed</td></tr>
+                            <tr><td>Max</td><td>7 mg/kg (higher doses cause MetHb!)</td></tr>
+                            <tr><td>Vasoplegia</td><td>1-2 mg/kg IV bolus, then 0.5 mg/kg/hr</td></tr>
+                        </table>
+                        <p>Dilute in 50-100 mL NS, infuse over 5-30 min</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Blue-green discoloration:</strong> Skin, urine, stool</li>
+                            <li><strong>Serotonin syndrome:</strong> With SSRIs/SNRIs — AVOID</li>
+                            <li><strong>Paradoxical MetHb:</strong> At high doses (&gt;7 mg/kg)</li>
+                            <li><strong>Hemolysis:</strong> In G6PD deficiency — AVOID</li>
+                            <li>Hypertension, arrhythmias</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="black-box"><strong>Serotonin Syndrome:</strong> Contraindicated with SSRIs, SNRIs, MAOIs. <strong>G6PD Deficiency:</strong> Ineffective and causes hemolysis — use ascorbic acid instead.</div>
+                <div class="pearl-box">MetHb causes: dapsone, nitrites, benzocaine, nitric oxide. Pulse ox reads ~85% falsely in MetHb. Co-oximetry required for diagnosis. Blue urine/skin is expected, not dangerous.</div>
+            </div>
+        </div>
+
+        <!-- DIGOXIN IMMUNE FAB -->
+        <div class="drug-card" id="digifab" data-search="digoxin immune fab digifab digibind digitalis toxicity antidote">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Digoxin Immune Fab</span>
+                <span class="drug-brand">(DigiFab, Digibind)</span>
+                <span class="drug-class-badge">Antidote</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Antibody fragments (Fab) bind free digoxin with high affinity → inactivates digoxin → complex excreted renally. Each vial binds ~0.5 mg digoxin.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Digoxin toxicity with:</strong></li>
+                            <li>Life-threatening arrhythmias (VT, VF, high-grade AV block)</li>
+                            <li>Hyperkalemia (K &gt;5.5 with toxicity)</li>
+                            <li>Hemodynamic instability</li>
+                            <li>Acute ingestion &gt;10 mg (adult) or &gt;4 mg (child)</li>
+                            <li>Steady-state level &gt;6 ng/mL with symptoms</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Method</th><th>Calculation</th></tr>
+                            <tr><td>Known ingestion</td><td>Vials = (mg ingested × 0.8) / 0.5</td></tr>
+                            <tr><td>Known level</td><td>Vials = (level ng/mL × weight kg) / 100</td></tr>
+                            <tr><td>Empiric (acute)</td><td>10-20 vials</td></tr>
+                            <tr><td>Empiric (chronic)</td><td>3-6 vials</td></tr>
+                        </table>
+                        <p>Give IV over 30 min (or bolus if cardiac arrest)</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Hypokalemia:</strong> As digoxin effect reverses — monitor K closely</li>
+                            <li><strong>Worsening HF:</strong> Loss of digoxin effect</li>
+                            <li><strong>AFib with RVR:</strong> Loss of rate control</li>
+                            <li>Allergic reactions (rare)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="warning-box">After Fab administration, total digoxin level will be VERY HIGH (measures bound + unbound) — this is expected. Free digoxin level is accurate but rarely available. Monitor for hypokalemia.</div>
+                <div class="pearl-box">Classic toxicity: nausea, visual changes (yellow halos), arrhythmias. ECG: "scooped" ST, ↑PR, any arrhythmia with ↑automaticity + ↓conduction (PAT with block, bidirectional VT). Also treats oleander, foxglove, toad toxin (bufotoxin).</div>
+            </div>
+        </div>
 
     </div>
 </div>
@@ -8711,6 +9189,157 @@
             </div>
         </div>
 
+        <!-- SILDENAFIL (Pulmonary HTN) -->
+        <div class="drug-card" id="sildenafil" data-search="sildenafil revatio viagra pde5 inhibitor pulmonary hypertension pah erectile dysfunction">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Sildenafil</span>
+                <span class="drug-brand">(Revatio, Viagra)</span>
+                <span class="drug-class-badge">PDE-5 Inhibitor</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Inhibits phosphodiesterase-5 → ↑cGMP → pulmonary vasodilation. Selective for pulmonary vasculature.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Pulmonary arterial hypertension (PAH):</strong> WHO Group 1</li>
+                            <li><strong>High-altitude pulmonary edema (HAPE):</strong> Prevention</li>
+                            <li><strong>Erectile dysfunction:</strong> Different dosing</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>PAH (Revatio)</td><td>20 mg PO TID (or 10 mg IV TID)</td></tr>
+                            <tr><td>ED (Viagra)</td><td>25-100 mg PO PRN (1hr before)</td></tr>
+                        </table>
+                        <p>Space doses 4-6 hours apart for PAH</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>Headache, flushing, dyspepsia</li>
+                            <li>Hypotension (especially with nitrates)</li>
+                            <li>Visual disturbances (blue-tinted vision)</li>
+                            <li>Priapism (rare)</li>
+                            <li>Hearing loss (rare, sudden)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="black-box"><strong>CONTRAINDICATED with nitrates</strong> — can cause severe hypotension. Also avoid with riociguat.</div>
+                <div class="pearl-box">For PAH, use Revatio (20mg TID). Viagra dosing is different. Often combined with other PAH therapies (ERA, prostacyclin).</div>
+            </div>
+        </div>
+
+        <!-- MONTELUKAST -->
+        <div class="drug-card" id="montelukast" data-search="montelukast singulair leukotriene receptor antagonist asthma allergic rhinitis">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Montelukast</span>
+                <span class="drug-brand">(Singulair)</span>
+                <span class="drug-class-badge">Leukotriene Receptor Antagonist</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Blocks cysteinyl leukotriene receptor (CysLT1) → reduces bronchoconstriction, mucus, eosinophilic inflammation.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Asthma:</strong> Add-on controller (not first-line)</li>
+                            <li><strong>Aspirin-exacerbated respiratory disease (AERD):</strong> Particularly effective</li>
+                            <li><strong>Exercise-induced bronchoconstriction:</strong> Prevention</li>
+                            <li><strong>Allergic rhinitis</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <p><strong>Adults:</strong> 10 mg PO daily (evening)</p>
+                        <p><strong>Exercise-induced:</strong> 10 mg PO 2 hours before exercise</p>
+                        <p>No renal/hepatic adjustment needed</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>Headache</li>
+                            <li>GI upset</li>
+                            <li><strong>Neuropsychiatric:</strong> Agitation, depression, suicidal ideation (BLACK BOX)</li>
+                            <li>Churg-Strauss syndrome (rare, unmasked when steroids tapered)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="black-box"><strong>Neuropsychiatric Events:</strong> Agitation, aggression, depression, suicidal thinking. Monitor closely. Consider risks vs benefits.</div>
+                <div class="pearl-box">Particularly useful in AERD (aspirin triad). Not preferred over ICS for asthma per guidelines due to psych risks. Best taken in evening.</div>
+            </div>
+        </div>
+
+        <!-- AMINOPHYLLINE/THEOPHYLLINE -->
+        <div class="drug-card" id="theophylline" data-search="theophylline aminophylline methylxanthine bronchodilator copd asthma">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Theophylline / Aminophylline</span>
+                <span class="drug-brand">(Theo-24, IV Aminophylline)</span>
+                <span class="drug-class-badge">Methylxanthine</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">PDE inhibitor → ↑cAMP → bronchodilation. Also adenosine antagonist, anti-inflammatory effects, respiratory muscle stimulant. Aminophylline = theophylline + ethylenediamine (IV form).</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Severe COPD/asthma:</strong> Add-on when other therapies inadequate</li>
+                            <li><strong>Apnea of prematurity</strong></li>
+                            <li><strong>Reversal of dipyridamole/adenosine effects</strong></li>
+                            <li>Rarely used now due to narrow therapeutic index</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Setting</th><th>Dose</th></tr>
+                            <tr><td>IV Load (aminophylline)</td><td>5-6 mg/kg over 20-30 min</td></tr>
+                            <tr><td>IV Maintenance</td><td>0.4-0.6 mg/kg/hr (lower in elderly, CHF, liver dz)</td></tr>
+                            <tr><td>PO (theophylline)</td><td>300-600 mg/day divided or extended-release</td></tr>
+                        </table>
+                        <p><strong>Target level:</strong> 10-20 mcg/mL (5-15 for COPD per newer data)</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects & Toxicity</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>GI:</strong> Nausea, vomiting (early toxicity sign)</li>
+                            <li><strong>CNS:</strong> Headache, insomnia, tremor, seizures</li>
+                            <li><strong>Cardiac:</strong> Tachycardia, arrhythmias (SVT, VT)</li>
+                            <li>Hypokalemia, hyperglycemia</li>
+                        </ul>
+                        <p><strong>Toxicity:</strong> Seizures and arrhythmias may occur without warning GI sx in chronic toxicity</p>
+                    </div>
+                </div>
+                <div class="warning-box">Narrow therapeutic index — many drug interactions (CYP1A2). Levels ↑ with: ciprofloxacin, cimetidine, macrolides. Levels ↓ with: smoking, phenytoin, rifampin.</div>
+                <div class="pearl-box">Mostly replaced by LABAs/LAMAs. Check level if using. Toxicity: seizures (treat with benzos, NOT phenytoin), arrhythmias. Consider charcoal/hemodialysis for severe toxicity.</div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -8926,6 +9555,118 @@
             </div>
         </div>
 
+        <!-- HYDROXYUREA -->
+        <div class="drug-card" id="hydroxyurea" data-search="hydroxyurea hydrea droxia sickle cell mpn polycythemia vera essential thrombocythemia">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Hydroxyurea</span>
+                <span class="drug-brand">(Hydrea, Droxia)</span>
+                <span class="drug-class-badge">Antimetabolite</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Inhibits ribonucleotide reductase → ↓DNA synthesis → cytoreduction. In SCD: ↑HbF production → ↓sickling.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Sickle cell disease:</strong> Reduces crises, ACS, transfusion needs</li>
+                            <li><strong>Polycythemia vera:</strong> First-line cytoreduction</li>
+                            <li><strong>Essential thrombocythemia:</strong> High-risk patients</li>
+                            <li><strong>CML:</strong> If TKIs not available</li>
+                            <li><strong>Meningioma:</strong> Unresectable</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Sickle cell</td><td>15 mg/kg/day, ↑ by 5 mg/kg q12wk to max 35 mg/kg/day</td></tr>
+                            <tr><td>PV/ET</td><td>15-20 mg/kg/day or 500-1500 mg/day</td></tr>
+                        </table>
+                        <p><strong>Renal:</strong> ↓ dose 50% if CrCl &lt;60</p>
+                        <p>Round to nearest 500mg capsule</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Myelosuppression:</strong> Dose-limiting — monitor CBC q2-4 weeks</li>
+                            <li>Macrocytosis (expected, not harmful)</li>
+                            <li>Skin hyperpigmentation, nail changes</li>
+                            <li>Leg ulcers (long-term use)</li>
+                            <li>GI upset</li>
+                            <li><strong>Teratogenic</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="warning-box">Monitor CBC closely — hold if ANC &lt;2000, platelets &lt;80K, Hgb &lt;4.5, retics &lt;80K (in SCD). Resume at lower dose when recovered.</div>
+                <div class="pearl-box">SCD: Takes 3-6 months for full HbF effect. MCV increase confirms adherence. Reduces mortality in SCD. First-line for high-risk PV/ET.</div>
+            </div>
+        </div>
+
+        <!-- IVIG -->
+        <div class="drug-card" id="ivig" data-search="ivig intravenous immunoglobulin gammagard privigen itp gbs kawasaki immunodeficiency">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">IVIG</span>
+                <span class="drug-brand">(Gammagard, Privigen, Gammunex)</span>
+                <span class="drug-class-badge">Immunoglobulin</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Pooled IgG from thousands of donors. Multiple mechanisms: Fc receptor blockade, anti-idiotype antibodies, complement modulation, cytokine modulation.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>ITP:</strong> Acute bleeding or pre-procedure</li>
+                            <li><strong>Guillain-Barré syndrome:</strong> First-line with PLEX</li>
+                            <li><strong>Kawasaki disease:</strong> Prevents coronary aneurysms</li>
+                            <li><strong>CIDP:</strong> Maintenance therapy</li>
+                            <li><strong>Myasthenia gravis crisis</strong></li>
+                            <li><strong>Primary immunodeficiency:</strong> Replacement</li>
+                            <li><strong>Dermatomyositis:</strong> Refractory</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>ITP</td><td>1 g/kg × 1-2 days</td></tr>
+                            <tr><td>GBS</td><td>0.4 g/kg/day × 5 days (= 2 g/kg total)</td></tr>
+                            <tr><td>Kawasaki</td><td>2 g/kg × 1 dose</td></tr>
+                            <tr><td>Immunodeficiency</td><td>0.4-0.6 g/kg q3-4 weeks</td></tr>
+                        </table>
+                        <p>Infuse slowly — start 0.5-1 mL/kg/hr, ↑ as tolerated</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Infusion reactions:</strong> Headache, flushing, chills, myalgias — slow rate</li>
+                            <li><strong>Aseptic meningitis:</strong> Severe headache, nuchal rigidity</li>
+                            <li><strong>AKI:</strong> Especially sucrose-containing products</li>
+                            <li><strong>Thrombosis:</strong> DVT, PE, stroke, MI</li>
+                            <li><strong>Hemolysis:</strong> In non-O blood types</li>
+                            <li>TRALI (rare)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="black-box"><strong>Thrombosis:</strong> Risk of arterial and venous thrombosis. Use caution in hypercoagulable states, immobility, CVD. <strong>Renal:</strong> AKI risk — avoid sucrose products in renal impairment, hydrate well.</div>
+                <div class="pearl-box">Premedicate with acetaminophen and diphenhydramine. For ITP: platelet rise in 24-48 hrs, lasts 2-4 weeks. Very expensive ($10,000+ per infusion).</div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -9384,6 +10125,275 @@
             </div>
         </div>
 
+        <!-- LEVODOPA/CARBIDOPA -->
+        <div class="drug-card" id="levodopa" data-search="levodopa carbidopa sinemet dopamine precursor parkinson disease">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Levodopa/Carbidopa</span>
+                <span class="drug-brand">(Sinemet, Rytary, Duopa)</span>
+                <span class="drug-class-badge">Dopamine Precursor</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Levodopa crosses BBB → converted to dopamine in CNS. Carbidopa inhibits peripheral dopa-decarboxylase → ↓peripheral side effects, ↑CNS delivery.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Parkinson's disease:</strong> Most effective symptomatic treatment</li>
+                            <li><strong>Parkinsonism:</strong> Drug-induced, vascular</li>
+                            <li><strong>Restless leg syndrome:</strong> Severe cases</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Formulation</th><th>Starting Dose</th></tr>
+                            <tr><td>Sinemet 25/100</td><td>1 tab TID, ↑ gradually</td></tr>
+                            <tr><td>Sinemet CR 50/200</td><td>1 tab BID</td></tr>
+                            <tr><td>Max levodopa</td><td>~800-1500 mg/day</td></tr>
+                        </table>
+                        <p>Take 30-60 min before meals (protein ↓ absorption)</p>
+                        <p>Titrate slowly over weeks to months</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Early:</strong> Nausea, orthostatic hypotension, somnolence</li>
+                            <li><strong>Dyskinesias:</strong> Choreiform movements (with chronic use)</li>
+                            <li><strong>Motor fluctuations:</strong> Wearing-off, on-off phenomenon</li>
+                            <li><strong>Psychiatric:</strong> Hallucinations, impulse control disorders</li>
+                            <li>Dopamine dysregulation syndrome</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="warning-box">Do NOT stop abruptly — can precipitate neuroleptic malignant-like syndrome. Avoid with non-selective MAOIs (hypertensive crisis).</div>
+                <div class="pearl-box">"Honeymoon period" 3-5 years before motor complications. Motor fluctuations: add COMT inhibitor (entacapone), MAO-B inhibitor, or dopamine agonist. Hallucinations: reduce or add quetiapine/clozapine.</div>
+            </div>
+        </div>
+
+        <!-- SUMATRIPTAN -->
+        <div class="drug-card" id="sumatriptan" data-search="sumatriptan imitrex triptan serotonin agonist migraine cluster headache">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Sumatriptan</span>
+                <span class="drug-brand">(Imitrex)</span>
+                <span class="drug-class-badge">5-HT1B/1D Agonist (Triptan)</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Selective serotonin receptor agonist (5-HT1B/1D) → cranial vasoconstriction, inhibits trigeminal nerve activation, blocks pain signal transmission.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Acute migraine:</strong> With or without aura</li>
+                            <li><strong>Cluster headache:</strong> Abortive (SC most effective)</li>
+                        </ul>
+                        <p><strong>Not for:</strong> Hemiplegic migraine, basilar migraine, prevention</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Route</th><th>Dose</th><th>Onset</th></tr>
+                            <tr><td>PO</td><td>50-100 mg, may repeat × 1 in 2hr</td><td>30-60 min</td></tr>
+                            <tr><td>SC</td><td>6 mg, may repeat × 1 in 1hr</td><td>10-15 min</td></tr>
+                            <tr><td>Nasal</td><td>20 mg, may repeat in 2hr</td><td>15-30 min</td></tr>
+                        </table>
+                        <p><strong>Max:</strong> 200 mg PO/day or 12 mg SC/day</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Triptan sensations:</strong> Chest tightness, pressure, flushing, tingling</li>
+                            <li>Injection site reactions (SC)</li>
+                            <li><strong>Coronary vasospasm:</strong> Rare but serious</li>
+                            <li><strong>Serotonin syndrome:</strong> With SSRIs/SNRIs (FDA warning, but rare)</li>
+                            <li>Medication overuse headache (if used >10 days/month)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="black-box"><strong>Contraindicated:</strong> CAD, Prinzmetal angina, uncontrolled HTN, prior stroke/TIA, PVD, hemiplegic/basilar migraine. Avoid within 24hr of ergots or other triptans.</div>
+                <div class="pearl-box">Take at onset of headache for best effect. SC fastest for cluster headache. Chest tightness usually benign ("triptan sensations") but evaluate cardiac risk. Limit to &lt;10 days/month to avoid MOH.</div>
+            </div>
+        </div>
+
+        <!-- MANNITOL -->
+        <div class="drug-card" id="mannitol" data-search="mannitol osmitrol osmotic diuretic cerebral edema icp increased intracranial pressure">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Mannitol</span>
+                <span class="drug-brand">(Osmitrol)</span>
+                <span class="drug-class-badge">Osmotic Diuretic</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Osmotic agent → draws water from tissues into vasculature → ↓cerebral edema, ↓ICP. Also causes osmotic diuresis in kidney.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Increased ICP:</strong> Cerebral edema, herniation</li>
+                            <li><strong>Acute glaucoma:</strong> Reduce intraocular pressure</li>
+                            <li><strong>Acute kidney injury:</strong> Prevent/treat (controversial)</li>
+                            <li><strong>Rhabdomyolysis:</strong> Adjunct to fluids (controversial)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Elevated ICP</td><td>0.25-1 g/kg IV over 15-30 min</td></tr>
+                            <tr><td>Herniation (bolus)</td><td>1-1.5 g/kg IV rapid push</td></tr>
+                            <tr><td>Acute glaucoma</td><td>1-2 g/kg IV over 30-60 min</td></tr>
+                        </table>
+                        <p>Use 20% or 25% solution via filter (crystallizes)</p>
+                        <p>May repeat q4-6h PRN. Check serum osm before redosing.</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Electrolytes:</strong> Hyponatremia initially, then hypernatremia</li>
+                            <li><strong>Volume overload:</strong> Initial fluid shift to intravascular</li>
+                            <li><strong>AKI:</strong> Especially with high doses, serum osm &gt;320</li>
+                            <li><strong>Rebound ICP elevation</strong></li>
+                            <li>Hypokalemia</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="warning-box">Monitor serum osmolality — hold if &gt;320 mOsm/kg (osmolar gap &gt;20). Avoid in severe renal failure, pulmonary edema, severe dehydration.</div>
+                <div class="pearl-box">Alternative: Hypertonic saline (23.4% or 3%) — no osm gap concerns, can use in renal failure. Mannitol effect peaks 20-60 min, lasts 4-6 hr. Filter the IV line.</div>
+            </div>
+        </div>
+        <!-- LITHIUM -->
+        <div class="drug-card" id="lithium" data-search="lithium lithobid eskalith mood stabilizer bipolar mania">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Lithium</span>
+                <span class="drug-brand">(Lithobid, Eskalith)</span>
+                <span class="drug-class-badge">Mood Stabilizer</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Not fully understood. Modulates neurotransmitter release, affects second messenger systems (inositol, GSK-3), neuroprotective effects.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Bipolar disorder:</strong> Acute mania and maintenance</li>
+                            <li><strong>Bipolar depression:</strong> Adjunct</li>
+                            <li><strong>Augmentation:</strong> Treatment-resistant depression</li>
+                            <li><strong>Suicide prevention:</strong> Only psych med with proven anti-suicide effect</li>
+                            <li><strong>Cluster headache prophylaxis</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Phase</th><th>Target Level</th></tr>
+                            <tr><td>Acute mania</td><td>0.8-1.2 mEq/L</td></tr>
+                            <tr><td>Maintenance</td><td>0.6-1.0 mEq/L</td></tr>
+                            <tr><td>Elderly</td><td>0.4-0.8 mEq/L</td></tr>
+                        </table>
+                        <p><strong>Starting:</strong> 300 mg PO BID-TID, titrate to level</p>
+                        <p>Check level 5-7 days after dose change (12hr trough)</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects & Toxicity</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>GI:</strong> Nausea, diarrhea</li>
+                            <li><strong>Renal:</strong> Nephrogenic DI (polyuria/polydipsia), CKD</li>
+                            <li><strong>Thyroid:</strong> Hypothyroidism (goiter)</li>
+                            <li><strong>Neuro:</strong> Tremor, cognitive dulling</li>
+                            <li><strong>Cardiac:</strong> T-wave flattening, sinus node dysfunction</li>
+                            <li><strong>Toxicity (&gt;1.5):</strong> Coarse tremor, ataxia, confusion, seizures, arrhythmias</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="warning-box"><strong>Narrow therapeutic index.</strong> Toxicity precipitated by: dehydration, NSAIDs, ACE-I/ARBs, thiazides. Renal clearance = sodium clearance. Hold during acute illness.</div>
+                <div class="pearl-box">Monitor: Lithium level q3-6mo, TSH/Cr q6mo, ECG baseline. Toxicity Tx: fluids, hemodialysis if level &gt;4 or severe symptoms. Only med proven to reduce suicide risk.</div>
+            </div>
+        </div>
+
+        <!-- CLOZAPINE -->
+        <div class="drug-card" id="clozapine" data-search="clozapine clozaril atypical antipsychotic treatment resistant schizophrenia agranulocytosis">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Clozapine</span>
+                <span class="drug-brand">(Clozaril, Fazaclo)</span>
+                <span class="drug-class-badge">Atypical Antipsychotic</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Atypical antipsychotic with low D2 affinity, high 5-HT2A antagonism. Also blocks muscarinic, histaminic, adrenergic receptors. Uniquely effective in treatment-resistant schizophrenia.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Treatment-resistant schizophrenia:</strong> Failed ≥2 antipsychotics</li>
+                            <li><strong>Suicidal behavior in schizophrenia/schizoaffective:</strong> FDA-approved</li>
+                            <li><strong>Parkinson's psychosis:</strong> One of few safe options</li>
+                            <li><strong>Tardive dyskinesia:</strong> May improve</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Phase</th><th>Dose</th></tr>
+                            <tr><td>Start</td><td>12.5 mg daily-BID</td></tr>
+                            <tr><td>Titration</td><td>↑ by 25-50 mg/day q1-2 weeks</td></tr>
+                            <tr><td>Target</td><td>300-450 mg/day (divided BID)</td></tr>
+                            <tr><td>Max</td><td>900 mg/day</td></tr>
+                        </table>
+                        <p>Slow titration to minimize hypotension, sedation, seizures</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Adverse Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Agranulocytosis:</strong> 1-2% — REMS monitoring required</li>
+                            <li><strong>Myocarditis/Cardiomyopathy:</strong> First 2 months</li>
+                            <li><strong>Seizures:</strong> Dose-related (4% at high doses)</li>
+                            <li><strong>Metabolic:</strong> Weight gain, diabetes, dyslipidemia</li>
+                            <li><strong>Sialorrhea:</strong> Hypersalivation (paradoxical)</li>
+                            <li><strong>Constipation:</strong> Can be severe (ileus)</li>
+                            <li>Sedation, orthostatic hypotension</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="black-box"><strong>REMS Program Required:</strong> ANC monitoring — weekly × 6 months, biweekly × 6 months, then monthly. D/C if ANC &lt;1000. Also: myocarditis, cardiomyopathy, seizures, severe constipation/ileus.</div>
+                <div class="pearl-box">Only antipsychotic proven effective in treatment-resistant schizophrenia (~30% respond). Also reduces suicide risk. Sialorrhea tx: glycopyrrolate, atropine drops. Smoking ↓ levels (CYP1A2).</div>
+            </div>
+        </div>
     </div>
 </div>
 
