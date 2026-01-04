@@ -673,7 +673,7 @@
 <body>
 
 <div class="main-header">
-    <h1>💊 Comprehensive Drug Reference Guide <span style="font-size: 0.5em; color: #8e44ad; font-weight: 600;">v1.3 BUILD #5</span></h1>
+    <h1>💊 Comprehensive Drug Reference Guide <span style="font-size: 0.5em; color: #8e44ad; font-weight: 600;">v1.4 BUILD #6</span></h1>
     <p class="subtitle">Clinical Pharmacology for Hospital Medicine • Cross-linked to IMCRG, Nephrology, Rheumatology & ID Guides</p>
     <div class="header-stats">
         <span class="stat-badge">📊 249 Medications</span>
@@ -720,22 +720,21 @@
                     <div class="specialty-links">
                         <a href="#antibiotics-fluoroquinolones">Fluoroquinolones</a>
                         <a href="#antibiotics-carbapenems">Carbapenems</a>
-                        <a href="#antibiotics-other">Aminoglycosides</a>
+                        <a href="#antibiotics-mdr">MDR Agents</a>
                     </div>
                 </div>
                 <div class="subsection">
-                    <div class="subsection-title">Anaerobic/Atypical</div>
+                    <div class="subsection-title">TB / Mycobacteria</div>
                     <div class="specialty-links">
-                        <a href="#antibiotics-other">Metronidazole</a>
-                        <a href="#antibiotics-other">Doxycycline</a>
-                        <a href="#antibiotics-additional">Azithromycin</a>
+                        <a href="#antituberculosis">TB Drugs (RIPE)</a>
+                        <a href="#antituberculosis">Rifabutin</a>
                     </div>
                 </div>
                 <div class="subsection">
                     <div class="subsection-title">Fungi/Viruses/Parasites</div>
                     <div class="specialty-links">
                         <a href="#antifungals">Antifungals</a>
-                        <a href="#antivirals">Antivirals</a>
+                        <a href="#antivirals">Antivirals (HSV/CMV/HIV/HCV)</a>
                         <a href="#antiparasitics">Antiparasitics</a>
                     </div>
                 </div>
@@ -1238,6 +1237,14 @@
             <span class="category-icon">💊</span>
             <span class="category-name">Aminoglycosides</span>
         </a>
+        <a href="#antituberculosis" class="category-link">
+            <span class="category-icon">🫁</span>
+            <span class="category-name">Antituberculosis Agents</span>
+        </a>
+        <a href="#antibiotics-mdr" class="category-link">
+            <span class="category-icon">🦠</span>
+            <span class="category-name">MDR Gram-Negative Agents</span>
+        </a>
         <a href="#antiplatelets" class="category-link">
             <span class="category-icon">🩸</span>
             <span class="category-name">Antiplatelets</span>
@@ -1269,6 +1276,10 @@
         <a href="#antifungals" class="category-link">
             <span class="category-icon">🍄</span>
             <span class="category-name">Antifungals</span>
+        </a>
+        <a href="#antituberculosis" class="category-link">
+            <span class="category-icon">🫁</span>
+            <span class="category-name">Antituberculosis</span>
         </a>
         <a href="#antivirals" class="category-link">
             <span class="category-icon">🦠</span>
@@ -2431,6 +2442,239 @@
                     </div>
                 </div>
                 <div class="pearl-box">Ertapenem has NO Pseudomonas coverage - do not use for suspected Pseudomonas infections. Great for OPAT due to once-daily dosing.</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ======================= MDR GRAM-NEGATIVE AGENTS ======================= -->
+<div class="drug-category" id="antibiotics-mdr">
+    <div class="category-header" onclick="toggleCategory(this)">
+        <h2>🦠 MDR Gram-Negative Agents</h2>
+        <span class="toggle">▼</span>
+    </div>
+    <div class="category-content">
+
+        <!-- CEFTAZIDIME-AVIBACTAM -->
+        <div class="drug-card" id="ceftazidime-avibactam" data-search="ceftazidime avibactam avycaz cre kpc esbl mdr pseudomonas carbapenem-resistant">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Ceftazidime-Avibactam</span>
+                <span class="drug-brand">(Avycaz)</span>
+                <span class="drug-class-badge">Cephalosporin + BLI</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Ceftazidime + avibactam (novel non-β-lactam BLI). Avibactam inhibits class A (ESBL, KPC), class C (AmpC), and some class D (OXA-48) β-lactamases. Does NOT inhibit metallo-β-lactamases (NDM, VIM, IMP).</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Spectrum & Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>CRE (KPC-producing):</strong> Drug of choice</li>
+                            <li><strong>ESBL-producing Enterobacterales</strong></li>
+                            <li><strong>MDR Pseudomonas aeruginosa</strong></li>
+                            <li><strong>Approved:</strong> cUTI, cIAI (with metronidazole), HAP/VAP</li>
+                            <li><strong>NOT active:</strong> MBL-producers (NDM), MRSA, anaerobes</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>CrCl</th><th>Dose</th></tr>
+                            <tr><td>>50 mL/min</td><td>2.5 g IV q8h</td></tr>
+                            <tr><td>31-50</td><td>1.25 g IV q8h</td></tr>
+                            <tr><td>16-30</td><td>0.94 g IV q12h</td></tr>
+                            <tr><td>≤15</td><td>0.94 g IV q24h</td></tr>
+                        </table>
+                        <p>Infuse over 2 hours</p>
+                    </div>
+                </div>
+                <div class="pearl-box">Ceftazidime-avibactam is first-line for KPC-producing CRE. Before using, confirm organism is NOT MBL-producer (NDM, VIM, IMP) - these are resistant. Send molecular testing if available.</div>
+            </div>
+        </div>
+
+        <!-- CEFTOLOZANE-TAZOBACTAM -->
+        <div class="drug-card" id="ceftolozane-tazobactam" data-search="ceftolozane tazobactam zerbaxa pseudomonas mdr esbl antipseudomonal">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Ceftolozane-Tazobactam</span>
+                <span class="drug-brand">(Zerbaxa)</span>
+                <span class="drug-class-badge">Cephalosporin + BLI</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Ceftolozane (novel cephalosporin with enhanced antipseudomonal activity) + tazobactam. Most potent anti-Pseudomonas cephalosporin available.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Spectrum & Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>MDR Pseudomonas aeruginosa:</strong> Best-in-class activity</li>
+                            <li><strong>ESBL-producing Enterobacterales</strong></li>
+                            <li><strong>Approved:</strong> cUTI, cIAI (with metronidazole), HAP/VAP</li>
+                            <li><strong>NOT active:</strong> CRE, MRSA, Acinetobacter, anaerobes</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>CrCl >50</th><th>CrCl 30-50</th></tr>
+                            <tr><td>cUTI, cIAI</td><td>1.5 g IV q8h</td><td>750 mg IV q8h</td></tr>
+                            <tr><td>HAP/VAP</td><td>3 g IV q8h</td><td>1.5 g IV q8h</td></tr>
+                        </table>
+                        <p>Higher dose (3g) required for pneumonia</p>
+                    </div>
+                </div>
+                <div class="pearl-box">Ceftolozane-tazobactam has the best intrinsic activity against Pseudomonas of any β-lactam. NOT effective for carbapenemase-producing organisms (no KPC coverage).</div>
+            </div>
+        </div>
+
+        <!-- MEROPENEM-VABORBACTAM -->
+        <div class="drug-card" id="meropenem-vaborbactam" data-search="meropenem vaborbactam vabomere cre kpc carbapenem-resistant">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Meropenem-Vaborbactam</span>
+                <span class="drug-brand">(Vabomere)</span>
+                <span class="drug-class-badge">Carbapenem + BLI</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Meropenem + vaborbactam (cyclic boronic acid BLI). Inhibits class A carbapenemases (KPC) and class C β-lactamases. Does NOT inhibit MBL or most OXA.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Spectrum & Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>KPC-producing CRE:</strong> Highly active</li>
+                            <li><strong>ESBL-producing Enterobacterales</strong></li>
+                            <li><strong>Approved:</strong> cUTI including pyelonephritis</li>
+                            <li><strong>NOT active:</strong> MBL-producers (NDM, VIM), OXA-48</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>CrCl</th><th>Dose</th></tr>
+                            <tr><td>>50 mL/min</td><td>4 g IV q8h</td></tr>
+                            <tr><td>30-49</td><td>2 g IV q8h</td></tr>
+                            <tr><td>15-29</td><td>2 g IV q12h</td></tr>
+                            <tr><td><15</td><td>1 g IV q12h</td></tr>
+                        </table>
+                        <p>Infuse over 3 hours (extended infusion)</p>
+                    </div>
+                </div>
+                <div class="pearl-box">TANGO-II trial showed lower mortality vs best available therapy for CRE infections. Alternative to ceftazidime-avibactam for KPC-producing CRE.</div>
+            </div>
+        </div>
+
+        <!-- COLISTIN -->
+        <div class="drug-card" id="colistin" data-search="colistin colistimethate polymyxin mdr acinetobacter pseudomonas cre nephrotoxicity last resort">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Colistin (Colistimethate)</span>
+                <span class="drug-brand">(Coly-Mycin M)</span>
+                <span class="drug-class-badge">Polymyxin</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Disrupts bacterial outer membrane by binding to LPS → cell death. Bactericidal, concentration-dependent. Colistimethate sodium (CMS) is the inactive prodrug.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Spectrum & Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>MDR Gram-negatives:</strong> Acinetobacter, Pseudomonas, CRE (including MBL-producers)</li>
+                            <li><strong>Last-resort agent</strong> for pan-resistant organisms</li>
+                            <li><strong>Inhaled:</strong> VAP adjunctive therapy</li>
+                            <li><strong>NOT active:</strong> Proteus, Providencia, Serratia, Burkholderia</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Route</th><th>Dose</th></tr>
+                            <tr><td>IV (loading)</td><td>300 mg CBA (~9 million IU)</td></tr>
+                            <tr><td>IV (maintenance)</td><td>150-200 mg CBA q12h</td></tr>
+                            <tr><td>Inhaled (VAP)</td><td>75-150 mg CBA q12h nebulized</td></tr>
+                        </table>
+                        <p><strong>Note:</strong> Use CBA (colistin base activity). 1 mg CBA = ~30,000 IU</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Toxicity</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Nephrotoxicity:</strong> 30-60% incidence; usually reversible</li>
+                            <li><strong>Neurotoxicity:</strong> Paresthesias, weakness, respiratory failure (rare)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="black-box">High nephrotoxicity risk - monitor renal function every other day. Usually combined with another active agent. Loading dose is critical.</div>
+                <div class="pearl-box">Colistin is last-resort for XDR/PDR Gram-negatives. Always combine with another agent when possible. Loading dose is critical for adequate early levels.</div>
+            </div>
+        </div>
+
+        <!-- TIGECYCLINE -->
+        <div class="drug-card" id="tigecycline" data-search="tigecycline tygacil glycylcycline mdr acinetobacter esbl cre mrsa mortality warning">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Tigecycline</span>
+                <span class="drug-brand">(Tygacil)</span>
+                <span class="drug-class-badge">Glycylcycline</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Tetracycline derivative that binds 30S ribosome. Evades tetracycline resistance mechanisms. Bacteriostatic.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Spectrum & Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Broad spectrum:</strong> MRSA, VRE, ESBL, CRE, Acinetobacter, anaerobes</li>
+                            <li><strong>Approved:</strong> cSSSI, cIAI, CAP</li>
+                            <li><strong>NOT active:</strong> Pseudomonas, Proteus</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Standard</td><td>100 mg IV load, then 50 mg IV q12h</td></tr>
+                            <tr><td>Severe infections</td><td>200 mg IV load, then 100 mg IV q12h</td></tr>
+                        </table>
+                        <p>Reduce maintenance 50% in severe hepatic impairment</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Nausea/vomiting:</strong> Very common (20-30%)</li>
+                            <li><strong>Pancreatitis</strong></li>
+                            <li><strong>Hepatotoxicity</strong></li>
+                            <li><strong>Poor serum levels:</strong> Large volume of distribution</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="black-box">FDA BLACK BOX: Increased all-cause mortality in clinical trials, particularly in VAP/HAP. Reserve for situations where alternatives are not suitable.</div>
+                <div class="pearl-box">Despite broad spectrum, poor outcomes in bloodstream infections and pneumonia due to low serum concentrations. Best for skin/soft tissue and intra-abdominal infections.</div>
             </div>
         </div>
 
@@ -4014,6 +4258,275 @@
     </div>
 </div>
 
+<!-- ======================= ANTITUBERCULOSIS AGENTS ======================= -->
+<div class="drug-category" id="antituberculosis">
+    <div class="category-header" onclick="toggleCategory(this)">
+        <h2>🫁 Antituberculosis Agents</h2>
+        <span class="toggle">▼</span>
+    </div>
+    <div class="category-content">
+
+        <!-- ISONIAZID -->
+        <div class="drug-card" id="isoniazid" data-search="isoniazid inh tuberculosis tb latent ltbi hepatotoxicity pyridoxine b6 neuropathy cyp inhibitor">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Isoniazid (INH)</span>
+                <span class="drug-brand">(Nydrazid)</span>
+                <span class="drug-class-badge">Antimycobacterial</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Prodrug activated by mycobacterial catalase-peroxidase (KatG) → inhibits mycolic acid synthesis (InhA) → disrupts cell wall. Bactericidal against actively dividing mycobacteria.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Spectrum & Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Active TB:</strong> First-line agent (part of RIPE regimen)</li>
+                            <li><strong>Latent TB (LTBI):</strong> Monotherapy or combination regimens</li>
+                            <li><strong>TB prophylaxis:</strong> Post-exposure, immunocompromised</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Active TB (daily)</td><td>5 mg/kg (max 300 mg) PO daily</td></tr>
+                            <tr><td>Active TB (DOT twice weekly)</td><td>15 mg/kg (max 900 mg) twice weekly</td></tr>
+                            <tr><td>LTBI (9-month regimen)</td><td>300 mg PO daily × 9 months</td></tr>
+                            <tr><td>LTBI (3HP regimen)</td><td>INH 900 mg + rifapentine weekly × 12 weeks</td></tr>
+                        </table>
+                        <p><strong>Always give with pyridoxine (B6) 25-50 mg daily</strong> to prevent neuropathy</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects & Toxicity</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Hepatotoxicity:</strong> ↑AST/ALT in 10-20%; clinical hepatitis 0.5-2%</li>
+                            <li><strong>Peripheral neuropathy:</strong> Prevented with B6 supplementation</li>
+                            <li><strong>Drug-induced lupus</strong> (rare)</li>
+                            <li><strong>CNS:</strong> Psychosis, seizures (rare)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="black-box">Hepatotoxicity - monitor LFTs monthly. Discontinue if AST/ALT >3× ULN with symptoms or >5× ULN without symptoms.</div>
+                <div class="pearl-box">INH is metabolized by N-acetyltransferase. "Slow acetylators" have higher drug levels and ↑risk of neuropathy and hepatotoxicity. Always give B6 with INH.</div>
+            </div>
+        </div>
+
+        <!-- RIFAMPIN -->
+        <div class="drug-card" id="rifampin" data-search="rifampin rifampicin tuberculosis tb orange urine cyp inducer drug interactions mrsa staph">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Rifampin</span>
+                <span class="drug-brand">(Rifadin)</span>
+                <span class="drug-class-badge">Rifamycin</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Inhibits bacterial DNA-dependent RNA polymerase (rpoB) → blocks RNA synthesis. Bactericidal. Critical sterilizing activity against dormant TB.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Spectrum & Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>TB:</strong> First-line (essential for sterilizing activity)</li>
+                            <li><strong>LTBI:</strong> 4-month rifampin regimen</li>
+                            <li><strong>Staph:</strong> Adjunctive for prosthetic joint infections (NEVER monotherapy)</li>
+                            <li><strong>Meningococcal/H. flu prophylaxis</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Active TB</td><td>10 mg/kg (max 600 mg) PO daily</td></tr>
+                            <tr><td>LTBI (4R regimen)</td><td>600 mg PO daily × 4 months</td></tr>
+                            <tr><td>Staph adjunctive</td><td>300-450 mg PO BID</td></tr>
+                            <tr><td>N. meningitidis prophylaxis</td><td>600 mg PO BID × 2 days</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Orange discoloration:</strong> Urine, tears, sweat (warn patients)</li>
+                            <li><strong>Hepatotoxicity</strong></li>
+                            <li><strong>Flu-like syndrome</strong> with intermittent dosing</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🔄 Drug Interactions (CRITICAL)</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>POTENT CYP3A4, CYP2C9, CYP2C19 INDUCER</strong></li>
+                            <li><strong>↓↓Warfarin, oral contraceptives, HIV drugs, immunosuppressants, azoles, methadone, statins</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="danger-box">NEVER use rifampin monotherapy for Staph - rapid resistance develops. Always combine with another active agent.</div>
+                <div class="pearl-box">Rifampin has the most drug interactions of any antibiotic. Always review entire medication list. For HIV patients, consider rifabutin instead (less CYP induction).</div>
+            </div>
+        </div>
+
+        <!-- PYRAZINAMIDE -->
+        <div class="drug-card" id="pyrazinamide" data-search="pyrazinamide pza tuberculosis tb hyperuricemia gout hepatotoxicity">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Pyrazinamide</span>
+                <span class="drug-brand">(PZA)</span>
+                <span class="drug-class-badge">Antimycobacterial</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Prodrug converted to pyrazinoic acid → disrupts membrane energetics. Unique activity against semi-dormant TB in acidic environments (caseous granulomas).</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Active TB:</strong> First-line - intensive phase (first 2 months only)</li>
+                            <li>Allows shortening of therapy from 9 to 6 months</li>
+                            <li><strong>NOT used for LTBI</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Weight</th><th>Daily Dose</th></tr>
+                            <tr><td>40-55 kg</td><td>1000 mg</td></tr>
+                            <tr><td>56-75 kg</td><td>1500 mg</td></tr>
+                            <tr><td>76-90 kg</td><td>2000 mg</td></tr>
+                        </table>
+                        <p><strong>Duration:</strong> First 2 months of therapy only</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Hepatotoxicity:</strong> Most hepatotoxic of first-line TB drugs</li>
+                            <li><strong>Hyperuricemia:</strong> Very common - can precipitate gout</li>
+                            <li><strong>Arthralgias</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">PZA's unique sterilizing activity against dormant TB is why it enables 6-month (vs 9-month) regimens. Only used during intensive phase (first 2 months).</div>
+            </div>
+        </div>
+
+        <!-- ETHAMBUTOL -->
+        <div class="drug-card" id="ethambutol" data-search="ethambutol emb myambutol tuberculosis tb optic neuritis vision red green color blindness">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Ethambutol</span>
+                <span class="drug-brand">(Myambutol)</span>
+                <span class="drug-class-badge">Antimycobacterial</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Inhibits arabinosyltransferases → blocks arabinogalactan synthesis → disrupts mycobacterial cell wall. Bacteriostatic.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Active TB:</strong> First-line - part of RIPE regimen</li>
+                            <li>Primary role: prevent emergence of resistance</li>
+                            <li><strong>MAC:</strong> Part of combination therapy</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>Active TB (daily)</td><td>15-20 mg/kg (max 1600 mg) daily</td></tr>
+                            <tr><td>MAC</td><td>15 mg/kg daily</td></tr>
+                        </table>
+                        <p><strong>Renal dosing:</strong> Extend interval if CrCl &lt;50</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Optic neuritis:</strong> Dose-dependent; ↓visual acuity, red-green color blindness</li>
+                            <li>Usually reversible if detected early</li>
+                            <li><strong>Hyperuricemia</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="black-box">Optic neuritis: Baseline visual acuity and color vision testing required. Monthly monitoring recommended. Discontinue immediately if visual changes occur.</div>
+                <div class="pearl-box">Can be discontinued after 2 months if isolate is susceptible to INH and rifampin. Avoid in young children who cannot report visual symptoms.</div>
+            </div>
+        </div>
+
+        <!-- RIFABUTIN -->
+        <div class="drug-card" id="rifabutin" data-search="rifabutin mycobutin tuberculosis tb hiv mac mycobacterium avium fewer drug interactions uveitis">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Rifabutin</span>
+                <span class="drug-brand">(Mycobutin)</span>
+                <span class="drug-class-badge">Rifamycin</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Same as rifampin - inhibits RNA polymerase. Less potent CYP inducer → fewer drug interactions.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>TB in HIV patients on ART:</strong> Preferred over rifampin</li>
+                            <li><strong>MAC prophylaxis and treatment</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Dose</th></tr>
+                            <tr><td>TB (with compatible ART)</td><td>300 mg PO daily (adjust based on ART)</td></tr>
+                            <tr><td>MAC prophylaxis</td><td>300 mg PO daily</td></tr>
+                            <tr><td>MAC treatment</td><td>300 mg PO daily (with azithromycin + ethambutol)</td></tr>
+                        </table>
+                        <p><strong>With boosted PIs:</strong> 150 mg daily</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Uveitis:</strong> Dose-related; eye pain, blurred vision</li>
+                            <li>Orange discoloration (less than rifampin)</li>
+                            <li>Neutropenia</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">Rifabutin is preferred over rifampin in HIV patients because of fewer drug interactions with antiretrovirals.</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <!-- ======================= ANTIFUNGALS ======================= -->
 <div class="drug-category" id="antifungals">
     <div class="category-header" onclick="toggleCategory(this)">
@@ -4238,6 +4751,200 @@
                     <a href="nephrology_study_guide1.html" class="guide-link">Nephro: Nephrotoxins</a>
                     <a href="id_guide.html#fungal-infections" class="guide-link">ID Guide: Fungal</a>
                 </div>
+            </div>
+        </div>
+
+        <!-- POSACONAZOLE -->
+        <div class="drug-card" id="posaconazole" data-search="posaconazole noxafil azole aspergillus mucormycosis prophylaxis immunocompromised">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Posaconazole</span>
+                <span class="drug-brand">(Noxafil)</span>
+                <span class="drug-class-badge">Triazole</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Inhibits lanosterol 14-α-demethylase → blocks ergosterol synthesis. Extended-spectrum triazole with activity against Mucorales (unique among azoles).</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Spectrum & Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Prophylaxis:</strong> First-line for HSCT and AML/MDS with prolonged neutropenia</li>
+                            <li><strong>Aspergillus:</strong> Salvage therapy</li>
+                            <li><strong>Mucormycosis:</strong> Only azole with activity (step-down after amphotericin)</li>
+                            <li><strong>Candida:</strong> Including fluconazole-resistant species</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Formulation</th><th>Dose</th></tr>
+                            <tr><td>DR tablets (preferred)</td><td>300 mg PO BID day 1, then 300 mg daily</td></tr>
+                            <tr><td>IV</td><td>300 mg IV BID day 1, then 300 mg daily</td></tr>
+                            <tr><td>Oral suspension</td><td>200 mg PO TID (with fatty meal)</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>QTc prolongation</li>
+                            <li>Hepatotoxicity</li>
+                            <li><strong>CYP3A4 inhibitor:</strong> Many drug interactions</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">Posaconazole DR tablets have superior absorption vs oral suspension. The only azole with reliable anti-Mucorales activity - can use as step-down after amphotericin B.</div>
+            </div>
+        </div>
+
+        <!-- ISAVUCONAZOLE -->
+        <div class="drug-card" id="isavuconazole" data-search="isavuconazole isavuconazonium cresemba azole aspergillus mucormycosis fewer interactions qt shortening">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Isavuconazole</span>
+                <span class="drug-brand">(Cresemba)</span>
+                <span class="drug-class-badge">Triazole</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Inhibits ergosterol synthesis. Extended-spectrum like posaconazole. Isavuconazonium sulfate is the water-soluble prodrug.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Spectrum & Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Invasive aspergillosis:</strong> First-line alternative to voriconazole</li>
+                            <li><strong>Invasive mucormycosis:</strong> FDA-approved</li>
+                            <li><strong>Advantages:</strong> Better tolerated, fewer interactions, no visual toxicity</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Phase</th><th>Dose</th></tr>
+                            <tr><td>Loading (Day 1-2)</td><td>372 mg IV or PO q8h × 6 doses</td></tr>
+                            <tr><td>Maintenance</td><td>372 mg IV or PO daily</td></tr>
+                        </table>
+                        <p>PO and IV are bioequivalent</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>QTc SHORTENING</strong> (unique - avoid if short QT syndrome)</li>
+                            <li><strong>NO visual disturbances</strong> (unlike voriconazole)</li>
+                            <li><strong>NO photosensitivity</strong> (unlike voriconazole)</li>
+                            <li>Hepatotoxicity (less than voriconazole)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">Isavuconazole has better tolerability than voriconazole (no visual/skin toxicity). Non-inferior to voriconazole for aspergillosis. Consider as first-line for patients who cannot tolerate voriconazole.</div>
+            </div>
+        </div>
+
+        <!-- CASPOFUNGIN -->
+        <div class="drug-card" id="caspofungin" data-search="caspofungin cancidas echinocandin candida aspergillus empiric neutropenic fever">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Caspofungin</span>
+                <span class="drug-brand">(Cancidas)</span>
+                <span class="drug-class-badge">Echinocandin</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Inhibits β-(1,3)-D-glucan synthase → disrupts fungal cell wall. Fungicidal against Candida, fungistatic against Aspergillus.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Spectrum & Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Candidemia:</strong> First-line for severe disease</li>
+                            <li><strong>Aspergillus:</strong> Salvage therapy</li>
+                            <li><strong>Empiric antifungal:</strong> Neutropenic fever</li>
+                            <li><strong>NOT active:</strong> Cryptococcus, Mucorales, endemic fungi</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Loading</th><th>Maintenance</th></tr>
+                            <tr><td>Candidemia</td><td>70 mg IV day 1</td><td>50 mg IV daily</td></tr>
+                            <tr><td>Empiric neutropenic fever</td><td>70 mg IV day 1</td><td>50 mg IV daily</td></tr>
+                        </table>
+                        <p><strong>Hepatic (Child-Pugh B):</strong> 35 mg maintenance</p>
+                        <p><strong>With rifampin:</strong> 70 mg daily</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>Histamine-related reactions (flushing) - infuse over 1 hour</li>
+                            <li>Hepatotoxicity</li>
+                            <li>Hypokalemia</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">Echinocandins are essentially interchangeable for candidemia. All have excellent safety profiles and cover azole-resistant Candida. Poor CNS penetration - NOT for CNS infections.</div>
+            </div>
+        </div>
+
+        <!-- ANIDULAFUNGIN -->
+        <div class="drug-card" id="anidulafungin" data-search="anidulafungin eraxis echinocandin candida no hepatic adjustment no interactions">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Anidulafungin</span>
+                <span class="drug-brand">(Eraxis)</span>
+                <span class="drug-class-badge">Echinocandin</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Same as other echinocandins. Undergoes non-enzymatic degradation (no hepatic metabolism) - no drug interactions.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Candidemia and invasive candidiasis</strong></li>
+                            <li><strong>Esophageal candidiasis</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Loading</th><th>Maintenance</th></tr>
+                            <tr><td>Candidemia</td><td>200 mg IV day 1</td><td>100 mg IV daily</td></tr>
+                            <tr><td>Esophageal candidiasis</td><td>100 mg IV day 1</td><td>50 mg IV daily</td></tr>
+                        </table>
+                        <p><strong>No adjustment</strong> for renal or hepatic impairment</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Advantages</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>No drug interactions</strong> (unique among echinocandins)</li>
+                            <li>No dose adjustment in hepatic impairment</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">Anidulafungin has no significant drug interactions - consider in patients on complex medication regimens or with hepatic impairment.</div>
             </div>
         </div>
 
@@ -5498,6 +6205,110 @@
                     </div>
                 </div>
                 <div class="warning-box">Torsades risk ~4%. Correct K+/Mg+ first. Have defibrillator ready. Pre-treat with Mg 1-2g may reduce risk.</div>
+            </div>
+        </div>
+
+        <!-- DRONEDARONE -->
+        <div class="drug-card" id="dronedarone" data-search="dronedarone multaq antiarrhythmic afib atrial fibrillation rhythm control no iodine athena">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Dronedarone</span>
+                <span class="drug-brand">(Multaq)</span>
+                <span class="drug-class-badge">Class III Antiarrhythmic</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Amiodarone analog without iodine moiety. Multi-channel blocker (K+, Na+, Ca2+ channels + β-blockade) → prolongs APD, slows AV conduction.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>AF rhythm control:</strong> Reduce cardiovascular hospitalization (ATHENA trial)</li>
+                            <li>Alternative to amiodarone without thyroid/pulmonary toxicity</li>
+                            <li><strong>Less effective than amiodarone</strong> for rhythm control</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <p><strong>400 mg PO BID with meals</strong></p>
+                        <p>Take with morning and evening meals (food increases absorption)</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects & Contraindications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>GI upset, diarrhea, nausea</li>
+                            <li>QT prolongation (less than amiodarone)</li>
+                            <li>Bradycardia</li>
+                            <li>Hepatotoxicity (rare but can be severe)</li>
+                            <li><strong>No thyroid/pulmonary toxicity</strong> (no iodine)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="danger-box">
+                    <strong>CONTRAINDICATED:</strong>
+                    <ul>
+                        <li>NYHA Class IV or recent decompensated HF (ANDROMEDA - ↑mortality)</li>
+                        <li>Permanent AF (PALLAS - ↑stroke, CV death)</li>
+                        <li>Severe hepatic impairment</li>
+                        <li>QTc >500 ms, bradycardia <50</li>
+                    </ul>
+                </div>
+                <div class="pearl-box">Dronedarone is less effective than amiodarone but avoids thyroid/pulmonary toxicity. Only use in paroxysmal/persistent AF with preserved LV function. NEVER in permanent AF or decompensated HF.</div>
+            </div>
+        </div>
+
+        <!-- RANOLAZINE -->
+        <div class="drug-card" id="ranolazine" data-search="ranolazine ranexa angina chronic stable late sodium current refractory">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Ranolazine</span>
+                <span class="drug-brand">(Ranexa)</span>
+                <span class="drug-class-badge">Antianginal</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Inhibits late Na+ current (INaL) → reduces intracellular Ca2+ overload → decreases myocardial oxygen demand without affecting HR or BP. Unique mechanism - works when other antianginals fail.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Chronic stable angina:</strong> Add-on therapy when other agents insufficient</li>
+                            <li>Does NOT lower BP or HR → good for patients already on max beta-blocker</li>
+                            <li>May help diabetic patients (also lowers HbA1c slightly)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Phase</th><th>Dose</th></tr>
+                            <tr><td>Initial</td><td>500 mg PO BID</td></tr>
+                            <tr><td>Max</td><td>1000 mg PO BID</td></tr>
+                        </table>
+                        <p>Take with or without food. Swallow whole (do not crush).</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects & Interactions</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>Dizziness, headache, nausea, constipation</li>
+                            <li>QT prolongation (usually modest)</li>
+                            <li><strong>CYP3A4 substrate:</strong> Avoid with strong inhibitors (azoles, macrolides, diltiazem, verapamil at high doses)</li>
+                            <li>Limit simvastatin to 20mg when combined</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">Ranolazine is add-on antianginal that works differently - does not affect HR or BP. Useful in refractory angina when maxed out on beta-blockers, nitrates, CCBs. Also has mild HbA1c-lowering effect.</div>
             </div>
         </div>
 
@@ -8007,6 +8818,57 @@
             </div>
         </div>
 
+        <!-- LACOSAMIDE -->
+        <div class="drug-card" id="lacosamide" data-search="lacosamide vimpat anticonvulsant seizure sodium channel focal epilepsy pr prolongation">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Lacosamide</span>
+                <span class="drug-brand">(Vimpat)</span>
+                <span class="drug-class-badge">Anticonvulsant</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Enhances slow inactivation of voltage-gated sodium channels (unique mechanism - different from traditional Na+ blockers which enhance fast inactivation).</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Focal (partial) seizures:</strong> Monotherapy or adjunctive</li>
+                            <li><strong>Primary generalized tonic-clonic:</strong> Adjunctive</li>
+                            <li>Available IV for status epilepticus</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Phase</th><th>Dose</th></tr>
+                            <tr><td>Starting</td><td>50 mg PO BID (or 100 mg IV load for acute)</td></tr>
+                            <tr><td>Titration</td><td>↑by 50 mg BID weekly</td></tr>
+                            <tr><td>Maintenance</td><td>100-200 mg PO BID</td></tr>
+                        </table>
+                        <p>IV and PO are bioequivalent</p>
+                        <p><strong>Renal:</strong> Max 300 mg/day if CrCl ≤30</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>PR prolongation:</strong> Get baseline ECG; caution with AV blockers</li>
+                            <li>Dizziness, diplopia, nausea, ataxia</li>
+                            <li><strong>Schedule V controlled substance</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="warning-box">PR interval prolongation - caution in cardiac conduction disorders or with other PR-prolonging drugs. Consider ECG monitoring.</div>
+                <div class="pearl-box">Lacosamide has linear pharmacokinetics, minimal drug interactions, and IV option. Good choice for focal seizures. Watch for PR prolongation - unique cardiac effect among anticonvulsants.</div>
+            </div>
+        </div>
+
         <!-- PHENYTOIN -->
         <div class="drug-card" id="phenytoin-fosphenytoin" data-search="phenytoin dilantin fosphenytoin seizure status epilepticus purple glove zero order">
             <div class="drug-header" onclick="toggleDrug(this)">
@@ -8960,6 +9822,220 @@
                     </div>
                 </div>
                 <div class="pearl-box">Greatest benefit when given early in illness to hospitalized patients not yet requiring high-flow O2 or mechanical ventilation. Less clear benefit in severe/late disease.</div>
+            </div>
+        </div>
+
+        <!-- BIKTARVY (BICTEGRAVIR/TAF/FTC) -->
+        <div class="drug-card" id="biktarvy" data-search="biktarvy bictegravir tenofovir alafenamide emtricitabine hiv art integrase insti first-line antiretroviral">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Bictegravir/TAF/FTC</span>
+                <span class="drug-brand">(Biktarvy)</span>
+                <span class="drug-class-badge">INSTI + NRTIs</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Bictegravir:</strong> Integrase strand transfer inhibitor (INSTI)</li>
+                            <li><strong>TAF:</strong> Nucleotide RTI - less renal/bone toxicity than TDF</li>
+                            <li><strong>FTC:</strong> Nucleoside RTI</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>First-line ART for treatment-naive HIV</strong> (DHHS recommended)</li>
+                            <li><strong>Treatment-experienced</strong> with suppressed viral load</li>
+                            <li>Single-tablet regimen (STR)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <p><strong>1 tablet (50/25/200 mg) PO daily</strong></p>
+                        <p>Take with or without food</p>
+                        <p><strong>Renal:</strong> Not recommended if CrCl &lt;30</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects & Interactions</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>Generally well tolerated</li>
+                            <li>Weight gain (class effect of INSTIs)</li>
+                            <li><strong>Interactions:</strong> Avoid rifampin; separate from antacids/iron by 2 hours</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">Biktarvy is one of the most commonly prescribed initial ART regimens - high efficacy, high barrier to resistance, once-daily single tablet, minimal interactions.</div>
+            </div>
+        </div>
+
+        <!-- DOLUTEGRAVIR -->
+        <div class="drug-card" id="dolutegravir" data-search="dolutegravir tivicay integrase insti hiv art high barrier resistance first-line antiretroviral">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Dolutegravir</span>
+                <span class="drug-brand">(Tivicay)</span>
+                <span class="drug-class-badge">INSTI</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Integrase strand transfer inhibitor (INSTI) - blocks viral DNA integration. Second-generation with high barrier to resistance.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>First-line ART backbone</strong> (combined with 2 NRTIs)</li>
+                            <li><strong>Combinations:</strong> Triumeq (DTG/ABC/3TC), Dovato (DTG/3TC)</li>
+                            <li><strong>Treatment-experienced:</strong> Including some INSTI-resistant virus</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Scenario</th><th>Dose</th></tr>
+                            <tr><td>INSTI-naive</td><td>50 mg PO daily</td></tr>
+                            <tr><td>With rifampin</td><td>50 mg PO BID</td></tr>
+                            <tr><td>INSTI-experienced with mutations</td><td>50 mg PO BID</td></tr>
+                        </table>
+                        <p>Separate from polyvalent cations by 2 hours</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>Insomnia, headache (can be limiting)</li>
+                            <li>Weight gain (class effect)</li>
+                            <li><strong>↑Creatinine:</strong> Inhibits tubular secretion (not true nephrotoxicity)</li>
+                            <li><strong>Neural tube defects:</strong> Caution in early pregnancy</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">Dolutegravir has the highest barrier to resistance of any ARV. CNS side effects (insomnia, anxiety) may limit use in some patients.</div>
+            </div>
+        </div>
+
+        <!-- SOFOSBUVIR/VELPATASVIR (EPCLUSA) -->
+        <div class="drug-card" id="sofosbuvir-velpatasvir" data-search="sofosbuvir velpatasvir epclusa hepatitis c hcv pangenotypic daa direct-acting antiviral cure">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Sofosbuvir/Velpatasvir</span>
+                <span class="drug-brand">(Epclusa)</span>
+                <span class="drug-class-badge">HCV DAA</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Sofosbuvir:</strong> NS5B polymerase inhibitor</li>
+                            <li><strong>Velpatasvir:</strong> NS5A inhibitor</li>
+                            <li>Pangenotypic: Active against all HCV genotypes (1-6)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Chronic HCV genotypes 1-6</strong> (pangenotypic)</li>
+                            <li>Treatment-naive and experienced</li>
+                            <li>Compensated and decompensated cirrhosis</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Population</th><th>Regimen</th><th>Duration</th></tr>
+                            <tr><td>No/compensated cirrhosis</td><td>1 tablet daily</td><td>12 weeks</td></tr>
+                            <tr><td>Decompensated cirrhosis</td><td>1 tablet + ribavirin</td><td>12-24 weeks</td></tr>
+                        </table>
+                        <p><strong>Not recommended if CrCl &lt;30</strong></p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects & Interactions</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>Headache, fatigue, nausea (mild)</li>
+                            <li><strong>Bradycardia:</strong> With amiodarone (contraindicated)</li>
+                            <li><strong>HBV reactivation:</strong> Screen all patients before treatment</li>
+                            <li><strong>Avoid:</strong> PPIs >20mg, rifampin</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="black-box">HBV reactivation risk - test for HBsAg, anti-HBc before starting.</div>
+                <div class="pearl-box">Epclusa is pangenotypic (no genotyping needed), 12-week course, >95% cure rates. Can be used in decompensated cirrhosis with ribavirin.</div>
+            </div>
+        </div>
+
+        <!-- GLECAPREVIR/PIBRENTASVIR (MAVYRET) -->
+        <div class="drug-card" id="glecaprevir-pibrentasvir" data-search="glecaprevir pibrentasvir mavyret hepatitis c hcv pangenotypic daa 8 week short course renal safe">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Glecaprevir/Pibrentasvir</span>
+                <span class="drug-brand">(Mavyret)</span>
+                <span class="drug-class-badge">HCV DAA</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Glecaprevir:</strong> NS3/4A protease inhibitor</li>
+                            <li><strong>Pibrentasvir:</strong> NS5A inhibitor</li>
+                            <li>Pangenotypic: Active against all HCV genotypes (1-6)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Chronic HCV genotypes 1-6</strong></li>
+                            <li><strong>Shortest duration:</strong> 8 weeks for most treatment-naive</li>
+                            <li><strong>Safe in severe renal impairment</strong> including dialysis</li>
+                            <li><strong>CONTRAINDICATED:</strong> Decompensated cirrhosis</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Population</th><th>Duration</th></tr>
+                            <tr><td>Treatment-naive, no cirrhosis</td><td>8 weeks</td></tr>
+                            <tr><td>Treatment-naive, compensated cirrhosis</td><td>8-12 weeks</td></tr>
+                            <tr><td>Treatment-experienced</td><td>8-16 weeks</td></tr>
+                        </table>
+                        <p><strong>Dose:</strong> 3 tablets daily with food</p>
+                        <p><strong>Can use in any CKD stage</strong> including dialysis</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Contraindications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>CONTRAINDICATED:</strong> Decompensated cirrhosis (protease inhibitor)</li>
+                            <li><strong>CONTRAINDICATED:</strong> With atazanavir, rifampin</li>
+                            <li>Limit atorvastatin to 10mg; avoid simvastatin/lovastatin</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">Mavyret is preferred for patients with CKD (including dialysis). Offers shortest duration (8 weeks) for most treatment-naive. Cannot use in decompensated cirrhosis - use Epclusa + ribavirin instead.</div>
             </div>
         </div>
 
@@ -10013,6 +11089,55 @@
             </div>
         </div>
 
+        <!-- BRIVARACETAM -->
+        <div class="drug-card" id="brivaracetam" data-search="brivaracetam briviact anticonvulsant sv2a focal seizures levetiracetam alternative">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Brivaracetam</span>
+                <span class="drug-brand">(Briviact)</span>
+                <span class="drug-class-badge">SV2A Ligand</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">High-affinity binding to synaptic vesicle protein 2A (SV2A) — same target as levetiracetam but 15-30× higher affinity. Modulates neurotransmitter release.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Focal (partial) seizures:</strong> Adjunctive therapy in ≥1 month old</li>
+                            <li><strong>Alternative to levetiracetam</strong> with less behavioral side effects</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Route</th><th>Dose</th></tr>
+                            <tr><td>Oral</td><td>50 mg PO BID initially; usual 50-100 mg BID</td></tr>
+                            <tr><td>IV</td><td>50 mg IV BID (1:1 conversion)</td></tr>
+                            <tr><td>Max</td><td>200 mg/day</td></tr>
+                        </table>
+                        <p><strong>Hepatic:</strong> Start 25 mg BID in severe impairment</p>
+                        <p>No loading dose required; can initiate at therapeutic dose</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>Somnolence, dizziness, fatigue</li>
+                            <li><strong>Less behavioral/psychiatric effects than levetiracetam</strong> (less "Keppra rage")</li>
+                            <li>Nausea, vomiting</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">Consider brivaracetam for patients who had behavioral side effects on levetiracetam. Higher SV2A affinity may mean better efficacy. No titration needed - can start at therapeutic dose. IV available for status/NPO.</div>
+            </div>
+        </div>
+
         <!-- CARBAMAZEPINE -->
         <div class="drug-card" id="carbamazepine" data-search="carbamazepine tegretol anticonvulsant trigeminal neuralgia bipolar cyp inducer siadh">
             <div class="drug-header" onclick="toggleDrug(this)">
@@ -10175,6 +11300,151 @@
                 </div>
                 <div class="warning-box">Do NOT stop abruptly — can precipitate neuroleptic malignant-like syndrome. Avoid with non-selective MAOIs (hypertensive crisis).</div>
                 <div class="pearl-box">"Honeymoon period" 3-5 years before motor complications. Motor fluctuations: add COMT inhibitor (entacapone), MAO-B inhibitor, or dopamine agonist. Hallucinations: reduce or add quetiapine/clozapine.</div>
+            </div>
+        </div>
+
+        <!-- PRAMIPEXOLE -->
+        <div class="drug-card" id="pramipexole" data-search="pramipexole mirapex dopamine agonist parkinson rls restless leg impulse control">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Pramipexole</span>
+                <span class="drug-brand">(Mirapex)</span>
+                <span class="drug-class-badge">Dopamine Agonist</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Non-ergot dopamine agonist with high affinity for D2, D3, D4 receptors. Stimulates dopamine receptors directly (unlike levodopa which is precursor).</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Early Parkinson's:</strong> Monotherapy (delays levodopa)</li>
+                            <li><strong>Advanced PD:</strong> Adjunct to levodopa (motor fluctuations)</li>
+                            <li><strong>Restless leg syndrome (RLS):</strong> First-line</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Starting</th><th>Target</th></tr>
+                            <tr><td>Parkinson's</td><td>0.125 mg TID</td><td>0.5-1.5 mg TID</td></tr>
+                            <tr><td>RLS</td><td>0.125 mg 2-3h before bed</td><td>0.25-0.5 mg</td></tr>
+                        </table>
+                        <p><strong>Renal dosing:</strong> Reduce in CKD (renally cleared)</p>
+                        <p>Titrate slowly over weeks</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Impulse control disorders:</strong> Gambling, hypersexuality, shopping, binge eating (~15%)</li>
+                            <li><strong>Sleep attacks:</strong> Sudden sleep onset (driving risk)</li>
+                            <li>Orthostatic hypotension, nausea</li>
+                            <li>Hallucinations (more than levodopa)</li>
+                            <li>Leg edema</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="warning-box">Screen for impulse control disorders regularly. Warn patients about sleep attacks - may need to avoid driving. Taper slowly (withdrawal can cause neuroleptic malignant-like syndrome).</div>
+                <div class="pearl-box">Dopamine agonists cause less motor fluctuations than levodopa but more psychiatric side effects (hallucinations, impulse control). Preferred for younger patients with early PD to delay levodopa.</div>
+            </div>
+        </div>
+
+        <!-- ROPINIROLE -->
+        <div class="drug-card" id="ropinirole" data-search="ropinirole requip dopamine agonist parkinson rls restless leg impulse control">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Ropinirole</span>
+                <span class="drug-brand">(Requip)</span>
+                <span class="drug-class-badge">Dopamine Agonist</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Non-ergot dopamine agonist selective for D2 and D3 receptors. Similar to pramipexole.</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Parkinson's disease:</strong> Monotherapy or adjunct</li>
+                            <li><strong>Restless leg syndrome</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Indication</th><th>Starting</th><th>Target</th></tr>
+                            <tr><td>Parkinson's (IR)</td><td>0.25 mg TID</td><td>3-24 mg/day</td></tr>
+                            <tr><td>Parkinson's (XL)</td><td>2 mg daily</td><td>8-24 mg daily</td></tr>
+                            <tr><td>RLS</td><td>0.25 mg 1-3h before bed</td><td>0.5-4 mg</td></tr>
+                        </table>
+                        <p>Hepatically metabolized (CYP1A2) - interactions with ciprofloxacin, smoking</p>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>Same as pramipexole: impulse control disorders, sleep attacks, orthostatic hypotension, hallucinations, nausea, edema</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">Ropinirole XL allows once-daily dosing. CYP1A2 substrate - smoking induces metabolism (may need higher doses), ciprofloxacin inhibits (↑levels).</div>
+            </div>
+        </div>
+
+        <!-- RASAGILINE -->
+        <div class="drug-card" id="rasagiline" data-search="rasagiline azilect mao-b inhibitor parkinson motor fluctuations neuroprotective">
+            <div class="drug-header" onclick="toggleDrug(this)">
+                <span class="drug-name">Rasagiline</span>
+                <span class="drug-brand">(Azilect)</span>
+                <span class="drug-class-badge">MAO-B Inhibitor</span>
+                <span class="drug-toggle">▶</span>
+            </div>
+            <div class="drug-body">
+                <div class="drug-section">
+                    <div class="drug-section-title">⚙️ Mechanism</div>
+                    <div class="drug-section-content">Selective, irreversible MAO-B inhibitor → ↓dopamine breakdown in CNS → ↑dopamine levels. At therapeutic doses, selective for MAO-B (minimal tyramine interaction).</div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">🎯 Indications</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li><strong>Early Parkinson's:</strong> Monotherapy (mild symptoms)</li>
+                            <li><strong>Advanced PD:</strong> Adjunct to levodopa (reduces off-time)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">💉 Dosing</div>
+                    <div class="drug-section-content">
+                        <table class="dosing-table">
+                            <tr><th>Use</th><th>Dose</th></tr>
+                            <tr><td>Monotherapy</td><td>1 mg PO daily</td></tr>
+                            <tr><td>Adjunct to levodopa</td><td>0.5-1 mg PO daily</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="drug-section">
+                    <div class="drug-section-title">⚠️ Side Effects & Interactions</div>
+                    <div class="drug-section-content">
+                        <ul>
+                            <li>Headache, arthralgia, dyspepsia</li>
+                            <li><strong>With levodopa:</strong> May worsen dyskinesia</li>
+                            <li><strong>Avoid:</strong> Meperidine, tramadol, methadone, SSRIs/SNRIs (serotonin syndrome risk)</li>
+                            <li><strong>Tyramine:</strong> Minimal risk at therapeutic doses but still recommend avoiding aged cheeses, fermented foods</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pearl-box">MAO-B inhibitors (rasagiline, selegiline) are mild but well-tolerated. Can be used as monotherapy in early PD or as adjunct to extend levodopa effect. Selegiline metabolizes to amphetamine (insomnia) - rasagiline doesn't.</div>
             </div>
         </div>
 
@@ -14739,7 +16009,7 @@
 <div class="footer">
     <p><strong>Comprehensive Drug Reference Guide</strong></p>
     <p>203 Medications | Extracted from Clinical Reference Suite</p>
-    <p>v1.1 BUILD #3 | December 2024 | For educational purposes</p>
+    <p>v1.4 BUILD #6 | January 2025 | For educational purposes</p>
     <a href="#toc" class="back-to-top">↑ Back to Top</a>
 </div>
 

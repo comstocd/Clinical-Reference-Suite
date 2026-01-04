@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Renal Dosing Reference</title>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-light: #dbeafe;
+            --primary-dark: #1d4ed8;
+            --accent: #0891b2;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --divider: #e2e8f0;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--text);
+            background: var(--background);
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 18px;
+            padding-top: calc(18px + env(safe-area-inset-top));
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header h1 { margin: 0; font-size: 1.4rem; }
+        .header p { margin: 4px 0 0; opacity: 0.9; font-size: 0.85rem; }
+        .search-container {
+            padding: 12px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--divider);
+            position: sticky;
+            top: 70px;
+            z-index: 99;
+        }
+        #searchInput {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 15px;
+            border: 2px solid var(--divider);
+            border-radius: 8px;
+            outline: none;
+        }
+        #searchInput:focus { border-color: var(--primary); }
+        .nav-tabs {
+            display: flex;
+            overflow-x: auto;
+            background: var(--surface);
+            border-bottom: 1px solid var(--divider);
+            padding: 0 8px;
+        }
+        .nav-tab {
+            flex-shrink: 0;
+            padding: 10px 12px;
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.8rem;
+            border-bottom: 3px solid transparent;
+        }
+        .nav-tab:hover, .nav-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 12px; }
+        .section {
+            background: var(--surface);
+            border-radius: 10px;
+            margin-bottom: 14px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+        .section-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-header h2 { margin: 0; font-size: 1rem; }
+        .section-header .toggle { font-size: 1rem; }
+        .section-header.collapsed .toggle { transform: rotate(-90deg); }
+        .section-content { padding: 14px; }
+        .section-content.collapsed { display: none; }
+        table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 0.85rem; }
+        th, td { padding: 8px 10px; text-align: left; border: 1px solid var(--divider); }
+        th { background: var(--primary-light); font-weight: 600; color: var(--primary-dark); font-size: 0.8rem; }
+        tr:nth-child(even) { background: #f8fafc; }
+        .drug-row { cursor: pointer; }
+        .drug-row:hover { background: #e0f2fe; }
+        .drug-name { font-weight: 600; color: var(--primary-dark); }
+        .box { padding: 10px; border-radius: 6px; margin: 8px 0; font-size: 0.85rem; }
+        .key-point { background: #dcfce7; border-left: 4px solid var(--success); }
+        .warning-box { background: #fef3c7; border-left: 4px solid var(--warning); }
+        .danger-box { background: #fee2e2; border-left: 4px solid var(--danger); }
+        .info-box { background: #dbeafe; border-left: 4px solid var(--primary); }
+        .hd-dose { background: #f3e8ff; color: #7c3aed; font-weight: 500; }
+        .avoid { background: #fee2e2; color: #dc2626; font-weight: 600; }
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 42px;
+            height: 42px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+        }
+        @media (max-width: 600px) {
+            th, td { padding: 6px 8px; font-size: 0.78rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>💧 Renal Dosing Reference</h1>
+        <p>Drug Adjustments by CrCl • HD Supplementation</p>
+        <p style="font-size:0.8rem; opacity:0.8; margin-top:8px;">v1.0 BUILD #8</p>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="🔍 Search drug name..." oninput="searchDrugs()">
+    </div>
+
+    <div class="nav-tabs">
+        <a href="#antibiotics" class="nav-tab">Antibiotics</a>
+        <a href="#antifungals" class="nav-tab">Antifungals</a>
+        <a href="#antivirals" class="nav-tab">Antivirals</a>
+        <a href="#cardiac" class="nav-tab">Cardiac</a>
+        <a href="#neuro" class="nav-tab">Neuro/Psych</a>
+        <a href="#other" class="nav-tab">Other</a>
+        <a href="#avoid" class="nav-tab">Avoid in CKD</a>
+    </div>
+
+    <div class="container">
+
+        <div class="info-box">
+            <strong>CrCl Estimation:</strong> Use Cockcroft-Gault equation. For obese patients, use adjusted body weight. Round CrCl ≤10 to dialysis dosing when applicable.
+        </div>
+
+        <!-- ANTIBIOTICS -->
+        <div class="section" id="antibiotics">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>🦠 Antibiotics</h2>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+
+                <h4>Penicillins</h4>
+                <table>
+                    <tr>
+                        <th>Drug</th>
+                        <th>Normal Dose</th>
+                        <th>CrCl 30-50</th>
+                        <th>CrCl 10-29</th>
+                        <th>CrCl &lt;10 / HD</th>
+                    </tr>
+                    <tr class="drug-row" data-search="ampicillin">
+                        <td class="drug-name">Ampicillin</td>
+                        <td>1-2g q4-6h</td>
+                        <td>q6-8h</td>
+                        <td>q8-12h</td>
+                        <td>q12-24h; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="ampicillin sulbactam unasyn">
+                        <td class="drug-name">Ampicillin-Sulbactam</td>
+                        <td>3g q6h</td>
+                        <td>3g q8h</td>
+                        <td>3g q12h</td>
+                        <td>3g q24h; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="piperacillin tazobactam zosyn pip-tazo">
+                        <td class="drug-name">Piperacillin-Tazobactam</td>
+                        <td>4.5g q6h</td>
+                        <td>3.375g q6h</td>
+                        <td>2.25g q6h</td>
+                        <td>2.25g q8h; HD: 2.25g q8h + dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="nafcillin oxacillin">
+                        <td class="drug-name">Nafcillin / Oxacillin</td>
+                        <td>2g q4h</td>
+                        <td colspan="3">No adjustment (hepatic clearance)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="amoxicillin">
+                        <td class="drug-name">Amoxicillin</td>
+                        <td>500-1000mg q8h</td>
+                        <td>q8-12h</td>
+                        <td>q12-24h</td>
+                        <td>q24h; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="amoxicillin clavulanate augmentin">
+                        <td class="drug-name">Amoxicillin-Clavulanate</td>
+                        <td>875mg q12h</td>
+                        <td>No change</td>
+                        <td>500mg q12h</td>
+                        <td>500mg q24h; HD: dose after</td>
+                    </tr>
+                </table>
+
+                <h4>Cephalosporins</h4>
+                <table>
+                    <tr>
+                        <th>Drug</th>
+                        <th>Normal Dose</th>
+                        <th>CrCl 30-50</th>
+                        <th>CrCl 10-29</th>
+                        <th>CrCl &lt;10 / HD</th>
+                    </tr>
+                    <tr class="drug-row" data-search="cefazolin ancef">
+                        <td class="drug-name">Cefazolin</td>
+                        <td>1-2g q8h</td>
+                        <td>q12h</td>
+                        <td>q12-24h</td>
+                        <td>q24-48h; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="cephalexin keflex">
+                        <td class="drug-name">Cephalexin</td>
+                        <td>500mg q6h</td>
+                        <td>500mg q8h</td>
+                        <td>500mg q12h</td>
+                        <td>250mg q12-24h; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="ceftriaxone rocephin">
+                        <td class="drug-name">Ceftriaxone</td>
+                        <td>1-2g q24h</td>
+                        <td colspan="3">No adjustment (biliary excretion)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="cefepime maxipime">
+                        <td class="drug-name">Cefepime</td>
+                        <td>2g q8h</td>
+                        <td>2g q12h</td>
+                        <td>1g q12h</td>
+                        <td>1g q24h; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="ceftazidime fortaz">
+                        <td class="drug-name">Ceftazidime</td>
+                        <td>2g q8h</td>
+                        <td>2g q12h</td>
+                        <td>2g q24h</td>
+                        <td>1g q24h; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="ceftazidime avibactam avycaz">
+                        <td class="drug-name">Ceftazidime-Avibactam</td>
+                        <td>2.5g q8h</td>
+                        <td>1.25g q8h</td>
+                        <td>0.94g q12h</td>
+                        <td>0.94g q48h; HD: dose after</td>
+                    </tr>
+                </table>
+
+                <h4>Carbapenems</h4>
+                <table>
+                    <tr>
+                        <th>Drug</th>
+                        <th>Normal Dose</th>
+                        <th>CrCl 30-50</th>
+                        <th>CrCl 10-29</th>
+                        <th>CrCl &lt;10 / HD</th>
+                    </tr>
+                    <tr class="drug-row" data-search="meropenem merrem">
+                        <td class="drug-name">Meropenem</td>
+                        <td>1g q8h</td>
+                        <td>1g q12h</td>
+                        <td>500mg q12h</td>
+                        <td>500mg q24h; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="imipenem primaxin">
+                        <td class="drug-name">Imipenem-Cilastatin</td>
+                        <td>500mg q6h</td>
+                        <td>500mg q8h</td>
+                        <td>250mg q6h</td>
+                        <td class="avoid">Avoid if CrCl&lt;15 (seizure risk)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="ertapenem invanz">
+                        <td class="drug-name">Ertapenem</td>
+                        <td>1g q24h</td>
+                        <td>No change</td>
+                        <td>500mg q24h</td>
+                        <td>500mg q24h; HD: dose after if within 6h</td>
+                    </tr>
+                </table>
+
+                <h4>Fluoroquinolones</h4>
+                <table>
+                    <tr>
+                        <th>Drug</th>
+                        <th>Normal Dose</th>
+                        <th>CrCl 30-50</th>
+                        <th>CrCl 10-29</th>
+                        <th>CrCl &lt;10 / HD</th>
+                    </tr>
+                    <tr class="drug-row" data-search="ciprofloxacin cipro">
+                        <td class="drug-name">Ciprofloxacin</td>
+                        <td>400mg IV q8-12h / 500mg PO q12h</td>
+                        <td>No change</td>
+                        <td>50-75% of dose</td>
+                        <td>50% dose; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="levofloxacin levaquin">
+                        <td class="drug-name">Levofloxacin</td>
+                        <td>750mg q24h</td>
+                        <td>750mg q48h</td>
+                        <td>500mg q48h</td>
+                        <td>500mg q48h; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="moxifloxacin avelox">
+                        <td class="drug-name">Moxifloxacin</td>
+                        <td>400mg q24h</td>
+                        <td colspan="3">No adjustment (hepatic clearance)</td>
+                    </tr>
+                </table>
+
+                <h4>Aminoglycosides</h4>
+                <table>
+                    <tr>
+                        <th>Drug</th>
+                        <th>Normal Dose</th>
+                        <th>Adjustment</th>
+                    </tr>
+                    <tr class="drug-row" data-search="gentamicin tobramycin">
+                        <td class="drug-name">Gentamicin / Tobramycin</td>
+                        <td>5-7 mg/kg q24h (extended interval)</td>
+                        <td>Extend interval based on nomogram. CrCl &lt;60: q36-48h. Follow levels.</td>
+                    </tr>
+                    <tr class="drug-row" data-search="amikacin">
+                        <td class="drug-name">Amikacin</td>
+                        <td>15-20 mg/kg q24h</td>
+                        <td>Same - extend interval based on CrCl. Follow levels.</td>
+                    </tr>
+                </table>
+                <div class="warning-box">
+                    ⚠️ <strong>Aminoglycosides:</strong> Avoid in CKD if possible. If required, use extended-interval dosing and monitor levels closely. HD removes ~50%; dose post-HD and check level pre-next dose.
+                </div>
+
+                <h4>Other Antibiotics</h4>
+                <table>
+                    <tr>
+                        <th>Drug</th>
+                        <th>Normal Dose</th>
+                        <th>CrCl 30-50</th>
+                        <th>CrCl 10-29</th>
+                        <th>CrCl &lt;10 / HD</th>
+                    </tr>
+                    <tr class="drug-row" data-search="vancomycin">
+                        <td class="drug-name">Vancomycin</td>
+                        <td>15-20 mg/kg q8-12h</td>
+                        <td>Extend interval; follow AUC/trough</td>
+                        <td>q24-48h; follow levels</td>
+                        <td class="hd-dose">HD: 15-20 mg/kg post-HD; CVVH: 15-20 mg/kg load then per levels</td>
+                    </tr>
+                    <tr class="drug-row" data-search="metronidazole flagyl">
+                        <td class="drug-name">Metronidazole</td>
+                        <td>500mg q8h</td>
+                        <td colspan="2">No adjustment</td>
+                        <td>500mg q12h; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="azithromycin zithromax">
+                        <td class="drug-name">Azithromycin</td>
+                        <td>500mg daily</td>
+                        <td colspan="3">No adjustment</td>
+                    </tr>
+                    <tr class="drug-row" data-search="doxycycline">
+                        <td class="drug-name">Doxycycline</td>
+                        <td>100mg q12h</td>
+                        <td colspan="3">No adjustment</td>
+                    </tr>
+                    <tr class="drug-row" data-search="linezolid zyvox">
+                        <td class="drug-name">Linezolid</td>
+                        <td>600mg q12h</td>
+                        <td colspan="3">No adjustment (metabolite accumulates but significance unclear)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="tmp-smx bactrim trimethoprim sulfamethoxazole">
+                        <td class="drug-name">TMP-SMX</td>
+                        <td>Variable</td>
+                        <td>50% dose</td>
+                        <td class="avoid">Avoid if possible</td>
+                        <td class="avoid">Avoid; HD: dose after if used</td>
+                    </tr>
+                    <tr class="drug-row" data-search="nitrofurantoin macrobid">
+                        <td class="drug-name">Nitrofurantoin</td>
+                        <td>100mg q12h</td>
+                        <td class="avoid" colspan="3">AVOID if CrCl &lt;30 (ineffective and toxic)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="daptomycin cubicin">
+                        <td class="drug-name">Daptomycin</td>
+                        <td>6-10 mg/kg q24h</td>
+                        <td>No change</td>
+                        <td colspan="2">q48h; HD: dose post-HD</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+        <!-- ANTIFUNGALS -->
+        <div class="section" id="antifungals">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>🍄 Antifungals</h2>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <table>
+                    <tr>
+                        <th>Drug</th>
+                        <th>Normal Dose</th>
+                        <th>CrCl 30-50</th>
+                        <th>CrCl 10-29</th>
+                        <th>CrCl &lt;10 / HD</th>
+                    </tr>
+                    <tr class="drug-row" data-search="fluconazole diflucan">
+                        <td class="drug-name">Fluconazole</td>
+                        <td>200-800mg daily</td>
+                        <td>50% of dose</td>
+                        <td>50% of dose</td>
+                        <td>50%; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="voriconazole vfend">
+                        <td class="drug-name">Voriconazole</td>
+                        <td>4 mg/kg q12h</td>
+                        <td colspan="2">PO preferred (IV vehicle accumulates)</td>
+                        <td>Use PO only</td>
+                    </tr>
+                    <tr class="drug-row" data-search="posaconazole noxafil">
+                        <td class="drug-name">Posaconazole</td>
+                        <td>300mg daily</td>
+                        <td colspan="3">No adjustment (but IV vehicle caution)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="isavuconazole cresemba">
+                        <td class="drug-name">Isavuconazole</td>
+                        <td>372mg daily</td>
+                        <td colspan="3">No adjustment</td>
+                    </tr>
+                    <tr class="drug-row" data-search="micafungin mycamine">
+                        <td class="drug-name">Micafungin</td>
+                        <td>100-150mg daily</td>
+                        <td colspan="3">No adjustment</td>
+                    </tr>
+                    <tr class="drug-row" data-search="caspofungin cancidas">
+                        <td class="drug-name">Caspofungin</td>
+                        <td>70mg load, 50mg daily</td>
+                        <td colspan="3">No adjustment (hepatic)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="anidulafungin eraxis">
+                        <td class="drug-name">Anidulafungin</td>
+                        <td>200mg load, 100mg daily</td>
+                        <td colspan="3">No adjustment</td>
+                    </tr>
+                    <tr class="drug-row" data-search="amphotericin ambisome">
+                        <td class="drug-name">Amphotericin B (liposomal)</td>
+                        <td>3-5 mg/kg daily</td>
+                        <td colspan="3">No adjustment (but is nephrotoxic - avoid if alternatives exist)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- ANTIVIRALS -->
+        <div class="section" id="antivirals">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>🦠 Antivirals</h2>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <table>
+                    <tr>
+                        <th>Drug</th>
+                        <th>Normal Dose</th>
+                        <th>CrCl 30-50</th>
+                        <th>CrCl 10-29</th>
+                        <th>CrCl &lt;10 / HD</th>
+                    </tr>
+                    <tr class="drug-row" data-search="acyclovir zovirax valacyclovir valtrex">
+                        <td class="drug-name">Acyclovir (IV)</td>
+                        <td>10 mg/kg q8h</td>
+                        <td>10 mg/kg q12h</td>
+                        <td>10 mg/kg q24h</td>
+                        <td>5 mg/kg q24h; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="valacyclovir valtrex">
+                        <td class="drug-name">Valacyclovir (zoster)</td>
+                        <td>1g q8h</td>
+                        <td>1g q12h</td>
+                        <td>1g q24h</td>
+                        <td>500mg q24h; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="ganciclovir cytovene valganciclovir valcyte">
+                        <td class="drug-name">Ganciclovir (IV induction)</td>
+                        <td>5 mg/kg q12h</td>
+                        <td>2.5 mg/kg q12h</td>
+                        <td>2.5 mg/kg q24h</td>
+                        <td>1.25 mg/kg q24h; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="valganciclovir valcyte">
+                        <td class="drug-name">Valganciclovir (prophylaxis)</td>
+                        <td>900mg daily</td>
+                        <td>450mg daily</td>
+                        <td>450mg q48h</td>
+                        <td class="avoid">Not recommended</td>
+                    </tr>
+                    <tr class="drug-row" data-search="oseltamivir tamiflu">
+                        <td class="drug-name">Oseltamivir</td>
+                        <td>75mg q12h</td>
+                        <td>75mg daily</td>
+                        <td>75mg q48h</td>
+                        <td>30mg once; HD: 30mg after each HD</td>
+                    </tr>
+                    <tr class="drug-row" data-search="remdesivir veklury">
+                        <td class="drug-name">Remdesivir</td>
+                        <td>200mg x1, then 100mg daily</td>
+                        <td colspan="2">Use with caution (limited data)</td>
+                        <td class="avoid">Not recommended if CrCl &lt;30</td>
+                    </tr>
+                    <tr class="drug-row" data-search="sofosbuvir epclusa harvoni hcv">
+                        <td class="drug-name">Sofosbuvir-containing regimens</td>
+                        <td>Various</td>
+                        <td colspan="2">No adjustment</td>
+                        <td class="avoid">Not recommended if CrCl &lt;30</td>
+                    </tr>
+                    <tr class="drug-row" data-search="glecaprevir pibrentasvir mavyret hcv">
+                        <td class="drug-name">Glecaprevir-Pibrentasvir</td>
+                        <td>3 tablets daily</td>
+                        <td colspan="3">No adjustment (safe in ESRD)</td>
+                    </tr>
+                </table>
+                <div class="key-point">
+                    ✅ <strong>HCV in CKD:</strong> Glecaprevir-Pibrentasvir (Mavyret) is safe in severe CKD/ESRD. Avoid sofosbuvir-based regimens if CrCl &lt;30.
+                </div>
+            </div>
+        </div>
+
+        <!-- CARDIAC MEDICATIONS -->
+        <div class="section" id="cardiac">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>❤️ Cardiac Medications</h2>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <table>
+                    <tr>
+                        <th>Drug</th>
+                        <th>Normal Dose</th>
+                        <th>CrCl 30-50</th>
+                        <th>CrCl 10-29</th>
+                        <th>CrCl &lt;10 / HD</th>
+                    </tr>
+                    <tr class="drug-row" data-search="digoxin lanoxin">
+                        <td class="drug-name">Digoxin</td>
+                        <td>0.125-0.25mg daily</td>
+                        <td>0.125mg daily</td>
+                        <td>0.0625-0.125mg daily</td>
+                        <td>0.0625mg daily; monitor levels</td>
+                    </tr>
+                    <tr class="drug-row" data-search="sotalol betapace">
+                        <td class="drug-name">Sotalol</td>
+                        <td>80-160mg q12h</td>
+                        <td>q24h</td>
+                        <td>q36-48h</td>
+                        <td class="avoid">Avoid; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="atenolol tenormin">
+                        <td class="drug-name">Atenolol</td>
+                        <td>50-100mg daily</td>
+                        <td>50mg daily</td>
+                        <td>25-50mg daily</td>
+                        <td>25mg daily; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="metoprolol lopressor toprol">
+                        <td class="drug-name">Metoprolol</td>
+                        <td>25-200mg BID</td>
+                        <td colspan="3">No adjustment (hepatic)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="carvedilol coreg">
+                        <td class="drug-name">Carvedilol</td>
+                        <td>3.125-25mg BID</td>
+                        <td colspan="3">No adjustment (hepatic)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="lisinopril enalapril ace inhibitor">
+                        <td class="drug-name">ACE Inhibitors</td>
+                        <td>Variable</td>
+                        <td colspan="3">Start low, titrate slowly. Monitor K+ and Cr. Often dose reduce 50%.</td>
+                    </tr>
+                    <tr class="drug-row" data-search="spironolactone eplerenone aldactone inspra">
+                        <td class="drug-name">Spironolactone / Eplerenone</td>
+                        <td>25-50mg daily</td>
+                        <td>Use with caution</td>
+                        <td colspan="2" class="avoid">Avoid (hyperkalemia)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="apixaban eliquis">
+                        <td class="drug-name">Apixaban</td>
+                        <td>5mg BID (2.5mg if 2+ of: age ≥80, wt ≤60kg, Cr ≥1.5)</td>
+                        <td>No change</td>
+                        <td>2.5mg BID</td>
+                        <td class="hd-dose">2.5mg BID (OK in HD per label)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="rivaroxaban xarelto">
+                        <td class="drug-name">Rivaroxaban</td>
+                        <td>20mg daily (with food)</td>
+                        <td>15mg daily</td>
+                        <td>15mg daily</td>
+                        <td class="avoid">Avoid in ESRD</td>
+                    </tr>
+                    <tr class="drug-row" data-search="dabigatran pradaxa">
+                        <td class="drug-name">Dabigatran</td>
+                        <td>150mg BID</td>
+                        <td>150mg BID</td>
+                        <td class="avoid">75mg BID (AFib); Avoid VTE</td>
+                        <td class="avoid">Avoid</td>
+                    </tr>
+                    <tr class="drug-row" data-search="enoxaparin lovenox">
+                        <td class="drug-name">Enoxaparin</td>
+                        <td>1 mg/kg q12h (treatment)</td>
+                        <td>No change</td>
+                        <td colspan="2">1 mg/kg q24h if CrCl &lt;30</td>
+                    </tr>
+                </table>
+                <div class="warning-box">
+                    ⚠️ <strong>DOACs:</strong> Apixaban is the preferred DOAC in CKD/ESRD. Avoid dabigatran if CrCl &lt;30.
+                </div>
+            </div>
+        </div>
+
+        <!-- NEURO/PSYCH -->
+        <div class="section" id="neuro">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>🧠 Neuro / Psych</h2>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <table>
+                    <tr>
+                        <th>Drug</th>
+                        <th>Normal Dose</th>
+                        <th>CrCl 30-50</th>
+                        <th>CrCl 10-29</th>
+                        <th>CrCl &lt;10 / HD</th>
+                    </tr>
+                    <tr class="drug-row" data-search="gabapentin neurontin">
+                        <td class="drug-name">Gabapentin</td>
+                        <td>300-1200mg TID</td>
+                        <td>200-700mg BID</td>
+                        <td>100-300mg daily</td>
+                        <td>100-300mg after each HD</td>
+                    </tr>
+                    <tr class="drug-row" data-search="pregabalin lyrica">
+                        <td class="drug-name">Pregabalin</td>
+                        <td>150-600mg/day divided</td>
+                        <td>50-75% of dose</td>
+                        <td>25-50% of dose</td>
+                        <td>25mg daily; HD: supplement after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="levetiracetam keppra">
+                        <td class="drug-name">Levetiracetam</td>
+                        <td>500-1500mg BID</td>
+                        <td>250-750mg BID</td>
+                        <td>250-500mg BID</td>
+                        <td>250-500mg daily; HD: 250-500mg after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="lacosamide vimpat">
+                        <td class="drug-name">Lacosamide</td>
+                        <td>100-200mg BID</td>
+                        <td>No change</td>
+                        <td>Max 300mg/day</td>
+                        <td>Max 300mg/day; HD: supplement after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="lithium">
+                        <td class="drug-name">Lithium</td>
+                        <td>Target level 0.6-1.2</td>
+                        <td>50-75% of dose</td>
+                        <td class="avoid" colspan="2">Avoid (accumulates, toxic)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="morphine opioid">
+                        <td class="drug-name">Morphine</td>
+                        <td>Various</td>
+                        <td>Reduce dose 25%</td>
+                        <td>Reduce dose 50%</td>
+                        <td class="avoid">Avoid (M6G accumulates)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="hydromorphone dilaudid">
+                        <td class="drug-name">Hydromorphone</td>
+                        <td>Various</td>
+                        <td>Reduce dose 25%</td>
+                        <td>Reduce dose 50%</td>
+                        <td>Reduce dose 75% (preferred over morphine)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="fentanyl">
+                        <td class="drug-name">Fentanyl</td>
+                        <td>Various</td>
+                        <td colspan="3">No adjustment (but start low, titrate slowly)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="meperidine demerol">
+                        <td class="drug-name">Meperidine</td>
+                        <td colspan="4" class="avoid">AVOID in renal impairment (normeperidine accumulates → seizures)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="tramadol ultram">
+                        <td class="drug-name">Tramadol</td>
+                        <td>50-100mg q4-6h</td>
+                        <td>50mg q12h</td>
+                        <td class="avoid">Avoid IR; use q12h max</td>
+                        <td class="avoid">Avoid</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- OTHER MEDICATIONS -->
+        <div class="section" id="other">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>💊 Other Medications</h2>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <table>
+                    <tr>
+                        <th>Drug</th>
+                        <th>Normal Dose</th>
+                        <th>CrCl 30-50</th>
+                        <th>CrCl 10-29</th>
+                        <th>CrCl &lt;10 / HD</th>
+                    </tr>
+                    <tr class="drug-row" data-search="metformin glucophage">
+                        <td class="drug-name">Metformin</td>
+                        <td>500-1000mg BID</td>
+                        <td>Max 1000mg/day if CrCl 30-45</td>
+                        <td class="avoid" colspan="2">Contraindicated if CrCl &lt;30</td>
+                    </tr>
+                    <tr class="drug-row" data-search="allopurinol zyloprim">
+                        <td class="drug-name">Allopurinol</td>
+                        <td>100-300mg daily</td>
+                        <td>100-200mg daily</td>
+                        <td>100mg daily</td>
+                        <td>100mg after HD</td>
+                    </tr>
+                    <tr class="drug-row" data-search="colchicine">
+                        <td class="drug-name">Colchicine</td>
+                        <td>0.6mg daily-BID</td>
+                        <td>Reduce frequency</td>
+                        <td>0.3mg q2-3 days</td>
+                        <td class="avoid">Avoid in severe CKD/HD</td>
+                    </tr>
+                    <tr class="drug-row" data-search="famotidine pepcid">
+                        <td class="drug-name">Famotidine</td>
+                        <td>20-40mg daily</td>
+                        <td>20mg daily</td>
+                        <td>20mg q48h</td>
+                        <td>20mg q48h; HD: dose after</td>
+                    </tr>
+                    <tr class="drug-row" data-search="ranitidine">
+                        <td class="drug-name">Ranitidine</td>
+                        <td colspan="4">Withdrawn from market (NDMA concerns)</td>
+                    </tr>
+                    <tr class="drug-row" data-search="pantoprazole protonix ppi">
+                        <td class="drug-name">Pantoprazole (PPIs)</td>
+                        <td>40mg daily</td>
+                        <td colspan="3">No adjustment</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- DRUGS TO AVOID -->
+        <div class="section" id="avoid">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>🚫 Drugs to Avoid in CKD</h2>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+
+                <div class="danger-box">
+                    <strong>CONTRAINDICATED or AVOID in severe CKD/ESRD:</strong>
+                    <ul>
+                        <li><strong>Nitrofurantoin</strong> - Ineffective if CrCl &lt;30 + neurotoxicity risk</li>
+                        <li><strong>Metformin</strong> - Lactic acidosis if CrCl &lt;30</li>
+                        <li><strong>Meperidine</strong> - Normeperidine → seizures</li>
+                        <li><strong>Morphine</strong> - M6G accumulation → CNS/respiratory toxicity</li>
+                        <li><strong>Lithium</strong> - Accumulates, very narrow index</li>
+                        <li><strong>Gadolinium</strong> - NSF risk if GFR &lt;30</li>
+                        <li><strong>Oral bisphosphonates</strong> - Avoid if CrCl &lt;30-35</li>
+                        <li><strong>Colchicine (chronic)</strong> - Accumulates, myoneuropathy</li>
+                        <li><strong>NSAIDs</strong> - Worsen renal function, hyperkalemia, fluid retention</li>
+                        <li><strong>Dabigatran</strong> - Renally cleared, no reversal data in ESRD</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <strong>USE WITH EXTREME CAUTION:</strong>
+                    <ul>
+                        <li><strong>ACE-I/ARBs</strong> - Monitor K+ and Cr closely, start low</li>
+                        <li><strong>Spironolactone/Eplerenone</strong> - High hyperkalemia risk</li>
+                        <li><strong>TMP-SMX</strong> - Hyperkalemia, ↑creatinine</li>
+                        <li><strong>Aminoglycosides</strong> - Nephrotoxic + ototoxic, use if no alternative</li>
+                        <li><strong>Amphotericin B</strong> - Highly nephrotoxic</li>
+                        <li><strong>IV contrast</strong> - CIN risk, hydrate before/after</li>
+                    </ul>
+                </div>
+
+                <div class="key-point">
+                    ✅ <strong>Safe alternatives in CKD:</strong>
+                    <ul>
+                        <li>Opioids: Fentanyl, hydromorphone (preferred over morphine)</li>
+                        <li>Antibiotics: Ceftriaxone (no adjustment), doxycycline, azithromycin</li>
+                        <li>DOACs: Apixaban (safe even in HD)</li>
+                        <li>Antifungals: Echinocandins (no adjustment)</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <button id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        function toggleSection(header) {
+            header.classList.toggle('collapsed');
+            header.nextElementSibling.classList.toggle('collapsed');
+        }
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        window.onscroll = function() {
+            document.getElementById('backToTop').style.display = 
+                (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) ? 'block' : 'none';
+        };
+        function searchDrugs() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('.drug-row');
+            rows.forEach(row => {
+                const searchData = row.getAttribute('data-search') + ' ' + row.textContent;
+                row.style.display = (query === '' || searchData.toLowerCase().includes(query)) ? '' : 'none';
+            });
+            // Expand all sections when searching
+            if (query !== '') {
+                document.querySelectorAll('.section-header').forEach(h => {
+                    h.classList.remove('collapsed');
+                    h.nextElementSibling.classList.remove('collapsed');
+                });
+            }
+        }
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    const header = target.querySelector('.section-header');
+                    const content = target.querySelector('.section-content');
+                    if (header && content) {
+                        header.classList.remove('collapsed');
+                        content.classList.remove('collapsed');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Antimicrobial Stewardship Guide</title>
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-light: #d1fae5;
+            --primary-dark: #047857;
+            --accent: #0891b2;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --divider: #e2e8f0;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text);
+            background: var(--background);
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px;
+            padding-top: calc(20px + env(safe-area-inset-top));
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .header h1 { margin: 0; font-size: 1.5rem; }
+        .header p { margin: 5px 0 0; opacity: 0.9; font-size: 0.9rem; }
+        .nav-tabs {
+            display: flex;
+            overflow-x: auto;
+            background: var(--surface);
+            border-bottom: 1px solid var(--divider);
+            padding: 0 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .nav-tab {
+            flex-shrink: 0;
+            padding: 12px 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            border-bottom: 3px solid transparent;
+        }
+        .nav-tab:hover, .nav-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 16px; }
+        .section {
+            background: var(--surface);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+        .section-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 14px 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-header h2 { margin: 0; font-size: 1.1rem; }
+        .section-header .toggle { font-size: 1rem; transition: transform 0.3s; }
+        .section-header.collapsed .toggle { transform: rotate(-90deg); }
+        .section-content { padding: 16px; }
+        .section-content.collapsed { display: none; }
+        .subsection { margin-bottom: 20px; }
+        .subsection h3 {
+            color: var(--primary-dark);
+            font-size: 1rem;
+            margin: 0 0 10px 0;
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--primary-light);
+        }
+        .subsection h4 { color: var(--accent); font-size: 0.95rem; margin: 14px 0 8px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.9rem; }
+        th, td { padding: 10px; text-align: left; border: 1px solid var(--divider); }
+        th { background: var(--primary-light); font-weight: 600; color: var(--primary-dark); }
+        tr:nth-child(even) { background: #f8fafc; }
+        .box { padding: 12px; border-radius: 8px; margin: 10px 0; font-size: 0.9rem; }
+        .key-point { background: #dcfce7; border-left: 4px solid var(--success); }
+        .warning-box { background: #fef3c7; border-left: 4px solid var(--warning); }
+        .danger-box { background: #fee2e2; border-left: 4px solid var(--danger); }
+        .info-box { background: #dbeafe; border-left: 4px solid var(--info); }
+        .pearl-box { background: #fef9c3; border-left: 4px solid #eab308; }
+        ul, ol { margin: 6px 0; padding-left: 20px; }
+        li { margin: 4px 0; }
+        .drug { color: var(--primary-dark); font-weight: 600; }
+        .highlight { background: #fef08a; padding: 1px 3px; border-radius: 2px; }
+        #backToTop {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+            display: none;
+            z-index: 1000;
+        }
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.3rem; }
+            th, td { padding: 8px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🦠 Antimicrobial Stewardship Guide</h1>
+        <p>Empiric Therapy • De-escalation • Duration • IV-to-PO</p>
+        <p style="font-size:0.8rem; opacity:0.8; margin-top:8px;">v1.0 BUILD #8</p>
+    </div>
+
+    <div class="nav-tabs">
+        <a href="#empiric" class="nav-tab">Empiric Therapy</a>
+        <a href="#duration" class="nav-tab">Duration</a>
+        <a href="#deescalation" class="nav-tab">De-escalation</a>
+        <a href="#ivpo" class="nav-tab">IV-to-PO</a>
+        <a href="#cultures" class="nav-tab">Cultures</a>
+        <a href="#pearls" class="nav-tab">Pearls</a>
+    </div>
+
+    <div class="container">
+
+        <!-- EMPIRIC THERAPY BY SYNDROME -->
+        <div class="section" id="empiric">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>💊 Empiric Therapy by Syndrome</h2>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+
+                <div class="subsection">
+                    <h3>Community-Acquired Pneumonia (CAP)</h3>
+                    <table>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Empiric Regimen</th>
+                            <th>Duration</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Outpatient, healthy</strong></td>
+                            <td>Amoxicillin 1g TID <em>OR</em> Doxycycline 100mg BID <em>OR</em> Azithromycin 500mg ×1, then 250mg daily</td>
+                            <td>5 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Outpatient, comorbidities</strong></td>
+                            <td>Amoxicillin-clavulanate 875/125 BID + Azithromycin <em>OR</em> Respiratory FQ (levofloxacin 750mg daily)</td>
+                            <td>5 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Inpatient (non-ICU)</strong></td>
+                            <td>Ceftriaxone 1g daily + Azithromycin 500mg daily <em>OR</em> Respiratory FQ monotherapy</td>
+                            <td>5 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ICU</strong></td>
+                            <td>Ceftriaxone 1g daily + Azithromycin 500mg daily <em>(or FQ)</em></td>
+                            <td>5-7 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Risk for Pseudomonas</strong></td>
+                            <td>Pip-tazo 4.5g q6h <em>OR</em> Cefepime 2g q8h <em>OR</em> Meropenem + FQ or Azithro</td>
+                            <td>7 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Risk for MRSA</strong></td>
+                            <td>Add Vancomycin <em>OR</em> Linezolid</td>
+                            <td>7 days</td>
+                        </tr>
+                    </table>
+                    <div class="info-box">
+                        <strong>MRSA/Pseudomonas risk factors:</strong> Prior respiratory isolation, recent hospitalization/IV antibiotics, structural lung disease (bronchiectasis, CF), immunocompromised
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Hospital-Acquired & Ventilator-Associated Pneumonia (HAP/VAP)</h3>
+                    <table>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Empiric Regimen</th>
+                        </tr>
+                        <tr>
+                            <td><strong>HAP (low risk)</strong></td>
+                            <td>Pip-tazo 4.5g q6h <em>OR</em> Cefepime 2g q8h <em>OR</em> Levofloxacin 750mg daily</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HAP/VAP (high risk MDR)</strong></td>
+                            <td>2 anti-pseudomonal agents (e.g., Pip-tazo + Aminoglycoside <em>or</em> FQ) + MRSA coverage (Vanc or Linezolid)</td>
+                        </tr>
+                    </table>
+                    <div class="warning-box">
+                        ⚠️ <strong>De-escalate within 48-72h</strong> based on culture results. Avoid prolonged empiric broad-spectrum therapy.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Urinary Tract Infections</h3>
+                    <table>
+                        <tr>
+                            <th>Type</th>
+                            <th>Empiric Regimen</th>
+                            <th>Duration</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Uncomplicated cystitis (women)</strong></td>
+                            <td>Nitrofurantoin 100mg BID <em>OR</em> TMP-SMX DS BID <em>OR</em> Fosfomycin 3g ×1</td>
+                            <td>5 days (nitro), 3 days (TMP-SMX), 1 dose (fosfo)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Uncomplicated cystitis (men)</strong></td>
+                            <td>TMP-SMX DS BID <em>OR</em> Fluoroquinolone</td>
+                            <td>7 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pyelonephritis (outpatient)</strong></td>
+                            <td>Ciprofloxacin 500mg BID <em>OR</em> TMP-SMX DS BID</td>
+                            <td>7 days (FQ), 14 days (TMP-SMX)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pyelonephritis (inpatient)</strong></td>
+                            <td>Ceftriaxone 1g daily <em>OR</em> FQ <em>OR</em> Pip-tazo if risk MDR</td>
+                            <td>7-14 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Catheter-associated UTI</strong></td>
+                            <td>Based on local resistance; remove/replace catheter</td>
+                            <td>7 days (women), 7-14 days (men)</td>
+                        </tr>
+                    </table>
+                    <div class="key-point">
+                        ✅ <strong>Do NOT treat asymptomatic bacteriuria</strong> (except pregnancy, pre-urologic procedure)
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Skin & Soft Tissue Infections</h3>
+                    <table>
+                        <tr>
+                            <th>Type</th>
+                            <th>Likely Pathogens</th>
+                            <th>Empiric Regimen</th>
+                            <th>Duration</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Cellulitis (non-purulent)</strong></td>
+                            <td>Strep > Staph</td>
+                            <td>Cephalexin 500mg QID <em>OR</em> Cefazolin 1-2g IV q8h</td>
+                            <td>5 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cellulitis (purulent/abscess)</strong></td>
+                            <td>MRSA common</td>
+                            <td>I&D + TMP-SMX DS BID <em>OR</em> Doxycycline 100mg BID</td>
+                            <td>5-7 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Severe/hospitalized</strong></td>
+                            <td>MRSA, Strep</td>
+                            <td>Vancomycin + Pip-tazo (if diabetic foot, water exposure)</td>
+                            <td>7-14 days</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Necrotizing fasciitis</strong></td>
+                            <td>Polymicrobial or GAS</td>
+                            <td>Vancomycin + Pip-tazo + Clindamycin (toxin suppression)</td>
+                            <td>Until debridement complete</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bite wounds (human/animal)</strong></td>
+                            <td>Pasteurella, anaerobes, Eikenella</td>
+                            <td>Amoxicillin-clavulanate 875/125 BID</td>
+                            <td>5-7 days (prophylaxis: 3-5 days)</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>Intra-abdominal Infections</h3>
+                    <table>
+                        <tr>
+                            <th>Type</th>
+                            <th>Empiric Regimen</th>
+                            <th>Duration</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Community-acquired (mild-moderate)</strong></td>
+                            <td>Ceftriaxone + Metronidazole <em>OR</em> Ertapenem <em>OR</em> Moxifloxacin</td>
+                            <td>4 days post source control</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Community-acquired (severe)</strong></td>
+                            <td>Pip-tazo <em>OR</em> Meropenem</td>
+                            <td>4 days post source control</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Healthcare-associated</strong></td>
+                            <td>Pip-tazo <em>OR</em> Meropenem + Vanc if VRE risk</td>
+                            <td>4 days post source control</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Spontaneous bacterial peritonitis</strong></td>
+                            <td>Ceftriaxone 2g daily</td>
+                            <td>5 days</td>
+                        </tr>
+                    </table>
+                    <div class="pearl-box">
+                        💎 <strong>STOP trial:</strong> 4 days post source control is sufficient for intra-abdominal infections (vs 8+ days historically).
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Sepsis / Septic Shock (Unknown Source)</h3>
+                    <div class="danger-box">
+                        ❌ <strong>Hour-1 Bundle:</strong> Administer broad-spectrum antibiotics within 1 hour of sepsis recognition.
+                    </div>
+                    <table>
+                        <tr>
+                            <th>Risk Level</th>
+                            <th>Empiric Regimen</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Community-acquired, no risk factors</strong></td>
+                            <td>Pip-tazo 4.5g q6h + Vancomycin (if MRSA risk)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Healthcare-associated / ICU</strong></td>
+                            <td>Meropenem 1g q8h + Vancomycin ± Echinocandin (if fungal risk)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Neutropenic fever</strong></td>
+                            <td>Cefepime 2g q8h <em>OR</em> Pip-tazo 4.5g q6h <em>OR</em> Meropenem</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>Meningitis</h3>
+                    <table>
+                        <tr>
+                            <th>Population</th>
+                            <th>Likely Pathogens</th>
+                            <th>Empiric Regimen</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Adults 18-50</strong></td>
+                            <td>S. pneumoniae, N. meningitidis</td>
+                            <td>Ceftriaxone 2g q12h + Vancomycin + Dexamethasone</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Adults >50, immunocompromised</strong></td>
+                            <td>+ Listeria</td>
+                            <td>Ceftriaxone + Vancomycin + Ampicillin 2g q4h + Dexamethasone</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HSV encephalitis suspected</strong></td>
+                            <td>HSV</td>
+                            <td>Add Acyclovir 10 mg/kg q8h</td>
+                        </tr>
+                    </table>
+                    <div class="warning-box">
+                        ⚠️ <strong>Give dexamethasone before or with first antibiotic dose</strong> for suspected bacterial meningitis. Discontinue if non-pneumococcal.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Endocarditis</h3>
+                    <table>
+                        <tr>
+                            <th>Valve Type</th>
+                            <th>Empiric Regimen</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Native valve (acute)</strong></td>
+                            <td>Vancomycin + Ceftriaxone (cover MRSA, Strep, HACEK)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Native valve (subacute)</strong></td>
+                            <td>Ceftriaxone + Ampicillin (Strep, Enterococcus focus)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prosthetic valve (early, <1 yr)</strong></td>
+                            <td>Vancomycin + Gentamicin + Rifampin (cover Staph including CoNS)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prosthetic valve (late, >1 yr)</strong></td>
+                            <td>Similar to native valve</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IVDU</strong></td>
+                            <td>Vancomycin (MRSA, often tricuspid)</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- DURATION OF THERAPY -->
+        <div class="section" id="duration">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>⏱️ Duration of Therapy</h2>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+
+                <div class="subsection">
+                    <h3>Evidence-Based Shorter Courses</h3>
+                    <div class="info-box">
+                        <strong>Principle:</strong> Shorter courses reduce adverse effects, resistance, C. diff risk, and cost without compromising outcomes.
+                    </div>
+
+                    <table>
+                        <tr>
+                            <th>Infection</th>
+                            <th>Traditional</th>
+                            <th>Evidence-Based</th>
+                            <th>Key Evidence</th>
+                        </tr>
+                        <tr>
+                            <td><strong>CAP</strong></td>
+                            <td>7-10 days</td>
+                            <td><strong>5 days</strong> (if stable)</td>
+                            <td>IDSA/ATS 2019</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HAP/VAP</strong></td>
+                            <td>14-21 days</td>
+                            <td><strong>7 days</strong></td>
+                            <td>IDSA 2016</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Uncomplicated cystitis</strong></td>
+                            <td>7 days</td>
+                            <td><strong>3-5 days</strong></td>
+                            <td>IDSA 2010</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pyelonephritis (FQ)</strong></td>
+                            <td>14 days</td>
+                            <td><strong>5-7 days</strong></td>
+                            <td>IDSA 2010</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Intra-abdominal (source controlled)</strong></td>
+                            <td>10-14 days</td>
+                            <td><strong>4 days</strong></td>
+                            <td>STOP-IT trial</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cellulitis</strong></td>
+                            <td>10-14 days</td>
+                            <td><strong>5-6 days</strong></td>
+                            <td>IDSA 2014</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CAUTI</strong></td>
+                            <td>10-14 days</td>
+                            <td><strong>7 days</strong></td>
+                            <td>IDSA 2019</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gram-negative bacteremia (source controlled)</strong></td>
+                            <td>14 days</td>
+                            <td><strong>7 days</strong></td>
+                            <td>Multiple RCTs</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>Infections Requiring Longer Courses</h3>
+                    <table>
+                        <tr>
+                            <th>Infection</th>
+                            <th>Minimum Duration</th>
+                            <th>Notes</th>
+                        </tr>
+                        <tr>
+                            <td><strong>S. aureus bacteremia</strong></td>
+                            <td>14 days (uncomplicated) to 4-6 weeks (complicated)</td>
+                            <td>ID consult mandatory</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Endocarditis (native valve)</strong></td>
+                            <td>4-6 weeks</td>
+                            <td>Organism-dependent</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Endocarditis (prosthetic valve)</strong></td>
+                            <td>≥6 weeks</td>
+                            <td>+ Rifampin for Staph</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vertebral osteomyelitis</strong></td>
+                            <td>6 weeks</td>
+                            <td>May consider oral switch after 2 weeks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prosthetic joint infection (DAIR)</strong></td>
+                            <td>3 months (hip), 6 months (knee)</td>
+                            <td>+ Rifampin for Staph</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lung abscess</strong></td>
+                            <td>4-6 weeks</td>
+                            <td>Until cavity resolved</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Brain abscess</strong></td>
+                            <td>6-8 weeks</td>
+                            <td>Longer if not drained</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TB (drug-susceptible)</strong></td>
+                            <td>6 months (pulmonary)</td>
+                            <td>9-12 months for CNS/bone</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>Criteria to Stop Antibiotics Early</h3>
+                    <div class="key-point">
+                        ✅ <strong>Clinical stability criteria (for CAP):</strong>
+                        <ul>
+                            <li>Temperature ≤37.8°C (100°F)</li>
+                            <li>Heart rate ≤100 bpm</li>
+                            <li>Respiratory rate ≤24/min</li>
+                            <li>SBP ≥90 mmHg</li>
+                            <li>O2 sat ≥90% on room air (or baseline)</li>
+                            <li>Able to take PO</li>
+                            <li>Normal mental status</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- DE-ESCALATION -->
+        <div class="section" id="deescalation">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>📉 De-escalation Strategies</h2>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+
+                <div class="subsection">
+                    <h3>Principles of De-escalation</h3>
+                    <div class="info-box">
+                        <strong>Goal:</strong> Narrow spectrum based on culture/susceptibility data to reduce collateral damage (C. diff, resistance, toxicity) while maintaining efficacy.
+                    </div>
+                    <div class="key-point">
+                        ✅ <strong>When to de-escalate:</strong>
+                        <ul>
+                            <li>Culture and susceptibility data available (typically 48-72h)</li>
+                            <li>Clinical improvement observed</li>
+                            <li>Source of infection identified</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Common De-escalation Pathways</h3>
+                    <table>
+                        <tr>
+                            <th>Empiric Regimen</th>
+                            <th>If Culture Shows...</th>
+                            <th>De-escalate To...</th>
+                        </tr>
+                        <tr>
+                            <td>Vancomycin + Pip-tazo</td>
+                            <td>MSSA</td>
+                            <td><strong>Nafcillin or Cefazolin</strong> (drop Vanc + Pip-tazo)</td>
+                        </tr>
+                        <tr>
+                            <td>Vancomycin</td>
+                            <td>MSSA</td>
+                            <td><strong>Nafcillin, Cefazolin, or Oxacillin</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Meropenem</td>
+                            <td>ESBL-negative Enterobacterales</td>
+                            <td><strong>Ceftriaxone or narrower based on susceptibilities</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Pip-tazo</td>
+                            <td>E. coli susceptible to ceftriaxone</td>
+                            <td><strong>Ceftriaxone</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Pip-tazo</td>
+                            <td>E. coli susceptible to TMP-SMX/FQ</td>
+                            <td><strong>PO TMP-SMX or Ciprofloxacin</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Ceftriaxone + Metronidazole</td>
+                            <td>Susceptible anaerobes</td>
+                            <td><strong>Ampicillin-sulbactam or Amoxicillin-clav</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Echinocandin</td>
+                            <td>Candida albicans (susceptible)</td>
+                            <td><strong>Fluconazole</strong> (after clinical response)</td>
+                        </tr>
+                        <tr>
+                            <td>Double Pseudomonas coverage</td>
+                            <td>Pseudomonas susceptible to single agent</td>
+                            <td><strong>Single agent (Pip-tazo, Cefepime, or Meropenem)</strong></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>MRSA De-escalation</h3>
+                    <div class="warning-box">
+                        ⚠️ <strong>Discontinue empiric MRSA coverage if:</strong>
+                        <ul>
+                            <li>MRSA nasal swab negative (NPV >95% for MRSA pneumonia)</li>
+                            <li>Cultures negative for MRSA at 48-72h</li>
+                            <li>MSSA isolated (switch to beta-lactam)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Pseudomonas De-escalation</h3>
+                    <div class="key-point">
+                        ✅ <strong>Discontinue empiric Pseudomonas coverage if:</strong>
+                        <ul>
+                            <li>Cultures grow susceptible non-Pseudomonas organism</li>
+                            <li>Respiratory cultures negative at 48-72h in low-risk patient</li>
+                            <li>Clinical improvement with source identified as non-pulmonary</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- IV TO PO CONVERSION -->
+        <div class="section" id="ivpo">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>💊 IV-to-PO Conversion</h2>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+
+                <div class="subsection">
+                    <h3>Criteria for IV-to-PO Switch</h3>
+                    <div class="key-point">
+                        ✅ <strong>Patient is ready for PO antibiotics when:</strong>
+                        <ul>
+                            <li>Clinical improvement (afebrile, hemodynamically stable)</li>
+                            <li>Functioning GI tract (tolerating PO intake)</li>
+                            <li>No indication requiring IV (endocarditis, meningitis, severe sepsis)</li>
+                            <li>Appropriate PO option with adequate bioavailability exists</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Antibiotics with Excellent Oral Bioavailability</h3>
+                    <table>
+                        <tr>
+                            <th>Drug</th>
+                            <th>Oral Bioavailability</th>
+                            <th>Notes</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Fluoroquinolones</strong> (cipro, levo, moxi)</td>
+                            <td>70-99%</td>
+                            <td>Excellent tissue penetration; avoid cations 2h before/6h after</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Metronidazole</strong></td>
+                            <td>~100%</td>
+                            <td>Equivalent to IV</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TMP-SMX</strong></td>
+                            <td>~100%</td>
+                            <td>Equivalent to IV</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Linezolid</strong></td>
+                            <td>~100%</td>
+                            <td>Equivalent to IV; expensive</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Doxycycline</strong></td>
+                            <td>93-100%</td>
+                            <td>Take with food to reduce GI upset</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Clindamycin</strong></td>
+                            <td>90%</td>
+                            <td>Good bone penetration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fluconazole</strong></td>
+                            <td>~90%</td>
+                            <td>Equivalent to IV</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Voriconazole</strong></td>
+                            <td>96%</td>
+                            <td>Equivalent to IV; many interactions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Valganciclovir</strong></td>
+                            <td>~60%</td>
+                            <td>Prodrug of ganciclovir; take with food</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>IV-to-PO Conversion Guide</h3>
+                    <table>
+                        <tr>
+                            <th>IV Drug</th>
+                            <th>PO Alternative</th>
+                            <th>Notes</th>
+                        </tr>
+                        <tr>
+                            <td>Ceftriaxone</td>
+                            <td>Cefpodoxime 200mg BID, Cefuroxime 500mg BID, or FQ</td>
+                            <td>Based on indication/susceptibilities</td>
+                        </tr>
+                        <tr>
+                            <td>Cefazolin</td>
+                            <td>Cephalexin 500mg QID</td>
+                            <td>For MSSA skin/soft tissue</td>
+                        </tr>
+                        <tr>
+                            <td>Pip-tazo</td>
+                            <td>Amox-clav or FQ + Metronidazole</td>
+                            <td>Based on culture data</td>
+                        </tr>
+                        <tr>
+                            <td>Vancomycin (MRSA)</td>
+                            <td>Linezolid 600mg BID, Doxycycline, or TMP-SMX</td>
+                            <td>Based on site/susceptibility</td>
+                        </tr>
+                        <tr>
+                            <td>Ampicillin</td>
+                            <td>Amoxicillin 500-1000mg TID</td>
+                            <td>Better absorption than ampicillin PO</td>
+                        </tr>
+                        <tr>
+                            <td>Metronidazole IV</td>
+                            <td>Metronidazole 500mg PO TID</td>
+                            <td>Equivalent; can switch immediately</td>
+                        </tr>
+                        <tr>
+                            <td>Azithromycin IV</td>
+                            <td>Azithromycin 500mg PO daily</td>
+                            <td>Similar bioavailability</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>POET and OVIVA Trials: PO for Serious Infections</h3>
+                    <div class="pearl-box">
+                        💎 <strong>Evidence supports oral step-down for:</strong>
+                        <ul>
+                            <li><strong>Left-sided endocarditis</strong> (POET trial): PO switch after ≥10 days IV if stable</li>
+                            <li><strong>Bone & joint infections</strong> (OVIVA trial): PO equivalent to IV after initial stabilization</li>
+                            <li>Requires highly bioavailable agents and close follow-up</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CULTURES & DIAGNOSTICS -->
+        <div class="section" id="cultures">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>🔬 Culture & Diagnostic Stewardship</h2>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+
+                <div class="subsection">
+                    <h3>When to Obtain Cultures</h3>
+                    <div class="key-point">
+                        ✅ <strong>Always obtain cultures before antibiotics for:</strong>
+                        <ul>
+                            <li>Sepsis / septic shock</li>
+                            <li>Pneumonia (hospitalized patients)</li>
+                            <li>Endocarditis (3 sets from separate sites)</li>
+                            <li>Meningitis</li>
+                            <li>Osteomyelitis / septic arthritis</li>
+                            <li>Complicated UTI / pyelonephritis</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>When NOT to Culture</h3>
+                    <div class="warning-box">
+                        ⚠️ <strong>Avoid cultures that rarely change management:</strong>
+                        <ul>
+                            <li>Uncomplicated cystitis in young women</li>
+                            <li>Asymptomatic bacteriuria (except pregnancy, pre-urologic procedure)</li>
+                            <li>Non-purulent cellulitis (blood cultures low yield)</li>
+                            <li>Respiratory cultures without clinical pneumonia</li>
+                            <li>C. diff testing without diarrhea (colonization common)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>Blood Culture Guidance</h3>
+                    <table>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Recommendation</th>
+                        </tr>
+                        <tr>
+                            <td>Suspected bacteremia/sepsis</td>
+                            <td>2 sets (4 bottles) from 2 separate sites before antibiotics</td>
+                        </tr>
+                        <tr>
+                            <td>Endocarditis suspected</td>
+                            <td>3 sets from 3 separate sites, 1 hour apart if possible</td>
+                        </tr>
+                        <tr>
+                            <td>Follow-up for S. aureus bacteremia</td>
+                            <td>Daily or every 48h until negative</td>
+                        </tr>
+                        <tr>
+                            <td>Low-grade fever only</td>
+                            <td>Usually not indicated without other signs of infection</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>Procalcitonin-Guided Therapy</h3>
+                    <div class="info-box">
+                        <strong>Procalcitonin (PCT) can guide antibiotic duration:</strong>
+                        <ul>
+                            <li><strong>PCT &lt;0.25:</strong> Bacterial infection unlikely - consider stopping antibiotics</li>
+                            <li><strong>PCT 0.25-0.5:</strong> Bacterial infection possible - clinical judgment</li>
+                            <li><strong>PCT >0.5:</strong> Bacterial infection likely - continue antibiotics</li>
+                            <li><strong>80% decrease from peak:</strong> Consider stopping antibiotics</li>
+                        </ul>
+                    </div>
+                    <div class="pearl-box">
+                        💎 PCT-guided therapy reduces antibiotic duration in respiratory infections by 2-3 days without affecting outcomes.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- STEWARDSHIP PEARLS -->
+        <div class="section" id="pearls">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2>💎 Stewardship Pearls</h2>
+                <span class="toggle">▼</span>
+            </div>
+            <div class="section-content">
+
+                <div class="pearl-box">
+                    <strong>1. Shorter is Better:</strong> CAP = 5 days, intra-abdominal = 4 days post source control, cellulitis = 5 days. Longer courses ↑C. diff and resistance.
+                </div>
+
+                <div class="pearl-box">
+                    <strong>2. Beta-lactams > Vancomycin for MSSA:</strong> Nafcillin/cefazolin have superior outcomes vs vancomycin for MSSA infections. De-escalate when cultures return.
+                </div>
+
+                <div class="pearl-box">
+                    <strong>3. MRSA Nasal Swab:</strong> Negative nasal swab has >95% NPV for MRSA pneumonia. Use to discontinue empiric vancomycin/linezolid.
+                </div>
+
+                <div class="pearl-box">
+                    <strong>4. Don't Treat Asymptomatic Bacteriuria:</strong> Only treat in pregnancy and pre-urologic procedure. Pyuria alone is NOT an indication for treatment.
+                </div>
+
+                <div class="pearl-box">
+                    <strong>5. ID Consult for S. aureus Bacteremia:</strong> Mandatory - reduces mortality. All SAB needs echo, source evaluation, and duration determination (14 days vs 4-6 weeks).
+                </div>
+
+                <div class="pearl-box">
+                    <strong>6. Oral is Often Equivalent:</strong> POET/OVIVA trials show oral antibiotics non-inferior to IV for endocarditis and bone infections after initial stabilization.
+                </div>
+
+                <div class="pearl-box">
+                    <strong>7. Fluoroquinolone Stewardship:</strong> Reserve FQs for when no alternatives exist. Associated with C. diff, tendon rupture, aortic dissection, QTc prolongation.
+                </div>
+
+                <div class="pearl-box">
+                    <strong>8. Double Coverage Rarely Needed:</strong> Double Pseudomonas or double Gram-negative coverage only indicated for initial empiric therapy in severe sepsis/shock. De-escalate to single agent once susceptibilities return.
+                </div>
+
+                <div class="pearl-box">
+                    <strong>9. IV-to-PO Switch Early:</strong> Most patients can switch to PO within 48-72h if clinically improving and have functioning GI tract. Linezolid, FQs, metronidazole, TMP-SMX have ~100% bioavailability.
+                </div>
+
+                <div class="pearl-box">
+                    <strong>10. Allergy Clarification:</strong> 90% of penicillin "allergies" are not true IgE-mediated. Clarify reaction type - many patients can receive beta-lactams.
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <button id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        function toggleSection(header) {
+            header.classList.toggle('collapsed');
+            header.nextElementSibling.classList.toggle('collapsed');
+        }
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        window.onscroll = function() {
+            document.getElementById('backToTop').style.display = 
+                (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) ? 'block' : 'none';
+        };
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    const header = target.querySelector('.section-header');
+                    const content = target.querySelector('.section-content');
+                    if (header && content) {
+                        header.classList.remove('collapsed');
+                        content.classList.remove('collapsed');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
