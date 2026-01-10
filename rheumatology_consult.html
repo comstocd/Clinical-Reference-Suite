@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Rheumatology Consult Note Template</title>
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --primary-light: #a78bfa;
+            --primary-dark: #5b21b6;
+            --accent: #f59e0b;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-muted: #6c757d;
+            --border: #dee2e6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --section-header: #f3e8ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            font-size: 16px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .header-subtitle {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toolbar-btn:hover, .toolbar-btn:active {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .nav-chip {
+            background: var(--section-header);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .nav-chip:hover, .nav-chip:active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--section-header);
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            user-select: none;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-icon {
+            font-size: 1.1rem;
+        }
+
+        .section-toggle {
+            font-size: 1.2rem;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .section.collapsed .section-toggle {
+            transform: rotate(-90deg);
+        }
+
+        .section.collapsed .section-content {
+            display: none;
+        }
+
+        .section-content {
+            padding: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .form-sublabel {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            display: block;
+            margin-top: 2px;
+        }
+
+        textarea, input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: white;
+            color: var(--text);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        textarea:focus, input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        textarea.large {
+            min-height: 120px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background: var(--section-header);
+        }
+
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .checkbox-item label {
+            font-size: 0.9rem;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .inline-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .inline-group label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .inline-group input {
+            padding: 8px 10px;
+        }
+
+        .callout {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border-left: 4px solid;
+        }
+
+        .callout-info {
+            background: #ede9fe;
+            border-color: var(--primary);
+        }
+
+        .callout-warning {
+            background: #fef3c7;
+            border-color: var(--warning);
+        }
+
+        .callout-danger {
+            background: #fee2e2;
+            border-color: var(--danger);
+        }
+
+        .callout-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 4px;
+        }
+
+        .callout-content {
+            font-size: 0.875rem;
+        }
+
+        .reference-box {
+            background: linear-gradient(135deg, #f6f8fa 0%, #eef1f5 100%);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+            margin-top: 12px;
+        }
+
+        .reference-box h4 {
+            margin: 0 0 8px 0;
+            font-size: 0.85rem;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .reference-box ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 0.875rem;
+        }
+
+        .reference-box li {
+            margin-bottom: 4px;
+        }
+
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .tag-inflam { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
+        .tag-auto { background: #ede9fe; color: #5b21b6; border-color: #c4b5fd; }
+        .tag-crystal { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+        .tag-vasc { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+        .tag-ctd { background: #d1fae5; color: #065f46; border-color: #6ee7b7; }
+        .tag-spondy { background: #ffedd5; color: #9a3412; border-color: #fdba74; }
+
+        .tag.selected {
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .output-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .output-section h3 {
+            margin: 0 0 16px 0;
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+        }
+
+        #generated-note {
+            background: #fafbfc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: "SF Mono", Monaco, "Courier New", monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            min-height: 200px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .output-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover, .btn-primary:active {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover, .btn-secondary:active {
+            background: var(--border);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--primary-dark);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Joint diagram section */
+        .joint-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 8px;
+        }
+
+        .joint-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            background: var(--bg);
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+
+        .joint-item select {
+            padding: 4px 6px;
+            font-size: 0.8rem;
+            min-width: 70px;
+        }
+
+        /* Pattern badges */
+        .pattern-selector {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pattern-badge {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .pattern-badge:hover {
+            border-color: var(--primary-light);
+        }
+
+        .pattern-badge.selected {
+            border-color: var(--primary);
+            background: var(--section-header);
+            color: var(--primary-dark);
+        }
+
+        /* Criteria box */
+        .criteria-box {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 2px solid var(--success);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+
+        .criteria-box h4 {
+            color: #065f46;
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .criteria-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .criteria-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+
+        /* Red flags box */
+        .redflags-box {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 2px solid var(--danger);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .redflags-box h4 {
+            color: var(--danger);
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .inline-inputs {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .header, .toolbar, .quick-nav, .output-actions, .nav-chip {
+                display: none !important;
+            }
+            
+            .section {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            body {
+                font-size: 11pt;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🦴 Rheumatology Consult Note</h1>
+        <div class="header-subtitle">Structured Template for Comprehensive Rheumatologic Evaluation</div>
+        <div class="toolbar">
+            <button class="toolbar-btn" onclick="generateNote()">📋 Generate Note</button>
+            <button class="toolbar-btn" onclick="clearAll()">🗑️ Clear All</button>
+            <button class="toolbar-btn" onclick="expandAll()">📂 Expand All</button>
+            <button class="toolbar-btn" onclick="collapseAll()">📁 Collapse All</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Quick Navigation -->
+        <div class="quick-nav">
+            <button class="nav-chip" onclick="scrollToSection('consult-reason')">Reason</button>
+            <button class="nav-chip" onclick="scrollToSection('joint-history')">Joint Hx</button>
+            <button class="nav-chip" onclick="scrollToSection('systemic')">Systemic</button>
+            <button class="nav-chip" onclick="scrollToSection('pmh')">PMH/Meds</button>
+            <button class="nav-chip" onclick="scrollToSection('exam')">Exam</button>
+            <button class="nav-chip" onclick="scrollToSection('labs')">Labs</button>
+            <button class="nav-chip" onclick="scrollToSection('imaging')">Imaging</button>
+            <button class="nav-chip" onclick="scrollToSection('assessment')">Assessment</button>
+            <button class="nav-chip" onclick="scrollToSection('recommendations')">Recs</button>
+        </div>
+
+        <!-- Consult Reason -->
+        <div class="section" id="consult-reason">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📞</span> Reason for Consultation</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="callout callout-info">
+                    <div class="callout-content">State the specific clinical question (e.g., "Evaluate polyarthritis — inflammatory vs. degenerative" not just "joint pain")</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Primary Consult Question</label>
+                    <textarea id="consult-question" placeholder="e.g., Evaluate symmetric polyarthritis with elevated inflammatory markers — concern for new RA vs. other inflammatory arthropathy"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Consult Category</label>
+                    <div class="tag-group">
+                        <span class="tag tag-inflam" onclick="toggleTag(this)">Inflammatory Arthritis</span>
+                        <span class="tag tag-auto" onclick="toggleTag(this)">Autoimmune/CTD</span>
+                        <span class="tag tag-crystal" onclick="toggleTag(this)">Crystal Arthropathy</span>
+                        <span class="tag tag-vasc" onclick="toggleTag(this)">Vasculitis</span>
+                        <span class="tag tag-ctd" onclick="toggleTag(this)">Connective Tissue Disease</span>
+                        <span class="tag tag-spondy" onclick="toggleTag(this)">Spondyloarthropathy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Joint History -->
+        <div class="section" id="joint-history">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🦴</span> Joint History</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Joint Distribution Pattern</label>
+                    <div class="pattern-selector">
+                        <span class="pattern-badge" onclick="selectPattern(this, 'distribution')">Monoarticular</span>
+                        <span class="pattern-badge" onclick="selectPattern(this, 'distribution')">Oligoarticular (2-4)</span>
+                        <span class="pattern-badge" onclick="selectPattern(this, 'distribution')">Polyarticular (≥5)</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Symmetry</label>
+                    <div class="pattern-selector">
+                        <span class="pattern-badge" onclick="selectPattern(this, 'symmetry')">Symmetric</span>
+                        <span class="pattern-badge" onclick="selectPattern(this, 'symmetry')">Asymmetric</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Joint Size Involvement</label>
+                    <div class="pattern-selector">
+                        <span class="pattern-badge" onclick="selectPattern(this, 'size')">Small joints</span>
+                        <span class="pattern-badge" onclick="selectPattern(this, 'size')">Large joints</span>
+                        <span class="pattern-badge" onclick="selectPattern(this, 'size')">Both small & large</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Affected Joints</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="j-hands"><label for="j-hands">Hands (MCPs/PIPs)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="j-wrists"><label for="j-wrists">Wrists</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="j-elbows"><label for="j-elbows">Elbows</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="j-shoulders"><label for="j-shoulders">Shoulders</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="j-hips"><label for="j-hips">Hips</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="j-knees"><label for="j-knees">Knees</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="j-ankles"><label for="j-ankles">Ankles</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="j-feet"><label for="j-feet">Feet (MTPs)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="j-dips"><label for="j-dips">DIPs</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="j-spine"><label for="j-spine">Spine</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="j-si"><label for="j-si">SI Joints</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="j-tmj"><label for="j-tmj">TMJ</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Symptom Duration</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Onset</label>
+                            <input type="text" id="onset" placeholder="e.g., 6 weeks ago">
+                        </div>
+                        <div class="inline-group">
+                            <label>Course</label>
+                            <select id="course">
+                                <option value="">-- Select --</option>
+                                <option value="Acute (<6 weeks)">Acute (&lt;6 weeks)</option>
+                                <option value="Chronic (≥6 weeks)">Chronic (≥6 weeks)</option>
+                                <option value="Episodic/Flares">Episodic/Flares</option>
+                                <option value="Progressive">Progressive</option>
+                                <option value="Migratory">Migratory</option>
+                                <option value="Additive">Additive</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Morning Stiffness</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Duration</label>
+                            <select id="am-stiffness">
+                                <option value="">-- Select --</option>
+                                <option value="None">None</option>
+                                <option value="<30 minutes">&lt;30 minutes (suggests mechanical)</option>
+                                <option value="30-60 minutes">30-60 minutes</option>
+                                <option value=">60 minutes">&gt;60 minutes (suggests inflammatory)</option>
+                                <option value=">2 hours">&gt;2 hours</option>
+                            </select>
+                        </div>
+                        <div class="inline-group">
+                            <label>Improves with</label>
+                            <select id="stiffness-relief">
+                                <option value="">-- Select --</option>
+                                <option value="Activity/movement">Activity/movement (inflammatory)</option>
+                                <option value="Rest">Rest (mechanical)</option>
+                                <option value="Neither">Neither</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Joint Symptoms Details</label>
+                    <textarea id="joint-details" class="large" placeholder="Describe swelling, warmth, erythema, pain quality, aggravating/alleviating factors, functional limitations..."></textarea>
+                </div>
+
+                <div class="reference-box">
+                    <h4>Pattern Recognition Clues</h4>
+                    <ul>
+                        <li><strong>RA:</strong> Symmetric small joint polyarthritis, MCPs/PIPs/wrists, spares DIPs</li>
+                        <li><strong>OA:</strong> DIPs/PIPs (Heberden's/Bouchard's), 1st CMC, knees, hips; &lt;30 min stiffness</li>
+                        <li><strong>PsA:</strong> Asymmetric, DIP involvement, dactylitis, enthesitis</li>
+                        <li><strong>Gout:</strong> Acute monoarthritis, 1st MTP, podagra; tophi in chronic</li>
+                        <li><strong>Axial SpA:</strong> Inflammatory back pain, SI joint involvement, enthesitis</li>
+                        <li><strong>Reactive:</strong> Asymmetric oligoarthritis, recent GI/GU infection</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Systemic / Extra-articular -->
+        <div class="section" id="systemic">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🔍</span> Systemic & Extra-Articular Features</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="redflags-box">
+                    <h4>🚨 Red Flags for Systemic Disease</h4>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="rf-fever"><label for="rf-fever">Fever</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="rf-weightloss"><label for="rf-weightloss">Unexplained weight loss</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="rf-nightsweats"><label for="rf-nightsweats">Night sweats</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="rf-newrash"><label for="rf-newrash">New rash</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="rf-renal"><label for="rf-renal">Renal involvement</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="rf-pulm"><label for="rf-pulm">Pulmonary symptoms</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Constitutional Symptoms</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="const-fatigue"><label for="const-fatigue">Fatigue</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="const-malaise"><label for="const-malaise">Malaise</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="const-fever"><label for="const-fever">Fever</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="const-weight"><label for="const-weight">Weight loss</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="const-anorexia"><label for="const-anorexia">Anorexia</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Skin Manifestations</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="skin-malar"><label for="skin-malar">Malar rash</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="skin-discoid"><label for="skin-discoid">Discoid lesions</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="skin-photosens"><label for="skin-photosens">Photosensitivity</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="skin-psoriasis"><label for="skin-psoriasis">Psoriasis</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="skin-gottron"><label for="skin-gottron">Gottron's papules</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="skin-heliotrope"><label for="skin-heliotrope">Heliotrope rash</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="skin-raynaud"><label for="skin-raynaud">Raynaud's</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="skin-livedo"><label for="skin-livedo">Livedo reticularis</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="skin-sclerodactyly"><label for="skin-sclerodactyly">Sclerodactyly</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="skin-nodules"><label for="skin-nodules">Rheumatoid nodules</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="skin-tophi"><label for="skin-tophi">Tophi</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="skin-palpurp"><label for="skin-palpurp">Palpable purpura</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Ocular Symptoms</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="eye-dry"><label for="eye-dry">Dry eyes (sicca)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="eye-red"><label for="eye-red">Red eye</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="eye-uveitis"><label for="eye-uveitis">Uveitis/iritis</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="eye-scleritis"><label for="eye-scleritis">Scleritis/episcleritis</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="eye-conjunct"><label for="eye-conjunct">Conjunctivitis</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Oral/GI Symptoms</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="oral-ulcers"><label for="oral-ulcers">Oral ulcers</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="oral-dry"><label for="oral-dry">Dry mouth (xerostomia)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="gi-dysphagia"><label for="gi-dysphagia">Dysphagia</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="gi-reflux"><label for="gi-reflux">Reflux/heartburn</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="gi-diarrhea"><label for="gi-diarrhea">Diarrhea (IBD-related)</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Cardiopulmonary</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="cp-dyspnea"><label for="cp-dyspnea">Dyspnea</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="cp-cough"><label for="cp-cough">Chronic cough</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="cp-pleurisy"><label for="cp-pleurisy">Pleuritic chest pain</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="cp-pericarditis"><label for="cp-pericarditis">Pericarditis</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="cp-ild"><label for="cp-ild">Known/suspected ILD</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Neurologic</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="neuro-neuropathy"><label for="neuro-neuropathy">Peripheral neuropathy</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="neuro-mononeuritis"><label for="neuro-mononeuritis">Mononeuritis multiplex</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="neuro-headache"><label for="neuro-headache">New headache</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="neuro-weakness"><label for="neuro-weakness">Proximal muscle weakness</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="neuro-cns"><label for="neuro-cns">CNS symptoms</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Renal</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="renal-hematuria"><label for="renal-hematuria">Hematuria</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="renal-proteinuria"><label for="renal-proteinuria">Proteinuria</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="renal-aki"><label for="renal-aki">AKI/elevated creatinine</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="renal-stones"><label for="renal-stones">Kidney stones (uric acid)</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Other Features</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="other-alopecia"><label for="other-alopecia">Alopecia</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="other-serositis"><label for="other-serositis">Serositis</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="other-thrombo"><label for="other-thrombo">Thrombosis (arterial/venous)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="other-miscarriage"><label for="other-miscarriage">Pregnancy loss</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="other-dactylitis"><label for="other-dactylitis">Dactylitis (sausage digits)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="other-enthesitis"><label for="other-enthesitis">Enthesitis</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="other-nail"><label for="other-nail">Nail changes (pitting, onycholysis)</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Additional Systemic Details</label>
+                    <textarea id="systemic-details" placeholder="Describe any additional systemic symptoms, timing, severity..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- PMH / Medications -->
+        <div class="section" id="pmh">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📜</span> Past Medical History & Medications</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Known Rheumatologic Diagnoses</label>
+                    <textarea id="rheum-dx" placeholder="Prior diagnoses, date of diagnosis, disease activity..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Relevant Comorbidities</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="pmh-dm"><label for="pmh-dm">Diabetes</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="pmh-htn"><label for="pmh-htn">Hypertension</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="pmh-ckd"><label for="pmh-ckd">CKD</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="pmh-cad"><label for="pmh-cad">CAD</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="pmh-chf"><label for="pmh-chf">Heart failure</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="pmh-copd"><label for="pmh-copd">COPD/Lung disease</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="pmh-hepb"><label for="pmh-hepb">Hepatitis B</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="pmh-hepc"><label for="pmh-hepc">Hepatitis C</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="pmh-hiv"><label for="pmh-hiv">HIV</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="pmh-tb"><label for="pmh-tb">TB/Latent TB</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="pmh-malig"><label for="pmh-malig">Malignancy</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="pmh-ibd"><label for="pmh-ibd">IBD</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="pmh-osteo"><label for="pmh-osteo">Osteoporosis</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Current Rheumatologic Medications</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="med-mtx"><label for="med-mtx">Methotrexate</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-hcq"><label for="med-hcq">Hydroxychloroquine</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-ssz"><label for="med-ssz">Sulfasalazine</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-lef"><label for="med-lef">Leflunomide</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-aza"><label for="med-aza">Azathioprine</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-mmf"><label for="med-mmf">Mycophenolate</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-pred"><label for="med-pred">Prednisone/steroids</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-colch"><label for="med-colch">Colchicine</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-allo"><label for="med-allo">Allopurinol</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-febux"><label for="med-febux">Febuxostat</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Biologics / Targeted Therapies</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="bio-tnf"><label for="bio-tnf">TNF inhibitor</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="bio-il6"><label for="bio-il6">IL-6 inhibitor</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="bio-il17"><label for="bio-il17">IL-17 inhibitor</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="bio-il1"><label for="bio-il1">IL-1 inhibitor</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="bio-jak"><label for="bio-jak">JAK inhibitor</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="bio-rtx"><label for="bio-rtx">Rituximab</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="bio-aba"><label for="bio-aba">Abatacept</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="bio-bel"><label for="bio-bel">Belimumab</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Medication Details</label>
+                    <textarea id="med-details" placeholder="Doses, duration, prior therapies tried, reason for discontinuation, side effects..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Family History</label>
+                    <textarea id="fam-hx" placeholder="Autoimmune diseases in family (RA, lupus, psoriasis, IBD, thyroid disease, etc.)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Social History (relevant)</label>
+                    <textarea id="social-hx" placeholder="Smoking status (important for RA), alcohol use (gout), occupational exposures, recent travel, recent infections..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Physical Exam -->
+        <div class="section" id="exam">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🩺</span> Physical Examination</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Vital Signs</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>BP (mmHg)</label>
+                            <input type="text" id="bp" placeholder="e.g., 128/78">
+                        </div>
+                        <div class="inline-group">
+                            <label>HR (bpm)</label>
+                            <input type="text" id="hr" placeholder="e.g., 82">
+                        </div>
+                        <div class="inline-group">
+                            <label>Temp (°F)</label>
+                            <input type="text" id="temp" placeholder="e.g., 98.6">
+                        </div>
+                        <div class="inline-group">
+                            <label>SpO2 (%)</label>
+                            <input type="text" id="spo2" placeholder="e.g., 97% RA">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">General Appearance</label>
+                    <textarea id="general-exam" placeholder="e.g., Well-appearing, no acute distress. Cushingoid features. Appears chronically ill."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Skin Examination</label>
+                    <textarea id="skin-exam" placeholder="Rashes (distribution, morphology), nodules, tophi, nail changes, Raynaud's, sclerodactyly, skin thickening..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">HEENT</label>
+                    <textarea id="heent-exam" placeholder="Oral ulcers, dry eyes/mouth, temporal artery tenderness, scalp tenderness, alopecia, conjunctival injection..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Cardiopulmonary</label>
+                    <textarea id="cp-exam" placeholder="Friction rub, crackles (ILD), murmurs..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Musculoskeletal Examination</label>
+                    <div class="callout callout-info">
+                        <div class="callout-title">Joint Exam Essentials</div>
+                        <div class="callout-content">Document: Swelling (synovitis), Tenderness, Warmth, Erythema, Range of motion, Deformities, Crepitus</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Upper Extremity Joints</label>
+                    <textarea id="ue-exam" class="large" placeholder="Hands: MCPs, PIPs, DIPs - swelling, tenderness, synovitis, deformities (swan neck, boutonniere, ulnar deviation)
+Wrists: synovitis, ROM, carpal tunnel signs
+Elbows: nodules, effusion, ROM
+Shoulders: ROM, tenderness, impingement signs"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Lower Extremity Joints</label>
+                    <textarea id="le-exam" class="large" placeholder="Hips: ROM, pain with internal rotation
+Knees: effusion, warmth, crepitus, Baker's cyst, ligament stability
+Ankles: swelling, tenderness, ROM
+Feet: MTPs, midfoot, 1st MTP (podagra), dactylitis"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Spine Examination</label>
+                    <textarea id="spine-exam" placeholder="Cervical ROM, lumbar ROM, Schober test, SI joint tenderness, FABER test, chest expansion..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Enthesitis Sites</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="enth-achilles"><label for="enth-achilles">Achilles tendon</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="enth-plantar"><label for="enth-plantar">Plantar fascia</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="enth-patellar"><label for="enth-patellar">Patellar tendon</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="enth-epicond"><label for="enth-epicond">Epicondyles</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="enth-iliac"><label for="enth-iliac">Iliac crest</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Tender Joint Count (TJC) / Swollen Joint Count (SJC)</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>TJC (of 28)</label>
+                            <input type="text" id="tjc" placeholder="e.g., 8">
+                        </div>
+                        <div class="inline-group">
+                            <label>SJC (of 28)</label>
+                            <input type="text" id="sjc" placeholder="e.g., 6">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Neurologic (focused)</label>
+                    <textarea id="neuro-exam" placeholder="Muscle strength (proximal vs distal), sensory exam, reflexes, gait..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Laboratory Data -->
+        <div class="section" id="labs">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🧪</span> Laboratory Data</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Inflammatory Markers</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>ESR (mm/hr)</label>
+                            <input type="text" id="esr" placeholder="e.g., 45">
+                        </div>
+                        <div class="inline-group">
+                            <label>CRP (mg/L)</label>
+                            <input type="text" id="crp" placeholder="e.g., 2.8">
+                        </div>
+                        <div class="inline-group">
+                            <label>Ferritin</label>
+                            <input type="text" id="ferritin" placeholder="e.g., 520">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Rheumatoid Arthritis Serologies</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>RF (IU/mL)</label>
+                            <input type="text" id="rf" placeholder="e.g., 85">
+                        </div>
+                        <div class="inline-group">
+                            <label>Anti-CCP (U/mL)</label>
+                            <input type="text" id="anti-ccp" placeholder="e.g., >250">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">ANA & Related</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>ANA</label>
+                            <input type="text" id="ana" placeholder="e.g., 1:320 speckled">
+                        </div>
+                        <div class="inline-group">
+                            <label>Anti-dsDNA</label>
+                            <input type="text" id="dsdna" placeholder="e.g., 45 IU/mL">
+                        </div>
+                        <div class="inline-group">
+                            <label>Anti-Smith</label>
+                            <input type="text" id="smith" placeholder="e.g., Positive">
+                        </div>
+                        <div class="inline-group">
+                            <label>Anti-RNP</label>
+                            <input type="text" id="rnp" placeholder="e.g., Negative">
+                        </div>
+                    </div>
+                    <div class="inline-inputs" style="margin-top: 12px;">
+                        <div class="inline-group">
+                            <label>Anti-SSA (Ro)</label>
+                            <input type="text" id="ssa" placeholder="e.g., Positive">
+                        </div>
+                        <div class="inline-group">
+                            <label>Anti-SSB (La)</label>
+                            <input type="text" id="ssb" placeholder="e.g., Negative">
+                        </div>
+                        <div class="inline-group">
+                            <label>Anti-Scl-70</label>
+                            <input type="text" id="scl70" placeholder="e.g., Negative">
+                        </div>
+                        <div class="inline-group">
+                            <label>Anti-centromere</label>
+                            <input type="text" id="centromere" placeholder="e.g., Negative">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Myositis Panel</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>CK (U/L)</label>
+                            <input type="text" id="ck" placeholder="e.g., 1250">
+                        </div>
+                        <div class="inline-group">
+                            <label>Aldolase</label>
+                            <input type="text" id="aldolase" placeholder="e.g., 12">
+                        </div>
+                        <div class="inline-group">
+                            <label>Anti-Jo-1</label>
+                            <input type="text" id="jo1" placeholder="e.g., Negative">
+                        </div>
+                        <div class="inline-group">
+                            <label>Anti-Mi-2</label>
+                            <input type="text" id="mi2" placeholder="e.g., Negative">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Vasculitis Workup</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>c-ANCA/PR3</label>
+                            <input type="text" id="canca" placeholder="e.g., Negative">
+                        </div>
+                        <div class="inline-group">
+                            <label>p-ANCA/MPO</label>
+                            <input type="text" id="panca" placeholder="e.g., Positive">
+                        </div>
+                        <div class="inline-group">
+                            <label>Anti-GBM</label>
+                            <input type="text" id="gbm" placeholder="e.g., Negative">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Complement</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>C3 (mg/dL)</label>
+                            <input type="text" id="c3" placeholder="e.g., 65">
+                        </div>
+                        <div class="inline-group">
+                            <label>C4 (mg/dL)</label>
+                            <input type="text" id="c4" placeholder="e.g., 8">
+                        </div>
+                        <div class="inline-group">
+                            <label>CH50</label>
+                            <input type="text" id="ch50" placeholder="e.g., Low">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Antiphospholipid Antibodies</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Lupus anticoagulant</label>
+                            <input type="text" id="la" placeholder="e.g., Negative">
+                        </div>
+                        <div class="inline-group">
+                            <label>Anticardiolipin</label>
+                            <input type="text" id="acl" placeholder="e.g., IgG 45">
+                        </div>
+                        <div class="inline-group">
+                            <label>Anti-β2GP1</label>
+                            <input type="text" id="b2gp1" placeholder="e.g., Negative">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Crystal Disease</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Uric acid (mg/dL)</label>
+                            <input type="text" id="uric-acid" placeholder="e.g., 9.2">
+                        </div>
+                        <div class="inline-group">
+                            <label>24h urine uric acid</label>
+                            <input type="text" id="urine-ua" placeholder="e.g., 850 mg/day">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Other Relevant Labs</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>HLA-B27</label>
+                            <input type="text" id="hlab27" placeholder="e.g., Positive">
+                        </div>
+                        <div class="inline-group">
+                            <label>Cryoglobulins</label>
+                            <input type="text" id="cryo" placeholder="e.g., Negative">
+                        </div>
+                        <div class="inline-group">
+                            <label>ACE level</label>
+                            <input type="text" id="ace" placeholder="e.g., 68">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">CBC/CMP Highlights</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>WBC (K/µL)</label>
+                            <input type="text" id="wbc" placeholder="e.g., 4.2">
+                        </div>
+                        <div class="inline-group">
+                            <label>Hgb (g/dL)</label>
+                            <input type="text" id="hgb" placeholder="e.g., 10.8">
+                        </div>
+                        <div class="inline-group">
+                            <label>Plt (K/µL)</label>
+                            <input type="text" id="plt" placeholder="e.g., 185">
+                        </div>
+                        <div class="inline-group">
+                            <label>Cr (mg/dL)</label>
+                            <input type="text" id="cr" placeholder="e.g., 1.1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Urinalysis</label>
+                    <textarea id="ua" placeholder="Protein, blood, RBC casts (lupus nephritis), WBC..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Synovial Fluid Analysis</label>
+                    <textarea id="synovial-fluid" class="large" placeholder="Color, clarity, WBC count, differential (% PMNs), crystals (MSU vs CPPD), Gram stain, culture..."></textarea>
+                </div>
+
+                <div class="reference-box">
+                    <h4>Synovial Fluid Interpretation</h4>
+                    <ul>
+                        <li><strong>Normal:</strong> Clear, &lt;200 WBC, &lt;25% PMNs</li>
+                        <li><strong>Non-inflammatory (OA):</strong> Clear/yellow, 200-2,000 WBC, &lt;25% PMNs</li>
+                        <li><strong>Inflammatory:</strong> Cloudy, 2,000-50,000 WBC, &gt;50% PMNs</li>
+                        <li><strong>Septic:</strong> Purulent, &gt;50,000 WBC (often &gt;100K), &gt;75% PMNs</li>
+                        <li><strong>MSU crystals (gout):</strong> Needle-shaped, negative birefringence</li>
+                        <li><strong>CPPD crystals:</strong> Rhomboid, weakly positive birefringence</li>
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Additional Labs</label>
+                    <textarea id="additional-labs" placeholder="LDH, haptoglobin, direct Coombs, hepatitis panel, HIV, procalcitonin, etc."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Imaging -->
+        <div class="section" id="imaging">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📷</span> Imaging</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Plain Radiographs</label>
+                    <textarea id="xray" class="large" placeholder="Joint space narrowing, erosions, periarticular osteopenia, osteophytes, chondrocalcinite (CPPD), sacroiliitis, syndesmophytes, tophi..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">MRI</label>
+                    <textarea id="mri" placeholder="Synovitis, bone marrow edema, erosions, enthesitis, tenosynovitis, sacroiliitis..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Ultrasound</label>
+                    <textarea id="ultrasound" placeholder="Synovitis, effusion, erosions, Power Doppler signal, double contour sign (gout), tophi..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">CT Chest (if ILD concern)</label>
+                    <textarea id="ct-chest" placeholder="Ground glass opacities, honeycombing, UIP vs NSIP pattern, fibrosis distribution..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Other Imaging</label>
+                    <textarea id="other-imaging" placeholder="DEXA, PET, echocardiogram, CTA..."></textarea>
+                </div>
+
+                <div class="reference-box">
+                    <h4>Radiographic Features</h4>
+                    <ul>
+                        <li><strong>RA:</strong> Periarticular osteopenia, marginal erosions, joint space narrowing, ulnar deviation</li>
+                        <li><strong>OA:</strong> Osteophytes, subchondral sclerosis, joint space narrowing, subchondral cysts</li>
+                        <li><strong>Gout:</strong> "Rat bite" erosions with overhanging edges, tophi</li>
+                        <li><strong>CPPD:</strong> Chondrocalcinosis (cartilage calcification)</li>
+                        <li><strong>PsA:</strong> Erosions + proliferation, "pencil-in-cup," periostitis</li>
+                        <li><strong>AS:</strong> Sacroiliitis, syndesmophytes, bamboo spine, squaring of vertebrae</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assessment -->
+        <div class="section" id="assessment">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🧠</span> Assessment & Synthesis</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Inflammatory vs. Non-inflammatory</label>
+                    <div class="pattern-selector">
+                        <span class="pattern-badge" onclick="selectPattern(this, 'inflammatory')">Inflammatory</span>
+                        <span class="pattern-badge" onclick="selectPattern(this, 'inflammatory')">Non-inflammatory</span>
+                        <span class="pattern-badge" onclick="selectPattern(this, 'inflammatory')">Mixed</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Primary Working Diagnosis</label>
+                    <textarea id="primary-dx" placeholder="e.g., Seropositive rheumatoid arthritis, moderate disease activity, with early erosive changes"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Disease Activity Assessment</label>
+                    <select id="disease-activity">
+                        <option value="">-- Select if applicable --</option>
+                        <option value="Remission">Remission</option>
+                        <option value="Low disease activity">Low disease activity</option>
+                        <option value="Moderate disease activity">Moderate disease activity</option>
+                        <option value="High disease activity">High disease activity</option>
+                        <option value="Flare">Flare</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Differential Diagnosis</label>
+                    <textarea id="differential" class="large" placeholder="1. Rheumatoid arthritis - most likely given symmetric polyarthritis, RF+/anti-CCP+, elevated ESR/CRP
+2. Viral arthritis - less likely given chronicity
+3. Psoriatic arthritis - possible, no skin findings currently
+4. Early SLE - ANA positive but no other criteria met"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Classification Criteria Met?</label>
+                    <textarea id="criteria-met" placeholder="Document specific criteria met (e.g., 2010 ACR/EULAR RA criteria: Score ≥6)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Clinical Synthesis / Narrative</label>
+                    <textarea id="synthesis" class="large" placeholder="Summarize the clinical picture, disease trajectory, key findings supporting your diagnosis, and prognostic considerations..."></textarea>
+                </div>
+
+                <div class="criteria-box">
+                    <h4>📋 Quick Reference: Common Classification Criteria</h4>
+                    <ul class="criteria-list">
+                        <li><strong>RA:</strong> 2010 ACR/EULAR (≥6 points)</li>
+                        <li><strong>SLE:</strong> 2019 EULAR/ACR (≥10 points + ANA)</li>
+                        <li><strong>Gout:</strong> 2015 ACR/EULAR (≥8 points)</li>
+                        <li><strong>Axial SpA:</strong> ASAS (sacroiliitis + SpA features)</li>
+                        <li><strong>GPA:</strong> 2022 ACR/EULAR</li>
+                        <li><strong>SSc:</strong> 2013 ACR/EULAR (≥9 points)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="section" id="recommendations">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📋</span> Recommendations</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Additional Workup</label>
+                    <textarea id="recs-workup" placeholder="- Complete myositis panel
+- Anti-CCP if not done
+- HLA-B27
+- Hepatitis B/C, TB screening prior to biologics
+- Consider MRI of hands/feet for early erosions"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Arthrocentesis / Procedures</label>
+                    <textarea id="recs-procedures" placeholder="- Knee arthrocentesis for synovial fluid analysis
+- Consider ultrasound-guided aspiration
+- Send for: cell count, crystals, Gram stain, culture"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Acute Management</label>
+                    <textarea id="recs-acute" placeholder="- Prednisone 20mg daily x 5 days for flare
+- Methylprednisolone 125mg IV x1 if severe
+- NSAIDs (if no contraindication)
+- Joint injection with triamcinolone
+- Colchicine for acute gout"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">DMARD / Immunosuppressive Therapy</label>
+                    <textarea id="recs-dmard" placeholder="- Start methotrexate 15mg PO weekly
+- Add folic acid 1mg daily
+- Continue hydroxychloroquine 200mg BID
+- Consider TNF inhibitor if inadequate response to MTX"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Pre-Treatment Screening</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="screen-tb"><label for="screen-tb">TB screening (QuantiFERON/PPD)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="screen-hbv"><label for="screen-hbv">Hepatitis B serologies</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="screen-hcv"><label for="screen-hcv">Hepatitis C antibody</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="screen-cbc"><label for="screen-cbc">Baseline CBC</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="screen-cmp"><label for="screen-cmp">Baseline CMP/LFTs</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="screen-lipids"><label for="screen-lipids">Lipid panel (JAK inhibitors)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="screen-cxr"><label for="screen-cxr">Chest X-ray</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="screen-vaccine"><label for="screen-vaccine">Vaccine update (before immunosuppression)</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Monitoring Plan</label>
+                    <textarea id="recs-monitoring" placeholder="- CBC, CMP q2-4 weeks x 3 months then q3 months on MTX
+- LFTs monthly initially
+- ESR/CRP at follow-up visits
+- Annual ophthalmology exam on HCQ"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Other Recommendations</label>
+                    <textarea id="recs-other" placeholder="- Calcium/Vitamin D supplementation
+- DEXA scan
+- Physical therapy referral
+- Smoking cessation counseling
+- Ophthalmology referral for HCQ baseline"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Follow-up Plan</label>
+                    <textarea id="recs-followup" placeholder="- Rheumatology follow-up in 4-6 weeks to assess treatment response
+- Sooner if worsening symptoms
+- Will call patient with lab results
+- Outpatient joint injection if needed"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Attending / Fellow</label>
+                    <input type="text" id="attending" placeholder="Rheumatology attending/fellow name">
+                </div>
+            </div>
+        </div>
+
+        <!-- Generated Note Output -->
+        <div class="output-section">
+            <h3>📄 Generated Consult Note</h3>
+            <div id="generated-note">Click "Generate Note" to create a formatted consult note from the fields above.</div>
+            <div class="output-actions">
+                <button class="btn btn-primary" onclick="copyNote()">📋 Copy to Clipboard</button>
+                <button class="btn btn-secondary" onclick="generateNote()">🔄 Regenerate</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Copied to clipboard!</div>
+
+    <script>
+        // Toggle section collapse
+        function toggleSection(header) {
+            const section = header.parentElement;
+            section.classList.toggle('collapsed');
+        }
+
+        // Toggle tag selection
+        function toggleTag(tag) {
+            tag.classList.toggle('selected');
+        }
+
+        // Select pattern badge
+        function selectPattern(badge, group) {
+            const container = badge.parentElement;
+            container.querySelectorAll('.pattern-badge').forEach(b => b.classList.remove('selected'));
+            badge.classList.add('selected');
+        }
+
+        // Get selected pattern
+        function getSelectedPattern(containerId) {
+            const section = document.getElementById(containerId);
+            if (!section) return '';
+            const selected = section.querySelector('.pattern-badge.selected');
+            return selected ? selected.textContent : '';
+        }
+
+        // Scroll to section
+        function scrollToSection(id) {
+            const section = document.getElementById(id);
+            if (section) {
+                section.classList.remove('collapsed');
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Expand all sections
+        function expandAll() {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('collapsed'));
+        }
+
+        // Collapse all sections
+        function collapseAll() {
+            document.querySelectorAll('.section').forEach(s => s.classList.add('collapsed'));
+        }
+
+        // Clear all fields
+        function clearAll() {
+            if (confirm('Clear all fields? This cannot be undone.')) {
+                document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+                document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+                document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+                document.querySelectorAll('.tag, .pattern-badge').forEach(el => el.classList.remove('selected'));
+                document.getElementById('generated-note').textContent = 'Click "Generate Note" to create a formatted consult note from the fields above.';
+            }
+        }
+
+        // Get selected tags
+        function getSelectedTags() {
+            const tags = [];
+            document.querySelectorAll('.tag.selected').forEach(t => tags.push(t.textContent));
+            return tags;
+        }
+
+        // Get checked checkboxes by prefix
+        function getCheckedByPrefix(prefix) {
+            const checked = [];
+            document.querySelectorAll(`input[id^="${prefix}"]:checked`).forEach(el => {
+                const label = el.nextElementSibling;
+                if (label) checked.push(label.textContent);
+            });
+            return checked;
+        }
+
+        // Generate the consult note
+        function generateNote() {
+            let note = '';
+
+            // Header
+            note += '═══════════════════════════════════════════════════════════\n';
+            note += '                   RHEUMATOLOGY CONSULT NOTE\n';
+            note += '═══════════════════════════════════════════════════════════\n\n';
+
+            // Reason for Consultation
+            const consultQ = document.getElementById('consult-question').value.trim();
+            const tags = getSelectedTags();
+            if (consultQ || tags.length) {
+                note += '▸ REASON FOR CONSULTATION\n';
+                if (consultQ) note += consultQ + '\n';
+                if (tags.length) note += 'Category: ' + tags.join(', ') + '\n';
+                note += '\n';
+            }
+
+            // Joint History
+            const distribution = document.querySelector('#joint-history .pattern-selector:nth-of-type(1) .pattern-badge.selected');
+            const symmetry = document.querySelector('#joint-history .pattern-selector:nth-of-type(2) .pattern-badge.selected');
+            const jointSize = document.querySelector('#joint-history .pattern-selector:nth-of-type(3) .pattern-badge.selected');
+            const affectedJoints = getCheckedByPrefix('j-');
+            const onset = document.getElementById('onset').value.trim();
+            const course = document.getElementById('course').value;
+            const amStiffness = document.getElementById('am-stiffness').value;
+            const stiffnessRelief = document.getElementById('stiffness-relief').value;
+            const jointDetails = document.getElementById('joint-details').value.trim();
+
+            if (distribution || affectedJoints.length || onset || jointDetails) {
+                note += '▸ JOINT HISTORY\n';
+                const patterns = [];
+                if (distribution) patterns.push(distribution.textContent);
+                if (symmetry) patterns.push(symmetry.textContent);
+                if (jointSize) patterns.push(jointSize.textContent);
+                if (patterns.length) note += 'Pattern: ' + patterns.join(', ') + '\n';
+                if (affectedJoints.length) note += 'Affected joints: ' + affectedJoints.join(', ') + '\n';
+                if (onset) note += 'Onset: ' + onset + '\n';
+                if (course) note += 'Course: ' + course + '\n';
+                if (amStiffness) note += 'Morning stiffness: ' + amStiffness + '\n';
+                if (stiffnessRelief) note += 'Improves with: ' + stiffnessRelief + '\n';
+                if (jointDetails) note += jointDetails + '\n';
+                note += '\n';
+            }
+
+            // Systemic Features
+            const redFlags = getCheckedByPrefix('rf-');
+            const constitutional = getCheckedByPrefix('const-');
+            const skinFindings = getCheckedByPrefix('skin-');
+            const eyeFindings = getCheckedByPrefix('eye-');
+            const oralGi = getCheckedByPrefix('oral-').concat(getCheckedByPrefix('gi-'));
+            const cardiopulm = getCheckedByPrefix('cp-');
+            const neuro = getCheckedByPrefix('neuro-');
+            const renal = getCheckedByPrefix('renal-');
+            const otherFeatures = getCheckedByPrefix('other-');
+            const systemicDetails = document.getElementById('systemic-details').value.trim();
+
+            if (redFlags.length || constitutional.length || skinFindings.length || eyeFindings.length) {
+                note += '▸ SYSTEMIC & EXTRA-ARTICULAR FEATURES\n';
+                if (redFlags.length) note += '⚠️ RED FLAGS: ' + redFlags.join(', ') + '\n';
+                if (constitutional.length) note += 'Constitutional: ' + constitutional.join(', ') + '\n';
+                if (skinFindings.length) note += 'Skin: ' + skinFindings.join(', ') + '\n';
+                if (eyeFindings.length) note += 'Ocular: ' + eyeFindings.join(', ') + '\n';
+                if (oralGi.length) note += 'Oral/GI: ' + oralGi.join(', ') + '\n';
+                if (cardiopulm.length) note += 'Cardiopulmonary: ' + cardiopulm.join(', ') + '\n';
+                if (neuro.length) note += 'Neurologic: ' + neuro.join(', ') + '\n';
+                if (renal.length) note += 'Renal: ' + renal.join(', ') + '\n';
+                if (otherFeatures.length) note += 'Other: ' + otherFeatures.join(', ') + '\n';
+                if (systemicDetails) note += systemicDetails + '\n';
+                note += '\n';
+            }
+
+            // PMH / Medications
+            const rheumDx = document.getElementById('rheum-dx').value.trim();
+            const comorbidities = getCheckedByPrefix('pmh-');
+            const dmards = getCheckedByPrefix('med-');
+            const biologics = getCheckedByPrefix('bio-');
+            const medDetails = document.getElementById('med-details').value.trim();
+            const famHx = document.getElementById('fam-hx').value.trim();
+            const socialHx = document.getElementById('social-hx').value.trim();
+
+            if (rheumDx || comorbidities.length || dmards.length || biologics.length) {
+                note += '▸ PAST MEDICAL HISTORY & MEDICATIONS\n';
+                if (rheumDx) note += 'Rheumatologic diagnoses: ' + rheumDx + '\n';
+                if (comorbidities.length) note += 'Comorbidities: ' + comorbidities.join(', ') + '\n';
+                if (dmards.length) note += 'Current DMARDs: ' + dmards.join(', ') + '\n';
+                if (biologics.length) note += 'Biologics/Targeted: ' + biologics.join(', ') + '\n';
+                if (medDetails) note += 'Details: ' + medDetails + '\n';
+                if (famHx) note += 'Family history: ' + famHx + '\n';
+                if (socialHx) note += 'Social history: ' + socialHx + '\n';
+                note += '\n';
+            }
+
+            // Physical Exam
+            const bp = document.getElementById('bp').value.trim();
+            const hr = document.getElementById('hr').value.trim();
+            const temp = document.getElementById('temp').value.trim();
+            const spo2 = document.getElementById('spo2').value.trim();
+            const generalExam = document.getElementById('general-exam').value.trim();
+            const skinExam = document.getElementById('skin-exam').value.trim();
+            const heentExam = document.getElementById('heent-exam').value.trim();
+            const cpExam = document.getElementById('cp-exam').value.trim();
+            const ueExam = document.getElementById('ue-exam').value.trim();
+            const leExam = document.getElementById('le-exam').value.trim();
+            const spineExam = document.getElementById('spine-exam').value.trim();
+            const enthesitisSites = getCheckedByPrefix('enth-');
+            const tjc = document.getElementById('tjc').value.trim();
+            const sjc = document.getElementById('sjc').value.trim();
+            const neuroExam = document.getElementById('neuro-exam').value.trim();
+
+            if (bp || generalExam || ueExam || leExam) {
+                note += '▸ PHYSICAL EXAMINATION\n';
+                const vitals = [];
+                if (bp) vitals.push('BP ' + bp);
+                if (hr) vitals.push('HR ' + hr);
+                if (temp) vitals.push('T ' + temp + '°F');
+                if (spo2) vitals.push('SpO2 ' + spo2);
+                if (vitals.length) note += 'Vitals: ' + vitals.join(', ') + '\n';
+                if (generalExam) note += 'General: ' + generalExam + '\n';
+                if (skinExam) note += 'Skin: ' + skinExam + '\n';
+                if (heentExam) note += 'HEENT: ' + heentExam + '\n';
+                if (cpExam) note += 'Cardiopulmonary: ' + cpExam + '\n';
+                if (ueExam) note += '\nUpper extremity:\n' + ueExam + '\n';
+                if (leExam) note += '\nLower extremity:\n' + leExam + '\n';
+                if (spineExam) note += '\nSpine: ' + spineExam + '\n';
+                if (enthesitisSites.length) note += 'Enthesitis: ' + enthesitisSites.join(', ') + '\n';
+                if (tjc || sjc) note += 'Joint counts: TJC ' + (tjc || '-') + '/28, SJC ' + (sjc || '-') + '/28\n';
+                if (neuroExam) note += 'Neuro: ' + neuroExam + '\n';
+                note += '\n';
+            }
+
+            // Labs
+            const esr = document.getElementById('esr').value.trim();
+            const crp = document.getElementById('crp').value.trim();
+            const ferritin = document.getElementById('ferritin').value.trim();
+            const rf = document.getElementById('rf').value.trim();
+            const antiCcp = document.getElementById('anti-ccp').value.trim();
+            const ana = document.getElementById('ana').value.trim();
+            const dsdna = document.getElementById('dsdna').value.trim();
+            const smith = document.getElementById('smith').value.trim();
+            const rnp = document.getElementById('rnp').value.trim();
+            const ssa = document.getElementById('ssa').value.trim();
+            const ssb = document.getElementById('ssb').value.trim();
+            const scl70 = document.getElementById('scl70').value.trim();
+            const centromere = document.getElementById('centromere').value.trim();
+            const ck = document.getElementById('ck').value.trim();
+            const aldolase = document.getElementById('aldolase').value.trim();
+            const jo1 = document.getElementById('jo1').value.trim();
+            const canca = document.getElementById('canca').value.trim();
+            const panca = document.getElementById('panca').value.trim();
+            const c3 = document.getElementById('c3').value.trim();
+            const c4 = document.getElementById('c4').value.trim();
+            const uricAcid = document.getElementById('uric-acid').value.trim();
+            const hlab27 = document.getElementById('hlab27').value.trim();
+            const wbc = document.getElementById('wbc').value.trim();
+            const hgb = document.getElementById('hgb').value.trim();
+            const plt = document.getElementById('plt').value.trim();
+            const cr = document.getElementById('cr').value.trim();
+            const ua = document.getElementById('ua').value.trim();
+            const synovialFluid = document.getElementById('synovial-fluid').value.trim();
+            const additionalLabs = document.getElementById('additional-labs').value.trim();
+
+            if (esr || crp || rf || ana || uricAcid || synovialFluid) {
+                note += '▸ LABORATORY DATA\n';
+                
+                const inflam = [];
+                if (esr) inflam.push('ESR ' + esr);
+                if (crp) inflam.push('CRP ' + crp);
+                if (ferritin) inflam.push('Ferritin ' + ferritin);
+                if (inflam.length) note += 'Inflammatory markers: ' + inflam.join(', ') + '\n';
+
+                if (rf || antiCcp) {
+                    note += 'RA serologies: ';
+                    const ra = [];
+                    if (rf) ra.push('RF ' + rf);
+                    if (antiCcp) ra.push('Anti-CCP ' + antiCcp);
+                    note += ra.join(', ') + '\n';
+                }
+
+                if (ana || dsdna || ssa) {
+                    note += 'ANA panel: ';
+                    const anaPanel = [];
+                    if (ana) anaPanel.push('ANA ' + ana);
+                    if (dsdna) anaPanel.push('dsDNA ' + dsdna);
+                    if (smith) anaPanel.push('Smith ' + smith);
+                    if (rnp) anaPanel.push('RNP ' + rnp);
+                    if (ssa) anaPanel.push('SSA ' + ssa);
+                    if (ssb) anaPanel.push('SSB ' + ssb);
+                    if (scl70) anaPanel.push('Scl-70 ' + scl70);
+                    if (centromere) anaPanel.push('Centromere ' + centromere);
+                    note += anaPanel.join(', ') + '\n';
+                }
+
+                if (ck || jo1) {
+                    note += 'Myositis: ';
+                    const myo = [];
+                    if (ck) myo.push('CK ' + ck);
+                    if (aldolase) myo.push('Aldolase ' + aldolase);
+                    if (jo1) myo.push('Jo-1 ' + jo1);
+                    note += myo.join(', ') + '\n';
+                }
+
+                if (canca || panca) {
+                    note += 'ANCA: c-ANCA/PR3 ' + (canca || '-') + ', p-ANCA/MPO ' + (panca || '-') + '\n';
+                }
+
+                if (c3 || c4) {
+                    note += 'Complement: C3 ' + (c3 || '-') + ', C4 ' + (c4 || '-') + '\n';
+                }
+
+                if (uricAcid) note += 'Uric acid: ' + uricAcid + '\n';
+                if (hlab27) note += 'HLA-B27: ' + hlab27 + '\n';
+
+                const cbc = [];
+                if (wbc) cbc.push('WBC ' + wbc);
+                if (hgb) cbc.push('Hgb ' + hgb);
+                if (plt) cbc.push('Plt ' + plt);
+                if (cr) cbc.push('Cr ' + cr);
+                if (cbc.length) note += 'CBC/BMP: ' + cbc.join(', ') + '\n';
+
+                if (ua) note += 'UA: ' + ua + '\n';
+                if (synovialFluid) note += '\nSynovial fluid:\n' + synovialFluid + '\n';
+                if (additionalLabs) note += additionalLabs + '\n';
+                note += '\n';
+            }
+
+            // Imaging
+            const xray = document.getElementById('xray').value.trim();
+            const mri = document.getElementById('mri').value.trim();
+            const ultrasound = document.getElementById('ultrasound').value.trim();
+            const ctChest = document.getElementById('ct-chest').value.trim();
+            const otherImaging = document.getElementById('other-imaging').value.trim();
+
+            if (xray || mri || ultrasound || ctChest) {
+                note += '▸ IMAGING\n';
+                if (xray) note += 'Radiographs: ' + xray + '\n';
+                if (mri) note += 'MRI: ' + mri + '\n';
+                if (ultrasound) note += 'Ultrasound: ' + ultrasound + '\n';
+                if (ctChest) note += 'CT Chest: ' + ctChest + '\n';
+                if (otherImaging) note += otherImaging + '\n';
+                note += '\n';
+            }
+
+            // Assessment
+            const inflammatory = document.querySelector('#assessment .pattern-selector .pattern-badge.selected');
+            const primaryDx = document.getElementById('primary-dx').value.trim();
+            const diseaseActivity = document.getElementById('disease-activity').value;
+            const differential = document.getElementById('differential').value.trim();
+            const criteriaMet = document.getElementById('criteria-met').value.trim();
+            const synthesis = document.getElementById('synthesis').value.trim();
+
+            if (primaryDx || differential || synthesis) {
+                note += '▸ ASSESSMENT\n';
+                if (inflammatory) note += 'Character: ' + inflammatory.textContent + '\n';
+                if (primaryDx) note += '\nPrimary diagnosis: ' + primaryDx + '\n';
+                if (diseaseActivity) note += 'Disease activity: ' + diseaseActivity + '\n';
+                if (criteriaMet) note += 'Classification criteria: ' + criteriaMet + '\n';
+                if (differential) note += '\nDifferential:\n' + differential + '\n';
+                if (synthesis) note += '\nSynthesis: ' + synthesis + '\n';
+                note += '\n';
+            }
+
+            // Recommendations
+            const recsWorkup = document.getElementById('recs-workup').value.trim();
+            const recsProcedures = document.getElementById('recs-procedures').value.trim();
+            const recsAcute = document.getElementById('recs-acute').value.trim();
+            const recsDmard = document.getElementById('recs-dmard').value.trim();
+            const screening = getCheckedByPrefix('screen-');
+            const recsMonitoring = document.getElementById('recs-monitoring').value.trim();
+            const recsOther = document.getElementById('recs-other').value.trim();
+            const recsFollowup = document.getElementById('recs-followup').value.trim();
+            const attending = document.getElementById('attending').value.trim();
+
+            if (recsWorkup || recsAcute || recsDmard || recsFollowup) {
+                note += '▸ RECOMMENDATIONS\n';
+                if (recsWorkup) note += '\n[Additional Workup]\n' + recsWorkup + '\n';
+                if (recsProcedures) note += '\n[Procedures]\n' + recsProcedures + '\n';
+                if (recsAcute) note += '\n[Acute Management]\n' + recsAcute + '\n';
+                if (recsDmard) note += '\n[DMARD/Immunosuppressive Therapy]\n' + recsDmard + '\n';
+                if (screening.length) note += '\n[Pre-Treatment Screening]\n' + screening.join(', ') + '\n';
+                if (recsMonitoring) note += '\n[Monitoring]\n' + recsMonitoring + '\n';
+                if (recsOther) note += '\n[Additional]\n' + recsOther + '\n';
+                if (recsFollowup) note += '\n[Follow-up]\n' + recsFollowup + '\n';
+                if (attending) note += '\nRheumatology: ' + attending + '\n';
+                note += '\n';
+            }
+
+            // Footer
+            note += '═══════════════════════════════════════════════════════════\n';
+            note += 'Will continue to follow. Please contact rheumatology with questions.\n';
+            note += '═══════════════════════════════════════════════════════════';
+
+            document.getElementById('generated-note').textContent = note;
+        }
+
+        // Copy note to clipboard
+        function copyNote() {
+            const noteText = document.getElementById('generated-note').textContent;
+            navigator.clipboard.writeText(noteText).then(() => {
+                showToast('Copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                showToast('Failed to copy');
+            });
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // Initialize - collapse some sections by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                if (index > 4) {
+                    section.classList.add('collapsed');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

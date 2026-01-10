@@ -197,7 +197,7 @@
     <header class="header">
         <img src="https://raw.githubusercontent.com/comstocd/rapid-response-tool/main/caduceus.png" alt="Logo" class="header-logo">
         <span class="header-title">Clinical Reference Suite</span>
-        <span class="header-subtitle">Internal Medicine Tools • v2.3 BUILD #9</span>
+        <span class="header-subtitle">Internal Medicine Tools • v2.3 BUILD #10</span>
     </header>
     
     <!-- Sidebar -->
@@ -217,7 +217,7 @@
         <!-- Home Content with Tiles -->
         <div id="homeContent" style="padding:30px; overflow-y:auto; height:100%; background:#f7fafc;">
             <div style="max-width:1200px; margin:0 auto;">
-                <h1 style="color:#1a365d; margin:0 0 10px 0; font-size:1.8rem;">📚 Clinical Reference Suite <span style="font-size:0.5em; color:#e74c3c; font-weight:600;">v2.3 BUILD #9</span></h1>
+                <h1 style="color:#1a365d; margin:0 0 10px 0; font-size:1.8rem;">📚 Clinical Reference Suite <span style="font-size:0.5em; color:#e74c3c; font-weight:600;">v2.3 BUILD #10</span></h1>
                 <p style="color:#718096; margin:0 0 30px 0;">Evidence-based point-of-care references for hospital medicine</p>
                 
                 <h2 style="color:#1a365d; font-size:1.2rem; margin:0 0 15px 0; padding-bottom:10px; border-bottom:2px solid #e2e8f0;">📖 Core Reference Guides</h2>
@@ -282,14 +282,14 @@
                         <div style="background:linear-gradient(135deg,#059669,#047857); color:#fff; padding:20px; font-weight:700;">🦠 Antimicrobial Stewardship</div>
                         <div style="padding:20px;">
                             <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Empiric therapy by syndrome, evidence-based durations, de-escalation pathways, IV-to-PO conversion, and culture stewardship.</p>
-                            <span style="background:#f0f4f8; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:600; color:#059669;">BUILD #9</span>
+                            <span style="background:#f0f4f8; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:600; color:#059669;">BUILD #10</span>
                         </div>
                     </div>
                     <div onclick="switchTool('renaldose')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
                         <div style="background:linear-gradient(135deg,#3b82f6,#1d4ed8); color:#fff; padding:20px; font-weight:700;">💧 Renal Dosing Reference</div>
                         <div style="padding:20px;">
                             <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Drug adjustments by CrCl for antibiotics, antivirals, cardiac meds, and more. HD supplementation and drugs to avoid in CKD.</p>
-                            <span style="background:#f0f4f8; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:600; color:#3b82f6;">BUILD #9</span>
+                            <span style="background:#f0f4f8; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:600; color:#3b82f6;">BUILD #10</span>
                         </div>
                     </div>
                     <div onclick="switchTool('nephroconsult')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
@@ -297,6 +297,13 @@
                         <div style="padding:20px;">
                             <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Structured consult template with KDIGO staging, urinalysis interpretation, FENa reference, AEIOU dialysis indications, and one-click note generation.</p>
                             <span style="background:#f0f4f8; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:600; color:#1a5f7a;">BUILD #1</span>
+                        </div>
+                    </div>
+                    <div onclick="switchTool('rheumconsult')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
+                        <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed); color:#fff; padding:20px; font-weight:700;">🦴 Rheumatology Consult Note</div>
+                        <div style="padding:20px;">
+                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Structured consult template with joint pattern recognition, autoantibody interpretation, synovial fluid analysis, classification criteria, and one-click note generation.</p>
+                            <span style="background:#f0f4f8; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:600; color:#5b21b6;">BUILD #1</span>
                         </div>
                     </div>
                 </div>
@@ -490,6 +497,13 @@
                 name: "Nephrology Consult",
                 icon: "🩺",
                 file: "nephrology_consult.html",
+                description: "Structured Consult Note Template"
+            },
+            {
+                id: "rheumconsult",
+                name: "Rheumatology Consult",
+                icon: "🦴",
+                file: "rheumatology_consult.html",
                 description: "Structured Consult Note Template"
             }
             // To add a new tool:
