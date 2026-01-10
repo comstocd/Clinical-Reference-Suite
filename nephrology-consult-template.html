@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Nephrology Consult Note Template</title>
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --primary-light: #2d8cb8;
+            --primary-dark: #0d3d4d;
+            --accent: #c9a227;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-muted: #6c757d;
+            --border: #dee2e6;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --section-header: #e8f4f8;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            font-size: 16px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .header-subtitle {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toolbar-btn:hover, .toolbar-btn:active {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .nav-chip {
+            background: var(--section-header);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .nav-chip:hover, .nav-chip:active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--section-header);
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            user-select: none;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-icon {
+            font-size: 1.1rem;
+        }
+
+        .section-toggle {
+            font-size: 1.2rem;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .section.collapsed .section-toggle {
+            transform: rotate(-90deg);
+        }
+
+        .section.collapsed .section-content {
+            display: none;
+        }
+
+        .section-content {
+            padding: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .form-sublabel {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            display: block;
+            margin-top: 2px;
+        }
+
+        textarea, input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: white;
+            color: var(--text);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        textarea:focus, input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(26, 95, 122, 0.1);
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        textarea.large {
+            min-height: 120px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background: var(--section-header);
+        }
+
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .checkbox-item label {
+            font-size: 0.9rem;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .inline-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .inline-group label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .inline-group input {
+            padding: 8px 10px;
+        }
+
+        .callout {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border-left: 4px solid;
+        }
+
+        .callout-info {
+            background: #e7f3ff;
+            border-color: #0066cc;
+        }
+
+        .callout-warning {
+            background: #fff8e6;
+            border-color: var(--warning);
+        }
+
+        .callout-danger {
+            background: #ffe6e6;
+            border-color: var(--danger);
+        }
+
+        .callout-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 4px;
+        }
+
+        .callout-content {
+            font-size: 0.875rem;
+        }
+
+        .reference-box {
+            background: linear-gradient(135deg, #f6f8fa 0%, #eef1f5 100%);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+            margin-top: 12px;
+        }
+
+        .reference-box h4 {
+            margin: 0 0 8px 0;
+            font-size: 0.85rem;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .reference-box ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 0.875rem;
+        }
+
+        .reference-box li {
+            margin-bottom: 4px;
+        }
+
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .tag-aki { background: #ffebee; color: #c62828; border-color: #ef9a9a; }
+        .tag-ckd { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
+        .tag-gn { background: #f3e5f5; color: #7b1fa2; border-color: #ce93d8; }
+        .tag-electrolyte { background: #fff3e0; color: #e65100; border-color: #ffcc80; }
+        .tag-volume { background: #e0f2f1; color: #00695c; border-color: #80cbc4; }
+        .tag-rrt { background: #fce4ec; color: #ad1457; border-color: #f48fb1; }
+
+        .tag.selected {
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .output-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .output-section h3 {
+            margin: 0 0 16px 0;
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+        }
+
+        #generated-note {
+            background: #fafbfc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: "SF Mono", Monaco, "Courier New", monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            min-height: 200px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .output-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover, .btn-primary:active {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover, .btn-secondary:active {
+            background: var(--border);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--primary-dark);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Dialysis indications emergency box */
+        .emergency-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+            border: 2px solid var(--danger);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+
+        .emergency-box h4 {
+            color: var(--danger);
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mnemonic {
+            font-weight: 700;
+            color: var(--danger);
+            letter-spacing: 0.1em;
+        }
+
+        .emergency-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .emergency-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+
+        .emergency-list li strong {
+            color: var(--danger);
+            min-width: 20px;
+        }
+
+        /* Stage badges */
+        .stage-selector {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .stage-badge {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .stage-badge:hover {
+            border-color: var(--primary-light);
+        }
+
+        .stage-badge.selected {
+            border-color: var(--primary);
+            background: var(--section-header);
+            color: var(--primary-dark);
+        }
+
+        .stage-badge.aki-1 { border-left: 4px solid #ffc107; }
+        .stage-badge.aki-2 { border-left: 4px solid #ff9800; }
+        .stage-badge.aki-3 { border-left: 4px solid #f44336; }
+        .stage-badge.ckd-1 { border-left: 4px solid #4caf50; }
+        .stage-badge.ckd-2 { border-left: 4px solid #8bc34a; }
+        .stage-badge.ckd-3a { border-left: 4px solid #ffc107; }
+        .stage-badge.ckd-3b { border-left: 4px solid #ff9800; }
+        .stage-badge.ckd-4 { border-left: 4px solid #ff5722; }
+        .stage-badge.ckd-5 { border-left: 4px solid #f44336; }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .inline-inputs {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .header, .toolbar, .quick-nav, .output-actions, .nav-chip {
+                display: none !important;
+            }
+            
+            .section {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            body {
+                font-size: 11pt;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🩺 Nephrology Consult Note</h1>
+        <div class="header-subtitle">Structured Template for Comprehensive Renal Consultation</div>
+        <div class="toolbar">
+            <button class="toolbar-btn" onclick="generateNote()">📋 Generate Note</button>
+            <button class="toolbar-btn" onclick="clearAll()">🗑️ Clear All</button>
+            <button class="toolbar-btn" onclick="expandAll()">📂 Expand All</button>
+            <button class="toolbar-btn" onclick="collapseAll()">📁 Collapse All</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Quick Navigation -->
+        <div class="quick-nav">
+            <button class="nav-chip" onclick="scrollToSection('consult-reason')">Reason</button>
+            <button class="nav-chip" onclick="scrollToSection('history')">History</button>
+            <button class="nav-chip" onclick="scrollToSection('exam')">Exam</button>
+            <button class="nav-chip" onclick="scrollToSection('labs')">Labs/Data</button>
+            <button class="nav-chip" onclick="scrollToSection('urinalysis')">UA/Sediment</button>
+            <button class="nav-chip" onclick="scrollToSection('imaging')">Imaging</button>
+            <button class="nav-chip" onclick="scrollToSection('assessment')">Assessment</button>
+            <button class="nav-chip" onclick="scrollToSection('recommendations')">Recommendations</button>
+            <button class="nav-chip" onclick="scrollToSection('dialysis')">Dialysis</button>
+        </div>
+
+        <!-- Consult Reason -->
+        <div class="section" id="consult-reason">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📞</span> Reason for Consultation</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="callout callout-info">
+                    <div class="callout-content">State the specific clinical question (e.g., "AKI management in setting of sepsis" not just "renal consult")</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Primary Consult Question</label>
+                    <textarea id="consult-question" placeholder="e.g., AKI management with concern for ATN vs pre-renal azotemia in setting of septic shock"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Consult Category</label>
+                    <div class="tag-group">
+                        <span class="tag tag-aki" onclick="toggleTag(this)">AKI</span>
+                        <span class="tag tag-ckd" onclick="toggleTag(this)">CKD Management</span>
+                        <span class="tag tag-gn" onclick="toggleTag(this)">Glomerulonephritis</span>
+                        <span class="tag tag-electrolyte" onclick="toggleTag(this)">Electrolyte Disorder</span>
+                        <span class="tag tag-volume" onclick="toggleTag(this)">Volume/Acid-Base</span>
+                        <span class="tag tag-rrt" onclick="toggleTag(this)">RRT Evaluation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Relevant History -->
+        <div class="section" id="history">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📜</span> Relevant History</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Baseline Renal Function</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Baseline Cr (mg/dL)</label>
+                            <input type="text" id="baseline-cr" placeholder="e.g., 1.0">
+                        </div>
+                        <div class="inline-group">
+                            <label>Baseline eGFR</label>
+                            <input type="text" id="baseline-egfr" placeholder="e.g., 75">
+                        </div>
+                        <div class="inline-group">
+                            <label>Date of Baseline</label>
+                            <input type="text" id="baseline-date" placeholder="e.g., 3 months ago">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Known CKD</label>
+                    <div class="stage-selector">
+                        <span class="stage-badge ckd-1" onclick="selectStage(this, 'ckd')">G1 (≥90)</span>
+                        <span class="stage-badge ckd-2" onclick="selectStage(this, 'ckd')">G2 (60-89)</span>
+                        <span class="stage-badge ckd-3a" onclick="selectStage(this, 'ckd')">G3a (45-59)</span>
+                        <span class="stage-badge ckd-3b" onclick="selectStage(this, 'ckd')">G3b (30-44)</span>
+                        <span class="stage-badge ckd-4" onclick="selectStage(this, 'ckd')">G4 (15-29)</span>
+                        <span class="stage-badge ckd-5" onclick="selectStage(this, 'ckd')">G5 (<15)</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">CKD Etiology (if known)</label>
+                    <input type="text" id="ckd-etiology" placeholder="e.g., Diabetic nephropathy, HTN nephrosclerosis, PCKD">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Comorbidities</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dm">
+                            <label for="dm">Diabetes Mellitus</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="htn">
+                            <label for="htn">Hypertension</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="chf">
+                            <label for="chf">Heart Failure</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cirrhosis">
+                            <label for="cirrhosis">Cirrhosis</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="transplant">
+                            <label for="transplant">Kidney Transplant</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="autoimmune">
+                            <label for="autoimmune">Autoimmune Disease</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="malignancy">
+                            <label for="malignancy">Malignancy</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="myeloma">
+                            <label for="myeloma">Multiple Myeloma</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Nephrotoxin Exposure</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="nsaids">
+                            <label for="nsaids">NSAIDs</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="contrast">
+                            <label for="contrast">IV Contrast</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="aminoglycosides">
+                            <label for="aminoglycosides">Aminoglycosides</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="vancomycin">
+                            <label for="vancomycin">Vancomycin</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="acei-arb">
+                            <label for="acei-arb">ACEi/ARB</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="diuretics">
+                            <label for="diuretics">Diuretics</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="chemo">
+                            <label for="chemo">Chemotherapy</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ppi">
+                            <label for="ppi">PPI (AIN risk)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Dialysis History</label>
+                    <textarea id="dialysis-history" placeholder="Dialysis vintage, access type, dry weight, last HD session, or N/A if none"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Additional Relevant History</label>
+                    <textarea id="additional-history" class="large" placeholder="Recent procedures, hospitalizations, infections, volume status changes, medication changes..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Physical Exam -->
+        <div class="section" id="exam">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🩺</span> Focused Physical Examination</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="callout callout-warning">
+                    <div class="callout-title">Key Focus Areas</div>
+                    <div class="callout-content">Volume status assessment is critical: JVP, edema, skin turgor, mucous membranes</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Vital Signs</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>BP (mmHg)</label>
+                            <input type="text" id="bp" placeholder="e.g., 142/88">
+                        </div>
+                        <div class="inline-group">
+                            <label>HR (bpm)</label>
+                            <input type="text" id="hr" placeholder="e.g., 88">
+                        </div>
+                        <div class="inline-group">
+                            <label>Temp (°F)</label>
+                            <input type="text" id="temp" placeholder="e.g., 98.6">
+                        </div>
+                        <div class="inline-group">
+                            <label>SpO2 (%)</label>
+                            <input type="text" id="spo2" placeholder="e.g., 96% RA">
+                        </div>
+                        <div class="inline-group">
+                            <label>Weight (kg)</label>
+                            <input type="text" id="weight" placeholder="e.g., 82">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Orthostatic Vitals (if obtained)</label>
+                    <textarea id="orthostatics" placeholder="Supine: BP/HR, Standing: BP/HR, Symptoms?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Volume Status Assessment</label>
+                    <select id="volume-status">
+                        <option value="">-- Select Assessment --</option>
+                        <option value="Hypovolemic - clinically dry">Hypovolemic - clinically dry</option>
+                        <option value="Euvolemic">Euvolemic</option>
+                        <option value="Hypervolemic - volume overloaded">Hypervolemic - volume overloaded</option>
+                        <option value="Indeterminate">Indeterminate</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Volume Exam Findings</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>JVP (cm H₂O)</label>
+                            <input type="text" id="jvp" placeholder="e.g., 8">
+                        </div>
+                        <div class="inline-group">
+                            <label>Peripheral Edema</label>
+                            <input type="text" id="edema" placeholder="e.g., 2+ bilateral LE">
+                        </div>
+                        <div class="inline-group">
+                            <label>Lung Exam</label>
+                            <input type="text" id="lungs" placeholder="e.g., Bibasilar crackles">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Other Relevant Findings</label>
+                    <textarea id="other-exam" placeholder="Skin turgor, mucous membranes, rash, livedo, dialysis access exam..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Laboratory Data -->
+        <div class="section" id="labs">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🧪</span> Laboratory Data</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Renal Function Trend</label>
+                    <textarea id="cr-trend" placeholder="e.g., Cr: 1.0 (baseline) → 1.8 (2 days ago) → 2.4 (yesterday) → 3.1 (today)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Current Labs</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>BUN (mg/dL)</label>
+                            <input type="text" id="bun" placeholder="e.g., 45">
+                        </div>
+                        <div class="inline-group">
+                            <label>Cr (mg/dL)</label>
+                            <input type="text" id="cr" placeholder="e.g., 3.1">
+                        </div>
+                        <div class="inline-group">
+                            <label>eGFR</label>
+                            <input type="text" id="egfr" placeholder="e.g., 18">
+                        </div>
+                        <div class="inline-group">
+                            <label>K (mEq/L)</label>
+                            <input type="text" id="potassium" placeholder="e.g., 5.2">
+                        </div>
+                    </div>
+                    <div class="inline-inputs" style="margin-top: 12px;">
+                        <div class="inline-group">
+                            <label>Na (mEq/L)</label>
+                            <input type="text" id="sodium" placeholder="e.g., 138">
+                        </div>
+                        <div class="inline-group">
+                            <label>Cl (mEq/L)</label>
+                            <input type="text" id="chloride" placeholder="e.g., 104">
+                        </div>
+                        <div class="inline-group">
+                            <label>HCO₃ (mEq/L)</label>
+                            <input type="text" id="bicarb" placeholder="e.g., 18">
+                        </div>
+                        <div class="inline-group">
+                            <label>Anion Gap</label>
+                            <input type="text" id="ag" placeholder="e.g., 16">
+                        </div>
+                    </div>
+                    <div class="inline-inputs" style="margin-top: 12px;">
+                        <div class="inline-group">
+                            <label>Phos (mg/dL)</label>
+                            <input type="text" id="phos" placeholder="e.g., 5.8">
+                        </div>
+                        <div class="inline-group">
+                            <label>Ca (mg/dL)</label>
+                            <input type="text" id="calcium" placeholder="e.g., 8.2">
+                        </div>
+                        <div class="inline-group">
+                            <label>Mg (mg/dL)</label>
+                            <input type="text" id="magnesium" placeholder="e.g., 1.8">
+                        </div>
+                        <div class="inline-group">
+                            <label>Albumin (g/dL)</label>
+                            <input type="text" id="albumin" placeholder="e.g., 3.2">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">CBC Highlights</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Hgb (g/dL)</label>
+                            <input type="text" id="hgb" placeholder="e.g., 9.8">
+                        </div>
+                        <div class="inline-group">
+                            <label>WBC (K/µL)</label>
+                            <input type="text" id="wbc" placeholder="e.g., 12.4">
+                        </div>
+                        <div class="inline-group">
+                            <label>Plt (K/µL)</label>
+                            <input type="text" id="plt" placeholder="e.g., 185">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">ABG/VBG (if obtained)</label>
+                    <input type="text" id="abg" placeholder="e.g., pH 7.28 / pCO2 28 / pO2 88 / HCO3 14">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Urine Output</label>
+                    <textarea id="uop" placeholder="e.g., Last 24h: 450 mL (oliguria), Foley in place, No recent diuretics"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Additional Labs</label>
+                    <textarea id="additional-labs" class="large" placeholder="Lactate, LDH, haptoglobin, complement, ANCA, anti-GBM, SPEP/UPEP, hepatitis panel, HIV, drug levels..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Urinalysis -->
+        <div class="section" id="urinalysis">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🔬</span> Urinalysis & Sediment</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="callout callout-info">
+                    <div class="callout-title">Clinical Pearl</div>
+                    <div class="callout-content">The urine sediment is often the most valuable and underutilized diagnostic tool in nephrology. A "bland" sediment with low FENa suggests pre-renal; muddy brown casts indicate ATN; RBC casts suggest glomerulonephritis; WBC casts suggest pyelonephritis or AIN.</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Urinalysis (Dipstick)</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Specific Gravity</label>
+                            <input type="text" id="ua-sg" placeholder="e.g., 1.020">
+                        </div>
+                        <div class="inline-group">
+                            <label>pH</label>
+                            <input type="text" id="ua-ph" placeholder="e.g., 5.5">
+                        </div>
+                        <div class="inline-group">
+                            <label>Protein</label>
+                            <input type="text" id="ua-protein" placeholder="e.g., 2+">
+                        </div>
+                        <div class="inline-group">
+                            <label>Blood</label>
+                            <input type="text" id="ua-blood" placeholder="e.g., 3+">
+                        </div>
+                    </div>
+                    <div class="inline-inputs" style="margin-top: 12px;">
+                        <div class="inline-group">
+                            <label>Glucose</label>
+                            <input type="text" id="ua-glucose" placeholder="e.g., Negative">
+                        </div>
+                        <div class="inline-group">
+                            <label>Ketones</label>
+                            <input type="text" id="ua-ketones" placeholder="e.g., Negative">
+                        </div>
+                        <div class="inline-group">
+                            <label>Leukocyte Esterase</label>
+                            <input type="text" id="ua-le" placeholder="e.g., Trace">
+                        </div>
+                        <div class="inline-group">
+                            <label>Nitrite</label>
+                            <input type="text" id="ua-nitrite" placeholder="e.g., Negative">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Urine Microscopy / Sediment</label>
+                    <textarea id="ua-sediment" class="large" placeholder="e.g., RBC 10-20/hpf (dysmorphic), WBC 5-10/hpf, Muddy brown granular casts present, No RBC casts seen, Rare hyaline casts"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Urine Chemistries</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>UNa (mEq/L)</label>
+                            <input type="text" id="una" placeholder="e.g., 45">
+                        </div>
+                        <div class="inline-group">
+                            <label>UCr (mg/dL)</label>
+                            <input type="text" id="ucr" placeholder="e.g., 65">
+                        </div>
+                        <div class="inline-group">
+                            <label>FENa (%)</label>
+                            <input type="text" id="fena" placeholder="e.g., 2.8">
+                        </div>
+                        <div class="inline-group">
+                            <label>FEUrea (%)</label>
+                            <input type="text" id="feurea" placeholder="e.g., 42">
+                        </div>
+                    </div>
+                    <div class="inline-inputs" style="margin-top: 12px;">
+                        <div class="inline-group">
+                            <label>Urine Osm</label>
+                            <input type="text" id="uosm" placeholder="e.g., 320">
+                        </div>
+                        <div class="inline-group">
+                            <label>UPCR (mg/g)</label>
+                            <input type="text" id="upcr" placeholder="e.g., 2400">
+                        </div>
+                        <div class="inline-group">
+                            <label>UACR (mg/g)</label>
+                            <input type="text" id="uacr" placeholder="e.g., 850">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reference-box">
+                    <h4>Interpretation Reference</h4>
+                    <ul>
+                        <li><strong>FENa &lt;1%</strong>: Pre-renal (or GN, early obstruction, contrast, myoglobin)</li>
+                        <li><strong>FENa &gt;2%</strong>: Intrinsic renal disease (ATN most common)</li>
+                        <li><strong>FEUrea &lt;35%</strong>: Pre-renal (useful if on diuretics)</li>
+                        <li><strong>Muddy brown casts</strong>: ATN</li>
+                        <li><strong>RBC casts</strong>: Glomerulonephritis</li>
+                        <li><strong>WBC casts</strong>: Pyelonephritis or AIN</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Imaging -->
+        <div class="section" id="imaging">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📷</span> Imaging</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Renal Ultrasound</label>
+                    <textarea id="renal-us" class="large" placeholder="Kidney sizes (R/L), echogenicity, hydronephrosis, cortical thickness, cysts, stones, bladder distension, post-void residual..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Other Relevant Imaging</label>
+                    <textarea id="other-imaging" placeholder="CT, MRI, CXR findings relevant to renal assessment..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assessment -->
+        <div class="section" id="assessment">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🧠</span> Assessment & Synthesis</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">AKI Staging (KDIGO)</label>
+                    <div class="stage-selector">
+                        <span class="stage-badge aki-1" onclick="selectStage(this, 'aki')">Stage 1</span>
+                        <span class="stage-badge aki-2" onclick="selectStage(this, 'aki')">Stage 2</span>
+                        <span class="stage-badge aki-3" onclick="selectStage(this, 'aki')">Stage 3</span>
+                    </div>
+                    <div class="reference-box" style="margin-top: 10px;">
+                        <h4>KDIGO AKI Criteria</h4>
+                        <ul>
+                            <li><strong>Stage 1</strong>: Cr ↑ 1.5-1.9× baseline OR ↑ ≥0.3 mg/dL OR UOP &lt;0.5 mL/kg/h for 6-12h</li>
+                            <li><strong>Stage 2</strong>: Cr ↑ 2.0-2.9× baseline OR UOP &lt;0.5 mL/kg/h for ≥12h</li>
+                            <li><strong>Stage 3</strong>: Cr ↑ ≥3× baseline OR ↑ to ≥4.0 mg/dL OR RRT initiation OR UOP &lt;0.3 mL/kg/h for ≥24h or anuria ≥12h</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Primary Diagnosis / Most Likely Etiology</label>
+                    <textarea id="primary-dx" placeholder="e.g., KDIGO Stage 2 AKI, most likely ATN secondary to septic shock with possible pre-renal contribution from diuresis"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Differential Diagnosis with Reasoning</label>
+                    <textarea id="differential" class="large" placeholder="1. ATN (sepsis-related) - most likely given muddy brown casts, elevated FENa
+2. Pre-renal AKI - possible contributing factor given aggressive diuresis
+3. AIN - less likely but PPIs on board, no eosinophiluria"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Clinical Synthesis / Narrative</label>
+                    <textarea id="synthesis" class="large" placeholder="Summarize the clinical story: why the kidneys are failing, the trajectory, and your reasoning..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="section" id="recommendations">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📋</span> Recommendations</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Diagnostic Workup</label>
+                    <textarea id="recs-workup" placeholder="- Urine eosinophils to evaluate for AIN
+- Complement levels (C3, C4)
+- ANCA panel, anti-GBM if GN suspected
+- Renal biopsy if diagnosis unclear"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Volume / Hemodynamic Management</label>
+                    <textarea id="recs-volume" placeholder="- Hold diuretics
+- IVF bolus 500 mL LR, then reassess
+- Goal MAP > 65 mmHg"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Medication Adjustments</label>
+                    <textarea id="recs-meds" placeholder="- Hold metformin (lactic acidosis risk)
+- Renally dose vancomycin, check trough before next dose
+- Hold ACE inhibitor
+- Avoid NSAIDs"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Electrolyte Management</label>
+                    <textarea id="recs-lytes" placeholder="- K 5.8: Kayexalate 30g PO x1, recheck in 4h
+- Bicarb 16: PO sodium bicarbonate 650mg TID
+- Phosphorus binder if phos > 5.5"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">BP Management</label>
+                    <textarea id="recs-bp" placeholder="- Goal BP < 140/90
+- Amlodipine 5mg daily (kidney-safe)
+- Hold ACEi until AKI resolved"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Follow-up Labs & Monitoring</label>
+                    <textarea id="recs-followup" placeholder="- BMP in AM daily
+- Urine output q6h
+- Trend Cr, K closely
+- Repeat UA if no improvement in 48h"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Other Recommendations</label>
+                    <textarea id="recs-other" placeholder="Additional recommendations not covered above..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dialysis Assessment -->
+        <div class="section" id="dialysis">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">⚠️</span> RRT / Dialysis Assessment</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="emergency-box">
+                    <h4>🚨 Emergent Dialysis Indications (AEIOU)</h4>
+                    <ul class="emergency-list">
+                        <li><strong>A</strong> - Acidemia (refractory, pH &lt; 7.1)</li>
+                        <li><strong>E</strong> - Electrolytes (refractory hyperkalemia)</li>
+                        <li><strong>I</strong> - Intoxication (dialyzable toxins)</li>
+                        <li><strong>O</strong> - Overload (refractory pulmonary edema)</li>
+                        <li><strong>U</strong> - Uremia (encephalopathy, pericarditis)</li>
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Current RRT Indication Assessment</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-acidemia">
+                            <label for="ind-acidemia">Refractory Acidemia</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-hyperK">
+                            <label for="ind-hyperK">Refractory Hyperkalemia</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-overload">
+                            <label for="ind-overload">Refractory Volume Overload</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-uremia">
+                            <label for="ind-uremia">Uremic Symptoms</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-toxin">
+                            <label for="ind-toxin">Toxic Ingestion</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="ind-none">
+                            <label for="ind-none">No Emergent Indication</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">RRT Plan</label>
+                    <select id="rrt-plan">
+                        <option value="">-- Select --</option>
+                        <option value="No RRT indicated at this time">No RRT indicated at this time</option>
+                        <option value="Emergent HD recommended">Emergent HD recommended</option>
+                        <option value="Urgent HD within 24h">Urgent HD within 24h</option>
+                        <option value="CRRT recommended (hemodynamically unstable)">CRRT recommended (hemodynamically unstable)</option>
+                        <option value="Continue current HD schedule">Continue current HD schedule</option>
+                        <option value="Will monitor closely, low threshold for RRT">Will monitor closely, low threshold for RRT</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Access Plan</label>
+                    <textarea id="access-plan" placeholder="Existing access? Need for temporary catheter? Location preference (R IJ vs L IJ vs femoral)?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Prognosis / Renal Recovery</label>
+                    <textarea id="prognosis" placeholder="Likelihood of renal recovery, anticipated duration of RRT if initiated, long-term dialysis planning if applicable..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disposition -->
+        <div class="section" id="disposition">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🏥</span> Disposition & Follow-up</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Disposition Considerations</label>
+                    <textarea id="disposition" placeholder="ICU vs floor, discharge planning if applicable..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Outpatient Nephrology Follow-up</label>
+                    <textarea id="followup-plan" placeholder="e.g., Follow-up with nephrology in 1-2 weeks post-discharge for repeat labs and reassessment"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Attending / Fellow</label>
+                    <input type="text" id="attending" placeholder="Nephrology attending/fellow name">
+                </div>
+            </div>
+        </div>
+
+        <!-- Generated Note Output -->
+        <div class="output-section">
+            <h3>📄 Generated Consult Note</h3>
+            <div id="generated-note">Click "Generate Note" to create a formatted consult note from the fields above.</div>
+            <div class="output-actions">
+                <button class="btn btn-primary" onclick="copyNote()">📋 Copy to Clipboard</button>
+                <button class="btn btn-secondary" onclick="generateNote()">🔄 Regenerate</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Copied to clipboard!</div>
+
+    <script>
+        // Toggle section collapse
+        function toggleSection(header) {
+            const section = header.parentElement;
+            section.classList.toggle('collapsed');
+        }
+
+        // Toggle tag selection
+        function toggleTag(tag) {
+            tag.classList.toggle('selected');
+        }
+
+        // Select stage badge
+        function selectStage(badge, type) {
+            const container = badge.parentElement;
+            container.querySelectorAll('.stage-badge').forEach(b => b.classList.remove('selected'));
+            badge.classList.toggle('selected');
+        }
+
+        // Get selected stage
+        function getSelectedStage(containerId) {
+            const container = document.querySelector(`#${containerId}`).closest('.form-group').querySelector('.stage-selector');
+            if (!container) return '';
+            const selected = container.querySelector('.stage-badge.selected');
+            return selected ? selected.textContent : '';
+        }
+
+        // Scroll to section
+        function scrollToSection(id) {
+            const section = document.getElementById(id);
+            if (section) {
+                section.classList.remove('collapsed');
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Expand all sections
+        function expandAll() {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('collapsed'));
+        }
+
+        // Collapse all sections
+        function collapseAll() {
+            document.querySelectorAll('.section').forEach(s => s.classList.add('collapsed'));
+        }
+
+        // Clear all fields
+        function clearAll() {
+            if (confirm('Clear all fields? This cannot be undone.')) {
+                document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+                document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+                document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+                document.querySelectorAll('.tag, .stage-badge').forEach(el => el.classList.remove('selected'));
+                document.getElementById('generated-note').textContent = 'Click "Generate Note" to create a formatted consult note from the fields above.';
+            }
+        }
+
+        // Get selected tags
+        function getSelectedTags() {
+            const tags = [];
+            document.querySelectorAll('.tag.selected').forEach(t => tags.push(t.textContent));
+            return tags;
+        }
+
+        // Get checked checkboxes by group
+        function getCheckedItems(ids) {
+            const checked = [];
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && el.checked) {
+                    checked.push(el.nextElementSibling.textContent);
+                }
+            });
+            return checked;
+        }
+
+        // Generate the consult note
+        function generateNote() {
+            let note = '';
+
+            // Header
+            note += '═══════════════════════════════════════════════════════════\n';
+            note += '                    NEPHROLOGY CONSULT NOTE\n';
+            note += '═══════════════════════════════════════════════════════════\n\n';
+
+            // Reason for Consultation
+            const consultQ = document.getElementById('consult-question').value.trim();
+            const tags = getSelectedTags();
+            if (consultQ || tags.length) {
+                note += '▸ REASON FOR CONSULTATION\n';
+                if (consultQ) note += consultQ + '\n';
+                if (tags.length) note += 'Category: ' + tags.join(', ') + '\n';
+                note += '\n';
+            }
+
+            // History
+            const baselineCr = document.getElementById('baseline-cr').value.trim();
+            const baselineEgfr = document.getElementById('baseline-egfr').value.trim();
+            const baselineDate = document.getElementById('baseline-date').value.trim();
+            const ckdStage = getSelectedStage('ckd-etiology');
+            const ckdEtiology = document.getElementById('ckd-etiology').value.trim();
+            const comorbidities = getCheckedItems(['dm', 'htn', 'chf', 'cirrhosis', 'transplant', 'autoimmune', 'malignancy', 'myeloma']);
+            const nephrotoxins = getCheckedItems(['nsaids', 'contrast', 'aminoglycosides', 'vancomycin', 'acei-arb', 'diuretics', 'chemo', 'ppi']);
+            const dialysisHx = document.getElementById('dialysis-history').value.trim();
+            const addlHistory = document.getElementById('additional-history').value.trim();
+
+            if (baselineCr || ckdEtiology || comorbidities.length || nephrotoxins.length || dialysisHx || addlHistory) {
+                note += '▸ RELEVANT HISTORY\n';
+                if (baselineCr || baselineEgfr) {
+                    note += 'Baseline renal function: ';
+                    if (baselineCr) note += 'Cr ' + baselineCr + ' mg/dL';
+                    if (baselineCr && baselineEgfr) note += ', ';
+                    if (baselineEgfr) note += 'eGFR ' + baselineEgfr;
+                    if (baselineDate) note += ' (' + baselineDate + ')';
+                    note += '\n';
+                }
+                if (ckdStage) note += 'CKD Stage: ' + ckdStage + '\n';
+                if (ckdEtiology) note += 'CKD Etiology: ' + ckdEtiology + '\n';
+                if (comorbidities.length) note += 'Comorbidities: ' + comorbidities.join(', ') + '\n';
+                if (nephrotoxins.length) note += 'Nephrotoxin exposure: ' + nephrotoxins.join(', ') + '\n';
+                if (dialysisHx) note += 'Dialysis history: ' + dialysisHx + '\n';
+                if (addlHistory) note += addlHistory + '\n';
+                note += '\n';
+            }
+
+            // Physical Exam
+            const bp = document.getElementById('bp').value.trim();
+            const hr = document.getElementById('hr').value.trim();
+            const temp = document.getElementById('temp').value.trim();
+            const spo2 = document.getElementById('spo2').value.trim();
+            const weight = document.getElementById('weight').value.trim();
+            const orthostatics = document.getElementById('orthostatics').value.trim();
+            const volumeStatus = document.getElementById('volume-status').value;
+            const jvp = document.getElementById('jvp').value.trim();
+            const edema = document.getElementById('edema').value.trim();
+            const lungs = document.getElementById('lungs').value.trim();
+            const otherExam = document.getElementById('other-exam').value.trim();
+
+            if (bp || volumeStatus || jvp || otherExam) {
+                note += '▸ PHYSICAL EXAMINATION\n';
+                const vitals = [];
+                if (bp) vitals.push('BP ' + bp);
+                if (hr) vitals.push('HR ' + hr);
+                if (temp) vitals.push('T ' + temp + '°F');
+                if (spo2) vitals.push('SpO2 ' + spo2);
+                if (weight) vitals.push('Wt ' + weight + ' kg');
+                if (vitals.length) note += 'Vitals: ' + vitals.join(', ') + '\n';
+                if (orthostatics) note += 'Orthostatics: ' + orthostatics + '\n';
+                if (volumeStatus) note += 'Volume status: ' + volumeStatus + '\n';
+                const volExam = [];
+                if (jvp) volExam.push('JVP ' + jvp + ' cm');
+                if (edema) volExam.push('Edema: ' + edema);
+                if (lungs) volExam.push('Lungs: ' + lungs);
+                if (volExam.length) note += volExam.join('; ') + '\n';
+                if (otherExam) note += otherExam + '\n';
+                note += '\n';
+            }
+
+            // Labs
+            const crTrend = document.getElementById('cr-trend').value.trim();
+            const bun = document.getElementById('bun').value.trim();
+            const cr = document.getElementById('cr').value.trim();
+            const egfr = document.getElementById('egfr').value.trim();
+            const potassium = document.getElementById('potassium').value.trim();
+            const sodium = document.getElementById('sodium').value.trim();
+            const chloride = document.getElementById('chloride').value.trim();
+            const bicarb = document.getElementById('bicarb').value.trim();
+            const ag = document.getElementById('ag').value.trim();
+            const phos = document.getElementById('phos').value.trim();
+            const calcium = document.getElementById('calcium').value.trim();
+            const magnesium = document.getElementById('magnesium').value.trim();
+            const albumin = document.getElementById('albumin').value.trim();
+            const hgb = document.getElementById('hgb').value.trim();
+            const wbc = document.getElementById('wbc').value.trim();
+            const plt = document.getElementById('plt').value.trim();
+            const abg = document.getElementById('abg').value.trim();
+            const uop = document.getElementById('uop').value.trim();
+            const addlLabs = document.getElementById('additional-labs').value.trim();
+
+            if (crTrend || cr || bun) {
+                note += '▸ LABORATORY DATA\n';
+                if (crTrend) note += 'Cr trend: ' + crTrend + '\n';
+                
+                const bmp = [];
+                if (sodium) bmp.push('Na ' + sodium);
+                if (potassium) bmp.push('K ' + potassium);
+                if (chloride) bmp.push('Cl ' + chloride);
+                if (bicarb) bmp.push('HCO3 ' + bicarb);
+                if (bun) bmp.push('BUN ' + bun);
+                if (cr) bmp.push('Cr ' + cr);
+                if (egfr) bmp.push('eGFR ' + egfr);
+                if (ag) bmp.push('AG ' + ag);
+                if (bmp.length) note += 'BMP: ' + bmp.join(' / ') + '\n';
+
+                const minerals = [];
+                if (calcium) minerals.push('Ca ' + calcium);
+                if (phos) minerals.push('Phos ' + phos);
+                if (magnesium) minerals.push('Mg ' + magnesium);
+                if (albumin) minerals.push('Alb ' + albumin);
+                if (minerals.length) note += minerals.join(' / ') + '\n';
+
+                const cbc = [];
+                if (hgb) cbc.push('Hgb ' + hgb);
+                if (wbc) cbc.push('WBC ' + wbc);
+                if (plt) cbc.push('Plt ' + plt);
+                if (cbc.length) note += 'CBC: ' + cbc.join(' / ') + '\n';
+
+                if (abg) note += 'ABG/VBG: ' + abg + '\n';
+                if (uop) note += 'Urine output: ' + uop + '\n';
+                if (addlLabs) note += addlLabs + '\n';
+                note += '\n';
+            }
+
+            // Urinalysis
+            const uaSg = document.getElementById('ua-sg').value.trim();
+            const uaPh = document.getElementById('ua-ph').value.trim();
+            const uaProtein = document.getElementById('ua-protein').value.trim();
+            const uaBlood = document.getElementById('ua-blood').value.trim();
+            const uaGlucose = document.getElementById('ua-glucose').value.trim();
+            const uaKetones = document.getElementById('ua-ketones').value.trim();
+            const uaLe = document.getElementById('ua-le').value.trim();
+            const uaNitrite = document.getElementById('ua-nitrite').value.trim();
+            const uaSediment = document.getElementById('ua-sediment').value.trim();
+            const una = document.getElementById('una').value.trim();
+            const ucr = document.getElementById('ucr').value.trim();
+            const fena = document.getElementById('fena').value.trim();
+            const feurea = document.getElementById('feurea').value.trim();
+            const uosm = document.getElementById('uosm').value.trim();
+            const upcr = document.getElementById('upcr').value.trim();
+            const uacr = document.getElementById('uacr').value.trim();
+
+            if (uaSg || uaProtein || uaSediment || fena) {
+                note += '▸ URINALYSIS & URINE STUDIES\n';
+                const dipstick = [];
+                if (uaSg) dipstick.push('SG ' + uaSg);
+                if (uaPh) dipstick.push('pH ' + uaPh);
+                if (uaProtein) dipstick.push('Protein ' + uaProtein);
+                if (uaBlood) dipstick.push('Blood ' + uaBlood);
+                if (uaGlucose) dipstick.push('Glucose ' + uaGlucose);
+                if (uaLe) dipstick.push('LE ' + uaLe);
+                if (uaNitrite) dipstick.push('Nitrite ' + uaNitrite);
+                if (dipstick.length) note += 'UA: ' + dipstick.join(', ') + '\n';
+
+                if (uaSediment) note += 'Sediment: ' + uaSediment + '\n';
+
+                const urineChem = [];
+                if (una) urineChem.push('UNa ' + una);
+                if (ucr) urineChem.push('UCr ' + ucr);
+                if (fena) urineChem.push('FENa ' + fena + '%');
+                if (feurea) urineChem.push('FEUrea ' + feurea + '%');
+                if (uosm) urineChem.push('UOsm ' + uosm);
+                if (upcr) urineChem.push('UPCR ' + upcr);
+                if (uacr) urineChem.push('UACR ' + uacr);
+                if (urineChem.length) note += 'Urine chemistries: ' + urineChem.join(', ') + '\n';
+                note += '\n';
+            }
+
+            // Imaging
+            const renalUs = document.getElementById('renal-us').value.trim();
+            const otherImaging = document.getElementById('other-imaging').value.trim();
+            if (renalUs || otherImaging) {
+                note += '▸ IMAGING\n';
+                if (renalUs) note += 'Renal US: ' + renalUs + '\n';
+                if (otherImaging) note += otherImaging + '\n';
+                note += '\n';
+            }
+
+            // Assessment
+            const akiStageEl = document.querySelector('#assessment .stage-selector');
+            let akiStage = '';
+            if (akiStageEl) {
+                const selected = akiStageEl.querySelector('.stage-badge.selected');
+                if (selected) akiStage = selected.textContent;
+            }
+            const primaryDx = document.getElementById('primary-dx').value.trim();
+            const differential = document.getElementById('differential').value.trim();
+            const synthesis = document.getElementById('synthesis').value.trim();
+
+            if (akiStage || primaryDx || differential || synthesis) {
+                note += '▸ ASSESSMENT\n';
+                if (akiStage) note += 'AKI Stage (KDIGO): ' + akiStage + '\n';
+                if (primaryDx) note += '\nPrimary diagnosis: ' + primaryDx + '\n';
+                if (differential) note += '\nDifferential:\n' + differential + '\n';
+                if (synthesis) note += '\nSynthesis: ' + synthesis + '\n';
+                note += '\n';
+            }
+
+            // Recommendations
+            const recsWorkup = document.getElementById('recs-workup').value.trim();
+            const recsVolume = document.getElementById('recs-volume').value.trim();
+            const recsMeds = document.getElementById('recs-meds').value.trim();
+            const recsLytes = document.getElementById('recs-lytes').value.trim();
+            const recsBp = document.getElementById('recs-bp').value.trim();
+            const recsFollowup = document.getElementById('recs-followup').value.trim();
+            const recsOther = document.getElementById('recs-other').value.trim();
+
+            if (recsWorkup || recsVolume || recsMeds || recsLytes || recsBp || recsFollowup || recsOther) {
+                note += '▸ RECOMMENDATIONS\n';
+                if (recsWorkup) note += '\n[Diagnostic Workup]\n' + recsWorkup + '\n';
+                if (recsVolume) note += '\n[Volume Management]\n' + recsVolume + '\n';
+                if (recsMeds) note += '\n[Medication Adjustments]\n' + recsMeds + '\n';
+                if (recsLytes) note += '\n[Electrolyte Management]\n' + recsLytes + '\n';
+                if (recsBp) note += '\n[BP Management]\n' + recsBp + '\n';
+                if (recsFollowup) note += '\n[Monitoring/Follow-up]\n' + recsFollowup + '\n';
+                if (recsOther) note += '\n[Additional]\n' + recsOther + '\n';
+                note += '\n';
+            }
+
+            // RRT Assessment
+            const rrtIndications = getCheckedItems(['ind-acidemia', 'ind-hyperK', 'ind-overload', 'ind-uremia', 'ind-toxin', 'ind-none']);
+            const rrtPlan = document.getElementById('rrt-plan').value;
+            const accessPlan = document.getElementById('access-plan').value.trim();
+            const prognosis = document.getElementById('prognosis').value.trim();
+
+            if (rrtIndications.length || rrtPlan || accessPlan || prognosis) {
+                note += '▸ RRT / DIALYSIS ASSESSMENT\n';
+                if (rrtIndications.length) note += 'Current indications: ' + rrtIndications.join(', ') + '\n';
+                if (rrtPlan) note += 'Plan: ' + rrtPlan + '\n';
+                if (accessPlan) note += 'Access: ' + accessPlan + '\n';
+                if (prognosis) note += 'Prognosis: ' + prognosis + '\n';
+                note += '\n';
+            }
+
+            // Disposition
+            const disposition = document.getElementById('disposition').value.trim();
+            const followupPlan = document.getElementById('followup-plan').value.trim();
+            const attending = document.getElementById('attending').value.trim();
+
+            if (disposition || followupPlan || attending) {
+                note += '▸ DISPOSITION & FOLLOW-UP\n';
+                if (disposition) note += disposition + '\n';
+                if (followupPlan) note += 'Outpatient follow-up: ' + followupPlan + '\n';
+                if (attending) note += '\nNephrology: ' + attending + '\n';
+                note += '\n';
+            }
+
+            // Footer
+            note += '═══════════════════════════════════════════════════════════\n';
+            note += 'Will continue to follow. Please contact nephrology with questions.\n';
+            note += '═══════════════════════════════════════════════════════════';
+
+            document.getElementById('generated-note').textContent = note;
+        }
+
+        // Copy note to clipboard
+        function copyNote() {
+            const noteText = document.getElementById('generated-note').textContent;
+            navigator.clipboard.writeText(noteText).then(() => {
+                showToast('Copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                showToast('Failed to copy');
+            });
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // Initialize - collapse some sections by default for cleaner view
+        document.addEventListener('DOMContentLoaded', function() {
+            // Keep first few sections open, collapse others
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                if (index > 4) {
+                    section.classList.add('collapsed');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
