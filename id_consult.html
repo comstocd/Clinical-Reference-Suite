@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Infectious Disease Consult Note Template</title>
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-light: #34d399;
+            --primary-dark: #047857;
+            --accent: #f59e0b;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-muted: #6c757d;
+            --border: #dee2e6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --section-header: #ecfdf5;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            font-size: 16px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .header-subtitle {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toolbar-btn:hover, .toolbar-btn:active {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .nav-chip {
+            background: var(--section-header);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .nav-chip:hover, .nav-chip:active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--section-header);
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            user-select: none;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-icon {
+            font-size: 1.1rem;
+        }
+
+        .section-toggle {
+            font-size: 1.2rem;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .section.collapsed .section-toggle {
+            transform: rotate(-90deg);
+        }
+
+        .section.collapsed .section-content {
+            display: none;
+        }
+
+        .section-content {
+            padding: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .form-sublabel {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            display: block;
+            margin-top: 2px;
+        }
+
+        textarea, input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: white;
+            color: var(--text);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        textarea:focus, input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        textarea.large {
+            min-height: 120px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background: var(--section-header);
+        }
+
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .checkbox-item label {
+            font-size: 0.9rem;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .inline-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .inline-group label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .inline-group input, .inline-group select {
+            padding: 8px 10px;
+        }
+
+        .callout {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border-left: 4px solid;
+        }
+
+        .callout-info {
+            background: #ecfdf5;
+            border-color: var(--primary);
+        }
+
+        .callout-warning {
+            background: #fef3c7;
+            border-color: var(--warning);
+        }
+
+        .callout-danger {
+            background: #fee2e2;
+            border-color: var(--danger);
+        }
+
+        .callout-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 4px;
+        }
+
+        .callout-content {
+            font-size: 0.875rem;
+        }
+
+        .reference-box {
+            background: linear-gradient(135deg, #f6f8fa 0%, #eef1f5 100%);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+            margin-top: 12px;
+        }
+
+        .reference-box h4 {
+            margin: 0 0 8px 0;
+            font-size: 0.85rem;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .reference-box ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 0.875rem;
+        }
+
+        .reference-box li {
+            margin-bottom: 4px;
+        }
+
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .tag-bsi { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+        .tag-resp { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+        .tag-gu { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
+        .tag-ssti { background: #fce7f3; color: #9d174d; border-color: #f9a8d4; }
+        .tag-cns { background: #ede9fe; color: #5b21b6; border-color: #c4b5fd; }
+        .tag-gi { background: #ffedd5; color: #9a3412; border-color: #fdba74; }
+        .tag-bone { background: #d1fae5; color: #065f46; border-color: #6ee7b7; }
+        .tag-endo { background: #e0e7ff; color: #3730a3; border-color: #a5b4fc; }
+        .tag-device { background: #f3e8ff; color: #6b21a8; border-color: #d8b4fe; }
+        .tag-fungal { background: #fef9c3; color: #854d0e; border-color: #fde047; }
+        .tag-viral { background: #ccfbf1; color: #0f766e; border-color: #5eead4; }
+        .tag-hiv { background: #f1f5f9; color: #475569; border-color: #94a3b8; }
+
+        .tag.selected {
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .output-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .output-section h3 {
+            margin: 0 0 16px 0;
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+        }
+
+        #generated-note {
+            background: #fafbfc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: "SF Mono", Monaco, "Courier New", monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            min-height: 200px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .output-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover, .btn-primary:active {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover, .btn-secondary:active {
+            background: var(--border);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--primary-dark);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Culture result table */
+        .culture-entry {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .culture-entry h4 {
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+        }
+
+        /* Antibiotic table */
+        .abx-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+            margin-top: 12px;
+        }
+
+        .abx-table th, .abx-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .abx-table th {
+            background: var(--section-header);
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .abx-table tr:hover {
+            background: #f9fafb;
+        }
+
+        /* Severity badges */
+        .severity-selector {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .severity-badge {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .severity-badge:hover {
+            border-color: var(--primary-light);
+        }
+
+        .severity-badge.selected {
+            border-color: var(--primary);
+            background: var(--section-header);
+            color: var(--primary-dark);
+        }
+
+        .severity-badge.mild { border-left: 4px solid #10b981; }
+        .severity-badge.moderate { border-left: 4px solid #f59e0b; }
+        .severity-badge.severe { border-left: 4px solid #ef4444; }
+        .severity-badge.septic { border-left: 4px solid #7c3aed; }
+
+        /* Red flags box */
+        .redflags-box {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 2px solid var(--danger);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .redflags-box h4 {
+            color: var(--danger);
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+        }
+
+        /* Stewardship box */
+        .stewardship-box {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 2px solid var(--success);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+
+        .stewardship-box h4 {
+            color: #065f46;
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .inline-inputs {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .header, .toolbar, .quick-nav, .output-actions, .nav-chip {
+                display: none !important;
+            }
+            
+            .section {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            body {
+                font-size: 11pt;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🦠 Infectious Disease Consult Note</h1>
+        <div class="header-subtitle">Structured Template for Comprehensive ID Evaluation</div>
+        <div class="toolbar">
+            <button class="toolbar-btn" onclick="generateNote()">📋 Generate Note</button>
+            <button class="toolbar-btn" onclick="clearAll()">🗑️ Clear All</button>
+            <button class="toolbar-btn" onclick="expandAll()">📂 Expand All</button>
+            <button class="toolbar-btn" onclick="collapseAll()">📁 Collapse All</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Quick Navigation -->
+        <div class="quick-nav">
+            <button class="nav-chip" onclick="scrollToSection('consult-reason')">Reason</button>
+            <button class="nav-chip" onclick="scrollToSection('hpi')">HPI</button>
+            <button class="nav-chip" onclick="scrollToSection('risk-factors')">Risk Factors</button>
+            <button class="nav-chip" onclick="scrollToSection('current-abx')">Antibiotics</button>
+            <button class="nav-chip" onclick="scrollToSection('exam')">Exam</button>
+            <button class="nav-chip" onclick="scrollToSection('micro')">Micro</button>
+            <button class="nav-chip" onclick="scrollToSection('labs')">Labs</button>
+            <button class="nav-chip" onclick="scrollToSection('imaging')">Imaging</button>
+            <button class="nav-chip" onclick="scrollToSection('assessment')">Assessment</button>
+            <button class="nav-chip" onclick="scrollToSection('recommendations')">Recs</button>
+        </div>
+
+        <!-- Consult Reason -->
+        <div class="section" id="consult-reason">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📞</span> Reason for Consultation</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="callout callout-info">
+                    <div class="callout-content">State the specific clinical question (e.g., "MSSA bacteremia — duration of therapy and need for TEE" not just "bacteremia")</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Primary Consult Question</label>
+                    <textarea id="consult-question" placeholder="e.g., Evaluate persistent MSSA bacteremia — concern for endocarditis, need for TEE, antibiotic optimization, and duration of therapy"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Infection Syndrome Category</label>
+                    <div class="tag-group">
+                        <span class="tag tag-bsi" onclick="toggleTag(this)">Bacteremia/Sepsis</span>
+                        <span class="tag tag-resp" onclick="toggleTag(this)">Respiratory</span>
+                        <span class="tag tag-gu" onclick="toggleTag(this)">Genitourinary</span>
+                        <span class="tag tag-ssti" onclick="toggleTag(this)">Skin/Soft Tissue</span>
+                        <span class="tag tag-cns" onclick="toggleTag(this)">CNS</span>
+                        <span class="tag tag-gi" onclick="toggleTag(this)">GI/Intra-abdominal</span>
+                        <span class="tag tag-bone" onclick="toggleTag(this)">Bone/Joint</span>
+                        <span class="tag tag-endo" onclick="toggleTag(this)">Endovascular</span>
+                        <span class="tag tag-device" onclick="toggleTag(this)">Device-related</span>
+                        <span class="tag tag-fungal" onclick="toggleTag(this)">Fungal</span>
+                        <span class="tag tag-viral" onclick="toggleTag(this)">Viral</span>
+                        <span class="tag tag-hiv" onclick="toggleTag(this)">HIV/OI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History of Present Illness -->
+        <div class="section" id="hpi">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📋</span> History of Present Illness</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Illness Severity</label>
+                    <div class="severity-selector">
+                        <span class="severity-badge mild" onclick="selectSeverity(this)">Mild</span>
+                        <span class="severity-badge moderate" onclick="selectSeverity(this)">Moderate</span>
+                        <span class="severity-badge severe" onclick="selectSeverity(this)">Severe</span>
+                        <span class="severity-badge septic" onclick="selectSeverity(this)">Sepsis/Septic Shock</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Symptom Onset & Duration</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Onset</label>
+                            <input type="text" id="onset" placeholder="e.g., 5 days ago">
+                        </div>
+                        <div class="inline-group">
+                            <label>Course</label>
+                            <select id="course">
+                                <option value="">-- Select --</option>
+                                <option value="Acute (<48h)">Acute (&lt;48h)</option>
+                                <option value="Subacute (days)">Subacute (days)</option>
+                                <option value="Chronic (weeks-months)">Chronic (weeks-months)</option>
+                                <option value="Relapsing/Recurrent">Relapsing/Recurrent</option>
+                                <option value="Improving">Improving on current therapy</option>
+                                <option value="Worsening">Worsening despite therapy</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Presenting Symptoms</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="sx-fever"><label for="sx-fever">Fever</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-chills"><label for="sx-chills">Chills/Rigors</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-sweats"><label for="sx-sweats">Night sweats</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-fatigue"><label for="sx-fatigue">Fatigue/Malaise</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-weightloss"><label for="sx-weightloss">Weight loss</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-anorexia"><label for="sx-anorexia">Anorexia</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-ams"><label for="sx-ams">Altered mental status</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-hypotension"><label for="sx-hypotension">Hypotension</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Localizing Symptoms</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="loc-cough"><label for="loc-cough">Cough</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-dyspnea"><label for="loc-dyspnea">Dyspnea</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-sputum"><label for="loc-sputum">Sputum production</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-dysuria"><label for="loc-dysuria">Dysuria</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-frequency"><label for="loc-frequency">Urinary frequency</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-flank"><label for="loc-flank">Flank pain</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-abdominal"><label for="loc-abdominal">Abdominal pain</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-diarrhea"><label for="loc-diarrhea">Diarrhea</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-nausea"><label for="loc-nausea">Nausea/Vomiting</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-headache"><label for="loc-headache">Headache</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-neckstiff"><label for="loc-neckstiff">Neck stiffness</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-photophobia"><label for="loc-photophobia">Photophobia</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-rash"><label for="loc-rash">Rash</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-wound"><label for="loc-wound">Wound drainage</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-jointpain"><label for="loc-jointpain">Joint pain/swelling</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="loc-backpain"><label for="loc-backpain">Back pain</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Additional HPI Details</label>
+                    <textarea id="hpi-details" class="large" placeholder="Detailed narrative of illness course, progression, prior treatments, prior cultures/sensitivities if known..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Risk Factors & Exposures -->
+        <div class="section" id="risk-factors">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">⚠️</span> Risk Factors & Exposures</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="redflags-box">
+                    <h4>🚨 High-Risk Features</h4>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="hr-neutropenic"><label for="hr-neutropenic">Neutropenia (ANC &lt;500)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hr-transplant"><label for="hr-transplant">Solid organ/Stem cell transplant</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hr-hiv"><label for="hr-hiv">HIV (CD4 count: ___)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hr-chemo"><label for="hr-chemo">Active chemotherapy</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hr-steroids"><label for="hr-steroids">High-dose steroids</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hr-biologic"><label for="hr-biologic">Biologic immunosuppression</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Immunocompromising Conditions</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="ic-dm"><label for="ic-dm">Diabetes mellitus</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ic-esrd"><label for="ic-esrd">ESRD/Dialysis</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ic-cirrhosis"><label for="ic-cirrhosis">Cirrhosis</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ic-malignancy"><label for="ic-malignancy">Active malignancy</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ic-asplenia"><label for="ic-asplenia">Asplenia</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ic-copd"><label for="ic-copd">COPD/Chronic lung disease</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ic-chf"><label for="ic-chf">Heart failure</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ic-ivdu"><label for="ic-ivdu">IVDU</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ic-alcohol"><label for="ic-alcohol">Alcohol use disorder</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ic-malnutrition"><label for="ic-malnutrition">Malnutrition</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Indwelling Devices</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="dev-cvc"><label for="dev-cvc">Central venous catheter</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="dev-picc"><label for="dev-picc">PICC line</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="dev-port"><label for="dev-port">Port-a-cath</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="dev-hd"><label for="dev-hd">HD catheter</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="dev-foley"><label for="dev-foley">Foley catheter</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="dev-ureteral"><label for="dev-ureteral">Ureteral stent</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="dev-prosthetic"><label for="dev-prosthetic">Prosthetic joint</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="dev-hardware"><label for="dev-hardware">Orthopedic hardware</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="dev-pacer"><label for="dev-pacer">Pacemaker/ICD</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="dev-valve"><label for="dev-valve">Prosthetic valve</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="dev-vad"><label for="dev-vad">VAD/LVAD</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="dev-vps"><label for="dev-vps">VP shunt</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="dev-graft"><label for="dev-graft">Vascular graft</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="dev-mesh"><label for="dev-mesh">Surgical mesh</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Device Details</label>
+                    <textarea id="device-details" placeholder="Line type, insertion date, last accessed, appearance of site..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Healthcare Exposures</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="hc-recent-hosp"><label for="hc-recent-hosp">Recent hospitalization (&lt;90 days)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hc-recent-abx"><label for="hc-recent-abx">Recent antibiotics (&lt;90 days)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hc-snf"><label for="hc-snf">Nursing home/LTAC</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hc-surgery"><label for="hc-surgery">Recent surgery</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hc-endo"><label for="hc-endo">Recent endoscopy</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hc-dialysis"><label for="hc-dialysis">Dialysis center</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hc-wound"><label for="hc-wound">Wound care center</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">MDR Organism Risk Factors</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="mdr-mrsa"><label for="mdr-mrsa">Known MRSA colonization/infection</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="mdr-vre"><label for="mdr-vre">Known VRE colonization/infection</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="mdr-esbl"><label for="mdr-esbl">Known ESBL organism</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="mdr-cre"><label for="mdr-cre">Known CRE</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="mdr-pseudomonas"><label for="mdr-pseudomonas">Known MDR Pseudomonas</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="mdr-cdiff"><label for="mdr-cdiff">Prior C. difficile</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Epidemiologic Exposures</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="epi-travel"><label for="epi-travel">Recent travel</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="epi-animal"><label for="epi-animal">Animal contact</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="epi-tick"><label for="epi-tick">Tick/insect exposure</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="epi-water"><label for="epi-water">Fresh/saltwater exposure</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="epi-soil"><label for="epi-soil">Soil/gardening exposure</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="epi-cave"><label for="epi-cave">Cave exposure</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="epi-tb"><label for="epi-tb">TB contact</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="epi-incarceration"><label for="epi-incarceration">Incarceration</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="epi-homeless"><label for="epi-homeless">Homelessness</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="epi-sexual"><label for="epi-sexual">High-risk sexual contact</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Exposure Details</label>
+                    <textarea id="exposure-details" placeholder="Travel destinations, animal types, sick contacts, occupational exposures..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Allergies (Drug)</label>
+                    <textarea id="allergies" placeholder="Penicillin (reaction type: rash vs anaphylaxis), Sulfa, Fluoroquinolones, Vancomycin (Red man syndrome vs true allergy)..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Antimicrobials -->
+        <div class="section" id="current-abx">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">💊</span> Current & Recent Antimicrobials</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Current Antimicrobial Therapy</label>
+                    <textarea id="current-abx-list" class="large" placeholder="e.g., 
+- Vancomycin 1.5g IV q12h (Day 3) - trough pending
+- Cefepime 2g IV q8h (Day 3)
+- Metronidazole 500mg IV q8h (Day 3)
+
+Include: Drug, dose, route, frequency, day of therapy, indication"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Day of Current Therapy</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Antibiotics started</label>
+                            <input type="text" id="abx-start-date" placeholder="e.g., 1/8/2026">
+                        </div>
+                        <div class="inline-group">
+                            <label>Day # of therapy</label>
+                            <input type="text" id="abx-day" placeholder="e.g., Day 3">
+                        </div>
+                        <div class="inline-group">
+                            <label>Planned duration</label>
+                            <input type="text" id="abx-duration" placeholder="e.g., 14 days">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Clinical Response to Therapy</label>
+                    <select id="clinical-response">
+                        <option value="">-- Select --</option>
+                        <option value="Improving - defervesced, clinical improvement">Improving - defervesced, clinical improvement</option>
+                        <option value="Stable - no clear improvement or worsening">Stable - no clear improvement or worsening</option>
+                        <option value="Worsening - persistent fever, clinical decline">Worsening - persistent fever, clinical decline</option>
+                        <option value="Too early to assess">Too early to assess</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Drug Levels (if applicable)</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Vancomycin trough</label>
+                            <input type="text" id="vanco-trough" placeholder="e.g., 15.2">
+                        </div>
+                        <div class="inline-group">
+                            <label>Vancomycin AUC</label>
+                            <input type="text" id="vanco-auc" placeholder="e.g., 425">
+                        </div>
+                        <div class="inline-group">
+                            <label>Aminoglycoside level</label>
+                            <input type="text" id="aminoglycoside" placeholder="e.g., Gent peak/trough">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Recent Prior Antibiotics (last 90 days)</label>
+                    <textarea id="prior-abx" placeholder="List prior antibiotics with dates and indication - important for resistance patterns and C. diff risk"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Physical Examination -->
+        <div class="section" id="exam">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🩺</span> Physical Examination</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Vital Signs</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Temp (°F)</label>
+                            <input type="text" id="temp" placeholder="e.g., 101.2">
+                        </div>
+                        <div class="inline-group">
+                            <label>Tmax (24h)</label>
+                            <input type="text" id="tmax" placeholder="e.g., 102.4">
+                        </div>
+                        <div class="inline-group">
+                            <label>HR (bpm)</label>
+                            <input type="text" id="hr" placeholder="e.g., 102">
+                        </div>
+                        <div class="inline-group">
+                            <label>BP (mmHg)</label>
+                            <input type="text" id="bp" placeholder="e.g., 98/62">
+                        </div>
+                        <div class="inline-group">
+                            <label>RR</label>
+                            <input type="text" id="rr" placeholder="e.g., 22">
+                        </div>
+                        <div class="inline-group">
+                            <label>SpO2</label>
+                            <input type="text" id="spo2" placeholder="e.g., 94% 2L NC">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">General Appearance</label>
+                    <textarea id="general-exam" placeholder="e.g., Ill-appearing, diaphoretic. Alert and oriented x3. In mild respiratory distress."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">HEENT</label>
+                    <textarea id="heent-exam" placeholder="Oral thrush, dental abscess, sinus tenderness, pharyngeal erythema/exudate, lymphadenopathy..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Neck</label>
+                    <textarea id="neck-exam" placeholder="Meningismus, JVD, lymphadenopathy, thyroid..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Cardiovascular</label>
+                    <textarea id="cv-exam" placeholder="Murmur (new vs known), rhythm, splinter hemorrhages, Janeway lesions, Osler nodes..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Pulmonary</label>
+                    <textarea id="pulm-exam" placeholder="Breath sounds, crackles, rhonchi, wheezing, egophony, dullness to percussion..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Abdominal</label>
+                    <textarea id="abd-exam" placeholder="Tenderness (localized vs diffuse), guarding, rebound, hepatosplenomegaly, CVA tenderness..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Skin & Soft Tissue</label>
+                    <textarea id="skin-exam" class="large" placeholder="Cellulitis (borders marked?), abscess, wound appearance, surgical site, ulcers, rash description (distribution, morphology), petechiae, purpura, embolic phenomena..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Vascular Access Sites</label>
+                    <textarea id="line-exam" placeholder="Central line site appearance, erythema, tenderness, drainage, tunnel infection signs. Peripheral IVs."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Musculoskeletal</label>
+                    <textarea id="msk-exam" placeholder="Joint effusion, warmth, ROM limitation, spine tenderness, paraspinal tenderness..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Neurologic</label>
+                    <textarea id="neuro-exam" placeholder="Mental status, focal deficits, Kernig/Brudzinski signs, cranial nerves..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">GU (if relevant)</label>
+                    <textarea id="gu-exam" placeholder="Suprapubic tenderness, CVA tenderness, scrotal exam, Foley appearance..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Microbiology -->
+        <div class="section" id="micro">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🔬</span> Microbiology</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="callout callout-info">
+                    <div class="callout-title">Culture Review Checklist</div>
+                    <div class="callout-content">Document: Source, collection date, time to positivity, organism, sensitivities, repeat cultures</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Blood Cultures</label>
+                    <textarea id="blood-cx" class="large" placeholder="Date drawn | # bottles positive | Time to positivity | Organism | Sensitivities
+
+e.g., 1/6 (x2 sets): 2/4 bottles positive at 14h - MSSA
+Sensitivities: Oxacillin S, Vancomycin S, Clindamycin S, TMP-SMX S
+
+Repeat 1/8: Pending (48h no growth so far)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Urine Culture</label>
+                    <textarea id="urine-cx" placeholder="Date | Organism | Colony count | Sensitivities
+
+e.g., 1/6: E. coli >100,000 CFU/mL
+Sensitivities: Ampicillin R, Ceftriaxone S, Ciprofloxacin S, TMP-SMX R, Nitrofurantoin S"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Respiratory Cultures</label>
+                    <textarea id="resp-cx" placeholder="Sputum, BAL, tracheal aspirate - quality (>25 WBC, <10 squamous), organism, sensitivities"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Wound/Tissue Cultures</label>
+                    <textarea id="wound-cx" placeholder="Source, date, organism(s), sensitivities. Superficial vs deep tissue vs bone."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">CSF Analysis</label>
+                    <textarea id="csf" placeholder="WBC (with differential), RBC, Protein, Glucose (with serum glucose), Gram stain, Culture, HSV PCR, Cryptococcal Ag, other studies..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Other Fluid Cultures</label>
+                    <textarea id="other-cx" placeholder="Peritoneal fluid, pleural fluid, joint fluid - cell count, Gram stain, culture, special stains..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Molecular/Rapid Diagnostics</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="mol-bcid"><label for="mol-bcid">BCID panel</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="mol-mrsa-pcr"><label for="mol-mrsa-pcr">MRSA nasal PCR</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="mol-resp-panel"><label for="mol-resp-panel">Respiratory viral panel</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="mol-gi-panel"><label for="mol-gi-panel">GI pathogen panel</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="mol-cdiff"><label for="mol-cdiff">C. diff PCR/Toxin</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="mol-afb"><label for="mol-afb">AFB smear/culture/PCR</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="mol-fungal"><label for="mol-fungal">Fungal culture</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Molecular/Rapid Results</label>
+                    <textarea id="molecular-results" placeholder="BCID results, viral panel results, C. diff results..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Serologies</label>
+                    <textarea id="serologies" placeholder="HIV, Hepatitis B/C, RPR/VDRL, Lyme, Histoplasma/Blastomycosis/Coccidioides, Aspergillus galactomannan, Beta-D-glucan, CMV, EBV, Toxoplasma, Cryptococcal antigen..."></textarea>
+                </div>
+
+                <div class="reference-box">
+                    <h4>Blood Culture Interpretation</h4>
+                    <ul>
+                        <li><strong>True pathogen indicators:</strong> Multiple positive bottles, same organism, short time to positivity (&lt;24h), S. aureus/GNR/Candida</li>
+                        <li><strong>Likely contaminant:</strong> Single bottle positive, coag-neg Staph, Corynebacterium, Cutibacterium, Bacillus (in immunocompetent)</li>
+                        <li><strong>Time to positivity:</strong> &lt;14h suggests high-grade bacteremia; important for endocarditis</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Laboratory Data -->
+        <div class="section" id="labs">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🧪</span> Laboratory Data</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">CBC</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>WBC (K/µL)</label>
+                            <input type="text" id="wbc" placeholder="e.g., 18.5">
+                        </div>
+                        <div class="inline-group">
+                            <label>ANC</label>
+                            <input type="text" id="anc" placeholder="e.g., 15,200">
+                        </div>
+                        <div class="inline-group">
+                            <label>Bands (%)</label>
+                            <input type="text" id="bands" placeholder="e.g., 12">
+                        </div>
+                        <div class="inline-group">
+                            <label>Hgb (g/dL)</label>
+                            <input type="text" id="hgb" placeholder="e.g., 10.2">
+                        </div>
+                        <div class="inline-group">
+                            <label>Plt (K/µL)</label>
+                            <input type="text" id="plt" placeholder="e.g., 145">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Inflammatory Markers</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Procalcitonin</label>
+                            <input type="text" id="procal" placeholder="e.g., 2.4">
+                        </div>
+                        <div class="inline-group">
+                            <label>CRP (mg/L)</label>
+                            <input type="text" id="crp" placeholder="e.g., 185">
+                        </div>
+                        <div class="inline-group">
+                            <label>ESR (mm/hr)</label>
+                            <input type="text" id="esr" placeholder="e.g., 65">
+                        </div>
+                        <div class="inline-group">
+                            <label>Lactate (mmol/L)</label>
+                            <input type="text" id="lactate" placeholder="e.g., 2.8">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Renal Function</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Cr (mg/dL)</label>
+                            <input type="text" id="cr" placeholder="e.g., 1.4">
+                        </div>
+                        <div class="inline-group">
+                            <label>BUN</label>
+                            <input type="text" id="bun" placeholder="e.g., 28">
+                        </div>
+                        <div class="inline-group">
+                            <label>eGFR/CrCl</label>
+                            <input type="text" id="egfr" placeholder="e.g., 52">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Hepatic Function</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>AST</label>
+                            <input type="text" id="ast" placeholder="e.g., 45">
+                        </div>
+                        <div class="inline-group">
+                            <label>ALT</label>
+                            <input type="text" id="alt" placeholder="e.g., 38">
+                        </div>
+                        <div class="inline-group">
+                            <label>Alk Phos</label>
+                            <input type="text" id="alkphos" placeholder="e.g., 95">
+                        </div>
+                        <div class="inline-group">
+                            <label>T. Bili</label>
+                            <input type="text" id="tbili" placeholder="e.g., 1.2">
+                        </div>
+                        <div class="inline-group">
+                            <label>Albumin</label>
+                            <input type="text" id="albumin" placeholder="e.g., 2.8">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Urinalysis</label>
+                    <textarea id="ua" placeholder="Leukocyte esterase, nitrite, WBC, bacteria, RBC, casts..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">HIV/CD4 (if applicable)</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>HIV status</label>
+                            <input type="text" id="hiv-status" placeholder="e.g., Positive">
+                        </div>
+                        <div class="inline-group">
+                            <label>CD4 count</label>
+                            <input type="text" id="cd4" placeholder="e.g., 85">
+                        </div>
+                        <div class="inline-group">
+                            <label>Viral load</label>
+                            <input type="text" id="viral-load" placeholder="e.g., 125,000">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Additional Labs</label>
+                    <textarea id="additional-labs" placeholder="LDH, haptoglobin, fibrinogen, D-dimer, G6PD (before dapsone/primaquine), other relevant labs..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Imaging -->
+        <div class="section" id="imaging">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📷</span> Imaging</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Chest Imaging</label>
+                    <textarea id="chest-imaging" class="large" placeholder="CXR: Infiltrate location, effusion, cavitation, lymphadenopathy
+CT Chest: Consolidation, ground glass, nodules, tree-in-bud, cavitary lesions, empyema"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Abdominal/Pelvic Imaging</label>
+                    <textarea id="abd-imaging" placeholder="CT A/P: Abscess, fluid collections, bowel wall thickening, appendicitis, cholecystitis, pyelonephritis, hepatosplenic lesions..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Echocardiogram</label>
+                    <textarea id="echo" placeholder="TTE/TEE: Vegetations (location, size, mobility), valvular regurgitation, abscess, prosthetic valve dysfunction, EF..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Musculoskeletal Imaging</label>
+                    <textarea id="msk-imaging" placeholder="MRI spine: Diskitis/osteomyelitis, epidural abscess, paraspinal collection
+MRI joint: Septic arthritis, osteomyelitis
+X-ray: Periosteal reaction, bone destruction"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Neuroimaging</label>
+                    <textarea id="neuro-imaging" placeholder="CT/MRI head: Abscess, empyema, meningeal enhancement, ventriculitis, stroke (septic emboli)..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Other Imaging</label>
+                    <textarea id="other-imaging" placeholder="Tagged WBC scan, PET/CT, ultrasound (line evaluation, abscess, DVT)..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assessment -->
+        <div class="section" id="assessment">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🧠</span> Assessment & Synthesis</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Primary Infectious Diagnosis</label>
+                    <textarea id="primary-dx" placeholder="e.g., MSSA bacteremia with probable endocarditis (pending TEE), likely secondary to infected PICC line"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Source of Infection</label>
+                    <select id="source">
+                        <option value="">-- Select --</option>
+                        <option value="Confirmed source identified">Confirmed source identified</option>
+                        <option value="Probable source identified">Probable source identified</option>
+                        <option value="Source unclear - workup ongoing">Source unclear - workup ongoing</option>
+                        <option value="No source identified">No source identified</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Source Details</label>
+                    <textarea id="source-details" placeholder="Specify confirmed or suspected source: line infection, pneumonia, UTI, intra-abdominal, skin/soft tissue, osteo, endovascular..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Pathogen(s)</label>
+                    <textarea id="pathogen" placeholder="Confirmed organism(s) with susceptibilities or suspected organism(s) if cultures pending"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Differential Diagnosis</label>
+                    <textarea id="differential" class="large" placeholder="1. MSSA bacteremia with endocarditis - most likely given persistent bacteremia, IVDU history
+2. Line-related bacteremia without endocarditis - possible, but duration of bacteremia concerning
+3. Septic thrombophlebitis - consider upper extremity DVT study"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Clinical Synthesis / Narrative</label>
+                    <textarea id="synthesis" class="large" placeholder="Summarize the clinical picture: most likely diagnosis, supporting evidence, source control status, response to therapy, outstanding questions..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Complications / Metastatic Infection</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="comp-endocarditis"><label for="comp-endocarditis">Endocarditis (confirmed/suspected)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="comp-osteo"><label for="comp-osteo">Osteomyelitis</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="comp-epidural"><label for="comp-epidural">Epidural abscess</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="comp-septic-arthritis"><label for="comp-septic-arthritis">Septic arthritis</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="comp-septic-emboli"><label for="comp-septic-emboli">Septic emboli</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="comp-abscess"><label for="comp-abscess">Abscess formation</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="comp-septic-thrombo"><label for="comp-septic-thrombo">Septic thrombophlebitis</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="comp-meningitis"><label for="comp-meningitis">Meningitis</label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="section" id="recommendations">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📋</span> Recommendations</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Antimicrobial Recommendations</label>
+                    <textarea id="recs-abx" class="large" placeholder="RECOMMENDED REGIMEN:
+- [Drug] [Dose] [Route] [Frequency] for [Duration]
+- Rationale: 
+
+e.g., 
+- Cefazolin 2g IV q8h (preferred over vancomycin for MSSA)
+- Duration: 4-6 weeks from first negative blood culture (for endocarditis)
+- Day 1 of definitive therapy: [Date]"></textarea>
+                </div>
+
+                <div class="stewardship-box">
+                    <h4>🌱 Antimicrobial Stewardship Considerations</h4>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="stew-deesc"><label for="stew-deesc">De-escalation opportunity</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="stew-ivpo"><label for="stew-ivpo">IV to PO conversion candidate</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="stew-duration"><label for="stew-duration">Duration optimization</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="stew-stop"><label for="stew-stop">Antibiotics can be discontinued</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="stew-allergy"><label for="stew-allergy">Allergy clarification needed</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="stew-dose"><label for="stew-dose">Dose optimization needed</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Source Control</label>
+                    <textarea id="recs-source" placeholder="- Remove infected line/catheter
+- Surgical drainage/debridement
+- Abscess drainage (IR vs OR)
+- Dental extraction
+- Prosthetic device removal"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Additional Workup</label>
+                    <textarea id="recs-workup" placeholder="- TEE to evaluate for endocarditis
+- MRI spine for epidural abscess
+- Repeat blood cultures q48h until negative
+- Tagged WBC scan if source unclear
+- Ophthalmology consult for fundoscopic exam (endophthalmitis screening)</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Monitoring</label>
+                    <textarea id="recs-monitoring" placeholder="- Vancomycin AUC/trough monitoring
+- Daily CBC, BMP while on nephrotoxic agents  
+- Repeat inflammatory markers to assess response
+- Weekly LFTs on prolonged antibiotics
+- PICC line care, midline vs PICC for duration"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Infection Prevention</label>
+                    <textarea id="recs-ip" placeholder="- Contact precautions (MRSA/VRE/ESBL/CRE)
+- Droplet precautions (influenza)
+- Airborne precautions (TB)
+- C. diff precautions"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">OPAT / Discharge Planning</label>
+                    <textarea id="recs-opat" placeholder="- OPAT candidate? 
+- Required duration of IV therapy
+- PICC placement needed
+- Home infusion setup
+- Lab monitoring schedule
+- Follow-up appointments"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Other Recommendations</label>
+                    <textarea id="recs-other" placeholder="- Hepatitis B/C screening before prolonged therapy
+- HIV testing if not recently done
+- Substance abuse counseling (if IVDU)
+- Immunizations (pneumococcal, influenza, etc.)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Follow-up Plan</label>
+                    <textarea id="recs-followup" placeholder="- Will follow daily while inpatient
+- Repeat blood cultures pending - will reassess
+- ID clinic follow-up in 2 weeks after discharge
+- Sooner if fever recurs or clinical worsening"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Attending / Fellow</label>
+                    <input type="text" id="attending" placeholder="ID attending/fellow name">
+                </div>
+
+                <div class="reference-box">
+                    <h4>Duration of Therapy Quick Reference</h4>
+                    <ul>
+                        <li><strong>Uncomplicated bacteremia:</strong> 14 days (GNR), 14 days (MSSA with rapid clearance)</li>
+                        <li><strong>Endocarditis (native valve):</strong> 4-6 weeks</li>
+                        <li><strong>Endocarditis (prosthetic):</strong> ≥6 weeks</li>
+                        <li><strong>Osteomyelitis:</strong> 6 weeks (or longer)</li>
+                        <li><strong>Septic arthritis:</strong> 3-4 weeks (native), 6 weeks (prosthetic)</li>
+                        <li><strong>Epidural abscess:</strong> 6-8 weeks</li>
+                        <li><strong>Uncomplicated UTI:</strong> 3-7 days</li>
+                        <li><strong>Pyelonephritis:</strong> 7-14 days</li>
+                        <li><strong>CAP:</strong> 5 days (if stable)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generated Note Output -->
+        <div class="output-section">
+            <h3>📄 Generated Consult Note</h3>
+            <div id="generated-note">Click "Generate Note" to create a formatted consult note from the fields above.</div>
+            <div class="output-actions">
+                <button class="btn btn-primary" onclick="copyNote()">📋 Copy to Clipboard</button>
+                <button class="btn btn-secondary" onclick="generateNote()">🔄 Regenerate</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Copied to clipboard!</div>
+
+    <script>
+        // Toggle section collapse
+        function toggleSection(header) {
+            const section = header.parentElement;
+            section.classList.toggle('collapsed');
+        }
+
+        // Toggle tag selection
+        function toggleTag(tag) {
+            tag.classList.toggle('selected');
+        }
+
+        // Select severity badge
+        function selectSeverity(badge) {
+            const container = badge.parentElement;
+            container.querySelectorAll('.severity-badge').forEach(b => b.classList.remove('selected'));
+            badge.classList.add('selected');
+        }
+
+        // Scroll to section
+        function scrollToSection(id) {
+            const section = document.getElementById(id);
+            if (section) {
+                section.classList.remove('collapsed');
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Expand all sections
+        function expandAll() {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('collapsed'));
+        }
+
+        // Collapse all sections
+        function collapseAll() {
+            document.querySelectorAll('.section').forEach(s => s.classList.add('collapsed'));
+        }
+
+        // Clear all fields
+        function clearAll() {
+            if (confirm('Clear all fields? This cannot be undone.')) {
+                document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+                document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+                document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+                document.querySelectorAll('.tag, .severity-badge').forEach(el => el.classList.remove('selected'));
+                document.getElementById('generated-note').textContent = 'Click "Generate Note" to create a formatted consult note from the fields above.';
+            }
+        }
+
+        // Get selected tags
+        function getSelectedTags() {
+            const tags = [];
+            document.querySelectorAll('.tag.selected').forEach(t => tags.push(t.textContent));
+            return tags;
+        }
+
+        // Get selected severity
+        function getSelectedSeverity() {
+            const selected = document.querySelector('.severity-badge.selected');
+            return selected ? selected.textContent : '';
+        }
+
+        // Get checked checkboxes by prefix
+        function getCheckedByPrefix(prefix) {
+            const checked = [];
+            document.querySelectorAll(`input[id^="${prefix}"]:checked`).forEach(el => {
+                const label = el.nextElementSibling;
+                if (label) checked.push(label.textContent);
+            });
+            return checked;
+        }
+
+        // Generate the consult note
+        function generateNote() {
+            let note = '';
+
+            // Header
+            note += '═══════════════════════════════════════════════════════════\n';
+            note += '               INFECTIOUS DISEASE CONSULT NOTE\n';
+            note += '═══════════════════════════════════════════════════════════\n\n';
+
+            // Reason for Consultation
+            const consultQ = document.getElementById('consult-question').value.trim();
+            const tags = getSelectedTags();
+            if (consultQ || tags.length) {
+                note += '▸ REASON FOR CONSULTATION\n';
+                if (consultQ) note += consultQ + '\n';
+                if (tags.length) note += 'Syndrome: ' + tags.join(', ') + '\n';
+                note += '\n';
+            }
+
+            // HPI
+            const severity = getSelectedSeverity();
+            const onset = document.getElementById('onset').value.trim();
+            const course = document.getElementById('course').value;
+            const presentingSymptoms = getCheckedByPrefix('sx-');
+            const localizingSymptoms = getCheckedByPrefix('loc-');
+            const hpiDetails = document.getElementById('hpi-details').value.trim();
+
+            if (severity || onset || presentingSymptoms.length || hpiDetails) {
+                note += '▸ HISTORY OF PRESENT ILLNESS\n';
+                if (severity) note += 'Severity: ' + severity + '\n';
+                if (onset) note += 'Onset: ' + onset + '\n';
+                if (course) note += 'Course: ' + course + '\n';
+                if (presentingSymptoms.length) note += 'Presenting symptoms: ' + presentingSymptoms.join(', ') + '\n';
+                if (localizingSymptoms.length) note += 'Localizing symptoms: ' + localizingSymptoms.join(', ') + '\n';
+                if (hpiDetails) note += '\n' + hpiDetails + '\n';
+                note += '\n';
+            }
+
+            // Risk Factors
+            const highRisk = getCheckedByPrefix('hr-');
+            const immunocomp = getCheckedByPrefix('ic-');
+            const devices = getCheckedByPrefix('dev-');
+            const deviceDetails = document.getElementById('device-details').value.trim();
+            const hcExposures = getCheckedByPrefix('hc-');
+            const mdrRisk = getCheckedByPrefix('mdr-');
+            const epiExposures = getCheckedByPrefix('epi-');
+            const exposureDetails = document.getElementById('exposure-details').value.trim();
+            const allergies = document.getElementById('allergies').value.trim();
+
+            if (highRisk.length || immunocomp.length || devices.length || allergies) {
+                note += '▸ RISK FACTORS & EXPOSURES\n';
+                if (highRisk.length) note += '⚠️ HIGH-RISK: ' + highRisk.join(', ') + '\n';
+                if (immunocomp.length) note += 'Immunocompromising conditions: ' + immunocomp.join(', ') + '\n';
+                if (devices.length) note += 'Indwelling devices: ' + devices.join(', ') + '\n';
+                if (deviceDetails) note += 'Device details: ' + deviceDetails + '\n';
+                if (hcExposures.length) note += 'Healthcare exposures: ' + hcExposures.join(', ') + '\n';
+                if (mdrRisk.length) note += 'MDR risk factors: ' + mdrRisk.join(', ') + '\n';
+                if (epiExposures.length) note += 'Epidemiologic exposures: ' + epiExposures.join(', ') + '\n';
+                if (exposureDetails) note += 'Exposure details: ' + exposureDetails + '\n';
+                if (allergies) note += '\nALLERGIES: ' + allergies + '\n';
+                note += '\n';
+            }
+
+            // Current Antimicrobials
+            const currentAbx = document.getElementById('current-abx-list').value.trim();
+            const abxStartDate = document.getElementById('abx-start-date').value.trim();
+            const abxDay = document.getElementById('abx-day').value.trim();
+            const abxDuration = document.getElementById('abx-duration').value.trim();
+            const clinicalResponse = document.getElementById('clinical-response').value;
+            const vancoTrough = document.getElementById('vanco-trough').value.trim();
+            const vancoAuc = document.getElementById('vanco-auc').value.trim();
+            const priorAbx = document.getElementById('prior-abx').value.trim();
+
+            if (currentAbx || priorAbx) {
+                note += '▸ CURRENT & RECENT ANTIMICROBIALS\n';
+                if (currentAbx) note += 'Current regimen:\n' + currentAbx + '\n';
+                if (abxDay) note += 'Day of therapy: ' + abxDay + '\n';
+                if (abxDuration) note += 'Planned duration: ' + abxDuration + '\n';
+                if (clinicalResponse) note += 'Clinical response: ' + clinicalResponse + '\n';
+                if (vancoTrough || vancoAuc) {
+                    note += 'Drug levels: ';
+                    if (vancoTrough) note += 'Vanco trough ' + vancoTrough;
+                    if (vancoAuc) note += ', AUC ' + vancoAuc;
+                    note += '\n';
+                }
+                if (priorAbx) note += '\nPrior antibiotics (90 days):\n' + priorAbx + '\n';
+                note += '\n';
+            }
+
+            // Physical Exam
+            const temp = document.getElementById('temp').value.trim();
+            const tmax = document.getElementById('tmax').value.trim();
+            const hr = document.getElementById('hr').value.trim();
+            const bp = document.getElementById('bp').value.trim();
+            const rr = document.getElementById('rr').value.trim();
+            const spo2 = document.getElementById('spo2').value.trim();
+            const generalExam = document.getElementById('general-exam').value.trim();
+            const heentExam = document.getElementById('heent-exam').value.trim();
+            const neckExam = document.getElementById('neck-exam').value.trim();
+            const cvExam = document.getElementById('cv-exam').value.trim();
+            const pulmExam = document.getElementById('pulm-exam').value.trim();
+            const abdExam = document.getElementById('abd-exam').value.trim();
+            const skinExam = document.getElementById('skin-exam').value.trim();
+            const lineExam = document.getElementById('line-exam').value.trim();
+            const mskExam = document.getElementById('msk-exam').value.trim();
+            const neuroExam = document.getElementById('neuro-exam').value.trim();
+            const guExam = document.getElementById('gu-exam').value.trim();
+
+            if (temp || generalExam || skinExam) {
+                note += '▸ PHYSICAL EXAMINATION\n';
+                const vitals = [];
+                if (temp) vitals.push('T ' + temp + '°F');
+                if (tmax) vitals.push('Tmax ' + tmax + '°F');
+                if (hr) vitals.push('HR ' + hr);
+                if (bp) vitals.push('BP ' + bp);
+                if (rr) vitals.push('RR ' + rr);
+                if (spo2) vitals.push('SpO2 ' + spo2);
+                if (vitals.length) note += 'Vitals: ' + vitals.join(', ') + '\n';
+                if (generalExam) note += 'General: ' + generalExam + '\n';
+                if (heentExam) note += 'HEENT: ' + heentExam + '\n';
+                if (neckExam) note += 'Neck: ' + neckExam + '\n';
+                if (cvExam) note += 'CV: ' + cvExam + '\n';
+                if (pulmExam) note += 'Pulm: ' + pulmExam + '\n';
+                if (abdExam) note += 'Abd: ' + abdExam + '\n';
+                if (skinExam) note += 'Skin/Soft tissue: ' + skinExam + '\n';
+                if (lineExam) note += 'Vascular access: ' + lineExam + '\n';
+                if (mskExam) note += 'MSK: ' + mskExam + '\n';
+                if (neuroExam) note += 'Neuro: ' + neuroExam + '\n';
+                if (guExam) note += 'GU: ' + guExam + '\n';
+                note += '\n';
+            }
+
+            // Microbiology
+            const bloodCx = document.getElementById('blood-cx').value.trim();
+            const urineCx = document.getElementById('urine-cx').value.trim();
+            const respCx = document.getElementById('resp-cx').value.trim();
+            const woundCx = document.getElementById('wound-cx').value.trim();
+            const csf = document.getElementById('csf').value.trim();
+            const otherCx = document.getElementById('other-cx').value.trim();
+            const molecularTests = getCheckedByPrefix('mol-');
+            const molecularResults = document.getElementById('molecular-results').value.trim();
+            const serologies = document.getElementById('serologies').value.trim();
+
+            if (bloodCx || urineCx || respCx || serologies) {
+                note += '▸ MICROBIOLOGY\n';
+                if (bloodCx) note += '\n[Blood Cultures]\n' + bloodCx + '\n';
+                if (urineCx) note += '\n[Urine Culture]\n' + urineCx + '\n';
+                if (respCx) note += '\n[Respiratory Cultures]\n' + respCx + '\n';
+                if (woundCx) note += '\n[Wound/Tissue Cultures]\n' + woundCx + '\n';
+                if (csf) note += '\n[CSF Analysis]\n' + csf + '\n';
+                if (otherCx) note += '\n[Other Cultures]\n' + otherCx + '\n';
+                if (molecularTests.length) note += '\nMolecular tests ordered: ' + molecularTests.join(', ') + '\n';
+                if (molecularResults) note += 'Results: ' + molecularResults + '\n';
+                if (serologies) note += '\n[Serologies]\n' + serologies + '\n';
+                note += '\n';
+            }
+
+            // Labs
+            const wbc = document.getElementById('wbc').value.trim();
+            const anc = document.getElementById('anc').value.trim();
+            const bands = document.getElementById('bands').value.trim();
+            const hgb = document.getElementById('hgb').value.trim();
+            const plt = document.getElementById('plt').value.trim();
+            const procal = document.getElementById('procal').value.trim();
+            const crp = document.getElementById('crp').value.trim();
+            const esr = document.getElementById('esr').value.trim();
+            const lactate = document.getElementById('lactate').value.trim();
+            const cr = document.getElementById('cr').value.trim();
+            const bun = document.getElementById('bun').value.trim();
+            const egfr = document.getElementById('egfr').value.trim();
+            const ast = document.getElementById('ast').value.trim();
+            const alt = document.getElementById('alt').value.trim();
+            const ua = document.getElementById('ua').value.trim();
+            const hivStatus = document.getElementById('hiv-status').value.trim();
+            const cd4 = document.getElementById('cd4').value.trim();
+            const additionalLabs = document.getElementById('additional-labs').value.trim();
+
+            if (wbc || procal || cr) {
+                note += '▸ LABORATORY DATA\n';
+                const cbc = [];
+                if (wbc) cbc.push('WBC ' + wbc);
+                if (anc) cbc.push('ANC ' + anc);
+                if (bands) cbc.push('Bands ' + bands + '%');
+                if (hgb) cbc.push('Hgb ' + hgb);
+                if (plt) cbc.push('Plt ' + plt);
+                if (cbc.length) note += 'CBC: ' + cbc.join(', ') + '\n';
+
+                const inflam = [];
+                if (procal) inflam.push('Procalcitonin ' + procal);
+                if (crp) inflam.push('CRP ' + crp);
+                if (esr) inflam.push('ESR ' + esr);
+                if (lactate) inflam.push('Lactate ' + lactate);
+                if (inflam.length) note += 'Inflammatory markers: ' + inflam.join(', ') + '\n';
+
+                if (cr || egfr) {
+                    note += 'Renal: Cr ' + (cr || '-') + ', eGFR ' + (egfr || '-') + '\n';
+                }
+                if (ast || alt) {
+                    note += 'Hepatic: AST ' + (ast || '-') + ', ALT ' + (alt || '-') + '\n';
+                }
+                if (ua) note += 'UA: ' + ua + '\n';
+                if (hivStatus || cd4) {
+                    note += 'HIV: ' + (hivStatus || '-') + ', CD4 ' + (cd4 || '-') + '\n';
+                }
+                if (additionalLabs) note += additionalLabs + '\n';
+                note += '\n';
+            }
+
+            // Imaging
+            const chestImaging = document.getElementById('chest-imaging').value.trim();
+            const abdImaging = document.getElementById('abd-imaging').value.trim();
+            const echo = document.getElementById('echo').value.trim();
+            const mskImaging = document.getElementById('msk-imaging').value.trim();
+            const neuroImaging = document.getElementById('neuro-imaging').value.trim();
+            const otherImaging = document.getElementById('other-imaging').value.trim();
+
+            if (chestImaging || abdImaging || echo) {
+                note += '▸ IMAGING\n';
+                if (chestImaging) note += 'Chest: ' + chestImaging + '\n';
+                if (abdImaging) note += 'Abdomen/Pelvis: ' + abdImaging + '\n';
+                if (echo) note += 'Echo: ' + echo + '\n';
+                if (mskImaging) note += 'MSK: ' + mskImaging + '\n';
+                if (neuroImaging) note += 'Neuro: ' + neuroImaging + '\n';
+                if (otherImaging) note += 'Other: ' + otherImaging + '\n';
+                note += '\n';
+            }
+
+            // Assessment
+            const primaryDx = document.getElementById('primary-dx').value.trim();
+            const source = document.getElementById('source').value;
+            const sourceDetails = document.getElementById('source-details').value.trim();
+            const pathogen = document.getElementById('pathogen').value.trim();
+            const differential = document.getElementById('differential').value.trim();
+            const synthesis = document.getElementById('synthesis').value.trim();
+            const complications = getCheckedByPrefix('comp-');
+
+            if (primaryDx || differential || synthesis) {
+                note += '▸ ASSESSMENT\n';
+                if (primaryDx) note += 'Primary diagnosis: ' + primaryDx + '\n';
+                if (source) note += 'Source: ' + source + '\n';
+                if (sourceDetails) note += 'Source details: ' + sourceDetails + '\n';
+                if (pathogen) note += 'Pathogen: ' + pathogen + '\n';
+                if (complications.length) note += 'Complications/Metastatic infection: ' + complications.join(', ') + '\n';
+                if (differential) note += '\nDifferential:\n' + differential + '\n';
+                if (synthesis) note += '\nSynthesis: ' + synthesis + '\n';
+                note += '\n';
+            }
+
+            // Recommendations
+            const recsAbx = document.getElementById('recs-abx').value.trim();
+            const stewardship = getCheckedByPrefix('stew-');
+            const recsSource = document.getElementById('recs-source').value.trim();
+            const recsWorkup = document.getElementById('recs-workup').value.trim();
+            const recsMonitoring = document.getElementById('recs-monitoring').value.trim();
+            const recsIp = document.getElementById('recs-ip').value.trim();
+            const recsOpat = document.getElementById('recs-opat').value.trim();
+            const recsOther = document.getElementById('recs-other').value.trim();
+            const recsFollowup = document.getElementById('recs-followup').value.trim();
+            const attending = document.getElementById('attending').value.trim();
+
+            if (recsAbx || recsSource || recsWorkup) {
+                note += '▸ RECOMMENDATIONS\n';
+                if (recsAbx) note += '\n[Antimicrobial Therapy]\n' + recsAbx + '\n';
+                if (stewardship.length) note += '\nStewardship considerations: ' + stewardship.join(', ') + '\n';
+                if (recsSource) note += '\n[Source Control]\n' + recsSource + '\n';
+                if (recsWorkup) note += '\n[Additional Workup]\n' + recsWorkup + '\n';
+                if (recsMonitoring) note += '\n[Monitoring]\n' + recsMonitoring + '\n';
+                if (recsIp) note += '\n[Infection Prevention]\n' + recsIp + '\n';
+                if (recsOpat) note += '\n[OPAT/Discharge Planning]\n' + recsOpat + '\n';
+                if (recsOther) note += '\n[Additional]\n' + recsOther + '\n';
+                if (recsFollowup) note += '\n[Follow-up]\n' + recsFollowup + '\n';
+                if (attending) note += '\nInfectious Disease: ' + attending + '\n';
+                note += '\n';
+            }
+
+            // Footer
+            note += '═══════════════════════════════════════════════════════════\n';
+            note += 'Will continue to follow. Please contact ID with questions.\n';
+            note += '═══════════════════════════════════════════════════════════';
+
+            document.getElementById('generated-note').textContent = note;
+        }
+
+        // Copy note to clipboard
+        function copyNote() {
+            const noteText = document.getElementById('generated-note').textContent;
+            navigator.clipboard.writeText(noteText).then(() => {
+                showToast('Copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                showToast('Failed to copy');
+            });
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // Initialize - collapse some sections by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                if (index > 4) {
+                    section.classList.add('collapsed');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
