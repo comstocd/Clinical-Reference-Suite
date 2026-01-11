@@ -253,6 +253,109 @@
             flex: 1;
         }
 
+        /* Three-state exam findings */
+        .exam-finding-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+        }
+
+        .exam-finding {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            user-select: none;
+        }
+
+        .exam-finding:hover {
+            background: #fce7f3;
+        }
+
+        .exam-finding .state-indicator {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            flex-shrink: 0;
+            border: 2px solid #ccc;
+            background: white;
+            color: #ccc;
+        }
+
+        .exam-finding .finding-label {
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .exam-finding[data-state="neutral"] .state-indicator {
+            border-color: #ccc;
+            background: white;
+            color: #ccc;
+        }
+        .exam-finding[data-state="neutral"] .state-indicator::after {
+            content: "○";
+        }
+
+        .exam-finding[data-state="positive"] {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        .exam-finding[data-state="positive"] .state-indicator {
+            border-color: #28a745;
+            background: #28a745;
+            color: white;
+        }
+        .exam-finding[data-state="positive"] .state-indicator::after {
+            content: "✓";
+        }
+
+        .exam-finding[data-state="negative"] {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+        .exam-finding[data-state="negative"] .state-indicator {
+            border-color: #dc3545;
+            background: #dc3545;
+            color: white;
+        }
+        .exam-finding[data-state="negative"] .state-indicator::after {
+            content: "✗";
+        }
+
+        .exam-finding-legend {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .exam-finding-legend span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.neutral { background: #ccc; }
+        .legend-dot.positive { background: #28a745; }
+        .legend-dot.negative { background: #dc3545; }
+
         .inline-inputs {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -963,6 +1066,12 @@
                 <span class="section-toggle">▼</span>
             </div>
             <div class="section-content">
+                <div class="exam-finding-legend">
+                    <span><span class="legend-dot neutral"></span> Not documented</span>
+                    <span><span class="legend-dot positive"></span> Present (positive)</span>
+                    <span><span class="legend-dot negative"></span> Absent (pertinent negative)</span>
+                </div>
+
                 <div class="form-group">
                     <label class="form-label">Vital Signs</label>
                     <div class="inline-inputs">
@@ -987,62 +1096,366 @@
 
                 <div class="form-group">
                     <label class="form-label">General Appearance</label>
-                    <textarea id="general-exam" placeholder="e.g., Well-appearing, no acute distress. Cushingoid features. Appears chronically ill."></textarea>
+                    <div class="exam-finding-group">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">No acute distress</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Ill-appearing</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Cushingoid features</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Cachectic</span>
+                        </div>
+                    </div>
+                    <textarea id="general-comments" placeholder="Additional appearance notes..." style="margin-top: 8px;"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Skin Examination</label>
-                    <textarea id="skin-exam" placeholder="Rashes (distribution, morphology), nodules, tophi, nail changes, Raynaud's, sclerodactyly, skin thickening..."></textarea>
+                    <div class="exam-finding-group">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Malar rash</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Discoid lesions</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Gottron's papules</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Heliotrope rash</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Raynaud's changes</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Sclerodactyly</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Skin thickening</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Rheumatoid nodules</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Tophi</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Livedo reticularis</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Palpable purpura</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Psoriatic plaques</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Nail pitting</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Onycholysis</span>
+                        </div>
+                    </div>
+                    <textarea id="skin-comments" placeholder="Rash distribution, morphology details..." style="margin-top: 8px;"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">HEENT</label>
-                    <textarea id="heent-exam" placeholder="Oral ulcers, dry eyes/mouth, temporal artery tenderness, scalp tenderness, alopecia, conjunctival injection..."></textarea>
+                    <div class="exam-finding-group">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Dry eyes</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Dry mouth</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Oral ulcers</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Alopecia</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Conjunctival injection</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Scleritis/episcleritis</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Temporal artery tenderness</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Scalp tenderness</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Lymphadenopathy</span>
+                        </div>
+                    </div>
+                    <textarea id="heent-comments" placeholder="Additional HEENT findings..." style="margin-top: 8px;"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Cardiopulmonary</label>
-                    <textarea id="cp-exam" placeholder="Friction rub, crackles (ILD), murmurs..."></textarea>
+                    <div class="exam-finding-group">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Normal heart/lung exam</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Murmur</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Pericardial friction rub</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Bibasilar crackles</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Velcro crackles (ILD)</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Decreased breath sounds</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Pleuritic rub</span>
+                        </div>
+                    </div>
+                    <textarea id="cp-comments" placeholder="Murmur description, other findings..." style="margin-top: 8px;"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Musculoskeletal Examination</label>
+                    <label class="form-label">Musculoskeletal - Upper Extremity</label>
                     <div class="callout callout-info">
                         <div class="callout-title">Joint Exam Essentials</div>
                         <div class="callout-content">Document: Swelling (synovitis), Tenderness, Warmth, Erythema, Range of motion, Deformities, Crepitus</div>
                     </div>
+                    <div class="exam-finding-group" style="margin-top: 8px;">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Normal UE exam</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">MCP synovitis</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">PIP synovitis</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">DIP involvement</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Wrist synovitis</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Ulnar deviation</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Swan neck deformity</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Boutonniere deformity</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Heberden's nodes</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Bouchard's nodes</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Dactylitis (hands)</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Elbow effusion</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Shoulder limited ROM</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Carpal tunnel signs</span>
+                        </div>
+                    </div>
+                    <textarea id="ue-comments" placeholder="Specific joints involved, warmth, erythema, ROM limitations..." style="margin-top: 8px;"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Upper Extremity Joints</label>
-                    <textarea id="ue-exam" class="large" placeholder="Hands: MCPs, PIPs, DIPs - swelling, tenderness, synovitis, deformities (swan neck, boutonniere, ulnar deviation)
-Wrists: synovitis, ROM, carpal tunnel signs
-Elbows: nodules, effusion, ROM
-Shoulders: ROM, tenderness, impingement signs"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Lower Extremity Joints</label>
-                    <textarea id="le-exam" class="large" placeholder="Hips: ROM, pain with internal rotation
-Knees: effusion, warmth, crepitus, Baker's cyst, ligament stability
-Ankles: swelling, tenderness, ROM
-Feet: MTPs, midfoot, 1st MTP (podagra), dactylitis"></textarea>
+                    <label class="form-label">Musculoskeletal - Lower Extremity</label>
+                    <div class="exam-finding-group">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Normal LE exam</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Knee effusion</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Knee warmth</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Knee crepitus</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Baker's cyst</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Hip limited ROM</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Hip pain with internal rotation</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Ankle synovitis</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">MTP synovitis</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">1st MTP inflammation (podagra)</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Dactylitis (feet)</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Hindfoot involvement</span>
+                        </div>
+                    </div>
+                    <textarea id="le-comments" placeholder="Specific joints, warmth, erythema, ROM limitations..." style="margin-top: 8px;"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Spine Examination</label>
-                    <textarea id="spine-exam" placeholder="Cervical ROM, lumbar ROM, Schober test, SI joint tenderness, FABER test, chest expansion..."></textarea>
+                    <div class="exam-finding-group">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Normal spine exam</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Cervical limited ROM</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Lumbar limited ROM</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">SI joint tenderness</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">FABER positive</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Schober's decreased</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Chest expansion decreased</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Thoracic kyphosis</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Loss of lumbar lordosis</span>
+                        </div>
+                    </div>
+                    <textarea id="spine-comments" placeholder="ROM measurements, Schober test result..." style="margin-top: 8px;"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Enthesitis Sites</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item"><input type="checkbox" id="enth-achilles"><label for="enth-achilles">Achilles tendon</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="enth-plantar"><label for="enth-plantar">Plantar fascia</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="enth-patellar"><label for="enth-patellar">Patellar tendon</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="enth-epicond"><label for="enth-epicond">Epicondyles</label></div>
-                        <div class="checkbox-item"><input type="checkbox" id="enth-iliac"><label for="enth-iliac">Iliac crest</label></div>
+                    <div class="exam-finding-group">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Achilles tendon</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Plantar fascia</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Patellar tendon</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Epicondyles</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Iliac crest</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Tibial tuberosity</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Ischial tuberosity</span>
+                        </div>
                     </div>
+                    <textarea id="enthesitis-comments" placeholder="Severity, bilateral vs unilateral..." style="margin-top: 8px;"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -1060,8 +1473,38 @@ Feet: MTPs, midfoot, 1st MTP (podagra), dactylitis"></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Neurologic (focused)</label>
-                    <textarea id="neuro-exam" placeholder="Muscle strength (proximal vs distal), sensory exam, reflexes, gait..."></textarea>
+                    <label class="form-label">Neurologic</label>
+                    <div class="exam-finding-group">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Normal neuro exam</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Proximal muscle weakness</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Distal weakness</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Sensory loss</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Decreased reflexes</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Mononeuritis pattern</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Gait abnormality</span>
+                        </div>
+                    </div>
+                    <textarea id="neuro-comments" placeholder="Muscle groups affected, strength grading, distribution..." style="margin-top: 8px;"></textarea>
                 </div>
             </div>
         </div>
@@ -1526,6 +1969,30 @@ Feet: MTPs, midfoot, 1st MTP (podagra), dactylitis"></textarea>
             tag.classList.toggle('selected');
         }
 
+        // Cycle exam finding state: neutral -> positive -> negative -> neutral
+        function cycleState(element) {
+            const currentState = element.getAttribute('data-state');
+            let newState;
+            if (currentState === 'neutral') {
+                newState = 'positive';
+            } else if (currentState === 'positive') {
+                newState = 'negative';
+            } else {
+                newState = 'neutral';
+            }
+            element.setAttribute('data-state', newState);
+        }
+
+        // Get exam findings by state (positive or negative)
+        function getExamFindings(state) {
+            const findings = [];
+            document.querySelectorAll(`.exam-finding[data-state="${state}"]`).forEach(el => {
+                const label = el.querySelector('.finding-label');
+                if (label) findings.push(label.textContent);
+            });
+            return findings;
+        }
+
         // Select pattern badge
         function selectPattern(badge, group) {
             const container = badge.parentElement;
@@ -1567,6 +2034,7 @@ Feet: MTPs, midfoot, 1st MTP (podagra), dactylitis"></textarea>
                 document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
                 document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
                 document.querySelectorAll('.tag, .pattern-badge').forEach(el => el.classList.remove('selected'));
+                document.querySelectorAll('.exam-finding').forEach(el => el.setAttribute('data-state', 'neutral'));
                 document.getElementById('generated-note').textContent = 'Click "Generate Note" to create a formatted consult note from the fields above.';
             }
         }
@@ -1687,19 +2155,27 @@ Feet: MTPs, midfoot, 1st MTP (podagra), dactylitis"></textarea>
             const hr = document.getElementById('hr').value.trim();
             const temp = document.getElementById('temp').value.trim();
             const spo2 = document.getElementById('spo2').value.trim();
-            const generalExam = document.getElementById('general-exam').value.trim();
-            const skinExam = document.getElementById('skin-exam').value.trim();
-            const heentExam = document.getElementById('heent-exam').value.trim();
-            const cpExam = document.getElementById('cp-exam').value.trim();
-            const ueExam = document.getElementById('ue-exam').value.trim();
-            const leExam = document.getElementById('le-exam').value.trim();
-            const spineExam = document.getElementById('spine-exam').value.trim();
-            const enthesitisSites = getCheckedByPrefix('enth-');
+            
+            // Get three-state exam findings
+            const allPositives = getExamFindings('positive');
+            const allNegatives = getExamFindings('negative');
+            
+            // Comments
+            const generalComments = document.getElementById('general-comments').value.trim();
+            const skinComments = document.getElementById('skin-comments').value.trim();
+            const heentComments = document.getElementById('heent-comments').value.trim();
+            const cpComments = document.getElementById('cp-comments').value.trim();
+            const ueComments = document.getElementById('ue-comments').value.trim();
+            const leComments = document.getElementById('le-comments').value.trim();
+            const spineComments = document.getElementById('spine-comments').value.trim();
+            const enthesitisComments = document.getElementById('enthesitis-comments').value.trim();
             const tjc = document.getElementById('tjc').value.trim();
             const sjc = document.getElementById('sjc').value.trim();
-            const neuroExam = document.getElementById('neuro-exam').value.trim();
+            const neuroComments = document.getElementById('neuro-comments').value.trim();
+            
+            const hasExamFindings = allPositives.length || allNegatives.length || generalComments || skinComments || heentComments || cpComments || ueComments || leComments || spineComments || enthesitisComments || neuroComments;
 
-            if (bp || generalExam || ueExam || leExam) {
+            if (bp || hasExamFindings || tjc || sjc) {
                 note += '▸ PHYSICAL EXAMINATION\n';
                 const vitals = [];
                 if (bp) vitals.push('BP ' + bp);
@@ -1707,16 +2183,36 @@ Feet: MTPs, midfoot, 1st MTP (podagra), dactylitis"></textarea>
                 if (temp) vitals.push('T ' + temp + '°F');
                 if (spo2) vitals.push('SpO2 ' + spo2);
                 if (vitals.length) note += 'Vitals: ' + vitals.join(', ') + '\n';
-                if (generalExam) note += 'General: ' + generalExam + '\n';
-                if (skinExam) note += 'Skin: ' + skinExam + '\n';
-                if (heentExam) note += 'HEENT: ' + heentExam + '\n';
-                if (cpExam) note += 'Cardiopulmonary: ' + cpExam + '\n';
-                if (ueExam) note += '\nUpper extremity:\n' + ueExam + '\n';
-                if (leExam) note += '\nLower extremity:\n' + leExam + '\n';
-                if (spineExam) note += '\nSpine: ' + spineExam + '\n';
-                if (enthesitisSites.length) note += 'Enthesitis: ' + enthesitisSites.join(', ') + '\n';
-                if (tjc || sjc) note += 'Joint counts: TJC ' + (tjc || '-') + '/28, SJC ' + (sjc || '-') + '/28\n';
-                if (neuroExam) note += 'Neuro: ' + neuroExam + '\n';
+                
+                // Output positive findings
+                if (allPositives.length) {
+                    note += '\n(+) ' + allPositives.join(', ') + '\n';
+                }
+                
+                // Output negative findings
+                if (allNegatives.length) {
+                    note += '(-) No ' + allNegatives.join(', no ') + '\n';
+                }
+                
+                // Joint counts
+                if (tjc || sjc) note += '\nJoint counts: TJC ' + (tjc || '-') + '/28, SJC ' + (sjc || '-') + '/28\n';
+                
+                // Add comments by section
+                const comments = [];
+                if (generalComments) comments.push('General: ' + generalComments);
+                if (skinComments) comments.push('Skin: ' + skinComments);
+                if (heentComments) comments.push('HEENT: ' + heentComments);
+                if (cpComments) comments.push('Cardiopulmonary: ' + cpComments);
+                if (ueComments) comments.push('Upper Extremity: ' + ueComments);
+                if (leComments) comments.push('Lower Extremity: ' + leComments);
+                if (spineComments) comments.push('Spine: ' + spineComments);
+                if (enthesitisComments) comments.push('Enthesitis: ' + enthesitisComments);
+                if (neuroComments) comments.push('Neuro: ' + neuroComments);
+                
+                if (comments.length) {
+                    note += '\n' + comments.join('\n') + '\n';
+                }
+                
                 note += '\n';
             }
 
