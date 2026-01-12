@@ -197,7 +197,7 @@
     <header class="header">
         <img src="https://raw.githubusercontent.com/comstocd/rapid-response-tool/main/caduceus.png" alt="Logo" class="header-logo">
         <span class="header-title">Clinical Reference Suite</span>
-        <span class="header-subtitle">Internal Medicine Tools • v2.3 BUILD #12</span>
+        <span class="header-subtitle">Internal Medicine Tools • v2.3 BUILD #13</span>
     </header>
     
     <!-- Sidebar -->
@@ -217,7 +217,7 @@
         <!-- Home Content with Tiles -->
         <div id="homeContent" style="padding:30px; overflow-y:auto; height:100%; background:#f7fafc;">
             <div style="max-width:1200px; margin:0 auto;">
-                <h1 style="color:#1a365d; margin:0 0 10px 0; font-size:1.8rem;">📚 Clinical Reference Suite <span style="font-size:0.5em; color:#e74c3c; font-weight:600;">v2.3 BUILD #12</span></h1>
+                <h1 style="color:#1a365d; margin:0 0 10px 0; font-size:1.8rem;">📚 Clinical Reference Suite <span style="font-size:0.5em; color:#e74c3c; font-weight:600;">v2.3 BUILD #13</span></h1>
                 <p style="color:#718096; margin:0 0 30px 0;">Evidence-based point-of-care references for hospital medicine</p>
                 
                 <h2 style="color:#1a365d; font-size:1.2rem; margin:0 0 15px 0; padding-bottom:10px; border-bottom:2px solid #e2e8f0;">📖 Core Reference Guides</h2>
@@ -311,6 +311,13 @@
                         <div style="padding:20px;">
                             <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Structured consult template with culture review, MDR risk assessment, antimicrobial stewardship, source control, duration guidance, and one-click note generation.</p>
                             <span style="background:#f0f4f8; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:600; color:#047857;">BUILD #2</span>
+                        </div>
+                    </div>
+                    <div onclick="switchTool('cardioconsult')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
+                        <div style="background:linear-gradient(135deg,#c0392b,#e74c3c); color:#fff; padding:20px; font-weight:700;">❤️ Cardiology Consult Note</div>
+                        <div style="padding:20px;">
+                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Structured consult with HFpEF diagnostic algorithms (H₂FPEF, HFA-PEFF, ABA scores), echo interpretation, NYHA classification, and GDMT optimization.</p>
+                            <span style="background:#f0f4f8; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:600; color:#c0392b;">BUILD #1</span>
                         </div>
                     </div>
                 </div>
@@ -519,6 +526,13 @@
                 icon: "🦠",
                 file: "id_consult.html",
                 description: "Structured Consult Note Template"
+            },
+            {
+                id: "cardioconsult",
+                name: "Cardiology Consult",
+                icon: "❤️",
+                file: "cardiology_consult.html",
+                description: "HFpEF Algorithms & Consult Template"
             }
             // To add a new tool:
             // { id: "newid", name: "Tool Name", icon: "🆕", file: "filename.html", description: "Description" }

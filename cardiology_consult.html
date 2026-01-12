@@ -1,0 +1,2285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cardiology Consult Template</title>
+    <style>
+        :root {
+            --primary: #c0392b;
+            --primary-light: #e74c3c;
+            --primary-dark: #962d22;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --bg: #fef5f5;
+            --text: #2d3748;
+            --text-muted: #718096;
+            --border: #fed7d7;
+            --section-header: #fecaca;
+            --success: #48bb78;
+            --warning: #ed8936;
+            --danger: #e53e3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #fef5f5 0%, #fff5f5 100%);
+            color: var(--text);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(192, 57, 43, 0.3);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* Quick Nav */
+        .quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .quick-nav button {
+            padding: 8px 14px;
+            border: none;
+            background: var(--bg);
+            color: var(--primary);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .quick-nav button:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Sections */
+        .section {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--section-header);
+            padding: 16px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .section-header:hover {
+            background: #fecdd3;
+        }
+
+        .section-header h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-icon {
+            font-size: 1.2rem;
+        }
+
+        .section-toggle {
+            color: var(--primary);
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+
+        .section.collapsed .section-toggle {
+            transform: rotate(-90deg);
+        }
+
+        .section.collapsed .section-content {
+            display: none;
+        }
+
+        .section-content {
+            padding: 20px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        textarea, input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: white;
+            color: var(--text);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        textarea:focus, input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.1);
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        textarea.large {
+            min-height: 120px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background: var(--section-header);
+        }
+
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .checkbox-item label {
+            font-size: 0.9rem;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        /* Three-state exam findings */
+        .exam-finding-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 8px;
+        }
+
+        .exam-finding {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            user-select: none;
+        }
+
+        .exam-finding:hover {
+            background: #fecdd3;
+        }
+
+        .exam-finding .state-indicator {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            flex-shrink: 0;
+            border: 2px solid #ccc;
+            background: white;
+            color: #ccc;
+        }
+
+        .exam-finding .finding-label {
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .exam-finding[data-state="neutral"] .state-indicator {
+            border-color: #ccc;
+            background: white;
+            color: #ccc;
+        }
+        .exam-finding[data-state="neutral"] .state-indicator::after {
+            content: "○";
+        }
+
+        .exam-finding[data-state="positive"] {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        .exam-finding[data-state="positive"] .state-indicator {
+            border-color: #28a745;
+            background: #28a745;
+            color: white;
+        }
+        .exam-finding[data-state="positive"] .state-indicator::after {
+            content: "✓";
+        }
+
+        .exam-finding[data-state="negative"] {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+        .exam-finding[data-state="negative"] .state-indicator {
+            border-color: #dc3545;
+            background: #dc3545;
+            color: white;
+        }
+        .exam-finding[data-state="negative"] .state-indicator::after {
+            content: "✗";
+        }
+
+        .exam-finding-legend {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .exam-finding-legend span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.neutral { background: #ccc; }
+        .legend-dot.positive { background: #28a745; }
+        .legend-dot.negative { background: #dc3545; }
+
+        .inline-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+        }
+
+        .inline-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .inline-group label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .inline-group input, .inline-group select {
+            padding: 8px 10px;
+        }
+
+        .callout {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+        }
+
+        .callout-info {
+            background: #e6f7ff;
+            border-left: 4px solid #1890ff;
+        }
+
+        .callout-warning {
+            background: #fffbe6;
+            border-left: 4px solid #faad14;
+        }
+
+        .callout-danger {
+            background: #fff1f0;
+            border-left: 4px solid #ff4d4f;
+        }
+
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        /* Tags */
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 8px 16px;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tag:hover {
+            border-color: var(--primary);
+        }
+
+        .tag.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Calculator Boxes */
+        .calculator-box {
+            background: linear-gradient(135deg, #fff5f5, #fef2f2);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .calculator-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .calculator-result {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .score-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .probability-bar {
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 6px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+
+        .probability-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.3s, background 0.3s;
+        }
+
+        .interpretation-box {
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+
+        .interpretation-low {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .interpretation-intermediate {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .interpretation-high {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Severity badges */
+        .severity-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .severity-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid #e2e8f0;
+            background: white;
+        }
+
+        .severity-badge:hover {
+            border-color: var(--primary);
+        }
+
+        .severity-badge.selected {
+            color: white;
+            border-color: transparent;
+        }
+
+        .severity-badge.mild.selected { background: #48bb78; }
+        .severity-badge.moderate.selected { background: #ed8936; }
+        .severity-badge.severe.selected { background: #e53e3e; }
+
+        /* NYHA Classes */
+        .nyha-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px;
+        }
+
+        .nyha-badge {
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid #e2e8f0;
+            background: white;
+            text-align: center;
+        }
+
+        .nyha-badge:hover {
+            border-color: var(--primary);
+        }
+
+        .nyha-badge.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .nyha-badge .class-label {
+            font-weight: 700;
+            display: block;
+        }
+
+        .nyha-badge .class-desc {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 12px 20px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .toolbar-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--section-header);
+        }
+
+        /* Output Section */
+        .output-section {
+            background: #1a1a2e;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .output-title {
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        #generated-note {
+            background: #16162a;
+            border-radius: 8px;
+            padding: 16px;
+            color: #a0aec0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--secondary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 200;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Emergency box */
+        .emergency-box {
+            background: linear-gradient(135deg, #fff5f5, #fed7d7);
+            border: 2px solid #fc8181;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .emergency-box h4 {
+            color: #c53030;
+            margin-bottom: 8px;
+        }
+
+        .emergency-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .emergency-list li {
+            padding: 4px 0;
+            color: #742a2a;
+            font-size: 0.9rem;
+        }
+
+        /* Reference tables */
+        .reference-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 0.85rem;
+        }
+
+        .reference-table th, .reference-table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .reference-table th {
+            background: var(--bg);
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .reference-table tr:hover {
+            background: #fef5f5;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 12px;
+            }
+            
+            .inline-inputs {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .quick-nav {
+                gap: 6px;
+            }
+            
+            .quick-nav button {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>❤️ Cardiology Consult Template</h1>
+            <p>Comprehensive evaluation with HFpEF diagnostic algorithms</p>
+        </div>
+
+        <!-- Quick Navigation -->
+        <div class="quick-nav">
+            <button onclick="scrollToSection('consult-reason')">Consult</button>
+            <button onclick="scrollToSection('history')">History</button>
+            <button onclick="scrollToSection('exam')">Exam</button>
+            <button onclick="scrollToSection('labs')">Labs</button>
+            <button onclick="scrollToSection('ecg')">ECG</button>
+            <button onclick="scrollToSection('echo')">Echo</button>
+            <button onclick="scrollToSection('hfpef')">HFpEF Calcs</button>
+            <button onclick="scrollToSection('assessment')">Assessment</button>
+            <button onclick="scrollToSection('output')">Output</button>
+            <button onclick="expandAll()">Expand All</button>
+            <button onclick="collapseAll()">Collapse All</button>
+            <button onclick="clearAll()">Clear All</button>
+        </div>
+
+        <!-- Reason for Consultation -->
+        <div class="section" id="consult-reason">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📋</span> Reason for Consultation</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Consult Question</label>
+                    <textarea id="consult-question" placeholder="e.g., Evaluate new-onset heart failure with preserved ejection fraction, dyspnea on exertion with elevated BNP..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Primary Syndrome</label>
+                    <div class="tag-group">
+                        <span class="tag" onclick="toggleTag(this)">Heart Failure</span>
+                        <span class="tag" onclick="toggleTag(this)">Chest Pain/ACS</span>
+                        <span class="tag" onclick="toggleTag(this)">Arrhythmia</span>
+                        <span class="tag" onclick="toggleTag(this)">Valvular Disease</span>
+                        <span class="tag" onclick="toggleTag(this)">Hypertension</span>
+                        <span class="tag" onclick="toggleTag(this)">Syncope</span>
+                        <span class="tag" onclick="toggleTag(this)">Preoperative</span>
+                        <span class="tag" onclick="toggleTag(this)">Cardiomyopathy</span>
+                        <span class="tag" onclick="toggleTag(this)">Pericardial Disease</span>
+                        <span class="tag" onclick="toggleTag(this)">Pulmonary HTN</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Urgency</label>
+                    <div class="severity-selector">
+                        <span class="severity-badge mild" onclick="selectSeverity(this)">Routine</span>
+                        <span class="severity-badge moderate" onclick="selectSeverity(this)">Urgent</span>
+                        <span class="severity-badge severe" onclick="selectSeverity(this)">Emergent</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cardiac History -->
+        <div class="section" id="history">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📜</span> Cardiac History</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">NYHA Functional Class</label>
+                    <div class="nyha-selector">
+                        <div class="nyha-badge" onclick="selectNYHA(this)" data-class="I">
+                            <span class="class-label">Class I</span>
+                            <span class="class-desc">No limitation of physical activity</span>
+                        </div>
+                        <div class="nyha-badge" onclick="selectNYHA(this)" data-class="II">
+                            <span class="class-label">Class II</span>
+                            <span class="class-desc">Slight limitation; comfortable at rest</span>
+                        </div>
+                        <div class="nyha-badge" onclick="selectNYHA(this)" data-class="III">
+                            <span class="class-label">Class III</span>
+                            <span class="class-desc">Marked limitation; comfortable only at rest</span>
+                        </div>
+                        <div class="nyha-badge" onclick="selectNYHA(this)" data-class="IV">
+                            <span class="class-label">Class IV</span>
+                            <span class="class-desc">Unable to carry on any activity without discomfort</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Presenting Symptoms</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="sx-dyspnea"><label for="sx-dyspnea">Dyspnea on exertion</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-orthopnea"><label for="sx-orthopnea">Orthopnea</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-pnd"><label for="sx-pnd">PND</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-edema"><label for="sx-edema">Lower extremity edema</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-chestpain"><label for="sx-chestpain">Chest pain</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-palpitations"><label for="sx-palpitations">Palpitations</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-syncope"><label for="sx-syncope">Syncope/presyncope</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-fatigue"><label for="sx-fatigue">Fatigue</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-weightgain"><label for="sx-weightgain">Weight gain</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="sx-bendopnea"><label for="sx-bendopnea">Bendopnea</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Cardiac History</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="hx-hf"><label for="hx-hf">Known heart failure</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hx-cad"><label for="hx-cad">CAD</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hx-mi"><label for="hx-mi">Prior MI</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hx-pci"><label for="hx-pci">Prior PCI</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hx-cabg"><label for="hx-cabg">Prior CABG</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hx-afib"><label for="hx-afib">Atrial fibrillation</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hx-vt"><label for="hx-vt">VT/VF</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hx-ppm"><label for="hx-ppm">Pacemaker</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hx-icd"><label for="hx-icd">ICD/CRT</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="hx-valve"><label for="hx-valve">Valvular disease</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Cardiovascular Risk Factors</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="rf-htn"><label for="rf-htn">Hypertension</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="rf-dm"><label for="rf-dm">Diabetes mellitus</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="rf-hld"><label for="rf-hld">Hyperlipidemia</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="rf-smoking"><label for="rf-smoking">Tobacco use</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="rf-obesity"><label for="rf-obesity">Obesity (BMI ≥30)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="rf-ckd"><label for="rf-ckd">CKD</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="rf-osa"><label for="rf-osa">Obstructive sleep apnea</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="rf-famhx"><label for="rf-famhx">Family history CAD</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Current Cardiac Medications</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="med-bb"><label for="med-bb">Beta-blocker</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-acei"><label for="med-acei">ACEi/ARB</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-arni"><label for="med-arni">ARNI (sacubitril/valsartan)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-mra"><label for="med-mra">MRA (spironolactone)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-sglt2"><label for="med-sglt2">SGLT2 inhibitor</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-loop"><label for="med-loop">Loop diuretic</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-thiazide"><label for="med-thiazide">Thiazide diuretic</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-ccb"><label for="med-ccb">CCB</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-statin"><label for="med-statin">Statin</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-anticoag"><label for="med-anticoag">Anticoagulation</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-digoxin"><label for="med-digoxin">Digoxin</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="med-hydralazine"><label for="med-hydralazine">Hydralazine/nitrate</label></div>
+                    </div>
+                    <textarea id="med-details" placeholder="Medication details, doses..." style="margin-top: 8px;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Additional History</label>
+                    <textarea id="additional-history" class="large" placeholder="Prior echo findings, cath results, exercise tolerance, hospitalization history..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Physical Exam -->
+        <div class="section" id="exam">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🩺</span> Physical Examination</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="exam-finding-legend">
+                    <span><span class="legend-dot neutral"></span> Not documented</span>
+                    <span><span class="legend-dot positive"></span> Present (positive)</span>
+                    <span><span class="legend-dot negative"></span> Absent (pertinent negative)</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Vital Signs</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>BP (mmHg)</label>
+                            <input type="text" id="bp" placeholder="e.g., 142/88">
+                        </div>
+                        <div class="inline-group">
+                            <label>HR (bpm)</label>
+                            <input type="text" id="hr" placeholder="e.g., 88">
+                        </div>
+                        <div class="inline-group">
+                            <label>RR</label>
+                            <input type="text" id="rr" placeholder="e.g., 18">
+                        </div>
+                        <div class="inline-group">
+                            <label>SpO2 (%)</label>
+                            <input type="text" id="spo2" placeholder="e.g., 96% RA">
+                        </div>
+                        <div class="inline-group">
+                            <label>Weight (kg)</label>
+                            <input type="text" id="weight" placeholder="e.g., 82">
+                        </div>
+                        <div class="inline-group">
+                            <label>Height (cm)</label>
+                            <input type="text" id="height" placeholder="e.g., 170">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">General Appearance</label>
+                    <div class="exam-finding-group">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">No acute distress</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Ill-appearing</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Diaphoretic</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Cachectic</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Obese</span>
+                        </div>
+                    </div>
+                    <textarea id="general-comments" placeholder="Additional appearance notes..." style="margin-top: 8px;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Neck / JVP</label>
+                    <div class="exam-finding-group">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">JVP normal (≤8 cm)</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">JVP elevated</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Hepatojugular reflux</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Carotid bruits</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Kussmaul sign</span>
+                        </div>
+                    </div>
+                    <textarea id="jvp-comments" placeholder="JVP measurement in cm H2O, waveform abnormalities..." style="margin-top: 8px;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Cardiovascular</label>
+                    <div class="exam-finding-group">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Regular rate & rhythm</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Irregularly irregular (AF)</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">S1/S2 normal</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">S3 gallop</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">S4 gallop</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Systolic murmur</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Diastolic murmur</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Pericardial friction rub</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Displaced PMI</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Parasternal heave</span>
+                        </div>
+                    </div>
+                    <textarea id="cv-comments" placeholder="Murmur description (grade, location, radiation), PMI location..." style="margin-top: 8px;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Pulmonary</label>
+                    <div class="exam-finding-group">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Clear to auscultation</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Bibasilar crackles</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Diffuse crackles/rales</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Wheezing</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Decreased breath sounds</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Dullness to percussion</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Pleural effusion (clinical)</span>
+                        </div>
+                    </div>
+                    <textarea id="pulm-comments" placeholder="Location of findings, extent..." style="margin-top: 8px;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Abdomen</label>
+                    <div class="exam-finding-group">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Soft, non-tender</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Hepatomegaly</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Pulsatile liver</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Ascites</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">RUQ tenderness</span>
+                        </div>
+                    </div>
+                    <textarea id="abd-comments" placeholder="Liver span, ascites severity..." style="margin-top: 8px;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Extremities / Vascular</label>
+                    <div class="exam-finding-group">
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">No peripheral edema</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Bilateral LE edema</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Sacral edema</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Anasarca</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Warm, well-perfused</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Cool extremities</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Diminished pulses</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Clubbing</span>
+                        </div>
+                        <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                            <span class="state-indicator"></span>
+                            <span class="finding-label">Cyanosis</span>
+                        </div>
+                    </div>
+                    <textarea id="ext-comments" placeholder="Edema grade (1-4+), distribution, pulses..." style="margin-top: 8px;"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Labs -->
+        <div class="section" id="labs">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🧪</span> Laboratory Data</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Cardiac Biomarkers</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Troponin (ng/mL)</label>
+                            <input type="text" id="troponin" placeholder="e.g., 0.04">
+                        </div>
+                        <div class="inline-group">
+                            <label>BNP (pg/mL)</label>
+                            <input type="text" id="bnp" placeholder="e.g., 450">
+                        </div>
+                        <div class="inline-group">
+                            <label>NT-proBNP (pg/mL)</label>
+                            <input type="text" id="ntprobnp" placeholder="e.g., 1200">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Basic Metabolic Panel</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Na (mEq/L)</label>
+                            <input type="text" id="sodium" placeholder="e.g., 138">
+                        </div>
+                        <div class="inline-group">
+                            <label>K (mEq/L)</label>
+                            <input type="text" id="potassium" placeholder="e.g., 4.2">
+                        </div>
+                        <div class="inline-group">
+                            <label>BUN (mg/dL)</label>
+                            <input type="text" id="bun" placeholder="e.g., 28">
+                        </div>
+                        <div class="inline-group">
+                            <label>Cr (mg/dL)</label>
+                            <input type="text" id="creatinine" placeholder="e.g., 1.4">
+                        </div>
+                        <div class="inline-group">
+                            <label>eGFR</label>
+                            <input type="text" id="egfr" placeholder="e.g., 52">
+                        </div>
+                        <div class="inline-group">
+                            <label>Glucose</label>
+                            <input type="text" id="glucose" placeholder="e.g., 112">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">CBC</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Hgb (g/dL)</label>
+                            <input type="text" id="hgb" placeholder="e.g., 11.2">
+                        </div>
+                        <div class="inline-group">
+                            <label>Hct (%)</label>
+                            <input type="text" id="hct" placeholder="e.g., 33">
+                        </div>
+                        <div class="inline-group">
+                            <label>WBC (K/uL)</label>
+                            <input type="text" id="wbc" placeholder="e.g., 8.5">
+                        </div>
+                        <div class="inline-group">
+                            <label>Plt (K/uL)</label>
+                            <input type="text" id="plt" placeholder="e.g., 210">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Lipid Panel</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Total Chol</label>
+                            <input type="text" id="tchol" placeholder="e.g., 185">
+                        </div>
+                        <div class="inline-group">
+                            <label>LDL</label>
+                            <input type="text" id="ldl" placeholder="e.g., 102">
+                        </div>
+                        <div class="inline-group">
+                            <label>HDL</label>
+                            <input type="text" id="hdl" placeholder="e.g., 42">
+                        </div>
+                        <div class="inline-group">
+                            <label>TG</label>
+                            <input type="text" id="tg" placeholder="e.g., 165">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Other Labs</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>TSH</label>
+                            <input type="text" id="tsh" placeholder="e.g., 2.1">
+                        </div>
+                        <div class="inline-group">
+                            <label>HbA1c (%)</label>
+                            <input type="text" id="hba1c" placeholder="e.g., 7.2">
+                        </div>
+                        <div class="inline-group">
+                            <label>Albumin</label>
+                            <input type="text" id="albumin" placeholder="e.g., 3.4">
+                        </div>
+                        <div class="inline-group">
+                            <label>Iron Studies</label>
+                            <input type="text" id="iron" placeholder="Ferritin, TSAT">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Additional Labs</label>
+                    <textarea id="additional-labs" placeholder="Lactate, LFTs, INR, D-dimer, other relevant labs..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- ECG -->
+        <div class="section" id="ecg">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📈</span> Electrocardiogram</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Rhythm</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-nsr"><label for="ecg-nsr">Normal sinus rhythm</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-sb"><label for="ecg-sb">Sinus bradycardia</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-st"><label for="ecg-st">Sinus tachycardia</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-afib"><label for="ecg-afib">Atrial fibrillation</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-aflutter"><label for="ecg-aflutter">Atrial flutter</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-paced"><label for="ecg-paced">Paced rhythm</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Intervals & Axis</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>PR (ms)</label>
+                            <input type="text" id="ecg-pr" placeholder="e.g., 180">
+                        </div>
+                        <div class="inline-group">
+                            <label>QRS (ms)</label>
+                            <input type="text" id="ecg-qrs" placeholder="e.g., 98">
+                        </div>
+                        <div class="inline-group">
+                            <label>QTc (ms)</label>
+                            <input type="text" id="ecg-qtc" placeholder="e.g., 440">
+                        </div>
+                        <div class="inline-group">
+                            <label>Axis (°)</label>
+                            <input type="text" id="ecg-axis" placeholder="e.g., +45">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">ECG Findings</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-lvh"><label for="ecg-lvh">LVH (voltage criteria)</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-rvh"><label for="ecg-rvh">RVH</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-lae"><label for="ecg-lae">Left atrial enlargement</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-rae"><label for="ecg-rae">Right atrial enlargement</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-lbbb"><label for="ecg-lbbb">LBBB</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-rbbb"><label for="ecg-rbbb">RBBB</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-lafb"><label for="ecg-lafb">LAFB</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-1avb"><label for="ecg-1avb">1st degree AV block</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-qwaves"><label for="ecg-qwaves">Pathologic Q waves</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-stdep"><label for="ecg-stdep">ST depression</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-stelev"><label for="ecg-stelev">ST elevation</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-twinv"><label for="ecg-twinv">T wave inversions</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-lowv"><label for="ecg-lowv">Low voltage</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="ecg-pvc"><label for="ecg-pvc">PVCs</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">ECG Interpretation</label>
+                    <textarea id="ecg-interp" placeholder="Full ECG interpretation, comparison to prior..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Echocardiogram -->
+        <div class="section" id="echo">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🫀</span> Echocardiogram</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="callout callout-info">
+                    <div class="callout-title">Echo Data for HFpEF Scoring</div>
+                    <div class="callout-content">E/e', LAVI, TR velocity, and LVEF are used in H₂FPEF and HFA-PEFF algorithms below</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">LV Function</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>LVEF (%)</label>
+                            <input type="text" id="lvef" placeholder="e.g., 55">
+                        </div>
+                        <div class="inline-group">
+                            <label>LVEF Category</label>
+                            <select id="lvef-cat">
+                                <option value="">-- Select --</option>
+                                <option value="HFpEF (≥50%)">Preserved (≥50%)</option>
+                                <option value="HFmrEF (41-49%)">Mildly reduced (41-49%)</option>
+                                <option value="HFrEF (≤40%)">Reduced (≤40%)</option>
+                            </select>
+                        </div>
+                        <div class="inline-group">
+                            <label>GLS (%)</label>
+                            <input type="text" id="gls" placeholder="e.g., -18">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">LV Dimensions</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>LVIDd (cm)</label>
+                            <input type="text" id="lvidd" placeholder="e.g., 4.8">
+                        </div>
+                        <div class="inline-group">
+                            <label>LVIDs (cm)</label>
+                            <input type="text" id="lvids" placeholder="e.g., 3.2">
+                        </div>
+                        <div class="inline-group">
+                            <label>IVSd (cm)</label>
+                            <input type="text" id="ivsd" placeholder="e.g., 1.1">
+                        </div>
+                        <div class="inline-group">
+                            <label>PWd (cm)</label>
+                            <input type="text" id="pwd" placeholder="e.g., 1.0">
+                        </div>
+                        <div class="inline-group">
+                            <label>RWT</label>
+                            <input type="text" id="rwt" placeholder="e.g., 0.42">
+                        </div>
+                        <div class="inline-group">
+                            <label>LVMI (g/m²)</label>
+                            <input type="text" id="lvmi" placeholder="e.g., 115">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Diastolic Function</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>E velocity (m/s)</label>
+                            <input type="text" id="echo-e" placeholder="e.g., 0.9">
+                        </div>
+                        <div class="inline-group">
+                            <label>A velocity (m/s)</label>
+                            <input type="text" id="echo-a" placeholder="e.g., 0.7">
+                        </div>
+                        <div class="inline-group">
+                            <label>E/A ratio</label>
+                            <input type="text" id="ea-ratio" placeholder="e.g., 1.3">
+                        </div>
+                        <div class="inline-group">
+                            <label>e' septal (cm/s)</label>
+                            <input type="text" id="e-septal" placeholder="e.g., 7">
+                        </div>
+                        <div class="inline-group">
+                            <label>e' lateral (cm/s)</label>
+                            <input type="text" id="e-lateral" placeholder="e.g., 10">
+                        </div>
+                        <div class="inline-group">
+                            <label>E/e' (avg)</label>
+                            <input type="text" id="e-eprime" placeholder="e.g., 14">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Diastolic Grade</label>
+                    <select id="diastolic-grade">
+                        <option value="">-- Select --</option>
+                        <option value="Normal diastolic function">Normal</option>
+                        <option value="Grade I (impaired relaxation)">Grade I (impaired relaxation)</option>
+                        <option value="Grade II (pseudonormal)">Grade II (pseudonormal)</option>
+                        <option value="Grade III (restrictive)">Grade III (restrictive)</option>
+                        <option value="Indeterminate">Indeterminate</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Atrial Size</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>LAVI (mL/m²)</label>
+                            <input type="text" id="lavi" placeholder="e.g., 38">
+                        </div>
+                        <div class="inline-group">
+                            <label>LA diameter (cm)</label>
+                            <input type="text" id="la-diam" placeholder="e.g., 4.2">
+                        </div>
+                        <div class="inline-group">
+                            <label>RA size</label>
+                            <select id="ra-size">
+                                <option value="">-- Select --</option>
+                                <option value="Normal RA">Normal</option>
+                                <option value="Mildly dilated RA">Mildly dilated</option>
+                                <option value="Moderately dilated RA">Moderately dilated</option>
+                                <option value="Severely dilated RA">Severely dilated</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Right Heart</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>TR velocity (m/s)</label>
+                            <input type="text" id="tr-velocity" placeholder="e.g., 2.9">
+                        </div>
+                        <div class="inline-group">
+                            <label>PASP (mmHg)</label>
+                            <input type="text" id="pasp" placeholder="e.g., 40">
+                        </div>
+                        <div class="inline-group">
+                            <label>TAPSE (cm)</label>
+                            <input type="text" id="tapse" placeholder="e.g., 2.0">
+                        </div>
+                        <div class="inline-group">
+                            <label>RV function</label>
+                            <select id="rv-function">
+                                <option value="">-- Select --</option>
+                                <option value="Normal RV function">Normal</option>
+                                <option value="Mildly reduced RV function">Mildly reduced</option>
+                                <option value="Moderately reduced RV function">Moderately reduced</option>
+                                <option value="Severely reduced RV function">Severely reduced</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Valvular Assessment</label>
+                    <div class="inline-inputs">
+                        <div class="inline-group">
+                            <label>Mitral Valve</label>
+                            <select id="mv">
+                                <option value="">-- Select --</option>
+                                <option value="No MR">No MR</option>
+                                <option value="Trace MR">Trace MR</option>
+                                <option value="Mild MR">Mild MR</option>
+                                <option value="Moderate MR">Moderate MR</option>
+                                <option value="Severe MR">Severe MR</option>
+                                <option value="Mitral stenosis">Mitral stenosis</option>
+                            </select>
+                        </div>
+                        <div class="inline-group">
+                            <label>Aortic Valve</label>
+                            <select id="av">
+                                <option value="">-- Select --</option>
+                                <option value="No AR">No AR</option>
+                                <option value="Trace AR">Trace AR</option>
+                                <option value="Mild AR">Mild AR</option>
+                                <option value="Moderate AR">Moderate AR</option>
+                                <option value="Severe AR">Severe AR</option>
+                                <option value="Aortic stenosis (mild)">AS (mild)</option>
+                                <option value="Aortic stenosis (moderate)">AS (moderate)</option>
+                                <option value="Aortic stenosis (severe)">AS (severe)</option>
+                            </select>
+                        </div>
+                        <div class="inline-group">
+                            <label>Tricuspid Valve</label>
+                            <select id="tv">
+                                <option value="">-- Select --</option>
+                                <option value="No TR">No TR</option>
+                                <option value="Trace TR">Trace TR</option>
+                                <option value="Mild TR">Mild TR</option>
+                                <option value="Moderate TR">Moderate TR</option>
+                                <option value="Severe TR">Severe TR</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Other Findings</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" id="echo-rwma"><label for="echo-rwma">Regional wall motion abnormality</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="echo-peric"><label for="echo-peric">Pericardial effusion</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="echo-ivc"><label for="echo-ivc">IVC plethoric</label></div>
+                        <div class="checkbox-item"><input type="checkbox" id="echo-thrombus"><label for="echo-thrombus">LV thrombus</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Echo Summary</label>
+                    <textarea id="echo-summary" class="large" placeholder="Full echo interpretation, comparison to prior studies..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- HFpEF Diagnostic Calculators -->
+        <div class="section" id="hfpef">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">🔢</span> HFpEF Diagnostic Calculators</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="callout callout-warning">
+                    <div class="callout-title">When to Use These Scores</div>
+                    <div class="callout-content">Use in patients with exertional dyspnea and LVEF ≥50% to determine probability of HFpEF and guide further testing</div>
+                </div>
+
+                <!-- H2FPEF Score -->
+                <div class="calculator-box" id="h2fpef-calc">
+                    <div class="calculator-title">🅷 H₂FPEF Score</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Heavy, Hypertensive, AF, Pulmonary HTN, Elder, Filling pressures</p>
+                    
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="h2f-heavy" onchange="calculateH2FPEF()">
+                            <label for="h2f-heavy"><strong>H</strong>eavy (BMI > 30) <span style="color:#e53e3e;">+2</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="h2f-htn" onchange="calculateH2FPEF()">
+                            <label for="h2f-htn"><strong>H</strong>ypertensive (≥2 meds) <span style="color:#e53e3e;">+1</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="h2f-afib" onchange="calculateH2FPEF()">
+                            <label for="h2f-afib"><strong>A</strong>trial fibrillation <span style="color:#e53e3e;">+3</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="h2f-phtn" onchange="calculateH2FPEF()">
+                            <label for="h2f-phtn"><strong>P</strong>ulmonary HTN (PASP > 35) <span style="color:#e53e3e;">+1</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="h2f-elder" onchange="calculateH2FPEF()">
+                            <label for="h2f-elder"><strong>E</strong>lder (Age > 60) <span style="color:#e53e3e;">+1</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="h2f-filling" onchange="calculateH2FPEF()">
+                            <label for="h2f-filling"><strong>F</strong>illing pressures (E/e' > 9) <span style="color:#e53e3e;">+1</span></label>
+                        </div>
+                    </div>
+
+                    <div class="calculator-result">
+                        <div class="score-display" id="h2fpef-score">0</div>
+                        <div class="score-label">/ 9 points</div>
+                        <div class="probability-bar">
+                            <div class="probability-fill" id="h2fpef-bar" style="width: 0%; background: #48bb78;"></div>
+                        </div>
+                        <div id="h2fpef-prob" style="font-weight: 600;">Probability: &lt;20%</div>
+                        <div class="interpretation-box interpretation-low" id="h2fpef-interp">
+                            <strong>Low probability</strong> - HFpEF unlikely. Consider alternative diagnoses.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HFA-PEFF Score -->
+                <div class="calculator-box" id="hfapeff-calc">
+                    <div class="calculator-title">📊 HFA-PEFF Algorithm (ESC)</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Major criteria = 2 points, Minor criteria = 1 point (max 2 per domain)</p>
+                    
+                    <div style="margin-bottom: 16px;">
+                        <h4 style="color: var(--primary-dark); margin-bottom: 8px;">Functional Domain</h4>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hfa-func-major1" onchange="calculateHFAPEFF()">
+                                <label for="hfa-func-major1"><strong>Major:</strong> e' septal &lt;7 or lateral &lt;10</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hfa-func-major2" onchange="calculateHFAPEFF()">
+                                <label for="hfa-func-major2"><strong>Major:</strong> E/e' ≥15</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hfa-func-major3" onchange="calculateHFAPEFF()">
+                                <label for="hfa-func-major3"><strong>Major:</strong> TR velocity &gt;2.8 m/s</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hfa-func-minor1" onchange="calculateHFAPEFF()">
+                                <label for="hfa-func-minor1"><strong>Minor:</strong> E/e' 9-14</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hfa-func-minor2" onchange="calculateHFAPEFF()">
+                                <label for="hfa-func-minor2"><strong>Minor:</strong> GLS &lt;16%</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 16px;">
+                        <h4 style="color: var(--primary-dark); margin-bottom: 8px;">Morphological Domain</h4>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hfa-morph-major1" onchange="calculateHFAPEFF()">
+                                <label for="hfa-morph-major1"><strong>Major:</strong> LAVI &gt;34 (SR) or &gt;40 (AF)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hfa-morph-major2" onchange="calculateHFAPEFF()">
+                                <label for="hfa-morph-major2"><strong>Major:</strong> LVMI ≥149(M)/122(F) + RWT &gt;0.42</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hfa-morph-minor1" onchange="calculateHFAPEFF()">
+                                <label for="hfa-morph-minor1"><strong>Minor:</strong> LAVI 29-34 (SR) or 34-40 (AF)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hfa-morph-minor2" onchange="calculateHFAPEFF()">
+                                <label for="hfa-morph-minor2"><strong>Minor:</strong> LVMI ≥115(M)/95(F) or wall ≥12mm</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 16px;">
+                        <h4 style="color: var(--primary-dark); margin-bottom: 8px;">Biomarker Domain</h4>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hfa-bio-major1" onchange="calculateHFAPEFF()">
+                                <label for="hfa-bio-major1"><strong>Major:</strong> NT-proBNP &gt;220 (SR) or &gt;660 (AF)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hfa-bio-major2" onchange="calculateHFAPEFF()">
+                                <label for="hfa-bio-major2"><strong>Major:</strong> BNP &gt;80 (SR) or &gt;240 (AF)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hfa-bio-minor1" onchange="calculateHFAPEFF()">
+                                <label for="hfa-bio-minor1"><strong>Minor:</strong> NT-proBNP 125-220 (SR) / 365-660 (AF)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hfa-bio-minor2" onchange="calculateHFAPEFF()">
+                                <label for="hfa-bio-minor2"><strong>Minor:</strong> BNP 35-80 (SR) / 105-240 (AF)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calculator-result">
+                        <div class="score-display" id="hfapeff-score">0</div>
+                        <div class="score-label">/ 6 points</div>
+                        <div class="interpretation-box interpretation-low" id="hfapeff-interp">
+                            <strong>Score ≤1:</strong> HFpEF unlikely - Consider alternative diagnoses
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HFpEF-ABA Score -->
+                <div class="calculator-box" id="aba-calc">
+                    <div class="calculator-title">🔤 HFpEF-ABA Score (Simplified)</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Age, BMI, Atrial fibrillation - for primary care screening</p>
+                    
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="aba-age" onchange="calculateABA()">
+                            <label for="aba-age"><strong>A</strong>ge > 60 years <span style="color:#e53e3e;">+1</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="aba-bmi" onchange="calculateABA()">
+                            <label for="aba-bmi"><strong>B</strong>MI > 30 kg/m² <span style="color:#e53e3e;">+1</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="aba-afib" onchange="calculateABA()">
+                            <label for="aba-afib"><strong>A</strong>trial fibrillation <span style="color:#e53e3e;">+1</span></label>
+                        </div>
+                    </div>
+
+                    <div class="calculator-result">
+                        <div class="score-display" id="aba-score">0</div>
+                        <div class="score-label">/ 3 points</div>
+                        <div class="interpretation-box interpretation-low" id="aba-interp">
+                            <strong>Score 0:</strong> Low risk - HFpEF unlikely
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reference Table -->
+                <div style="margin-top: 20px;">
+                    <h4 style="color: var(--primary-dark); margin-bottom: 12px;">📋 Diagnostic Algorithm Summary</h4>
+                    <table class="reference-table">
+                        <thead>
+                            <tr>
+                                <th>Score</th>
+                                <th>Low Risk</th>
+                                <th>Intermediate</th>
+                                <th>High Risk</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>H₂FPEF</strong></td>
+                                <td>0-1 (&lt;20%)</td>
+                                <td>2-5 (20-80%)</td>
+                                <td>6-9 (&gt;90%)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>HFA-PEFF</strong></td>
+                                <td>≤1 (exclude)</td>
+                                <td>2-4 (further testing)</td>
+                                <td>≥5 (confirm)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>HFpEF-ABA</strong></td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>2-3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assessment -->
+        <div class="section" id="assessment">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📝</span> Assessment & Plan</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label class="form-label">Primary Diagnosis / Impression</label>
+                    <textarea id="impression" class="large" placeholder="e.g., HFpEF (LVEF 58%) with NYHA Class II symptoms, likely due to hypertensive heart disease with LA enlargement and diastolic dysfunction. H₂FPEF score 6/9 (high probability)."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Problem List</label>
+                    <textarea id="problem-list" placeholder="1. Heart failure with preserved ejection fraction
+2. Atrial fibrillation (paroxysmal)
+3. Hypertension
+4. Obesity (BMI 34)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Recommendations</label>
+                    <textarea id="recommendations" class="large" placeholder="1. GDMT optimization...
+2. Diuresis...
+3. Further testing...
+4. Follow-up..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Disposition & Follow-up</label>
+                    <textarea id="disposition" placeholder="Continue inpatient management vs discharge with outpatient cardiology follow-up..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Attending / Fellow</label>
+                    <input type="text" id="attending" placeholder="Cardiology attending/fellow name">
+                </div>
+            </div>
+        </div>
+
+        <!-- Generated Note Output -->
+        <div class="section" id="output">
+            <div class="section-header" onclick="toggleSection(this)">
+                <h2><span class="section-icon">📄</span> Generated Note</h2>
+                <span class="section-toggle">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="output-section">
+                    <div class="output-header">
+                        <span class="output-title">Consult Note Preview</span>
+                        <button class="btn-secondary" onclick="generateNote()">🔄 Regenerate</button>
+                    </div>
+                    <div id="generated-note">Click "Generate Note" to create a formatted consult note from the fields above.</div>
+                </div>
+                <div style="display: flex; gap: 12px; margin-top: 16px;">
+                    <button class="toolbar-btn btn-primary" onclick="copyNote()">📋 Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <button class="toolbar-btn btn-primary" onclick="generateNote()">📋 Generate Note</button>
+        <button class="toolbar-btn btn-secondary" onclick="copyNote()">📄 Copy</button>
+    </div>
+
+    <div class="toast" id="toast">Copied to clipboard!</div>
+
+    <script>
+        // Toggle section collapse
+        function toggleSection(header) {
+            const section = header.parentElement;
+            section.classList.toggle('collapsed');
+        }
+
+        // Cycle exam finding state: neutral -> positive -> negative -> neutral
+        function cycleState(element) {
+            const currentState = element.getAttribute('data-state');
+            let newState;
+            if (currentState === 'neutral') {
+                newState = 'positive';
+            } else if (currentState === 'positive') {
+                newState = 'negative';
+            } else {
+                newState = 'neutral';
+            }
+            element.setAttribute('data-state', newState);
+        }
+
+        // Get exam findings by state
+        function getExamFindings(state) {
+            const findings = [];
+            document.querySelectorAll(`.exam-finding[data-state="${state}"]`).forEach(el => {
+                const label = el.querySelector('.finding-label');
+                if (label) findings.push(label.textContent);
+            });
+            return findings;
+        }
+
+        // Toggle tag selection
+        function toggleTag(tag) {
+            tag.classList.toggle('selected');
+        }
+
+        // Select severity badge
+        function selectSeverity(badge) {
+            const container = badge.parentElement;
+            container.querySelectorAll('.severity-badge').forEach(b => b.classList.remove('selected'));
+            badge.classList.add('selected');
+        }
+
+        // Select NYHA class
+        function selectNYHA(badge) {
+            document.querySelectorAll('.nyha-badge').forEach(b => b.classList.remove('selected'));
+            badge.classList.add('selected');
+        }
+
+        // Scroll to section
+        function scrollToSection(id) {
+            const section = document.getElementById(id);
+            if (section) {
+                section.classList.remove('collapsed');
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Expand all sections
+        function expandAll() {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('collapsed'));
+        }
+
+        // Collapse all sections
+        function collapseAll() {
+            document.querySelectorAll('.section').forEach(s => s.classList.add('collapsed'));
+        }
+
+        // Clear all fields
+        function clearAll() {
+            if (confirm('Clear all fields? This cannot be undone.')) {
+                document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+                document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+                document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+                document.querySelectorAll('.tag, .severity-badge, .nyha-badge').forEach(el => el.classList.remove('selected'));
+                document.querySelectorAll('.exam-finding').forEach(el => el.setAttribute('data-state', 'neutral'));
+                document.getElementById('generated-note').textContent = 'Click "Generate Note" to create a formatted consult note from the fields above.';
+                calculateH2FPEF();
+                calculateHFAPEFF();
+                calculateABA();
+            }
+        }
+
+        // Get selected tags
+        function getSelectedTags() {
+            const tags = [];
+            document.querySelectorAll('.tag.selected').forEach(t => tags.push(t.textContent));
+            return tags;
+        }
+
+        // Get selected severity
+        function getSelectedSeverity() {
+            const selected = document.querySelector('.severity-badge.selected');
+            return selected ? selected.textContent : '';
+        }
+
+        // Get selected NYHA
+        function getSelectedNYHA() {
+            const selected = document.querySelector('.nyha-badge.selected');
+            return selected ? selected.getAttribute('data-class') : '';
+        }
+
+        // Get checked checkboxes by prefix
+        function getCheckedByPrefix(prefix) {
+            const checked = [];
+            document.querySelectorAll(`input[id^="${prefix}"]:checked`).forEach(el => {
+                const label = el.nextElementSibling;
+                if (label) checked.push(label.textContent);
+            });
+            return checked;
+        }
+
+        // H2FPEF Calculator
+        function calculateH2FPEF() {
+            let score = 0;
+            if (document.getElementById('h2f-heavy').checked) score += 2;
+            if (document.getElementById('h2f-htn').checked) score += 1;
+            if (document.getElementById('h2f-afib').checked) score += 3;
+            if (document.getElementById('h2f-phtn').checked) score += 1;
+            if (document.getElementById('h2f-elder').checked) score += 1;
+            if (document.getElementById('h2f-filling').checked) score += 1;
+
+            document.getElementById('h2fpef-score').textContent = score;
+
+            const probabilities = {
+                0: 2, 1: 9, 2: 21, 3: 39, 4: 55, 5: 68,
+                6: 80, 7: 89, 8: 95, 9: 98
+            };
+            const prob = probabilities[score] || 0;
+
+            document.getElementById('h2fpef-prob').textContent = `Probability: ${prob}%`;
+
+            const bar = document.getElementById('h2fpef-bar');
+            bar.style.width = prob + '%';
+
+            const interp = document.getElementById('h2fpef-interp');
+            if (score <= 1) {
+                bar.style.background = '#48bb78';
+                interp.className = 'interpretation-box interpretation-low';
+                interp.innerHTML = '<strong>Low probability (&lt;20%)</strong> - HFpEF unlikely. Consider alternative diagnoses for dyspnea.';
+            } else if (score <= 5) {
+                bar.style.background = '#ed8936';
+                interp.className = 'interpretation-box interpretation-intermediate';
+                interp.innerHTML = '<strong>Intermediate probability (20-80%)</strong> - Consider exercise diastolic stress test or invasive hemodynamics.';
+            } else {
+                bar.style.background = '#e53e3e';
+                interp.className = 'interpretation-box interpretation-high';
+                interp.innerHTML = '<strong>High probability (&gt;80%)</strong> - HFpEF likely. Initiate GDMT and consider additional workup for etiology.';
+            }
+        }
+
+        // HFA-PEFF Calculator
+        function calculateHFAPEFF() {
+            // Functional domain (max 2)
+            let funcMajor = 0;
+            if (document.getElementById('hfa-func-major1').checked) funcMajor++;
+            if (document.getElementById('hfa-func-major2').checked) funcMajor++;
+            if (document.getElementById('hfa-func-major3').checked) funcMajor++;
+            let funcMinor = 0;
+            if (document.getElementById('hfa-func-minor1').checked) funcMinor++;
+            if (document.getElementById('hfa-func-minor2').checked) funcMinor++;
+            let funcScore = Math.min(2, (funcMajor > 0 ? 2 : 0) + (funcMajor === 0 && funcMinor > 0 ? 1 : 0));
+            if (funcMajor >= 1) funcScore = 2;
+            else if (funcMinor >= 1) funcScore = 1;
+            else funcScore = 0;
+
+            // Morphological domain (max 2)
+            let morphMajor = 0;
+            if (document.getElementById('hfa-morph-major1').checked) morphMajor++;
+            if (document.getElementById('hfa-morph-major2').checked) morphMajor++;
+            let morphMinor = 0;
+            if (document.getElementById('hfa-morph-minor1').checked) morphMinor++;
+            if (document.getElementById('hfa-morph-minor2').checked) morphMinor++;
+            let morphScore = 0;
+            if (morphMajor >= 1) morphScore = 2;
+            else if (morphMinor >= 1) morphScore = 1;
+
+            // Biomarker domain (max 2)
+            let bioMajor = 0;
+            if (document.getElementById('hfa-bio-major1').checked) bioMajor++;
+            if (document.getElementById('hfa-bio-major2').checked) bioMajor++;
+            let bioMinor = 0;
+            if (document.getElementById('hfa-bio-minor1').checked) bioMinor++;
+            if (document.getElementById('hfa-bio-minor2').checked) bioMinor++;
+            let bioScore = 0;
+            if (bioMajor >= 1) bioScore = 2;
+            else if (bioMinor >= 1) bioScore = 1;
+
+            const totalScore = funcScore + morphScore + bioScore;
+            document.getElementById('hfapeff-score').textContent = totalScore;
+
+            const interp = document.getElementById('hfapeff-interp');
+            if (totalScore <= 1) {
+                interp.className = 'interpretation-box interpretation-low';
+                interp.innerHTML = '<strong>Score ≤1:</strong> HFpEF excluded - Consider alternative diagnoses for symptoms.';
+            } else if (totalScore <= 4) {
+                interp.className = 'interpretation-box interpretation-intermediate';
+                interp.innerHTML = '<strong>Score 2-4:</strong> Inconclusive - Consider exercise diastolic stress echo or invasive hemodynamic assessment.';
+            } else {
+                interp.className = 'interpretation-box interpretation-high';
+                interp.innerHTML = '<strong>Score ≥5:</strong> HFpEF confirmed - Initiate GDMT and evaluate for underlying etiology.';
+            }
+        }
+
+        // ABA Calculator
+        function calculateABA() {
+            let score = 0;
+            if (document.getElementById('aba-age').checked) score += 1;
+            if (document.getElementById('aba-bmi').checked) score += 1;
+            if (document.getElementById('aba-afib').checked) score += 1;
+
+            document.getElementById('aba-score').textContent = score;
+
+            const interp = document.getElementById('aba-interp');
+            if (score === 0) {
+                interp.className = 'interpretation-box interpretation-low';
+                interp.innerHTML = '<strong>Score 0:</strong> Low risk - HFpEF unlikely. Consider other causes of dyspnea.';
+            } else if (score === 1) {
+                interp.className = 'interpretation-box interpretation-intermediate';
+                interp.innerHTML = '<strong>Score 1:</strong> Intermediate risk - Consider echocardiography and NT-proBNP measurement.';
+            } else {
+                interp.className = 'interpretation-box interpretation-high';
+                interp.innerHTML = '<strong>Score 2-3:</strong> High risk - Strongly consider HFpEF. Recommend comprehensive echo and cardiology referral.';
+            }
+        }
+
+        // Generate the consult note
+        function generateNote() {
+            let note = '';
+
+            // Header
+            note += '═══════════════════════════════════════════════════════════\n';
+            note += '                    CARDIOLOGY CONSULT NOTE\n';
+            note += '═══════════════════════════════════════════════════════════\n\n';
+
+            // Reason for Consultation
+            const consultQ = document.getElementById('consult-question').value.trim();
+            const tags = getSelectedTags();
+            const urgency = getSelectedSeverity();
+            if (consultQ || tags.length) {
+                note += '▸ REASON FOR CONSULTATION\n';
+                if (consultQ) note += consultQ + '\n';
+                if (tags.length) note += 'Syndrome: ' + tags.join(', ') + '\n';
+                if (urgency) note += 'Urgency: ' + urgency + '\n';
+                note += '\n';
+            }
+
+            // History
+            const nyha = getSelectedNYHA();
+            const symptoms = getCheckedByPrefix('sx-');
+            const cardiacHx = getCheckedByPrefix('hx-');
+            const riskFactors = getCheckedByPrefix('rf-');
+            const meds = getCheckedByPrefix('med-');
+            const medDetails = document.getElementById('med-details').value.trim();
+            const additionalHx = document.getElementById('additional-history').value.trim();
+
+            if (nyha || symptoms.length || cardiacHx.length || riskFactors.length) {
+                note += '▸ CARDIAC HISTORY\n';
+                if (nyha) note += 'NYHA Class: ' + nyha + '\n';
+                if (symptoms.length) note += 'Symptoms: ' + symptoms.join(', ') + '\n';
+                if (cardiacHx.length) note += 'Cardiac history: ' + cardiacHx.join(', ') + '\n';
+                if (riskFactors.length) note += 'Risk factors: ' + riskFactors.join(', ') + '\n';
+                if (meds.length) note += 'Cardiac medications: ' + meds.join(', ') + '\n';
+                if (medDetails) note += 'Medication details: ' + medDetails + '\n';
+                if (additionalHx) note += '\n' + additionalHx + '\n';
+                note += '\n';
+            }
+
+            // Physical Exam
+            const bp = document.getElementById('bp').value.trim();
+            const hr = document.getElementById('hr').value.trim();
+            const rr = document.getElementById('rr').value.trim();
+            const spo2 = document.getElementById('spo2').value.trim();
+            const weight = document.getElementById('weight').value.trim();
+            const height = document.getElementById('height').value.trim();
+
+            const allPositives = getExamFindings('positive');
+            const allNegatives = getExamFindings('negative');
+
+            const generalComments = document.getElementById('general-comments').value.trim();
+            const jvpComments = document.getElementById('jvp-comments').value.trim();
+            const cvComments = document.getElementById('cv-comments').value.trim();
+            const pulmComments = document.getElementById('pulm-comments').value.trim();
+            const abdComments = document.getElementById('abd-comments').value.trim();
+            const extComments = document.getElementById('ext-comments').value.trim();
+
+            const hasExamFindings = allPositives.length || allNegatives.length || generalComments || jvpComments || cvComments || pulmComments || abdComments || extComments;
+
+            if (bp || hasExamFindings) {
+                note += '▸ PHYSICAL EXAMINATION\n';
+                const vitals = [];
+                if (bp) vitals.push('BP ' + bp);
+                if (hr) vitals.push('HR ' + hr);
+                if (rr) vitals.push('RR ' + rr);
+                if (spo2) vitals.push('SpO2 ' + spo2);
+                if (weight) vitals.push('Wt ' + weight + ' kg');
+                if (height) vitals.push('Ht ' + height + ' cm');
+                if (vitals.length) note += 'Vitals: ' + vitals.join(', ') + '\n';
+
+                if (weight && height) {
+                    const bmi = (parseFloat(weight) / Math.pow(parseFloat(height)/100, 2)).toFixed(1);
+                    note += 'BMI: ' + bmi + ' kg/m²\n';
+                }
+
+                if (allPositives.length) {
+                    note += '\n(+) ' + allPositives.join(', ') + '\n';
+                }
+
+                if (allNegatives.length) {
+                    note += '(-) No ' + allNegatives.join(', no ') + '\n';
+                }
+
+                const comments = [];
+                if (jvpComments) comments.push('JVP: ' + jvpComments);
+                if (cvComments) comments.push('CV: ' + cvComments);
+                if (pulmComments) comments.push('Pulm: ' + pulmComments);
+                if (abdComments) comments.push('Abd: ' + abdComments);
+                if (extComments) comments.push('Ext: ' + extComments);
+
+                if (comments.length) {
+                    note += '\n' + comments.join('\n') + '\n';
+                }
+
+                note += '\n';
+            }
+
+            // Labs
+            const troponin = document.getElementById('troponin').value.trim();
+            const bnp = document.getElementById('bnp').value.trim();
+            const ntprobnp = document.getElementById('ntprobnp').value.trim();
+            const sodium = document.getElementById('sodium').value.trim();
+            const potassium = document.getElementById('potassium').value.trim();
+            const creatinine = document.getElementById('creatinine').value.trim();
+            const hgb = document.getElementById('hgb').value.trim();
+            const additionalLabs = document.getElementById('additional-labs').value.trim();
+
+            if (troponin || bnp || ntprobnp || creatinine) {
+                note += '▸ LABORATORY DATA\n';
+                const biomarkers = [];
+                if (troponin) biomarkers.push('Troponin ' + troponin);
+                if (bnp) biomarkers.push('BNP ' + bnp);
+                if (ntprobnp) biomarkers.push('NT-proBNP ' + ntprobnp);
+                if (biomarkers.length) note += 'Cardiac biomarkers: ' + biomarkers.join(', ') + '\n';
+
+                const bmp = [];
+                if (sodium) bmp.push('Na ' + sodium);
+                if (potassium) bmp.push('K ' + potassium);
+                if (creatinine) bmp.push('Cr ' + creatinine);
+                if (bmp.length) note += 'BMP: ' + bmp.join(', ') + '\n';
+
+                if (hgb) note += 'Hgb: ' + hgb + '\n';
+                if (additionalLabs) note += additionalLabs + '\n';
+                note += '\n';
+            }
+
+            // ECG
+            const ecgRhythm = getCheckedByPrefix('ecg-');
+            const ecgInterp = document.getElementById('ecg-interp').value.trim();
+            if (ecgRhythm.length || ecgInterp) {
+                note += '▸ ELECTROCARDIOGRAM\n';
+                if (ecgRhythm.length) note += 'Findings: ' + ecgRhythm.join(', ') + '\n';
+                if (ecgInterp) note += ecgInterp + '\n';
+                note += '\n';
+            }
+
+            // Echo
+            const lvef = document.getElementById('lvef').value.trim();
+            const lvefCat = document.getElementById('lvef-cat').value;
+            const eePrime = document.getElementById('e-eprime').value.trim();
+            const lavi = document.getElementById('lavi').value.trim();
+            const pasp = document.getElementById('pasp').value.trim();
+            const diastolicGrade = document.getElementById('diastolic-grade').value;
+            const mv = document.getElementById('mv').value;
+            const av = document.getElementById('av').value;
+            const echoSummary = document.getElementById('echo-summary').value.trim();
+
+            if (lvef || echoSummary) {
+                note += '▸ ECHOCARDIOGRAM\n';
+                if (lvef) note += 'LVEF: ' + lvef + '%' + (lvefCat ? ' (' + lvefCat + ')' : '') + '\n';
+                if (eePrime) note += 'E/e\': ' + eePrime + '\n';
+                if (lavi) note += 'LAVI: ' + lavi + ' mL/m²\n';
+                if (pasp) note += 'PASP: ' + pasp + ' mmHg\n';
+                if (diastolicGrade) note += 'Diastolic function: ' + diastolicGrade + '\n';
+                const valves = [];
+                if (mv) valves.push(mv);
+                if (av) valves.push(av);
+                if (valves.length) note += 'Valves: ' + valves.join(', ') + '\n';
+                if (echoSummary) note += '\n' + echoSummary + '\n';
+                note += '\n';
+            }
+
+            // HFpEF Scores
+            const h2fpefScore = document.getElementById('h2fpef-score').textContent;
+            const hfapeffScore = document.getElementById('hfapeff-score').textContent;
+            const abaScore = document.getElementById('aba-score').textContent;
+
+            if (h2fpefScore !== '0' || hfapeffScore !== '0' || abaScore !== '0') {
+                note += '▸ HFpEF DIAGNOSTIC SCORES\n';
+                if (h2fpefScore !== '0') {
+                    const prob = document.getElementById('h2fpef-prob').textContent;
+                    note += 'H₂FPEF Score: ' + h2fpefScore + '/9 (' + prob + ')\n';
+                }
+                if (hfapeffScore !== '0') {
+                    note += 'HFA-PEFF Score: ' + hfapeffScore + '/6\n';
+                }
+                if (abaScore !== '0') {
+                    note += 'HFpEF-ABA Score: ' + abaScore + '/3\n';
+                }
+                note += '\n';
+            }
+
+            // Assessment & Plan
+            const impression = document.getElementById('impression').value.trim();
+            const problemList = document.getElementById('problem-list').value.trim();
+            const recommendations = document.getElementById('recommendations').value.trim();
+            const disposition = document.getElementById('disposition').value.trim();
+            const attending = document.getElementById('attending').value.trim();
+
+            if (impression || recommendations) {
+                note += '▸ ASSESSMENT & PLAN\n';
+                if (impression) note += '\n[Impression]\n' + impression + '\n';
+                if (problemList) note += '\n[Problem List]\n' + problemList + '\n';
+                if (recommendations) note += '\n[Recommendations]\n' + recommendations + '\n';
+                if (disposition) note += '\n[Disposition]\n' + disposition + '\n';
+                if (attending) note += '\nCardiology: ' + attending + '\n';
+                note += '\n';
+            }
+
+            // Footer
+            note += '═══════════════════════════════════════════════════════════\n';
+            note += 'Will continue to follow. Please contact cardiology with questions.\n';
+            note += '═══════════════════════════════════════════════════════════';
+
+            document.getElementById('generated-note').textContent = note;
+        }
+
+        // Copy note to clipboard
+        function copyNote() {
+            const noteText = document.getElementById('generated-note').textContent;
+            navigator.clipboard.writeText(noteText).then(() => {
+                showToast('Copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                showToast('Failed to copy');
+            });
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // Initialize calculators
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateH2FPEF();
+            calculateHFAPEFF();
+            calculateABA();
+
+            // Collapse some sections by default
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                if (index > 4) {
+                    section.classList.add('collapsed');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
