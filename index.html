@@ -190,9 +190,130 @@
             .main-content { left: var(--sidebar-width-collapsed); }
             .sidebar.expanded ~ .main-content { left: 200px; }
         }
+        /* ── Update notification banner ────────────────────────────────────── */
+        #update-banner {
+          display: none;
+          position: fixed;
+          top: var(--header-height);
+          left: 0;
+          right: 0;
+          z-index: 9999;
+          background: linear-gradient(135deg, #1e3a5f, #2563eb);
+          color: white;
+          padding: 12px 20px;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          font-size: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+          animation: slideDown 0.3s ease-out;
+        }
+        #update-banner.hidden { display: none !important; }
+        @keyframes slideDown {
+          from { transform: translateY(-100%); opacity: 0; }
+          to   { transform: translateY(0);     opacity: 1; }
+        }
+        #update-banner .banner-text {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex: 1;
+        }
+        #update-banner .banner-icon { font-size: 20px; }
+        #update-banner .banner-actions {
+          display: flex;
+          gap: 8px;
+          flex-shrink: 0;
+        }
+        #update-banner button {
+          padding: 6px 14px;
+          border: none;
+          border-radius: 6px;
+          font-size: 13px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: opacity 0.15s;
+        }
+        #update-banner button:active { opacity: 0.8; }
+        #btn-apply-update {
+          background: #ffffff;
+          color: #1e3a5f;
+        }
+        #btn-dismiss-update {
+          background: rgba(255,255,255,0.2);
+          color: white;
+        }
+
+        /* ── Offline indicator (bottom-right) ──────────────────────────────── */
+        #offline-indicator {
+          display: none;
+          position: fixed;
+          bottom: 16px;
+          right: 16px;
+          z-index: 9998;
+          background: #374151;
+          color: white;
+          padding: 8px 14px;
+          border-radius: 20px;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          font-size: 12px;
+          font-weight: 500;
+          opacity: 0;
+          transition: opacity 0.3s;
+          pointer-events: none;
+        }
+        #offline-indicator.visible {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          opacity: 1;
+        }
+
+        /* ── SW version chip (shows current cached version) ────────────────── */
+        #sw-version-chip {
+          display: none;
+          font-size: 11px;
+          opacity: 0.6;
+          margin-left: 8px;
+          font-family: monospace;
+        }
+
     </style>
+    
+    <!-- ── 1. ADD TO <head> ────────────────────────────────────────────────── -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ClinRef">
+    <meta name="theme-color" content="#1e3a5f">
+    <!-- ── End head additions ─────────────────────────────────────────────── -->
+
 </head>
 <body ontouchstart="">
+
+  <!-- Update available banner — hidden until SW detects new version -->
+  <div id="update-banner" class="hidden" role="alert" aria-live="polite">
+    <div class="banner-text">
+      <span class="banner-icon">🔄</span>
+      <span>
+        Clinical Reference Suite update available
+        <span id="sw-version-chip"></span>
+      </span>
+    </div>
+    <div class="banner-actions">
+      <button id="btn-apply-update" onclick="applyUpdate()">Update Now</button>
+      <button id="btn-dismiss-update" onclick="dismissUpdate()">Later</button>
+    </div>
+  </div>
+
+  <!-- Offline mode indicator -->
+  <div id="offline-indicator" aria-label="Offline mode active">
+    <span>✈️</span> Offline — Cached version
+  </div>
+
+  <!-- ── End body additions ─────────────────────────────────────────────── -->
     <!-- Header -->
     <header class="header">
         <img src="https://raw.githubusercontent.com/comstocd/rapid-response-tool/main/caduceus.png" alt="Logo" class="header-logo">
@@ -749,5 +870,98 @@
         initFrames();
         handleInitialHash();
     </script>
+    <!-- ── 4. ADD JUST BEFORE </body> ────────────────────────────────────── -->
+    <script>
+    (function() {
+      'use strict';
+
+      // ── Offline indicator ────────────────────────────────────────────────
+      const offlineEl = document.getElementById('offline-indicator');
+      function updateOnlineStatus() {
+        if (!navigator.onLine) {
+          offlineEl.classList.add('visible');
+        } else {
+          offlineEl.classList.remove('visible');
+        }
+      }
+      window.addEventListener('online',  updateOnlineStatus);
+      window.addEventListener('offline', updateOnlineStatus);
+      updateOnlineStatus();
+
+      // ── Service Worker registration & update detection ───────────────────
+      if ('serviceWorker' in navigator) {
+        let newWorker = null;
+
+        navigator.serviceWorker.register('/Clinical-Reference-Suite/sw.js', {
+          scope: '/Clinical-Reference-Suite/'
+        })
+        .then(registration => {
+          console.log('[App] SW registered. Scope:', registration.scope);
+
+          // Show current cached version in header (optional — remove if noisy)
+          if (navigator.serviceWorker.controller) {
+            const mc = new MessageChannel();
+            mc.port1.onmessage = e => {
+              const chip = document.getElementById('sw-version-chip');
+              if (chip && e.data && e.data.version) {
+                chip.textContent = `(${e.data.version})`;
+                chip.style.display = 'inline';
+              }
+            };
+            navigator.serviceWorker.controller.postMessage(
+              { type: 'GET_VERSION' }, [mc.port2]
+            );
+          }
+
+          // Detect when a new SW is waiting (= new version downloaded)
+          registration.addEventListener('updatefound', () => {
+            newWorker = registration.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // New version is ready — show the banner
+                document.getElementById('update-banner').classList.remove('hidden');
+              }
+            });
+          });
+
+          // Check for updates on page load (in addition to 24-hr auto-check)
+          registration.update();
+        })
+        .catch(err => {
+          console.error('[App] SW registration failed:', err);
+        });
+
+        // When the SW activates after skipWaiting, reload to get new content
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (!refreshing) {
+            refreshing = true;
+            window.location.reload();
+          }
+        });
+
+        // ── Update banner actions ──────────────────────────────────────────
+        window.applyUpdate = function() {
+          if (newWorker) {
+            newWorker.postMessage({ type: 'SKIP_WAITING' });
+          } else {
+            // Fallback: just reload and let the SW sort it out
+            window.location.reload(true);
+          }
+        };
+
+        window.dismissUpdate = function() {
+          document.getElementById('update-banner').classList.add('hidden');
+          // Remind again in 1 hour if still on the page
+          setTimeout(() => {
+            if (newWorker && newWorker.state === 'installed') {
+              document.getElementById('update-banner').classList.remove('hidden');
+            }
+          }, 3600000);
+        };
+      }
+    })();
+    </script>
+    <!-- ── End script additions ───────────────────────────────────────────── -->
 </body>
 </html>
