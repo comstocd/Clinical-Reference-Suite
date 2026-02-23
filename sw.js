@@ -13,7 +13,7 @@
  */
 
 // ─── BUMP THIS STRING WHENEVER YOU PUSH CLINICAL CONTENT CHANGES ───────────
-const CACHE_VERSION = 'crs-v2.1-build28';
+const CACHE_VERSION = 'crs-v2.1-build29';
 // ────────────────────────────────────────────────────────────────────────────
 
 const CACHE_NAME = `clinical-ref-${CACHE_VERSION}`;
