@@ -216,7 +216,7 @@
 </nav>
 
 <header role="banner">
-  <h1>Procedures Quick Reference <span style="font-size: 0.6em; color: #6ee7b7; font-weight: 600;">BUILD #2</span></h1>
+  <h1>Procedures Quick Reference <span id="component-version" style="font-size: 0.6em; color: #6ee7b7; font-weight: 600;">BUILD #2</span></h1>
 </header>
 
 <main>
@@ -895,5 +895,15 @@ document.querySelectorAll('.collapsible').forEach(btn => {
 });
 </script>
 
+
+<!-- SW version listener -->
+<script>
+window.addEventListener("message", function(e) {
+  if (e.data && e.data.type === "SW_VERSION") {
+    var el = document.getElementById("component-version");
+    if (el) el.textContent = e.data.version;
+  }
+});
+</script>
 </body>
 </html>

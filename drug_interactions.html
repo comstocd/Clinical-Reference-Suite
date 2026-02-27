@@ -158,7 +158,7 @@
 </nav>
 
 <header role="banner">
-  <h1>Drug Interactions Reference <span style="font-size: 0.6em; color: #fbbf24; font-weight: 600;">BUILD #2</span></h1>
+  <h1>Drug Interactions Reference <span id="component-version" style="font-size: 0.6em; color: #fbbf24; font-weight: 600;">BUILD #2</span></h1>
   <div class="search">
     <input id="globalSearch" type="text" placeholder="Search drugs, interactions..." autocomplete="off" autocorrect="off" spellcheck="false">
     <button class="search-clear" id="searchClear" type="button">✕</button>
@@ -709,5 +709,15 @@ document.querySelectorAll('.collapsible').forEach(btn => {
 })();
 </script>
 
+
+<!-- SW version listener -->
+<script>
+window.addEventListener("message", function(e) {
+  if (e.data && e.data.type === "SW_VERSION") {
+    var el = document.getElementById("component-version");
+    if (el) el.textContent = e.data.version;
+  }
+});
+</script>
 </body>
 </html>

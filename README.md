@@ -1,287 +1,154 @@
-# Clinical Reference Suite v2.1
-## Internal Medicine Clinical Tools for iPad
+# Clinical Reference Suite
+### Internal Medicine Point-of-Care Reference — iPad Optimized
 
 **Author:** Dr. Michael Comstock, PGY-3 Internal Medicine  
 **Institution:** Guthrie Lourdes Hospital  
-**Last Updated:** January 2026  
-**Build:** #3
+**Current Build:** BUILD #30  
+**Live URL:** https://comstocd.github.io/Clinical-Reference-Suite/
 
 ---
 
 ## Overview
 
-The Clinical Reference Suite is a comprehensive collection of evidence-based clinical tools optimized for iPad use at the bedside. All guides feature responsive design, dark mode support, collapsible sections, and cross-linking between resources.
+The Clinical Reference Suite is a Progressive Web App (PWA) providing evidence-based clinical decision support at the bedside. It runs fully offline after the first load and automatically updates in the background when internet connectivity is available.
 
 ---
 
-## Core Components
+## Components
 
-### 1. Internal Medicine Clinical Reference Guide (IMCRG)
-**File:** `im_guide.html`  
-**Version:** v3.7 BUILD #28  
-**Content:** 338 conditions
+### Core References
 
-The flagship reference covering acute inpatient conditions with:
-- Clinical presentations and diagnostic criteria
-- Evidence-based treatment protocols
-- Embedded calculators (CURB-65, Wells, MELD, CHA₂DS₂-VASc, etc.)
-- Disposition criteria and complications
-- Cross-links to Drug Reference Guide (81 unique drug targets)
+| File | Tool | Content | Build |
+|---|---|---|---|
+| `im_guide.html` | IM Clinical Reference Guide | 338 conditions with evidence-based workups, treatment protocols, embedded calculators | v3.7 |
+| `drug_reference_guide.html` | Drug Reference Guide | 280 medications — MOA, dosing, adverse effects, black box warnings, clinical pearls | v1.4 |
+| `id_guide.html` | Infectious Disease Guide | Empiric therapy by syndrome, organism-specific coverage, antibiotic spectra, IV-to-PO conversion | v2.0 |
+| `lab_values.html` | Laboratory Values Reference | 134 tests — normal ranges, critical values, interpretation pearls, reflex testing |  |
+| `dx_framework.html` | Diagnostic Framework | Presentation-based differentials, red flags, diagnostic algorithms |  |
+| `drug_interactions.html` | Drug Interactions Reference | Warfarin, DOACs, CYP450, QT prolongation, serotonin syndrome |  |
+| `procedures_guide.html` | Procedures Quick Reference | Paracentesis, thoracentesis, lumbar puncture, arthrocentesis with fluid interpretation |  |
 
-**Specialty Coverage:**
-- Cardiology (ACS, HF, AFib, HTN emergency, arrhythmias)
-- Pulmonology (COPD, asthma, PE, pneumonia, ARDS)
-- GI/Hepatology (GI bleed, cirrhosis, pancreatitis, SBP)
-- Infectious Disease (sepsis, meningitis, endocarditis, HIV)
-- Nephrology (AKI, CKD, electrolyte disorders, RRT)
-- Neurology (stroke, seizure, meningitis, delirium)
-- Hematology/Oncology (DIC, TTP, neutropenic fever, SCD)
-- Endocrinology (DKA, HHS, thyroid storm, adrenal crisis)
-- Rheumatology (gout, lupus flare, vasculitis)
-- Toxicology (overdoses, withdrawal syndromes)
+### Practical Tools
 
----
+| File | Tool | Content |
+|---|---|---|
+| `antimicrobial_stewardship_guide.html` | Antimicrobial Stewardship | Empiric therapy by syndrome, de-escalation pathways, IV-to-PO conversion, culture stewardship |
+| `renal_dosing_reference.html` | Renal Dosing Reference | Drug adjustments by CrCl, HD supplementation, drugs to avoid in CKD |
 
-### 2. Drug Reference Guide (DRG)
-**File:** `drug_reference_guide.html`  
-**Version:** v1.2 BUILD #4  
-**Content:** 230 medications across 49 categories
+### Consult Note Templates
 
-Comprehensive drug monographs featuring:
-- Mechanism of action
-- Evidence-based indications
-- Dosing tables (including renal/hepatic adjustments)
-- Adverse effects and monitoring
-- Black box warnings
-- Clinical pearls
-- Cross-links back to IMCRG conditions
-
-**Drug Categories:**
-| Category | Count | Key Drugs |
-|----------|-------|-----------|
-| Antibiotics | 45+ | Penicillins, cephalosporins, carbapenems, fluoroquinolones, vancomycin |
-| Anticoagulants | 12 | UFH, enoxaparin, warfarin, apixaban, rivaroxaban, dabigatran, edoxaban |
-| Antiplatelets | 4 | Aspirin, clopidogrel, ticagrelor, prasugrel |
-| Antiarrhythmics | 8 | Amiodarone, flecainide, sotalol, dofetilide, ibutilide, digoxin |
-| Vasopressors | 6 | Norepinephrine, vasopressin, phenylephrine, dopamine, milrinone |
-| HTN Emergency | 5 | Nicardipine, clevidipine, labetalol, esmolol, hydralazine |
-| HF GDMT | 10 | Empagliflozin, dapagliflozin, sacubitril-valsartan, eplerenone, ivabradine |
-| Anticonvulsants | 6 | Levetiracetam, phenytoin, lacosamide, phenobarbital, carbamazepine |
-| Toxicology | 8 | Naloxone, flumazenil, NAC, fomepizole, physostigmine, lipid emulsion |
-| Aminoglycosides | 3 | Gentamicin, tobramycin, amikacin |
+| File | Tool | Content |
+|---|---|---|
+| `cardiology_consult.html` | Cardiology Consult | HFpEF diagnostic algorithms (H₂FPEF, HFA-PEFF, ABA scores), echo interpretation, GDMT optimization |
+| `id_consult.html` | ID Consult | Culture review, MDR risk assessment, source control, duration guidance, one-click note generation |
+| `nephrology_consult.html` | Nephrology Consult | KDIGO staging, urinalysis interpretation, FENa reference, AEIOU dialysis indications |
+| `rheumatology_consult.html` | Rheumatology Consult | Joint pattern recognition, autoantibody interpretation, synovial fluid analysis, classification criteria |
 
 ---
 
-### 3. Infectious Disease Guide
-**File:** `id_guide.html`  
-**Version:** BUILD #6  
+## Technical Architecture
 
-Antimicrobial stewardship resource with:
-- Empiric therapy by infection site
-- Organism-specific coverage
-- Antibiotic spectra charts
-- Dosing adjustments
-- De-escalation guidance
+### PWA / Offline Functionality
+The suite operates as a Progressive Web App using a Service Worker (`sw.js`) for offline caching. All files are pre-cached on first load and served locally thereafter — no internet connection required for clinical use.
 
----
+**Cache strategy:** Stale-while-revalidate — content is always served from cache instantly, with background revalidation when online.
 
-### 4. Diagnostic Framework
-**File:** `dx_framework.html`  
-**Version:** BUILD #2
+**Install on iPad:** Open in Safari → Share → Add to Home Screen. Opens full-screen with no browser UI.
 
-Systematic approach to common presentations:
-- Chief complaint-based differentials
-- Red flags and "can't miss" diagnoses
-- Diagnostic algorithms
-- Pre-test probability assessment
+### Versioning System
+Version is controlled by a single source of truth in `sw.js`. All version displays throughout the app — the suite header, home tiles, and each component's internal header — update automatically from this file.
 
----
+```javascript
+// sw.js — only two lines to change per update
+const DISPLAY_VERSION = 'BUILD #30';
+const CACHE_VERSION   = 'crs-v3.7-build30';
+```
 
-### 5. Lab Values Reference
-**File:** `lab_values.html`  
-**Version:** BUILD #2
+When an update is pushed and the iPad next connects to WiFi, the Service Worker downloads the new version in the background. Opening the app from the home screen afterward runs the updated content.
 
-Complete laboratory reference with:
-- Normal ranges
-- Critical values
-- Interpretation pearls
-- Reflex testing guidance
+### Cross-Linking
+The IM Guide and Drug Reference Guide are cross-linked via 80+ inline links. Clicking a drug name in a condition opens its full monograph in the Drug Reference Guide. Lab Values are cross-linked to relevant IMCRG conditions.
 
 ---
 
-### 6. Drug Interactions Guide
-**File:** `drug_interactions.html`  
-**Version:** BUILD #2
+## Update Workflow
 
-High-yield drug interactions for:
-- Anticoagulants
-- QT-prolonging agents
-- CYP450 interactions
-- Renal/hepatic considerations
+To push a clinical content update:
 
----
+1. Edit the relevant HTML file(s) in GitHub
+2. Open `sw.js` and increment both version strings:
+   - `DISPLAY_VERSION = 'BUILD #30'` → `'BUILD #31'`
+   - `CACHE_VERSION = 'crs-v3.7-build30'` → `'crs-v3.7-build31'`
+3. Commit both changes
+4. Open the site once in Safari on WiFi — update downloads in background
+5. All version displays throughout the app update automatically
 
-### 7. High-Value Care Guide
-**File:** `high_value_care.html`  
-**Version:** BUILD #2
-
-Evidence-based recommendations for:
-- Appropriate testing
-- Choosing Wisely initiatives
-- Cost-effective care
-- Avoiding low-value interventions
+To add a new tool/file to the suite:
+1. Add the HTML file to the repo
+2. Add an entry to the `tools` array in `index.html`
+3. Add the file path to `PRECACHE_URLS` in `sw.js`
+4. Increment the build number and push
 
 ---
 
-### 8. Procedures Guide
-**File:** `procedures_guide.html`  
-**Version:** BUILD #2
+## Evidence Sources
 
-Step-by-step guidance for common procedures:
-- Indications/contraindications
-- Equipment and setup
-- Technique with images
-- Complications and management
+Content is aligned with current guidelines from:
 
----
-
-## Subspecialty Study Guides
-
-Comprehensive board-style review guides optimized for IM-ITE and ABIM preparation:
-
-| Guide | File | Content |
-|-------|------|---------|
-| Cardiology | `cardio_study_guide.html` | ECG, HF, CAD, valvular, arrhythmias |
-| Pulmonology | `pulmonology_study_guide.html` | PFTs, COPD, ILD, sleep, critical care |
-| GI/Hepatology | `gi_study_guide.html` | Liver disease, IBD, pancreatitis, GI bleed |
-| Nephrology | `nephrology_study_guide1.html` | AKI, CKD, electrolytes, acid-base, RRT |
-| Infectious Disease | `id_study_guide.html` | Organisms, antimicrobials, syndromes |
-| Endocrinology | `endocrinology_study_guide.html` | Diabetes, thyroid, adrenal, pituitary |
-| Heme/Onc | `heme_onc_study_guide.html` | Anemias, coagulopathies, malignancies |
-| Neurology | `neurology_study_guide.html` | Stroke, seizure, MS, movement disorders |
-| Rheumatology | `rheumatology_study_guide.html` | RA, SLE, vasculitis, crystal arthropathies |
-| Allergy/Immunology | `allergy_immunology_study_guide.html` | Hypersensitivity, immunodeficiency |
-| Geriatrics | `geriatrics_study_guide.html` | Polypharmacy, falls, dementia, goals of care |
-| Psychiatry | `psychiatry_study_guide.html` | Depression, anxiety, psychosis, substance use |
-| General IM | `general_im_study_guide.html` | Preventive care, perioperative, ethics |
-
-**Study Guides Index:** `study_guides_index.html`
-
----
-
-## Additional Resources
-
-| Resource | File | Description |
-|----------|------|-------------|
-| Board Pearls | `board_pearls.html` | High-yield facts for boards |
-| Rheumatology Extended | `rheumatology_study_guide4.html` | Advanced rheum topics |
-
----
-
-## Technical Features
-
-### iPad Optimization
-- Responsive design for all screen sizes
-- Touch-friendly collapsible sections
-- Large tap targets for navigation
-- Landscape and portrait support
-
-### Dark Mode
-- System preference detection
-- Manual toggle available
-- Optimized contrast ratios
-
-### Search & Navigation
-- Real-time search filtering
-- Alphabetical and categorical views
-- Specialty-based quick access
-- Cross-document linking
-
-### Offline Access
-- All files are standalone HTML
-- No server dependency
-- Works without internet connection
+- Surviving Sepsis Campaign 2021
+- ACC/AHA Guidelines (ACS 2023, HF 2022, Valvular 2021, Perioperative 2022)
+- IDSA Guidelines (CAP 2019, Endocarditis, MRSA 2011)
+- ASHP/IDSA/SIDP Vancomycin Consensus Guidelines 2020
+- ADA Standards of Care 2025
+- KDIGO Guidelines (AKI 2012, CKD 2024)
+- ACR Guidelines
+- ATS Guidelines
+- ASH Guidelines
+- UpToDate, Harrison's Principles of Internal Medicine
+- NEJM, JAMA, Lancet — key trials (SMART, BaSICS, PLUS, ARDS Net, PROSEVA, PLATO, EMPEROR-Preserved, DELIVER, SHIFT, VASST, SOAP II, NICE-SUGAR, PEPTIC, ACORN, PLASMIC/HERCULES)
 
 ---
 
 ## File Structure
 
 ```
-Clinical Reference Suite/
-├── index.html                    # Main landing page
-├── README.md                     # This file
+Clinical-Reference-Suite/
+├── index.html                        # Main hub — navigation, home tiles, PWA shell
+├── sw.js                             # Service Worker — versioning, caching, updates
+├── manifest.json                     # PWA manifest — home screen install, icons
+├── README.md                         # This file
 │
-├── Core References/
-│   ├── im_guide.html            # IMCRG (338 conditions)
-│   ├── drug_reference_guide.html # DRG (230 medications)
-│   ├── id_guide.html            # ID/Antimicrobial guide
-│   ├── dx_framework.html        # Diagnostic framework
-│   ├── lab_values.html          # Lab reference
-│   ├── drug_interactions.html   # Drug interactions
-│   ├── high_value_care.html     # High-value care
-│   └── procedures_guide.html    # Procedures
+├── Core References
+│   ├── im_guide.html                 # IM Clinical Reference Guide (338 conditions)
+│   ├── drug_reference_guide.html     # Drug Reference Guide (280 medications)
+│   ├── id_guide.html                 # Infectious Disease Guide
+│   ├── lab_values.html               # Laboratory Values (134 tests)
+│   ├── dx_framework.html             # Diagnostic Framework
+│   ├── drug_interactions.html        # Drug Interactions Reference
+│   └── procedures_guide.html         # Procedures Quick Reference
 │
-└── Study Guides/
-    ├── study_guides_index.html  # Study guide hub
-    ├── cardio_study_guide.html
-    ├── pulmonology_study_guide.html
-    ├── gi_study_guide.html
-    ├── nephrology_study_guide1.html
-    ├── id_study_guide.html
-    ├── endocrinology_study_guide.html
-    ├── heme_onc_study_guide.html
-    ├── neurology_study_guide.html
-    ├── rheumatology_study_guide.html
-    ├── allergy_immunology_study_guide.html
-    ├── geriatrics_study_guide.html
-    ├── psychiatry_study_guide.html
-    ├── general_im_study_guide.html
-    └── board_pearls.html
+├── Practical Tools
+│   ├── antimicrobial_stewardship_guide.html
+│   └── renal_dosing_reference.html
+│
+└── Consult Templates
+    ├── cardiology_consult.html
+    ├── id_consult.html
+    ├── nephrology_consult.html
+    └── rheumatology_consult.html
 ```
 
 ---
 
-## Version History
+## Build History
 
-| Version | Date | Changes |
-|---------|------|---------|
-| v2.1 BUILD #3 | Jan 2026 | DRG BUILD #4 (+27 drugs to 230), IMCRG BUILD #28 (81 cross-links) |
-| v2.0 BUILD #2 | Dec 2025 | DRG BUILD #3, SGLT2i, HF GDMT additions |
-| v1.0 | Dec 2025 | Initial release |
-
----
-
-## Usage Notes
-
-1. **Start at index.html** — Central hub with links to all resources
-2. **Use cross-links** — Click purple 💊 links in IMCRG to jump to drug monographs
-3. **Search functionality** — Type to filter conditions/drugs in real-time
-4. **Collapse sections** — Tap headers to expand/collapse content
-5. **Dark mode** — Respects system settings or use manual toggle
+| Build | Date | Changes |
+|---|---|---|
+| BUILD #30 | Feb 2026 | Unified versioning system — single source of truth in sw.js, all components update automatically |
+| BUILD #29 | Feb 2026 | Sepsis section updated to SSC 2021 — Hour-1 bundle, stratified antibiotic timing, balanced crystalloid evidence (SMART/BaSICS/PLUS), vasopressor guidance (SOAP II), vitamin C/bicarb recommendations |
+| BUILD #28 | Jan 2026 | PWA implementation — Service Worker offline caching, background updates, iPad home screen install |
+| BUILD #27 and earlier | 2025–2026 | Clinical content development — 338 conditions, 280 medications, consult templates, specialty guides |
 
 ---
 
-## Evidence Sources
-
-- UpToDate
-- Harrison's Principles of Internal Medicine
-- NEJM, JAMA, Lancet
-- IDSA Guidelines
-- ACC/AHA Guidelines
-- Surviving Sepsis Campaign
-- ATS/IDSA CAP Guidelines
-- KDIGO Guidelines
-- ACR Guidelines
-
----
-
-## Contact
-
-For questions, corrections, or suggestions:  
-**Michael Comstock, MD**  
-PGY-3 Internal Medicine  
-Guthrie Lourdes Hospital
-
----
-
-*This suite is intended as a clinical reference tool and does not replace clinical judgment. Always verify critical information with primary sources.*
+*This suite is intended as a clinical reference tool and does not replace clinical judgment. Always verify critical information against primary sources and institutional protocols.*

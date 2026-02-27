@@ -458,7 +458,7 @@
 <body>
     <div class="container">
         <div id="top" class="nav-header">
-            <h1>🔍 Interactive Presentation-Based Diagnostic Framework <span style="font-size: 0.5em; color: #22c55e; font-weight: 600;">BUILD #2</span></h1>
+            <h1>🔍 Interactive Presentation-Based Diagnostic Framework <span id="component-version" style="font-size: 0.5em; color: #22c55e; font-weight: 600;">BUILD #2</span></h1>
             <div class="subtitle">Click criteria to filter conditions • Real-time differential diagnosis narrowing</div>
             <button class="reset-btn" onclick="resetAllSelections()">🔄 Reset All Filters</button>
             <div class="nav-links">
@@ -2986,5 +2986,15 @@
         // Checkbox clicks are now handled by parent div (pointer-events: none on checkbox)
         // No separate handler needed
     </script>
+
+<!-- SW version listener -->
+<script>
+window.addEventListener("message", function(e) {
+  if (e.data && e.data.type === "SW_VERSION") {
+    var el = document.getElementById("component-version");
+    if (el) el.textContent = e.data.version;
+  }
+});
+</script>
 </body>
 </html>

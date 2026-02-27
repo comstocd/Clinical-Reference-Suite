@@ -468,7 +468,7 @@
         <div id="toc" class="toc">
             <h1 class="toc-title">📚 Internal Medicine Clinical Reference Guide (IMCRG)</h1>
             <p class="toc-subtitle">Comprehensive iPad-Optimized Clinical Decision Support</p>
-            <p class="toc-subtitle">Version 3.7 • 338 Conditions • <strong style="color: #e74c3c;">BUILD #28</strong></p>
+            <p class="toc-subtitle">Version 3.7 • 338 Conditions • <strong id="component-version" style="color: #e74c3c;">BUILD #28</strong></p>
             <p class="toc-subtitle"><em>Tap any condition below to jump to its management protocol.</em></p>
             <p class="toc-subtitle" style="margin-top: 10px;"><a href="#system-toc" style="color: #0366d6; font-weight: 600;">Or browse by Organ System →</a></p>
 
@@ -47928,6 +47928,16 @@ function calculateQSOFA() {
         }
     });
 })();
+</script>
+
+<!-- SW version listener -->
+<script>
+window.addEventListener("message", function(e) {
+  if (e.data && e.data.type === "SW_VERSION") {
+    var el = document.getElementById("component-version");
+    if (el) el.textContent = e.data.version;
+  }
+});
 </script>
 </body>
 </html>
