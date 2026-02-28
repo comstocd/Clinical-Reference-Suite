@@ -173,27 +173,6 @@
     <li class="nav-section">Cardiac Pacing</li>
     <li><a href="#transvenous-pacing">Transvenous Pacemaker</a></li>
 
-    <li class="nav-section">Skin & Soft Tissue</li>
-    <li><a href="#id-abscess">Incision & Drainage</a></li>
-    <li><a href="#wound-care">Wound Care</a></li>
-    <li><a href="#punch-biopsy">Skin Punch Biopsy</a></li>
-
-    <li class="nav-section">Injections</li>
-    <li><a href="#knee-injection">Knee Injection</a></li>
-
-    <li class="nav-section">Hematology</li>
-    <li><a href="#bone-marrow">Bone Marrow Biopsy</a></li>
-
-    <li class="nav-section">Pleural</li>
-    <li><a href="#pigtail">Pigtail / PleurX Catheter</a></li>
-    <li><a href="#chest-tube">Chest Tube Troubleshooting</a></li>
-
-    <li class="nav-section">Ventilator</li>
-    <li><a href="#ventilator">Mechanical Ventilator Basics</a></li>
-
-    <li class="nav-section">Cardiac Pacing</li>
-    <li><a href="#transvenous-pacing">Transvenous Pacemaker</a></li>
-
     <li class="nav-section">Skin &amp; Soft Tissue</li>
     <li><a href="#id-abscess">Incision &amp; Drainage</a></li>
     <li><a href="#wound-care">Wound Care</a></li>
@@ -1541,146 +1520,748 @@
      ═══════════════════════════════════════════════════════════ -->
 <section id="pocus">
   <h2>Point-of-Care Ultrasound (POCUS)</h2>
-  <p class="muted">Bedside diagnostic ultrasound performed and interpreted by the treating physician in real time. ACGME IM Milestone v2.0 requirement. Not a comprehensive study — targeted to answer specific clinical questions.</p>
+  <p class="muted">Bedside diagnostic ultrasound performed and interpreted by the treating physician in real time. ACGME IM Milestone v2.0 requirement. Targeted to answer specific clinical questions — not a replacement for comprehensive imaging.</p>
 
-  <button class="collapsible">Indications & Probe Selection</button>
-  <div class="panel">
-    <h4>Clinical Applications for Hospitalists</h4>
-    <ul>
-      <li><strong>Volume status:</strong> IVC diameter and collapsibility</li>
-      <li><strong>Cardiac:</strong> Gross LV/RV function, pericardial effusion, tamponade physiology</li>
-      <li><strong>Pulmonary:</strong> Pleural effusion, pneumothorax, interstitial edema (B-lines), lung consolidation</li>
-      <li><strong>Abdominal:</strong> Ascites confirmation and pocket assessment before paracentesis</li>
-      <li><strong>DVT assessment:</strong> Compression ultrasound of femoral and popliteal veins</li>
-      <li><strong>Procedure guidance:</strong> Paracentesis, thoracentesis, central line, arthrocentesis, LP (pediatric)</li>
-      <li><strong>Hypotension / shock:</strong> RUSH protocol (see below)</li>
-    </ul>
-    <h4>Probe Selection</h4>
-    <table>
-      <thead><tr><th>Probe Type</th><th>Frequency</th><th>Best For</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Phased array (cardiac probe)</strong></td><td>1–5 MHz</td><td>Cardiac views, IVC, RUSH exam; fits between ribs</td></tr>
-        <tr><td><strong>Curvilinear (abdominal)</strong></td><td>2–5 MHz</td><td>Abdomen (ascites, aorta, kidneys), pleural fluid; deep structures</td></tr>
-        <tr><td><strong>Linear (vascular)</strong></td><td>7–15 MHz</td><td>Superficial structures: vessels (central/peripheral IV, DVT), pleural line, skin/soft tissue</td></tr>
-      </tbody>
-    </table>
-    <p class="small"><strong>Marker convention:</strong> Probe indicator (notch or light) corresponds to left side of screen in standard orientation. Cardiac: marker toward right shoulder. Abdominal/vascular: marker toward patient's head or right side.</p>
-  </div>
-
-  <button class="collapsible">IVC Assessment — Volume Status</button>
-  <div class="panel">
-    <h4>Technique</h4>
-    <ol class="step-list">
-      <li>Patient supine; phased array or curvilinear probe at subxiphoid / epigastric position</li>
-      <li>Angle probe toward right atrium; identify IVC as anechoic tubular structure to right of aorta, draining into RA</li>
-      <li>Confirm IVC (not aorta): IVC compressible, no pulsation, flows into RA; aorta pulsatile, non-compressible, branches into iliac vessels</li>
-      <li>Measure maximum IVC diameter in M-mode or 2D, 2 cm from RA-IVC junction, during quiet breathing</li>
-      <li>Assess collapsibility with sniff or deep inspiration</li>
-    </ol>
-    <h4>Interpretation</h4>
-    <table class="interpretation-table">
-      <thead><tr><th>IVC Diameter</th><th>Collapsibility with Sniff</th><th>Estimated RAP</th><th>Interpretation</th></tr></thead>
-      <tbody>
-        <tr><td>&lt;2.1 cm</td><td>&gt;50%</td><td>0–5 mmHg</td><td>Low RAP — volume responsive (hypovolemia likely)</td></tr>
-        <tr><td>&lt;2.1 cm</td><td>&lt;50%</td><td>5–10 mmHg</td><td>Indeterminate</td></tr>
-        <tr><td>&gt;2.1 cm</td><td>&gt;50%</td><td>5–10 mmHg</td><td>Indeterminate</td></tr>
-        <tr><td>&gt;2.1 cm</td><td>&lt;50%</td><td>10–20 mmHg</td><td>Elevated RAP — fluid overloaded, RV dysfunction, tamponade, tension PTX</td></tr>
-      </tbody>
-    </table>
-    <div class="warning-box">
-      <h4>⚠️ IVC Limitations</h4>
-      <p>IVC assessment unreliable in: mechanically ventilated patients (positive pressure reverses collapsibility), severe TR (IVC plethoric even if volume deplete), severe pulmonary hypertension. Do not use IVC alone to guide resuscitation — use in clinical context.</p>
+  <!-- QUICKLINKS -->
+  <div style="background:#e8f5e9;border:1px solid #c8e6c9;border-radius:8px;padding:12px 14px;margin:10px 0;">
+    <div style="font-weight:700;color:#1e4d3d;margin-bottom:8px;font-size:0.9rem;">📍 Jump to subsection:</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;">
+      <a href="#pocus-fundamentals" style="background:#fff;border:1px solid #a5d6a7;color:#1e4d3d;padding:5px 10px;border-radius:6px;text-decoration:none;font-size:0.85rem;">🔧 Fundamentals</a>
+      <a href="#pocus-echo" style="background:#fff;border:1px solid #a5d6a7;color:#1e4d3d;padding:5px 10px;border-radius:6px;text-decoration:none;font-size:0.85rem;">❤️ Bedside Echo (FoCUS)</a>
+      <a href="#pocus-lung" style="background:#fff;border:1px solid #a5d6a7;color:#1e4d3d;padding:5px 10px;border-radius:6px;text-decoration:none;font-size:0.85rem;">🫁 Lung</a>
+      <a href="#pocus-abdominal" style="background:#fff;border:1px solid #a5d6a7;color:#1e4d3d;padding:5px 10px;border-radius:6px;text-decoration:none;font-size:0.85rem;">🫀 Abdominal</a>
+      <a href="#pocus-vascular" style="background:#fff;border:1px solid #a5d6a7;color:#1e4d3d;padding:5px 10px;border-radius:6px;text-decoration:none;font-size:0.85rem;">🩸 Vascular / DVT</a>
+      <a href="#pocus-procedural" style="background:#fff;border:1px solid #a5d6a7;color:#1e4d3d;padding:5px 10px;border-radius:6px;text-decoration:none;font-size:0.85rem;">🎯 Procedural Guidance</a>
+      <a href="#pocus-ocular" style="background:#fff;border:1px solid #a5d6a7;color:#1e4d3d;padding:5px 10px;border-radius:6px;text-decoration:none;font-size:0.85rem;">👁️ Ocular</a>
+      <a href="#pocus-rush" style="background:#fff;border:1px solid #a5d6a7;color:#1e4d3d;padding:5px 10px;border-radius:6px;text-decoration:none;font-size:0.85rem;">⚡ RUSH Protocol</a>
     </div>
   </div>
 
-  <button class="collapsible">Cardiac Windows (Basic)</button>
-  <div class="panel">
-    <h4>Four Standard Windows</h4>
-    <table>
-      <thead><tr><th>Window</th><th>Probe Position</th><th>What You See</th><th>Key Questions</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Parasternal Long Axis (PLAX)</strong></td><td>Left sternal border, 3rd–4th ICS; marker toward right shoulder</td><td>LV, LVOT, aortic valve, mitral valve, RV anteriorly</td><td>Global LV function? Pericardial effusion (posterior to heart)? Aortic root dilation?</td></tr>
-        <tr><td><strong>Parasternal Short Axis (PSAX)</strong></td><td>Same position; rotate 90° clockwise</td><td>LV in cross-section (donut shape), RV anteriorly; papillary muscles at mid-level; aortic valve at base</td><td>LV wall motion? RV size (D-sign = flattened septum → RV pressure overload)?</td></tr>
-        <tr><td><strong>Apical 4-Chamber (A4C)</strong></td><td>Cardiac apex (lateral chest wall, ~5th ICS, mid-clavicular line); marker toward left</td><td>All 4 chambers side-by-side; MV and TV</td><td>LV/RV size comparison (normal RV &lt;2/3 LV)? Global function? Pericardial effusion?</td></tr>
-        <tr><td><strong>Subxiphoid (Subcostal)</strong></td><td>Subxiphoid, probe flat, marker toward patient's left</td><td>All 4 chambers (liver as acoustic window); pericardium anterior to RV</td><td>Pericardial effusion? RV collapse (tamponade)? Emergency view when others limited</td></tr>
-      </tbody>
-    </table>
-    <h4>LV Function — Eyeball Assessment</h4>
-    <ul>
-      <li><strong>Normal EF (~55–65%):</strong> Walls move inward ≥30%; LV cavity clearly reduces in systole</li>
-      <li><strong>Reduced EF (&lt;40%):</strong> Poor inward wall motion; LV cavity barely reduces; "bag of worms" appearance</li>
-      <li><strong>Hyperdynamic (&gt;70%):</strong> Walls nearly obliterate LV cavity in systole; consider sepsis, anemia, hypovolemia</li>
-    </ul>
-    <h4>Pericardial Effusion</h4>
-    <ul>
-      <li>Anechoic (black) stripe surrounding heart — circumferential vs loculated</li>
-      <li><strong>Tamponade physiology:</strong> RA collapse during systole; RV collapse during diastole; IVC plethoric (&gt;2.1 cm, non-collapsible); respiratory variation in MV/TV inflow (&gt;25% = pulsus paradoxus equivalent)</li>
-    </ul>
-  </div>
+  <!-- ─── FUNDAMENTALS ─── -->
+  <div id="pocus-fundamentals" style="scroll-margin-top:80px">
+    <h3 style="border-bottom:2px solid #c8e6c9;padding-bottom:4px;margin-top:20px;">🔧 Fundamentals</h3>
 
-  <button class="collapsible">Lung POCUS</button>
-  <div class="panel">
-    <h4>Basic Lung Signs</h4>
-    <table class="interpretation-table">
-      <thead><tr><th>Finding</th><th>Appearance</th><th>Interpretation</th></tr></thead>
-      <tbody>
-        <tr><td><strong>A-lines</strong></td><td>Horizontal reverberation artifacts below pleural line (equally spaced)</td><td>Normal aeration OR pneumothorax (both show A-lines — use lung sliding to differentiate)</td></tr>
-        <tr><td><strong>Lung sliding</strong></td><td>Shimmering movement at pleural line with respiration ("ants marching")</td><td>Normal — visceral and parietal pleura moving together; rules out pneumothorax at that site</td></tr>
-        <tr><td><strong>B-lines</strong></td><td>Vertical laser-like lines from pleural surface to bottom of screen; erase A-lines; move with lung sliding</td><td>Interstitial fluid: ≥3 B-lines/zone = interstitial syndrome. Bilateral diffuse = pulmonary edema (CHF); focal = pneumonia or contusion</td></tr>
-        <tr><td><strong>Pleural effusion</strong></td><td>Anechoic (black) collection above diaphragm; lung floats within it; "spine sign" visible</td><td>Effusion confirmed; assess size and echogenicity (complex = exudate/empyema vs simple transudative)</td></tr>
-        <tr><td><strong>Consolidation</strong></td><td>Tissue-like echotexture (looks like liver — "hepatization"); air bronchograms within</td><td>Pneumonia, atelectasis; dynamic air bronchograms = pneumonia (not pure atelectasis)</td></tr>
-        <tr><td><strong>Absent lung sliding + A-lines</strong></td><td>No pleural movement; no B-lines; A-lines present</td><td>Pneumothorax until proven otherwise at that site; confirm with seashore sign (M-mode)</td></tr>
-      </tbody>
-    </table>
-    <h4>Pneumothorax Confirmation (M-mode)</h4>
-    <ul>
-      <li><strong>Normal (seashore sign):</strong> Granular pattern below pleural line (moving lung = sand/shore)</li>
-      <li><strong>Pneumothorax (barcode/stratosphere sign):</strong> Only horizontal lines throughout (no lung movement)</li>
-    </ul>
-    <a href="im_guide.html#pneumothorax" class="cross-link">📚 Pneumothorax (IMCRG)</a>
-    <a href="im_guide.html#pulmonary-edema" class="cross-link">📚 Pulmonary Edema (IMCRG)</a>
-  </div>
-
-  <button class="collapsible">RUSH Protocol — Undifferentiated Shock</button>
-  <div class="panel">
-    <p class="muted">Rapid Ultrasound in SHock — systematic exam to identify shock etiology at the bedside.</p>
-    <table>
-      <thead><tr><th>Step</th><th>View</th><th>What to Assess</th><th>Interpretation</th></tr></thead>
-      <tbody>
-        <tr><td><strong>1. Pump</strong></td><td>Cardiac (PLAX, A4C, subxiphoid)</td><td>LV function, RV size, pericardial effusion</td><td>Cardiogenic shock (poor LV); tamponade (effusion + RV collapse); massive PE (dilated RV, D-sign)</td></tr>
-        <tr><td><strong>2. Tank (in)</strong></td><td>IVC (subcostal)</td><td>IVC diameter + collapsibility</td><td>Small IVC → hypovolemic/distributive; Large non-collapsible → obstructive or cardiogenic</td></tr>
-        <tr><td><strong>3. Tank (out)</strong></td><td>FAST exam (Morrison's pouch, splenorenal, pelvis)</td><td>Free fluid in peritoneum</td><td>Free fluid → hemorrhagic/obstructive source</td></tr>
-        <tr><td><strong>4. Pipes</strong></td><td>Aorta (proximal, mid, distal)</td><td>Aortic diameter</td><td>&gt;3 cm = aneurysm; &gt;5.5 cm = high rupture risk; AAA with free fluid = ruptured AAA → OR emergently</td></tr>
-        <tr><td><strong>5. Lungs</strong></td><td>Bilateral 2–4 zones each</td><td>B-lines, effusion, pneumothorax</td><td>Bilateral B-lines → cardiogenic pulmonary edema; absent sliding → tension PTX; unilateral effusion → hemothorax</td></tr>
-      </tbody>
-    </table>
-    <a href="im_guide.html#sepsis" class="cross-link">📚 Sepsis / Shock (IMCRG)</a>
-    <a href="im_guide.html#pe" class="cross-link">📚 Pulmonary Embolism (IMCRG)</a>
-  </div>
-
-  <button class="collapsible">DVT Compression Ultrasound</button>
-  <div class="panel">
-    <h4>Technique (2-Point Compression)</h4>
-    <ol class="step-list">
-      <li>Linear probe (7–15 MHz); patient supine with leg externally rotated; slight knee bend</li>
-      <li><strong>Point 1 — Common Femoral Vein (CFV):</strong> Identify femoral vessels at groin (inguinal ligament); vein medial to artery; compress with probe pressure — normal vein collapses completely</li>
-      <li><strong>Point 2 — Popliteal Vein:</strong> Patient prone or leg flexed; identify popliteal fossa; vein superficial to artery; compress</li>
-      <li>3-point: also compress femoral vein at mid-thigh</li>
-    </ol>
-    <h4>Interpretation</h4>
-    <ul>
-      <li><strong>Normal:</strong> Vein fully compressible — walls meet with gentle probe pressure</li>
-      <li><strong>DVT:</strong> Vein non-compressible or incompletely compressible; may visualize echogenic thrombus within lumen</li>
-      <li>Sensitivity 94–96% for proximal DVT; 60–70% for calf DVT (calf not routinely assessed with 2-point)</li>
-    </ul>
-    <div class="warning-box">
-      <h4>⚠️ Limitations</h4>
-      <p>2-point compression misses isolated iliac and calf DVTs. If high pretest probability and negative 2-point: formal venous duplex ultrasound or repeat in 5–7 days. POCUS DVT exam does not replace formal vascular lab study in low-probability or complex cases.</p>
+    <button class="collapsible">Probe Selection</button>
+    <div class="panel">
+      <table>
+        <thead><tr><th>Probe</th><th>Frequency</th><th>Best For</th><th>Key Feature</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Phased array (cardiac)</strong></td><td>1–5 MHz</td><td>Cardiac windows, IVC, RUSH exam</td><td>Small footprint — fits between ribs; fan-shaped beam</td></tr>
+          <tr><td><strong>Curvilinear (abdominal)</strong></td><td>2–5 MHz</td><td>Abdomen (AAA, biliary, renal), pleural fluid, FAST</td><td>Wide field of view for deep structures</td></tr>
+          <tr><td><strong>Linear (vascular / superficial)</strong></td><td>7–15 MHz</td><td>DVT, peripheral IV, central line guidance, pleural line, soft tissue, ONSD</td><td>High resolution for superficial structures; rectangular image</td></tr>
+          <tr><td><strong>Endocavitary</strong></td><td>5–10 MHz</td><td>Transvaginal (pelvic pathology, ectopic pregnancy confirmation)</td><td>Specialized; not routinely on general ward machines</td></tr>
+        </tbody>
+      </table>
+      <div class="info-box">
+        <h4>💡 Rule of Thumb</h4>
+        <p>Higher frequency = better resolution, less penetration (superficial structures). Lower frequency = worse resolution, more penetration (deep structures). Choose probe based on depth of target: superficial (&lt;4 cm) → linear; deep (&gt;4 cm) → curvilinear or phased array.</p>
+      </div>
     </div>
-    <a href="im_guide.html#dvt" class="cross-link">📚 DVT (IMCRG)</a>
-    <a href="im_guide.html#pe" class="cross-link">📚 PE (IMCRG)</a>
+
+    <button class="collapsible">Knobology — Essential Controls</button>
+    <div class="panel">
+      <table>
+        <thead><tr><th>Control</th><th>Function</th><th>When to Adjust</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Depth</strong></td><td>Adjusts how deep the image extends</td><td>Target structure should fill ~2/3 of screen depth. Too deep = small image; too shallow = missing structures below</td></tr>
+          <tr><td><strong>Gain</strong></td><td>Overall image brightness (amplifies returning echoes)</td><td>Too high = washed out (everything bright); too low = dark image. Fluid should appear anechoic (black) — if bright, gain too high</td></tr>
+          <tr><td><strong>Time-Gain Compensation (TGC)</strong></td><td>Adjusts gain at specific depths (sliders)</td><td>Near-field too bright? Reduce near TGC. Far-field too dark? Increase far TGC</td></tr>
+          <tr><td><strong>Frequency / Preset</strong></td><td>Selects imaging mode optimized for organ system</td><td>Use cardiac preset for echo; abdominal for liver/biliary; vascular for DVT</td></tr>
+          <tr><td><strong>Focus</strong></td><td>Concentrates beam at specific depth for best resolution</td><td>Place focus at the depth of your target structure</td></tr>
+          <tr><td><strong>Color Doppler</strong></td><td>Shows blood flow direction (red toward probe, blue away)</td><td>DVT (absent flow = thrombus); arterial vs venous identification; valve regurgitation</td></tr>
+          <tr><td><strong>M-mode</strong></td><td>Shows motion of structures over time along a single line</td><td>IVC collapsibility; pneumothorax (seashore vs barcode); cardiac wall motion timing</td></tr>
+          <tr><td><strong>Freeze + Measure</strong></td><td>Freeze image; calipers to measure distances</td><td>IVC diameter, ONSD, AAA diameter, effusion size, bladder volume</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button class="collapsible">Probe Marker Convention &amp; Orientation</button>
+    <div class="panel">
+      <ul>
+        <li>The probe has a physical <strong>indicator</strong> (notch, groove, or light) on one side — this corresponds to the <strong>indicator marker</strong> on the left side of the ultrasound screen</li>
+        <li>Moving the probe indicator changes the left side of the image</li>
+      </ul>
+      <table>
+        <thead><tr><th>Application</th><th>Probe Indicator Direction</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>Abdominal / general</td><td>Toward patient's head (cephalad)</td><td>Superior structures on left of screen; inferior on right</td></tr>
+          <tr><td>Transverse (axial) views</td><td>Toward patient's right</td><td>Patient's right on left of screen (as if looking up from feet)</td></tr>
+          <tr><td>Cardiac — PLAX</td><td>Toward patient's right shoulder</td><td>Aortic root on left, mitral valve on right of screen</td></tr>
+          <tr><td>Cardiac — A4C</td><td>Toward patient's left (toward left axilla)</td><td>RV on left, LV on right of screen</td></tr>
+          <tr><td>Cardiac — Subxiphoid</td><td>Toward patient's left side</td><td>RV nearest to probe (top of screen); RA, LA, LV visible</td></tr>
+          <tr><td>Vascular / DVT</td><td>Toward patient's head (transverse view)</td><td>Medial structures on right of screen</td></tr>
+        </tbody>
+      </table>
+      <div class="info-box">
+        <h4>💡 Lost on Orientation?</h4>
+        <p>Tap or wiggle the probe — movement on screen corresponds to probe position. Or place a finger on skin next to probe — the bright artifact (reverberation) will appear on the same side as the indicator.</p>
+      </div>
+    </div>
+
+    <button class="collapsible">Ultrasound Artifacts — What They Mean</button>
+    <div class="panel">
+      <table class="interpretation-table">
+        <thead><tr><th>Artifact</th><th>Appearance</th><th>Meaning / Significance</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Posterior acoustic enhancement</strong></td><td>Bright area deep to fluid-filled structure</td><td>Confirms fluid — cyst, abscess, effusion, vessel (fluid transmits sound well)</td></tr>
+          <tr><td><strong>Posterior acoustic shadowing</strong></td><td>Dark shadow deep to echogenic structure</td><td>Dense structure blocking sound — gallstone, calcification, bone, foreign body</td></tr>
+          <tr><td><strong>Reverberation artifact</strong></td><td>Multiple parallel hyperechoic lines repeating at equal intervals</td><td>A-lines (lung/pleural); also from probe face against air; equidistant copies of the pleural line</td></tr>
+          <tr><td><strong>Comet tail / ring-down</strong></td><td>Bright V-shaped or linear artifact from echogenic focus</td><td>Cholesterol crystals, gas bubbles, metallic objects; distinguish from B-lines (B-lines reach screen bottom, erase A-lines)</td></tr>
+          <tr><td><strong>Mirror image artifact</strong></td><td>Duplicate structure on opposite side of strong reflector</td><td>Common at diaphragm — "liver" appearing above diaphragm is mirror artifact, not pleural collection</td></tr>
+          <tr><td><strong>Anisotropy</strong></td><td>Tendon/ligament appears dark (hypoechoic) when probe angled off-axis</td><td>Not pathology — keep probe perpendicular to tendon to see true echogenicity</td></tr>
+          <tr><td><strong>Edge shadowing</strong></td><td>Thin dark shadow at curved edges of round structures</td><td>Normal — seen at edges of cysts, vessels, gallbladder</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+
+  <!-- ─── BEDSIDE ECHO ─── -->
+  <div id="pocus-echo" style="scroll-margin-top:80px">
+    <h3 style="border-bottom:2px solid #c8e6c9;padding-bottom:4px;margin-top:24px;">❤️ Bedside Echo (FoCUS)</h3>
+    <p class="muted">Focused Cardiac Ultrasound — answers binary questions about cardiac function. Not a comprehensive echo. Use phased array probe. ACGME Milestone PC-12.</p>
+
+    <button class="collapsible">Four Standard Windows</button>
+    <div class="panel">
+      <table>
+        <thead><tr><th>Window</th><th>Probe Position</th><th>Structures Seen</th><th>Key Questions</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Parasternal Long Axis (PLAX)</strong></td>
+            <td>Left sternal border, 3rd–4th ICS; indicator toward right shoulder; patient slightly left lateral decubitus</td>
+            <td>LV (body and apex), LVOT, aortic valve, mitral valve, RV anteriorly, descending aorta (posterior)</td>
+            <td>Global LV function? Pericardial effusion (posterior to LV, anterior to descending aorta)? Aortic root dilation (&gt;4 cm)?</td>
+          </tr>
+          <tr>
+            <td><strong>Parasternal Short Axis (PSAX)</strong></td>
+            <td>Same position as PLAX; rotate probe 90° clockwise (indicator toward left shoulder)</td>
+            <td>LV in cross-section at papillary muscle level (mid-cavity); RV anteriorly (crescent-shaped); tilt cephalad for aortic valve (Mercedes-Benz sign)</td>
+            <td>LV wall motion (all 6 segments visible)? D-sign (flattened septum = RV pressure overload)? Papillary muscle asymmetry?</td>
+          </tr>
+          <tr>
+            <td><strong>Apical 4-Chamber (A4C)</strong></td>
+            <td>Cardiac apex — lateral chest wall ~5th ICS, mid-clavicular line (feel for apical impulse); indicator toward patient's left</td>
+            <td>All 4 chambers simultaneously; mitral and tricuspid valves; interatrial and interventricular septa</td>
+            <td>LV:RV size ratio (normal RV &lt;2/3 LV)? Global biventricular function? Pericardial effusion? Wall motion?</td>
+          </tr>
+          <tr>
+            <td><strong>Subxiphoid (Subcostal)</strong></td>
+            <td>Probe flat against epigastrium, nearly parallel to skin; indicator toward patient's left; angled toward left shoulder</td>
+            <td>All 4 chambers (liver as acoustic window); pericardium clearly seen anterior to RV; IVC entering RA</td>
+            <td>Pericardial effusion (anterior to RV = between RV and liver)? RV collapse (tamponade)? Emergency window when parasternal limited (COPD, obese, post-op)</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="info-box">
+        <h4>💡 Can't Get Parasternal Windows?</h4>
+        <p>COPD/hyperinflation, obesity, and post-surgical dressings commonly limit parasternal views. Subxiphoid is your rescue window — accessible in almost all patients and sufficient to answer tamponade, gross LV function, and pericardial effusion questions.</p>
+      </div>
+    </div>
+
+    <button class="collapsible">LV Function — Eyeball EF Assessment</button>
+    <div class="panel">
+      <p class="small">Visual estimation of EF is reproducible to ±10–15% with experience and clinically sufficient for acute decision-making. Use PLAX and A4C views together.</p>
+      <table class="interpretation-table">
+        <thead><tr><th>Category</th><th>EF</th><th>Appearance</th><th>Clinical Significance</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-normal">Normal</span></td><td>55–70%</td><td>Walls move inward ≥30%; LV cavity clearly reduces in systole; endocardium brisk inward motion</td><td>Normal systolic function</td></tr>
+          <tr><td><strong>Mildly reduced</strong></td><td>40–54%</td><td>Walls move inward but less than expected; cavity reduces but not completely</td><td>HFrEF mild; may not be obvious on eyeball — formal echo needed</td></tr>
+          <tr><td><span class="badge badge-abnormal">Reduced</span></td><td>&lt;40%</td><td>Poor inward wall motion; LV cavity barely changes between systole and diastole; "bag of worms" or "rocking" appearance</td><td>Significant systolic dysfunction; cardiogenic shock if hemodynamically unstable</td></tr>
+          <tr><td><strong>Hyperdynamic</strong></td><td>&gt;70%</td><td>Walls nearly obliterate LV cavity in systole; papillary muscles appear to touch</td><td>Sepsis, anemia, hypovolemia, hyperthyroidism; in shock → distributive etiology more likely than cardiogenic</td></tr>
+        </tbody>
+      </table>
+      <h4>E-Point Septal Separation (EPSS) — Objective EF Estimate</h4>
+      <ul>
+        <li>In PLAX view with M-mode through mitral valve leaflet tip: measure gap between anterior mitral leaflet (E-point) and interventricular septum</li>
+        <li><strong>Normal: &lt;7 mm</strong></li>
+        <li><strong>&gt;7 mm:</strong> Suggests reduced EF (sensitivity ~80% for EF &lt;40%)</li>
+        <li>Limitation: Aortic regurgitation causes elevated EPSS independent of EF</li>
+      </ul>
+    </div>
+
+    <button class="collapsible">Pericardial Effusion &amp; Tamponade</button>
+    <div class="panel">
+      <h4>Identifying Pericardial Effusion</h4>
+      <ul>
+        <li>Anechoic (black) stripe surrounding heart in PLAX, A4C, or subxiphoid views</li>
+        <li><strong>Circumferential vs loculated:</strong> Circumferential = present in all views; loculated = may only be visible in one or two windows (post-surgical, inflammatory)</li>
+        <li>In PLAX: posterior to LV AND anterior to descending thoracic aorta = pericardial effusion (not pleural). Fluid posterior to descending aorta = pleural effusion</li>
+      </ul>
+      <h4>Effusion Sizing</h4>
+      <table>
+        <thead><tr><th>Size</th><th>Diastolic Separation (PLAX)</th></tr></thead>
+        <tbody>
+          <tr><td>Small</td><td>&lt;1 cm (posterior)</td></tr>
+          <tr><td>Moderate</td><td>1–2 cm</td></tr>
+          <tr><td>Large</td><td>&gt;2 cm; circumferential</td></tr>
+        </tbody>
+      </table>
+      <h4>Tamponade Physiology — POCUS Signs</h4>
+      <ul>
+        <li><strong>RA systolic collapse:</strong> RA free wall inverts during systole (earliest sign); best seen in subxiphoid or A4C view</li>
+        <li><strong>RV diastolic collapse:</strong> RV free wall inverts during diastole (more specific); PLAX or subxiphoid; longer collapse = more hemodynamic significance</li>
+        <li><strong>IVC plethora:</strong> IVC &gt;2.1 cm, non-collapsible (&lt;50% with sniff) — elevated RAP from tamponade</li>
+        <li><strong>Respiratory variation of inflow:</strong> &gt;25% variation in MV E-velocity = pulsus paradoxus equivalent (requires Doppler)</li>
+        <li><strong>Swinging heart:</strong> Cardiac motion oscillates within large effusion (correlates with electrical alternans on ECG)</li>
+      </ul>
+      <div class="danger-box">
+        <h4>🚨 Tamponade is a Clinical + POCUS Diagnosis</h4>
+        <p>POCUS findings support tamponade — but tamponade is ultimately clinical (hypotension, JVD, tachycardia, pulsus paradoxus &gt;10 mmHg). Small effusions can cause tamponade (loculated post-surgical). Large effusions may be well-tolerated if accumulated slowly. Treat the patient, not the image.</p>
+      </div>
+      <h4>Pericardiocentesis Guidance</h4>
+      <ul>
+        <li>POCUS-guided approach: use subxiphoid window to identify effusion; measure depth and angle to largest pocket</li>
+        <li>Mark optimal needle entry point and angle on skin before procedure</li>
+        <li>Preferred entry: subxiphoid (below xiphoid process, angle toward left shoulder at ~45°) OR apical (5th–6th ICS, anterior axillary line, toward right shoulder)</li>
+        <li>Inject agitated saline (microbubbles) — if bubbles appear in RV first = needle in RV (reposition); if in pericardial space = correct</li>
+        <li>Real-time guidance preferred for loculated effusions — IR or echo lab ideal; bedside for emergency</li>
+      </ul>
+      <a href="im_guide.html#tamponade" class="cross-link">📚 Cardiac Tamponade (IMCRG)</a>
+    </div>
+
+    <button class="collapsible">RV Strain &amp; Massive PE</button>
+    <div class="panel">
+      <p class="muted">RV dilation and dysfunction are the key POCUS findings in massive/submassive PE. No single sign is diagnostic — look for the pattern.</p>
+      <h4>RV Strain Signs</h4>
+      <table class="interpretation-table">
+        <thead><tr><th>Sign</th><th>View</th><th>Finding</th><th>Significance</th></tr></thead>
+        <tbody>
+          <tr><td><strong>RV dilation</strong></td><td>A4C</td><td>RV diameter &gt;2/3 of LV diameter (or RV:LV ratio &gt;1.0)</td><td>RV pressure overload — PE, pulmonary HTN, ARDS, RV MI</td></tr>
+          <tr><td><strong>D-sign (septal flattening)</strong></td><td>PSAX</td><td>LV appears D-shaped (flattened septum) instead of circular; septum bows into LV</td><td>RV pressure &gt; LV pressure; acute cor pulmonale; massive PE until proven otherwise</td></tr>
+          <tr><td><strong>McConnell's sign</strong></td><td>A4C</td><td>RV free wall akinesis with preserved or hyperkinetic RV apex ("apical sparing")</td><td>Highly specific for acute PE (~94%); distinguishes PE from other causes of acute RV dilation</td></tr>
+          <tr><td><strong>60/60 sign</strong></td><td>PSAX (Doppler)</td><td>RVOT acceleration time &lt;60 ms AND tricuspid gradient &lt;60 mmHg</td><td>Suggests acute (not chronic) RV pressure overload — PE vs chronic pulmonary HTN</td></tr>
+          <tr><td><strong>Tricuspid regurgitation</strong></td><td>A4C (Color Doppler)</td><td>TR jet; elevated RVSP if measurable</td><td>Elevated RVSP (&gt;35 mmHg) supports pulmonary HTN or acute PE</td></tr>
+          <tr><td><strong>IVC plethora</strong></td><td>Subxiphoid</td><td>IVC &gt;2.1 cm, non-collapsible</td><td>Elevated RAP from RV failure</td></tr>
+        </tbody>
+      </table>
+      <div class="warning-box">
+        <h4>⚠️ RV Dilation Alone is Not Specific for PE</h4>
+        <p>RV dilation occurs in chronic pulmonary HTN, RV MI, ARDS, severe TR. McConnell's sign is the most PE-specific finding. Clinical context (acute onset, risk factors, hypoxia) + POCUS pattern together guide management. POCUS does NOT diagnose PE — CT-PA or V/Q is definitive.</p>
+      </div>
+      <a href="im_guide.html#pe" class="cross-link">📚 Pulmonary Embolism (IMCRG)</a>
+    </div>
+
+    <button class="collapsible">Regional Wall Motion Abnormalities (RWMA)</button>
+    <div class="panel">
+      <p class="muted">Regional hypokinesis, akinesis, or dyskinesis suggests coronary artery disease (ischemia or infarction) in the appropriate clinical context.</p>
+      <h4>LV Segmentation — 17-Segment Model (Simplified for POCUS)</h4>
+      <table>
+        <thead><tr><th>Wall</th><th>PLAX</th><th>PSAX (mid)</th><th>A4C</th><th>Coronary Territory</th></tr></thead>
+        <tbody>
+          <tr><td>Anterior septum</td><td>✓</td><td>✓</td><td>—</td><td>LAD</td></tr>
+          <tr><td>Anterior wall</td><td>—</td><td>✓</td><td>—</td><td>LAD</td></tr>
+          <tr><td>Lateral wall</td><td>—</td><td>✓</td><td>✓ (lateral)</td><td>LCx</td></tr>
+          <tr><td>Inferior wall</td><td>—</td><td>✓</td><td>—</td><td>RCA (usually)</td></tr>
+          <tr><td>Posterior / inferolateral</td><td>✓ (posterior LV)</td><td>✓</td><td>—</td><td>RCA / LCx</td></tr>
+          <tr><td>Inferior septum</td><td>—</td><td>✓</td><td>✓ (septal)</td><td>RCA / LAD</td></tr>
+        </tbody>
+      </table>
+      <h4>Assessing Wall Motion</h4>
+      <ul>
+        <li><strong>Normal:</strong> Wall thickens AND moves inward symmetrically during systole</li>
+        <li><strong>Hypokinesis:</strong> Reduced but present inward motion and thickening</li>
+        <li><strong>Akinesis:</strong> Absent motion and thickening — wall neither moves nor thickens</li>
+        <li><strong>Dyskinesis:</strong> Paradoxical outward motion during systole (aneurysm, severe ischemia)</li>
+      </ul>
+      <div class="info-box">
+        <h4>💡 Stress Cardiomyopathy (Takotsubo)</h4>
+        <p>Apical ballooning with preserved basal function — mimics LAD occlusion on ECG but RWMA extends beyond a single coronary territory (apical + mid segments, all walls). Classic presentation: post-emotional stress in older women. POCUS can strongly suggest this pattern.</p>
+      </div>
+      <a href="im_guide.html#acs" class="cross-link">📚 ACS (IMCRG)</a>
+    </div>
+
+    <button class="collapsible">IVC Assessment — Volume Status</button>
+    <div class="panel">
+      <ol class="step-list">
+        <li>Patient supine; phased array or curvilinear probe at subxiphoid/epigastric position</li>
+        <li>Angle probe toward right atrium; identify IVC as anechoic tubular structure to right of aorta, draining into RA</li>
+        <li>Confirm IVC (not aorta): IVC compressible, non-pulsatile, flows into RA; aorta pulsatile, non-compressible, gives off branches</li>
+        <li>Measure maximum diameter in M-mode or 2D, 2 cm from RA-IVC junction, during quiet breathing</li>
+        <li>Assess collapsibility: ask patient to sniff (sharp nasal inspiration); measure % diameter reduction</li>
+      </ol>
+      <table class="interpretation-table">
+        <thead><tr><th>IVC Diameter</th><th>Collapsibility (Sniff)</th><th>Estimated RAP</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>&lt;2.1 cm</td><td>&gt;50%</td><td>0–5 mmHg</td><td>Low RAP — volume responsive; hypovolemia likely</td></tr>
+          <tr><td>&lt;2.1 cm</td><td>&lt;50%</td><td>5–10 mmHg</td><td>Indeterminate</td></tr>
+          <tr><td>&gt;2.1 cm</td><td>&gt;50%</td><td>5–10 mmHg</td><td>Indeterminate</td></tr>
+          <tr><td>&gt;2.1 cm</td><td>&lt;50%</td><td>10–20 mmHg</td><td>Elevated RAP — fluid overloaded, RV failure, tamponade, tension PTX</td></tr>
+        </tbody>
+      </table>
+      <div class="warning-box">
+        <h4>⚠️ IVC Limitations</h4>
+        <p>Unreliable in: mechanical ventilation (positive pressure reverses relationship), severe TR, severe pulmonary hypertension, high abdominal pressure. Do not use IVC alone — integrate with clinical assessment and other POCUS findings.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── LUNG POCUS ─── -->
+  <div id="pocus-lung" style="scroll-margin-top:80px">
+    <h3 style="border-bottom:2px solid #c8e6c9;padding-bottom:4px;margin-top:24px;">🫁 Lung POCUS</h3>
+    <p class="muted">Lung POCUS has superior sensitivity to CXR for pneumothorax, pleural effusion, and pulmonary edema. Use linear probe for pleural line assessment; curvilinear or phased array for deeper structures.</p>
+
+    <button class="collapsible">Lung Zones &amp; Scanning Protocol</button>
+    <div class="panel">
+      <h4>8-Zone Protocol (Lichtenstein)</h4>
+      <ul>
+        <li>4 zones per side (anterior, anterolateral, posterolateral, posterior) — each assessed in longitudinal orientation</li>
+        <li>Anterior zones: patient supine; probe longitudinal in midclavicular line (2nd and 4th ICS)</li>
+        <li>Lateral/posterior zones: patient in lateral decubitus or sitting; probe at mid-axillary and posterior axillary lines</li>
+      </ul>
+      <h4>Pleural Line Identification</h4>
+      <ul>
+        <li>Place probe longitudinally between two ribs — ribs appear as hyperechoic curved structures with posterior shadowing ("bat sign")</li>
+        <li>Pleural line = bright horizontal hyperechoic line between rib shadows, ~0.5 cm deep to rib surface</li>
+        <li>All lung signs originate from the pleural line</li>
+      </ul>
+    </div>
+
+    <button class="collapsible">Lung Signs — Full Reference</button>
+    <div class="panel">
+      <table class="interpretation-table">
+        <thead><tr><th>Sign</th><th>Appearance</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A-lines</strong></td><td>Horizontal hyperechoic lines equidistant below pleural line (reverberation artifact); distance = probe-to-pleural line distance repeated</td><td>Air at pleural surface = normal aeration OR pneumothorax. Must combine with lung sliding to differentiate: A-lines + sliding = normal; A-lines + absent sliding = pneumothorax</td></tr>
+          <tr><td><strong>Lung sliding</strong></td><td>Shimmering movement of the pleural line with respiration ("ants marching"); both pleural layers moving together</td><td>Rules out pneumothorax at that probe position. Present = visceral and parietal pleura are apposed. Absent sliding requires further evaluation (PTX, pleurodesis, main stem intubation, severe consolidation)</td></tr>
+          <tr><td><strong>B-lines</strong></td><td>Hyperechoic vertical laser-like lines arising from pleural line, reaching bottom of screen without fading; erase A-lines; move with lung sliding</td><td>Interstitial fluid (thickened interlobular septa). ≥3 B-lines per zone = interstitial syndrome. Bilateral diffuse = cardiogenic pulmonary edema (CHF). Focal/unilateral = pneumonia, pulmonary contusion, atelectasis</td></tr>
+          <tr><td><strong>Pleural effusion</strong></td><td>Anechoic (or hypoechoic) collection above diaphragm; lung floats or collapses within it; "spine sign" (vertebral bodies visible above diaphragm through fluid)</td><td>Effusion present. Echogenicity: anechoic = likely transudate; complex (septations, echogenic debris) = exudate, empyema, hemothorax</td></tr>
+          <tr><td><strong>Consolidation</strong></td><td>Tissue-like echogenicity (hepatization — looks like liver); branching hyperechoic lines within = air bronchograms</td><td>Pneumonia (dynamic air bronchograms — moving with respiration), atelectasis (static bronchograms), infarction (wedge-shaped, pleural-based)</td></tr>
+          <tr><td><strong>Absent sliding + A-lines</strong></td><td>Static pleural line; A-lines present; no B-lines</td><td>Pneumothorax at that site until proven otherwise. Confirm with M-mode (barcode/stratosphere sign)</td></tr>
+          <tr><td><strong>Lung point</strong></td><td>Transition point where lung sliding is present on one side and absent on the other within the same probe position</td><td>Pathognomonic for pneumothorax (100% specific). Represents the lateral edge of the pneumothorax. Size correlates with how lateral the lung point is found.</td></tr>
+        </tbody>
+      </table>
+      <h4>M-mode Pneumothorax Confirmation</h4>
+      <ul>
+        <li><strong>Normal — seashore sign:</strong> Above pleural line: horizontal lines (stationary chest wall). Below pleural line: granular sandy pattern (moving lung). "Waves on a sandy shore."</li>
+        <li><strong>Pneumothorax — barcode / stratosphere sign:</strong> Horizontal lines throughout entire image (no granular pattern below pleural line). No lung movement = air between probe and lung.</li>
+      </ul>
+    </div>
+
+    <button class="collapsible">BLUE Protocol — Acute Respiratory Failure</button>
+    <div class="panel">
+      <p class="muted">Lichtenstein's Bedside Lung Ultrasound in Emergency protocol. Diagnoses etiology of acute respiratory failure with ~90% accuracy using 3 probe positions per side.</p>
+      <table>
+        <thead><tr><th>Profile</th><th>Findings</th><th>Diagnosis</th><th>Accuracy</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A-profile</strong></td><td>Bilateral A-lines + lung sliding</td><td>COPD exacerbation or asthma (with DVT = PE)</td><td>~89%</td></tr>
+          <tr><td><strong>B-profile</strong></td><td>Bilateral anterior B-lines + lung sliding</td><td>Pulmonary edema (CHF)</td><td>~97%</td></tr>
+          <tr><td><strong>A/B-profile</strong></td><td>A-lines one side, B-lines other side</td><td>Pneumonia</td><td>~100%</td></tr>
+          <tr><td><strong>C-profile</strong></td><td>Anterior consolidation</td><td>Pneumonia</td><td>~42% alone, higher in context</td></tr>
+          <tr><td><strong>A-profile + DVT</strong></td><td>A-lines + lower extremity DVT</td><td>Pulmonary embolism</td><td>~81% (PLAPS-point assessment adds to this)</td></tr>
+          <tr><td><strong>A-profile + absent sliding</strong></td><td>A-lines + no lung sliding</td><td>Pneumothorax</td><td>~100% with lung point</td></tr>
+        </tbody>
+      </table>
+      <a href="im_guide.html#respiratory-failure" class="cross-link">📚 Respiratory Failure (IMCRG)</a>
+      <a href="im_guide.html#pulmonary-edema" class="cross-link">📚 Pulmonary Edema (IMCRG)</a>
+      <a href="im_guide.html#pneumothorax" class="cross-link">📚 Pneumothorax (IMCRG)</a>
+    </div>
+  </div>
+
+  <!-- ─── ABDOMINAL POCUS ─── -->
+  <div id="pocus-abdominal" style="scroll-margin-top:80px">
+    <h3 style="border-bottom:2px solid #c8e6c9;padding-bottom:4px;margin-top:24px;">🫀 Abdominal POCUS</h3>
+    <p class="muted">Use curvilinear probe for all abdominal applications unless otherwise noted. Depth 15–25 cm for most views.</p>
+
+    <button class="collapsible">Aorta — AAA Screening &amp; Assessment</button>
+    <div class="panel">
+      <h4>Technique</h4>
+      <ol class="step-list">
+        <li>Patient supine; curvilinear probe in epigastrium, transverse orientation (indicator toward patient's right)</li>
+        <li>Identify aorta: midline, anterior to vertebral shadow, pulsatile, round in transverse — distinguish from IVC (to patient's right, compressible, non-pulsatile)</li>
+        <li>Measure outer wall-to-outer wall diameter in transverse at 3 levels: proximal (just below diaphragm), mid (at level of renal arteries), and distal (just above bifurcation at umbilicus)</li>
+        <li>Longitudinal view confirms tubular structure and shows entire course; watch for abrupt dilation</li>
+        <li>If aneurysm found: assess for free fluid in abdomen (Morrison's pouch, perisplenic, pelvis) — suggests rupture</li>
+      </ol>
+      <h4>Interpretation</h4>
+      <table class="interpretation-table">
+        <thead><tr><th>Diameter</th><th>Classification</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>&lt;3.0 cm</td><td>Normal</td><td>No further workup needed</td></tr>
+          <tr><td>3.0–4.4 cm</td><td>Small AAA</td><td>Outpatient vascular surgery referral; US surveillance every 6–12 months</td></tr>
+          <tr><td>4.5–5.4 cm</td><td>Moderate AAA</td><td>Vascular surgery consultation; surveillance every 6 months</td></tr>
+          <tr><td>≥5.5 cm (men) / ≥5.0 cm (women)</td><td>Large AAA — repair threshold</td><td>Urgent vascular surgery consultation; elective repair recommended</td></tr>
+          <tr><td>Any size + free fluid + hemodynamic instability</td><td><span class="badge badge-critical">Ruptured AAA</span></td><td>Emergent OR — do not delay for CT; activate trauma/vascular surgery immediately</td></tr>
+        </tbody>
+      </table>
+      <div class="warning-box">
+        <h4>⚠️ Limitations</h4>
+        <p>Bowel gas commonly obscures mid-aorta. Obesity limits penetration. If aorta not visualized, do not report as normal — formal CT or vascular US required. POCUS is highly sensitive for AAA when visualized but technically limited in ~5–15% of patients.</p>
+      </div>
+      <a href="im_guide.html#aaa" class="cross-link">📚 Aortic Aneurysm (IMCRG)</a>
+    </div>
+
+    <button class="collapsible">FAST Exam (Focused Assessment with Sonography in Trauma)</button>
+    <div class="panel">
+      <p class="muted">Four-view exam for free intraperitoneal and pericardial fluid. Extended FAST (eFAST) adds bilateral lung assessment for pneumothorax/hemothorax.</p>
+      <h4>Four FAST Views</h4>
+      <ol class="step-list">
+        <li><strong>Right upper quadrant — Morrison's pouch (hepatorenal space):</strong> Curvilinear probe in right mid-axillary line, coronal view. Identify liver, right kidney, and the potential space between them. Free fluid (blood) collects here first in supine patient.</li>
+        <li><strong>Left upper quadrant — splenorenal space:</strong> Curvilinear probe in left posterior axillary line, coronal view. More posterior than RUQ view. Identify spleen, left kidney, space between; also assess for subphrenic fluid.</li>
+        <li><strong>Pelvis (pouch of Douglas / rectovesical):</strong> Curvilinear probe suprapubic, transverse then longitudinal. Identify full bladder as landmark; assess for free fluid posterior to bladder (females: posterior cul-de-sac; males: rectovesical pouch).</li>
+        <li><strong>Subxiphoid cardiac view:</strong> Phased array or curvilinear; assess for pericardial effusion as above.</li>
+      </ol>
+      <h4>Interpretation</h4>
+      <ul>
+        <li><strong>Positive FAST:</strong> Anechoic (black) fluid in any of the 4 spaces = free fluid = blood until proven otherwise in trauma → activates surgical team</li>
+        <li><strong>Negative FAST:</strong> Does not exclude injury — solid organ lacerations without hemoperitoneum, retroperitoneal injuries, hollow viscus injuries will be missed</li>
+        <li><strong>Sensitivity:</strong> ~80–90% for significant hemoperitoneum (100 mL detectable in skilled hands); sensitivity drops with early or small bleeds</li>
+      </ul>
+      <h4>eFAST — Add Bilateral Lung Views</h4>
+      <ul>
+        <li>Linear probe; anterior chest bilaterally; assess for absent sliding (pneumothorax) and pleural effusion/hemothorax (posterolateral views)</li>
+        <li>Faster than CXR for PTX and hemothorax detection in trauma bay</li>
+      </ul>
+    </div>
+
+    <button class="collapsible">Biliary POCUS — Gallbladder &amp; Bile Ducts</button>
+    <div class="panel">
+      <h4>Technique</h4>
+      <ol class="step-list">
+        <li>Patient fasting ≥4 hours ideally (gallbladder contracted when fasting if bile duct obstruction — visualize anyway if emergent)</li>
+        <li>Curvilinear probe; patient supine or left lateral decubitus</li>
+        <li>Start subcostal below right costal margin in midclavicular line; angle under ribs toward right shoulder; sweep through liver to find GB</li>
+        <li>Alternatively: intercostal approach in right midaxillary line (8th–9th ICS) through liver window</li>
+        <li>Gallbladder: anechoic pear-shaped structure; identify neck, body, fundus; measure wall thickness; assess for stones (shadowing), sludge (gravity-dependent echogenicity without shadowing)</li>
+        <li>Common bile duct: identified anterior to portal vein at porta hepatis; measure internal diameter</li>
+      </ol>
+      <h4>Interpretation</h4>
+      <table class="interpretation-table">
+        <thead><tr><th>Finding</th><th>Significance</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>Gallstones (hyperechoic with posterior shadowing, gravity-dependent)</td><td>Cholelithiasis</td><td>Correlate clinically; surgical referral if symptomatic</td></tr>
+          <tr><td>GB wall thickening &gt;3 mm + stones + sonographic Murphy's sign</td><td>Acute cholecystitis</td><td>Surgery consultation; NPO; IV antibiotics</td></tr>
+          <tr><td>Sonographic Murphy's sign</td><td>Maximum tenderness with probe directly over GB (not just RUQ palpation) — positive = patient pulls away or grimaces specifically at GB pressure</td><td>Highly specific for cholecystitis when combined with wall thickening and stones</td></tr>
+          <tr><td>Pericholecystic fluid</td><td>Peritoneal inflammation around GB; suggests severe cholecystitis or perforation</td><td>Urgent surgery consultation</td></tr>
+          <tr><td>CBD dilation &gt;6 mm (add 1 mm per decade over 50; post-cholecystectomy &gt;10 mm)</td><td>Biliary obstruction — choledocholithiasis, stricture, malignancy</td><td>MRCP or ERCP consultation; hepatobiliary surgery; check LFTs, bilirubin, lipase</td></tr>
+          <tr><td>Sludge (low-level echoes, no shadowing, gravity-dependent)</td><td>Bile stasis; does not confirm cholecystitis alone</td><td>Clinical correlation; may progress to stones</td></tr>
+        </tbody>
+      </table>
+      <div class="warning-box">
+        <h4>⚠️ Acalculous Cholecystitis</h4>
+        <p>ICU patients and critically ill: cholecystitis without stones. POCUS: GB wall thickening &gt;3 mm, pericholecystic fluid, GB distension, positive sonographic Murphy's sign (may be unreliable if sedated). High mortality if missed — low threshold for hepatobiliary surgery consultation.</p>
+      </div>
+      <a href="im_guide.html#cholecystitis" class="cross-link">📚 Cholecystitis (IMCRG)</a>
+      <a href="im_guide.html#choledocholithiasis" class="cross-link">📚 Choledocholithiasis (IMCRG)</a>
+    </div>
+
+    <button class="collapsible">Renal &amp; Bladder POCUS</button>
+    <div class="panel">
+      <h4>Renal Technique</h4>
+      <ol class="step-list">
+        <li>Curvilinear probe; right kidney: right midaxillary line, coronal view through liver window (8th–10th ICS); left kidney: left posterior axillary line through spleen</li>
+        <li>Identify kidney — bean-shaped, hyperechoic cortex, hypoechoic medullary pyramids, central echogenic renal sinus fat</li>
+        <li>Measure bipolar length (normal 9–12 cm); assess cortical thickness and echogenicity</li>
+        <li>Assess collecting system for hydronephrosis (dilation of renal pelvis and calyces)</li>
+      </ol>
+      <h4>Hydronephrosis Grading</h4>
+      <table class="interpretation-table">
+        <thead><tr><th>Grade</th><th>POCUS Finding</th><th>Significance</th></tr></thead>
+        <tbody>
+          <tr><td>None</td><td>Renal pelvis not visible or &lt;5 mm</td><td>No obstruction</td></tr>
+          <tr><td>Mild (Grade 1)</td><td>Pelvis slightly dilated; calyces normal</td><td>May be normal variant (hydration, full bladder); reassess after voiding</td></tr>
+          <tr><td>Moderate (Grade 2)</td><td>Pelvis and calyces both dilated; cortex preserved</td><td>Obstruction likely; CT or formal US for etiology (stone, mass, stricture)</td></tr>
+          <tr><td>Severe (Grade 3–4)</td><td>Marked dilation; cortical thinning; "bag of fluid" appearance</td><td>Significant obstruction; urology consultation; nephrostomy may be needed urgently</td></tr>
+        </tbody>
+      </table>
+      <h4>Other Renal Findings</h4>
+      <ul>
+        <li><strong>Hyperechoic cortex:</strong> Increased cortical echogenicity (brighter than liver) = medical renal disease — chronic kidney disease, glomerulonephritis, diabetic nephropathy</li>
+        <li><strong>Cortical thinning:</strong> Cortex &lt;7 mm = CKD; loss of corticomedullary differentiation</li>
+        <li><strong>Simple cyst:</strong> Anechoic, thin wall, posterior enhancement, no internal echoes — Bosniak I</li>
+        <li><strong>Perinephric fluid:</strong> Urinoma, hematoma, abscess</li>
+      </ul>
+      <h4>Bladder Scan — Post-Void Residual / Urinary Retention</h4>
+      <ul>
+        <li>Curvilinear or phased array; suprapubic; transverse and longitudinal views</li>
+        <li>Bladder = anechoic (black) structure in pelvis; posterior enhancement</li>
+        <li>Volume (mL) ≈ length × width × height × 0.52 (ellipsoid formula)</li>
+        <li><strong>Post-void residual &gt;300 mL</strong> = clinically significant urinary retention — Foley catheter or straight catheter</li>
+        <li><strong>PVR &gt;150 mL</strong> in symptomatic patients = abnormal; urology consultation</li>
+        <li>Assess for bladder wall thickening (&gt;5 mm with full bladder = abnormal — cystitis, outlet obstruction, malignancy)</li>
+      </ul>
+      <a href="im_guide.html#aki" class="cross-link">📚 AKI (IMCRG)</a>
+      <a href="im_guide.html#ckd" class="cross-link">📚 CKD (IMCRG)</a>
+    </div>
+
+    <button class="collapsible">Ascites Assessment</button>
+    <div class="panel">
+      <ul>
+        <li>Curvilinear probe; assess Morrison's pouch, perisplenic, pelvis, and flanks for free fluid</li>
+        <li>Free ascites: anechoic fluid in dependent spaces; bowel loops float within it; "swirling" of bowel with position change confirms free fluid vs loculated</li>
+        <li>Identify largest pocket for paracentesis marking; measure depth to fluid AND depth through fluid to underlying structures (bowel, vessels)</li>
+        <li>Echogenic ascites (fibrin strands, septations) = exudate, blood, malignancy — correlate with clinical picture</li>
+        <li>SAAG does not correlate with US echogenicity — all require diagnostic paracentesis for definitive classification</li>
+      </ul>
+      <a href="#paracentesis" class="cross-link">🔧 Paracentesis Technique</a>
+    </div>
+  </div>
+
+  <!-- ─── VASCULAR POCUS ─── -->
+  <div id="pocus-vascular" style="scroll-margin-top:80px">
+    <h3 style="border-bottom:2px solid #c8e6c9;padding-bottom:4px;margin-top:24px;">🩸 Vascular POCUS</h3>
+
+    <button class="collapsible">DVT Compression Ultrasound</button>
+    <div class="panel">
+      <h4>Technique — 2-Point (or 3-Point) Compression</h4>
+      <ol class="step-list">
+        <li>Linear probe (7–15 MHz); patient supine with leg externally rotated; knee slightly bent</li>
+        <li><strong>Point 1 — Common Femoral Vein (CFV):</strong> Inguinal crease level; identify femoral vessels (vein medial to artery in transverse view); apply firm probe compression — normal vein walls collapse completely</li>
+        <li><strong>Point 2 — Femoral vein at mid-thigh (3-point):</strong> Track femoral vein down mid-thigh; compress</li>
+        <li><strong>Point 3 — Popliteal Vein:</strong> Patient prone or knee flexed (frog-leg); popliteal fossa; vein superficial to artery; compress</li>
+        <li>Color Doppler confirms flow (blue/red) in vessels; absence of flow in non-compressible vein confirms thrombosis</li>
+      </ol>
+      <h4>Interpretation</h4>
+      <table>
+        <thead><tr><th>Finding</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>Vein fully compressible — walls touch with gentle pressure</td><td>No DVT at that site</td></tr>
+          <tr><td>Vein incompletely or non-compressible</td><td>DVT present — echogenic thrombus may be visible within lumen</td></tr>
+          <tr><td>No color Doppler flow in non-compressible vein</td><td>Confirms DVT; acute thrombus may be anechoic (appears like normal vein — compressibility is critical)</td></tr>
+        </tbody>
+      </table>
+      <div class="warning-box">
+        <h4>⚠️ Limitations</h4>
+        <p>2-point misses isolated iliac vein and calf DVTs. Sensitivity 94–96% for proximal DVT; ~60% for calf. If high pre-test probability and negative 2-point: formal venous duplex or repeat in 5–7 days. POCUS does not replace formal vascular lab in complex or low-probability cases.</p>
+      </div>
+      <a href="im_guide.html#dvt" class="cross-link">📚 DVT (IMCRG)</a>
+      <a href="im_guide.html#pe" class="cross-link">📚 PE (IMCRG)</a>
+    </div>
+
+    <button class="collapsible">Peripheral IV &amp; Vessel Identification</button>
+    <div class="panel">
+      <h4>POCUS-Guided Peripheral IV (Difficult Access)</h4>
+      <ul>
+        <li>Linear probe; identify basilic or cephalic vein in upper arm or antecubital fossa — compressible, non-pulsatile, anechoic</li>
+        <li>Choose vein ≥4 mm diameter and ≥1 cm depth (shallower = catheter easily falls out; deeper = technically easier with POCUS)</li>
+        <li>Use short-axis (transverse) out-of-plane approach for initial needle visualization, then long-axis to confirm catheter in lumen</li>
+        <li>Catheter tip should be visible within vessel lumen; flush without resistance or subcutaneous swelling confirms placement</li>
+      </ul>
+      <h4>Arterial vs Venous Identification</h4>
+      <table>
+        <thead><tr><th>Feature</th><th>Vein</th><th>Artery</th></tr></thead>
+        <tbody>
+          <tr><td>Compressibility</td><td>Fully compressible</td><td>Non-compressible (or collapses only with very firm pressure)</td></tr>
+          <tr><td>Pulsatility</td><td>None (or transmitted pulsation only)</td><td>Pulsatile — expands with each heartbeat</td></tr>
+          <tr><td>Color Doppler</td><td>Blue (away from probe in standard CFV view) or mixed with respiration</td><td>Red or rapid bidirectional pulsatile signal</td></tr>
+          <tr><td>Wall thickness</td><td>Thin wall</td><td>Thicker wall; visible layers</td></tr>
+          <tr><td>Size change with Valsalva</td><td>Enlarges</td><td>Unchanged</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─── PROCEDURAL POCUS ─── -->
+  <div id="pocus-procedural" style="scroll-margin-top:80px">
+    <h3 style="border-bottom:2px solid #c8e6c9;padding-bottom:4px;margin-top:24px;">🎯 Procedural POCUS Guidance</h3>
+    <p class="muted">US guidance reduces complications and increases first-attempt success for all needle-based procedures. Real-time guidance is superior to static pre-procedure marking.</p>
+
+    <button class="collapsible">Needle Visualization Approaches</button>
+    <div class="panel">
+      <table>
+        <thead><tr><th></th><th>Short-Axis / Out-of-Plane</th><th>Long-Axis / In-Plane</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Setup</strong></td><td>Probe transverse to needle; needle crosses the ultrasound plane</td><td>Probe aligned with needle; needle travels through entire ultrasound plane</td></tr>
+          <tr><td><strong>Visualization</strong></td><td>Needle appears as a bright dot (cross-section); only the part of needle in the imaging plane is seen</td><td>Entire needle shaft and tip visible as hyperechoic line</td></tr>
+          <tr><td><strong>Advantage</strong></td><td>Easier to learn; better vessel/structure visualization; quickly confirms needle in target</td><td>Full needle tip tracking at all times; better for longer procedures; prevents accidental posterior wall puncture</td></tr>
+          <tr><td><strong>Disadvantage</strong></td><td>Easy to lose track of tip (may be imaging shaft not tip); requires probe movement to follow needle</td><td>Narrow plane; harder to maintain alignment; requires more skill</td></tr>
+          <tr><td><strong>Best for</strong></td><td>CVC (IJ), peripheral IV, paracentesis, thoracentesis marking</td><td>Arterial line, nerve blocks, drainage catheters requiring precise depth control</td></tr>
+        </tbody>
+      </table>
+      <div class="info-box">
+        <h4>💡 Finding the Needle Tip (Out-of-Plane)</h4>
+        <p>As needle advances, tilt probe slightly toward needle — the tip appears as a bright hyperechoic dot moving toward target. Tenting of vessel wall or target structure confirms needle is at (not in) the structure. Keep probe over needle tip, not needle shaft.</p>
+      </div>
+    </div>
+
+    <button class="collapsible">Technique Tips by Procedure</button>
+    <div class="panel">
+      <h4>Central Venous Catheter (IJ)</h4>
+      <ul>
+        <li>Short-axis, real-time; confirm IVC compresses before needle insertion</li>
+        <li>Identify needle tip entering lumen (tent then pop into vessel); confirm wire in vessel before dilating</li>
+        <li>After wire placement: confirm wire in IVC not artery using longitudinal view (wire appears as parallel hyperechoic lines within vessel)</li>
+      </ul>
+      <h4>Paracentesis</h4>
+      <ul>
+        <li>Static marking acceptable for large free-flowing effusions; real-time preferred for small or loculated collections</li>
+        <li>Measure skin-to-fluid depth AND distance of fluid column; confirm no bowel or vessel at needle path</li>
+        <li>Color Doppler to rule out inferior epigastric artery at planned entry site (runs lateral to rectus muscle)</li>
+      </ul>
+      <h4>Thoracentesis</h4>
+      <ul>
+        <li>Identify upper rib, lower rib, diaphragm; confirm fluid depth; measure distance from skin to fluid</li>
+        <li>Enter ABOVE the upper rib margin (avoid neurovascular bundle) — confirm position relative to ribs before every insertion</li>
+        <li>Respiratory variation of the diaphragm is important — mark site during expiration; avoid during inspiration (diaphragm rises)</li>
+      </ul>
+      <h4>Lumbar Puncture</h4>
+      <ul>
+        <li>Linear probe; transverse view in midline to identify spinous processes and interspinous space; mark optimal level</li>
+        <li>Longitudinal view to measure depth to posterior dura (hyperechoic line at posterior canal)</li>
+        <li>Most valuable in obese patients where landmarks cannot be palpated — improves first-attempt success significantly</li>
+      </ul>
+      <h4>Hydrodissection</h4>
+      <ul>
+        <li>Inject 1–2 mL saline between target structure and adjacent structures to create visible separation on US</li>
+        <li>Creates a "safety cushion" of fluid between needle path and structures to avoid (nerves, vessels, pleura)</li>
+        <li>Particularly useful for pleural procedures, nerve blocks, and superficial mass biopsies</li>
+      </ul>
+    </div>
+
+    <button class="collapsible">Sterile Technique for Procedural POCUS</button>
+    <div class="panel">
+      <ul>
+        <li><strong>Sterile probe cover:</strong> Required for invasive procedures; place ultrasound gel inside the cover (on the probe face), then sterile gel on the outside at the skin</li>
+        <li><strong>Two-provider approach:</strong> One operator holds probe and guides; second performs needle procedure — reduces contamination risk and allows independent probe/needle control</li>
+        <li><strong>One-provider approach:</strong> Static marking acceptable for most abdominal procedures; real-time one-handed technique possible with practice for vascular access</li>
+        <li><strong>Gel:</strong> Non-sterile gel for pre-procedure scanning; sterile gel only for real-time sterile field procedures</li>
+        <li><strong>After procedure:</strong> Clean probe face with appropriate wipe per manufacturer; do not submerge probe heads not rated for immersion</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── OCULAR POCUS ─── -->
+  <div id="pocus-ocular" style="scroll-margin-top:80px">
+    <h3 style="border-bottom:2px solid #c8e6c9;padding-bottom:4px;margin-top:24px;">👁️ Ocular POCUS</h3>
+    <p class="muted">Non-invasive surrogate for elevated ICP and evaluation of acute visual complaints. Linear probe at lowest power setting (use ocular preset — reduces mechanical and thermal index to safe levels for globe).</p>
+
+    <button class="collapsible">Optic Nerve Sheath Diameter (ONSD) — Elevated ICP</button>
+    <div class="panel">
+      <h4>Technique</h4>
+      <ol class="step-list">
+        <li>Patient supine, eyes closed; apply generous ultrasound gel over closed eyelid (no pressure on globe)</li>
+        <li>Linear probe in transverse orientation over closed upper eyelid; use <strong>ocular preset</strong> (reduces output power — essential for eye safety)</li>
+        <li>Apply minimal probe pressure — let gel make contact, not the probe face</li>
+        <li>Identify globes (anechoic spheres), lens (anterior hyperechoic structure), and optic nerve (hypoechoic tubular structure posterior to globe with hyperechoic sheath)</li>
+        <li>Measure ONSD 3 mm posterior to the posterior wall of the globe (where the sheath is most distensible)</li>
+        <li>Measure both eyes; average the values; repeat if measurement uncertain</li>
+      </ol>
+      <h4>Interpretation</h4>
+      <table class="interpretation-table">
+        <thead><tr><th>ONSD</th><th>Interpretation</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-normal">&lt;5.0 mm</span></td><td>Normal — ICP likely normal</td><td>Low suspicion for elevated ICP; correlate clinically</td></tr>
+          <tr><td>5.0–5.7 mm</td><td>Borderline / indeterminate</td><td>Correlate with clinical signs; consider CT head</td></tr>
+          <tr><td><span class="badge badge-critical">&gt;5.7 mm</span></td><td>Elevated ICP — sensitivity ~90%, specificity ~85% for ICP &gt;20 mmHg</td><td>Urgent neuroimaging; neurology/neurosurgery consultation; ICP-lowering measures if clinically indicated</td></tr>
+        </tbody>
+      </table>
+      <div class="info-box">
+        <h4>💡 Clinical Applications</h4>
+        <p>Useful when CT is delayed in: thunderclap headache (SAH concern), AMS with possible TBI, LP decision-making (if ONSD elevated — increased risk of herniation, CT first), severe hypertensive emergency with suspected hypertensive encephalopathy, post-cardiac arrest neuroprognostication.</p>
+      </div>
+      <div class="warning-box">
+        <h4>⚠️ Limitations</h4>
+        <p>ONSD can be chronically elevated in idiopathic intracranial hypertension (IIH), optic neuritis, orbital masses. Not reliable in optic nerve pathology. Measurement variability between operators (~0.5 mm). Does not replace CT or formal ICP monitoring — use as adjunct to clinical decision-making.</p>
+      </div>
+    </div>
+
+    <button class="collapsible">Other Ocular POCUS Applications</button>
+    <div class="panel">
+      <h4>Retinal Detachment</h4>
+      <ul>
+        <li>Hyperechoic membrane within vitreous chamber (posterior to lens) — distinguishes from vitreous hemorrhage (echogenic without membrane)</li>
+        <li>"Seagull sign" — detached retina undulates with eye movement</li>
+        <li>Sensitivity ~97% vs ophthalmoscopy; useful when red reflex absent or fundoscopy not available</li>
+        <li>Action: emergent ophthalmology consultation; macula-on detachment (vision intact) = surgical emergency</li>
+      </ul>
+      <h4>Vitreous Hemorrhage</h4>
+      <ul>
+        <li>Diffuse low-level echoes within vitreous (not a distinct membrane)</li>
+        <li>"Washing machine" sign — echoes swirl with eye movement</li>
+        <li>Causes: diabetic retinopathy, trauma, retinal tear, posterior vitreous detachment</li>
+        <li>Action: ophthalmology consultation; B-scan POCUS helps guide urgency when fundoscopy limited</li>
+      </ul>
+      <h4>Globe Rupture (Trauma)</h4>
+      <ul>
+        <li>Irregular globe contour; collapsed anterior chamber; "flat tire" sign</li>
+        <li>If suspected: do NOT press on globe — stop exam, place rigid eye shield, emergent ophthalmology</li>
+        <li>Consider CT orbits instead of POCUS if rupture suspected — POCUS pressure risk</li>
+      </ul>
+      <h4>Lens Dislocation</h4>
+      <ul>
+        <li>Lens visible within vitreous chamber posterior to iris (subluxed or dislocated)</li>
+        <li>Associated with Marfan syndrome, trauma, homocystinuria</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── RUSH PROTOCOL ─── -->
+  <div id="pocus-rush" style="scroll-margin-top:80px">
+    <h3 style="border-bottom:2px solid #c8e6c9;padding-bottom:4px;margin-top:24px;">⚡ RUSH Protocol — Undifferentiated Shock</h3>
+    <p class="muted">Rapid Ultrasound in SHock — systematic 5-step exam to identify shock etiology at the bedside. Complete exam takes 3–5 minutes with practice.</p>
+
+    <button class="collapsible">RUSH Exam — Full Protocol</button>
+    <div class="panel">
+      <table>
+        <thead><tr><th>Step</th><th>View(s)</th><th>What to Assess</th><th>Finding → Shock Type</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>1. Pump</strong></td>
+            <td>Cardiac: subxiphoid, PLAX, A4C</td>
+            <td>LV function (EF), RV size, pericardial effusion, valve pathology</td>
+            <td>
+              Poor LV → <strong>Cardiogenic</strong><br>
+              Tamponade (effusion + RV collapse) → <strong>Obstructive</strong><br>
+              RV dilation + D-sign + McConnell's → <strong>Massive PE</strong><br>
+              Hyperdynamic LV → Distributive/Hypovolemic
+            </td>
+          </tr>
+          <tr>
+            <td><strong>2. Tank (volume in)</strong></td>
+            <td>IVC (subcostal)</td>
+            <td>IVC diameter + collapsibility</td>
+            <td>
+              Small (&lt;2.1 cm) + collapsible → <strong>Hypovolemic or Distributive</strong><br>
+              Large (&gt;2.1 cm) + non-collapsible → Cardiogenic or Obstructive
+            </td>
+          </tr>
+          <tr>
+            <td><strong>3. Tank (volume out)</strong></td>
+            <td>FAST: Morrison's pouch, splenorenal, pelvis</td>
+            <td>Free intraperitoneal fluid</td>
+            <td>
+              Free fluid → <strong>Hemorrhagic shock</strong> (trauma, ruptured ectopic, ruptured AAA, ruptured viscus)
+            </td>
+          </tr>
+          <tr>
+            <td><strong>4. Pipes</strong></td>
+            <td>Aorta: epigastric transverse + longitudinal</td>
+            <td>Aortic diameter at 3 levels; free fluid</td>
+            <td>
+              AAA ≥5.5 cm + free fluid → <strong>Ruptured AAA — emergent OR</strong><br>
+              AAA without free fluid → may be stable; CT for confirmation
+            </td>
+          </tr>
+          <tr>
+            <td><strong>5. Lungs</strong></td>
+            <td>Bilateral lung: anterior zones (2–4 per side)</td>
+            <td>B-lines, pleural sliding, effusion, pneumothorax</td>
+            <td>
+              Bilateral B-lines → Pulmonary edema → <strong>Cardiogenic</strong><br>
+              Absent sliding + A-lines → <strong>Tension PTX — immediate decompression</strong><br>
+              Unilateral effusion → Hemothorax
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>Shock Pattern Recognition Summary</h4>
+      <table class="interpretation-table">
+        <thead><tr><th>Shock Type</th><th>LV EF</th><th>IVC</th><th>Lungs</th><th>Other</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Cardiogenic</strong></td><td>Reduced</td><td>Large, non-collapsible</td><td>Bilateral B-lines</td><td>Dilated chambers, valve abnormality</td></tr>
+          <tr><td><strong>Hypovolemic</strong></td><td>Hyperdynamic</td><td>Small, collapsible</td><td>A-lines</td><td>Free fluid if hemorrhagic</td></tr>
+          <tr><td><strong>Distributive (sepsis)</strong></td><td>Hyperdynamic</td><td>Small-normal, collapsible</td><td>A-lines or focal B-lines (source)</td><td>Source-directed findings</td></tr>
+          <tr><td><strong>Obstructive (PE)</strong></td><td>Normal or hyperdynamic</td><td>Large, non-collapsible</td><td>A-lines (normal or focal infarct)</td><td>RV dilation, D-sign, McConnell's, DVT</td></tr>
+          <tr><td><strong>Obstructive (Tamponade)</strong></td><td>Hyperdynamic</td><td>Large, non-collapsible</td><td>A-lines</td><td>Pericardial effusion + RV collapse</td></tr>
+          <tr><td><strong>Obstructive (Tension PTX)</strong></td><td>Hyperdynamic</td><td>Large, non-collapsible</td><td>Absent sliding + A-lines unilateral</td><td>Tracheal deviation, absent breath sounds</td></tr>
+        </tbody>
+      </table>
+      <a href="im_guide.html#sepsis" class="cross-link">📚 Sepsis / Shock (IMCRG)</a>
+      <a href="im_guide.html#pe" class="cross-link">📚 PE (IMCRG)</a>
+      <a href="im_guide.html#tamponade" class="cross-link">📚 Tamponade (IMCRG)</a>
+    </div>
+  </div>
+
 </section>
+
 
 <!-- ═══════════════════════════════════════════════════════════
      PIGTAIL CATHETER / PLEURX
