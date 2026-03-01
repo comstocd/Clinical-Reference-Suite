@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outpatient Internal Medicine Note</title>
+<style>
+:root{
+  --primary:#5c4033;--primary-light:#8d6e63;--primary-dark:#3e2723;
+  --accent:#ef8c22;--bg:#faf8f5;--card:#fff;--text:#1e293b;
+  --muted:#6c757d;--border:#e2d9d0;--sh:#f5efe9;
+  --success:#2e7d32;--danger:#c62828;--warning:#e65100;--info:#1565c0;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;line-height:1.5;font-size:16px}
+.header{background:linear-gradient(135deg,var(--primary-dark),var(--primary) 60%,var(--primary-light));color:#fff;padding:16px 20px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.2)}
+.header h1{margin:0;font-size:1.35rem;font-weight:700}
+.vt-bar{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.vt-btn{padding:6px 13px;border-radius:20px;font-size:.8rem;font-weight:600;cursor:pointer;border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;transition:all .2s}
+.vt-btn.active{background:var(--accent);border-color:var(--accent);color:#1a0f00}
+.toolbar{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tb{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;padding:7px 14px;border-radius:6px;font-size:.85rem;cursor:pointer;transition:all .2s}
+.tb:hover{background:rgba(255,255,255,.22)}
+.container{max-width:960px;margin:0 auto;padding:16px}
+.qnav{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;padding:12px;background:var(--card);border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
+.chip{background:var(--sh);color:var(--primary);padding:6px 12px;border-radius:20px;font-size:.8rem;font-weight:500;cursor:pointer;border:none;transition:all .2s}
+.chip:hover{background:var(--primary);color:#fff}
+.section{background:var(--card);border-radius:12px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.07);overflow:hidden}
+.sh{background:var(--sh);padding:13px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;border-bottom:1px solid var(--border);user-select:none}
+.sh h2{margin:0;font-size:.98rem;font-weight:700;color:var(--primary-dark);display:flex;align-items:center;gap:8px}
+.st{font-size:1.1rem;color:var(--primary);transition:transform .3s}
+.section.collapsed .st{transform:rotate(-90deg)}
+.section.collapsed .sc{display:none}
+.sc{padding:16px}
+.fg{margin-bottom:14px}
+.fg:last-child{margin-bottom:0}
+.fl{display:block;font-weight:600;font-size:.875rem;margin-bottom:5px}
+textarea,input[type=text],select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:.95rem;font-family:inherit;background:#fff;color:var(--text);transition:border-color .2s,box-shadow .2s}
+textarea:focus,input:focus,select:focus{outline:none;border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(92,64,51,.1)}
+textarea{min-height:76px;resize:vertical}
+textarea.sm{min-height:56px}
+textarea.lg{min-height:120px}
+.ii{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.ig{display:flex;flex-direction:column}
+.ig label{font-size:.8rem;color:var(--muted);margin-bottom:3px;font-weight:500}
+.ig input,.ig select{padding:8px 10px;font-size:.9rem}
+.callout{padding:10px 14px;border-radius:8px;margin-bottom:12px;border-left:4px solid}
+.c-info{background:#e8f0fe;border-color:var(--info)}
+.c-warn{background:#fff8f0;border-color:var(--warning)}
+.c-ok  {background:#f1f8e9;border-color:var(--success)}
+.c-title{font-weight:700;font-size:.875rem;margin-bottom:3px}
+.c-body{font-size:.875rem}
+.cbg{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:7px}
+.cbi{display:flex;align-items:center;gap:7px;padding:7px 10px;background:var(--bg);border-radius:6px;cursor:pointer}
+.cbi input{width:16px;height:16px;accent-color:var(--primary);flex-shrink:0}
+.cbi label{font-size:.875rem;cursor:pointer}
+.stabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;border-bottom:2px solid var(--border);padding-bottom:8px}
+.stab{padding:6px 14px;border-radius:6px 6px 0 0;font-size:.82rem;font-weight:600;cursor:pointer;border:1px solid transparent;background:transparent;color:var(--muted)}
+.stab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.sp{display:none}.sp.active{display:block}
+/* ROS */
+.ros-sys-label{font-weight:700;font-size:.78rem;color:var(--primary-dark);text-transform:uppercase;letter-spacing:.04em;margin:12px 0 6px;padding-bottom:3px;border-bottom:1px solid var(--border)}
+.ros-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:5px;margin-bottom:4px}
+.ros-item{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:var(--bg);border-radius:5px;font-size:.84rem;cursor:pointer;border:1px solid transparent;user-select:none;transition:background .15s}
+.ros-item:hover{background:var(--sh)}
+.ros-item[data-s="pos"]{background:#fef2f2;border-color:#fca5a5;color:var(--danger)}
+.ros-item[data-s="neg"]{background:#f0fdf4;border-color:#bbf7d0;color:var(--success)}
+.ri{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:var(--muted)}
+.ros-item[data-s="pos"] .ri{background:var(--danger);border-color:var(--danger);color:#fff}
+.ros-item[data-s="neg"] .ri{background:var(--success);border-color:var(--success);color:#fff}
+/* Exam findings */
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:5px;margin-bottom:8px}
+.ef{display:flex;align-items:center;gap:7px;padding:6px 10px;background:var(--bg);border-radius:6px;cursor:pointer;border:2px solid transparent;font-size:.875rem;transition:all .15s;user-select:none}
+.ef:hover{background:var(--sh)}
+.ef[data-s="pos"]{background:#f0fdf4;border-color:#86efac}
+.ef[data-s="neg"]{background:#fef2f2;border-color:#fca5a5}
+.ei{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.ef[data-s="pos"] .ei{background:var(--success);border-color:var(--success);color:#fff}
+.ef[data-s="neg"] .ei{background:var(--danger);border-color:var(--danger);color:#fff}
+/* A&P */
+.ap-block{border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:8px;padding:12px;margin-bottom:10px;background:#fff}
+.ap-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.ap-num{background:var(--primary);color:#fff;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0}
+.ap-dx{flex:1;font-weight:600;border:none;border-bottom:1px solid var(--border);padding:4px 2px;font-size:.95rem;background:transparent;color:var(--text)}
+.ap-dx:focus{outline:none;border-bottom-color:var(--primary)}
+.ap-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.ap-fields{grid-template-columns:1fr}}
+/* Preventive care */
+.pt{width:100%;border-collapse:collapse;font-size:.875rem}
+.pt th{background:var(--sh);padding:8px 10px;text-align:left;font-size:.78rem;color:var(--primary-dark);border:1px solid var(--border);font-weight:700}
+.pt td{padding:7px 10px;border:1px solid var(--border);vertical-align:middle}
+.psb{display:flex;gap:4px;flex-wrap:wrap}
+.pb{padding:3px 8px;border-radius:4px;font-size:.73rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--muted);transition:all .15s;white-space:nowrap}
+.pb.current{border-color:var(--success);background:#f0fdf4;color:var(--success)}
+.pb.overdue{border-color:var(--danger);background:#fff3f3;color:var(--danger)}
+.pb.ordered{border-color:var(--info);background:#e8f0fe;color:var(--info)}
+.pb.declined{border-color:var(--muted);background:#f3f4f6;color:var(--muted)}
+.pb.na{border-color:var(--border);background:#f9fafb;color:var(--muted)}
+.pd{width:100%;padding:4px 6px;font-size:.8rem;border-radius:4px;border:1px solid var(--border);margin-top:4px}
+/* Immunizations */
+.imm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.imm-item{border:1px solid var(--border);border-radius:8px;padding:10px;background:#fff}
+.imm-name{font-weight:700;font-size:.84rem;margin-bottom:4px;color:var(--primary-dark)}
+.imm-rec{font-size:.74rem;color:var(--muted);margin-bottom:6px}
+.isb{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px}
+.ib{padding:3px 7px;border-radius:4px;font-size:.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--muted);transition:all .15s}
+.ib.given{border-color:var(--success);background:#f0fdf4;color:var(--success)}
+.ib.due{border-color:var(--warning);background:#fff8f0;color:var(--warning)}
+.ib.refused{border-color:var(--danger);background:#fff3f3;color:var(--danger)}
+.ib.ci{border-color:var(--muted);background:#f3f4f6;color:var(--muted)}
+.idate{width:100%;padding:3px 6px;font-size:.78rem;border-radius:4px;border:1px solid var(--border)}
+/* Reference box */
+.refbox{background:#f9f6f3;border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:10px}
+.refbox h4{margin:0 0 6px;font-size:.78rem;color:var(--primary-dark);text-transform:uppercase;letter-spacing:.04em}
+.refbox ul{margin:0;padding-left:16px;font-size:.82rem}
+.refbox li{margin-bottom:3px}
+.rt{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:6px}
+.rt th{background:var(--sh);padding:5px 8px;text-align:left;border:1px solid var(--border);font-weight:700;font-size:.76rem}
+.rt td{padding:4px 8px;border:1px solid var(--border)}
+/* Output */
+.out-sec{background:var(--card);border-radius:12px;padding:20px;margin-top:14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.out-sec h3{margin:0 0 14px;color:var(--primary-dark);font-size:1.05rem}
+#gen-note{background:#fafaf8;border:1px solid var(--border);border-radius:8px;padding:16px;font-family:"SF Mono",Monaco,"Courier New",monospace;font-size:.875rem;white-space:pre-wrap;line-height:1.65;min-height:200px;max-height:600px;overflow-y:auto}
+.oa{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.btn{padding:10px 18px;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:6px;transition:all .2s}
+.btn-p{background:var(--primary);color:#fff}.btn-p:hover{background:var(--primary-dark)}
+.btn-s{background:var(--bg);color:var(--text);border:1px solid var(--border)}.btn-s:hover{background:var(--border)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--primary-dark);color:#fff;padding:11px 24px;border-radius:8px;font-size:.9rem;opacity:0;transition:all .3s ease;z-index:1000}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.add-prob-btn{width:100%;padding:10px;border:2px dashed var(--border);border-radius:8px;background:var(--sh);color:var(--primary);font-weight:600;cursor:pointer;font-size:.875rem;transition:all .2s}
+.add-prob-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+</style>
+</head>
+<body>
+<!-- HEADER -->
+<div class="header">
+  <h1>🏥 Outpatient Internal Medicine Note</h1>
+  <div class="vt-bar">
+    <button class="vt-btn active" onclick="setVT('new',this)">🆕 New Patient</button>
+    <button class="vt-btn" onclick="setVT('followup',this)">🔄 Follow-Up</button>
+    <button class="vt-btn" onclick="setVT('acute',this)">⚡ Acute Visit</button>
+    <button class="vt-btn" onclick="setVT('wellness',this)">🌿 Annual Wellness</button>
+    <button class="vt-btn" onclick="setVT('chronic',this)">📊 Chronic Management</button>
+  </div>
+  <div class="toolbar">
+    <button class="tb" onclick="genNote()">📄 Generate Note</button>
+    <button class="tb" onclick="clearAll()">🗑️ Clear</button>
+    <button class="tb" onclick="expandAll()">📂 Expand All</button>
+    <button class="tb" onclick="collapseAll()">📁 Collapse All</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- QUICK NAV -->
+<div class="qnav">
+  <button class="chip" onclick="go('s-header')">Visit Info</button>
+  <button class="chip" onclick="go('s-hpi')">CC &amp; HPI</button>
+  <button class="chip" onclick="go('s-hx')">History</button>
+  <button class="chip" onclick="go('s-meds')">Medications</button>
+  <button class="chip" onclick="go('s-ros')">ROS</button>
+  <button class="chip" onclick="go('s-exam')">Exam</button>
+  <button class="chip" onclick="go('s-ap')">A&amp;P</button>
+  <button class="chip" onclick="go('s-prev')">Preventive Care</button>
+  <button class="chip" onclick="go('s-imm')">Immunizations</button>
+  <button class="chip" onclick="go('s-mh')">Mental Health</button>
+  <button class="chip" onclick="go('s-edu')">Education &amp; Follow-up</button>
+</div>
+
+<!-- ── SECTION 1: VISIT INFO ── -->
+<div class="section" id="s-header">
+  <div class="sh" onclick="tog(this)"><h2>🏷️ Visit Information</h2><span class="st">▼</span></div>
+  <div class="sc">
+    <div class="ii">
+      <div class="ig"><label>Date</label><input type="text" id="v-date" placeholder="2026-03-01"></div>
+      <div class="ig"><label>Provider</label><input type="text" id="v-prov" placeholder="Dr. Smith, MD"></div>
+      <div class="ig"><label>Clinic / Location</label><input type="text" id="v-clinic" placeholder="General Internal Medicine"></div>
+      <div class="ig"><label>Visit Duration (min)</label><input type="text" id="v-dur" placeholder="40"></div>
+      <div class="ig"><label>Patient Age / Sex</label><input type="text" id="v-age" placeholder="54F"></div>
+      <div class="ig"><label>Insurance</label><input type="text" id="v-ins" placeholder="Medicare Part B"></div>
+      <div class="ig"><label>Interpreter</label>
+        <select id="v-interp">
+          <option value="">-- None needed --</option>
+          <option>Spanish interpreter used</option>
+          <option>Mandarin interpreter used</option>
+          <option>Arabic interpreter used</option>
+          <option>Haitian Creole interpreter used</option>
+          <option>Other — documented</option>
+        </select>
+      </div>
+      <div class="ig"><label>Referring / PCP</label><input type="text" id="v-ref" placeholder="Self-referral / Dr. Jones PCP"></div>
+    </div>
+    <div class="fg" style="margin-top:10px">
+      <label class="fl">Allergies (with reaction type)</label>
+      <input type="text" id="v-allergy" placeholder="PCN → anaphylaxis; Sulfa → rash; Lisinopril → angioedema; NKDA">
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 2: CC & HPI ── -->
+<div class="section" id="s-hpi">
+  <div class="sh" onclick="tog(this)"><h2>💬 Chief Complaint &amp; HPI</h2><span class="st">▼</span></div>
+  <div class="sc">
+    <div class="fg">
+      <label class="fl">Chief Complaint</label>
+      <input type="text" id="h-cc" placeholder="e.g., Persistent fatigue and dyspnea on exertion × 3 weeks">
+    </div>
+    <div class="callout c-info">
+      <div class="c-body">OLDCARTS — complete structured fields or use the narrative below</div>
+    </div>
+    <div class="ii" style="margin-bottom:10px">
+      <div class="ig"><label>Onset</label><input type="text" id="h-onset" placeholder="e.g., 3 weeks ago, gradual"></div>
+      <div class="ig"><label>Location</label><input type="text" id="h-loc" placeholder="e.g., substernal, diffuse, bilateral LE"></div>
+      <div class="ig"><label>Duration</label><input type="text" id="h-dur" placeholder="e.g., constant / episodic, lasts ___ min"></div>
+      <div class="ig"><label>Character</label><input type="text" id="h-char" placeholder="e.g., pressure, aching, sharp, burning"></div>
+      <div class="ig"><label>Alleviating</label><input type="text" id="h-allev" placeholder="e.g., rest, nitroglycerin, antacids, leaning forward"></div>
+      <div class="ig"><label>Aggravating</label><input type="text" id="h-aggr" placeholder="e.g., exertion, lying flat, meals, cold air"></div>
+      <div class="ig"><label>Radiation</label><input type="text" id="h-rad" placeholder="e.g., left arm, jaw, back, groin"></div>
+      <div class="ig"><label>Severity (0–10)</label><input type="text" id="h-sev" placeholder="e.g., 6/10 at peak"></div>
+      <div class="ig"><label>Temporal Pattern</label>
+        <select id="h-temp">
+          <option value="">-- Select --</option>
+          <option>Constant</option>
+          <option>Intermittent — episodic</option>
+          <option>Progressive worsening</option>
+          <option>Improving</option>
+          <option>Stable / unchanged</option>
+          <option>Acute onset (hours)</option>
+          <option>Subacute (days–weeks)</option>
+          <option>Chronic (&gt;3 months)</option>
+        </select>
+      </div>
+      <div class="ig"><label>Prior Similar Episodes</label><input type="text" id="h-prior" placeholder="e.g., similar 6 months ago, resolved with ___"></div>
+    </div>
+    <div class="fg">
+      <label class="fl">HPI Narrative</label>
+      <textarea id="h-narr" class="lg" placeholder="Ms./Mr. ___ is a ___-year-old with PMH of ___ who presents for ___.
+
+[Include: symptom timeline, pertinent positives and negatives, prior workup and results, treatments tried and response, functional impact, relevant context — travel, sick contacts, exposures, recent medication changes, recent procedures...]"></textarea>
+    </div>
+    <div class="fg">
+      <label class="fl">Pertinent Positives / Negatives (associated symptoms)</label>
+      <textarea id="h-assoc" class="sm" placeholder="(+) orthopnea — 3-pillow; (+) PND × 2 this week; (+) bilateral ankle swelling, worsening
+(−) chest pain, palpitations, syncope, fever/chills, cough, hemoptysis..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 3: HISTORY (tabbed) ── -->
+<div class="section" id="s-hx">
+  <div class="sh" onclick="tog(this)"><h2>📚 Past Medical, Social &amp; Family History</h2><span class="st">▼</span></div>
+  <div class="sc">
+    <div class="stabs">
+      <button class="stab active" onclick="swTab(this,'tp-pmh')">Past Medical / Surgical</button>
+      <button class="stab" onclick="swTab(this,'tp-sh')">Social History</button>
+      <button class="stab" onclick="swTab(this,'tp-fh')">Family History</button>
+    </div>
+
+    <!-- PMH/PSH -->
+    <div class="sp active" id="tp-pmh">
+      <div class="fg">
+        <label class="fl">Active Medical Problems</label>
+        <textarea id="pmh" class="lg" placeholder="1. Hypertension (dx ___) — current control: ___
+2. Type 2 Diabetes (dx ___) — HbA1c ___% on ___
+3. Hyperlipidemia — on statin since ___
+4. CAD — prior PCI/CABG ___
+5. CKD Stage ___ — baseline Cr ___
+6. (continue...)"></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl">Past Surgical History</label>
+        <textarea id="psh" class="sm" placeholder="e.g., Appendectomy (2010), R TKR (2019), Laparoscopic cholecystectomy (2015)..."></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl">Prior Hospitalizations (recent / relevant)</label>
+        <textarea id="hhosp" class="sm" placeholder="e.g., 2025 — RUMC, CAP, 4 days, discharged on Augmentin..."></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl">OB/Gyn History (if applicable)</label>
+        <input type="text" id="ob-hx" placeholder="e.g., G3P3 all SVD; last Pap ___; menopause age ___; mammogram ___">
+      </div>
+    </div>
+
+    <!-- Social Hx -->
+    <div class="sp" id="tp-sh">
+      <div class="ii" style="margin-bottom:12px">
+        <div class="ig"><label>Occupation</label><input type="text" id="sh-occ" placeholder="e.g., Retired teacher, nurse, construction"></div>
+        <div class="ig"><label>Marital Status</label><input type="text" id="sh-mar" placeholder="Married / divorced / widowed / partnered"></div>
+        <div class="ig"><label>Living Situation</label><input type="text" id="sh-live" placeholder="Lives alone / with spouse / assisted living"></div>
+        <div class="ig"><label>Education</label><input type="text" id="sh-edu" placeholder="College / high school / less than high school"></div>
+      </div>
+      <div class="fg">
+        <label class="fl">Tobacco Use</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <select id="sh-tob" style="width:auto;min-width:190px">
+            <option value="">-- Status --</option>
+            <option>Never smoker</option>
+            <option>Current smoker — cigarettes</option>
+            <option>Current vaping / e-cigarette</option>
+            <option>Former smoker — quit &lt;1 year ago</option>
+            <option>Former smoker — quit &gt;1 year ago</option>
+            <option>Smokeless tobacco</option>
+            <option>Current cigar / pipe</option>
+          </select>
+          <input type="text" id="sh-tob-d" style="flex:1;min-width:180px" placeholder="Pack-years: ___ (PPD × years); quit date: ___">
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">Alcohol Use</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+          <select id="sh-etoh" style="width:auto;min-width:190px">
+            <option value="">-- Frequency --</option>
+            <option>Never</option>
+            <option>Monthly or less</option>
+            <option>2–4 times per month</option>
+            <option>2–3 times per week</option>
+            <option>4 or more times per week</option>
+          </select>
+          <input type="text" id="sh-etoh-d" style="flex:1;min-width:180px" placeholder="Drinks per occasion, type, binge pattern">
+        </div>
+        <div class="refbox">
+          <h4>AUDIT-C Positive Screen (unhealthy alcohol use)</h4>
+          <ul>
+            <li><strong>Men:</strong> AUDIT-C ≥4 (or &gt;14 drinks/week or &gt;4/occasion)</li>
+            <li><strong>Women:</strong> AUDIT-C ≥3 (or &gt;7 drinks/week or &gt;3/occasion)</li>
+            <li>If positive → full AUDIT, brief counseling, consider referral to AUD treatment</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">Substance Use (non-alcohol)</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <select id="sh-drug" style="width:auto;min-width:190px">
+            <option value="">-- Status --</option>
+            <option>Denies illicit drug use</option>
+            <option>Former use — in recovery</option>
+            <option>Current marijuana use</option>
+            <option>Current opioid use (non-prescribed)</option>
+            <option>On MOUD (buprenorphine/methadone)</option>
+            <option>Active polysubstance use</option>
+          </select>
+          <input type="text" id="sh-drug-d" style="flex:1;min-width:180px" placeholder="Substance, frequency, route, last use, treatment Hx">
+        </div>
+      </div>
+      <div class="ii" style="margin-top:4px">
+        <div class="ig"><label>Diet</label><input type="text" id="sh-diet" placeholder="DASH / Mediterranean / no restrictions"></div>
+        <div class="ig"><label>Exercise</label><input type="text" id="sh-ex" placeholder="Sedentary / walks 30 min 3×/wk / gym 5×/wk"></div>
+        <div class="ig"><label>Sexual History</label><input type="text" id="sh-sex" placeholder="Sexually active, monogamous; STI risk..."></div>
+        <div class="ig"><label>Caffeine</label><input type="text" id="sh-caff" placeholder="e.g., 2 cups coffee/day"></div>
+      </div>
+      <div class="fg" style="margin-top:12px">
+        <label class="fl">Social Determinants of Health (SDOH) Screening</label>
+        <div class="cbg">
+          <div class="cbi"><input type="checkbox" id="sdoh-food"><label for="sdoh-food">Food insecurity</label></div>
+          <div class="cbi"><input type="checkbox" id="sdoh-house"><label for="sdoh-house">Housing instability / homelessness</label></div>
+          <div class="cbi"><input type="checkbox" id="sdoh-trans"><label for="sdoh-trans">Transportation barriers</label></div>
+          <div class="cbi"><input type="checkbox" id="sdoh-fin"><label for="sdoh-fin">Financial strain / medication cost</label></div>
+          <div class="cbi"><input type="checkbox" id="sdoh-lit"><label for="sdoh-lit">Health literacy concern</label></div>
+          <div class="cbi"><input type="checkbox" id="sdoh-iso"><label for="sdoh-iso">Social isolation / loneliness</label></div>
+          <div class="cbi"><input type="checkbox" id="sdoh-ipv"><label for="sdoh-ipv">Intimate partner violence risk</label></div>
+          <div class="cbi"><input type="checkbox" id="sdoh-none"><label for="sdoh-none">No SDOH concerns identified</label></div>
+        </div>
+        <textarea id="sdoh-comments" class="sm" placeholder="Interventions, social work referral, community resources offered..." style="margin-top:8px"></textarea>
+      </div>
+    </div>
+
+    <!-- Family Hx -->
+    <div class="sp" id="tp-fh">
+      <div class="fg">
+        <label class="fl">Family History (first-degree relatives — parents, siblings, children)</label>
+        <div class="cbg">
+          <div class="cbi"><input type="checkbox" id="fh-cad"><label for="fh-cad">Premature CAD (&lt;55M / &lt;65F)</label></div>
+          <div class="cbi"><input type="checkbox" id="fh-htn"><label for="fh-htn">Hypertension</label></div>
+          <div class="cbi"><input type="checkbox" id="fh-dm"><label for="fh-dm">Type 2 Diabetes</label></div>
+          <div class="cbi"><input type="checkbox" id="fh-stroke"><label for="fh-stroke">Stroke / TIA</label></div>
+          <div class="cbi"><input type="checkbox" id="fh-crc"><label for="fh-crc">Colorectal cancer / polyps</label></div>
+          <div class="cbi"><input type="checkbox" id="fh-breast"><label for="fh-breast">Breast / ovarian cancer</label></div>
+          <div class="cbi"><input type="checkbox" id="fh-prostate"><label for="fh-prostate">Prostate cancer</label></div>
+          <div class="cbi"><input type="checkbox" id="fh-lung"><label for="fh-lung">Lung cancer</label></div>
+          <div class="cbi"><input type="checkbox" id="fh-osteo"><label for="fh-osteo">Osteoporosis / fragility fracture</label></div>
+          <div class="cbi"><input type="checkbox" id="fh-thyroid"><label for="fh-thyroid">Thyroid disease</label></div>
+          <div class="cbi"><input type="checkbox" id="fh-dem"><label for="fh-dem">Dementia / Alzheimer</label></div>
+          <div class="cbi"><input type="checkbox" id="fh-mh"><label for="fh-mh">Depression / suicide / mental illness</label></div>
+          <div class="cbi"><input type="checkbox" id="fh-bleed"><label for="fh-bleed">Bleeding / clotting disorder</label></div>
+          <div class="cbi"><input type="checkbox" id="fh-kidney"><label for="fh-kidney">Kidney disease / PKD</label></div>
+          <div class="cbi"><input type="checkbox" id="fh-scd"><label for="fh-scd">Sudden cardiac death &lt;50</label></div>
+        </div>
+        <textarea id="fh-narr" class="sm" placeholder="Details: e.g., Father — MI at age 51; Mother — T2DM, HTN; Sister — BRCA1-positive breast cancer..." style="margin-top:8px"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 4: MEDICATIONS ── -->
+<div class="section" id="s-meds">
+  <div class="sh" onclick="tog(this)"><h2>💊 Current Medications</h2><span class="st">▼</span></div>
+  <div class="sc">
+    <div class="callout c-warn">
+      <div class="c-body"><strong>Reconcile every medication:</strong> confirm name, dose, frequency, adherence, side effects, refill needs, and OTC/supplements. Document barriers.</div>
+    </div>
+    <div class="fg">
+      <label class="fl">Prescription Medications</label>
+      <textarea id="rx-meds" class="lg" placeholder="1. Metoprolol succinate 50 mg PO daily — CAD/HTN — compliant, no side effects
+2. Atorvastatin 40 mg PO qHS — hyperlipidemia — compliant; no myalgias
+3. Metformin 1000 mg PO BID — T2DM — compliant; tolerating well
+4. Lisinopril 10 mg PO daily — HTN/CKD — compliant
+5. Aspirin 81 mg PO daily — ASCVD secondary prevention
+6. ..."></textarea>
+    </div>
+    <div class="fg">
+      <label class="fl">OTC Medications, Vitamins &amp; Supplements</label>
+      <textarea id="otc-meds" class="sm" placeholder="e.g., Omeprazole 20 mg OTC daily, Fish oil 1 g daily, Vitamin D3 2000 IU, Calcium 600 mg BID, Melatonin 5 mg qHS..."></textarea>
+    </div>
+    <div class="fg">
+      <label class="fl">Adherence Issues / Barriers</label>
+      <div class="cbg">
+        <div class="cbi"><input type="checkbox" id="adh-good"><label for="adh-good">Good adherence, no barriers</label></div>
+        <div class="cbi"><input type="checkbox" id="adh-cost"><label for="adh-cost">Cost / insurance barrier</label></div>
+        <div class="cbi"><input type="checkbox" id="adh-se"><label for="adh-se">Side effects limiting compliance</label></div>
+        <div class="cbi"><input type="checkbox" id="adh-complex"><label for="adh-complex">Complex regimen / polypharmacy</label></div>
+        <div class="cbi"><input type="checkbox" id="adh-forget"><label for="adh-forget">Forgetfulness / cognitive</label></div>
+        <div class="cbi"><input type="checkbox" id="adh-belief"><label for="adh-belief">Patient beliefs / hesitancy</label></div>
+      </div>
+      <textarea id="adh-detail" class="sm" placeholder="Specific barriers, prior auth submitted, samples given, GoodRx / copay card discussed, pill organizer recommended..." style="margin-top:8px"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 5: ROS ── -->
+<div class="section" id="s-ros">
+  <div class="sh" onclick="tog(this)"><h2>📋 Review of Systems</h2><span class="st">▼</span></div>
+  <div class="sc">
+    <div class="callout c-info">
+      <div class="c-body">Tap each symptom to cycle: <strong style="color:var(--danger)">Red = Positive</strong> &nbsp;|&nbsp; <strong style="color:var(--success)">Green = Negative (denied)</strong> &nbsp;|&nbsp; Gray = Not queried. Tap again to reset.</div>
+    </div>
+    <div id="ros-container"></div>
+    <div class="fg" style="margin-top:10px">
+      <label class="fl">Additional ROS Comments</label>
+      <textarea id="ros-comments" class="sm" placeholder="Elaborate on any positive symptom or clinically important negative not captured above..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 6: VITALS & EXAM ── -->
+<div class="section" id="s-exam">
+  <div class="sh" onclick="tog(this)"><h2>🩺 Vital Signs &amp; Physical Examination</h2><span class="st">▼</span></div>
+  <div class="sc">
+    <div class="fg">
+      <label class="fl">Vital Signs</label>
+      <div class="ii">
+        <div class="ig"><label>BP (mmHg)</label><input type="text" id="vs-bp" placeholder="138/82"></div>
+        <div class="ig"><label>BP Repeat</label><input type="text" id="vs-bp2" placeholder="134/80 (5 min later)"></div>
+        <div class="ig"><label>HR (bpm)</label><input type="text" id="vs-hr" placeholder="72, regular"></div>
+        <div class="ig"><label>RR (/min)</label><input type="text" id="vs-rr" placeholder="14"></div>
+        <div class="ig"><label>Temp (°F)</label><input type="text" id="vs-t" placeholder="98.2"></div>
+        <div class="ig"><label>SpO2 (%)</label><input type="text" id="vs-spo2" placeholder="97% RA"></div>
+        <div class="ig"><label>Weight (kg/lbs)</label><input type="text" id="vs-wt" placeholder="82 kg / 181 lbs"></div>
+        <div class="ig"><label>Height (cm/in)</label><input type="text" id="vs-ht" placeholder="170 cm / 67 in"></div>
+        <div class="ig"><label>BMI (kg/m²)</label><input type="text" id="vs-bmi" placeholder="28.4 — overweight"></div>
+        <div class="ig"><label>Waist Circ (cm)</label><input type="text" id="vs-waist" placeholder="96 cm (high risk: M>102, F>88)"></div>
+        <div class="ig"><label>Pain (0–10)</label><input type="text" id="vs-pain" placeholder="3/10"></div>
+        <div class="ig"><label>Blood Glucose</label><input type="text" id="vs-bg" placeholder="148 mg/dL (fasting) / POC 162"></div>
+      </div>
+    </div>
+
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:8px">
+      Tap exam finding: <strong style="color:var(--success)">Green = Normal/present</strong> &nbsp;|&nbsp; <strong style="color:var(--danger)">Red = Abnormal/absent</strong> &nbsp;|&nbsp; Gray = Not examined
+    </div>
+
+    <!-- General -->
+    <div class="fg">
+      <label class="fl">General</label>
+      <div class="ex-grid">
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Well-appearing, no acute distress</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Alert and oriented ×4</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Appropriate affect, cooperative</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Appears stated age</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Diaphoresis / pallor noted</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Obese habitus</div>
+      </div>
+    </div>
+
+    <!-- HEENT/Neck -->
+    <div class="fg">
+      <label class="fl">HEENT / Neck</label>
+      <div class="ex-grid">
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>PERRL, EOMI</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No scleral icterus</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Mucous membranes moist</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No pharyngeal erythema / exudate</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Neck supple, no meningismus</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No lymphadenopathy</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Thyroid non-palpable, no goiter</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>JVP not elevated (&lt;8 cm)</div>
+      </div>
+    </div>
+
+    <!-- Cardiovascular -->
+    <div class="fg">
+      <label class="fl">Cardiovascular</label>
+      <div class="ex-grid">
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Regular rate and rhythm</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>S1 / S2 normal</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No murmur / gallop / rub</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>PMI non-displaced</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Peripheral pulses 2+ and equal</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No carotid bruits</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Capillary refill &lt;2 sec</div>
+      </div>
+      <textarea id="cv-notes" class="sm" placeholder="Murmur details (grade/location/radiation/quality), S3/S4, irregular rhythm, JVP waveform..." style="margin-top:6px"></textarea>
+    </div>
+
+    <!-- Pulmonary -->
+    <div class="fg">
+      <label class="fl">Pulmonary</label>
+      <div class="ex-grid">
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>CTA bilaterally</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No wheezing</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No rales / crackles</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No rhonchi</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No dullness to percussion</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No accessory muscle use</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No prolonged expiratory phase</div>
+      </div>
+    </div>
+
+    <!-- Abdomen -->
+    <div class="fg">
+      <label class="fl">Abdomen</label>
+      <div class="ex-grid">
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Soft, non-tender</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Non-distended</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Normoactive bowel sounds</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No hepatomegaly</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No splenomegaly</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No rebound / guarding</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No CVA tenderness</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No palpable mass</div>
+      </div>
+    </div>
+
+    <!-- MSK / Extremities -->
+    <div class="fg">
+      <label class="fl">Musculoskeletal / Extremities</label>
+      <div class="ex-grid">
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No peripheral edema</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Full ROM all extremities</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No joint swelling / erythema</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No bony deformity</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No calf tenderness</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Normal gait and station</div>
+      </div>
+    </div>
+
+    <!-- Skin / Neuro -->
+    <div class="fg">
+      <label class="fl">Skin</label>
+      <div class="ex-grid">
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No rash / lesions</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No jaundice</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No acanthosis nigricans</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No xanthomas / xanthelasma</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No spider angiomata / palmar erythema</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No wounds / ulcers</div>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label class="fl">Neurological (brief screen)</label>
+      <div class="ex-grid">
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Cranial nerves grossly intact</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Motor strength grossly symmetric</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Sensation intact to light touch</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>DTRs symmetric (2+)</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>No focal neurological deficit</div>
+        <div class="ef" data-s="neutral" onclick="cyEx(this)"><span class="ei"></span>Cognitive screen intact</div>
+      </div>
+    </div>
+
+    <div class="fg">
+      <label class="fl">Additional / Specialty-Specific Exam Findings</label>
+      <textarea id="exam-addl" class="lg" placeholder="Diabetic foot exam (monofilament, pedal pulses, nail changes), rectal / GU exam, breast exam, fundoscopy findings, skin lesion description (ABCDE), lymph node map, thyroid exam detail, wound measurement, prostate exam, speculum / bimanual findings..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 7: ASSESSMENT & PLAN ── -->
+<div class="section" id="s-ap">
+  <div class="sh" onclick="tog(this)"><h2>🎯 Assessment &amp; Plan (Problem-Based)</h2><span class="st">▼</span></div>
+  <div class="sc">
+    <div class="callout c-info">
+      <div class="c-body">Document each active problem. For each: state the diagnosis with current severity/control, key supporting data, and a specific, actionable plan — who does what, by when.</div>
+    </div>
+    <div id="ap-blocks"></div>
+    <button class="add-prob-btn" onclick="addAP()">+ Add Problem</button>
+  </div>
+</div>
+
+<!-- ── SECTION 8: PREVENTIVE CARE ── -->
+<div class="section" id="s-prev">
+  <div class="sh" onclick="tog(this)"><h2>🛡️ Preventive Care &amp; Health Maintenance</h2><span class="st">▼</span></div>
+  <div class="sc">
+    <div class="callout c-ok">
+      <div class="c-body">Review and update at every visit. Mark: <strong>Current</strong> (up to date), <strong>Overdue</strong>, <strong>Ordered Today</strong>, <strong>Declined</strong> (document), or <strong>N/A</strong>.</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="pt">
+        <thead><tr>
+          <th style="width:28%">Screening / Intervention</th>
+          <th style="width:22%">Guideline (USPSTF/ACS)</th>
+          <th style="width:22%">Status</th>
+          <th style="width:28%">Date / Details</th>
+        </tr></thead>
+        <tbody id="prev-tbody"></tbody>
+      </table>
+    </div>
+    <div class="refbox" style="margin-top:14px">
+      <h4>Key Screening Quick Reference (USPSTF Grade A/B, 2026)</h4>
+      <table class="rt">
+        <tr><th>Screening</th><th>Population</th><th>Interval</th></tr>
+        <tr><td>Colorectal cancer</td><td>Ages 45–75</td><td>Colonoscopy q10y; FIT annually; Cologuard q3y</td></tr>
+        <tr><td>Breast cancer (mammogram)</td><td>Women ≥40</td><td>Annually (ACS); biennially ages 40–74 (USPSTF)</td></tr>
+        <tr><td>Cervical cancer</td><td>Women 21–65</td><td>Pap q3y; Pap+HPV co-test q5y (ages 30–65)</td></tr>
+        <tr><td>Lung cancer (LDCT)</td><td>Ages 50–80, ≥20 PY, current or quit &lt;15y</td><td>Annually</td></tr>
+        <tr><td>AAA (abdominal ultrasound)</td><td>Men 65–75 who ever smoked</td><td>One-time</td></tr>
+        <tr><td>Diabetes / prediabetes</td><td>Adults 35–70 overweight/obese</td><td>Every 3 years</td></tr>
+        <tr><td>Hypertension</td><td>Adults ≥18</td><td>Every visit; confirm with home readings/ABPM</td></tr>
+        <tr><td>Statin eligibility (ASCVD)</td><td>Ages 40–75, ASCVD risk ≥10%</td><td>10-yr risk calc; discuss statin if ≥10%</td></tr>
+        <tr><td>Depression (PHQ-2/9)</td><td>Adults ≥18</td><td>Every visit or annually minimum</td></tr>
+        <tr><td>Anxiety (GAD-7)</td><td>Adults ≥18</td><td>Annually</td></tr>
+        <tr><td>DEXA / bone density</td><td>Women ≥65; younger if FRAX elevated</td><td>Every 2 years</td></tr>
+        <tr><td>Hepatitis C antibody</td><td>Adults 18–79 (one-time); high-risk ongoing</td><td>Once; repeat if high risk</td></tr>
+        <tr><td>HIV</td><td>Ages 15–65 (opt-out)</td><td>At least once; annually if high risk</td></tr>
+        <tr><td>Falls risk (STEADI)</td><td>Adults ≥65</td><td>Annually</td></tr>
+        <tr><td>Cognitive impairment</td><td>Adults ≥65 or concern</td><td>Annually if concern (MoCA)</td></tr>
+        <tr><td>Vision / glaucoma</td><td>All adults; DM: annual dilated exam</td><td>Per age and risk</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 9: IMMUNIZATIONS ── -->
+<div class="section" id="s-imm">
+  <div class="sh" onclick="tog(this)"><h2>💉 Immunization Status</h2><span class="st">▼</span></div>
+  <div class="sc">
+    <div class="imm-grid" id="imm-grid"></div>
+    <div class="fg" style="margin-top:12px">
+      <label class="fl">Immunization Notes</label>
+      <textarea id="imm-notes" class="sm" placeholder="Vaccines given today (lot #, site, VIS given, 15-min observation documented), contraindications, immunocompromised status (inactivated only), pregnancy status, travel vaccines discussed..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 10: MENTAL HEALTH SCREENING ── -->
+<div class="section" id="s-mh">
+  <div class="sh" onclick="tog(this)"><h2>🧘 Mental Health &amp; Behavioral Screening</h2><span class="st">▼</span></div>
+  <div class="sc">
+    <div class="ii">
+      <div class="ig"><label>PHQ-2 Score</label>
+        <select id="phq2">
+          <option value="">-- Score --</option>
+          <option value="0">0 — Negative screen</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3 — Positive → PHQ-9</option>
+          <option value="4">4 — Positive → PHQ-9</option>
+        </select>
+      </div>
+      <div class="ig"><label>PHQ-9 Score (if PHQ-2 ≥3)</label>
+        <input type="text" id="phq9" placeholder="e.g., 14 — moderately severe">
+      </div>
+      <div class="ig"><label>GAD-7 Score</label>
+        <input type="text" id="gad7" placeholder="e.g., 8 — mild-moderate anxiety">
+      </div>
+      <div class="ig"><label>Suicidal Ideation</label>
+        <select id="si">
+          <option value="">-- Screen result --</option>
+          <option>Denied — PHQ-9 item 9 = 0</option>
+          <option>Passive ideation — no plan or intent</option>
+          <option>Active ideation — safety plan initiated</option>
+          <option>Emergency referral arranged</option>
+        </select>
+      </div>
+      <div class="ig"><label>AUDIT-C Score</label>
+        <input type="text" id="auditc" placeholder="e.g., 5 — positive (M≥4, F≥3)">
+      </div>
+      <div class="ig"><label>DAST-10 Score</label>
+        <input type="text" id="dast10" placeholder="e.g., 0 — no problem / 3 — moderate risk">
+      </div>
+      <div class="ig"><label>Cognitive Screen</label>
+        <input type="text" id="cog-screen" placeholder="MoCA 27/30 (normal ≥26) / not performed">
+      </div>
+      <div class="ig"><label>IPV / DV Screen</label>
+        <select id="ipv">
+          <option value="">-- Result --</option>
+          <option>Negative — no concern identified</option>
+          <option>Positive — resources provided, referral made</option>
+          <option>Declined to answer</option>
+          <option>Not screened this visit</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg" style="margin-top:10px">
+      <label class="fl">Mental Health Plan</label>
+      <textarea id="mh-plan" class="sm" placeholder="- Depression (PHQ-9 ___): initiate sertraline 50 mg daily + counseling referral; safety plan if SI; recheck PHQ-9 in 4–6 weeks
+- Anxiety (GAD-7 ___): lifestyle counseling, CBT referral; SSRI if moderate-severe
+- Alcohol: brief intervention per 5 A's; AUDIT result discussed; referral to AUD treatment offered
+- Cognitive concern: MoCA ___, neurology referral / repeat in 6 months
+- Psychiatry referral: [yes / no — indication]"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 11: EDUCATION & FOLLOW-UP ── -->
+<div class="section" id="s-edu">
+  <div class="sh" onclick="tog(this)"><h2>📖 Patient Education, Counseling &amp; Follow-Up</h2><span class="st">▼</span></div>
+  <div class="sc">
+    <div class="fg">
+      <label class="fl">Counseling Topics Addressed This Visit</label>
+      <div class="cbg">
+        <div class="cbi"><input type="checkbox" id="edu-dx"><label for="edu-dx">Diagnosis and disease course explained</label></div>
+        <div class="cbi"><input type="checkbox" id="edu-meds"><label for="edu-meds">New medication(s) reviewed (indication, SE)</label></div>
+        <div class="cbi"><input type="checkbox" id="edu-diet"><label for="edu-diet">Dietary guidance (DASH / low-carb / low-Na)</label></div>
+        <div class="cbi"><input type="checkbox" id="edu-ex"><label for="edu-ex">Exercise prescription (150 min/wk moderate)</label></div>
+        <div class="cbi"><input type="checkbox" id="edu-smoke"><label for="edu-smoke">Smoking cessation — 5 A's framework</label></div>
+        <div class="cbi"><input type="checkbox" id="edu-wt"><label for="edu-wt">Weight management counseling</label></div>
+        <div class="cbi"><input type="checkbox" id="edu-dm"><label for="edu-dm">Diabetes self-management education</label></div>
+        <div class="cbi"><input type="checkbox" id="edu-bp"><label for="edu-bp">Home BP monitoring instructions</label></div>
+        <div class="cbi"><input type="checkbox" id="edu-fall"><label for="edu-fall">Fall and injury prevention</label></div>
+        <div class="cbi"><input type="checkbox" id="edu-prev"><label for="edu-prev">Preventive screening importance discussed</label></div>
+        <div class="cbi"><input type="checkbox" id="edu-acp"><label for="edu-acp">Advance care planning discussed</label></div>
+        <div class="cbi"><input type="checkbox" id="edu-tb"><label for="edu-tb">Teach-back / patient verbalized understanding</label></div>
+      </div>
+    </div>
+    <div class="fg">
+      <label class="fl">Return Precautions (After-Visit Instructions)</label>
+      <textarea id="return-prec" class="sm" placeholder="Seek immediate care (call 911 or go to ED) if experiencing:
+- Chest pain, pressure, or tightness
+- Sudden dyspnea at rest or rapidly worsening
+- New neurological symptoms (weakness, speech difficulty, facial droop)
+- Sudden severe headache
+- Syncope or pre-syncope
+- Fever &gt;103°F with rigors
+- [Condition-specific: BG &gt;300 or &lt;70 for diabetic; weight gain &gt;3 lbs/day for CHF; etc.]"></textarea>
+    </div>
+    <div class="fg">
+      <label class="fl">Labs / Studies Ordered Today</label>
+      <textarea id="labs-ord" class="sm" placeholder="- CMP, CBC, HbA1c, fasting lipid panel — fasting sample to Quest; results in patient portal in 3–5 days
+- Spot urine albumin-to-creatinine ratio
+- TSH, free T4
+- 25-OH Vitamin D
+- PSA (age-appropriate; shared decision-making documented)
+- Urine culture (UA with abnormal findings)
+- EKG (obtained in office)
+- Other: ___"></textarea>
+    </div>
+    <div class="fg">
+      <label class="fl">Referrals Placed</label>
+      <textarea id="referrals" class="sm" placeholder="- Cardiology: new systolic murmur — echocardiogram recommended; referral sent, priority: routine
+- Ophthalmology: annual dilated eye exam, diabetic retinopathy screening
+- Podiatry: diabetic foot care
+- Nutrition / RD: medical nutrition therapy for DM / CKD / HF
+- GI: colonoscopy — overdue (age 54, no prior screening)
+- Behavioral Health / Psychiatry: PHQ-9 ___, referral placed
+- Dermatology: atypical pigmented lesion
+- Pulmonology: COPD / OSA sleep study
+- Urology / GYN: ___
+- Other: ___"></textarea>
+    </div>
+    <div class="fg">
+      <label class="fl">Follow-Up Plan</label>
+      <div class="ii">
+        <div class="ig"><label>Follow-up Interval</label>
+          <select id="fu-int">
+            <option value="">-- Select --</option>
+            <option>1 week — acute concern</option>
+            <option>2 weeks — new medication check / lab result</option>
+            <option>4 weeks — titration / monitoring</option>
+            <option>6–8 weeks — chronic disease adjustment</option>
+            <option>3 months — stable chronic management</option>
+            <option>6 months — well-controlled conditions</option>
+            <option>12 months — annual wellness</option>
+            <option>PRN — as needed</option>
+          </select>
+        </div>
+        <div class="ig"><label>Follow-up Agenda</label>
+          <input type="text" id="fu-reason" placeholder="e.g., Recheck BP + lab results + medication tolerance">
+        </div>
+      </div>
+      <textarea id="fu-notes" class="sm" placeholder="Items to address at next visit: medication uptitration, lab result review, specialist report, weight check, repeat PHQ-9, BP log review, CT lung result, colonoscopy result..." style="margin-top:8px"></textarea>
+    </div>
+    <div class="fg">
+      <label class="fl">Medical Decision Making Level (E&amp;M Coding)</label>
+      <select id="mdm">
+        <option value="">-- Select --</option>
+        <option>Straightforward (99202/99212) — 1 self-limited problem, minimal data, minimal risk</option>
+        <option>Low complexity (99203/99213) — 2+ self-limited or 1 stable chronic, limited data, low risk</option>
+        <option>Moderate complexity (99204/99214) — 1 uncontrolled or new problem requiring workup, moderate risk</option>
+        <option>High complexity (99205/99215) — ≥1 severe problem threatening life or function, extensive data, high risk</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label class="fl">Provider Attestation</label>
+      <textarea id="attest" class="sm" placeholder="I have personally reviewed the history, performed the physical examination, reviewed the data, and formulated the assessment and plan above. This note accurately reflects my evaluation. Total time: ___ minutes (if time-based billing, specify more than half spent on counseling/coordination of care)."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- OUTPUT -->
+<div class="out-sec">
+  <h3>📄 Generated Outpatient Note</h3>
+  <div id="gen-note">Click "Generate Note" to compile a complete, EHR-ready outpatient note.</div>
+  <div class="oa">
+    <button class="btn btn-p" onclick="copyNote()">📋 Copy to Clipboard</button>
+    <button class="btn btn-s" onclick="genNote()">🔄 Regenerate</button>
+  </div>
+</div>
+
+</div><!-- /container -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Visit type ──────────────────────────────────────────
+let VT = 'new';
+const VTL = {new:'New Patient Visit',followup:'Follow-Up Visit',acute:'Acute Visit',wellness:'Annual Wellness Exam',chronic:'Chronic Disease Management Visit'};
+function setVT(t,btn){VT=t;document.querySelectorAll('.vt-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+
+// ── Section helpers ─────────────────────────────────────
+function tog(h){h.parentElement.classList.toggle('collapsed');}
+function expandAll(){document.querySelectorAll('.section').forEach(s=>s.classList.remove('collapsed'));}
+function collapseAll(){document.querySelectorAll('.section').forEach(s=>s.classList.add('collapsed'));}
+function go(id){const el=document.getElementById(id);if(el){el.classList.remove('collapsed');el.scrollIntoView({behavior:'smooth',block:'start'});}}
+function swTab(btn,pid){btn.closest('.sc').querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');btn.closest('.sc').querySelectorAll('.sp').forEach(p=>p.classList.remove('active'));document.getElementById(pid).classList.add('active');}
+function v(id){const el=document.getElementById(id);return el?el.value.trim():'';}
+function sv(id){const el=document.getElementById(id);return el&&el.value?el.value.trim():'';}
+function ck(id){const el=document.getElementById(id);return!!(el&&el.checked);}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function copyNote(){navigator.clipboard.writeText(document.getElementById('gen-note').textContent).then(()=>showToast('✓ Copied!')).catch(()=>showToast('Copy failed'));}
+
+// ── ROS ─────────────────────────────────────────────────
+const ROS=[
+  ['Constitutional',['Fever / chills','Night sweats','Fatigue / malaise','Unintentional weight loss','Unintentional weight gain','Appetite change','Heat / cold intolerance','Generalized weakness']],
+  ['Eyes',['Vision changes','Eye pain / redness','Diplopia','Floaters / flashes','Blurry vision','Dry eyes']],
+  ['ENT / Head',['Headache','Ear pain / hearing loss','Tinnitus','Nasal congestion','Nosebleeds','Sore throat','Hoarseness','Sinus pressure']],
+  ['Cardiovascular',['Chest pain / pressure','Palpitations','Dyspnea on exertion','Orthopnea','Paroxysmal nocturnal dyspnea','Lower extremity edema','Syncope / presyncope','Claudication']],
+  ['Pulmonary',['Shortness of breath at rest','Cough (dry / productive)','Wheezing','Hemoptysis','Pleuritic chest pain','Snoring / witnessed apnea']],
+  ['Gastrointestinal',['Nausea / vomiting','Dysphagia / odynophagia','Heartburn / regurgitation','Abdominal pain','Bloating / early satiety','Diarrhea','Constipation','Rectal bleeding / melena','Change in stool caliber','Jaundice']],
+  ['Genitourinary',['Dysuria / frequency / urgency','Hematuria','Nocturia','Urinary incontinence','Pelvic pain','Genital discharge','Testicular pain / mass']],
+  ['Musculoskeletal',['Joint pain (specify joints)','Joint swelling / redness','Morning stiffness (&gt;1 hour)','Muscle pain / weakness','Back pain','Gait difficulty']],
+  ['Skin',['Rash (location / character)','Pruritus','New or changing moles','Hair loss','Nail changes','Easy bruising / bleeding']],
+  ['Neurological',['Headache — new pattern','Dizziness / vertigo','Numbness / tingling','Focal weakness','Tremor','Seizures','Memory loss / confusion','Speech difficulty','Falls / unsteadiness']],
+  ['Psychiatric',['Depressed mood / hopelessness','Anhedonia','Anxiety / excessive worry','Sleep disturbance','Panic attacks','Suicidal ideation','Hallucinations','Difficulty concentrating']],
+  ['Endocrine',['Polyuria / polydipsia','Excessive hunger','Heat / cold intolerance','Neck swelling','Menstrual irregularity','Libido changes']],
+  ['Hematologic',['Fatigue with exertion','Easy bruising','Lymph node swelling','Recurrent infections','Petechiae / purpura']],
+  ['Allergic / Immunologic',['Seasonal allergies','Drug reactions','Food allergies / intolerances','Recurrent hives / angioedema']],
+];
+
+function buildROS(){
+  const c=document.getElementById('ros-container');
+  c.innerHTML='';
+  ROS.forEach(([sys,items])=>{
+    const d=document.createElement('div');
+    const lbl=document.createElement('div');
+    lbl.className='ros-sys-label';lbl.textContent=sys;d.appendChild(lbl);
+    const g=document.createElement('div');g.className='ros-grid';
+    items.forEach(item=>{
+      const r=document.createElement('div');
+      r.className='ros-item';r.setAttribute('data-s','neutral');
+      r.setAttribute('data-sys',sys);r.setAttribute('data-sym',item);
+      r.onclick=()=>cyROS(r);
+      r.innerHTML=`<span>${item}</span><span class="ri"></span>`;
+      g.appendChild(r);
+    });
+    d.appendChild(g);c.appendChild(d);
+  });
+}
+
+function cyROS(el){
+  const s=el.getAttribute('data-s');
+  const n=s==='neutral'?'pos':s==='pos'?'neg':'neutral';
+  el.setAttribute('data-s',n);
+  const ri=el.querySelector('.ri');
+  ri.textContent=n==='pos'?'+':n==='neg'?'−':'';
+}
+
+function getROSText(){
+  const pos=[],neg=[];
+  document.querySelectorAll('.ros-item[data-s="pos"]').forEach(el=>pos.push(`(+) ${el.getAttribute('data-sym')} [${el.getAttribute('data-sys')}]`));
+  document.querySelectorAll('.ros-item[data-s="neg"]').forEach(el=>neg.push(`(−) ${el.getAttribute('data-sym')}`));
+  return{pos,neg};
+}
+
+// ── Exam toggle ─────────────────────────────────────────
+function cyEx(el){
+  const s=el.getAttribute('data-s');
+  el.setAttribute('data-s',s==='neutral'?'pos':s==='pos'?'neg':'neutral');
+  const ei=el.querySelector('.ei');
+  const ns=el.getAttribute('data-s');
+  ei.textContent=ns==='pos'?'✓':ns==='neg'?'✗':'';
+}
+
+function getExamText(){
+  const pos=[],neg=[];
+  document.querySelectorAll('.ef[data-s="pos"]').forEach(el=>pos.push(el.textContent.trim().replace('✓','').replace('✗','').trim()));
+  document.querySelectorAll('.ef[data-s="neg"]').forEach(el=>neg.push(el.textContent.trim().replace('✓','').replace('✗','').trim()));
+  return{pos,neg};
+}
+
+// ── A&P blocks ──────────────────────────────────────────
+let apN=0;
+function addAP(dx='',data='',plan=''){
+  apN++;const n=apN;
+  const c=document.getElementById('ap-blocks');
+  const b=document.createElement('div');b.className='ap-block';
+  b.innerHTML=`
+    <div class="ap-hdr">
+      <span class="ap-num">${n}</span>
+      <input class="ap-dx" id="ap-dx-${n}" value="${dx}" placeholder="Diagnosis — specify severity/control (e.g., Hypertension — uncontrolled, SBP consistently 155–165)">
+    </div>
+    <div class="ap-fields">
+      <div class="fg" style="margin:0">
+        <label class="fl" style="font-size:.8rem">Supporting Data / Today's Findings</label>
+        <textarea id="ap-d-${n}" style="min-height:60px;font-size:.875rem" placeholder="e.g., BP today 158/92 (repeat 155/90). Home readings avg 155/88. Last CMP: Cr 1.2, K 4.3. HbA1c 8.4% (3 months ago)...">${data}</textarea>
+      </div>
+      <div class="fg" style="margin:0">
+        <label class="fl" style="font-size:.8rem">Plan</label>
+        <textarea id="ap-p-${n}" style="min-height:60px;font-size:.875rem" placeholder="- Uptitrate amlodipine to 10 mg daily
+- Continue lisinopril 10 mg daily
+- CMP in 4 weeks post-uptitration
+- Home BP log — review at next visit
+- Low-sodium diet reinforced (&lt;2 g/day)">${plan}</textarea>
+      </div>
+    </div>`;
+  c.appendChild(b);
+}
+
+// ── Preventive care table ───────────────────────────────
+const PREV=[
+  ['Blood Pressure','Every visit (adults ≥18)','Confirm with home readings / ABPM if borderline'],
+  ['BMI / Weight','Every visit','Calculate BMI; waist circumference if BMI 25–35'],
+  ['Fasting Lipids / ASCVD Risk','Adults 40–75','10-yr ASCVD risk; statin discussion if ≥10%'],
+  ['HbA1c / Glucose Screen','Adults 35–70 with overweight','Every 3 years if normal; annually if prediabetes'],
+  ['Colorectal Cancer','Ages 45–75','Colonoscopy q10y; FIT annually; Cologuard q3y'],
+  ['Mammography','Women ≥40','Annually (ACS); q2y ages 40–74 (USPSTF)'],
+  ['Cervical Cancer (Pap ± HPV)','Women 21–65','Pap q3y; Pap+HPV q5y (ages 30–65); stop at 65 if adequate prior screening'],
+  ['Lung Cancer (LDCT)','Ages 50–80, ≥20 PY, current/quit <15y','Annually'],
+  ['AAA Ultrasound','Men 65–75 who ever smoked','One-time'],
+  ['DEXA / Bone Density','Women ≥65; earlier if FRAX high','Every 2 years; sooner on steroids'],
+  ['Hepatitis C Antibody','Adults 18–79 (one-time)','Repeat if ongoing risk'],
+  ['HIV Screen','Adults 15–65 (opt-out)','At least once; annually if high risk'],
+  ['STI Screen (Syphilis / Chlamydia)','Per sexual risk factors','Annually if high risk'],
+  ['Hepatitis B Screen / Vaccine','Unvaccinated adults','Screen if risk factors; vaccinate if unimmunized'],
+  ['Depression (PHQ-2/9)','All adults ≥18','Every visit minimum'],
+  ['Anxiety Screen (GAD-7)','All adults ≥18','Annually'],
+  ['Alcohol Screen (AUDIT-C)','All adults','Annually; brief intervention if positive'],
+  ['Tobacco Screen / Cessation','All adults','Every visit; 5 A\'s if current smoker'],
+  ['Fall Risk (STEADI)','Adults ≥65','Annually; TUG test if concern'],
+  ['Cognitive Screen (MoCA)','Adults ≥65 or concern','Annually if concern'],
+  ['Vision / Glaucoma Screen','All adults (DM: annual dilated)','Per age and risk'],
+  ['Hearing Screen','Adults ≥60','Annually'],
+  ['TSH Screen','Women >50; any adult with symptoms','Every 5 years or as indicated'],
+  ['Skin Cancer Exam','Per risk factors (fair skin, UV Hx)','As clinically indicated'],
+  ['IPV / Domestic Violence','Women of reproductive age','Annually (USPSTF Grade B)'],
+  ['ASCVD Risk Calculation','Adults 40–75 without ASCVD','Every 4–6 years; more often if risk factors evolve'],
+  ['Advance Directive / GOC','Adults ≥65 or serious illness','Annually'],
+];
+
+function buildPrev(){
+  const tb=document.getElementById('prev-tbody');
+  PREV.forEach(([item,rec,detail],i)=>{
+    const id='pv-'+i;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td><strong>${item}</strong></td>
+      <td style="font-size:.78rem;color:var(--muted)">${rec}</td>
+      <td>
+        <div class="psb">
+          <button class="pb" onclick="setPrev('${id}','current',this)">✓ Current</button>
+          <button class="pb" onclick="setPrev('${id}','overdue',this)">⚠ Overdue</button>
+          <button class="pb" onclick="setPrev('${id}','ordered',this)">📋 Ordered</button>
+          <button class="pb" onclick="setPrev('${id}','declined',this)">✗ Declined</button>
+          <button class="pb" onclick="setPrev('${id}','na',this)">N/A</button>
+        </div>
+      </td>
+      <td><input class="pd" type="text" id="${id}-dt" placeholder="${detail}"></td>`;
+    tb.appendChild(tr);
+  });
+}
+
+function setPrev(id,status,btn){
+  btn.closest('tr').querySelectorAll('.pb').forEach(b=>b.className='pb');
+  btn.classList.add(status);
+}
+
+// ── Immunizations ────────────────────────────────────────
+const IMM=[
+  ['Influenza','Annually — all adults'],
+  ['COVID-19','Updated annual dose per ACIP'],
+  ['Tdap / Td Booster','Tdap once; Td booster q10y'],
+  ['Pneumococcal PCV20','Adults ≥65 or high risk — one-time PCV20'],
+  ['Pneumococcal PPSV23','Adults ≥65 or high risk — sequence per ACIP'],
+  ['Shingles (RZV — Shingrix)','Adults ≥50 — 2-dose series, 2–6 months apart'],
+  ['HPV Vaccine','Ages 11–26; shared decision 27–45'],
+  ['Hepatitis A','Per risk / travel / no prior immunity'],
+  ['Hepatitis B','Unvaccinated adults — 3-dose or 2-dose (Heplisav-B)'],
+  ['MMR','Born after 1957 without documented immunity — 2 doses'],
+  ['Varicella','Non-immune adults — 2 doses if no prior disease or vaccine'],
+  ['Meningococcal MenACWY','High-risk: asplenia, complement deficiency, college dorms'],
+  ['RSV Vaccine','Adults ≥60 — single dose Abrysvo or mRESVIA'],
+  ['Mpox (JYNNEOS)','High-risk adults — 2-dose series'],
+];
+
+function buildImm(){
+  const g=document.getElementById('imm-grid');
+  IMM.forEach(([name,rec],i)=>{
+    const id='im-'+i;
+    const item=document.createElement('div');item.className='imm-item';
+    item.innerHTML=`
+      <div class="imm-name">${name}</div>
+      <div class="imm-rec">${rec}</div>
+      <div class="isb">
+        <button class="ib" onclick="setImm(this,'given')">✓ Current</button>
+        <button class="ib" onclick="setImm(this,'due')">Due</button>
+        <button class="ib" onclick="setImm(this,'refused')">Declined</button>
+        <button class="ib" onclick="setImm(this,'ci')">C/I</button>
+      </div>
+      <input class="idate" type="text" id="${id}-dt" placeholder="Date given / last dose / due date">`;
+    g.appendChild(item);
+  });
+}
+
+function setImm(btn,status){
+  btn.closest('.imm-item').querySelectorAll('.ib').forEach(b=>b.className='ib');
+  btn.classList.add(status);
+}
+
+// ── Note generator ───────────────────────────────────────
+function genNote(){
+  const D='═══════════════════════════════════════════════════════════\n';
+  let n='';
+  n+=D;
+  n+=`      OUTPATIENT INTERNAL MEDICINE — ${VTL[VT]||'OFFICE VISIT'}\n`;
+  n+=D+'\n';
+
+  // Header
+  const date=v('v-date'),prov=v('v-prov'),clinic=v('v-clinic');
+  const age=v('v-age'),ins=v('v-ins'),interp=sv('v-interp'),allergy=v('v-allergy');
+  if(date||prov||age){
+    if(date)   n+=`Date:       ${date}\n`;
+    if(prov)   n+=`Provider:   ${prov}${clinic?' | '+clinic:''}\n`;
+    if(age)    n+=`Patient:    ${age}${ins?' | '+ins:''}\n`;
+    if(interp) n+=`Language:   ${interp}\n`;
+    if(allergy)n+=`Allergies:  ${allergy}\n`;
+    n+='\n';
+  }
+
+  // CC & HPI
+  const cc=v('h-cc'),narr=v('h-narr'),assoc=v('h-assoc');
+  const onset=v('h-onset'),loc=v('h-loc'),dur=v('h-dur'),char=v('h-char');
+  const allev=v('h-allev'),aggr=v('h-aggr'),rad=v('h-rad'),sev=v('h-sev');
+  const temp=sv('h-temp'),prior=v('h-prior');
+  if(cc||narr){
+    n+=`▸ CHIEF COMPLAINT\n${cc||'—'}\n\n`;
+    n+='▸ HISTORY OF PRESENT ILLNESS\n';
+    const oc=[];
+    if(onset) oc.push(`Onset: ${onset}`);
+    if(loc)   oc.push(`Location: ${loc}`);
+    if(dur)   oc.push(`Duration: ${dur}`);
+    if(char)  oc.push(`Character: ${char}`);
+    if(allev) oc.push(`Alleviating: ${allev}`);
+    if(aggr)  oc.push(`Aggravating: ${aggr}`);
+    if(rad)   oc.push(`Radiation: ${rad}`);
+    if(sev)   oc.push(`Severity: ${sev}/10`);
+    if(temp)  oc.push(`Pattern: ${temp}`);
+    if(prior) oc.push(`Prior episodes: ${prior}`);
+    if(oc.length) n+=oc.join('  |  ')+'\n\n';
+    if(narr) n+=narr+'\n';
+    if(assoc) n+='\nAssociated symptoms: '+assoc+'\n';
+    n+='\n';
+  }
+
+  // PMH/PSH
+  const pmh=v('pmh'),psh=v('psh'),hosp=v('hhosp'),ob=v('ob-hx');
+  const fhNarr=v('fh-narr');
+  const fhItems=['fh-cad','fh-htn','fh-dm','fh-stroke','fh-crc','fh-breast','fh-prostate','fh-lung','fh-osteo','fh-thyroid','fh-dem','fh-mh','fh-bleed','fh-kidney','fh-scd']
+    .filter(id=>ck(id)).map(id=>{const l=document.querySelector(`label[for="${id}"]`);return l?l.textContent.trim():'';}).filter(Boolean);
+  if(pmh){n+=`▸ PAST MEDICAL HISTORY\n${pmh}\n\n`;}
+  if(psh){n+=`▸ PAST SURGICAL HISTORY\n${psh}\n`;}
+  if(hosp){n+=`Prior hospitalizations: ${hosp}\n`;}
+  if(ob){n+=`OB/Gyn history: ${ob}\n`;}
+  if(psh||hosp||ob) n+='\n';
+  if(fhItems.length||fhNarr){
+    n+=`▸ FAMILY HISTORY\n`;
+    if(fhItems.length) n+=fhItems.join(', ')+'\n';
+    if(fhNarr) n+=fhNarr+'\n';
+    n+='\n';
+  }
+
+  // Social Hx
+  const occ=v('sh-occ'),mar=v('sh-mar'),live=v('sh-live');
+  const tob=sv('sh-tob'),tobD=v('sh-tob-d');
+  const etoh=sv('sh-etoh'),etohD=v('sh-etoh-d');
+  const drug=sv('sh-drug'),drugD=v('sh-drug-d');
+  const diet=v('sh-diet'),ex=v('sh-ex'),sex=v('sh-sex');
+  const sdohItems=['sdoh-food','sdoh-house','sdoh-trans','sdoh-fin','sdoh-lit','sdoh-iso','sdoh-ipv']
+    .filter(id=>ck(id)).map(id=>{const l=document.querySelector(`label[for="${id}"]`);return l?l.textContent.trim():'';}).filter(Boolean);
+  const sdohNone=ck('sdoh-none'),sdohC=v('sdoh-comments');
+  if(occ||tob||etoh){
+    n+='▸ SOCIAL HISTORY\n';
+    const demo=[];if(occ)demo.push(occ);if(mar)demo.push(mar);if(live)demo.push(live);
+    if(demo.length) n+=demo.join(', ')+'\n';
+    if(tob) n+=`Tobacco: ${tob}${tobD?' — '+tobD:''}\n`;
+    if(etoh) n+=`Alcohol: ${etoh}${etohD?' — '+etohD:''}\n`;
+    if(drug) n+=`Substances: ${drug}${drugD?' — '+drugD:''}\n`;
+    if(diet) n+=`Diet: ${diet}\n`;
+    if(ex) n+=`Activity: ${ex}\n`;
+    if(sex) n+=`Sexual history: ${sex}\n`;
+    if(sdohNone) n+='SDOH: No concerns identified\n';
+    else if(sdohItems.length) n+=`SDOH concerns: ${sdohItems.join(', ')}\n`;
+    if(sdohC) n+=sdohC+'\n';
+    n+='\n';
+  }
+
+  // Meds
+  const rx=v('rx-meds'),otc=v('otc-meds'),adhD=v('adh-detail');
+  if(rx||otc){
+    if(rx) n+=`▸ MEDICATIONS\n${rx}\n`;
+    if(otc) n+=`OTC / Supplements: ${otc}\n`;
+    if(adhD) n+=`Adherence: ${adhD}\n`;
+    n+='\n';
+  }
+
+  // ROS
+  const {pos:rPos,neg:rNeg}=getROSText();
+  const rosC=v('ros-comments');
+  if(rPos.length||rNeg.length){
+    n+='▸ REVIEW OF SYSTEMS\n';
+    if(rPos.length) n+='Pertinent positives: '+rPos.join(' | ')+'\n';
+    if(rNeg.length) n+='Pertinent negatives: '+rNeg.slice(0,20).join(', ')+(rNeg.length>20?', ...':'')+'\n';
+    if(rosC) n+=rosC+'\n';
+    n+='\n';
+  }
+
+  // Vitals & Exam
+  const bp=v('vs-bp'),bp2=v('vs-bp2'),hr=v('vs-hr'),rr=v('vs-rr');
+  const temp2=v('vs-t'),spo2=v('vs-spo2'),wt=v('vs-wt'),ht=v('vs-ht');
+  const bmi=v('vs-bmi'),waist=v('vs-waist'),pain=v('vs-pain'),bg=v('vs-bg');
+  const {pos:ePos,neg:eNeg}=getExamText();
+  const cvN=v('cv-notes'),exAddl=v('exam-addl');
+  if(bp||hr||ePos.length||eNeg.length){
+    n+='▸ VITAL SIGNS\n';
+    const vs=[];
+    if(bp) vs.push(`BP ${bp}${bp2?' / repeat '+bp2:''}`);
+    if(hr) vs.push(`HR ${hr}`);
+    if(rr) vs.push(`RR ${rr}`);
+    if(temp2) vs.push(`T ${temp2}°F`);
+    if(spo2) vs.push(`SpO2 ${spo2}`);
+    if(wt) vs.push(`Wt ${wt}`);
+    if(ht) vs.push(`Ht ${ht}`);
+    if(bmi) vs.push(`BMI ${bmi}`);
+    if(waist) vs.push(`Waist ${waist}`);
+    if(bg) vs.push(`BG ${bg}`);
+    if(pain) vs.push(`Pain ${pain}/10`);
+    if(vs.length) n+=vs.join('  |  ')+'\n\n';
+    n+='▸ PHYSICAL EXAMINATION\n';
+    if(ePos.length) n+='Normal/Present: '+ePos.join(', ')+'\n';
+    if(eNeg.length) n+='Abnormal/Absent: '+eNeg.join(', ')+'\n';
+    if(cvN) n+='CV detail: '+cvN+'\n';
+    if(exAddl) n+=exAddl+'\n';
+    n+='\n';
+  }
+
+  // A&P
+  n+='▸ ASSESSMENT & PLAN\n'+'─'.repeat(55)+'\n';
+  let anyAP=false;
+  for(let i=1;i<=apN;i++){
+    const dx=v('ap-dx-'+i),dat=v('ap-d-'+i),plan=v('ap-p-'+i);
+    if(dx||plan){
+      anyAP=true;
+      n+=`\n#${i}. ${dx||'Problem #'+i}\n`;
+      if(dat) n+='   Data: '+dat+'\n';
+      if(plan) n+=plan.split('\n').map(l=>'   '+l).join('\n')+'\n';
+    }
+  }
+  if(!anyAP) n+='\n(No problems documented)\n';
+  n+='\n';
+
+  // Preventive care summary
+  const current=[],overdue=[],ordered=[],declined=[];
+  document.querySelectorAll('#prev-tbody tr').forEach(tr=>{
+    const item=tr.querySelector('strong');
+    const dt=tr.querySelector('.pd');
+    const statusBtn=tr.querySelector('.pb.current,.pb.overdue,.pb.ordered,.pb.declined');
+    if(!item||!statusBtn) return;
+    const name=item.textContent.trim();
+    const dtVal=dt?dt.value.trim():'';
+    if(statusBtn.classList.contains('current')) current.push(`${name}${dtVal?' ('+dtVal+')':''}`);
+    else if(statusBtn.classList.contains('overdue')) overdue.push(name);
+    else if(statusBtn.classList.contains('ordered')) ordered.push(name);
+    else if(statusBtn.classList.contains('declined')) declined.push(name);
+  });
+  if(current.length||overdue.length||ordered.length||declined.length){
+    n+='▸ PREVENTIVE CARE STATUS\n';
+    if(current.length) n+='Current:  '+current.join(', ')+'\n';
+    if(overdue.length) n+='Overdue:  '+overdue.join(', ')+'\n';
+    if(ordered.length) n+='Ordered:  '+ordered.join(', ')+'\n';
+    if(declined.length)n+='Declined: '+declined.join(', ')+'\n';
+    n+='\n';
+  }
+
+  // Immunizations summary
+  const immGiven=[],immDue=[],immDeclined=[];
+  document.querySelectorAll('.imm-item').forEach(item=>{
+    const name=item.querySelector('.imm-name').textContent.trim();
+    const dt=item.querySelector('.idate').value.trim();
+    if(item.querySelector('.ib.given')) immGiven.push(`${name}${dt?' ('+dt+')':''}`);
+    else if(item.querySelector('.ib.due')) immDue.push(name);
+    else if(item.querySelector('.ib.refused')) immDeclined.push(name);
+  });
+  if(immGiven.length||immDue.length||immDeclined.length){
+    n+='▸ IMMUNIZATIONS\n';
+    if(immGiven.length) n+='Current:  '+immGiven.join(', ')+'\n';
+    if(immDue.length) n+='Due:      '+immDue.join(', ')+'\n';
+    if(immDeclined.length) n+='Declined: '+immDeclined.join(', ')+'\n';
+    const immNotes=v('imm-notes');if(immNotes) n+=immNotes+'\n';
+    n+='\n';
+  }
+
+  // Mental health
+  const phq2=sv('phq2'),phq9=v('phq9'),gad7=v('gad7'),si=sv('si');
+  const auditC=v('auditc'),dast10=v('dast10'),cog=v('cog-screen'),ipv=sv('ipv');
+  const mhPlan=v('mh-plan');
+  if(phq2||phq9||mhPlan){
+    n+='▸ BEHAVIORAL HEALTH SCREENING\n';
+    if(phq2) n+=`PHQ-2: ${phq2}${phq9?' | PHQ-9: '+phq9:''}\n`;
+    if(gad7) n+=`GAD-7: ${gad7}\n`;
+    if(si)   n+=`Suicidal ideation: ${si}\n`;
+    if(auditC) n+=`AUDIT-C: ${auditC}\n`;
+    if(dast10) n+=`DAST-10: ${dast10}\n`;
+    if(cog) n+=`Cognitive screen: ${cog}\n`;
+    if(ipv) n+=`IPV screen: ${ipv}\n`;
+    if(mhPlan) n+=mhPlan+'\n';
+    n+='\n';
+  }
+
+  // Education & follow-up
+  const eduLabels=['edu-dx','edu-meds','edu-diet','edu-ex','edu-smoke','edu-wt','edu-dm','edu-bp','edu-fall','edu-prev','edu-acp','edu-tb']
+    .filter(id=>ck(id)).map(id=>{const l=document.querySelector(`label[for="${id}"]`);return l?l.textContent.trim():'';}).filter(Boolean);
+  const retPrec=v('return-prec'),labsOrd=v('labs-ord'),refs=v('referrals');
+  const fuInt=sv('fu-int'),fuReason=v('fu-reason'),fuNotes=v('fu-notes');
+  const mdm=sv('mdm'),attest=v('attest');
+  if(eduLabels.length||retPrec||labsOrd||refs||fuInt){
+    if(eduLabels.length) n+='▸ PATIENT EDUCATION: '+eduLabels.join(', ')+'\n\n';
+    if(retPrec) n+='▸ RETURN PRECAUTIONS\n'+retPrec+'\n\n';
+    if(labsOrd) n+='▸ LABS / STUDIES ORDERED\n'+labsOrd+'\n\n';
+    if(refs) n+='▸ REFERRALS\n'+refs+'\n\n';
+    if(fuInt||fuReason||fuNotes){
+      n+='▸ FOLLOW-UP\n';
+      if(fuInt) n+=fuInt+'\n';
+      if(fuReason) n+=`Agenda: ${fuReason}\n`;
+      if(fuNotes) n+=fuNotes+'\n';
+      n+='\n';
+    }
+    if(mdm) n+=`▸ MDM LEVEL: ${mdm}\n\n`;
+    if(attest) n+=`▸ ATTESTATION\n${attest}\n\n`;
+  }
+
+  n+=D;
+  n+=`Signed: ${v('v-prov')||'___'}  |  ${v('v-date')||new Date().toLocaleDateString()}\n`;
+  n+=D;
+
+  document.getElementById('gen-note').textContent=n;
+}
+
+// ── Clear ───────────────────────────────────────────────
+function clearAll(){
+  if(!confirm('Clear all fields? This cannot be undone.')) return;
+  document.querySelectorAll('input[type=text],textarea').forEach(el=>el.value='');
+  document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);
+  document.querySelectorAll('input[type=checkbox]').forEach(el=>el.checked=false);
+  document.querySelectorAll('.ros-item').forEach(el=>{el.setAttribute('data-s','neutral');el.querySelector('.ri').textContent='';});
+  document.querySelectorAll('.ef').forEach(el=>{el.setAttribute('data-s','neutral');el.querySelector('.ei').textContent='';});
+  document.querySelectorAll('.pb').forEach(b=>b.className='pb');
+  document.querySelectorAll('.ib').forEach(b=>b.className='ib');
+  document.getElementById('ap-blocks').innerHTML='';apN=0;
+  document.getElementById('gen-note').textContent='Click "Generate Note" to compile a complete, EHR-ready outpatient note.';
+}
+
+// ── Init ────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  buildROS();
+  buildPrev();
+  buildImm();
+  addAP(); addAP(); addAP();
+  document.querySelectorAll('.section').forEach((s,i)=>{if(i>1)s.classList.add('collapsed');});
+});
+window.addEventListener('message',e=>{if(e.data&&e.data.type==='SW_VERSION'){const el=document.getElementById('component-version');if(el)el.textContent=e.data.version;}});
+</script>
+</body>
+</html>

@@ -446,6 +446,12 @@
                             <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Master hospitalist note with cross-specialty emergency screening (32 conditions across all organ systems), problem-based A&P, 30 chronic disease management templates, medication reconciliation, 13 safety &amp; quality checklists, pending items tracker, and discharge planning — all generating one EHR-ready note.</p>
                         </div>
                     </div>
+                    <div onclick="switchTool('opnote')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden; border-top:4px solid #ef8c22;">
+                        <div style="background:linear-gradient(135deg,#3e2723,#5c4033); color:#fff; padding:20px; font-weight:700;">🏥 Outpatient Internal Medicine Note</div>
+                        <div style="padding:20px;">
+                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Full outpatient IM note with 5 visit types, OLDCARTS HPI, tabbed PMH/Social/Family history, SDOH screening, 14-system ROS with tap-to-toggle, physical exam findings, problem-based A&P, 27-item preventive care tracker, 14 immunizations, mental health screening (PHQ-2/9, GAD-7, AUDIT-C), and E&M coding — generating a complete EHR-ready note.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); padding:25px; margin-top:20px;">
@@ -680,6 +686,13 @@
                 icon: "📋",
                 file: "inpatient_note.html",
                 description: "H&P / Progress Note / Discharge Summary"
+            },
+            {
+                id: "opnote",
+                name: "Outpatient IM Note",
+                icon: "🏥",
+                file: "op_note.html",
+                description: "Outpatient Internal Medicine Note"
             }
             // To add a new tool:
             // { id: "newid", name: "Tool Name", icon: "🆕", file: "filename.html", description: "Description" }
