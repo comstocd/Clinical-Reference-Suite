@@ -453,7 +453,55 @@
                 box-shadow: none;
             }
         }
-    </style>
+    
+  /* ── Organ System Browse — Emergency Tiering ──────────────────────── */
+  .os-link {
+    display: block;
+    padding: 2px 0;
+    text-decoration: none;
+    font-size: 0.82rem;
+    color: #0366d6;
+  }
+  .os-link:hover { text-decoration: underline; }
+  .os-link.em {
+    color: #b91c1c;
+    font-weight: 600;
+  }
+  .os-link.em::before {
+    content: "● ";
+    font-size: 0.6rem;
+    vertical-align: middle;
+    margin-right: 2px;
+    color: #dc2626;
+  }
+  .os-divider {
+    border: none;
+    border-top: 1px dashed #e1e4e8;
+    margin: 5px 0;
+  }
+  .os-legend {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .os-legend-em {
+    color: #b91c1c;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .os-legend-em::before {
+    content: "●";
+    font-size: 0.6rem;
+    color: #dc2626;
+  }
+
+</style>
 </head>
 <body>
 
@@ -1920,6 +1968,30 @@
                     </a>
                 </div>
                 <div class="toc-item">
+                    <a href="#steroid-hyperglycemia">
+                        <span class="toc-number">339</span>
+                        <span class="toc-title">STEROID-INDUCED HYPERGLYCEMIA</span>
+                    </a>
+                </div>
+                <div class="toc-item">
+                    <a href="#sick-euthyroid">
+                        <span class="toc-number">340</span>
+                        <span class="toc-title">SICK EUTHYROID SYNDROME</span>
+                    </a>
+                </div>
+                <div class="toc-item">
+                    <a href="#periop-glucose">
+                        <span class="toc-number">341</span>
+                        <span class="toc-title">PERIOPERATIVE GLUCOSE MANAGEMENT</span>
+                    </a>
+                </div>
+                <div class="toc-item">
+                    <a href="#pituitary-apoplexy">
+                        <span class="toc-number">342</span>
+                        <span class="toc-title">PITUITARY APOPLEXY</span>
+                    </a>
+                </div>
+                <div class="toc-item">
                     <a href="#zes">
                         <span class="toc-number">241</span>
                         <span class="toc-title">ZOLLINGER-ELLISON SYNDROME</span>
@@ -2511,238 +2583,245 @@
 
             <!-- SYSTEM-BASED TABLE OF CONTENTS -->
             <div id="system-toc" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e1e4e8;">
-                <h2 style="color: #24292e; font-size: 14pt; margin-bottom: 15px;">Browse by Organ System</h2>
+                <h2 style="color:#24292e;font-size:14pt;margin-bottom:8px;">Browse by Organ System</h2>
+<div class="os-legend">
+  <span class="os-legend-em">Time-critical emergency</span>
+  <span>— all others by frequency</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:20px;">
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">❤️ Cardiology</strong>
+<a href="#acs" class="os-link em">ACS / STEMI</a>
+<a href="#aortic-dissection" class="os-link em">Aortic Dissection</a>
+<a href="#cardiac-tamponade" class="os-link em">Cardiac Tamponade</a>
+<a href="#cardiogenic-shock" class="os-link em">Cardiogenic Shock</a>
+<a href="#vt-vf" class="os-link em">VT / VF</a>
+<a href="#ruptured-aaa" class="os-link em">Ruptured AAA</a>
+<hr class="os-divider">
+<a href="#heart-failure" class="os-link">Heart Failure</a>
+<a href="#afib" class="os-link">Atrial Fibrillation</a>
+<a href="#htn-emergency" class="os-link">HTN Emergency</a>
+<a href="#endocarditis" class="os-link">Endocarditis</a>
+<a href="#svt" class="os-link">SVT</a>
+<a href="#critical-as" class="os-link">Critical AS</a>
+<a href="#acute-mr" class="os-link">Acute MR</a>
+<a href="#pericarditis" class="os-link">Pericarditis</a>
+<a href="#syncope" class="os-link">Syncope</a>
+<a href="#costochondritis" class="os-link">Costochondritis</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🫁 Pulmonology</strong>
+<a href="#acute-respiratory-failure" class="os-link em">Acute Respiratory Failure</a>
+<a href="#ards" class="os-link em">ARDS</a>
+<a href="#massive-hemoptysis" class="os-link em">Massive Hemoptysis</a>
+<a href="#ph-crisis" class="os-link em">PH Crisis</a>
+<a href="#pneumothorax" class="os-link em">Tension Pneumothorax</a>
+<hr class="os-divider">
+<a href="#pe" class="os-link">Pulmonary Embolism</a>
+<a href="#cap" class="os-link">CAP</a>
+<a href="#hap-vap" class="os-link">HAP / VAP</a>
+<a href="#copd" class="os-link">COPD Exacerbation</a>
+<a href="#asthma" class="os-link">Asthma Exacerbation</a>
+<a href="#hypercapnic-failure" class="os-link">Hypercapnic Failure</a>
+<a href="#pleural-effusion" class="os-link">Pleural Effusion</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🫘 GI / Hepatology</strong>
+<a href="#mesenteric-ischemia" class="os-link em">Mesenteric Ischemia</a>
+<a href="#cirrhosis-complications" class="os-link em">Variceal Hemorrhage</a>
+<a href="#acute-liver-failure" class="os-link em">Acute Liver Failure</a>
+<a href="#toxic-megacolon" class="os-link em">Toxic Megacolon</a>
+<a href="#cholangitis" class="os-link em">Cholangitis</a>
+<hr class="os-divider">
+<a href="#ugib" class="os-link">Upper GI Bleed</a>
+<a href="#lower-gi-bleed" class="os-link">Lower GI Bleed</a>
+<a href="#pancreatitis" class="os-link">Acute Pancreatitis</a>
+<a href="#he" class="os-link">Hepatic Encephalopathy</a>
+<a href="#sbp" class="os-link">SBP</a>
+<a href="#cirrhosis-complications" class="os-link">Hepatorenal Syndrome</a>
+<a href="#bowel-obstruction" class="os-link">Bowel Obstruction</a>
+<a href="#appendicitis" class="os-link">Appendicitis</a>
+<a href="#ischemic-colitis" class="os-link">Ischemic Colitis</a>
+<a href="#cdiff" class="os-link">C. diff</a>
+<a href="#cirrhosis" class="os-link">Cirrhosis</a>
+<a href="#ibd" class="os-link">IBD Flare</a>
+<a href="#alcoholic-hepatitis" class="os-link">Alcoholic Hepatitis</a>
+<a href="#diverticulitis" class="os-link">Diverticulitis</a>
+<a href="#cholecystitis" class="os-link">Acute Cholecystitis</a>
+<a href="#choledocholithiasis" class="os-link">Choledocholithiasis</a>
+<a href="#gastroparesis" class="os-link">Gastroparesis</a>
+<a href="#pbc" class="os-link">Primary Biliary Cholangitis</a>
+<a href="#nafld" class="os-link">NAFLD / NASH</a>
+<a href="#gerd" class="os-link">GERD / Esophagitis</a>
+<a href="#barretts" class="os-link">Barrett's Esophagus</a>
+<a href="#esophageal-spasm" class="os-link">Esophageal Spasm</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🫘 Nephrology</strong>
+<a href="#hyperkalemia" class="os-link em">Hyperkalemia (severe)</a>
+<a href="#uremia" class="os-link em">Uremic Emergency</a>
+<hr class="os-divider">
+<a href="#aki" class="os-link">AKI</a>
+<a href="#hyponatremia" class="os-link">Hyponatremia</a>
+<a href="#ckd-complications" class="os-link">CKD Complications</a>
+<a href="#glomerulonephritis" class="os-link">Glomerulonephritis</a>
+<a href="#nephrotic-syndrome" class="os-link">Nephrotic Syndrome</a>
+<a href="#rhabdo" class="os-link">Rhabdomyolysis</a>
+<a href="#uti" class="os-link">UTI / Pyelonephritis</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🦋 Endocrine</strong>
+<a href="#adrenal" class="os-link em">Adrenal Crisis</a>
+<a href="#hyperthyroid" class="os-link em">Thyroid Storm</a>
+<a href="#hypothyroid" class="os-link em">Myxedema Coma</a>
+<a href="#pituitary-apoplexy" class="os-link em">Pituitary Apoplexy</a>
+<a href="#dka" class="os-link em">DKA</a>
+<hr class="os-divider">
+<a href="#hhs" class="os-link">HHS</a>
+<a href="#hypoglycemia" class="os-link">Hypoglycemia</a>
+<a href="#hypercalcemia" class="os-link">Hypercalcemia</a>
+<a href="#hypocalcemia" class="os-link">Hypocalcemia</a>
+<a href="#siadh" class="os-link">SIADH</a>
+<a href="#diabetes-insipidus" class="os-link">Diabetes Insipidus</a>
+<a href="#steroid-hyperglycemia" class="os-link">Steroid Hyperglycemia</a>
+<a href="#periop-glucose" class="os-link">Periop Glucose</a>
+<a href="#cushing" class="os-link">Cushing Syndrome</a>
+<a href="#primary-aldosteronism" class="os-link">Primary Aldosteronism</a>
+<a href="#sick-euthyroid" class="os-link">Sick Euthyroid</a>
+<a href="#prolactinoma" class="os-link">Prolactinoma</a>
+<a href="#acromegaly" class="os-link">Acromegaly</a>
+<a href="#pcos" class="os-link">PCOS</a>
+<a href="#men-syndromes" class="os-link">MEN Syndromes</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🧠 Neurology</strong>
+<a href="#stroke" class="os-link em">Ischemic Stroke</a>
+<a href="#ich" class="os-link em">ICH</a>
+<a href="#sah" class="os-link em">SAH</a>
+<a href="#seizure" class="os-link em">Status Epilepticus</a>
+<a href="#increased-icp" class="os-link em">Increased ICP</a>
+<a href="#meningitis" class="os-link em">Bacterial Meningitis</a>
+<a href="#myasthenic-crisis" class="os-link em">Myasthenic Crisis</a>
+<hr class="os-divider">
+<a href="#encephalitis" class="os-link">Encephalitis</a>
+<a href="#gbs" class="os-link">Guillain-Barré</a>
+<a href="#wernicke" class="os-link">Wernicke Encephalopathy</a>
+<a href="#delirium" class="os-link">Delirium</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🔬 Infectious Disease</strong>
+<a href="#sepsis" class="os-link em">Sepsis / Septic Shock</a>
+<a href="#ssti" class="os-link em">Necrotizing Fasciitis</a>
+<a href="#neutropenic-fever" class="os-link em">Neutropenic Fever</a>
+<a href="#epidural-abscess" class="os-link em">Epidural Abscess</a>
+<hr class="os-divider">
+<a href="#urosepsis" class="os-link">Urosepsis</a>
+<a href="#cellulitis" class="os-link">Cellulitis</a>
+<a href="#osteomyelitis" class="os-link">Osteomyelitis</a>
+<a href="#septic-arthritis" class="os-link">Septic Arthritis</a>
+<a href="#clabsi" class="os-link">CLABSI</a>
+<a href="#brain-abscess" class="os-link">Brain Abscess</a>
+<a href="#empyema" class="os-link">Empyema</a>
+<a href="#diabetic-foot-infection" class="os-link">Diabetic Foot Infection</a>
+<a href="#prosthetic-joint-infection" class="os-link">Prosthetic Joint Infection</a>
+<a href="#cied-infection" class="os-link">CIED Infection</a>
+<a href="#covid" class="os-link">COVID-19</a>
+<a href="#influenza" class="os-link">Influenza</a>
+<a href="#tb" class="os-link">TB</a>
+<a href="#hiv-aids" class="os-link">HIV/AIDS</a>
+<a href="#tick-borne" class="os-link">Tick-borne Illness</a>
+<a href="#pid" class="os-link">PID</a>
+<a href="#lung-abscess" class="os-link">Lung Abscess</a>
+<a href="#herpes-zoster" class="os-link">Herpes Zoster</a>
+<a href="#mononucleosis" class="os-link">Mononucleosis</a>
+<a href="#prostatitis" class="os-link">Prostatitis</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🩸 Heme / Onc</strong>
+<a href="#ttp-hus" class="os-link em">TTP / HUS</a>
+<a href="#dic" class="os-link em">DIC</a>
+<a href="#tls" class="os-link em">Tumor Lysis Syndrome</a>
+<a href="#hit" class="os-link em">HIT</a>
+<hr class="os-divider">
+<a href="#sickle-cell" class="os-link">Sickle Cell Crisis</a>
+<a href="#anticoag-reversal" class="os-link">Anticoag Reversal</a>
+<a href="#thrombocytopenia" class="os-link">Thrombocytopenia</a>
+<a href="#anemia" class="os-link">Anemia</a>
+<a href="#dvt" class="os-link">DVT</a>
+<a href="#transfusion-reactions" class="os-link">Transfusion Reactions</a>
+<a href="#transfusion" class="os-link">Transfusion Medicine</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">💎 Rheumatology</strong>
+<a href="#vasculitis-emergency" class="os-link em">Vasculitis Emergency</a>
+<a href="#sle" class="os-link em">SLE Flare (severe)</a>
+<a href="#adult-still" class="os-link em">Adult Still's Disease</a>
+<hr class="os-divider">
+<a href="#gout" class="os-link">Gout / Pseudogout</a>
+<a href="#rheumatoid-arthritis" class="os-link">Rheumatoid Arthritis</a>
+<a href="#gca" class="os-link">Giant Cell Arteritis</a>
+<a href="#pmr" class="os-link">Polymyalgia Rheumatica</a>
+<a href="#aps" class="os-link">Antiphospholipid Syndrome</a>
+<a href="#lupus-nephritis" class="os-link">Lupus Nephritis</a>
+<a href="#systemic-sclerosis" class="os-link">Systemic Sclerosis</a>
+<a href="#inflammatory-myopathy" class="os-link">Inflammatory Myopathies</a>
+<a href="#spondyloarthropathy" class="os-link">Spondyloarthropathies</a>
+<a href="#sarcoidosis" class="os-link">Sarcoidosis</a>
+<a href="#amyloidosis" class="os-link">Amyloidosis</a>
+<a href="#igg4" class="os-link">IgG4-Related Disease</a>
+<a href="#sjogren" class="os-link">Sjögren's</a>
+<a href="#osteoarthritis" class="os-link">Osteoarthritis</a>
+<a href="#fibromyalgia" class="os-link">Fibromyalgia</a>
+<a href="#drug-induced-lupus" class="os-link">Drug-Induced Lupus</a>
+<a href="#behcet" class="os-link">Behçet's Disease</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🦴 Bone / Orthopedic</strong>
+<a href="#cauda-equina" class="os-link em">Cauda Equina Syndrome</a>
+<a href="#spinal-cord-compression" class="os-link em">Spinal Cord Compression</a>
+<hr class="os-divider">
+<a href="#osteoporosis" class="os-link">Osteoporosis</a>
+<a href="#osteonecrosis" class="os-link">Osteonecrosis (AVN)</a>
+<a href="#paget" class="os-link">Paget's Disease</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">☠️ Toxicology</strong>
+<a href="#anaphylaxis" class="os-link em">Anaphylaxis</a>
+<a href="#serotonin-syndrome" class="os-link em">Serotonin Syndrome</a>
+<a href="#nms" class="os-link em">NMS</a>
+<a href="#bb-ccb-toxicity" class="os-link em">BB / CCB Toxicity</a>
+<a href="#toxic-alcohol" class="os-link em">Toxic Alcohols</a>
+<a href="#etoh-withdrawal" class="os-link em">Alcohol Withdrawal (severe)</a>
+<hr class="os-divider">
+<a href="#opioid" class="os-link">Opioid Overdose</a>
+<a href="#apap-overdose" class="os-link">Acetaminophen OD</a>
+<a href="#salicylate-toxicity" class="os-link">Salicylate Toxicity</a>
+<a href="#digoxin-toxicity" class="os-link">Digoxin Toxicity</a>
+<a href="#lithium-toxicity" class="os-link">Lithium Toxicity</a>
+<a href="#overdose" class="os-link">Toxidromes</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🛡️ Allergy / Immunology</strong>
+<a href="#hae" class="os-link em">Hereditary Angioedema</a>
+<hr class="os-divider">
+<a href="#chronic-urticaria" class="os-link">Chronic Urticaria</a>
+<a href="#allergic-rhinitis" class="os-link">Allergic Rhinitis</a>
+<a href="#food-allergy" class="os-link">Food Allergy</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🧠 Psychiatry</strong>
+<a href="#mdd" class="os-link">Depression (MDD)</a>
+<a href="#anxiety" class="os-link">Anxiety / Panic / PTSD</a>
+<a href="#bipolar" class="os-link">Bipolar Disorder</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">👴 Geriatrics / Preventive</strong>
+<a href="#geriatric-syndromes" class="os-link">Falls / Beers / Elder Abuse</a>
+<a href="#preventive-care" class="os-link">Cancer Screening</a>
+<a href="#ethics-capacity" class="os-link">Ethics / Capacity</a>
+</div>
+</div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px;">
-                    <div>
-                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Cardiology</strong>
-                        <a href="#acs" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">ACS</a>
-                        <a href="#heart-failure" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Heart Failure</a>
-                        <a href="#afib" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Atrial Fibrillation</a>
-                        <a href="#htn-emergency" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">HTN Emergency</a>
-                        <a href="#syncope" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Syncope</a>
-                        <a href="#pericarditis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Pericarditis</a>
-                        <a href="#costochondritis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Costochondritis</a>
-                        <a href="#endocarditis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Endocarditis</a>
-                        <a href="#cardiogenic-shock" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Cardiogenic Shock</a>
-                        <a href="#vt-vf" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">VT/VF</a>
-                        <a href="#svt" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">SVT</a>
-                        <a href="#aortic-dissection" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Aortic Dissection</a>
-                        <a href="#cardiac-tamponade" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Cardiac Tamponade</a>
-                        <a href="#critical-as" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Critical AS</a>
-                        <a href="#acute-mr" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Acute MR</a>
-                    </div>
-
-                    <div>
-                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Pulmonology</strong>
-                        <a href="#acute-respiratory-failure" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Acute Respiratory Failure</a>
-                        <a href="#cap" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">CAP</a>
-                        <a href="#copd" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">COPD Exacerbation</a>
-                        <a href="#asthma" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Asthma Exacerbation</a>
-                        <a href="#pe" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Pulmonary Embolism</a>
-                        <a href="#pleural-effusion" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Pleural Effusion</a>
-                        <a href="#pneumothorax" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Pneumothorax</a>
-                        <a href="#ards" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">ARDS</a>
-                        <a href="#massive-hemoptysis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Massive Hemoptysis</a>
-                        <a href="#hap-vap" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">HAP/VAP</a>
-                        <a href="#ph-crisis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">PH Crisis</a>
-                        <a href="#hypercapnic-failure" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Hypercapnic Failure</a>
-                    </div>
-
-                    <div>
-                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">GI / Hepatology</strong>
-                        <a href="#ugib" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Upper GI Bleed</a>
-                        <a href="#lower-gi-bleed" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Lower GI Bleed</a>
-                        <a href="#cirrhosis-complications" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Variceal Hemorrhage</a>
-                        <a href="#gerd" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">GERD / Esophagitis</a>
-                        <a href="#barretts" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Barrett's Esophagus</a>
-                        <a href="#esophageal-spasm" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Esophageal Spasm</a>
-                        <a href="#gastroparesis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Gastroparesis</a>
-                        <a href="#cholecystitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Acute Cholecystitis</a>
-                        <a href="#choledocholithiasis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Choledocholithiasis</a>
-                        <a href="#cholangitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Cholangitis</a>
-                        <a href="#pancreatitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Pancreatitis</a>
-                        <a href="#appendicitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Appendicitis</a>
-                        <a href="#diverticulitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Diverticulitis</a>
-                        <a href="#bowel-obstruction" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Bowel Obstruction</a>
-                        <a href="#ischemic-colitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Ischemic Colitis</a>
-                        <a href="#mesenteric-ischemia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Mesenteric Ischemia</a>
-                        <a href="#ibd" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">IBD Flare</a>
-                        <a href="#toxic-megacolon" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Toxic Megacolon</a>
-                        <a href="#cdiff" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">C. diff</a>
-                        <a href="#cirrhosis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Cirrhosis</a>
-                        <a href="#acute-liver-failure" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Acute Liver Failure</a>
-                        <a href="#alcoholic-hepatitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Alcoholic Hepatitis</a>
-                        <a href="#sbp" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">SBP</a>
-                        <a href="#he" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Hepatic Encephalopathy</a>
-                        <a href="#cirrhosis-complications" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Hepatorenal Syndrome</a>
-                        <a href="#pbc" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Primary Biliary Cholangitis</a>
-                        <a href="#nafld" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">NAFLD / NASH</a>
-                    </div>
-
-                    <div>
-                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Nephrology</strong>
-                        <a href="#aki" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">AKI</a>
-                        <a href="#hyperkalemia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Hyperkalemia</a>
-                        <a href="#hyponatremia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Hyponatremia</a>
-                        <a href="#ckd-complications" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">CKD Complications</a>
-                        <a href="#uremia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Uremia</a>
-                        <a href="#glomerulonephritis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Glomerulonephritis</a>
-                        <a href="#nephrotic-syndrome" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Nephrotic Syndrome</a>
-                        <a href="#rhabdo" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Rhabdomyolysis</a>
-                        <a href="#uti" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">UTI / Pyelonephritis</a>
-                    </div>
-
-                    <div>
-                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Endocrine</strong>
-                        <a href="#dka" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">DKA</a>
-                        <a href="#hhs" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">HHS</a>
-                        <a href="#hypoglycemia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Hypoglycemia</a>
-                        <a href="#hyperthyroid" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Thyroid Storm</a>
-                        <a href="#hypothyroid" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Myxedema Coma</a>
-                        <a href="#adrenal" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Adrenal Crisis</a>
-                        <a href="#hypercalcemia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Hypercalcemia</a>
-                        <a href="#hypocalcemia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Hypocalcemia</a>
-                        <a href="#siadh" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">SIADH</a>
-                        <a href="#diabetes-insipidus" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Diabetes Insipidus</a>
-                        <a href="#pcos" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">PCOS</a>
-                        <a href="#cushing" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Cushing Syndrome</a>
-                        <a href="#primary-aldosteronism" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Primary Aldosteronism</a>
-                        <a href="#prolactinoma" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Prolactinoma</a>
-                        <a href="#acromegaly" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Acromegaly</a>
-                        <a href="#men-syndromes" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">MEN Syndromes</a>
-                    </div>
-
-                    <div>
-                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Neurology</strong>
-                        <a href="#stroke" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Ischemic Stroke</a>
-                        <a href="#ich" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">ICH</a>
-                        <a href="#sah" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">SAH</a>
-                        <a href="#seizure" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Seizure / Status</a>
-                        <a href="#meningitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Meningitis</a>
-                        <a href="#encephalitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Encephalitis</a>
-                        <a href="#gbs" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Guillain-Barré</a>
-                        <a href="#myasthenic-crisis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Myasthenic Crisis</a>
-                        <a href="#increased-icp" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Increased ICP</a>
-                        <a href="#delirium" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Delirium</a>
-                        <a href="#wernicke" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Wernicke Encephalopathy</a>
-                    </div>
-
-                    <div>
-                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Infectious Disease</strong>
-                        <a href="#sepsis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Sepsis</a>
-                        <a href="#urosepsis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Urosepsis</a>
-                        <a href="#cellulitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Cellulitis</a>
-                        <a href="#ssti" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Necrotizing Fasciitis</a>
-                        <a href="#osteomyelitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Osteomyelitis</a>
-                        <a href="#septic-arthritis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Septic Arthritis</a>
-                        <a href="#epidural-abscess" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Epidural Abscess</a>
-                        <a href="#clabsi" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">CLABSI</a>
-                        <a href="#diabetic-foot-infection" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Diabetic Foot Infection</a>
-                        <a href="#neutropenic-fever" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Neutropenic Fever</a>
-                        <a href="#tb" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">TB</a>
-                        <a href="#hiv-aids" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">HIV/AIDS</a>
-                        <a href="#covid" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">COVID-19</a>
-                        <a href="#influenza" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Influenza</a>
-                        <a href="#tick-borne" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Tick-borne Illness</a>
-                        <a href="#pid" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">PID</a>
-                        <a href="#empyema" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Empyema</a>
-                        <a href="#lung-abscess" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Lung Abscess</a>
-                        <a href="#herpes-zoster" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Herpes Zoster</a>
-                        <a href="#mononucleosis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Mononucleosis</a>
-                        <a href="#prostatitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Prostatitis</a>
-                        <a href="#brain-abscess" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Brain Abscess</a>
-                        <a href="#prosthetic-joint-infection" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Prosthetic Joint Infection</a>
-                        <a href="#cied-infection" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">CIED Infection</a>
-                    </div>
-
-                    <div>
-                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Heme / Onc</strong>
-                        <a href="#anemia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Anemia</a>
-                        <a href="#dvt" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">DVT</a>
-                        <a href="#thrombocytopenia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Thrombocytopenia</a>
-                        <a href="#ttp-hus" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">TTP/HUS</a>
-                        <a href="#hit" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">HIT</a>
-                        <a href="#dic" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">DIC</a>
-                        <a href="#tls" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Tumor Lysis Syndrome</a>
-                        <a href="#sickle-cell" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Sickle Cell Crisis</a>
-                        <a href="#transfusion" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Transfusion Medicine</a>
-                        <a href="#transfusion-reactions" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Transfusion Reactions</a>
-                        <a href="#anticoag-reversal" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Anticoag Reversal</a>
-                    </div>
-
-                    <div>
-                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Rheumatology</strong>
-                        <a href="#gout" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Gout / Pseudogout</a>
-                        <a href="#rheumatoid-arthritis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Rheumatoid Arthritis</a>
-                        <a href="#osteoarthritis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Osteoarthritis</a>
-                        <a href="#spondyloarthropathy" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Spondyloarthropathies</a>
-                        <a href="#sle" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">SLE Flare</a>
-                        <a href="#lupus-nephritis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Lupus Nephritis</a>
-                        <a href="#drug-induced-lupus" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Drug-Induced Lupus</a>
-                        <a href="#systemic-sclerosis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Systemic Sclerosis</a>
-                        <a href="#inflammatory-myopathy" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Inflammatory Myopathies</a>
-                        <a href="#sjogren" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Sjögren's Syndrome</a>
-                        <a href="#aps" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Antiphospholipid Syndrome</a>
-                        <a href="#gca" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Giant Cell Arteritis</a>
-                        <a href="#pmr" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Polymyalgia Rheumatica</a>
-                        <a href="#adult-still" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Adult Still's Disease</a>
-                        <a href="#behcet" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Behçet's Disease</a>
-                        <a href="#vasculitis-emergency" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Vasculitis</a>
-                        <a href="#sarcoidosis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Sarcoidosis</a>
-                        <a href="#igg4" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">IgG4-Related Disease</a>
-                        <a href="#amyloidosis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Amyloidosis</a>
-                        <a href="#fibromyalgia" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Fibromyalgia</a>
-                    </div>
-
-                    <div>
-                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Bone / Orthopedic</strong>
-                        <a href="#osteoporosis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Osteoporosis</a>
-                        <a href="#paget" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Paget's Disease</a>
-                        <a href="#osteonecrosis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Osteonecrosis (AVN)</a>
-                        <a href="#cauda-equina" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Cauda Equina Syndrome</a>
-                        <a href="#spinal-cord-compression" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Spinal Cord Compression</a>
-                    </div>
-
-                    <div>
-                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Toxicology</strong>
-                        <a href="#overdose" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Toxidromes</a>
-                        <a href="#opioid" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Opioid Overdose</a>
-                        <a href="#apap-overdose" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Acetaminophen</a>
-                        <a href="#salicylate-toxicity" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Salicylate Toxicity</a>
-                        <a href="#toxic-alcohol" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Toxic Alcohols</a>
-                        <a href="#serotonin-syndrome" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Serotonin Syndrome</a>
-                        <a href="#nms" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Neuroleptic Malignant Syndrome</a>
-                        <a href="#bb-ccb-toxicity" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">BB / CCB Toxicity</a>
-                        <a href="#digoxin-toxicity" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Digoxin Toxicity</a>
-                        <a href="#lithium-toxicity" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Lithium Toxicity</a>
-                        <a href="#anaphylaxis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Anaphylaxis</a>
-                        <a href="#etoh-withdrawal" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Alcohol Withdrawal</a>
-                    </div>
-
-                    <div>
-                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Psychiatry</strong>
-                        <a href="#mdd" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Depression (MDD)</a>
-                        <a href="#anxiety" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Anxiety / Panic / PTSD</a>
-                        <a href="#bipolar" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Bipolar Disorder</a>
-                    </div>
-
-                    <div>
-                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Allergy / Immunology</strong>
-                        <a href="#chronic-urticaria" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Chronic Urticaria</a>
-                        <a href="#hae" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Hereditary Angioedema</a>
-                        <a href="#allergic-rhinitis" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Allergic Rhinitis</a>
-                        <a href="#food-allergy" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Food Allergy</a>
-                    </div>
-
-                    <div>
-                        <strong style="color: #24292e; display: block; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid #e1e4e8;">Geriatrics / Preventtic Care</strong>
-                        <a href="#geriatric-syndromes" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Falls / Beers / Elder Abuse</a>
-                        <a href="#preventive-care" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Cancer Screening</a>
-                        <a href="#ethics-capacity" style="display: block; padding: 2px 0; color: #0366d6; text-decoration: none;">Ethics / Capacity</a>
-                    </div>
-                </div>
-            </div>
 
 <p style="margin-top: 20px; text-align: center;">
                 <a href="#toc" style="color: #0366d6; text-decoration: none; font-weight: 600;">↑ Back to Numerical Table of Contents</a>
@@ -39102,6 +39181,450 @@
     </div>
     <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
 </div>
+<!-- STEROID-INDUCED HYPERGLYCEMIA -->
+<div id="steroid-hyperglycemia" class="condition-page">
+    <div class="page-header">
+        <h2>339. STEROID-INDUCED HYPERGLYCEMIA</h2>
+        <div class="subtitle">Glucocorticoid Hyperglycemia • Basal-Plus Protocol • Inpatient Management</div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">PATHOPHYSIOLOGY & PATTERN</div>
+        <div class="section-content">
+            <p><span class="label">Mechanism:</span> Glucocorticoids → ↑ hepatic gluconeogenesis + ↑ glycogenolysis + insulin resistance → predominantly <strong>postprandial hyperglycemia</strong> with relatively preserved fasting glucose (unlike classic T2DM)</p>
+            <p><span class="label">Pattern by Steroid Type:</span></p>
+            <table style="width:100%; font-size:9pt;">
+                <tr><th>Glucocorticoid</th><th>Timing of Peak Effect</th><th>Duration</th><th>Implication</th></tr>
+                <tr><td><strong>Prednisone/prednisolone (once daily AM)</strong></td><td>Afternoon (noon–8 PM)</td><td>12–16 hr</td><td>PM glucose spikes most prominent; NPH at breakfast is classic match</td></tr>
+                <tr><td><strong>Dexamethasone</strong></td><td>Prolonged, less pronounced peak</td><td>24–36 hr</td><td>More uniform hyperglycemia; fasting affected too</td></tr>
+                <tr><td><strong>Methylprednisolone (divided BID-TID)</strong></td><td>Throughout day</td><td>Variable</td><td>More consistent elevation; basal-bolus preferred</td></tr>
+                <tr><td><strong>Hydrocortisone (stress dosing)</strong></td><td>Around-the-clock</td><td>8–12 hr</td><td>Continuous hyperglycemia when used q6-8h</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">DIAGNOSIS & MONITORING</div>
+        <div class="section-content">
+            <p><span class="label">Who to Monitor:</span> All patients receiving systemic glucocorticoids (not inhaled/topical at standard doses). Higher risk: prior diabetes/prediabetes, obesity, family history, high steroid dose (≥20 mg/day prednisone equivalent)</p>
+            <p><span class="label">Screening:</span></p>
+            <ul>
+                <li>Check BG at time of steroid administration + 4–6 hours later for first 1–2 days in high-risk patients</li>
+                <li>Any BG &gt;140 mg/dL in a non-diabetic inpatient on steroids → initiate management</li>
+                <li>Pre-existing diabetes: monitor AC/HS (before meals and bedtime) plus targeted PM checks</li>
+            </ul>
+            <p><span class="label">HbA1c:</span> Order on all patients with steroid-induced hyperglycemia to stratify — distinguishes new-onset steroid diabetes vs unrecognized pre-existing T2DM</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">TREATMENT PROTOCOLS</div>
+        <div class="section-content">
+            <p><span class="label">Target BG:</span> 140–180 mg/dL inpatient (ADA 2024); avoid hypoglycemia (&lt;70 mg/dL)</p>
+
+            <p><span class="label">Once-Daily AM Prednisone — NPH-Based Protocol (ADA/AACE preferred):</span></p>
+            <ul>
+                <li><strong>NPH insulin given with morning prednisone</strong> — timing matches prednisone's afternoon peak perfectly</li>
+                <li>Starting dose: 0.1 units/kg of NPH if prednisone 20–40 mg/day; 0.2 units/kg if 40–60 mg/day; 0.3+ units/kg if &gt;60 mg/day</li>
+                <li>Titrate NPH by 10–20% every 1–2 days based on afternoon/evening BG readings</li>
+                <li>Add rapid-acting insulin at meals if significant mealtime excursions (&gt;180 mg/dL consistently post-meal)</li>
+                <li><strong>Do NOT give NPH at bedtime</strong> — risk of nocturnal hypoglycemia (steroid effect waning)</li>
+            </ul>
+
+            <p><span class="label">Basal-Bolus Protocol (for divided-dose steroids, dexamethasone, high-dose, or complex patients):</span></p>
+            <ul>
+                <li>Calculate TDD: 0.3–0.5 units/kg/day (use lower end for steroid-naive, renal impairment, elderly)</li>
+                <li>50% as basal (glargine once daily); 50% as bolus (lispro/aspart divided among meals)</li>
+                <li>Add correction scale for breakthrough hyperglycemia</li>
+                <li>For dexamethasone: consider glargine BID (given long steroid duration) to match 24–36h effect</li>
+            </ul>
+
+            <p><span class="label">Mild/Outpatient-Manageable (BG 140–200, low steroid dose):</span></p>
+            <ul>
+                <li>Short courses (&lt;7 days): may observe with dietary modification + sliding scale correction</li>
+                <li>Metformin: generally not used inpatient; may continue outpatient if renal function adequate and no contrast planned</li>
+                <li>Sulfonylureas: avoid inpatient (unpredictable, hypoglycemia risk)</li>
+            </ul>
+
+            <p><span class="label">Steroid Taper — Insulin Dose Adjustment:</span></p>
+            <ul>
+                <li>Reduce insulin proportionally with steroid taper (roughly 20–30% reduction per steroid dose step)</li>
+                <li>Monitor closely during taper — hypoglycemia common if insulin not adjusted</li>
+                <li>If steroids stopped abruptly: may need to stop NPH entirely; continue basal at 50% if patient has underlying diabetes</li>
+                <li>Arrange endocrinology or primary care follow-up for outpatient BG monitoring post-discharge</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="pearl-box">
+        <div class="pearl-title">💎 HIGH-YIELD PEARLS</div>
+        <ul>
+            <li><strong>NPH + AM prednisone</strong> is the most pharmacokinetically logical match for once-daily steroid regimens — the NPH peak at 4–10h lines up with prednisone's afternoon hyperglycemia</li>
+            <li><strong>Fasting glucose is often normal</strong> in steroid-induced hyperglycemia — don't be falsely reassured by a normal AM fasting BG; check PM readings</li>
+            <li><strong>Steroid-induced hyperglycemia is not benign</strong> — associated with increased infection risk, impaired wound healing, longer LOS, and higher mortality even in non-diabetics</li>
+            <li><strong>Dexamethasone</strong> (used for CINV, brain edema, COVID) causes severe hyperglycemia due to high potency (equivalent to ~25 mg prednisone per 4 mg dex) — always check BG</li>
+            <li><strong>New hyperglycemia on steroids in a non-diabetic</strong> → check HbA1c; if elevated, patient likely had undiagnosed pre-diabetes/T2DM — needs outpatient diabetes follow-up</li>
+        </ul>
+    </div>
+
+    <div class="two-column">
+        <div class="box warning-box">
+            <div class="box-title">⚠️ ESCALATE / WATCH FOR:</div>
+            <ul>
+                <li>BG persistently &gt;300 despite insulin → consider DKA/HHS workup</li>
+                <li>Hypoglycemia during steroid taper (insulin not reduced proportionally)</li>
+                <li>Hyperosmolar state in elderly on high-dose dexamethasone</li>
+                <li>Steroid + TPN → very high hyperglycemia risk; needs aggressive monitoring</li>
+            </ul>
+        </div>
+        <div class="box">
+            <div class="box-title">✓ DISCHARGE PLANNING</div>
+            <ul>
+                <li>If on NPH inpatient → may transition to glargine outpatient for once-daily convenience</li>
+                <li>Provide patient education on BG monitoring at home during steroid taper</li>
+                <li>Arrange outpatient follow-up within 1–2 weeks if new hyperglycemia discovered</li>
+                <li>Document steroid-induced hyperglycemia separately from "diabetes" if truly new</li>
+            </ul>
+        </div>
+    </div>
+    <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+</div>
+
+<!-- SICK EUTHYROID SYNDROME -->
+<div id="sick-euthyroid" class="condition-page">
+    <div class="page-header">
+        <h2>340. SICK EUTHYROID SYNDROME (NON-THYROIDAL ILLNESS)</h2>
+        <div class="subtitle">TSH Interpretation in Critical Illness • Low T3 Syndrome • Do Not Treat</div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">DEFINITION & PATHOPHYSIOLOGY</div>
+        <div class="section-content">
+            <p><span class="label">Definition:</span> Alterations in thyroid hormone levels that occur in the setting of non-thyroidal illness without underlying intrinsic thyroid dysfunction. Also called <strong>non-thyroidal illness syndrome (NTIS)</strong> or euthyroid sick syndrome.</p>
+            <p><span class="label">Pathophysiology:</span></p>
+            <ul>
+                <li>Systemic illness → ↓ peripheral conversion of T4 → T3 (decreased 5'-deiodinase activity) → <strong>low total and free T3</strong></li>
+                <li>Increased reverse T3 (rT3) — biologically inactive T3 isomer produced instead</li>
+                <li>In severe illness: T4 also falls (albumin ↓, binding protein changes) → low T3 + low T4 pattern</li>
+                <li>TSH typically suppressed or low-normal during acute illness, may transiently rise during recovery (can mimic hypothyroidism or hyperthyroidism respectively)</li>
+                <li>Adaptive response hypothesis: ↓ T3 may reduce catabolism and preserve energy in critically ill — <strong>treatment has not been shown to improve outcomes</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">THYROID FUNCTION PATTERNS IN ILLNESS</div>
+        <div class="section-content">
+            <table style="width:100%; font-size:9pt;">
+                <tr><th>Pattern</th><th>TSH</th><th>Free T4</th><th>T3</th><th>Most Likely Diagnosis</th></tr>
+                <tr><td><strong>Low T3 (mild/early illness)</strong></td><td>Normal or ↓</td><td>Normal</td><td>↓↓</td><td>Sick euthyroid — most common pattern; do not treat</td></tr>
+                <tr><td><strong>Low T3 + Low T4 (severe illness)</strong></td><td>Normal, low, or ↓</td><td>↓</td><td>↓↓</td><td>Sick euthyroid (severe); correlates with mortality — do not treat</td></tr>
+                <tr><td><strong>TSH suppressed + normal/high T4</strong></td><td>↓↓ (&lt;0.1)</td><td>↑</td><td>↑ or normal</td><td>True hyperthyroidism (or dopamine/steroid effect — see below)</td></tr>
+                <tr><td><strong>TSH elevated (recovery phase)</strong></td><td>↑ (often 3–20)</td><td>Normal</td><td>Normal</td><td>TSH rebound during recovery from illness — NOT hypothyroidism; wait and recheck</td></tr>
+                <tr><td><strong>TSH markedly elevated (&gt;20) + low free T4</strong></td><td>↑↑ (&gt;20)</td><td>↓</td><td>↓</td><td>True hypothyroidism (or myxedema coma) — treat</td></tr>
+            </table>
+
+            <p><span class="label">Drug Effects on Thyroid Function Tests (mimicking sick euthyroid):</span></p>
+            <table style="width:100%; font-size:9pt;">
+                <tr><th>Drug</th><th>Effect on TSH</th><th>Effect on T3/T4</th><th>Mechanism</th></tr>
+                <tr><td>Dopamine / dobutamine</td><td>↓ (suppresses)</td><td>↓ T3</td><td>Central TSH suppression</td></tr>
+                <tr><td>High-dose glucocorticoids</td><td>↓ (suppresses)</td><td>↓ T3</td><td>Inhibit TSH + T4→T3 conversion</td></tr>
+                <tr><td>Amiodarone</td><td>Variable (↑ or ↓)</td><td>↑ T4, ↓ T3</td><td>Blocks T4→T3 + contains iodine → hyper or hypothyroid</td></tr>
+                <tr><td>Heparin (IV bolus)</td><td>Normal</td><td>↑ Free T4 (artifact)</td><td>Displaces T4 from binding protein in vitro</td></tr>
+                <tr><td>Biotin (high-dose supplements)</td><td>Falsely ↓ or ↑</td><td>Assay interference</td><td>Biotin-streptavidin assay interference — stop 2–3 days before testing</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">CLINICAL APPROACH — WHEN TO TREAT</div>
+        <div class="section-content">
+            <p><span class="label">DO NOT treat sick euthyroid syndrome:</span> Multiple RCTs have failed to show benefit from T4 or T3 replacement in critically ill patients with low thyroid hormones from non-thyroidal illness. Treatment may be harmful.</p>
+
+            <p><span class="label">When to suspect TRUE thyroid dysfunction in the ICU/inpatient:</span></p>
+            <ul>
+                <li><strong>TSH &gt;20 mIU/L + low free T4</strong> → very likely true hypothyroidism; treat (see Hypothyroidism/Myxedema Coma)</li>
+                <li><strong>Clinical features of myxedema coma</strong> (bradycardia, hypothermia, hypoventilation, profound AMS) despite only moderately abnormal TFTs → treat empirically</li>
+                <li><strong>TSH &lt;0.01 + elevated free T4/T3 + clinical thyrotoxicosis</strong> (weight loss, AFib, tremor, tachycardia out of proportion) → treat (see Thyroid Storm)</li>
+                <li><strong>History of known thyroid disease</strong> or thyroidectomy → prior baseline TFTs invaluable; lower threshold to treat</li>
+            </ul>
+
+            <p><span class="label">Practical Approach to Abnormal TFTs in Hospitalized Patient:</span></p>
+            <ol>
+                <li>Review medications (dopamine, steroids, amiodarone, biotin supplements)</li>
+                <li>Determine severity of illness — the sicker the patient, the more likely TFT abnormalities are non-thyroidal illness</li>
+                <li>If TSH mildly abnormal (0.1–20) + no clinical thyroid syndrome → defer repeat TFTs to outpatient (4–6 weeks after recovery)</li>
+                <li>If TSH &gt;20 or &lt;0.01 + clinical suspicion → pursue workup; involve endocrinology</li>
+                <li>If TSH elevated during recovery phase (common): recheck in 4–6 weeks outpatient — usually normalizes</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="pearl-box">
+        <div class="pearl-title">💎 HIGH-YIELD PEARLS</div>
+        <ul>
+            <li><strong>"Low T3 = sick patient, not sick thyroid"</strong> — the most common pattern in hospitalized patients; no treatment indicated</li>
+            <li><strong>Low T3 + low T4 correlates with illness severity and mortality</strong> — useful prognostically but still not treated</li>
+            <li><strong>TSH rebound during recovery</strong> (often 5–15, sometimes up to 20) is frequently misinterpreted as hypothyroidism → leads to unnecessary levothyroxine initiation; always recheck TFTs as outpatient after recovery</li>
+            <li><strong>Dopamine and high-dose steroids</strong> suppress TSH in the ICU — a suppressed TSH in a vasopressor-dependent patient does not diagnose hyperthyroidism</li>
+            <li><strong>Amiodarone</strong> is uniquely complex: elevates T4 (blocks conversion), may cause hypo- or hyperthyroidism; requires dedicated interpretation (see Drug Reference)</li>
+            <li><strong>Stop biotin supplements 2–3 days before thyroid testing</strong> — high-dose biotin (≥5 mg/day) causes assay interference mimicking hyperthyroidism or Graves disease on immunoassays</li>
+        </ul>
+    </div>
+    <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+</div>
+
+<!-- PERIOPERATIVE GLUCOSE MANAGEMENT -->
+<div id="periop-glucose" class="condition-page">
+    <div class="page-header">
+        <h2>341. PERIOPERATIVE GLUCOSE MANAGEMENT</h2>
+        <div class="subtitle">Surgical Hyperglycemia • Insulin Drip Protocols • Transition to Subcutaneous</div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">WHY IT MATTERS</div>
+        <div class="section-content">
+            <p><span class="label">Impact of Perioperative Hyperglycemia:</span> Even in non-diabetic patients, stress hyperglycemia during/after surgery independently increases risk of surgical site infections (2–3× for BG &gt;200), impaired wound healing, prolonged LOS, anastomotic leak, and mortality. Perioperative glucose management reduces SSI rates and improves outcomes across surgical specialties.</p>
+            <p><span class="label">Target Glucose Ranges (ADA/AACE 2023):</span></p>
+            <table style="width:100%; font-size:9pt;">
+                <tr><th>Setting</th><th>Target</th><th>Notes</th></tr>
+                <tr><td>General surgical inpatient (non-ICU)</td><td>140–180 mg/dL</td><td>Avoid both hypoglycemia and persistent hyperglycemia</td></tr>
+                <tr><td>Cardiac surgery / ICU</td><td>140–180 mg/dL</td><td>NICE-SUGAR trial: tighter 80–110 → ↑ mortality; 140–180 is evidence-based</td></tr>
+                <tr><td>Intraoperative (OR)</td><td>140–180 mg/dL</td><td>Check BG q1h intraoperatively on insulin drip; q2h if stable</td></tr>
+                <tr><td>Avoid</td><td>&lt;70 or &gt;250</td><td>Both extremes increase complications</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">PREOPERATIVE MANAGEMENT</div>
+        <div class="section-content">
+            <p><span class="label">Day Before Surgery:</span></p>
+            <ul>
+                <li>Check fasting BG and HbA1c if not done recently; HbA1c &gt;8–9% → consider postponing elective surgery if possible</li>
+                <li>Continue basal insulin (glargine/detemir) at <strong>75–80% of usual dose</strong> the night before or morning of surgery</li>
+                <li>Discontinue bolus/mealtime insulin while NPO</li>
+                <li>Discontinue metformin <strong>day of surgery</strong> (hold 24–48h if contrast or major surgery); restart when eating and renal function confirmed</li>
+                <li>Hold SGLT2 inhibitors (empagliflozin, dapagliflozin, canagliflozin) <strong>3–4 days before surgery</strong> → risk of euglycemic DKA perioperatively (highest risk with prolonged NPO and metabolic stress)</li>
+                <li>Hold GLP-1 agonists (semaglutide, liraglutide) <strong>1 week before surgery</strong> → delayed gastric emptying → aspiration risk</li>
+                <li>Sulfonylureas: hold day of surgery (hypoglycemia risk while NPO)</li>
+            </ul>
+
+            <p><span class="label">Morning of Surgery (NPO):</span></p>
+            <ul>
+                <li>Check BG on arrival to preop; target 140–180 for elective cases</li>
+                <li>BG &gt;180: correction insulin (regular insulin 0.05–0.1 units/kg SC or initiate IV insulin drip)</li>
+                <li>BG &gt;250: consider delaying elective surgery; workup for DKA/HHS if symptomatic</li>
+                <li>BG &lt;100: give D5W IV infusion at 75–100 mL/hr until OR</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">INTRAOPERATIVE & POSTOPERATIVE PROTOCOLS</div>
+        <div class="section-content">
+            <p><span class="label">Intraoperative Insulin Infusion (for major surgery, cardiac, prolonged procedures):</span></p>
+            <ul>
+                <li>Initiate IV regular insulin infusion for BG persistently &gt;180 in major surgery</li>
+                <li>Standard concentration: Regular insulin 1 unit/mL in NS (100 units in 100 mL NS)</li>
+                <li>Starting rate: BG 180–240 → 1–2 units/hr; BG 241–300 → 2–3 units/hr; BG &gt;300 → 3–4 units/hr</li>
+                <li>Check BG hourly while on infusion; titrate by 0.5–1 unit/hr increments</li>
+                <li>Run concurrent D5W or D10W IV at 75–100 mL/hr to prevent hypoglycemia (especially for NPO patients)</li>
+            </ul>
+
+            <p><span class="label">Postoperative — Subcutaneous Insulin (when eating):</span></p>
+            <ul>
+                <li>Transition from IV insulin to subcutaneous when patient tolerating oral intake reliably</li>
+                <li><strong>Overlap IV + subQ by 1–2 hours</strong> before stopping infusion to prevent hyperglycemia gap</li>
+                <li>Calculate subQ TDD from IV insulin requirements: IV units/24h × 0.8 (20% reduction for subQ transition)</li>
+                <li>Distribute as 50% basal (glargine) + 50% bolus (lispro/aspart at meals)</li>
+                <li>Known diabetics: restart their home insulin regimen at 75–80% of outpatient doses initially</li>
+            </ul>
+
+            <p><span class="label">Postoperative — NPO or Minimal PO (clear liquids only):</span></p>
+            <ul>
+                <li>Continue basal insulin only (hold bolus); reduce basal by 20–25% for NPO state</li>
+                <li>Use correction-only sliding scale for breakthrough hyperglycemia</li>
+                <li>Provide IV dextrose if at hypoglycemia risk (D5W or D10W at maintenance rate)</li>
+            </ul>
+
+            <p><span class="label">Special Situations:</span></p>
+            <table style="width:100%; font-size:9pt;">
+                <tr><th>Situation</th><th>Management</th></tr>
+                <tr><td>Cardiac surgery (CABG/valve)</td><td>IV insulin drip for BG &gt;180 intraoperatively and ICU stay; target 140–180; transition to subQ when hemodynamically stable and eating</td></tr>
+                <tr><td>Post-op corticosteroids (dexamethasone for PONV, spine, brain surgery)</td><td>Anticipate steroid-induced hyperglycemia; initiate NPH-based or basal-bolus per steroid-induced hyperglycemia protocol (see #339)</td></tr>
+                <tr><td>TPN post-operatively</td><td>Add insulin to TPN bag (start 0.1 units/unit of dextrose in TPN); supplement with correction SC insulin; check BG q6h</td></tr>
+                <tr><td>Enteral tube feeds (continuous)</td><td>Basal insulin (glargine) covers continuous glucose from feeds; add correction q6h; if feeds held → hold bolus, reduce basal 20%</td></tr>
+                <tr><td>New hyperglycemia, non-diabetic</td><td>Check HbA1c; stress hyperglycemia common; if resolves with discharge and HbA1c normal → arrange outpatient BG monitoring and primary care follow-up</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="pearl-box">
+        <div class="pearl-title">💎 HIGH-YIELD PEARLS</div>
+        <ul>
+            <li><strong>NICE-SUGAR trial (NEJM 2009):</strong> Tight glycemic control (80–110 mg/dL) in ICU → increased mortality vs 140–180 target. 140–180 is the evidence-based inpatient ICU target.</li>
+            <li><strong>SGLT2 inhibitors → hold 3–4 days pre-op</strong> — euglycemic DKA risk is real and underrecognized; patient may present post-op with normal BG but severe anion gap acidosis and positive ketones</li>
+            <li><strong>GLP-1 agonists → hold 1 week pre-op</strong> — delayed gastric emptying persists days after last dose; aspiration risk even with "NPO after midnight"</li>
+            <li><strong>Always overlap subQ and IV insulin by 1–2 hours</strong> during transition — subQ glargine takes 2–4h to reach therapeutic effect; stopping IV drip simultaneously causes hyperglycemia gap</li>
+            <li><strong>Hypoglycemia is more dangerous than hyperglycemia</strong> in the OR and ICU — always run concurrent dextrose when using IV insulin infusion in NPO patients</li>
+        </ul>
+    </div>
+
+    <div class="two-column">
+        <div class="box warning-box">
+            <div class="box-title">⚠️ HIGH-RISK SCENARIOS:</div>
+            <ul>
+                <li>Post-op BG &gt;250 → check ketones/anion gap (euglycemic DKA if SGLT2i use)</li>
+                <li>Cardiac surgery patient: BG &gt;180 in ICU → IV insulin drip</li>
+                <li>New BG &gt;300 in non-diabetic post-op → DKA/HHS workup</li>
+                <li>Insulin drip + NPO without dextrose → hypoglycemia risk</li>
+            </ul>
+        </div>
+        <div class="box">
+            <div class="box-title">✓ MEDICATION HOLD SUMMARY</div>
+            <ul>
+                <li><strong>Hold day of surgery:</strong> Bolus insulin, metformin, sulfonylureas, TZDs</li>
+                <li><strong>Hold 3–4 days pre-op:</strong> SGLT2 inhibitors</li>
+                <li><strong>Hold 1 week pre-op:</strong> GLP-1 receptor agonists</li>
+                <li><strong>Reduce 20–25%, continue:</strong> Basal insulin</li>
+                <li><strong>Continue:</strong> DPP-4 inhibitors (relatively safe)</li>
+            </ul>
+        </div>
+    </div>
+    <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+</div>
+
+<!-- PITUITARY APOPLEXY -->
+<div id="pituitary-apoplexy" class="condition-page">
+    <div class="page-header">
+        <h2>342. PITUITARY APOPLEXY</h2>
+        <div class="subtitle">Hemorrhage / Infarction of Pituitary • Neuro-Endocrine Emergency • Surgical vs Medical</div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">DEFINITION & PATHOPHYSIOLOGY</div>
+        <div class="section-content">
+            <p><span class="label">Definition:</span> Sudden hemorrhage or infarction of the pituitary gland, most commonly occurring within a pre-existing <strong>pituitary adenoma</strong> (often previously undiagnosed). The pituitary sits in the sella turcica — rapid expansion compresses the optic chiasm, cavernous sinus, and adjacent cranial nerves.</p>
+            <p><span class="label">Precipitating Factors:</span></p>
+            <ul>
+                <li>Anticoagulation / coagulopathy (including heparin, warfarin, thrombolytics)</li>
+                <li>Cardiac surgery (especially with cardiopulmonary bypass and hypotension)</li>
+                <li>Dynamic pituitary testing (GnRH, TRH, CRH stimulation)</li>
+                <li>Bromocriptine / cabergoline withdrawal (dopamine agonist-related)</li>
+                <li>Head trauma, major surgery, hypertension, pregnancy (Sheehan syndrome = postpartum ischemic infarction)</li>
+                <li>Often: no identifiable precipitant</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">CLINICAL PRESENTATION</div>
+        <div class="section-content">
+            <p><span class="label">Classic Triad (present together in only ~50%):</span></p>
+            <ul>
+                <li><strong>Sudden severe headache</strong> — retro-orbital or frontal; "thunderclap" or "worst headache of life" (can mimic SAH)</li>
+                <li><strong>Visual disturbance</strong> — bitemporal hemianopia (optic chiasm compression); decreased visual acuity; monocular or binocular</li>
+                <li><strong>Ophthalmoplegia</strong> — diplopia from CN III, IV, VI palsy (cavernous sinus involvement); CN III palsy most common (ptosis, dilated pupil, down-and-out eye)</li>
+            </ul>
+            <p><span class="label">Additional Features:</span></p>
+            <ul>
+                <li>Nausea/vomiting, meningismus (blood in CSF can cause meningeal irritation)</li>
+                <li>Altered mental status — from mass effect or acute hypocortisolism</li>
+                <li><strong>Acute adrenal insufficiency (most critical):</strong> Hypotension, nausea, hyponatremia — from sudden loss of ACTH secretion; life-threatening if not recognized and treated immediately</li>
+                <li>Fever (if hemorrhage causing meningeal irritation)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">DIAGNOSIS</div>
+        <div class="section-content">
+            <p><span class="label">Imaging (emergent):</span></p>
+            <ul>
+                <li><strong>MRI pituitary with gadolinium</strong> — gold standard; best for identifying hemorrhage, infarction, and sellar/suprasellar extension; T1 hyperintensity in acute hemorrhage</li>
+                <li><strong>CT head (non-contrast)</strong> — faster; may show hyperdense sellar mass (hemorrhage); if MRI unavailable or patient unstable; sensitivity lower for small hemorrhage</li>
+                <li>Do not delay steroid treatment for imaging if clinically suspected</li>
+            </ul>
+            <p><span class="label">Labs (urgent):</span></p>
+            <ul>
+                <li>Cortisol (random) — if &lt;3 mcg/dL confirms adrenal insufficiency; do not wait for result to give hydrocortisone if hemodynamically unstable</li>
+                <li>ACTH, TSH, free T4, LH, FSH, testosterone/estradiol, prolactin, IGF-1 (panhypopituitarism baseline)</li>
+                <li>BMP (hyponatremia from SIADH or adrenal insufficiency)</li>
+                <li>CBC, coagulation (if anticoagulation-related)</li>
+                <li>LP: only if MRI/CT not diagnostic and SAH must be excluded — elevated RBC/xanthochromia may be from apoplexy itself</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">TREATMENT</div>
+        <div class="section-content">
+            <p><span class="label">1. Immediate — Adrenal Crisis Treatment (DO NOT DELAY):</span></p>
+            <ul>
+                <li><strong>Hydrocortisone 100 mg IV bolus immediately</strong>, then 50–100 mg IV q6–8h</li>
+                <li>Give empirically if hemodynamically unstable, hypotensive, AMS, or hyponatremic — do not wait for cortisol result</li>
+                <li>Aggressive IVF resuscitation with NS</li>
+            </ul>
+
+            <p><span class="label">2. Neurosurgical vs Conservative Management:</span></p>
+            <table style="width:100%; font-size:9pt;">
+                <tr><th>Approach</th><th>Indications</th><th>Key Points</th></tr>
+                <tr><td><strong>Urgent transsphenoidal surgery</strong></td><td>Severe or progressive visual loss; severe ophthalmoplegia; deteriorating consciousness; large hemorrhage with significant mass effect</td><td>Best results when done within 7 days of symptom onset; immediate ophthalmology and neurosurgery consultation</td></tr>
+                <tr><td><strong>Conservative (medical) management</strong></td><td>Mild visual symptoms stable or improving; no significant mass effect; patient unsuitable for surgery; mild/no ophthalmoplegia</td><td>Close monitoring; serial visual field exams; MRI follow-up; most ophthalmoplegia resolves spontaneously within 3–6 months</td></tr>
+            </table>
+
+            <p><span class="label">3. Hormone Replacement (panhypopituitarism workup):</span></p>
+            <ul>
+                <li><strong>Cortisol (most urgent):</strong> Hydrocortisone as above; lifelong if ACTH axis does not recover</li>
+                <li><strong>Thyroid:</strong> Check TSH + free T4; start levothyroxine if central hypothyroidism confirmed (after adrenal axis addressed — thyroid hormone replacement before cortisol can precipitate adrenal crisis)</li>
+                <li><strong>Testosterone/estrogen:</strong> Assess after acute phase; replace if gonadotropin deficiency confirmed and no contraindications</li>
+                <li><strong>GH:</strong> Assess and replace in outpatient setting (not acute priority)</li>
+                <li><strong>Diabetes insipidus:</strong> Watch for post-op DI (polyuria &gt;250 mL/hr, hypernatremia, low urine osmolality); treat with desmopressin (DDAVP) if confirmed</li>
+            </ul>
+
+            <p><span class="label">4. Consultations:</span> Neurosurgery (urgent), ophthalmology (visual fields), endocrinology</p>
+        </div>
+    </div>
+
+    <div class="pearl-box">
+        <div class="pearl-title">💎 HIGH-YIELD PEARLS</div>
+        <ul>
+            <li><strong>"Thunderclap headache + visual changes + ophthalmoplegia" = pituitary apoplexy until proven otherwise</strong> — do not anchor solely on SAH</li>
+            <li><strong>Acute adrenal insufficiency is the most immediately life-threatening complication</strong> — give hydrocortisone before imaging if hemodynamically unstable</li>
+            <li><strong>Always replace steroids before thyroid hormone</strong> — initiating levothyroxine without cortisol coverage in panhypopituitarism can precipitate acute adrenal crisis (thyroid hormone increases cortisol metabolism)</li>
+            <li><strong>Most CN III/IV/VI palsies from apoplexy recover spontaneously</strong> over weeks to months — surgical decompression is mainly for vision preservation, not ophthalmoplegia</li>
+            <li><strong>Sheehan syndrome</strong> (postpartum pituitary infarction from hemorrhagic shock) = classic cause of panhypopituitarism in developing countries; presents as failure to lactate, amenorrhea, fatigue post-delivery</li>
+            <li><strong>Prolactin elevation</strong> on labs does not rule out apoplexy — many apoplectic adenomas are non-secreting or prolactinomas; mild prolactin elevation (&lt;100–150) can also be a "stalk effect" from compression</li>
+        </ul>
+    </div>
+
+    <div class="two-column">
+        <div class="box warning-box">
+            <div class="box-title">⚠️ ESCALATE TO ICU / NEUROSURGERY IF:</div>
+            <ul>
+                <li>Progressive visual loss or complete visual field defect</li>
+                <li>Hemodynamic instability from adrenal crisis</li>
+                <li>Deteriorating consciousness / GCS decline</li>
+                <li>Severe hyponatremia (&lt;125 mEq/L)</li>
+                <li>Large hemorrhage with midline shift or suprasellar extension</li>
+            </ul>
+        </div>
+        <div class="box">
+            <div class="box-title">✓ MONITORING PRIORITIES</div>
+            <ul>
+                <li>Serial visual acuity and visual field exams (daily)</li>
+                <li>Sodium (q6–12h) — SIADH or adrenal insufficiency</li>
+                <li>Urine output (DI post-op)</li>
+                <li>Cortisol stress response on hydrocortisone</li>
+                <li>Repeat MRI at 48–72h if conservative management</li>
+            </ul>
+        </div>
+    </div>
+    <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+</div>
+
+
 
 <!-- MALE HYPOGONADISM -->
 <div id="hypogonadism" class="condition-page">
