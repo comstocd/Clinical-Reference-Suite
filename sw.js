@@ -9,8 +9,8 @@
  */
 
 // ── CHANGE THESE TWO LINES EVERY TIME YOU PUSH A CLINICAL UPDATE ─────────────
-const DISPLAY_VERSION = 'BUILD #3.07';           // shown everywhere in the app
-const CACHE_VERSION   = 'crs-v3.7-build3.07';   // must be unique per release
+const DISPLAY_VERSION = 'BUILD #3.08';           // shown everywhere in the app
+const CACHE_VERSION   = 'crs-v3.7-build3.08';   // must be unique per release
 // ─────────────────────────────────────────────────────────────────────────────
 
 const CACHE_NAME = `clinical-ref-${CACHE_VERSION}`;
