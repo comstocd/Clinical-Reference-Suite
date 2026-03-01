@@ -428,6 +428,24 @@
                             <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Structured consult with HFpEF diagnostic algorithms (H₂FPEF, HFA-PEFF, ABA scores), echo interpretation, NYHA classification, and GDMT optimization.</p>
                         </div>
                     </div>
+                    <div onclick="switchTool('endoconsult')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
+                        <div style="background:linear-gradient(135deg,#074a41,#0d6b5e); color:#fff; padding:20px; font-weight:700;">🦋 Endocrinology Consult Note</div>
+                        <div style="padding:20px;">
+                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Structured consult template covering glycemic management, thyroid, adrenal/cortisol, calcium/bone, and pituitary. Includes TFT pitfall callouts, cortisol interpretation, endocrine emergency checklist, and one-click note generation.</p>
+                        </div>
+                    </div>
+                    <div onclick="switchTool('neuroconsult')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
+                        <div style="background:linear-gradient(135deg,#1a0f40,#2d1b69); color:#fff; padding:20px; font-weight:700;">🧠 Neurology Consult Note</div>
+                        <div style="padding:20px;">
+                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Structured consult covering stroke (NIHSS calculator, tPA/thrombectomy criteria, TOAST classification), seizure, meningitis, GBS, myasthenic crisis, and more. Full 12-CN exam, motor/reflex tables, CSF pattern reference, and one-click note generation.</p>
+                        </div>
+                    </div>
+                    <div onclick="switchTool('inpatientnote')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden; border-top:4px solid #c9a227;">
+                        <div style="background:linear-gradient(135deg,#0e1d2e,#1a2940); color:#fff; padding:20px; font-weight:700;">📋 Inpatient Note (H&amp;P / Progress / Discharge)</div>
+                        <div style="padding:20px;">
+                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Master hospitalist note with cross-specialty emergency screening (32 conditions across all organ systems), problem-based A&P, 30 chronic disease management templates, medication reconciliation, 13 safety &amp; quality checklists, pending items tracker, and discharge planning — all generating one EHR-ready note.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); padding:25px; margin-top:20px;">
@@ -641,6 +659,27 @@
                 icon: "❤️",
                 file: "cardiology_consult.html",
                 description: "HFpEF Algorithms & Consult Template"
+            },
+            {
+                id: "endoconsult",
+                name: "Endocrinology Consult",
+                icon: "🦋",
+                file: "endo_consult.html",
+                description: "Structured Consult Note Template"
+            },
+            {
+                id: "neuroconsult",
+                name: "Neurology Consult",
+                icon: "🧠",
+                file: "neuro_consult.html",
+                description: "Structured Consult Note Template"
+            },
+            {
+                id: "inpatientnote",
+                name: "Inpatient Note",
+                icon: "📋",
+                file: "inpatient_note.html",
+                description: "H&P / Progress Note / Discharge Summary"
             }
             // To add a new tool:
             // { id: "newid", name: "Tool Name", icon: "🆕", file: "filename.html", description: "Description" }

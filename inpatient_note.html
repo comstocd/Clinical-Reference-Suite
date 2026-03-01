@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Inpatient Progress Note</title>
+<style>
+:root {
+    --primary:        #1a2940;
+    --primary-light:  #2d4a6e;
+    --primary-dark:   #0e1d2e;
+    --accent:         #c9a227;
+    --accent-light:   #f0d98a;
+    --bg:             #f4f6f9;
+    --card-bg:        #ffffff;
+    --text:           #1e293b;
+    --text-muted:     #64748b;
+    --border:         #e2e8f0;
+    --success:        #16a34a;
+    --warning-bg:     #fffbeb;
+    --warning-border: #f59e0b;
+    --danger:         #dc2626;
+    --danger-bg:      #fff1f1;
+    --section-header: #eef2f7;
+
+    /* Status colors */
+    --ruled-out-bg:   #f0fdf4;
+    --ruled-out:      #16a34a;
+    --monitoring-bg:  #fffbeb;
+    --monitoring:     #d97706;
+    --active-bg:      #fff1f1;
+    --active:         #dc2626;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:0;line-height:1.5;font-size:16px}
+
+/* ── Header ── */
+.header{background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 60%,var(--primary-light) 100%);color:white;padding:18px 20px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,0.2)}
+.header-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.header h1{margin:0;font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;display:flex;align-items:center;gap:10px}
+.header-badge{background:var(--accent);color:#1a1a1a;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:700;letter-spacing:0.04em}
+.toolbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.toolbar-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);color:white;padding:7px 14px;border-radius:6px;font-size:0.85rem;cursor:pointer;transition:all 0.2s}
+.toolbar-btn:hover{background:rgba(255,255,255,0.22)}
+
+/* Note type selector in header */
+.note-type-bar{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.note-type-btn{padding:6px 14px;border-radius:20px;font-size:0.8rem;font-weight:600;cursor:pointer;border:2px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:white;transition:all 0.2s}
+.note-type-btn.active{background:var(--accent);border-color:var(--accent);color:#1a1a1a}
+
+/* ── Layout ── */
+.container{max-width:960px;margin:0 auto;padding:16px}
+
+/* ── Quick Nav ── */
+.quick-nav{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;padding:12px;background:var(--card-bg);border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,0.07)}
+.nav-chip{background:var(--section-header);color:var(--primary);padding:6px 12px;border-radius:20px;font-size:0.8rem;font-weight:500;cursor:pointer;transition:all 0.2s;border:none}
+.nav-chip:hover{background:var(--primary);color:white}
+
+/* ── Section ── */
+.section{background:var(--card-bg);border-radius:12px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.07);overflow:hidden}
+.section-header{background:var(--section-header);padding:13px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;border-bottom:1px solid var(--border);user-select:none}
+.section-header h2{margin:0;font-size:0.98rem;font-weight:700;color:var(--primary-dark);display:flex;align-items:center;gap:8px}
+.section-toggle{font-size:1.1rem;color:var(--primary);transition:transform 0.3s}
+.section.collapsed .section-toggle{transform:rotate(-90deg)}
+.section.collapsed .section-content{display:none}
+.section-content{padding:16px}
+
+/* ── Form elements ── */
+.form-group{margin-bottom:14px}
+.form-group:last-child{margin-bottom:0}
+.form-label{display:block;font-weight:600;font-size:0.875rem;color:var(--text);margin-bottom:5px}
+.form-sublabel{font-weight:400;color:var(--text-muted);font-size:0.8rem;display:block;margin-top:2px}
+textarea,input[type="text"],select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:0.95rem;font-family:inherit;background:white;color:var(--text);transition:border-color 0.2s,box-shadow 0.2s}
+textarea:focus,input[type="text"]:focus,select:focus{outline:none;border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(26,41,64,0.1)}
+textarea{min-height:76px;resize:vertical}
+textarea.sm{min-height:56px}
+textarea.lg{min-height:120px}
+.inline-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.inline-group{display:flex;flex-direction:column}
+.inline-group label{font-size:0.8rem;color:var(--text-muted);margin-bottom:3px;font-weight:500}
+.inline-group input,.inline-group select{padding:8px 10px;font-size:0.9rem}
+.checkbox-group{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:7px}
+.checkbox-item{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--bg);border-radius:6px;cursor:pointer;transition:background 0.2s}
+.checkbox-item:hover{background:var(--section-header)}
+.checkbox-item input{width:17px;height:17px;cursor:pointer;accent-color:var(--primary);flex-shrink:0}
+.checkbox-item label{font-size:0.88rem;cursor:pointer;flex:1}
+
+/* ── Callouts ── */
+.callout{padding:11px 14px;border-radius:8px;margin-bottom:14px;border-left:4px solid}
+.callout-info{background:#eff6ff;border-color:#3b82f6}
+.callout-warning{background:var(--warning-bg);border-color:var(--warning-border)}
+.callout-danger{background:var(--danger-bg);border-color:var(--danger)}
+.callout-title{font-weight:700;font-size:0.875rem;margin-bottom:3px}
+.callout-content{font-size:0.875rem}
+
+/* ── Emergency Screening Panel (THE key section) ── */
+.emergency-grid{display:flex;flex-direction:column;gap:4px}
+.emergency-group-label{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin:12px 0 6px 0;padding-bottom:4px;border-bottom:2px solid var(--border)}
+.emergency-group-label:first-child{margin-top:0}
+
+.emerg-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:white;transition:background 0.2s}
+.emerg-row[data-status="ruled-out"]{background:var(--ruled-out-bg);border-color:#bbf7d0}
+.emerg-row[data-status="monitoring"]{background:var(--monitoring-bg);border-color:#fde68a}
+.emerg-row[data-status="active"]{background:var(--active-bg);border-color:#fca5a5}
+.emerg-left{flex:1;min-width:0}
+.emerg-name{font-weight:600;font-size:0.88rem;display:flex;align-items:center;gap:6px}
+.emerg-trigger{font-size:0.78rem;color:var(--text-muted);margin-top:2px;line-height:1.4}
+.emerg-row[data-status="active"] .emerg-trigger{color:#b91c1c;font-weight:500}
+.emerg-buttons{display:flex;gap:4px;flex-shrink:0;align-items:center}
+.emerg-btn{padding:4px 10px;border-radius:5px;font-size:0.75rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:white;color:var(--text-muted);transition:all 0.15s;white-space:nowrap}
+.emerg-btn:hover{border-color:var(--primary)}
+.emerg-btn.ro{border-color:#16a34a;background:#16a34a;color:white}
+.emerg-btn.mo{border-color:#d97706;background:#d97706;color:white}
+.emerg-btn.ac{border-color:#dc2626;background:#dc2626;color:white}
+
+/* ── Problem blocks ── */
+.problem-block{border:2px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px;position:relative;background:white}
+.problem-block.primary-block{border-color:var(--primary-light);border-left:4px solid var(--primary)}
+.problem-block.secondary-block{border-left:4px solid var(--primary-light)}
+.problem-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.problem-badge{padding:4px 12px;border-radius:20px;font-size:0.78rem;font-weight:700;letter-spacing:0.03em;white-space:nowrap}
+.badge-primary{background:var(--primary);color:white}
+.badge-secondary{background:var(--primary-light);color:white}
+.problem-number{font-weight:700;font-size:1rem;color:var(--primary-dark)}
+.problem-dx{font-size:1rem;font-weight:600;color:var(--text)}
+.problem-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.problem-fields{grid-template-columns:1fr}}
+.problem-fields .form-group{margin-bottom:0}
+
+/* ── Chronic disease grid ── */
+.chronic-disease-grid{display:flex;flex-direction:column;gap:8px}
+.chronic-row{border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.chronic-header{display:grid;grid-template-columns:32px 200px 1fr auto;gap:10px;align-items:center;padding:8px 12px;cursor:pointer;background:var(--bg);transition:background 0.2s}
+.chronic-header:hover{background:var(--section-header)}
+.chronic-toggle{font-size:0.8rem;color:var(--text-muted);transition:transform 0.2s}
+.chronic-row.open .chronic-toggle{transform:rotate(90deg)}
+.chronic-row.open .chronic-body{display:block}
+.chronic-body{display:none;padding:12px;border-top:1px solid var(--border);background:white}
+.chronic-checkbox{width:18px;height:18px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
+.chronic-label{font-weight:600;font-size:0.88rem;color:var(--text)}
+.chronic-status-row{display:flex;gap:6px}
+.chronic-status-btn{padding:4px 10px;border-radius:5px;font-size:0.75rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:white;color:var(--text-muted);transition:all 0.15s}
+.chronic-status-btn.active-status{border-color:var(--primary);background:var(--primary);color:white}
+.chronic-status-btn.stable{border-color:#16a34a;background:#f0fdf4;color:#16a34a}
+.chronic-status-btn.worsened{border-color:#d97706;background:#fffbeb;color:#d97706}
+.chronic-status-btn.acute{border-color:#dc2626;background:#fff1f1;color:#dc2626}
+
+/* ── Medication reconciliation ── */
+.med-table{width:100%;border-collapse:collapse;font-size:0.875rem}
+.med-table th{background:var(--section-header);padding:8px 10px;text-align:left;font-size:0.8rem;color:var(--primary-dark);border:1px solid var(--border);font-weight:700}
+.med-table td{padding:6px 8px;border:1px solid var(--border);vertical-align:middle}
+.med-table input[type="text"]{padding:5px 8px;font-size:0.85rem;border-radius:4px}
+.med-action-select{padding:5px 8px;font-size:0.82rem;border-radius:5px;border:1px solid var(--border);background:white;cursor:pointer;font-weight:600}
+.med-action-select.continue{border-color:#16a34a;color:#16a34a;background:#f0fdf4}
+.med-action-select.hold{border-color:#d97706;color:#d97706;background:#fffbeb}
+.med-action-select.modify{border-color:#3b82f6;color:#3b82f6;background:#eff6ff}
+.med-action-select.new{border-color:var(--primary);color:var(--primary);background:var(--section-header)}
+.med-action-select.discontinue{border-color:#dc2626;color:#dc2626;background:#fff1f1}
+.add-med-btn{background:var(--section-header);border:1px dashed var(--border);border-radius:8px;padding:8px;width:100%;text-align:center;cursor:pointer;font-size:0.85rem;color:var(--primary);font-weight:600;margin-top:6px;transition:background 0.2s}
+.add-med-btn:hover{background:var(--primary);color:white}
+
+/* ── Safety checklist ── */
+.safety-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.safety-item{border:1px solid var(--border);border-radius:8px;padding:10px 12px;background:white}
+.safety-item-header{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-weight:700;font-size:0.875rem}
+.safety-dot{width:10px;height:10px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background 0.2s}
+.safety-item.done .safety-dot{background:var(--success)}
+.safety-item.not-done .safety-dot{background:var(--danger)}
+.safety-item.na .safety-dot{background:var(--text-muted)}
+.safety-actions{display:flex;gap:6px;margin-bottom:6px}
+.safety-btn{padding:3px 9px;border-radius:4px;font-size:0.75rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:white;color:var(--text-muted);transition:all 0.15s}
+.safety-btn.done{border-color:var(--success);background:#f0fdf4;color:var(--success)}
+.safety-btn.not-done{border-color:var(--danger);background:var(--danger-bg);color:var(--danger)}
+.safety-btn.na{border-color:var(--text-muted);background:var(--section-header);color:var(--text-muted)}
+.safety-detail{font-size:0.82rem;color:var(--text-muted)}
+
+/* ── Pending items ── */
+.pending-list{display:flex;flex-direction:column;gap:6px}
+.pending-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg);border-radius:7px;border:1px solid var(--border)}
+.pending-item input[type="text"]{flex:1;background:transparent;border:none;padding:2px 0;font-size:0.875rem}
+.pending-item input[type="text"]:focus{outline:none;border-bottom:1px solid var(--primary)}
+.pending-type{font-size:0.75rem;font-weight:700;padding:2px 8px;border-radius:4px;white-space:nowrap}
+.type-lab{background:#eff6ff;color:#2563eb}
+.type-img{background:#f5f3ff;color:#7c3aed}
+.type-consult{background:#ecfdf5;color:#059669}
+.type-proc{background:#fff7ed;color:#ea580c}
+.remove-pending{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:1rem;padding:0 4px}
+.remove-pending:hover{color:var(--danger)}
+.add-pending-row{display:flex;gap:6px;margin-top:6px}
+.add-pending-type{padding:7px 10px;border:1px solid var(--border);border-radius:7px;font-size:0.85rem;background:white;cursor:pointer}
+
+/* ── Output / Generated note ── */
+.output-section{background:var(--card-bg);border-radius:12px;padding:20px;margin-top:14px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.output-section h3{margin:0 0 14px 0;color:var(--primary-dark);font-size:1.05rem}
+#generated-note{background:#fafbfc;border:1px solid var(--border);border-radius:8px;padding:16px;font-family:"SF Mono",Monaco,"Courier New",monospace;font-size:0.875rem;white-space:pre-wrap;line-height:1.65;min-height:200px;max-height:600px;overflow-y:auto}
+.output-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.btn{padding:11px 20px;border-radius:8px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:all 0.2s;border:none;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--primary);color:white}
+.btn-primary:hover{background:var(--primary-dark)}
+.btn-secondary{background:var(--bg);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{background:var(--border)}
+
+/* ── Toast ── */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--primary-dark);color:white;padding:11px 24px;border-radius:8px;font-size:0.9rem;opacity:0;transition:all 0.3s ease;z-index:1000}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* ── Reference box ── */
+.reference-box{background:linear-gradient(135deg,#f6f8fa 0%,#eef1f5 100%);border:1px solid var(--border);border-radius:8px;padding:13px;margin-top:10px}
+.reference-box h4{margin:0 0 7px 0;font-size:0.82rem;color:var(--primary-dark);text-transform:uppercase;letter-spacing:0.04em}
+.reference-box p,.reference-box li{font-size:0.85rem;margin:3px 0}
+.reference-box ul{margin:4px 0;padding-left:16px}
+
+/* ── Responsive ── */
+@media(max-width:620px){
+    .emergency-grid .emerg-row{grid-template-columns:1fr}
+    .emerg-buttons{justify-content:flex-start;margin-top:6px}
+    .chronic-header{grid-template-columns:24px 1fr auto}
+    .chronic-label{display:none}
+}
+@media print{
+    .header,.toolbar,.quick-nav,.output-actions,.note-type-bar{display:none!important}
+    .section{break-inside:avoid;box-shadow:none;border:1px solid #ccc}
+    body{font-size:10pt}
+    .emerg-buttons{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <h1>📋 Inpatient Note <span class="header-badge" id="note-type-label">ADMISSION H&amp;P</span></h1>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="toolbar-btn" onclick="generateNote()">📄 Generate Note</button>
+      <button class="toolbar-btn" onclick="clearAll()">🗑️ Clear</button>
+      <button class="toolbar-btn" onclick="expandAll()">📂 Expand All</button>
+      <button class="toolbar-btn" onclick="collapseAll()">📁 Collapse All</button>
+    </div>
+  </div>
+  <div class="note-type-bar">
+    <button class="note-type-btn active" onclick="setNoteType('admission',this)">Admission H&P</button>
+    <button class="note-type-btn" onclick="setNoteType('progress',this)">Progress Note</button>
+    <button class="note-type-btn" onclick="setNoteType('discharge',this)">Discharge Summary</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- Quick Nav -->
+<div class="quick-nav">
+  <button class="nav-chip" onclick="scrollToSection('s-header')">Header</button>
+  <button class="nav-chip" onclick="scrollToSection('s-emergency')">🚨 Emergencies</button>
+  <button class="nav-chip" onclick="scrollToSection('s-hpi')">HPI</button>
+  <button class="nav-chip" onclick="scrollToSection('s-primary')">Primary Dx</button>
+  <button class="nav-chip" onclick="scrollToSection('s-secondary')">Active Problems</button>
+  <button class="nav-chip" onclick="scrollToSection('s-chronic')">Chronic Diseases</button>
+  <button class="nav-chip" onclick="scrollToSection('s-meds')">Medications</button>
+  <button class="nav-chip" onclick="scrollToSection('s-safety')">Safety &amp; Quality</button>
+  <button class="nav-chip" onclick="scrollToSection('s-pending')">Pending</button>
+  <button class="nav-chip" onclick="scrollToSection('s-dispo')">Disposition</button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 1 — NOTE HEADER
+══════════════════════════════════════════════════════ -->
+<div class="section" id="s-header">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2><span>🏷️</span> Note Header & Patient Information</h2>
+    <span class="section-toggle">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="inline-inputs">
+      <div class="inline-group"><label>Date / Time</label><input type="text" id="note-date" placeholder="e.g., 2026-03-01 / 08:30"></div>
+      <div class="inline-group"><label>Admitting / Attending</label><input type="text" id="attending" placeholder="e.g., Dr. Smith, Hospitalist"></div>
+      <div class="inline-group"><label>Service</label><input type="text" id="service" placeholder="e.g., General Medicine, HM"></div>
+      <div class="inline-group"><label>Room / Bed</label><input type="text" id="room" placeholder="e.g., 412B"></div>
+    </div>
+    <div class="inline-inputs" style="margin-top:10px">
+      <div class="inline-group"><label>Age / Sex</label><input type="text" id="pt-age" placeholder="e.g., 67F"></div>
+      <div class="inline-group"><label>Hospital Day</label><input type="text" id="hd" placeholder="e.g., HD#3"></div>
+      <div class="inline-group"><label>Admission Date</label><input type="text" id="admit-date" placeholder="e.g., 2026-02-27"></div>
+      <div class="inline-group"><label>Code Status</label>
+        <select id="code-status">
+          <option value="">-- Select --</option>
+          <option>Full code</option>
+          <option>DNR / Full treatment</option>
+          <option>DNR / DNI</option>
+          <option>Comfort measures only</option>
+          <option>Discussion pending</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group" style="margin-top:10px">
+      <label class="form-label">Allergies</label>
+      <input type="text" id="allergies" placeholder="e.g., PCN (anaphylaxis), Sulfa (rash), NKDA">
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 2 — EMERGENCY SCREENING PANEL
+══════════════════════════════════════════════════════ -->
+<div class="section" id="s-emergency">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2><span>🚨</span> Cross-Specialty Emergency Screening</h2>
+    <span class="section-toggle">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="callout callout-danger">
+      <div class="callout-title">Required: Consciously address each emergency for every patient.</div>
+      <div class="callout-content">Click <strong style="color:var(--ruled-out)">Ruled Out</strong> (evidence against), <strong style="color:var(--monitoring)">Monitoring</strong> (watching, insufficient data), or <strong style="color:var(--active)">Active</strong> (being managed) for each condition. Conditions left unclassified will appear as unaddressed in the generated note.</div>
+    </div>
+
+    <div class="emergency-grid">
+
+      <!-- CARDIOVASCULAR -->
+      <div class="emergency-group-label">❤️ Cardiovascular</div>
+
+      <div class="emerg-row" data-status="" id="er-stemi">
+        <div class="emerg-left">
+          <div class="emerg-name">STEMI / Occlusion MI</div>
+          <div class="emerg-trigger">STE ≥1mm in ≥2 contiguous leads, new LBBB, posterior changes → Cath lab activation</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-stemi','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-stemi','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-stemi','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-acs">
+        <div class="emerg-left">
+          <div class="emerg-name">NSTEMI / Unstable Angina</div>
+          <div class="emerg-trigger">Troponin rise/fall + symptoms or dynamic ECG changes; TIMI / GRACE risk score → early invasive vs. ischemia-guided</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-acs','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-acs','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-acs','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-dissection">
+        <div class="emerg-left">
+          <div class="emerg-name">Aortic Dissection</div>
+          <div class="emerg-trigger">Tearing chest/back pain + pulse deficit / BP differential / wide mediastinum → CT aorta; Type A → surgery, Type B → BP control</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-dissection','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-dissection','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-dissection','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-tamponade">
+        <div class="emerg-left">
+          <div class="emerg-name">Cardiac Tamponade</div>
+          <div class="emerg-trigger">Beck's triad (hypotension, JVD, muffled heart sounds) + pulsus paradoxus &gt;10 mmHg, electrical alternans → urgent pericardiocentesis</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-tamponade','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-tamponade','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-tamponade','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-cardshock">
+        <div class="emerg-left">
+          <div class="emerg-name">Cardiogenic Shock</div>
+          <div class="emerg-trigger">SBP &lt;90 or MAP &lt;65 + CI &lt;2.2 + PCWP &gt;15 + end-organ hypoperfusion; cold/wet profile → MCS consideration (IABP, Impella)</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-cardshock','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-cardshock','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-cardshock','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-htn-emergency">
+        <div class="emerg-left">
+          <div class="emerg-name">Hypertensive Emergency</div>
+          <div class="emerg-trigger">SBP &gt;180 + end-organ damage (encephalopathy, AKI, flash pulm edema, aortic dissection, eclampsia) → IV antihypertensive, 25% MAP reduction in 1h</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-htn-emergency','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-htn-emergency','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-htn-emergency','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-vt">
+        <div class="emerg-left">
+          <div class="emerg-name">Malignant Arrhythmia (VT/VF/Complete HB)</div>
+          <div class="emerg-trigger">Sustained VT → cardioversion if unstable; VF → immediate defibrillation; Complete HB + hemodynamic compromise → transcutaneous pacing</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-vt','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-vt','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-vt','active',this)">Active</button>
+        </div>
+      </div>
+
+      <!-- PULMONARY -->
+      <div class="emergency-group-label">🫁 Pulmonary</div>
+
+      <div class="emerg-row" data-status="" id="er-pe">
+        <div class="emerg-left">
+          <div class="emerg-name">Massive / Submassive PE</div>
+          <div class="emerg-trigger">Massive: hemodynamic instability → systemic tPA or catheter-directed. Submassive: RV strain + troponin elevation → anticoagulation ± PERT activation</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-pe','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-pe','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-pe','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-ptx">
+        <div class="emerg-left">
+          <div class="emerg-name">Tension Pneumothorax</div>
+          <div class="emerg-trigger">Respiratory distress + absent breath sounds + tracheal deviation + hemodynamic instability → immediate needle decompression (2nd ICS MCL) before CXR</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-ptx','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-ptx','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-ptx','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-ards">
+        <div class="emerg-left">
+          <div class="emerg-name">ARDS / Impending Respiratory Failure</div>
+          <div class="emerg-trigger">P/F ratio &lt;300 + bilateral infiltrates + non-cardiogenic; SpO2 &lt;90% on ≥10 L O2, RR &gt;30, ↑ WOB → ARDSnet LPV (TV 6 mL/kg IBW, PEEP table)</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-ards','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-ards','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-ards','active',this)">Active</button>
+        </div>
+      </div>
+
+      <!-- NEUROLOGICAL -->
+      <div class="emergency-group-label">🧠 Neurological</div>
+
+      <div class="emerg-row" data-status="" id="er-stroke">
+        <div class="emerg-left">
+          <div class="emerg-name">Acute Ischemic Stroke / LVO</div>
+          <div class="emerg-trigger">Acute focal deficit → Last known well + NIHSS + CT/CTA. tPA if ≤4.5h + no contraindications; thrombectomy if LVO within 6–24h</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-stroke','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-stroke','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-stroke','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-sah">
+        <div class="emerg-left">
+          <div class="emerg-name">Intracranial Hemorrhage / SAH</div>
+          <div class="emerg-trigger">Thunderclap HA or sudden-onset focal deficit → CT head; if CT negative + high suspicion → LP ≥6h (xanthochromia); CTA for aneurysm</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-sah','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-sah','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-sah','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-seiz">
+        <div class="emerg-left">
+          <div class="emerg-name">Status Epilepticus</div>
+          <div class="emerg-trigger">Seizure &gt;5 min or ≥2 without recovery → Lorazepam 0.1 mg/kg IV → Levetiracetam/Fosphenytoin/Valproate → anesthesia if refractory</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-seiz','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-seiz','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-seiz','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-icp">
+        <div class="emerg-left">
+          <div class="emerg-name">Increased ICP / Herniation</div>
+          <div class="emerg-trigger">Cushing triad (HTN + bradycardia + irregular RR) or posturing → HOB 30°, head midline, mannitol 1 g/kg or 23.4% NaCl; neurosurgery immediately</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-icp','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-icp','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-icp','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-wernicke">
+        <div class="emerg-left">
+          <div class="emerg-name">Wernicke Encephalopathy</div>
+          <div class="emerg-trigger">Any malnourished/ETOH patient with ≥1 of: ataxia, ophthalmoplegia, confusion → Thiamine 500 mg IV TID ×3 days BEFORE any dextrose</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-wernicke','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-wernicke','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-wernicke','active',this)">Active</button>
+        </div>
+      </div>
+
+      <!-- RENAL / METABOLIC -->
+      <div class="emergency-group-label">🫘 Renal & Metabolic</div>
+
+      <div class="emerg-row" data-status="" id="er-dialysis">
+        <div class="emerg-left">
+          <div class="emerg-name">Dialysis Emergency (AEIOU)</div>
+          <div class="emerg-trigger">Acidemia pH &lt;7.1 | Electrolytes (K&gt;6.5 or refractory) | Intoxication (dialyzable) | Overload (refractory pulm edema) | Uremia (encephalopathy, pericarditis) → emergent RRT</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-dialysis','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-dialysis','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-dialysis','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-hyperK">
+        <div class="emerg-left">
+          <div class="emerg-name">Life-Threatening Hyperkalemia</div>
+          <div class="emerg-trigger">K &gt;6.0 or any K with ECG changes (peaked T, wide QRS, sine wave) → Calcium gluconate IV → Insulin/D50 → Kayexalate/patiromer → RRT if refractory</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-hyperK','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-hyperK','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-hyperK','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-hypoNa">
+        <div class="emerg-left">
+          <div class="emerg-name">Severe Symptomatic Hyponatremia / Hypernatremia</div>
+          <div class="emerg-trigger">Na &lt;125 + AMS/seizure → 3% NaCl 150 mL bolus; target +4–6 mEq/L in 6h. Na &gt;155 + AMS → free water deficit, correct ≤10 mEq/day to prevent cerebral edema</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-hypoNa','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-hypoNa','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-hypoNa','active',this)">Active</button>
+        </div>
+      </div>
+
+      <!-- ENDOCRINE -->
+      <div class="emergency-group-label">🦋 Endocrine</div>
+
+      <div class="emerg-row" data-status="" id="er-dka">
+        <div class="emerg-left">
+          <div class="emerg-name">DKA / HHS</div>
+          <div class="emerg-trigger">DKA: BG &gt;250 + AG acidosis + ketonemia. HHS: BG &gt;600 + Osm &gt;320 + altered MS without significant acidosis → IV fluids, insulin drip (DKA), K repletion, hourly monitoring</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-dka','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-dka','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-dka','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-adrenal">
+        <div class="emerg-left">
+          <div class="emerg-name">Adrenal Crisis</div>
+          <div class="emerg-trigger">Hypotension + hyponatremia + hyperkalemia + cortisol &lt;3 (or steroid non-adherence) → Hydrocortisone 100 mg IV bolus NOW; then 50–100 mg q6–8h + aggressive IVF</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-adrenal','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-adrenal','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-adrenal','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-thyroid">
+        <div class="emerg-left">
+          <div class="emerg-name">Thyroid Storm / Myxedema Coma</div>
+          <div class="emerg-trigger">Storm (Burch-Wartofsky ≥45): PTU/methimazole → iodine (1h after) → steroids → beta-blocker. Myxedema: IV T4 + hydrocortisone (cover adrenals first) + rewarm</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-thyroid','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-thyroid','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-thyroid','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-hypercalc">
+        <div class="emerg-left">
+          <div class="emerg-name">Severe Hypercalcemia / Hypocalcemia</div>
+          <div class="emerg-trigger">Ca &gt;14: aggressive IVF (200–300 mL/h) + calcitonin 4 IU/kg q12h + bisphosphonate. Ca critically low with tetany/ECG changes: Calcium gluconate 1–2 g IV over 20 min</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-hypercalc','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-hypercalc','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-hypercalc','active',this)">Active</button>
+        </div>
+      </div>
+
+      <!-- INFECTIOUS / SEPSIS -->
+      <div class="emergency-group-label">🦠 Infectious Disease & Sepsis</div>
+
+      <div class="emerg-row" data-status="" id="er-septic-shock">
+        <div class="emerg-left">
+          <div class="emerg-name">Septic Shock (Sepsis-3)</div>
+          <div class="emerg-trigger">Sepsis + vasopressor requirement + lactate &gt;2 mmol/L → 30 mL/kg IVF in 3h, blood cultures ×2 before, broad-spectrum Abx within 1h; norepinephrine first-line pressor</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-septic-shock','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-septic-shock','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-septic-shock','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-meningitis">
+        <div class="emerg-left">
+          <div class="emerg-name">Bacterial Meningitis / Encephalitis</div>
+          <div class="emerg-trigger">Fever + AMS + meningismus → Dexamethasone + Ceftriaxone + Vancomycin (± Ampicillin if &gt;50y) immediately; LP can follow if no focal deficit or papilledema; add Acyclovir if HSV encephalitis possible</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-meningitis','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-meningitis','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-meningitis','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-endocarditis">
+        <div class="emerg-left">
+          <div class="emerg-name">Infective Endocarditis</div>
+          <div class="emerg-trigger">Fever + new murmur + bacteremia (Staph aureus, Strep, Enterococcus) → Modified Duke Criteria; TTE/TEE; 3 sets blood cultures pre-Abx; urgent cardiology if hemodynamic instability or emboli</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-endocarditis','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-endocarditis','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-endocarditis','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-necfasc">
+        <div class="emerg-left">
+          <div class="emerg-name">Necrotizing Soft Tissue Infection</div>
+          <div class="emerg-trigger">Rapidly advancing erythema + skin necrosis + crepitus + disproportionate pain or pain out of proportion → Emergent surgical debridement + Pip-tazo + Vanc + Clindamycin (anti-toxin)</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-necfasc','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-necfasc','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-necfasc','active',this)">Active</button>
+        </div>
+      </div>
+
+      <!-- HEMATOLOGIC -->
+      <div class="emergency-group-label">🩸 Hematologic</div>
+
+      <div class="emerg-row" data-status="" id="er-ttp">
+        <div class="emerg-left">
+          <div class="emerg-name">TTP / HUS</div>
+          <div class="emerg-trigger">Thrombocytopenia + microangiopathic hemolytic anemia (schistocytes) + renal failure ± neuro/fever → ADAMTS13 activity; plasma exchange immediately; avoid platelets in TTP</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-ttp','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-ttp','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-ttp','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-dic">
+        <div class="emerg-left">
+          <div class="emerg-name">DIC</div>
+          <div class="emerg-trigger">↓Plt + ↑PT/PTT + ↑D-dimer + ↓fibrinogen + schistocytes in sepsis/malignancy/trauma → treat underlying cause; FFP if bleeding, cryoprecipitate if fibrinogen &lt;150</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-dic','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-dic','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-dic','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-tls">
+        <div class="emerg-left">
+          <div class="emerg-name">Tumor Lysis Syndrome</div>
+          <div class="emerg-trigger">Cairo-Bishop criteria: ↑K, ↑Phos, ↑Uric acid, ↓Ca, ↑Cr in 24–48h after chemo or spontaneously in high-burden malignancy → aggressive IVF + allopurinol/rasburicase + monitor electrolytes q6h</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-tls','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-tls','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-tls','active',this)">Active</button>
+        </div>
+      </div>
+
+      <!-- RHEUMATOLOGIC / OTHER -->
+      <div class="emergency-group-label">🦴 Rheumatologic / Other</div>
+
+      <div class="emerg-row" data-status="" id="er-mas">
+        <div class="emerg-left">
+          <div class="emerg-name">Macrophage Activation Syndrome (MAS) / HLH</div>
+          <div class="emerg-trigger">Persistent fever + cytopenias + ferritin &gt;10,000 + hepatosplenomegaly + ↑TG + ↓fibrinogen + hemophagocytosis on BM bx → HScore; dexamethasone ± etoposide; urgent rheumatology/heme</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-mas','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-mas','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-mas','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-gi-bleed">
+        <div class="emerg-left">
+          <div class="emerg-name">Life-Threatening GI Hemorrhage</div>
+          <div class="emerg-trigger">Hematemesis or melena + hemodynamic instability (SBP &lt;90, HR &gt;100) → 2 large-bore IVs, type & cross, PPI IV drip, GI + IR on call; transfuse to Hgb &gt;7–8 g/dL; massive transfusion protocol if needed</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-gi-bleed','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-gi-bleed','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-gi-bleed','active',this)">Active</button>
+        </div>
+      </div>
+
+      <div class="emerg-row" data-status="" id="er-airway">
+        <div class="emerg-left">
+          <div class="emerg-name">Airway Emergency / Impending Arrest</div>
+          <div class="emerg-trigger">Stridor, angioedema, inability to protect airway, SpO2 &lt;88% refractory to supplemental O2 → Early intubation; anaphylaxis → Epinephrine 0.3 mg IM immediately</div>
+        </div>
+        <div class="emerg-buttons">
+          <button class="emerg-btn" onclick="setEmerg('er-airway','ruled-out',this)">Ruled Out</button>
+          <button class="emerg-btn" onclick="setEmerg('er-airway','monitoring',this)">Monitoring</button>
+          <button class="emerg-btn" onclick="setEmerg('er-airway','active',this)">Active</button>
+        </div>
+      </div>
+
+    </div><!-- end emergency-grid -->
+
+    <div class="form-group" style="margin-top:12px">
+      <label class="form-label">Emergency Screening Comments</label>
+      <textarea id="emergency-comments" class="sm" placeholder="Summarize rationale for any monitoring or active concerns; document why specific emergencies were ruled out if non-obvious..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 3 — HPI / SUBJECTIVE
+══════════════════════════════════════════════════════ -->
+<div class="section" id="s-hpi">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2><span>📜</span> Chief Complaint, HPI &amp; Subjective</h2>
+    <span class="section-toggle">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="form-group">
+      <label class="form-label">Chief Complaint</label>
+      <input type="text" id="chief-complaint" placeholder="e.g., Shortness of breath and lower extremity edema × 4 days">
+    </div>
+    <div class="form-group">
+      <label class="form-label">History of Present Illness</label>
+      <textarea id="hpi" class="lg" placeholder="Patient is a ___ y/o M/F with PMH significant for ___ who presents with ___. Onset: ___, character: ___, location: ___, severity: ___, radiation: ___, timing: ___, modifying factors: ___, associated symptoms: ___. Pertinent positives and negatives on ROS. Prior workup and treatment for this episode..."></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Interval Update (Progress Notes)</label>
+      <textarea id="interval-update" class="sm" placeholder="Overnight events, patient-reported symptoms today, nursing report summary, response to yesterday's interventions..."></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Vital Signs (Current)</label>
+      <div class="inline-inputs">
+        <div class="inline-group"><label>Temp (°F)</label><input type="text" id="vs-temp" placeholder="98.4"></div>
+        <div class="inline-group"><label>BP (mmHg)</label><input type="text" id="vs-bp" placeholder="138/82"></div>
+        <div class="inline-group"><label>HR (bpm)</label><input type="text" id="vs-hr" placeholder="88"></div>
+        <div class="inline-group"><label>RR (breaths/min)</label><input type="text" id="vs-rr" placeholder="16"></div>
+        <div class="inline-group"><label>SpO2 (%)</label><input type="text" id="vs-spo2" placeholder="95% 2L NC"></div>
+        <div class="inline-group"><label>Weight (kg)</label><input type="text" id="vs-wt" placeholder="82 kg (admit: 85 kg)"></div>
+        <div class="inline-group"><label>BG (mg/dL)</label><input type="text" id="vs-bg" placeholder="148"></div>
+        <div class="inline-group"><label>I/O (24h)</label><input type="text" id="vs-io" placeholder="+1.2 L (In 2.5 / Out 1.3)"></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Physical Examination</label>
+      <textarea id="physical-exam" class="lg" placeholder="General: ___, appears comfortable/distressed, A&Ox___
+HEENT: ___
+Neck: JVD present/absent at ___ cm
+Cardiovascular: RRR/Irregular, S1/S2 ___; murmur: ___; peripheral pulses ___
+Pulmonary: CTA/crackles/wheezes bilaterally; WOB: ___
+Abdomen: Soft/TTP, ___; bowel sounds ___; hepatomegaly/ascites
+Extremities: 1+/2+/3+ pitting edema to ___; no clubbing/cyanosis
+Skin: ___
+Neuro: AOx___, no focal deficits / ___
+Other: ___"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Key Labs &amp; Data (most recent, relevant values)</label>
+      <textarea id="key-labs" class="lg" placeholder="Na ___ / K ___ / Cl ___ / HCO3 ___ / BUN ___ / Cr ___ (baseline ___) / Gluc ___
+Hgb ___ / WBC ___ / Plt ___
+Troponin: ___  BNP/NT-proBNP: ___  Lactate: ___  Procalcitonin: ___
+INR ___  PTT ___
+Relevant cultures: ___
+Recent imaging: ___"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 4 — PRIMARY PROBLEM
+══════════════════════════════════════════════════════ -->
+<div class="section" id="s-primary">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2><span>🎯</span> Primary Problem — Assessment &amp; Plan</h2>
+    <span class="section-toggle">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="problem-block primary-block">
+      <div class="problem-header">
+        <span class="problem-badge badge-primary">PRIMARY Dx</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Diagnosis / Problem</label>
+        <input type="text" id="p1-dx" placeholder="e.g., Acute decompensated heart failure with reduced ejection fraction (HFrEF), NYHA Class IV">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Supporting Evidence</label>
+        <textarea id="p1-evidence" placeholder="Key findings that establish this diagnosis: clinical findings, labs, imaging, risk scores, response to treatment..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Active Differential Diagnosis</label>
+        <textarea id="p1-ddx" class="sm" placeholder="1. [Most likely] — [reasoning]
+2. [Alternative] — [reasoning]
+3. [Must not miss] — [reasoning / how excluded]"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Assessment &amp; Plan</label>
+        <textarea id="p1-plan" class="lg" placeholder="- Diuresis: furosemide ___ mg IV q___ (goal net ___  mL/day); monitor Cr/K daily
+- Fluid restriction: 1.5 L/day; low-sodium diet (&lt;2 g/day)
+- GDMT: continue beta-blocker (carvedilol ___mg BID); titrate ACEi/ARNi once volume-replete; consider MRA
+- Telemetry: watch for AF with RVR; optimize rate control
+- Echo: [ordered / reviewed — EF ___%, last ___]
+- Daily weights; strict I&O
+- Pulmonology/Cardiology input: [requested/reviewed]
+- Discharge trigger: weight at dry weight, ambulating without significant dyspnea, SpO2 ≥92% on home O2/RA, oral diuresis tolerated × 24h"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 5 — SECONDARY ACTIVE PROBLEMS
+══════════════════════════════════════════════════════ -->
+<div class="section" id="s-secondary">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2><span>📌</span> Secondary Active Problems</h2>
+    <span class="section-toggle">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="callout callout-info">
+      <div class="callout-content">Document all active problems requiring inpatient management. Include both conditions that precipitated this admission (secondary causes/contributors) and new issues that have arisen during the hospitalization.</div>
+    </div>
+
+    <!-- Problem 2 -->
+    <div class="problem-block secondary-block" id="prob-2">
+      <div class="problem-header">
+        <span class="problem-badge badge-secondary">Problem #2</span>
+        <input type="text" id="p2-dx" placeholder="e.g., Acute kidney injury — prerenal, secondary to diuresis over-diuresis (Cr 1.9, baseline 0.9)" style="flex:1;font-weight:600">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Plan</label>
+        <textarea id="p2-plan" class="sm" placeholder="- Hold further diuresis; reduce furosemide dose
+- 500 mL NS bolus if no contraindication; reassess clinical volume status
+- Monitor Cr daily; hold ACEi until Cr improves toward baseline
+- FENa pending; UA sent
+- Nephrology input if Cr does not improve within 48h or oliguric"></textarea>
+      </div>
+    </div>
+
+    <!-- Problem 3 -->
+    <div class="problem-block secondary-block" id="prob-3">
+      <div class="problem-header">
+        <span class="problem-badge badge-secondary">Problem #3</span>
+        <input type="text" id="p3-dx" placeholder="e.g., Atrial fibrillation with RVR — HR 118, no prior diagnosis" style="flex:1;font-weight:600">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Plan</label>
+        <textarea id="p3-plan" class="sm" placeholder="- Rate control: metoprolol tartrate 25 mg PO q6h; target HR &lt;80 at rest
+- Anticoagulation: CHA₂DS₂-VASc score ___ → heparin bridge; initiate apixaban
+- TSH checked; thyroid disease excluded
+- Echo for EF assessment
+- Cardiology co-management"></textarea>
+      </div>
+    </div>
+
+    <!-- Problem 4 -->
+    <div class="problem-block secondary-block" id="prob-4">
+      <div class="problem-header">
+        <span class="problem-badge badge-secondary">Problem #4</span>
+        <input type="text" id="p4-dx" placeholder="e.g., Hospital-acquired hypokalemia — K 3.1, on diuretics" style="flex:1;font-weight:600">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Plan</label>
+        <textarea id="p4-plan" class="sm" placeholder="- KCl 40 mEq PO × 2 doses; recheck K in 4h
+- Continue K-sparing strategy: add spironolactone 25 mg daily (also GDMT)
+- Monitor Mg — replete if &lt;2.0 (hypomagnesemia perpetuates hypokalemia)
+- Hold if K &gt;5.0"></textarea>
+      </div>
+    </div>
+
+    <!-- Problem 5 -->
+    <div class="problem-block secondary-block" id="prob-5">
+      <div class="problem-header">
+        <span class="problem-badge badge-secondary">Problem #5</span>
+        <input type="text" id="p5-dx" placeholder="e.g., Inpatient hyperglycemia — BG 220s–280s on home metformin (held)" style="flex:1;font-weight:600">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Plan</label>
+        <textarea id="p5-plan" class="sm" placeholder="- Initiate basal-bolus insulin: glargine ___ units qHS + lispro sliding scale AC meals
+- Target BG 140–180 mg/dL inpatient
+- Monitor BG QID; endocrinology input if DKA/HHS or steroid-induced hyperglycemia difficult to control
+- Resume metformin at discharge once Cr stable and contrast cleared (if used)"></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 6 — CHRONIC DISEASE MANAGEMENT
+══════════════════════════════════════════════════════ -->
+<div class="section" id="s-chronic">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2><span>🏥</span> Chronic Disease Management</h2>
+    <span class="section-toggle">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="callout callout-info">
+      <div class="callout-content">Check each condition present in this patient. Click to expand and document inpatient status and management. Every chronic condition must be actively addressed — not "continue home medications" without thought.</div>
+    </div>
+
+    <div class="chronic-disease-grid" id="chronic-grid">
+      <!-- Rows generated by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 7 — MEDICATION RECONCILIATION
+══════════════════════════════════════════════════════ -->
+<div class="section" id="s-meds">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2><span>💊</span> Medication Reconciliation</h2>
+    <span class="section-toggle">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="callout callout-warning">
+      <div class="callout-title">High-Risk Medication Review</div>
+      <div class="callout-content">Always address: anticoagulants (hold/bridge?), antihypertensives (SBP target changes?), diabetes meds (hold metformin, SGLT2i; adjust insulin for NPO), nephrotoxins (NSAIDs, IV contrast, aminoglycosides), QTc-prolonging agents, steroids (stress dosing?), immunosuppressants, antiepileptics (levels?), and PRN narcotics/benzos (fall risk).</div>
+    </div>
+
+    <div style="overflow-x:auto">
+      <table class="med-table" id="med-table">
+        <thead>
+          <tr>
+            <th style="width:24%">Medication (Home)</th>
+            <th style="width:12%">Home Dose</th>
+            <th style="width:13%">Action</th>
+            <th style="width:25%">Inpatient Dose / Modification</th>
+            <th style="width:26%">Rationale</th>
+          </tr>
+        </thead>
+        <tbody id="med-tbody">
+        </tbody>
+      </table>
+    </div>
+    <button class="add-med-btn" onclick="addMedRow()">+ Add Medication</button>
+
+    <div class="form-group" style="margin-top:14px">
+      <label class="form-label">New Inpatient Medications Started</label>
+      <textarea id="new-meds" class="sm" placeholder="List new medications initiated during this hospitalization with indication, dose, anticipated duration, and whether to continue at discharge..."></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">VTE / Anticoagulation Plan</label>
+      <textarea id="anticoag-plan" class="sm" placeholder="- Therapeutic anticoagulation: [indication, agent, dose, INR/anti-Xa target, duration]
+- Prophylactic anticoagulation: [enoxaparin 40 mg SQ daily / UFH 5000 units SQ TID / mechanical only — reason for chemical hold]
+- Reversal agents available: [andexanet alfa / idarucizumab / 4-factor PCC / vitamin K]
+- Bridge protocol: [yes/no — if yes, specify heparin drip parameters]"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 8 — INPATIENT SAFETY & QUALITY MEASURES
+══════════════════════════════════════════════════════ -->
+<div class="section" id="s-safety">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2><span>🛡️</span> Inpatient Safety &amp; Quality Measures</h2>
+    <span class="section-toggle">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="safety-grid" id="safety-grid">
+
+      <div class="safety-item" id="sq-dvt">
+        <div class="safety-item-header"><span class="safety-dot"></span>VTE Prophylaxis</div>
+        <div class="safety-actions">
+          <button class="safety-btn" onclick="setSafety('sq-dvt','done',this)">✓ Done</button>
+          <button class="safety-btn" onclick="setSafety('sq-dvt','not-done',this)">✗ Not Done</button>
+          <button class="safety-btn" onclick="setSafety('sq-dvt','na',this)">N/A</button>
+        </div>
+        <textarea class="sq-detail" placeholder="Enoxaparin 40 mg SQ daily / UFH 5000 u TID / SCD only (reason: ___) / therapeutic anticoagulation covers" style="width:100%;min-height:46px;font-size:0.82rem;padding:6px 8px;border:1px solid var(--border);border-radius:6px;resize:vertical"></textarea>
+      </div>
+
+      <div class="safety-item" id="sq-gi">
+        <div class="safety-item-header"><span class="safety-dot"></span>GI Prophylaxis</div>
+        <div class="safety-actions">
+          <button class="safety-btn" onclick="setSafety('sq-gi','done',this)">✓ Done</button>
+          <button class="safety-btn" onclick="setSafety('sq-gi','not-done',this)">✗ Not Done</button>
+          <button class="safety-btn" onclick="setSafety('sq-gi','na',this)">N/A</button>
+        </div>
+        <textarea class="sq-detail" placeholder="PPI/H2 blocker if: ICU, mechanical ventilation, coagulopathy, prior GI bleed, high-dose steroids, or dual antiplatelet; otherwise not routinely indicated" style="width:100%;min-height:46px;font-size:0.82rem;padding:6px 8px;border:1px solid var(--border);border-radius:6px;resize:vertical"></textarea>
+      </div>
+
+      <div class="safety-item" id="sq-delirium">
+        <div class="safety-item-header"><span class="safety-dot"></span>Delirium Prevention (ABCDEF Bundle)</div>
+        <div class="safety-actions">
+          <button class="safety-btn" onclick="setSafety('sq-delirium','done',this)">✓ Done</button>
+          <button class="safety-btn" onclick="setSafety('sq-delirium','not-done',this)">✗ Not Done</button>
+          <button class="safety-btn" onclick="setSafety('sq-delirium','na',this)">N/A</button>
+        </div>
+        <textarea class="sq-detail" placeholder="A: Assess/manage pain. B: SAT+SBT trials. C: Analgesia-first sedation. D: CAM assessment BID. E: Early mobility. F: Family engagement. Nonpharm first (orient, lighting, hearing aids/glasses, avoid anticholinergics/benzos)" style="width:100%;min-height:46px;font-size:0.82rem;padding:6px 8px;border:1px solid var(--border);border-radius:6px;resize:vertical"></textarea>
+      </div>
+
+      <div class="safety-item" id="sq-falls">
+        <div class="safety-item-header"><span class="safety-dot"></span>Fall Prevention</div>
+        <div class="safety-actions">
+          <button class="safety-btn" onclick="setSafety('sq-falls','done',this)">✓ Done</button>
+          <button class="safety-btn" onclick="setSafety('sq-falls','not-done',this)">✗ Not Done</button>
+          <button class="safety-btn" onclick="setSafety('sq-falls','na',this)">N/A</button>
+        </div>
+        <textarea class="sq-detail" placeholder="Fall risk: [low/mod/high — Morse scale]. Bed alarm, non-slip footwear, call light within reach, PT mobility assessment, review sedating/hypotensive meds" style="width:100%;min-height:46px;font-size:0.82rem;padding:6px 8px;border:1px solid var(--border);border-radius:6px;resize:vertical"></textarea>
+      </div>
+
+      <div class="safety-item" id="sq-nutrition">
+        <div class="safety-item-header"><span class="safety-dot"></span>Nutrition / Diet</div>
+        <div class="safety-actions">
+          <button class="safety-btn" onclick="setSafety('sq-nutrition','done',this)">✓ Done</button>
+          <button class="safety-btn" onclick="setSafety('sq-nutrition','not-done',this)">✗ Not Done</button>
+          <button class="safety-btn" onclick="setSafety('sq-nutrition','na',this)">N/A</button>
+        </div>
+        <textarea class="sq-detail" placeholder="Diet order: ___. NPO if ___. Swallow evaluation by SLP if dysphagia/aspiration risk. Nutrition consult if poor intake &gt;48h or BMI &lt;18.5 or &gt;40. Tube feeds if enteral route unavailable &gt;5 days" style="width:100%;min-height:46px;font-size:0.82rem;padding:6px 8px;border:1px solid var(--border);border-radius:6px;resize:vertical"></textarea>
+      </div>
+
+      <div class="safety-item" id="sq-foley">
+        <div class="safety-item-header"><span class="safety-dot"></span>Foley / Catheter Need</div>
+        <div class="safety-actions">
+          <button class="safety-btn" onclick="setSafety('sq-foley','done',this)">✓ Indicated</button>
+          <button class="safety-btn" onclick="setSafety('sq-foley','not-done',this)">Remove Today</button>
+          <button class="safety-btn" onclick="setSafety('sq-foley','na',this)">No Foley</button>
+        </div>
+        <textarea class="sq-detail" placeholder="Indication for Foley: [strict I&O critical / urinary retention / wound healing / comfort]. Daily necessity reassessment — CAUTI prevention. Remove as soon as no longer needed" style="width:100%;min-height:46px;font-size:0.82rem;padding:6px 8px;border:1px solid var(--border);border-radius:6px;resize:vertical"></textarea>
+      </div>
+
+      <div class="safety-item" id="sq-lines">
+        <div class="safety-item-header"><span class="safety-dot"></span>IV Lines / Central Access</div>
+        <div class="safety-actions">
+          <button class="safety-btn" onclick="setSafety('sq-lines','done',this)">✓ Necessary</button>
+          <button class="safety-btn" onclick="setSafety('sq-lines','not-done',this)">Remove Today</button>
+          <button class="safety-btn" onclick="setSafety('sq-lines','na',this)">Peripheral Only</button>
+        </div>
+        <textarea class="sq-detail" placeholder="Central line necessity reassessed daily. CLABSI bundle: maximal barrier precautions, CHG dressing, line days count ___. Remove when no longer needed. Peripheral IVs &gt;72h: replace site" style="width:100%;min-height:46px;font-size:0.82rem;padding:6px 8px;border:1px solid var(--border);border-radius:6px;resize:vertical"></textarea>
+      </div>
+
+      <div class="safety-item" id="sq-pressure">
+        <div class="safety-item-header"><span class="safety-dot"></span>Pressure Injury Prevention</div>
+        <div class="safety-actions">
+          <button class="safety-btn" onclick="setSafety('sq-pressure','done',this)">✓ Done</button>
+          <button class="safety-btn" onclick="setSafety('sq-pressure','not-done',this)">✗ Not Done</button>
+          <button class="safety-btn" onclick="setSafety('sq-pressure','na',this)">N/A</button>
+        </div>
+        <textarea class="sq-detail" placeholder="Braden score: ___. Turn q2h if bed-bound, specialty mattress if high risk, wound care consult for active pressure injury, offloading for diabetic foot" style="width:100%;min-height:46px;font-size:0.82rem;padding:6px 8px;border:1px solid var(--border);border-radius:6px;resize:vertical"></textarea>
+      </div>
+
+      <div class="safety-item" id="sq-glycemia">
+        <div class="safety-item-header"><span class="safety-dot"></span>Glycemic Management</div>
+        <div class="safety-actions">
+          <button class="safety-btn" onclick="setSafety('sq-glycemia','done',this)">✓ Addressed</button>
+          <button class="safety-btn" onclick="setSafety('sq-glycemia','not-done',this)">Needs Update</button>
+          <button class="safety-btn" onclick="setSafety('sq-glycemia','na',this)">N/A</button>
+        </div>
+        <textarea class="sq-detail" placeholder="Target BG 140–180 mg/dL (non-ICU). ICU target 140–180 (avoid &lt;110). BG checks: QID AC+HS. Hypoglycemia protocol in place: BG &lt;70 → dextrose 25g IV or 4 oz OJ. HbA1c if not done in &gt;3 months" style="width:100%;min-height:46px;font-size:0.82rem;padding:6px 8px;border:1px solid var(--border);border-radius:6px;resize:vertical"></textarea>
+      </div>
+
+      <div class="safety-item" id="sq-isolation">
+        <div class="safety-item-header"><span class="safety-dot"></span>Infection Control / Isolation</div>
+        <div class="safety-actions">
+          <button class="safety-btn" onclick="setSafety('sq-isolation','done',this)">✓ In Place</button>
+          <button class="safety-btn" onclick="setSafety('sq-isolation','not-done',this)">Not Needed</button>
+          <button class="safety-btn" onclick="setSafety('sq-isolation','na',this)">Assess</button>
+        </div>
+        <textarea class="sq-detail" placeholder="Contact: MRSA, VRE, C. diff, ESBL, CRE, scabies. Droplet: influenza, RSV, COVID, mpox. Airborne: TB (N95), measles, VZV. Contact+droplet: SARS-CoV-2. Discontinue when no longer indicated" style="width:100%;min-height:46px;font-size:0.82rem;padding:6px 8px;border:1px solid var(--border);border-radius:6px;resize:vertical"></textarea>
+      </div>
+
+      <div class="safety-item" id="sq-goals">
+        <div class="safety-item-header"><span class="safety-dot"></span>Goals of Care / Advance Directives</div>
+        <div class="safety-actions">
+          <button class="safety-btn" onclick="setSafety('sq-goals','done',this)">✓ Discussed</button>
+          <button class="safety-btn" onclick="setSafety('sq-goals','not-done',this)">Pending</button>
+          <button class="safety-btn" onclick="setSafety('sq-goals','na',this)">N/A</button>
+        </div>
+        <textarea class="sq-detail" placeholder="Code status confirmed: ___. Healthcare proxy identified: ___. Advance directive on file: ___. Palliative care consult: ___. Family meeting planned: ___. Prognosis discussed: ___" style="width:100%;min-height:46px;font-size:0.82rem;padding:6px 8px;border:1px solid var(--border);border-radius:6px;resize:vertical"></textarea>
+      </div>
+
+      <div class="safety-item" id="sq-mobility">
+        <div class="safety-item-header"><span class="safety-dot"></span>Mobility / Rehabilitation</div>
+        <div class="safety-actions">
+          <button class="safety-btn" onclick="setSafety('sq-mobility','done',this)">✓ Active</button>
+          <button class="safety-btn" onclick="setSafety('sq-mobility','not-done',this)">Bedbound</button>
+          <button class="safety-btn" onclick="setSafety('sq-mobility','na',this)">N/A</button>
+        </div>
+        <textarea class="sq-detail" placeholder="PT/OT consult: [ordered/active/completed]. Ambulation distance: ___. Activity order: ___. Early mobilization reduces ICU delirium, pneumonia, DVT, deconditioning" style="width:100%;min-height:46px;font-size:0.82rem;padding:6px 8px;border:1px solid var(--border);border-radius:6px;resize:vertical"></textarea>
+      </div>
+
+      <div class="safety-item" id="sq-meds-review">
+        <div class="safety-item-header"><span class="safety-dot"></span>High-Alert Meds / Polypharmacy Review</div>
+        <div class="safety-actions">
+          <button class="safety-btn" onclick="setSafety('sq-meds-review','done',this)">✓ Reviewed</button>
+          <button class="safety-btn" onclick="setSafety('sq-meds-review','not-done',this)">Needs Review</button>
+          <button class="safety-btn" onclick="setSafety('sq-meds-review','na',this)">N/A</button>
+        </div>
+        <textarea class="sq-detail" placeholder="Pharmacy reconciliation complete: ___. QTc-prolonging drug interactions: ___. Beers Criteria review in elderly: ___. Renal/hepatic dose adjustments: ___. Antibiotic de-escalation: ___" style="width:100%;min-height:46px;font-size:0.82rem;padding:6px 8px;border:1px solid var(--border);border-radius:6px;resize:vertical"></textarea>
+      </div>
+
+    </div><!-- end safety-grid -->
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 9 — PENDING ITEMS
+══════════════════════════════════════════════════════ -->
+<div class="section" id="s-pending">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2><span>⏳</span> Pending Items &amp; Outstanding Data</h2>
+    <span class="section-toggle">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="pending-list" id="pending-list">
+      <div class="pending-item">
+        <span class="pending-type type-lab">LAB</span>
+        <input type="text" placeholder="e.g., Serial troponins q6h (2 of 3 pending), procalcitonin result">
+        <button class="remove-pending" onclick="removePending(this)">✕</button>
+      </div>
+      <div class="pending-item">
+        <span class="pending-type type-img">IMAGING</span>
+        <input type="text" placeholder="e.g., CT chest with contrast — pulmonary embolism protocol (ordered, awaiting read)">
+        <button class="remove-pending" onclick="removePending(this)">✕</button>
+      </div>
+      <div class="pending-item">
+        <span class="pending-type type-consult">CONSULT</span>
+        <input type="text" placeholder="e.g., Cardiology consult pending — requested 08:00, question: AF management and anticoagulation timing">
+        <button class="remove-pending" onclick="removePending(this)">✕</button>
+      </div>
+    </div>
+    <div class="add-pending-row">
+      <select class="add-pending-type" id="new-pending-type">
+        <option value="lab">LAB</option>
+        <option value="img">IMAGING</option>
+        <option value="consult">CONSULT</option>
+        <option value="proc">PROCEDURE</option>
+      </select>
+      <button class="btn btn-secondary" style="flex:1" onclick="addPending()">+ Add Pending Item</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SECTION 10 — DISPOSITION
+══════════════════════════════════════════════════════ -->
+<div class="section" id="s-dispo">
+  <div class="section-header" onclick="toggleSection(this)">
+    <h2><span>🏠</span> Disposition &amp; Discharge Planning</h2>
+    <span class="section-toggle">▼</span>
+  </div>
+  <div class="section-content">
+    <div class="inline-inputs">
+      <div class="inline-group">
+        <label>Anticipated Discharge Date</label>
+        <input type="text" id="dispo-date" placeholder="e.g., 2026-03-03 (HD#5)">
+      </div>
+      <div class="inline-group">
+        <label>Level of Care</label>
+        <select id="dispo-level">
+          <option value="">-- Current level --</option>
+          <option>ICU / MICU / SICU</option>
+          <option>Step-down / SDU / PCU</option>
+          <option>Telemetry floor</option>
+          <option>General medicine floor</option>
+          <option>Transfer to higher-level care</option>
+          <option>Transfer to LTAC</option>
+        </select>
+      </div>
+      <div class="inline-group">
+        <label>Discharge Destination</label>
+        <select id="dispo-dest">
+          <option value="">-- Select --</option>
+          <option>Home with self-care</option>
+          <option>Home with home health / VNA</option>
+          <option>Skilled nursing facility (SNF)</option>
+          <option>Inpatient rehab facility (IRF)</option>
+          <option>Long-term acute care (LTAC)</option>
+          <option>Hospice (inpatient)</option>
+          <option>Hospice (home)</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group" style="margin-top:12px">
+      <label class="form-label">Discharge Criteria / Milestones</label>
+      <textarea id="discharge-criteria" class="sm" placeholder="Patient will be ready for discharge when:
+1. Net negative fluid balance with return to dry weight (goal: ___ kg)
+2. Tolerating oral diuretics with stable renal function × 24h
+3. SpO2 ≥92% on home O2 requirements (or room air)
+4. Ambulatory with appropriate assist device
+5. Vital signs stable × ___ h (HR &lt;___, SBP ___)
+6. All critical pending results resulted and addressed"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Discharge Barriers</label>
+      <textarea id="discharge-barriers" class="sm" placeholder="e.g., Patient awaiting SNF bed (social work contacted ___), insurance authorization pending for home IV antibiotics, family education on insulin administration not yet complete, home oxygen setup not yet arranged..."></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Discharge Medications Changes</label>
+      <textarea id="discharge-meds" class="sm" placeholder="New medications to start at discharge: ___
+Medications to stop at discharge: ___
+Dose changes: ___
+Key counseling points (new anticoagulant, insulin, diuretic weight-based dosing...): ___"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Patient &amp; Family Education</label>
+      <div class="checkbox-group">
+        <div class="checkbox-item"><input type="checkbox" id="edu-dx"><label for="edu-dx">Diagnosis explained</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="edu-meds"><label for="edu-meds">New medications reviewed</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="edu-diet"><label for="edu-diet">Diet instructions given</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="edu-activity"><label for="edu-activity">Activity restrictions discussed</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="edu-return"><label for="edu-return">Return precautions reviewed</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="edu-followup"><label for="edu-followup">Follow-up appointments arranged</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="edu-device"><label for="edu-device">Device instructions (O2, CPAP, INR monitor)</label></div>
+        <div class="checkbox-item"><input type="checkbox" id="edu-hha"><label for="edu-hha">Home health / VNA services arranged</label></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Outpatient Follow-up Plan</label>
+      <textarea id="followup" class="sm" placeholder="- PCP: within 1 week (or sooner if ___); please see pending results: ___
+- Cardiology: ___ weeks — echo, device check, medication optimization
+- Nephrology: ___ weeks — Cr recheck, ACEi re-initiation
+- Endocrinology: ___ weeks — HbA1c follow-up, insulin adjustment
+- Home INR monitoring / anticoagulation clinic if on warfarin
+- Labs to be checked outpatient: BMP ___, INR ___, CBC ___"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Social Work / Case Management</label>
+      <textarea id="social-work" class="sm" placeholder="SW consult: [active/not needed]. Transportation arranged: ___. Insurance/prior auth status: ___. Housing concerns: ___. Substance use resources: ___. Food insecurity screening: ___. Caregiver support: ___"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- Generated Note Output -->
+<div class="output-section">
+  <h3>📄 Generated Inpatient Note</h3>
+  <div id="generated-note">Click "Generate Note" to compile a formatted, EHR-ready inpatient note.</div>
+  <div class="output-actions">
+    <button class="btn btn-primary" onclick="copyNote()">📋 Copy to Clipboard</button>
+    <button class="btn btn-secondary" onclick="generateNote()">🔄 Regenerate</button>
+  </div>
+</div>
+
+</div><!-- /container -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Note type ─────────────────────────────────────────────────────────
+let currentNoteType = 'admission';
+function setNoteType(type, btn) {
+    currentNoteType = type;
+    document.querySelectorAll('.note-type-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const labels = {admission:'ADMISSION H&P', progress:'PROGRESS NOTE', discharge:'DISCHARGE SUMMARY'};
+    document.getElementById('note-type-label').innerHTML = labels[type];
+}
+
+// ── Section toggle ─────────────────────────────────────────────────────
+function toggleSection(h) { h.parentElement.classList.toggle('collapsed'); }
+function expandAll()  { document.querySelectorAll('.section').forEach(s => s.classList.remove('collapsed')); }
+function collapseAll(){ document.querySelectorAll('.section').forEach(s => s.classList.add('collapsed')); }
+function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) { el.classList.remove('collapsed'); el.scrollIntoView({behavior:'smooth',block:'start'}); }
+}
+
+// ── Emergency row ──────────────────────────────────────────────────────
+function setEmerg(rowId, status, btn) {
+    const row = document.getElementById(rowId);
+    if (!row) return;
+    const current = row.getAttribute('data-status');
+    if (current === status) {
+        row.setAttribute('data-status', '');
+        row.querySelectorAll('.emerg-btn').forEach(b => { b.classList.remove('ro','mo','ac'); });
+        return;
+    }
+    row.setAttribute('data-status', status);
+    row.querySelectorAll('.emerg-btn').forEach(b => { b.classList.remove('ro','mo','ac'); });
+    const cls = {['ruled-out']:'ro', ['monitoring']:'mo', ['active']:'ac'}[status];
+    btn.classList.add(cls);
+}
+
+// ── Safety items ───────────────────────────────────────────────────────
+function setSafety(itemId, status, btn) {
+    const item = document.getElementById(itemId);
+    if (!item) return;
+    item.className = 'safety-item ' + status;
+    item.querySelectorAll('.safety-btn').forEach(b => { b.classList.remove('done','not-done','na'); });
+    btn.classList.add(status);
+}
+
+// ── Chronic disease grid ───────────────────────────────────────────────
+const CHRONIC_DISEASES = [
+    // [id, label, category, inpatient-specific plan placeholder]
+    ['cd-htn','Hypertension','Cardiovascular','BP target inpatient: SBP < ___ (post-stroke: permissive HTN). Hold ACEi/ARB if AKI. IV labetalol/nicardipine if hypertensive urgency. Resume/adjust at discharge.'],
+    ['cd-hf','Heart Failure (HFrEF/HFpEF)','Cardiovascular','Fluid status: ___. Diuresis goal: ___. GDMT: continue if volume-replete; hold if cardiogenic shock. Fluid restriction: 1.5–2 L/day. Salt restriction: <2 g/day. Daily weights. Echo review: EF ___, valvular disease.'],
+    ['cd-cad','Coronary Artery Disease / Prior MI','Cardiovascular','Continue aspirin + statin. Hold DAPT if high bleeding risk. Beta-blocker: continue unless acute HF decompensation. Statin: continue (pleiotropic benefits even if NPO — give with sips). Rule out ACS if troponin changes.'],
+    ['cd-afib','Atrial Fibrillation','Cardiovascular','Rate control: HR <80 at rest. Rhythm control: [not pursued / cardioversion planned]. Anticoagulation: CHA₂DS₂-VASc ___, hold/continue/bridge ___. Thyroid status: TSH checked.'],
+    ['cd-pvd','Peripheral Vascular Disease','Cardiovascular','Foot/limb exam daily. Antiplatelet: ___. Statin: ___. Wound care if ulceration. Vascular surgery input if critical limb ischemia.'],
+    ['cd-dm','Diabetes Mellitus','Endocrine','Hold metformin (contrast, NPO, AKI risk). Hold SGLT2i (surgery, NPO, DKA risk). Basal-bolus insulin if needed. BG target 140–180. HbA1c if not checked in 3 months. Hypoglycemia protocol.'],
+    ['cd-ckd','Chronic Kidney Disease','Renal','Monitor Cr/BUN. Dose-adjust renally cleared medications (Rxd by pharmacy). Hold nephrotoxins: NSAIDs, IV contrast (prehydrate if needed), aminoglycosides. K management: dietary K restriction if hyperkalemia.'],
+    ['cd-thyroid','Thyroid Disease','Endocrine','Continue levothyroxine (give even if NPO — IV if prolonged NPO). TSH checked. Assess for crisis (storm or myxedema) if hemodynamically unstable. Methimazole/PTU if hyperthyroidism.'],
+    ['cd-adrenal','Adrenal Insufficiency / Chronic Steroids','Endocrine','Stress dosing: minor illness → double home dose; major illness/surgery → hydrocortisone 50–100 mg q8h. Do NOT abruptly stop steroids. Hyperglycemia monitoring with steroid use.'],
+    ['cd-copd','COPD / Emphysema','Pulmonary','Continue inhaled bronchodilators (SABA + LAMA ± ICS). Short-course systemic steroids if exacerbation (prednisone 40 mg × 5 days). Supplemental O2: titrate to SpO2 88–92% (not higher — blunt hypoxic drive). Smoking cessation counseling.'],
+    ['cd-asthma','Asthma','Pulmonary','SABA q4h prn; SABA q1h if acute exacerbation. Systemic steroids if moderate–severe. Continue controller ICS. Spirometry after recovery. Identify and avoid triggers.'],
+    ['cd-osa','Obstructive Sleep Apnea','Pulmonary','Maintain own CPAP or use hospital CPAP at home settings. Position monitoring. Caution with sedatives and opioids (respiratory depression risk). SpO2 monitoring overnight.'],
+    ['cd-cirrhosis','Cirrhosis / Liver Disease','GI/Hepatic','Hold NSAIDs, minimize opioids and sedatives (hepatic encephalopathy risk). Rifaximin + lactulose for HE. Lactulose goal: 2–3 soft BMs/day. TIPS/paracentesis if ascites. Nutritional support (high-protein diet unless active HE). Propranolol for varices. SBP prophylaxis (Norfloxacin 400 mg BID if ascites + prior SBP).'],
+    ['cd-ibd','IBD (Crohn / Ulcerative Colitis)','GI/Hepatic','Continue biologic/immunomodulator (Mesalamine, Azathioprine, Infliximab) unless sepsis/perforation. GI consult. Assess for extraintestinal manifestations (arthritis, uveitis, PSC). Nutritional support if NPO prolonged.'],
+    ['cd-epilepsy','Epilepsy / Seizure Disorder','Neurologic','Continue AEDs — do NOT miss doses. Check serum drug levels (valproate, phenytoin if applicable). IV formulation if NPO. Seizure precautions (padded rails, suction at bedside). Driving restrictions reminder at discharge.'],
+    ['cd-pd','Parkinson Disease','Neurologic','NEVER abruptly hold dopaminergic medications (risk: parkinsonism-hyperpyrexia syndrome, aspiration, NMS). Give carbidopa/levodopa on exact home schedule. NG tube if NPO. Avoid dopamine antagonists (metoclopramide, haloperidol, prochlorperazine). Swallow eval. PT/OT.'],
+    ['cd-dementia','Dementia / Cognitive Impairment','Neurologic','Delirium prevention priority. Familiar environment cues. Family presence encouraged. Minimize sedating medications. Continue cholinesterase inhibitor (donepezil/rivastigmine) unless GI intolerance. Baseline orientation screen documented.'],
+    ['cd-depression','Depression / Anxiety / Psychiatric','Psychiatric','Continue home antidepressant, anxiolytic, antipsychotic — do not abruptly stop (SSRI withdrawal, benzodiazepine withdrawal seizures). Psychiatry consult if decompensated. PHQ-2 screen. Safety assessment documented.'],
+    ['cd-ra','Rheumatoid Arthritis / Autoimmune Disease','Rheumatology','Continue DMARDs/biologics if no active infection. Hold if sepsis, surgical wound. Stress-dose steroids if on chronic steroids. Joint protection: positioning, PT. Watch for extra-articular disease flare.'],
+    ['cd-lupus','SLE / Connective Tissue Disease','Rheumatology','Monitor for organ involvement: renal (UA, Cr), cardiac (echo), pulmonary (CXR). Continue hydroxychloroquine (even if hospitalized — reduces flares). Avoid sulfonamides. Rheumatology consult for moderate–severe flare.'],
+    ['cd-hiv','HIV / Immunocompromised','Infectious','Continue ART on exact schedule (missed doses → resistance). Drug interactions with hospitalization medications (rifampin, azole antifungals, PPIs). Opportunistic infection prophylaxis (PCP, MAC, CMV). CD4/VL if not recent. ID consult.'],
+    ['cd-transplant','Solid Organ Transplant','Infectious/Renal','Continue immunosuppression (tacrolimus, mycophenolate, prednisone). Monitor tacrolimus levels daily (many drug interactions). Dose adjust with Cr changes. Transplant team notification. Vigilance for opportunistic infections.'],
+    ['cd-cancer','Malignancy / Active Oncologic Disease','Oncology','Oncology team informed of admission. Neutropenia precautions if ANC <500. Tumor lysis monitoring if high-burden. Pain management per oncology plan. Antiemetics. VTE prophylaxis (increased VTE risk in malignancy). Goals of care discussion if appropriate.'],
+    ['cd-anemia','Anemia (Chronic)','Hematologic','Identify etiology (Fe deficiency, B12/folate, CKD-related, ACD). Fe studies if not recent. Transfuse if symptomatic and Hgb <7 g/dL (Hgb <8 if CAD/cardiac disease). EPO if CKD-related on dialysis. Avoid transfusion triggers without clinical indication.'],
+    ['cd-hypothyroid','Hypothyroidism','Endocrine','Continue levothyroxine. Give IV if prolonged NPO (LT4 IV dose = 70–80% of oral dose). TSH at least annually — check if not recent. Beware myxedema coma in severe illness.'],
+    ['cd-gerd','GERD / PUD History','GI/Hepatic','PPI or H2 blocker if active GERD. Stress ulcer prophylaxis criteria met: [yes/no]. NSAIDs: avoid or use with PPI cover. H. pylori testing if active ulcer disease.'],
+    ['cd-osteoporosis','Osteoporosis','Musculoskeletal','Continue bisphosphonate at discharge (IV zoledronic acid if oral not tolerated). Ca 1000–1200 mg/day + Vitamin D 800 IU/day. DEXA if not done in 2 years. Falls risk assessment.'],
+    ['cd-hld','Hyperlipidemia','Cardiovascular','Continue high-intensity statin (atorvastatin 40–80 mg or rosuvastatin 20–40 mg). Do NOT hold statin for procedure (benefits perioperative). LDL target: <70 if ASCVD; <55 if recurrent event.'],
+    ['cd-obesity','Obesity','Metabolic','BMI documented: ___. Bariatric medications: ___. Positioning considerations for procedures. Appropriate equipment (bariatric bed, BP cuff). DVT prophylaxis dosing adjustment (may need enoxaparin 0.5 mg/kg BID in morbid obesity). Nutrition referral.'],
+    ['cd-substance','Substance Use Disorder','Psychiatric','ETOH: CIWA scale BID, lorazepam per CIWA protocol, thiamine 100 mg daily (500 mg IV TID × 3 days if Wernicke risk). Opioids: buprenorphine/methadone — continue home dose with ID verification; do not abruptly discontinue. MOUD initiation opportunity. Addiction medicine consult.'],
+];
+
+function buildChronicGrid() {
+    const grid = document.getElementById('chronic-grid');
+    grid.innerHTML = '';
+    let lastCat = '';
+    CHRONIC_DISEASES.forEach(([id, label, cat, placeholder]) => {
+        if (cat !== lastCat) {
+            const catLabel = document.createElement('div');
+            catLabel.className = 'emergency-group-label';
+            catLabel.style.marginTop = lastCat ? '12px' : '0';
+            catLabel.textContent = cat;
+            grid.appendChild(catLabel);
+            lastCat = cat;
+        }
+        const row = document.createElement('div');
+        row.className = 'chronic-row';
+        row.id = id + '-row';
+        row.innerHTML = `
+            <div class="chronic-header" onclick="toggleChronic('${id}')">
+                <input type="checkbox" class="chronic-checkbox" id="${id}-cb" onclick="event.stopPropagation();toggleChronicCheck('${id}')">
+                <span class="chronic-label">${label}</span>
+                <div class="chronic-status-row" id="${id}-status" style="display:none">
+                    <button class="chronic-status-btn" onclick="event.stopPropagation();setCDStatus('${id}','stable',this)">Stable</button>
+                    <button class="chronic-status-btn" onclick="event.stopPropagation();setCDStatus('${id}','worsened',this)">Worsened</button>
+                    <button class="chronic-status-btn" onclick="event.stopPropagation();setCDStatus('${id}','acute',this)">Acute</button>
+                </div>
+                <span class="chronic-toggle">▶</span>
+            </div>
+            <div class="chronic-body" id="${id}-body">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                    <span style="font-weight:700;font-size:0.88rem;color:var(--primary-dark)">${label}</span>
+                    <span id="${id}-status-badge" style="display:none;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700"></span>
+                </div>
+                <textarea id="${id}-plan" placeholder="${placeholder}" style="width:100%;min-height:80px;padding:10px;border:1px solid var(--border);border-radius:8px;font-size:0.875rem;font-family:inherit;resize:vertical"></textarea>
+            </div>`;
+        grid.appendChild(row);
+    });
+}
+
+function toggleChronic(id) {
+    const row = document.getElementById(id + '-row');
+    row.classList.toggle('open');
+}
+
+function toggleChronicCheck(id) {
+    const cb = document.getElementById(id + '-cb');
+    const statusRow = document.getElementById(id + '-status');
+    const body = document.getElementById(id + '-body');
+    const row = document.getElementById(id + '-row');
+    if (cb.checked) {
+        statusRow.style.display = 'flex';
+        row.classList.add('open');
+    } else {
+        statusRow.style.display = 'none';
+        row.classList.remove('open');
+        const badge = document.getElementById(id + '-status-badge');
+        if (badge) { badge.style.display = 'none'; badge.textContent = ''; }
+        row.querySelectorAll('.chronic-status-btn').forEach(b => b.className = 'chronic-status-btn');
+    }
+}
+
+function setCDStatus(id, status, btn) {
+    const row = document.getElementById(id + '-row');
+    row.querySelectorAll('.chronic-status-btn').forEach(b => b.className = 'chronic-status-btn');
+    btn.classList.add(status);
+    const badge = document.getElementById(id + '-status-badge');
+    if (badge) {
+        badge.style.display = 'inline-block';
+        const styles = {stable:'background:#f0fdf4;color:#16a34a', worsened:'background:#fffbeb;color:#d97706', acute:'background:#fff1f1;color:#dc2626'};
+        badge.style.cssText += ';' + styles[status];
+        badge.textContent = status.toUpperCase();
+    }
+}
+
+// ── Medication table ───────────────────────────────────────────────────
+let medRowCount = 0;
+function addMedRow(med='', dose='', action='continue', inpatientDose='', rationale='') {
+    medRowCount++;
+    const tbody = document.getElementById('med-tbody');
+    const tr = document.createElement('tr');
+    tr.id = 'med-row-' + medRowCount;
+    const actionOptions = ['continue','hold','modify','new','discontinue'].map(a =>
+        `<option value="${a}" ${a===action?'selected':''}>${a.charAt(0).toUpperCase()+a.slice(1)}</option>`
+    ).join('');
+    tr.innerHTML = `
+        <td><input type="text" value="${med}" placeholder="Medication name" style="width:100%"></td>
+        <td><input type="text" value="${dose}" placeholder="e.g., 10 mg PO daily" style="width:100%"></td>
+        <td>
+            <select class="med-action-select ${action}" onchange="updateMedActionStyle(this)">
+                ${actionOptions}
+            </select>
+        </td>
+        <td><input type="text" value="${inpatientDose}" placeholder="Inpatient dose / modification" style="width:100%"></td>
+        <td><input type="text" value="${rationale}" placeholder="Clinical rationale" style="width:100%"></td>`;
+    tbody.appendChild(tr);
+}
+
+function updateMedActionStyle(sel) {
+    sel.className = 'med-action-select ' + sel.value;
+}
+
+// ── Pending items ──────────────────────────────────────────────────────
+function addPending() {
+    const type = document.getElementById('new-pending-type').value;
+    const list = document.getElementById('pending-list');
+    const item = document.createElement('div');
+    item.className = 'pending-item';
+    const typeClass = {lab:'type-lab',img:'type-img',consult:'type-consult',proc:'type-proc'}[type];
+    const typeLabel = type.toUpperCase();
+    item.innerHTML = `<span class="pending-type ${typeClass}">${typeLabel}</span>
+        <input type="text" placeholder="Describe pending item...">
+        <button class="remove-pending" onclick="removePending(this)">✕</button>`;
+    list.appendChild(item);
+}
+function removePending(btn) { btn.parentElement.remove(); }
+
+// ── Helpers ────────────────────────────────────────────────────────────
+function val(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+function selVal(id) { const el = document.getElementById(id); return el && el.value ? el.value.trim() : ''; }
+function checked(id) { const el = document.getElementById(id); return el && el.checked; }
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+}
+function copyNote() {
+    navigator.clipboard.writeText(document.getElementById('generated-note').textContent)
+        .then(() => showToast('✓ Copied to clipboard!'))
+        .catch(() => showToast('Copy failed'));
+}
+
+function clearAll() {
+    if (!confirm('Clear all fields? This cannot be undone.')) return;
+    document.querySelectorAll('input[type="text"],textarea').forEach(el => el.value='');
+    document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked=false);
+    document.querySelectorAll('select').forEach(el => el.selectedIndex=0);
+    document.querySelectorAll('.emerg-row').forEach(el => {
+        el.setAttribute('data-status','');
+        el.querySelectorAll('.emerg-btn').forEach(b => b.classList.remove('ro','mo','ac'));
+    });
+    document.querySelectorAll('.safety-item').forEach(el => {
+        el.className = 'safety-item';
+        el.querySelectorAll('.safety-btn').forEach(b => b.classList.remove('done','not-done','na'));
+    });
+    document.querySelectorAll('.chronic-row').forEach(el => el.classList.remove('open'));
+    document.querySelectorAll('.chronic-checkbox').forEach(el => {
+        el.checked = false;
+        const id = el.id.replace('-cb','');
+        const sr = document.getElementById(id+'-status'); if(sr) sr.style.display='none';
+        const badge = document.getElementById(id+'-status-badge'); if(badge) badge.style.display='none';
+        el.closest('.chronic-row').querySelectorAll('.chronic-status-btn').forEach(b=>b.className='chronic-status-btn');
+    });
+    document.getElementById('generated-note').textContent = 'Click "Generate Note" to compile a formatted, EHR-ready inpatient note.';
+}
+
+// ── Note Generator ─────────────────────────────────────────────────────
+function generateNote() {
+    let note = '';
+    const DIV = '═══════════════════════════════════════════════════════════\n';
+    const noteTypeLabels = {admission:'ADMISSION HISTORY & PHYSICAL', progress:'DAILY PROGRESS NOTE', discharge:'DISCHARGE SUMMARY'};
+
+    note += DIV;
+    note += `                 ${noteTypeLabels[currentNoteType] || 'INPATIENT NOTE'}\n`;
+    note += DIV + '\n';
+
+    // Header
+    const noteDate = val('note-date'), attending = val('attending'), service = val('service');
+    const room = val('room'), ptAge = val('pt-age'), hd = val('hd');
+    const admitDate = val('admit-date'), codeStatus = selVal('code-status'), allergies = val('allergies');
+    if (noteDate || attending || ptAge) {
+        if (noteDate)    note += `Date/Time:  ${noteDate}\n`;
+        if (ptAge)       note += `Patient:    ${ptAge}${hd ? '  |  ' + hd : ''}${room ? '  |  Room ' + room : ''}\n`;
+        if (admitDate)   note += `Admitted:   ${admitDate}\n`;
+        if (attending)   note += `Attending:  ${attending}${service ? '  |  ' + service : ''}\n`;
+        if (codeStatus)  note += `Code Status: ${codeStatus}\n`;
+        if (allergies)   note += `Allergies:  ${allergies}\n`;
+        note += '\n';
+    }
+
+    // Emergency Screening
+    const emergRows = document.querySelectorAll('.emerg-row[data-status]');
+    const activeItems = [], monitoringItems = [], unaddressed = [];
+    const emergNames = {};
+    document.querySelectorAll('.emerg-row').forEach(row => {
+        const nameEl = row.querySelector('.emerg-name');
+        if (nameEl) emergNames[row.id] = nameEl.textContent.trim();
+    });
+    emergRows.forEach(row => {
+        const status = row.getAttribute('data-status');
+        const name = emergNames[row.id] || row.id;
+        if (status === 'active')      activeItems.push(name);
+        else if (status === 'monitoring') monitoringItems.push(name);
+        else if (!status)             unaddressed.push(name);
+    });
+    note += '▸ EMERGENCY SCREENING\n';
+    if (activeItems.length)    note += '  🔴 ACTIVE:      ' + activeItems.join(', ') + '\n';
+    if (monitoringItems.length)note += '  🟡 MONITORING:  ' + monitoringItems.join(', ') + '\n';
+    // count ruled out
+    const roCount = document.querySelectorAll('.emerg-row[data-status="ruled-out"]').length;
+    if (roCount)               note += `  ✅ RULED OUT:   ${roCount} conditions screened and excluded\n`;
+    if (unaddressed.length)    note += '  ⬜ UNADDRESSED: ' + unaddressed.join(', ') + '\n';
+    const emergComments = val('emergency-comments');
+    if (emergComments)         note += '  ' + emergComments + '\n';
+    note += '\n';
+
+    // HPI / Subjective
+    const cc = val('chief-complaint'), hpi = val('hpi'), interval = val('interval-update');
+    const vsTemp = val('vs-temp'), vsBP = val('vs-bp'), vsHR = val('vs-hr');
+    const vsRR = val('vs-rr'), vsSPO2 = val('vs-spo2'), vsWT = val('vs-wt');
+    const vsBG = val('vs-bg'), vsIO = val('vs-io');
+    const exam = val('physical-exam'), keyLabs = val('key-labs');
+
+    if (cc || hpi || exam) {
+        note += '▸ CHIEF COMPLAINT & HPI\n';
+        if (cc)       note += cc + '\n\n';
+        if (hpi)      note += hpi + '\n';
+        if (interval) note += '\nInterval update: ' + interval + '\n';
+        note += '\n';
+
+        const vs = [];
+        if (vsTemp) vs.push('T ' + vsTemp + '°F');
+        if (vsBP)   vs.push('BP ' + vsBP);
+        if (vsHR)   vs.push('HR ' + vsHR);
+        if (vsRR)   vs.push('RR ' + vsRR);
+        if (vsSPO2) vs.push('SpO2 ' + vsSPO2);
+        if (vsWT)   vs.push('Wt ' + vsWT + ' kg');
+        if (vsBG)   vs.push('BG ' + vsBG);
+        if (vsIO)   vs.push('I/O ' + vsIO);
+        if (vs.length) note += 'Vitals: ' + vs.join('  |  ') + '\n\n';
+
+        if (exam)     note += 'Physical Exam:\n' + exam + '\n\n';
+        if (keyLabs)  note += 'Key Data:\n' + keyLabs + '\n\n';
+    }
+
+    // Assessment & Plan
+    note += DIV;
+    note += '▸ ASSESSMENT & PLAN\n';
+    note += DIV;
+
+    // Primary
+    const p1dx = val('p1-dx'), p1ev = val('p1-evidence'), p1ddx = val('p1-ddx'), p1plan = val('p1-plan');
+    if (p1dx || p1plan) {
+        note += '\n#1 [PRIMARY] — ' + (p1dx || 'PRIMARY DIAGNOSIS') + '\n';
+        if (p1ev)    note += '   Evidence: ' + p1ev + '\n';
+        if (p1ddx)   note += '   DDx:\n' + p1ddx.split('\n').map(l=>'     '+l).join('\n') + '\n';
+        if (p1plan)  note += '   Plan:\n' + p1plan.split('\n').map(l=>'     '+l).join('\n') + '\n';
+    }
+
+    // Secondary problems
+    [[2,'p2-dx','p2-plan'],[3,'p3-dx','p3-plan'],[4,'p4-dx','p4-plan'],[5,'p5-dx','p5-plan']].forEach(([n, dxId, planId]) => {
+        const dx = val(dxId), plan = val(planId);
+        if (dx || plan) {
+            note += `\n#${n} — ${dx || 'Secondary Problem #' + n}\n`;
+            if (plan) note += plan.split('\n').map(l => '   ' + l).join('\n') + '\n';
+        }
+    });
+
+    // Chronic diseases
+    const checkedChronic = [];
+    CHRONIC_DISEASES.forEach(([id, label]) => {
+        const cb = document.getElementById(id + '-cb');
+        if (cb && cb.checked) {
+            const plan = val(id + '-plan');
+            const badge = document.getElementById(id + '-status-badge');
+            const status = badge && badge.style.display !== 'none' ? ' [' + badge.textContent + ']' : '';
+            checkedChronic.push({label, status, plan});
+        }
+    });
+    if (checkedChronic.length) {
+        note += '\n── CHRONIC DISEASE MANAGEMENT ──\n';
+        checkedChronic.forEach(({label, status, plan}) => {
+            note += `\n● ${label}${status}\n`;
+            if (plan) note += plan.split('\n').map(l => '  ' + l).join('\n') + '\n';
+        });
+    }
+
+    // Medications
+    const medRows = document.querySelectorAll('#med-tbody tr');
+    const newMeds = val('new-meds'), anticoag = val('anticoag-plan');
+    if (medRows.length > 0 || newMeds || anticoag) {
+        note += '\n── MEDICATION RECONCILIATION ──\n';
+        medRows.forEach(row => {
+            const inputs = row.querySelectorAll('input[type="text"]');
+            const sel = row.querySelector('select');
+            const med = inputs[0]?.value.trim() || '';
+            const dose = inputs[1]?.value.trim() || '';
+            const action = sel ? sel.value.toUpperCase() : '';
+            const ipDose = inputs[2]?.value.trim() || '';
+            const rat = inputs[3]?.value.trim() || '';
+            if (med) {
+                note += `  ${action.padEnd(12)} ${med} ${dose}`;
+                if (ipDose) note += `  →  ${ipDose}`;
+                if (rat)    note += `  (${rat})`;
+                note += '\n';
+            }
+        });
+        if (newMeds)    note += '\nNew inpatient medications:\n' + newMeds + '\n';
+        if (anticoag)   note += '\nVTE/Anticoagulation:\n' + anticoag + '\n';
+    }
+
+    // Safety
+    note += '\n── INPATIENT SAFETY & QUALITY ──\n';
+    const safetyItems = [
+        ['sq-dvt','VTE Prophylaxis'],['sq-gi','GI Prophylaxis'],['sq-delirium','Delirium Prevention'],
+        ['sq-falls','Fall Prevention'],['sq-nutrition','Nutrition'],['sq-foley','Foley/Catheter'],
+        ['sq-lines','IV Lines'],['sq-pressure','Pressure Injury'],['sq-glycemia','Glycemic Management'],
+        ['sq-isolation','Infection Control'],['sq-goals','Goals of Care'],['sq-mobility','Mobility/Rehab'],
+        ['sq-meds-review','High-Alert Meds']
+    ];
+    safetyItems.forEach(([id, label]) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const status = el.classList.contains('done') ? '✓' : el.classList.contains('not-done') ? '✗' : '○';
+        const detail = el.querySelector('.sq-detail')?.value.trim() || '';
+        note += `  [${status}] ${label}`;
+        if (detail) note += ': ' + detail.substring(0, 120);
+        note += '\n';
+    });
+
+    // Pending
+    const pendingItems = document.querySelectorAll('#pending-list .pending-item');
+    if (pendingItems.length) {
+        note += '\n── PENDING ITEMS ──\n';
+        pendingItems.forEach(item => {
+            const type = item.querySelector('.pending-type')?.textContent.trim() || '';
+            const text = item.querySelector('input')?.value.trim() || '';
+            if (text) note += `  [${type}] ${text}\n`;
+        });
+    }
+
+    // Disposition
+    const dispoDate = val('dispo-date'), dispoLevel = selVal('dispo-level');
+    const dispoDest = selVal('dispo-dest'), dischCrit = val('discharge-criteria');
+    const barriers = val('discharge-barriers'), dischMeds = val('discharge-meds');
+    const followup = val('followup'), sw = val('social-work');
+    const eduDone = ['edu-dx','edu-meds','edu-diet','edu-activity','edu-return','edu-followup','edu-device','edu-hha']
+        .filter(id => checked(id)).map(id => document.querySelector(`label[for="${id}"]`)?.textContent.trim()).filter(Boolean);
+
+    if (dispoDate || dispoDest || dischCrit || followup) {
+        note += '\n── DISPOSITION ──\n';
+        if (dispoDate)  note += 'Anticipated discharge: ' + dispoDate + '\n';
+        if (dispoLevel) note += 'Current level of care: ' + dispoLevel + '\n';
+        if (dispoDest)  note += 'Discharge destination: ' + dispoDest + '\n';
+        if (dischCrit)  note += '\nDischarge criteria:\n' + dischCrit + '\n';
+        if (barriers)   note += '\nBarriers: ' + barriers + '\n';
+        if (dischMeds)  note += '\nMedication changes at discharge:\n' + dischMeds + '\n';
+        if (eduDone.length) note += '\nPatient education completed: ' + eduDone.join(', ') + '\n';
+        if (followup)   note += '\nFollow-up plan:\n' + followup + '\n';
+        if (sw)         note += '\nSocial work / case management: ' + sw + '\n';
+    }
+
+    note += '\n' + DIV;
+    note += `Note author: ${val('attending') || '___'}  |  ${val('note-date') || new Date().toLocaleDateString()}\n`;
+    note += DIV;
+
+    document.getElementById('generated-note').textContent = note;
+}
+
+// ── Init ──────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    buildChronicGrid();
+
+    // Default med rows
+    addMedRow('', '', 'continue', '', '');
+    addMedRow('', '', 'continue', '', '');
+    addMedRow('', '', 'hold', '', '');
+    addMedRow('', '', 'hold', '', '');
+    addMedRow('', '', 'new', '', '');
+
+    // Collapse all except header + emergency + HPI
+    document.querySelectorAll('.section').forEach((s, i) => {
+        if (i > 2) s.classList.add('collapsed');
+    });
+});
+
+window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'SW_VERSION') {
+        const el = document.getElementById('component-version');
+        if (el) el.textContent = e.data.version;
+    }
+});
+</script>
+</body>
+</html>
