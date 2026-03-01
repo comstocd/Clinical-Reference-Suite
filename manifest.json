@@ -1,7 +1,7 @@
 {
   "name": "Clinical Reference Suite",
   "short_name": "ClinRef",
-  "description": "Internal Medicine Clinical Reference Suite v2.1 — Dr. Michael Comstock, PGY-3",
+  "description": "Internal Medicine Clinical Reference Suite \u2014 BUILD #33 \u2014 20 tools, AI-assisted documentation",
   "start_url": "/Clinical-Reference-Suite/index.html",
   "scope": "/Clinical-Reference-Suite/",
   "display": "standalone",
@@ -20,6 +20,10 @@
       "type": "image/svg+xml"
     }
   ],
-  "categories": ["medical", "education"],
-  "lang": "en-US"
+  "categories": [
+    "medical",
+    "education"
+  ],
+  "lang": "en-US",
+  "version": "3.7"
 }

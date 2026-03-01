@@ -1,0 +1,2254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Neurology Consult Note Template</title>
+    <style>
+        :root {
+            --primary:       #2d1b69;
+            --primary-light: #5c3ec2;
+            --primary-dark:  #1a0f40;
+            --accent:        #c9a227;
+            --bg:            #f8f9fa;
+            --card-bg:       #ffffff;
+            --text:          #2c3e50;
+            --text-muted:    #6c757d;
+            --border:        #dee2e6;
+            --success:       #28a745;
+            --warning:       #ffc107;
+            --danger:        #dc3545;
+            --section-header:#ede9fb;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg); color: var(--text);
+            margin: 0; padding: 0; line-height: 1.5; font-size: 16px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white; padding: 20px; position: sticky; top: 0;
+            z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .header h1 { margin: 0; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
+        .header-subtitle { font-size: 0.875rem; opacity: 0.9; margin-top: 4px; }
+        .toolbar { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+        .toolbar-btn {
+            background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+            color: white; padding: 8px 16px; border-radius: 6px;
+            font-size: 0.875rem; cursor: pointer; transition: all 0.2s;
+        }
+        .toolbar-btn:hover { background: rgba(255,255,255,0.25); }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 16px; }
+
+        .quick-nav {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;
+            padding: 12px; background: var(--card-bg);
+            border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .nav-chip {
+            background: var(--section-header); color: var(--primary);
+            padding: 6px 12px; border-radius: 20px; font-size: 0.8rem;
+            font-weight: 500; cursor: pointer; transition: all 0.2s; border: none;
+        }
+        .nav-chip:hover { background: var(--primary); color: white; }
+
+        .section {
+            background: var(--card-bg); border-radius: 12px;
+            margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); overflow: hidden;
+        }
+        .section-header {
+            background: var(--section-header); padding: 14px 16px;
+            display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; border-bottom: 1px solid var(--border); user-select: none;
+        }
+        .section-header h2 { margin: 0; font-size: 1rem; font-weight: 600; color: var(--primary-dark); display: flex; align-items: center; gap: 8px; }
+        .section-icon { font-size: 1.1rem; }
+        .section-toggle { font-size: 1.2rem; color: var(--primary); transition: transform 0.3s; }
+        .section.collapsed .section-toggle { transform: rotate(-90deg); }
+        .section.collapsed .section-content { display: none; }
+        .section-content { padding: 16px; }
+
+        .form-group { margin-bottom: 16px; }
+        .form-group:last-child { margin-bottom: 0; }
+        .form-label { display: block; font-weight: 600; font-size: 0.875rem; color: var(--text); margin-bottom: 6px; }
+        .form-sublabel { font-weight: 400; color: var(--text-muted); font-size: 0.8rem; display: block; margin-top: 2px; }
+
+        textarea, input[type="text"], select {
+            width: 100%; padding: 12px; border: 1px solid var(--border);
+            border-radius: 8px; font-size: 1rem; font-family: inherit;
+            background: white; color: var(--text); transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        textarea:focus, input[type="text"]:focus, select:focus {
+            outline: none; border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(45, 27, 105, 0.1);
+        }
+        textarea { min-height: 80px; resize: vertical; }
+        textarea.large { min-height: 120px; }
+
+        .checkbox-group { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+        .checkbox-item {
+            display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+            background: var(--bg); border-radius: 6px; cursor: pointer; transition: background 0.2s;
+        }
+        .checkbox-item:hover { background: var(--section-header); }
+        .checkbox-item input { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary); }
+        .checkbox-item label { font-size: 0.9rem; cursor: pointer; flex: 1; }
+
+        /* Three-state exam findings */
+        .exam-finding-group { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+        .exam-finding {
+            display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+            background: var(--bg); border-radius: 6px; cursor: pointer;
+            transition: all 0.2s; border: 2px solid transparent; user-select: none;
+        }
+        .exam-finding:hover { background: var(--section-header); }
+        .exam-finding .state-indicator {
+            width: 24px; height: 24px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: bold; flex-shrink: 0;
+            border: 2px solid #ccc; background: white; color: #ccc;
+        }
+        .exam-finding .finding-label { font-size: 0.9rem; flex: 1; }
+
+        .exam-finding[data-state="neutral"]  .state-indicator { border-color: #ccc; background: white; color: #ccc; }
+        .exam-finding[data-state="neutral"]  .state-indicator::after { content: "○"; }
+        .exam-finding[data-state="positive"] { background: #d4edda; border-color: #28a745; }
+        .exam-finding[data-state="positive"] .state-indicator { border-color: #28a745; background: #28a745; color: white; }
+        .exam-finding[data-state="positive"] .state-indicator::after { content: "✓"; }
+        .exam-finding[data-state="negative"] { background: #f8d7da; border-color: #dc3545; }
+        .exam-finding[data-state="negative"] .state-indicator { border-color: #dc3545; background: #dc3545; color: white; }
+        .exam-finding[data-state="negative"] .state-indicator::after { content: "✗"; }
+
+        .exam-finding-legend { display: flex; gap: 16px; margin-bottom: 12px; font-size: 0.8rem; color: var(--text-muted); }
+        .exam-finding-legend span { display: flex; align-items: center; gap: 4px; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .legend-dot.neutral  { background: #ccc; }
+        .legend-dot.positive { background: #28a745; }
+        .legend-dot.negative { background: #dc3545; }
+
+        .inline-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+        .inline-group { display: flex; flex-direction: column; }
+        .inline-group label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; }
+        .inline-group input { padding: 8px 10px; }
+
+        .callout { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid; }
+        .callout-info    { background: #ede9fb; border-color: var(--primary); }
+        .callout-warning { background: #fff8e6; border-color: var(--warning); }
+        .callout-danger  { background: #ffe6e6; border-color: var(--danger); }
+        .callout-title   { font-weight: 600; font-size: 0.875rem; margin-bottom: 4px; }
+        .callout-content { font-size: 0.875rem; }
+
+        .reference-box {
+            background: linear-gradient(135deg, #f6f8fa 0%, #eef1f5 100%);
+            border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-top: 12px;
+        }
+        .reference-box h4 { margin: 0 0 8px 0; font-size: 0.85rem; color: var(--primary-dark); text-transform: uppercase; letter-spacing: 0.03em; }
+        .reference-box ul { margin: 0; padding-left: 18px; font-size: 0.875rem; }
+        .reference-box li { margin-bottom: 4px; }
+        .reference-box table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 6px; }
+        .reference-box th { background: var(--section-header); padding: 6px 10px; text-align: left; font-size: 0.8rem; color: var(--primary-dark); }
+        .reference-box td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
+
+        .tag-group { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+        .tag {
+            display: inline-flex; align-items: center; padding: 4px 10px;
+            border-radius: 4px; font-size: 0.8rem; font-weight: 500;
+            cursor: pointer; transition: all 0.2s; border: 1px solid transparent;
+        }
+        .tag-stroke    { background: #ffebee; color: #c62828; border-color: #ef9a9a; }
+        .tag-seizure   { background: #fff3e0; color: #e65100; border-color: #ffcc80; }
+        .tag-headache  { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
+        .tag-ms        { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
+        .tag-movement  { background: #f3e5f5; color: #7b1fa2; border-color: #ce93d8; }
+        .tag-neuromusc { background: #fce4ec; color: #880e4f; border-color: #f48fb1; }
+        .tag-cognitive { background: #e0f7fa; color: #00695c; border-color: #80deea; }
+        .tag-other     { background: #e8e8e8; color: #444;    border-color: #ccc; }
+        .tag.selected  { transform: scale(1.05); box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+
+        .emergency-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+            border: 2px solid var(--danger); border-radius: 10px; padding: 16px; margin-top: 12px;
+        }
+        .emergency-box h4 { color: var(--danger); margin: 0 0 10px 0; font-size: 0.9rem; display: flex; align-items: center; gap: 6px; }
+        .emergency-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+        .emergency-list li { display: flex; align-items: flex-start; gap: 8px; padding: 8px 12px; background: white; border-radius: 6px; font-size: 0.875rem; }
+        .emergency-list li strong { color: var(--danger); flex-shrink: 0; }
+
+        .stage-selector { display: flex; gap: 8px; flex-wrap: wrap; }
+        .stage-badge {
+            padding: 8px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 500;
+            cursor: pointer; border: 2px solid var(--border); background: white; transition: all 0.2s;
+        }
+        .stage-badge:hover { border-color: var(--primary-light); }
+        .stage-badge.selected { border-color: var(--primary); background: var(--section-header); color: var(--primary-dark); }
+
+        /* NIHSS row styling */
+        .nihss-grid { display: grid; grid-template-columns: 1fr 120px; gap: 8px; align-items: center; margin-bottom: 6px; }
+        .nihss-grid label { font-size: 0.875rem; color: var(--text); }
+        .nihss-grid select { padding: 6px 8px; font-size: 0.85rem; }
+        .nihss-total { background: var(--section-header); padding: 10px 14px; border-radius: 8px; font-weight: 600; color: var(--primary-dark); margin-top: 10px; font-size: 0.95rem; }
+
+        /* Nerve/dermatome grid */
+        .nerve-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
+        .nerve-item {
+            display: flex; align-items: center; gap: 6px; padding: 6px 10px;
+            background: var(--bg); border-radius: 6px; cursor: pointer;
+            transition: all 0.2s; border: 2px solid transparent; font-size: 0.85rem; user-select: none;
+        }
+        .nerve-item:hover { background: var(--section-header); }
+        .nerve-item .nerve-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #ccc; background: white; flex-shrink: 0; }
+        .nerve-item[data-state="normal"]   .nerve-dot { background: #28a745; border-color: #28a745; }
+        .nerve-item[data-state="abnormal"] .nerve-dot { background: #dc3545; border-color: #dc3545; }
+        .nerve-item[data-state="absent"]   .nerve-dot { background: #6c757d; border-color: #6c757d; }
+
+        /* Reflex / power table */
+        .neuro-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin-top: 8px; }
+        .neuro-table th { background: var(--section-header); padding: 8px 10px; text-align: center; font-size: 0.8rem; color: var(--primary-dark); border: 1px solid var(--border); }
+        .neuro-table td { padding: 6px 10px; border: 1px solid var(--border); text-align: center; }
+        .neuro-table td:first-child { text-align: left; font-weight: 500; }
+        .neuro-table input[type="text"] { padding: 4px 6px; font-size: 0.85rem; text-align: center; border-radius: 4px; }
+
+        .output-section {
+            background: var(--card-bg); border-radius: 12px; padding: 20px;
+            margin-top: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .output-section h3 { margin: 0 0 16px 0; color: var(--primary-dark); font-size: 1.1rem; }
+        #generated-note {
+            background: #fafbfc; border: 1px solid var(--border); border-radius: 8px;
+            padding: 16px; font-family: "SF Mono", Monaco, "Courier New", monospace;
+            font-size: 0.9rem; white-space: pre-wrap; line-height: 1.6;
+            min-height: 200px; max-height: 500px; overflow-y: auto;
+        }
+        .output-actions { display: flex; gap: 10px; margin-top: 12px; }
+        .btn { padding: 12px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; border: none; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: var(--border); }
+
+        .toast {
+            position: fixed; bottom: 20px; left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--primary-dark); color: white;
+            padding: 12px 24px; border-radius: 8px; font-size: 0.9rem;
+            opacity: 0; transition: all 0.3s ease; z-index: 1000;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.3rem; }
+            .inline-inputs { grid-template-columns: 1fr 1fr; }
+            .checkbox-group { grid-template-columns: 1fr; }
+            .nihss-grid { grid-template-columns: 1fr; }
+        }
+
+        @media print {
+            .header, .toolbar, .quick-nav, .output-actions { display: none !important; }
+            .section { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+            body { font-size: 11pt; }
+        }
+    </style>
+</head>
+<body>
+<!-- Back-to-Suite nav chip -->
+<div style="position:fixed;top:8px;right:8px;z-index:8999;">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:5px;
+     background:rgba(30,58,95,0.92);color:#fff;text-decoration:none;
+     padding:5px 11px;border-radius:20px;font-size:0.72rem;font-weight:600;
+     border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(4px);
+     box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:background 0.2s;"
+     title="Back to Clinical Reference Suite"
+     onmouseover="this.style.background='rgba(45,88,132,0.97)'"
+     onmouseout="this.style.background='rgba(30,58,95,0.92)'">
+    📚 Suite
+  </a>
+</div>
+
+<div class="header">
+    <h1>🧠 Neurology Consult Note <span id="component-version" style="font-size:0.38em;color:rgba(255,255,255,0.5);font-weight:400;vertical-align:middle;">BUILD #33</span></h1>
+    <div class="header-subtitle">Structured Template for Comprehensive Neurological Consultation</div>
+    <div class="toolbar">
+        <button class="toolbar-btn" onclick="generateNote()">📋 Generate Note</button>
+            <button class="toolbar-btn" onclick="aiSuggest()" style="background:#6366f1;color:#fff;border:2px solid #4f46e5;font-weight:700;" title="AI auto-fills plan, medications, and tests based on diagnosis">🤖 AI Suggest</button>
+        <button class="toolbar-btn" onclick="clearAll()">🗑️ Clear All</button>
+        <button class="toolbar-btn" onclick="expandAll()">📂 Expand All</button>
+        <button class="toolbar-btn" onclick="collapseAll()">📁 Collapse All</button>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- Quick Navigation -->
+    <div class="quick-nav">
+        <button class="nav-chip" onclick="scrollToSection('consult-reason')">Reason</button>
+        <button class="nav-chip" onclick="scrollToSection('history')">History</button>
+        <button class="nav-chip" onclick="scrollToSection('exam')">Neuro Exam</button>
+        <button class="nav-chip" onclick="scrollToSection('nihss-section')">NIHSS</button>
+        <button class="nav-chip" onclick="scrollToSection('labs')">Labs / Data</button>
+        <button class="nav-chip" onclick="scrollToSection('imaging')">Imaging</button>
+        <button class="nav-chip" onclick="scrollToSection('assessment')">Assessment</button>
+        <button class="nav-chip" onclick="scrollToSection('recommendations')">Recs</button>
+        <button class="nav-chip" onclick="scrollToSection('disposition-section')">Disposition</button>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         REASON FOR CONSULTATION
+    ═══════════════════════════════════════════════════ -->
+    <div class="section" id="consult-reason">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">📞</span> Reason for Consultation</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+            <div class="callout callout-info">
+                <div class="callout-content">State the specific neurological question — not just "neuro consult." E.g., "New left hemiplegia with NIHSS 14, last known well 2h ago — tPA eligibility assessment" or "New-onset seizure, evaluate for structural vs. metabolic etiology."</div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Primary Consult Question</label>
+                <textarea id="consult-question" placeholder="e.g., Acute onset left hemiplegia and hemineglect in 68F with AF — evaluate for acute ischemic stroke, assess tPA/thrombectomy candidacy (last known well 2h ago)"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Consult Category</label>
+                <div class="tag-group">
+                    <span class="tag tag-stroke"    onclick="toggleTag(this)">Acute Ischemic Stroke</span>
+                    <span class="tag tag-stroke"    onclick="toggleTag(this)">TIA</span>
+                    <span class="tag tag-stroke"    onclick="toggleTag(this)">ICH</span>
+                    <span class="tag tag-stroke"    onclick="toggleTag(this)">SAH</span>
+                    <span class="tag tag-stroke"    onclick="toggleTag(this)">CVT</span>
+                    <span class="tag tag-seizure"   onclick="toggleTag(this)">Seizure / Status Epilepticus</span>
+                    <span class="tag tag-seizure"   onclick="toggleTag(this)">New-Onset Seizure</span>
+                    <span class="tag tag-headache"  onclick="toggleTag(this)">Thunderclap Headache</span>
+                    <span class="tag tag-headache"  onclick="toggleTag(this)">Migraine / Headache</span>
+                    <span class="tag tag-ms"        onclick="toggleTag(this)">MS / Demyelinating Disease</span>
+                    <span class="tag tag-ms"        onclick="toggleTag(this)">Encephalitis / Meningitis</span>
+                    <span class="tag tag-ms"        onclick="toggleTag(this)">Increased ICP</span>
+                    <span class="tag tag-neuromusc" onclick="toggleTag(this)">GBS / Neuropathy</span>
+                    <span class="tag tag-neuromusc" onclick="toggleTag(this)">Myasthenic Crisis</span>
+                    <span class="tag tag-neuromusc" onclick="toggleTag(this)">Myelopathy / Cord Compression</span>
+                    <span class="tag tag-movement"  onclick="toggleTag(this)">Movement Disorder</span>
+                    <span class="tag tag-cognitive" onclick="toggleTag(this)">AMS / Delirium</span>
+                    <span class="tag tag-cognitive" onclick="toggleTag(this)">Dementia Evaluation</span>
+                    <span class="tag tag-cognitive" onclick="toggleTag(this)">Wernicke Encephalopathy</span>
+                    <span class="tag tag-other"     onclick="toggleTag(this)">Syncope</span>
+                    <span class="tag tag-other"     onclick="toggleTag(this)">Dizziness / Vertigo</span>
+                    <span class="tag tag-other"     onclick="toggleTag(this)">Other</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Time-Sensitivity</label>
+                <div class="stage-selector">
+                    <span class="stage-badge" style="border-left:4px solid #dc3545;" onclick="selectStage(this,'time')">🔴 Code Stroke / Immediate</span>
+                    <span class="stage-badge" style="border-left:4px solid #ff9800;" onclick="selectStage(this,'time')">🟠 Urgent (&lt;2h)</span>
+                    <span class="stage-badge" style="border-left:4px solid #ffc107;" onclick="selectStage(this,'time')">🟡 Semi-urgent (today)</span>
+                    <span class="stage-badge" style="border-left:4px solid #28a745;" onclick="selectStage(this,'time')">🟢 Routine</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         RELEVANT HISTORY
+    ═══════════════════════════════════════════════════ -->
+    <div class="section" id="history">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">📜</span> Relevant Neurological History</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+
+            <!-- Symptom onset -->
+            <div class="form-group">
+                <label class="form-label">Symptom Onset & Timeline</label>
+                <div class="inline-inputs">
+                    <div class="inline-group">
+                        <label>Last Known Well (LKW)</label>
+                        <input type="text" id="lkw" placeholder="e.g., 09:30 today, 2h ago">
+                    </div>
+                    <div class="inline-group">
+                        <label>Symptom Onset Time</label>
+                        <input type="text" id="onset-time" placeholder="e.g., 09:45, or wake-up sx">
+                    </div>
+                    <div class="inline-group">
+                        <label>Time to Presentation</label>
+                        <input type="text" id="time-to-ed" placeholder="e.g., 2h 15min from LKW">
+                    </div>
+                    <div class="inline-group">
+                        <label>Onset Character</label>
+                        <select id="onset-type">
+                            <option value="">-- Select --</option>
+                            <option value="Sudden / hyperacute (seconds)">Sudden / hyperacute (seconds)</option>
+                            <option value="Rapid (minutes)">Rapid (minutes)</option>
+                            <option value="Subacute (hours)">Subacute (hours)</option>
+                            <option value="Progressive (days–weeks)">Progressive (days–weeks)</option>
+                            <option value="Insidious (months)">Insidious (months)</option>
+                            <option value="Relapsing-remitting">Relapsing-remitting</option>
+                        </select>
+                    </div>
+                </div>
+                <textarea id="onset-narrative" placeholder="Narrative description of onset: what was the patient doing, who witnessed it, exact sequence of symptoms, any prodrome, headache, loss of consciousness, aura, postictal state, recovery..." style="margin-top: 10px;" class="large"></textarea>
+            </div>
+
+            <!-- Symptom details -->
+            <div class="form-group">
+                <label class="form-label">Primary Neurological Symptoms</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="checkbox" id="sx-weakness"><label for="sx-weakness">Motor weakness / hemiplegia</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-numbness"><label for="sx-numbness">Numbness / sensory loss</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-speech"><label for="sx-speech">Speech/language disturbance</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-vision"><label for="sx-vision">Visual disturbance</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-diplopia"><label for="sx-diplopia">Diplopia</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-ataxia"><label for="sx-ataxia">Ataxia / incoordination</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-vertigo"><label for="sx-vertigo">Dizziness / vertigo</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-headache"><label for="sx-headache">Headache</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-seizure"><label for="sx-seizure">Seizure / convulsion</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-loc"><label for="sx-loc">Loss of consciousness</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-ams"><label for="sx-ams">Confusion / AMS</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-dysphagia"><label for="sx-dysphagia">Dysphagia</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-neglect"><label for="sx-neglect">Hemispatial neglect</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-memory"><label for="sx-memory">Memory / cognitive change</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-tremor"><label for="sx-tremor">Tremor / involuntary movements</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-gait"><label for="sx-gait">Gait disturbance / falls</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-bladder"><label for="sx-bladder">Bladder / bowel dysfunction</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="sx-pain"><label for="sx-pain">Radicular / neuropathic pain</label></div>
+                </div>
+            </div>
+
+            <!-- Headache characterization -->
+            <div class="form-group">
+                <label class="form-label">Headache Characterization (if applicable)</label>
+                <div class="inline-inputs">
+                    <div class="inline-group">
+                        <label>Quality</label>
+                        <select id="ha-quality">
+                            <option value="">-- Select --</option>
+                            <option value="Thunderclap (worst headache of life, maximal at onset)">Thunderclap (worst of life)</option>
+                            <option value="Throbbing / pulsating">Throbbing / pulsating</option>
+                            <option value="Pressure / band-like">Pressure / band-like</option>
+                            <option value="Stabbing / ice-pick">Stabbing / ice-pick</option>
+                            <option value="Dull / aching">Dull / aching</option>
+                            <option value="Burning">Burning</option>
+                        </select>
+                    </div>
+                    <div class="inline-group">
+                        <label>Location</label>
+                        <select id="ha-location">
+                            <option value="">-- Select --</option>
+                            <option value="Diffuse / holocephalic">Diffuse / holocephalic</option>
+                            <option value="Unilateral">Unilateral</option>
+                            <option value="Occipital / nuchal">Occipital / nuchal</option>
+                            <option value="Frontal">Frontal</option>
+                            <option value="Temporal">Temporal</option>
+                            <option value="Periorbital">Periorbital</option>
+                            <option value="Vertex">Vertex</option>
+                        </select>
+                    </div>
+                    <div class="inline-group">
+                        <label>Pain Scale (0–10)</label>
+                        <input type="text" id="ha-severity" placeholder="e.g., 10/10">
+                    </div>
+                    <div class="inline-group">
+                        <label>Associated Symptoms</label>
+                        <input type="text" id="ha-assoc" placeholder="N/V, photophobia, neck stiffness, aura">
+                    </div>
+                </div>
+                <div class="reference-box" style="margin-top:10px;">
+                    <h4>Red Flag Headache Features — Rule Out Before Benign Diagnosis</h4>
+                    <ul>
+                        <li><strong>Thunderclap</strong> — SAH until proven otherwise → LP if CT negative</li>
+                        <li><strong>New headache &gt;50 years</strong> → GCA, mass lesion</li>
+                        <li><strong>Progressive worsening over days–weeks</strong> → elevated ICP, mass, SDH</li>
+                        <li><strong>Positional headache (worse supine)</strong> → elevated ICP vs. CSF leak</li>
+                        <li><strong>Fever + neck stiffness + headache</strong> → meningitis (do not delay LP/Abx for CT unless focal deficit)</li>
+                        <li><strong>HIV / immunosuppressed + headache</strong> → cryptococcal meningitis, CNS toxoplasmosis</li>
+                        <li><strong>Postpartum</strong> → CVT, PRES, reversible cerebral vasoconstriction syndrome</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Seizure characterization -->
+            <div class="form-group">
+                <label class="form-label">Seizure Characterization (if applicable)</label>
+                <div class="inline-inputs">
+                    <div class="inline-group">
+                        <label>Seizure Type</label>
+                        <select id="sz-type">
+                            <option value="">-- Select --</option>
+                            <option value="Focal aware">Focal aware (simple partial)</option>
+                            <option value="Focal impaired awareness">Focal impaired awareness (complex partial)</option>
+                            <option value="Focal to bilateral tonic-clonic">Focal → bilateral tonic-clonic</option>
+                            <option value="Generalized tonic-clonic">Generalized tonic-clonic</option>
+                            <option value="Absence">Absence</option>
+                            <option value="Myoclonic">Myoclonic</option>
+                            <option value="Unknown onset">Unknown onset</option>
+                        </select>
+                    </div>
+                    <div class="inline-group">
+                        <label>Duration</label>
+                        <input type="text" id="sz-duration" placeholder="e.g., ~2 min">
+                    </div>
+                    <div class="inline-group">
+                        <label>Number of Episodes</label>
+                        <input type="text" id="sz-number" placeholder="e.g., 3 in last 24h">
+                    </div>
+                    <div class="inline-group">
+                        <label>Postictal State</label>
+                        <input type="text" id="sz-postictal" placeholder="e.g., 20-min confusion, Todd paralysis R arm">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top:10px; margin-bottom:0;">
+                    <label class="form-label">Prior Seizure History / AED History</label>
+                    <textarea id="sz-history" placeholder="Prior seizure diagnosis, prior AEDs (names, doses, compliance, last levels), epilepsy type, neurology follow-up, last seizure before this..."></textarea>
+                </div>
+            </div>
+
+            <!-- Past Neurological History -->
+            <div class="form-group">
+                <label class="form-label">Past Neurological History</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="checkbox" id="hx-stroke"><label for="hx-stroke">Prior stroke / TIA</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="hx-seizure"><label for="hx-seizure">Epilepsy / seizure disorder</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="hx-ms"><label for="hx-ms">Multiple sclerosis</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="hx-pd"><label for="hx-pd">Parkinson disease</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="hx-dementia"><label for="hx-dementia">Dementia / MCI</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="hx-migraine"><label for="hx-migraine">Migraine</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="hx-neuropathy"><label for="hx-neuropathy">Peripheral neuropathy</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="hx-mg"><label for="hx-mg">Myasthenia gravis</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="hx-gbs"><label for="hx-gbs">Guillain-Barré</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="hx-tumor"><label for="hx-tumor">Brain tumor</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="hx-tbi"><label for="hx-tbi">TBI / neurosurgery</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="hx-hydro"><label for="hx-hydro">Hydrocephalus</label></div>
+                </div>
+            </div>
+
+            <!-- Vascular risk factors (critical for stroke) -->
+            <div class="form-group">
+                <label class="form-label">Vascular Risk Factors</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="checkbox" id="rf-htn"><label for="rf-htn">Hypertension</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="rf-dm"><label for="rf-dm">Diabetes mellitus</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="rf-hld"><label for="rf-hld">Hyperlipidemia</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="rf-afib"><label for="rf-afib">Atrial fibrillation</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="rf-smoking"><label for="rf-smoking">Active smoker</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="rf-cad"><label for="rf-cad">CAD / prior MI</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="rf-pad"><label for="rf-pad">Peripheral vascular disease</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="rf-obesity"><label for="rf-obesity">Obesity</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="rf-osa"><label for="rf-osa">OSA</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="rf-coag"><label for="rf-coag">Hypercoagulable state</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="rf-drugs"><label for="rf-drugs">Drug use (cocaine, amphetamines)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="rf-ocp"><label for="rf-ocp">OCP / hormone therapy</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="rf-fhx"><label for="rf-fhx">Family Hx of stroke / aneurysm</label></div>
+                </div>
+            </div>
+
+            <!-- Current medications -->
+            <div class="form-group">
+                <label class="form-label">Neurologically-Relevant Medications</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="checkbox" id="med-anticoag"><label for="med-anticoag">Anticoagulant (DOAC / warfarin)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-antiplatelet"><label for="med-antiplatelet">Antiplatelet (aspirin / clopidogrel)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-aed"><label for="med-aed">Antiepileptic drug (AED)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-statin"><label for="med-statin">Statin</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-pd-meds"><label for="med-pd-meds">Parkinson medications</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-ms-dmt"><label for="med-ms-dmt">MS disease-modifying therapy</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-cholinesterase"><label for="med-cholinesterase">Cholinesterase inhibitor</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-memantine"><label for="med-memantine">Memantine</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-pyridostigmine"><label for="med-pyridostigmine">Pyridostigmine (MG)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-steroids"><label for="med-steroids">Corticosteroids</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-triptan"><label for="med-triptan">Triptans</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-psychotropic"><label for="med-psychotropic">Antipsychotic / psych meds</label></div>
+                </div>
+                <textarea id="med-details" placeholder="Specific names, doses, last dose taken, compliance, relevant drug levels (e.g., valproate 12 mcg/mL at 08:00 today, last dose 20h ago)..." style="margin-top:10px;"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Additional Relevant History</label>
+                <textarea id="additional-history" class="large" placeholder="Recent infections (GBS trigger), vaccination history, recent travel, cancer history (leptomeningeal disease, paraneoplastic), autoimmune disease, alcohol use, toxic exposures, recent procedures, family neurological history, social history relevant to presentation..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         NEUROLOGICAL EXAMINATION
+    ═══════════════════════════════════════════════════ -->
+    <div class="section" id="exam">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">🩺</span> Neurological Examination</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+
+            <div class="callout callout-warning">
+                <div class="callout-title">Documentation Standard</div>
+                <div class="callout-content">A complete neurological exam should be documented systematically: Mental Status → Cranial Nerves → Motor → Sensory → Coordination → Reflexes → Gait. Use ✓ (present/normal) and ✗ (absent/abnormal) toggles below to streamline documentation.</div>
+            </div>
+
+            <div class="exam-finding-legend">
+                <span><span class="legend-dot neutral"></span> Not tested / not documented</span>
+                <span><span class="legend-dot positive"></span> Normal / intact</span>
+                <span><span class="legend-dot negative"></span> Abnormal / impaired</span>
+            </div>
+
+            <!-- Vitals -->
+            <div class="form-group">
+                <label class="form-label">Vital Signs</label>
+                <div class="inline-inputs">
+                    <div class="inline-group"><label>BP (mmHg)</label><input type="text" id="bp" placeholder="e.g., 188/102"></div>
+                    <div class="inline-group"><label>HR (bpm)</label><input type="text" id="hr" placeholder="e.g., 88"></div>
+                    <div class="inline-group"><label>Temp (°F)</label><input type="text" id="temp" placeholder="e.g., 98.6"></div>
+                    <div class="inline-group"><label>SpO2 (%)</label><input type="text" id="spo2" placeholder="e.g., 97% RA"></div>
+                    <div class="inline-group"><label>RR (breaths/min)</label><input type="text" id="rr" placeholder="e.g., 16"></div>
+                    <div class="inline-group"><label>BG (mg/dL)</label><input type="text" id="bg" placeholder="e.g., 142"></div>
+                </div>
+            </div>
+
+            <!-- Mental Status -->
+            <div class="form-group">
+                <label class="form-label">Mental Status</label>
+                <div class="inline-inputs" style="margin-bottom:10px;">
+                    <div class="inline-group">
+                        <label>Level of Consciousness</label>
+                        <select id="loc">
+                            <option value="">-- Select --</option>
+                            <option value="Alert and fully oriented">Alert and fully oriented</option>
+                            <option value="Alert, disoriented">Alert, disoriented</option>
+                            <option value="Lethargic (arousable to voice)">Lethargic (arousable to voice)</option>
+                            <option value="Obtunded (arousable to stimulation)">Obtunded (arousable to stimulation)</option>
+                            <option value="Stuporous (minimal purposeful response)">Stuporous (minimal purposeful response)</option>
+                            <option value="Comatose (no purposeful response)">Comatose (no purposeful response)</option>
+                        </select>
+                    </div>
+                    <div class="inline-group">
+                        <label>Orientation</label>
+                        <input type="text" id="orientation" placeholder="e.g., ×4 (person/place/time/situation)">
+                    </div>
+                    <div class="inline-group">
+                        <label>GCS (E/V/M)</label>
+                        <input type="text" id="gcs" placeholder="e.g., 14 (E4V4M6)">
+                    </div>
+                </div>
+                <div class="exam-finding-group">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Attention intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Language / comprehension intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Memory intact (recent + remote)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Naming intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Repetition intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Fluency intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Reading intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Writing intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Praxis intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">No hemispatial neglect</span>
+                    </div>
+                </div>
+                <textarea id="ms-comments" placeholder="MMSE / MoCA score if performed, specific aphasia type (Broca / Wernicke / global / conduction), agnosia, anosognosia, confabulation, specific memory pattern..." style="margin-top:8px;"></textarea>
+            </div>
+
+            <!-- Cranial Nerves -->
+            <div class="form-group">
+                <label class="form-label">Cranial Nerves</label>
+                <div class="exam-finding-group">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN I — Olfaction</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN II — Visual acuity</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN II — Visual fields (confrontation)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN II — Fundoscopy (papilledema?)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN III / IV / VI — EOMs full, no nystagmus</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN III — Pupils equal, round, reactive</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN V — Facial sensation intact bilaterally</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN V — Jaw strength intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN VII — Facial symmetry at rest</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN VII — Symmetric with activation</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN VIII — Hearing grossly intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN IX / X — Palate elevates symmetrically</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN IX / X — Gag reflex intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN XI — SCM / trapezius strength intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">CN XII — Tongue midline, no atrophy/fasciculations</span>
+                    </div>
+                </div>
+                <textarea id="cn-comments" placeholder="Pupil sizes (e.g., 3mm R / 4mm L), specific CN deficit descriptions, Horner syndrome (ptosis/miosis/anhidrosis), INO, gaze deviation, nystagmus direction/type, facial palsy UMN vs LMN pattern..." style="margin-top:8px;"></textarea>
+            </div>
+
+            <!-- Motor -->
+            <div class="form-group">
+                <label class="form-label">Motor Examination</label>
+                <div class="callout callout-info" style="margin-bottom:10px;">
+                    <div class="callout-content"><strong>Power grading:</strong> 0 = no contraction | 1 = flicker | 2 = movement with gravity eliminated | 3 = against gravity | 4 = against resistance (4−/4/4+) | 5 = normal</div>
+                </div>
+                <table class="neuro-table">
+                    <thead>
+                        <tr>
+                            <th>Muscle Group</th>
+                            <th>Right</th>
+                            <th>Left</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Deltoid (C5)</td><td><input type="text" id="m-r-deltoid" placeholder="5/5"></td><td><input type="text" id="m-l-deltoid" placeholder="5/5"></td></tr>
+                        <tr><td>Biceps (C5–6)</td><td><input type="text" id="m-r-biceps" placeholder="5/5"></td><td><input type="text" id="m-l-biceps" placeholder="5/5"></td></tr>
+                        <tr><td>Triceps (C7)</td><td><input type="text" id="m-r-triceps" placeholder="5/5"></td><td><input type="text" id="m-l-triceps" placeholder="5/5"></td></tr>
+                        <tr><td>Grip (C8)</td><td><input type="text" id="m-r-grip" placeholder="5/5"></td><td><input type="text" id="m-l-grip" placeholder="5/5"></td></tr>
+                        <tr><td>Hip Flexor (L2–3)</td><td><input type="text" id="m-r-hipflex" placeholder="5/5"></td><td><input type="text" id="m-l-hipflex" placeholder="5/5"></td></tr>
+                        <tr><td>Knee Extension (L3–4)</td><td><input type="text" id="m-r-kneeext" placeholder="5/5"></td><td><input type="text" id="m-l-kneeext" placeholder="5/5"></td></tr>
+                        <tr><td>Knee Flexion (L5–S1)</td><td><input type="text" id="m-r-kneeflex" placeholder="5/5"></td><td><input type="text" id="m-l-kneeflex" placeholder="5/5"></td></tr>
+                        <tr><td>Dorsiflexion (L4–5)</td><td><input type="text" id="m-r-df" placeholder="5/5"></td><td><input type="text" id="m-l-df" placeholder="5/5"></td></tr>
+                        <tr><td>Plantarflexion (S1)</td><td><input type="text" id="m-r-pf" placeholder="5/5"></td><td><input type="text" id="m-l-pf" placeholder="5/5"></td></tr>
+                    </tbody>
+                </table>
+                <div class="exam-finding-group" style="margin-top:10px;">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Normal tone bilaterally</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Spasticity</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Rigidity (lead-pipe / cogwheel)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Flaccidity / hypotonia</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Pronator drift present</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Fasciculations</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Tremor at rest</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Action / postural tremor</span>
+                    </div>
+                </div>
+                <textarea id="motor-comments" placeholder="Drift side, atrophy distribution, focal vs. diffuse weakness pattern, UMN vs LMN features, fatigability (MG), specific tremor description (frequency, suppressibility, pill-rolling)..." style="margin-top:8px;"></textarea>
+            </div>
+
+            <!-- Reflexes -->
+            <div class="form-group">
+                <label class="form-label">Deep Tendon Reflexes</label>
+                <div class="callout callout-info" style="margin-bottom:10px;">
+                    <div class="callout-content"><strong>Grading:</strong> 0 = absent | 1+ = diminished | 2+ = normal | 3+ = brisk | 4+ = clonus</div>
+                </div>
+                <table class="neuro-table">
+                    <thead>
+                        <tr><th>Reflex</th><th>Right</th><th>Left</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Biceps (C5–6)</td><td><input type="text" id="r-r-biceps" placeholder="2+"></td><td><input type="text" id="r-l-biceps" placeholder="2+"></td></tr>
+                        <tr><td>Brachioradialis (C5–6)</td><td><input type="text" id="r-r-br" placeholder="2+"></td><td><input type="text" id="r-l-br" placeholder="2+"></td></tr>
+                        <tr><td>Triceps (C7)</td><td><input type="text" id="r-r-triceps" placeholder="2+"></td><td><input type="text" id="r-l-triceps" placeholder="2+"></td></tr>
+                        <tr><td>Patellar (L3–4)</td><td><input type="text" id="r-r-patella" placeholder="2+"></td><td><input type="text" id="r-l-patella" placeholder="2+"></td></tr>
+                        <tr><td>Achilles (S1)</td><td><input type="text" id="r-r-achilles" placeholder="2+"></td><td><input type="text" id="r-l-achilles" placeholder="2+"></td></tr>
+                    </tbody>
+                </table>
+                <div class="exam-finding-group" style="margin-top:10px;">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Plantar response flexor (normal) — Bilateral</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Babinski sign — Right (extensor)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Babinski sign — Left (extensor)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Ankle clonus present</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Hoffman sign present</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Frontal release signs (grasp, snout, palmomental)</span>
+                    </div>
+                </div>
+                <textarea id="reflex-comments" placeholder="Reflex asymmetry pattern, clonus sustained/unsustained, jaw jerk (UMN above pons if brisk)..." style="margin-top:8px;"></textarea>
+            </div>
+
+            <!-- Sensory -->
+            <div class="form-group">
+                <label class="form-label">Sensory Examination</label>
+                <div class="exam-finding-group">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Light touch intact — UE bilateral</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Light touch intact — LE bilateral</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Pinprick intact — UE bilateral</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Pinprick intact — LE bilateral</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Vibration sense intact distally</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Proprioception intact distally</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Temperature sensation intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Graphesthesia / stereognosis intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Facial sensation intact bilaterally</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Romberg sign — negative</span>
+                    </div>
+                </div>
+                <textarea id="sensory-comments" placeholder="Level of sensory loss (T___ dermatome), hemisensory deficit, stocking-glove distribution, dissociated (pain/temp loss with preserved vibration/proprioception = Brown-Séquard or syrinx), Romberg direction of fall..." style="margin-top:8px;"></textarea>
+            </div>
+
+            <!-- Coordination -->
+            <div class="form-group">
+                <label class="form-label">Coordination & Cerebellar</label>
+                <div class="exam-finding-group">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Finger-nose-finger intact bilaterally</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Heel-shin intact bilaterally</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Rapid alternating movements intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">No dysdiadochokinesia</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">No dysmetria on FNF</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">No intention tremor</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Speech rhythm normal (no scanning / slurred)</span>
+                    </div>
+                </div>
+                <textarea id="coord-comments" placeholder="Side of dysmetria, relationship to direction of gaze (ipsilateral = cerebellar), worsened with eye closure (sensory ataxia vs. cerebellar)..." style="margin-top:8px;"></textarea>
+            </div>
+
+            <!-- Gait -->
+            <div class="form-group">
+                <label class="form-label">Gait & Stance</label>
+                <div class="exam-finding-group">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Normal gait (speed, stride, arm swing)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Hemiparetic gait (circumduction)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Ataxic / broad-based gait</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Parkinsonian gait (shuffling, festinating)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Steppage gait (foot drop)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Spastic scissor gait</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Tandem gait intact</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Pull test: retropulsion absent</span>
+                    </div>
+                </div>
+                <textarea id="gait-comments" placeholder="Timed Up and Go (TUG) result, gait speed, freezing of gait, postural instability details, falls risk assessment..." style="margin-top:8px;"></textarea>
+            </div>
+
+            <!-- Meningeal signs -->
+            <div class="form-group">
+                <label class="form-label">Meningeal Signs</label>
+                <div class="exam-finding-group">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Neck supple (no meningismus)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Kernig sign — negative</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Brudzinski sign — negative</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Jolt accentuation — negative</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Photophobia</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span><span class="finding-label">Phonophobia</span>
+                    </div>
+                </div>
+                <textarea id="meningeal-comments" placeholder="Degree of neck stiffness (mild / moderate / severe), chin-to-chest test, fever in context..." style="margin-top:8px;"></textarea>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         NIHSS CALCULATOR
+    ═══════════════════════════════════════════════════ -->
+    <div class="section" id="nihss-section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">📊</span> NIH Stroke Scale (NIHSS)</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+            <div class="callout callout-warning">
+                <div class="callout-title">Stroke Treatment Thresholds</div>
+                <div class="callout-content">
+                    <strong>IV tPA (alteplase):</strong> Consider if NIHSS ≥4 (or disabling deficit) and ≤3h from LKW (up to 4.5h with extended criteria). Tenecteplase 0.25 mg/kg IV (max 25 mg) — non-inferior to alteplase, now preferred at many centers. <br>
+                    <strong>Mechanical thrombectomy:</strong> Large vessel occlusion (MCA/ICA/basilar), NIHSS typically ≥6, within 6h (up to 24h with DAWN/DEFUSE-3 criteria — mismatch imaging required).
+                </div>
+            </div>
+
+            <div id="nihss-form">
+                <div class="nihss-grid"><label>1a. Level of Consciousness</label>
+                    <select id="nihss-1a" onchange="calcNIHSS()">
+                        <option value="0">0 — Alert</option>
+                        <option value="1">1 — Not alert, arousable</option>
+                        <option value="2">2 — Obtunded</option>
+                        <option value="3">3 — Unresponsive</option>
+                    </select></div>
+                <div class="nihss-grid"><label>1b. LOC Questions (month / age)</label>
+                    <select id="nihss-1b" onchange="calcNIHSS()">
+                        <option value="0">0 — Both correct</option>
+                        <option value="1">1 — One correct</option>
+                        <option value="2">2 — Neither correct</option>
+                    </select></div>
+                <div class="nihss-grid"><label>1c. LOC Commands (open eyes / fist)</label>
+                    <select id="nihss-1c" onchange="calcNIHSS()">
+                        <option value="0">0 — Both obey</option>
+                        <option value="1">1 — One obeys</option>
+                        <option value="2">2 — Neither obeys</option>
+                    </select></div>
+                <div class="nihss-grid"><label>2. Best Gaze</label>
+                    <select id="nihss-2" onchange="calcNIHSS()">
+                        <option value="0">0 — Normal</option>
+                        <option value="1">1 — Partial gaze palsy</option>
+                        <option value="2">2 — Forced deviation</option>
+                    </select></div>
+                <div class="nihss-grid"><label>3. Visual Fields</label>
+                    <select id="nihss-3" onchange="calcNIHSS()">
+                        <option value="0">0 — No visual loss</option>
+                        <option value="1">1 — Partial hemianopia</option>
+                        <option value="2">2 — Complete hemianopia</option>
+                        <option value="3">3 — Bilateral (blind)</option>
+                    </select></div>
+                <div class="nihss-grid"><label>4. Facial Palsy</label>
+                    <select id="nihss-4" onchange="calcNIHSS()">
+                        <option value="0">0 — Normal</option>
+                        <option value="1">1 — Minor paralysis</option>
+                        <option value="2">2 — Partial paralysis (lower face)</option>
+                        <option value="3">3 — Complete paralysis</option>
+                    </select></div>
+                <div class="nihss-grid"><label>5a. Motor Arm — Left</label>
+                    <select id="nihss-5a" onchange="calcNIHSS()">
+                        <option value="0">0 — No drift</option>
+                        <option value="1">1 — Drift</option>
+                        <option value="2">2 — Falls within 10s</option>
+                        <option value="3">3 — No effort against gravity</option>
+                        <option value="4">4 — No movement</option>
+                        <option value="0">UN — Untestable</option>
+                    </select></div>
+                <div class="nihss-grid"><label>5b. Motor Arm — Right</label>
+                    <select id="nihss-5b" onchange="calcNIHSS()">
+                        <option value="0">0 — No drift</option>
+                        <option value="1">1 — Drift</option>
+                        <option value="2">2 — Falls within 10s</option>
+                        <option value="3">3 — No effort against gravity</option>
+                        <option value="4">4 — No movement</option>
+                    </select></div>
+                <div class="nihss-grid"><label>6a. Motor Leg — Left</label>
+                    <select id="nihss-6a" onchange="calcNIHSS()">
+                        <option value="0">0 — No drift</option>
+                        <option value="1">1 — Drift</option>
+                        <option value="2">2 — Falls within 5s</option>
+                        <option value="3">3 — No effort against gravity</option>
+                        <option value="4">4 — No movement</option>
+                    </select></div>
+                <div class="nihss-grid"><label>6b. Motor Leg — Right</label>
+                    <select id="nihss-6b" onchange="calcNIHSS()">
+                        <option value="0">0 — No drift</option>
+                        <option value="1">1 — Drift</option>
+                        <option value="2">2 — Falls within 5s</option>
+                        <option value="3">3 — No effort against gravity</option>
+                        <option value="4">4 — No movement</option>
+                    </select></div>
+                <div class="nihss-grid"><label>7. Limb Ataxia</label>
+                    <select id="nihss-7" onchange="calcNIHSS()">
+                        <option value="0">0 — Absent</option>
+                        <option value="1">1 — Present in one limb</option>
+                        <option value="2">2 — Present in two limbs</option>
+                    </select></div>
+                <div class="nihss-grid"><label>8. Sensory</label>
+                    <select id="nihss-8" onchange="calcNIHSS()">
+                        <option value="0">0 — Normal</option>
+                        <option value="1">1 — Mild-moderate loss</option>
+                        <option value="2">2 — Severe or total loss</option>
+                    </select></div>
+                <div class="nihss-grid"><label>9. Best Language</label>
+                    <select id="nihss-9" onchange="calcNIHSS()">
+                        <option value="0">0 — No aphasia</option>
+                        <option value="1">1 — Mild-moderate aphasia</option>
+                        <option value="2">2 — Severe aphasia</option>
+                        <option value="3">3 — Mute / global aphasia</option>
+                    </select></div>
+                <div class="nihss-grid"><label>10. Dysarthria</label>
+                    <select id="nihss-10" onchange="calcNIHSS()">
+                        <option value="0">0 — Normal</option>
+                        <option value="1">1 — Mild-moderate</option>
+                        <option value="2">2 — Severe / unintelligible</option>
+                    </select></div>
+                <div class="nihss-grid"><label>11. Extinction / Inattention</label>
+                    <select id="nihss-11" onchange="calcNIHSS()">
+                        <option value="0">0 — No abnormality</option>
+                        <option value="1">1 — Inattention to one modality</option>
+                        <option value="2">2 — Profound hemi-inattention</option>
+                    </select></div>
+            </div>
+
+            <div class="nihss-total" id="nihss-total">NIHSS Total: 0 — No stroke symptoms</div>
+
+            <div class="reference-box" style="margin-top:12px;">
+                <h4>NIHSS Severity Interpretation</h4>
+                <table>
+                    <tr><th>Score</th><th>Severity</th><th>Clinical Implication</th></tr>
+                    <tr><td>0</td><td>No stroke symptoms</td><td>Consider TIA, stroke mimic</td></tr>
+                    <tr><td>1–4</td><td>Minor stroke</td><td>tPA if disabling; thrombectomy if LVO</td></tr>
+                    <tr><td>5–15</td><td>Moderate stroke</td><td>tPA + LVO evaluation</td></tr>
+                    <tr><td>16–20</td><td>Moderate-severe</td><td>tPA + likely LVO — emergent CTA</td></tr>
+                    <tr><td>21–42</td><td>Severe stroke</td><td>tPA + thrombectomy; goals of care discussion</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         LABORATORY DATA
+    ═══════════════════════════════════════════════════ -->
+    <div class="section" id="labs">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">🧪</span> Laboratory Data & Ancillary Studies</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+
+            <div class="form-group">
+                <label class="form-label">Basic Labs</label>
+                <div class="inline-inputs">
+                    <div class="inline-group"><label>Na (mEq/L)</label><input type="text" id="sodium" placeholder="e.g., 138"></div>
+                    <div class="inline-group"><label>K (mEq/L)</label><input type="text" id="potassium" placeholder="e.g., 4.1"></div>
+                    <div class="inline-group"><label>BUN / Cr</label><input type="text" id="bun-cr" placeholder="e.g., 14 / 0.9"></div>
+                    <div class="inline-group"><label>Glucose (mg/dL)</label><input type="text" id="glucose" placeholder="e.g., 108"></div>
+                    <div class="inline-group"><label>Ca (mg/dL)</label><input type="text" id="calcium" placeholder="e.g., 9.2"></div>
+                    <div class="inline-group"><label>Mg (mg/dL)</label><input type="text" id="magnesium" placeholder="e.g., 1.9"></div>
+                    <div class="inline-group"><label>HgB (g/dL)</label><input type="text" id="hgb" placeholder="e.g., 13.2"></div>
+                    <div class="inline-group"><label>Plt (K/µL)</label><input type="text" id="plt" placeholder="e.g., 210"></div>
+                    <div class="inline-group"><label>INR</label><input type="text" id="inr" placeholder="e.g., 1.1"></div>
+                    <div class="inline-group"><label>PTT (sec)</label><input type="text" id="ptt" placeholder="e.g., 28"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Stroke / Vascular Labs</label>
+                <div class="inline-inputs">
+                    <div class="inline-group"><label>LDL (mg/dL)</label><input type="text" id="ldl" placeholder="e.g., 142"></div>
+                    <div class="inline-group"><label>HbA1c (%)</label><input type="text" id="hba1c" placeholder="e.g., 7.1"></div>
+                    <div class="inline-group"><label>ESR / CRP</label><input type="text" id="esr-crp" placeholder="e.g., 42 / 3.8"></div>
+                    <div class="inline-group"><label>Homocysteine</label><input type="text" id="homocysteine" placeholder="e.g., 18 µmol/L"></div>
+                    <div class="inline-group"><label>Lp(a)</label><input type="text" id="lpa" placeholder="e.g., elevated"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Anticoagulation / Drug Levels</label>
+                <div class="inline-inputs">
+                    <div class="inline-group"><label>DOAC Level / Last Dose</label><input type="text" id="doac" placeholder="e.g., Apixaban 5mg BID, last dose 8h ago"></div>
+                    <div class="inline-group"><label>Anti-Xa Level</label><input type="text" id="anti-xa" placeholder="e.g., 0.42 IU/mL"></div>
+                    <div class="inline-group"><label>AED Level</label><input type="text" id="aed-level" placeholder="e.g., Valproate 68 µg/mL; Levetiracetam not routinely checked"></div>
+                    <div class="inline-group"><label>Ammonia</label><input type="text" id="ammonia" placeholder="e.g., 88 µmol/L"></div>
+                    <div class="inline-group"><label>TSH</label><input type="text" id="tsh" placeholder="e.g., 2.1"></div>
+                    <div class="inline-group"><label>B12 / Folate</label><input type="text" id="b12" placeholder="e.g., B12 210 pg/mL"></div>
+                    <div class="inline-group"><label>Thiamine</label><input type="text" id="thiamine" placeholder="e.g., Low / pending"></div>
+                    <div class="inline-group"><label>RPR / VDRL</label><input type="text" id="rpr" placeholder="e.g., Non-reactive"></div>
+                    <div class="inline-group"><label>HIV</label><input type="text" id="hiv" placeholder="e.g., Negative"></div>
+                    <div class="inline-group"><label>Toxicology Screen</label><input type="text" id="tox" placeholder="e.g., Urine positive cocaine"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Autoimmune / Paraneoplastic Panel (if applicable)</label>
+                <textarea id="autoimmune-labs" placeholder="Anti-NMDAR, LGI1, CASPR2, AMPAR, GABA-B antibodies (encephalitis panel); ANA, anti-dsDNA, ANCA, anti-SSA/SSB (CNS vasculitis); Hu, Yo, Ri, VGCC, VGKC (paraneoplastic panel); CSF cytology and flow cytometry..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Lumbar Puncture (CSF Analysis)</label>
+                <div class="inline-inputs">
+                    <div class="inline-group"><label>Opening Pressure (cm H₂O)</label><input type="text" id="csf-op" placeholder="e.g., 22"></div>
+                    <div class="inline-group"><label>Color / Appearance</label><input type="text" id="csf-color" placeholder="e.g., Colorless, clear / xanthochromic"></div>
+                    <div class="inline-group"><label>WBC (cells/µL)</label><input type="text" id="csf-wbc" placeholder="e.g., 240"></div>
+                    <div class="inline-group"><label>Differential</label><input type="text" id="csf-diff" placeholder="e.g., 92% PMN"></div>
+                    <div class="inline-group"><label>RBC (cells/µL)</label><input type="text" id="csf-rbc" placeholder="e.g., 12,000 (uniformly bloody)"></div>
+                    <div class="inline-group"><label>Protein (mg/dL)</label><input type="text" id="csf-protein" placeholder="e.g., 88"></div>
+                    <div class="inline-group"><label>Glucose (mg/dL)</label><input type="text" id="csf-glucose" placeholder="e.g., 42"></div>
+                    <div class="inline-group"><label>Serum Glucose (paired)</label><input type="text" id="csf-serum-gluc" placeholder="e.g., 102"></div>
+                    <div class="inline-group"><label>Xanthochromia</label><input type="text" id="csf-xantho" placeholder="e.g., Present / Absent"></div>
+                    <div class="inline-group"><label>Gram Stain / Culture</label><input type="text" id="csf-culture" placeholder="e.g., Gram+ diplococci / pending"></div>
+                </div>
+                <textarea id="csf-additional" placeholder="Oligoclonal bands, IgG index, cytology, 14-3-3 protein (prion), tau, Aβ42, VDRL (CSF), cryptococcal antigen, HSV/VZV/CMV/EBV/enterovirus PCR, other specific PCRs..." style="margin-top:10px;"></textarea>
+                <div class="reference-box" style="margin-top:10px;">
+                    <h4>CSF Pattern Reference</h4>
+                    <table>
+                        <tr><th>Condition</th><th>WBC</th><th>Protein</th><th>Glucose</th><th>Other</th></tr>
+                        <tr><td>Normal</td><td>&lt;5 lymph</td><td>15–45</td><td>&gt;60% serum</td><td>—</td></tr>
+                        <tr><td>Bacterial meningitis</td><td>100s–1000s PMN</td><td>↑↑</td><td>↓↓ (&lt;40)</td><td>Gram stain, culture</td></tr>
+                        <tr><td>Viral meningitis/encephalitis</td><td>10–200 lymph</td><td>mild ↑</td><td>Normal</td><td>PCR (HSV, entero)</td></tr>
+                        <tr><td>TB meningitis</td><td>100–400 lymph</td><td>↑↑</td><td>↓</td><td>AFB smear, ADA↑</td></tr>
+                        <tr><td>SAH</td><td>RBC / xanthochromia</td><td>↑</td><td>Normal</td><td>Xantho 2–4h post</td></tr>
+                        <tr><td>GBS</td><td>Normal / minimal</td><td>↑↑ (cytoalbuminous)</td><td>Normal</td><td>Albuminocytologic dissociation</td></tr>
+                        <tr><td>MS</td><td>Normal / mild lymph</td><td>Mild ↑</td><td>Normal</td><td>OCB+, IgG index↑</td></tr>
+                        <tr><td>Autoimmune encephalitis</td><td>Mild lymphocytosis</td><td>Mild ↑</td><td>Normal</td><td>Antibody panel</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">EEG (if obtained)</label>
+                <textarea id="eeg" placeholder="Formal EEG report: background rhythm, focal slowing, epileptiform discharges (location, type — LRDA, GPD, BIPD), seizures captured, ictal-interictal continuum pattern, response to AED, continuous EEG monitoring plan..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Nerve Conduction Studies / EMG (if obtained)</label>
+                <textarea id="ncs-emg" placeholder="NCS: nerve amplitudes, conduction velocities, distal latencies, F-waves, H-reflex. EMG: spontaneous activity (fibrillations, positive sharp waves, fasciculation), motor unit morphology, recruitment. Pattern: demyelinating vs. axonal; length-dependent vs. non-length-dependent; motor-predominant vs. sensorimotor..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Additional Labs / Studies</label>
+                <textarea id="additional-labs" class="large" placeholder="Cardiac monitoring (telemetry findings, Holter, event monitor), echo findings relevant to cardioembolic workup (PFO, thrombus, EF), other relevant data..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         IMAGING
+    ═══════════════════════════════════════════════════ -->
+    <div class="section" id="imaging">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">📷</span> Neuroimaging & Studies</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+            <div class="form-group">
+                <label class="form-label">CT Head (Non-Contrast)</label>
+                <textarea id="ct-head" placeholder="Acute hemorrhage (location, volume, IVH, edema, herniation), hyperdense MCA sign, early ischemic changes (sulcal effacement, loss of gray-white differentiation, ASPECTS score), shift, mass effect, chronic changes (leukoaraiosis, atrophy, old infarcts)..."></textarea>
+                <div class="reference-box" style="margin-top:8px;">
+                    <h4>ASPECTS (Alberta Stroke Program Early CT Score) — for MCA territory</h4>
+                    <ul>
+                        <li>10 regions scored (subtract 1 per region with early ischemic change): M1–M6, caudate, lentiform, internal capsule, insular cortex</li>
+                        <li><strong>ASPECTS ≥6</strong>: Favorable territory for thrombectomy</li>
+                        <li><strong>ASPECTS &lt;6</strong>: Large established infarct — higher hemorrhagic transformation risk, discuss carefully</li>
+                    </ul>
+                </div>
+                <div class="inline-inputs" style="margin-top:8px;">
+                    <div class="inline-group"><label>ASPECTS Score (if applicable)</label><input type="text" id="aspects" placeholder="e.g., 8/10"></div>
+                    <div class="inline-group"><label>ICH Volume (if applicable, mL)</label><input type="text" id="ich-volume" placeholder="ABC/2 method: e.g., 28 mL"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">CT Angiography (Head + Neck)</label>
+                <textarea id="cta" placeholder="LVO (which vessel — ICA terminus, M1, M2, basilar, PCA), stenosis (location, degree), aneurysm (location, size, morphology), dissection (intramural hematoma, false lumen, pseudoaneurysm), collateral grade (good/moderate/poor), carotid stenosis (NASCET %), vertebral arteries..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">CT Perfusion</label>
+                <textarea id="ctp" placeholder="Core infarct volume (rCBF &lt;30%, mL), penumbra (Tmax &gt;6s, mL), mismatch ratio, mismatch volume. Software platform (RAPID, etc.). Favorable mismatch = penumbra &gt;1.8× core or mismatch volume &gt;15 mL..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">MRI Brain (with / without gadolinium)</label>
+                <textarea id="mri-brain" placeholder="DWI/ADC (restricted diffusion — territory, size, age of infarct), FLAIR (lesion burden, white matter changes, MS plaques — Dawson fingers, periventricular, juxtacortical, infratentorial), T2 (edema), T1+Gad (enhancement pattern — leptomeningeal, ring-enhancing mass, pial), SWI (microbleeds, hemosiderin, cerebral amyloid angiopathy pattern, venous thrombosis), MRA findings..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">MR Angiography / MR Venography</label>
+                <textarea id="mra-mrv" placeholder="MRA: flow voids, stenosis, aneurysm, dissection, vessel wall imaging. MRV: venous sinus patency, filling defect (CVT location — superior sagittal, transverse, sigmoid, cavernous), collateral venous drainage..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Other Imaging</label>
+                <textarea id="other-imaging" placeholder="Spine MRI (cord signal — T2 hyperintensity level, compression, cauda equina), cervical spine CT/MRI (stenosis, OPLL, disc herniation), cerebral angiogram (DSA) findings, PET scan (FDG pattern in dementia — parietal-temporal hypometabolism in AD vs. frontal in FTD), SPECT..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         ASSESSMENT
+    ═══════════════════════════════════════════════════ -->
+    <div class="section" id="assessment">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">🧠</span> Assessment & Synthesis</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+
+            <div class="emergency-box">
+                <h4>🚨 Neurological Emergencies — Confirm None Missed</h4>
+                <ul class="emergency-list">
+                    <li><strong>⚡</strong><span><strong>Code Stroke / LVO:</strong> Last known well + NIHSS + CT/CTA → tPA / thrombectomy decision within minutes</span></li>
+                    <li><strong>⚡</strong><span><strong>Status Epilepticus:</strong> Seizure &gt;5 min or ≥2 without recovery → Benzo → AED → anesthesia escalation</span></li>
+                    <li><strong>⚡</strong><span><strong>Bacterial Meningitis:</strong> Fever + AMS + meningismus → Abx + dexamethasone immediately; LP can follow if no focal deficit</span></li>
+                    <li><strong>⚡</strong><span><strong>SAH:</strong> Thunderclap HA → CT Head; if negative → LP at ≥6h (xanthochromia + RBC); CTA immediately</span></li>
+                    <li><strong>⚡</strong><span><strong>Increased ICP / Herniation:</strong> Cushing triad (HTN, bradycardia, irregular breathing) → HOB 30°, hyperventilate, mannitol/HTS, neurosurgery</span></li>
+                    <li><strong>⚡</strong><span><strong>Myasthenic Crisis:</strong> Bulbar/respiratory weakness → FVC, NIF monitoring; pyridostigmine hold; IVIG or plasmapheresis</span></li>
+                    <li><strong>⚡</strong><span><strong>GBS with Respiratory Compromise:</strong> FVC &lt;20 mL/kg or NIF &lt;−25 cmH₂O → elective intubation; IVIG or plasmapheresis</span></li>
+                    <li><strong>⚡</strong><span><strong>Wernicke Encephalopathy:</strong> Triad (ataxia / ophthalmoplegia / confusion) in any malnourished/ETOH patient → Thiamine 500 mg IV TID × 3 days before any glucose</span></li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Neuroanatomic Localization</label>
+                <select id="localization">
+                    <option value="">-- Select primary localization --</option>
+                    <optgroup label="Supratentorial">
+                        <option value="Cortical (hemisphere)">Cortical — hemisphere (dominant / non-dominant)</option>
+                        <option value="Subcortical (basal ganglia / thalamus)">Subcortical — basal ganglia / thalamus</option>
+                        <option value="Internal capsule / corona radiata">Internal capsule / corona radiata</option>
+                        <option value="Periventricular white matter">Periventricular white matter</option>
+                        <option value="Corpus callosum">Corpus callosum</option>
+                    </optgroup>
+                    <optgroup label="Infratentorial / Posterior Fossa">
+                        <option value="Brainstem (midbrain)">Brainstem — midbrain</option>
+                        <option value="Brainstem (pons)">Brainstem — pons</option>
+                        <option value="Brainstem (medulla)">Brainstem — medulla</option>
+                        <option value="Cerebellum">Cerebellum</option>
+                    </optgroup>
+                    <optgroup label="Spinal Cord">
+                        <option value="Cervical cord">Cervical cord</option>
+                        <option value="Thoracic cord">Thoracic cord</option>
+                        <option value="Lumbar cord / conus">Lumbar cord / conus medullaris</option>
+                        <option value="Cauda equina">Cauda equina</option>
+                    </optgroup>
+                    <optgroup label="Peripheral">
+                        <option value="Nerve root / radiculopathy">Nerve root / radiculopathy</option>
+                        <option value="Plexus (brachial / lumbosacral)">Plexus — brachial / lumbosacral</option>
+                        <option value="Peripheral nerve (mononeuropathy)">Peripheral nerve — mononeuropathy</option>
+                        <option value="Peripheral nerve (polyneuropathy)">Peripheral nerve — polyneuropathy</option>
+                        <option value="Neuromuscular junction">Neuromuscular junction</option>
+                        <option value="Muscle (myopathy)">Muscle — myopathy</option>
+                    </optgroup>
+                    <optgroup label="Other">
+                        <option value="Multifocal">Multifocal</option>
+                        <option value="Diffuse / encephalopathic">Diffuse / encephalopathic</option>
+                        <option value="Uncertain / functional">Uncertain / functional</option>
+                    </optgroup>
+                </select>
+                <textarea id="localization-comments" placeholder="Describe the anatomic localization rationale: e.g., Right MCA territory based on left hemiplegia, left hemisensory loss, left homonymous hemianopia, and gaze deviation to the right (frontal eye fields). Left caudate + IC involvement expected given subcortical extension on imaging..." style="margin-top:8px;"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Etiology / Stroke Mechanism (TOAST Classification, if applicable)</label>
+                <div class="stage-selector">
+                    <span class="stage-badge" onclick="selectStage(this,'toast')">Large artery atherosclerosis</span>
+                    <span class="stage-badge" onclick="selectStage(this,'toast')">Cardioembolic</span>
+                    <span class="stage-badge" onclick="selectStage(this,'toast')">Small vessel / lacunar</span>
+                    <span class="stage-badge" onclick="selectStage(this,'toast')">Other determined</span>
+                    <span class="stage-badge" onclick="selectStage(this,'toast')">Cryptogenic / ESUS</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Primary Neurological Diagnosis</label>
+                <textarea id="primary-dx" placeholder="e.g., Acute right MCA territory ischemic stroke (NIHSS 14, TOAST: cardioembolic — AF with subtherapeutic anticoagulation), status post IV tenecteplase 0.25 mg/kg at 10:42; no LVO on CTA, ineligible for thrombectomy"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Differential Diagnosis with Reasoning</label>
+                <textarea id="differential" class="large" placeholder="1. [Most likely] — reasoning
+2. [Second consideration] — reasoning  
+3. [Stroke mimic / important to exclude] — reasoning (hypoglycemia, Todd paralysis, complex migraine, functional, encephalitis, mass with seizure)"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Clinical Synthesis / Narrative</label>
+                <textarea id="synthesis" class="large" placeholder="Integrate the timeline, examination, and data into a coherent neurological narrative. Address the localization, mechanism, acuity, and key decision points that drove clinical actions (e.g., tPA administered vs. withheld, LP performed, AED choice)..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         RECOMMENDATIONS
+    ═══════════════════════════════════════════════════ -->
+    <div class="section" id="recommendations">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">📋</span> Recommendations</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+
+            <div class="form-group">
+                <label class="form-label">Acute Interventions</label>
+                <textarea id="recs-acute" placeholder="- tPA / Tenecteplase: administered ___ mg IV at ___ [or: withheld — reason]
+- Mechanical thrombectomy: [indicated / not indicated / patient transferred / in progress] — IR/Neurointerventional notified at ___
+- ICH: target SBP &lt;140 mmHg, hold anticoagulation/antiplatelet, neurosurgery consult (if &gt;30 mL, cerebellar &gt;3 cm, or deteriorating)
+- Status epilepticus protocol: lorazepam 4 mg IV → levetiracetam 60 mg/kg IV → valproate/fosphenytoin → anesthesia (midazolam / propofol) if refractory
+- Bacterial meningitis: dexamethasone 0.15 mg/kg IV q6h + ceftriaxone 2g IV q12h + vancomycin + ampicillin (if age &gt;50 / immunocompromised) — given ___ [time]
+- LP performed at ___ (consent obtained), results pending / as above
+- Thiamine 500 mg IV TID × 3 days (Wernicke — give before glucose)"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Antithrombotic / Anticoagulation</label>
+                <textarea id="recs-antithrombotic" placeholder="- Aspirin 325 mg loading dose now, then 81 mg daily (ischemic stroke — hold 24h if tPA given)
+- Dual antiplatelet (aspirin + clopidogrel) for high-risk TIA (ABCD2 ≥4) or minor stroke (NIHSS ≤3): 21-day course per POINT/CHANCE trials
+- Anticoagulation for AF-related stroke: initiate apixaban / rivaroxaban / warfarin — timing: ≥48h for minor stroke, ≥5–7 days for moderate, ≥2 weeks for severe (per ELAN trial guidance)
+- Anticoagulation withheld: reason ___
+- Heparin bridge: [yes/no] — rationale
+- Statin: high-intensity (atorvastatin 40–80 mg or rosuvastatin 20–40 mg daily) for ischemic stroke / TIA regardless of baseline LDL
+- SBP management post-tPA: maintain &lt;180/105 × 24h; if no tPA: permissive hypertension (allow up to 220/120 × 24–48h unless hypertensive emergency)"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Seizure Management</label>
+                <textarea id="recs-seizure" placeholder="- Initiate / continue levetiracetam ___ mg IV/PO BID
+- Lacosamide ___ mg BID (if LV function preserved; avoid in high-degree AV block)
+- Valproate ___ mg IV loading dose (avoid in pregnancy, liver disease)
+- Fosphenytoin ___ PE IV loading dose
+- Routine AED not recommended for prophylaxis after ischemic stroke or TBI (no evidence of benefit)
+- AED prophylaxis for ICH / SAH: [7 days post-ICH if symptomatic seizure; not routinely for SAH without clinical seizure]
+- Seizure precautions: activity restriction per local guidelines, no driving, no bathing alone, no heights
+- Continuous EEG monitoring: [indicated / not indicated] — reason
+- Epilepsy monitoring unit evaluation: [planned / not indicated]"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">BP & Hemodynamic Management</label>
+                <textarea id="recs-bp" placeholder="- Post-tPA: strict SBP &lt;180 / DBP &lt;105 × 24h (labetalol / nicardipine IV prn)
+- Ischemic stroke without tPA: permissive HTN (allow up to 220/120 × 24–48h); lower if hypertensive emergency features
+- ICH: SBP target &lt;140 mmHg (INTERACT2 / ATACH-II evidence)
+- SAH: euvolemia maintained, avoid hypotension (nimodipine 60 mg PO q4h × 21 days for vasospasm prevention)
+- Increased ICP: HOB 30°, head midline, avoid hypotension (MAP &gt;80), mannitol 1 g/kg IV prn or 23.4% NaCl 30 mL IV
+- Orthostatic hypotension (Parkinson / autonomic neuropathy): head-of-bed flat vs. compression stockings, fludrocortisone, midodrine"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Diagnostic Workup to Order</label>
+                <textarea id="recs-workup" placeholder="- Cardiac monitoring: continuous telemetry × 72h minimum; prolonged cardiac monitoring (30-day event monitor) for cryptogenic stroke / ESUS
+- Transthoracic echo (TTE): evaluate EF, LV thrombus, wall motion abnormalities, valvular disease, PFO (with bubble study if cryptogenic stroke in young patient)
+- Transesophageal echo (TEE): if PFO / aortic arch atheroma / LA appendage thrombus suspected
+- Hypercoagulable workup (cryptogenic stroke, young patient, venous thrombosis): Factor V Leiden, prothrombin gene mutation, antiphospholipid antibodies, protein C/S, antithrombin III, lupus anticoagulant — check before anticoagulation if possible
+- Carotid duplex ultrasound: bilateral (%stenosis)
+- MRI brain + DWI + MRA (if CT only obtained so far)
+- CSF analysis: [indication]
+- EEG: [indication]
+- NCS/EMG: [indication]
+- Autoimmune / paraneoplastic encephalitis panel
+- LP if thunderclap HA with negative CT (at ≥6h from onset — sensitivity 93% for xanthochromia)"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Neuroprotective / Supportive Care</label>
+                <textarea id="recs-supportive" placeholder="- Swallow evaluation before any oral intake (stroke, bulbar dysfunction, GBS, MG)
+- NPO / diet modification per SLP
+- Glucose management: target 140–180 mg/dL (hyperglycemia worsens stroke outcomes; avoid hypoglycemia — equally harmful)
+- Temperature management: normothermia (treat fever aggressively — acetaminophen ± cooling blanket; fever worsens neurological injury)
+- Avoid hypoxia: SpO2 &gt;94%; supplemental O2 only if hypoxic (routine O2 not beneficial in normoxic ischemic stroke)
+- DVT prophylaxis: pneumatic compression devices immediately; chemical prophylaxis after 24h for ischemic stroke (48–72h post-tPA); delay in ICH per hemorrhage risk
+- Foley catheter: [place / avoid unless urinary retention or strict I&O required]
+- Aspiration precautions
+- Pressure ulcer prevention (turning q2h, specialty mattress)
+- Early mobilization / physical therapy referral (within 24–48h of ischemic stroke if stable)"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Medication Adjustments</label>
+                <textarea id="recs-meds" placeholder="- Parkinson medications: continue home regimen on schedule; do NOT abruptly hold (risk of parkinsonism-hyperpyrexia syndrome)
+- Antipsychotics: [avoid haloperidol in PD; use quetiapine for PD psychosis]
+- AED adjustment: check levels, ensure adequate dosing for renal function
+- Metformin: hold if contrast used or significant AKI
+- SGLT2 inhibitor: hold if NPO or contrast
+- Home anticoagulant: [continue / hold / reverse]
+- Reversal agents: andexanet alfa (factor Xa inhibitor reversal); idarucizumab (dabigatran reversal); 4-factor PCC / vitamin K (warfarin reversal)
+- Avoid QTc-prolonging agents if on AEDs that affect QT"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Monitoring Plan</label>
+                <textarea id="recs-monitoring" placeholder="- Neuro checks q___ hours (NIHSS at 24h post-tPA mandatory)
+- Continuous telemetry × ___ days (AF detection)
+- BP monitoring: q___ hours; SBP target ___
+- FVC / NIF q4h if GBS or myasthenic crisis (intubation threshold: FVC &lt;20 mL/kg or NIF &lt;−25 cmH₂O)
+- Glucose checks: q___ hours; target 140–180 mg/dL
+- Temperature monitoring q4h (treat fever immediately)
+- Daily CBC, BMP (if on mannitol — osmolarity checks q6h; target &lt;320 mOsm/kg)
+- Sodium monitoring q___ (hyponatremia → cerebral edema; hypernatremia → DI post neurosurgery)
+- ICP monitoring: [invasive EVD / bolt — per neurosurgery]"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Subspecialty Consults</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="checkbox" id="cons-neurosurg"><label for="cons-neurosurg">Neurosurgery</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cons-neurointerv"><label for="cons-neurointerv">Neurointerventional / IR</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cons-neuropsych"><label for="cons-neuropsych">Neuropsychology</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cons-slp"><label for="cons-slp">Speech-Language Pathology</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cons-pt"><label for="cons-pt">Physical Therapy</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cons-ot"><label for="cons-ot">Occupational Therapy</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cons-cardio"><label for="cons-cardio">Cardiology (cardioembolic w/u)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cons-rheum"><label for="cons-rheum">Rheumatology (CNS vasculitis)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cons-heme"><label for="cons-heme">Hematology (hypercoagulable)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cons-psychiatry"><label for="cons-psychiatry">Psychiatry</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cons-palliative"><label for="cons-palliative">Palliative Care / GOC</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="cons-sw"><label for="cons-sw">Social Work / Case Management</label></div>
+                </div>
+                <textarea id="consult-details" placeholder="Specific reason for each consult requested..." style="margin-top:8px;"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Other Recommendations</label>
+                <textarea id="recs-other" placeholder="Additional recommendations not covered above..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         DISPOSITION
+    ═══════════════════════════════════════════════════ -->
+    <div class="section" id="disposition-section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">🏥</span> Disposition & Follow-up</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+            <div class="form-group">
+                <label class="form-label">Inpatient Level of Care</label>
+                <select id="disposition">
+                    <option value="">-- Select --</option>
+                    <option value="Neuro ICU / NICU">Neuro ICU / NICU</option>
+                    <option value="Stroke Unit / Step-down">Stroke Unit / Step-down</option>
+                    <option value="Telemetry floor">Telemetry floor</option>
+                    <option value="General neurology floor">General neurology floor</option>
+                    <option value="Transfer to stroke center">Transfer to stroke center (thrombectomy capable)</option>
+                    <option value="Transfer to higher-level care">Transfer to tertiary / quaternary center</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Prognosis / Goals of Care</label>
+                <textarea id="prognosis" placeholder="Modified Rankin Scale (mRS) at baseline and projected. Discussion of prognosis with patient and family — what deficits are expected to be permanent vs. may improve, realistic recovery timeline, rehabilitation potential. If poor prognosis: goals of care / code status discussion documented. DNR/DNI status: [full code / DNR / DNI / comfort measures only]..."></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Rehabilitation Plan</label>
+                <textarea id="rehab" placeholder="Acute inpatient rehab (AIR) vs. skilled nursing facility (SNF) vs. home with outpatient PT/OT/SLP. Stroke rehab criteria: able to participate ≥3h/day of therapy, medically stable. Anticipated discharge disposition and needs (home equipment, caregiver support, home health)..."></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Secondary Prevention Plan</label>
+                <textarea id="secondary-prevention" placeholder="- Antithrombotic: aspirin/clopidogrel vs. anticoagulation (AF, cardioembolic) — agent, dose, duration
+- High-intensity statin: atorvastatin 40–80 mg (LDL target &lt;70 mg/dL for atherosclerotic stroke; &lt;55 if recurrent)
+- BP management: target &lt;130/80 post-acute phase (≥24–48h); agent selection based on mechanism
+- Carotid revascularization: CEA vs. CAS if symptomatic stenosis ≥50% (CEA preferred; ideally within 2 weeks)
+- PFO closure: consider if cryptogenic stroke + PFO, age &lt;60, no other etiology (RoPE score ≥7)
+- AF management: rate vs. rhythm control; anticoagulation as above
+- Lifestyle: smoking cessation, DASH diet, weight loss, exercise, alcohol moderation
+- Diabetes/glucose optimization
+- OSA treatment (CPAP if diagnosed — associated with AF and stroke recurrence)
+- Driving restrictions per state law; disability documentation if applicable"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Outpatient Neurology Follow-up</label>
+                <textarea id="followup-plan" placeholder="e.g., Stroke clinic in 2–4 weeks (repeat MRI, secondary prevention review, driving assessment); Epilepsy clinic in 4–6 weeks (AED review, EEG, seizure documentation); MS clinic follow-up for DMT initiation; Movement disorder clinic for PD medication optimization..."></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Consulting Neurologist / Fellow</label>
+                <input type="text" id="attending" placeholder="Name / pager / service">
+            </div>
+        </div>
+    </div>
+
+    <!-- Generated Note -->
+    <div class="output-section">
+        <h3>📄 Generated Consult Note</h3>
+        <div id="generated-note">Click "Generate Note" to create a formatted consult note from the fields above.</div>
+        <div class="output-actions">
+            <button class="btn btn-primary" onclick="copyNote()">📋 Copy to Clipboard</button>
+            <button class="btn btn-secondary" onclick="generateNote()">🔄 Regenerate</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast">Copied to clipboard!</div>
+
+<script>
+    // ── Core UI helpers ──────────────────────────────────────────────────
+    function toggleSection(h) { h.parentElement.classList.toggle('collapsed'); }
+
+    function cycleState(el) {
+        const s = el.getAttribute('data-state');
+        el.setAttribute('data-state', s === 'neutral' ? 'positive' : s === 'positive' ? 'negative' : 'neutral');
+    }
+
+    function getExamFindings(state) {
+        const out = [];
+        document.querySelectorAll(`.exam-finding[data-state="${state}"]`).forEach(el => {
+            const l = el.querySelector('.finding-label');
+            if (l) out.push(l.textContent.trim());
+        });
+        return out;
+    }
+
+    function toggleTag(tag) { tag.classList.toggle('selected'); }
+
+    function selectStage(badge, type) {
+        badge.parentElement.querySelectorAll('.stage-badge').forEach(b => b.classList.remove('selected'));
+        badge.classList.toggle('selected');
+    }
+
+    function scrollToSection(id) {
+        const s = document.getElementById(id);
+        if (s) { s.classList.remove('collapsed'); s.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    }
+
+    function expandAll()   { document.querySelectorAll('.section').forEach(s => s.classList.remove('collapsed')); }
+    function collapseAll() { document.querySelectorAll('.section').forEach(s => s.classList.add('collapsed')); }
+
+    function clearAll() {
+        if (!confirm('Clear all fields? This cannot be undone.')) return;
+        document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+        document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+        document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+        document.querySelectorAll('.tag, .stage-badge').forEach(el => el.classList.remove('selected'));
+        document.querySelectorAll('.exam-finding').forEach(el => el.setAttribute('data-state', 'neutral'));
+        document.getElementById('nihss-total').textContent = 'NIHSS Total: 0 — No stroke symptoms';
+        document.getElementById('generated-note').textContent = 'Click "Generate Note" to create a formatted consult note from the fields above.';
+    }
+
+    function getSelectedTags() {
+        return [...document.querySelectorAll('.tag.selected')].map(t => t.textContent.trim());
+    }
+
+    function getSelectedStageByGroup(parentSelector) {
+        const el = document.querySelector(parentSelector);
+        if (!el) return '';
+        const sel = el.querySelector('.stage-badge.selected');
+        return sel ? sel.textContent.trim() : '';
+    }
+
+    function getChecked(...ids) {
+        const out = [];
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && el.checked) { const lbl = el.nextElementSibling; if (lbl) out.push(lbl.textContent.trim()); }
+        });
+        return out;
+    }
+
+    function val(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+    function selVal(id) { const el = document.getElementById(id); return el && el.value ? el.value.trim() : ''; }
+
+    // ── NIHSS Calculator ─────────────────────────────────────────────────
+    const NIHSS_SEVERITY = [
+        [0, 0, 'No stroke symptoms'],
+        [1, 4, 'Minor stroke'],
+        [5, 15, 'Moderate stroke'],
+        [16, 20, 'Moderate-severe stroke'],
+        [21, 42, 'Severe stroke']
+    ];
+
+    function calcNIHSS() {
+        const ids = ['nihss-1a','nihss-1b','nihss-1c','nihss-2','nihss-3','nihss-4',
+                     'nihss-5a','nihss-5b','nihss-6a','nihss-6b','nihss-7','nihss-8',
+                     'nihss-9','nihss-10','nihss-11'];
+        let total = 0;
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) total += parseInt(el.value) || 0;
+        });
+        let label = 'Unknown';
+        for (const [min, max, desc] of NIHSS_SEVERITY) {
+            if (total >= min && total <= max) { label = desc; break; }
+        }
+        document.getElementById('nihss-total').textContent = `NIHSS Total: ${total} — ${label}`;
+    }
+
+    function getNIHSSTotal() {
+        const el = document.getElementById('nihss-total');
+        return el ? el.textContent : '';
+    }
+
+    // ── Motor table reader ───────────────────────────────────────────────
+    function getMotorTable() {
+        const rows = [
+            ['Deltoid',       'm-r-deltoid',  'm-l-deltoid'],
+            ['Biceps',        'm-r-biceps',   'm-l-biceps'],
+            ['Triceps',       'm-r-triceps',  'm-l-triceps'],
+            ['Grip',          'm-r-grip',     'm-l-grip'],
+            ['Hip Flexor',    'm-r-hipflex',  'm-l-hipflex'],
+            ['Knee Ext',      'm-r-kneeext',  'm-l-kneeext'],
+            ['Knee Flex',     'm-r-kneeflex', 'm-l-kneeflex'],
+            ['Dorsiflexion',  'm-r-df',       'm-l-df'],
+            ['Plantarflex',   'm-r-pf',       'm-l-pf'],
+        ];
+        const lines = [];
+        rows.forEach(([name, rid, lid]) => {
+            const r = val(rid), l = val(lid);
+            if (r || l) lines.push(`  ${name.padEnd(14)} R: ${(r||'—').padEnd(6)} L: ${l||'—'}`);
+        });
+        return lines;
+    }
+
+    function getReflexTable() {
+        const rows = [
+            ['Biceps (C5-6)',    'r-r-biceps',  'r-l-biceps'],
+            ['Brachiorad (C5)', 'r-r-br',       'r-l-br'],
+            ['Triceps (C7)',     'r-r-triceps',  'r-l-triceps'],
+            ['Patellar (L3-4)', 'r-r-patella',  'r-l-patella'],
+            ['Achilles (S1)',    'r-r-achilles', 'r-l-achilles'],
+        ];
+        const lines = [];
+        rows.forEach(([name, rid, lid]) => {
+            const r = val(rid), l = val(lid);
+            if (r || l) lines.push(`  ${name.padEnd(16)} R: ${(r||'—').padEnd(5)} L: ${l||'—'}`);
+        });
+        return lines;
+    }
+
+    // ── Note Generator ───────────────────────────────────────────────────
+    function generateNote() {
+        let note = '';
+        const LINE = '═══════════════════════════════════════════════════════════\n';
+
+        note += LINE;
+        note += '                   NEUROLOGY CONSULT NOTE\n';
+        note += LINE + '\n';
+
+        // Reason
+        const consultQ = val('consult-question');
+        const tags = getSelectedTags();
+        const timeSensitivity = getSelectedStageByGroup('#consult-reason .stage-selector');
+        if (consultQ || tags.length || timeSensitivity) {
+            note += '▸ REASON FOR CONSULTATION\n';
+            if (timeSensitivity) note += 'Priority: ' + timeSensitivity + '\n';
+            if (consultQ) note += consultQ + '\n';
+            if (tags.length) note += 'Category: ' + tags.join(', ') + '\n';
+            note += '\n';
+        }
+
+        // History
+        const lkw = val('lkw'), onsetTime = val('onset-time'), ttoed = val('time-to-ed');
+        const onsetType = selVal('onset-type');
+        const onsetNarrative = val('onset-narrative');
+        const symptoms = getChecked('sx-weakness','sx-numbness','sx-speech','sx-vision','sx-diplopia',
+            'sx-ataxia','sx-vertigo','sx-headache','sx-seizure','sx-loc','sx-ams','sx-dysphagia',
+            'sx-neglect','sx-memory','sx-tremor','sx-gait','sx-bladder','sx-pain');
+        const haQuality = selVal('ha-quality'), haLoc = selVal('ha-location');
+        const haSev = val('ha-severity'), haAssoc = val('ha-assoc');
+        const szType = selVal('sz-type'), szDur = val('sz-duration');
+        const szNum = val('sz-number'), szPost = val('sz-postictal'), szHx = val('sz-history');
+        const neuroHx = getChecked('hx-stroke','hx-seizure','hx-ms','hx-pd','hx-dementia',
+            'hx-migraine','hx-neuropathy','hx-mg','hx-gbs','hx-tumor','hx-tbi','hx-hydro');
+        const vascRf = getChecked('rf-htn','rf-dm','rf-hld','rf-afib','rf-smoking','rf-cad',
+            'rf-pad','rf-obesity','rf-osa','rf-coag','rf-drugs','rf-ocp','rf-fhx');
+        const meds = getChecked('med-anticoag','med-antiplatelet','med-aed','med-statin',
+            'med-pd-meds','med-ms-dmt','med-cholinesterase','med-memantine','med-pyridostigmine',
+            'med-steroids','med-triptan','med-psychotropic');
+        const medDetails = val('med-details');
+        const addlHx = val('additional-history');
+
+        note += '▸ RELEVANT HISTORY\n';
+        if (lkw || onsetTime || ttoed || onsetType) {
+            note += 'Onset: ';
+            const parts = [];
+            if (lkw) parts.push('LKW ' + lkw);
+            if (onsetTime) parts.push('symptom onset ' + onsetTime);
+            if (ttoed) parts.push(ttoed + ' from LKW to evaluation');
+            if (onsetType) parts.push(onsetType);
+            note += parts.join(', ') + '\n';
+        }
+        if (onsetNarrative) note += onsetNarrative + '\n';
+        if (symptoms.length) note += 'Presenting symptoms: ' + symptoms.join(', ') + '\n';
+
+        // Headache
+        if (haQuality || haLoc || haSev || haAssoc) {
+            note += 'Headache: ';
+            const hp = [];
+            if (haQuality) hp.push(haQuality);
+            if (haLoc)     hp.push(haLoc);
+            if (haSev)     hp.push(haSev + '/10');
+            if (haAssoc)   hp.push('associated: ' + haAssoc);
+            note += hp.join(', ') + '\n';
+        }
+
+        // Seizure
+        if (szType || szDur || szNum || szPost) {
+            note += 'Seizure: ';
+            const sp = [];
+            if (szType) sp.push(szType);
+            if (szNum)  sp.push(szNum + ' episodes');
+            if (szDur)  sp.push('duration ' + szDur);
+            if (szPost) sp.push('postictal: ' + szPost);
+            note += sp.join(', ') + '\n';
+        }
+        if (szHx) note += 'Seizure/AED history: ' + szHx + '\n';
+
+        if (neuroHx.length) note += 'Prior neurological history: ' + neuroHx.join(', ') + '\n';
+        if (vascRf.length)  note += 'Vascular risk factors: ' + vascRf.join(', ') + '\n';
+        if (meds.length)    note += 'Neurological medications: ' + meds.join(', ') + '\n';
+        if (medDetails)     note += medDetails + '\n';
+        if (addlHx)         note += addlHx + '\n';
+        note += '\n';
+
+        // Exam
+        const bp = val('bp'), hr = val('hr'), temp = val('temp'), spo2 = val('spo2'), rr = val('rr'), bg = val('bg');
+        const locLevel = selVal('loc'), orientation = val('orientation'), gcs = val('gcs');
+        const positives = getExamFindings('positive');
+        const negatives = getExamFindings('negative');
+        const motorLines = getMotorTable();
+        const reflexLines = getReflexTable();
+        const msComments     = val('ms-comments');
+        const cnComments     = val('cn-comments');
+        const motorComments  = val('motor-comments');
+        const reflexComments = val('reflex-comments');
+        const sensoryComments= val('sensory-comments');
+        const coordComments  = val('coord-comments');
+        const gaitComments   = val('gait-comments');
+        const meningComments = val('meningeal-comments');
+
+        if (bp || locLevel || positives.length || negatives.length || motorLines.length) {
+            note += '▸ NEUROLOGICAL EXAMINATION\n';
+            const vitals = [];
+            if (bp)   vitals.push('BP ' + bp);
+            if (hr)   vitals.push('HR ' + hr);
+            if (temp) vitals.push('T ' + temp + '°F');
+            if (spo2) vitals.push('SpO2 ' + spo2);
+            if (rr)   vitals.push('RR ' + rr);
+            if (bg)   vitals.push('BG ' + bg);
+            if (vitals.length) note += 'Vitals: ' + vitals.join(', ') + '\n';
+
+            if (locLevel || orientation || gcs) {
+                note += 'Mental status: ';
+                const ms = [];
+                if (locLevel)     ms.push(locLevel);
+                if (orientation)  ms.push('oriented ' + orientation);
+                if (gcs)          ms.push('GCS ' + gcs);
+                note += ms.join(', ') + '\n';
+            }
+            if (msComments) note += msComments + '\n';
+
+            if (positives.length) note += '\n(+) ' + positives.join(', ') + '\n';
+            if (negatives.length) note += '(-) ' + negatives.join(', ') + '\n';
+
+            if (cnComments)     note += '\nCranial nerves: ' + cnComments + '\n';
+
+            if (motorLines.length) {
+                note += '\nMotor:\n' + motorLines.join('\n') + '\n';
+            }
+            if (motorComments)  note += motorComments + '\n';
+
+            if (reflexLines.length) {
+                note += '\nReflexes:\n' + reflexLines.join('\n') + '\n';
+            }
+            if (reflexComments) note += reflexComments + '\n';
+
+            if (sensoryComments) note += '\nSensory: ' + sensoryComments + '\n';
+            if (coordComments)   note += '\nCoordination: ' + coordComments + '\n';
+            if (gaitComments)    note += '\nGait: ' + gaitComments + '\n';
+            if (meningComments)  note += '\nMeningeal signs: ' + meningComments + '\n';
+
+            note += '\n';
+        }
+
+        // NIHSS
+        const nihssTotal = getNIHSSTotal();
+        if (nihssTotal && !nihssTotal.includes('0 — No stroke')) {
+            note += '▸ NIHSS\n' + nihssTotal + '\n\n';
+        } else if (nihssTotal) {
+            note += '▸ NIHSS\n' + nihssTotal + '\n\n';
+        }
+
+        // Labs
+        const sodium = val('sodium'), potassium = val('potassium'), bunCr = val('bun-cr');
+        const glucose = val('glucose'), calcium = val('calcium'), magnesium = val('magnesium');
+        const hgb = val('hgb'), plt = val('plt'), inr = val('inr'), ptt = val('ptt');
+        const ldl = val('ldl'), hba1c = val('hba1c'), esrCrp = val('esr-crp');
+        const homocys = val('homocysteine'), lpa = val('lpa');
+        const doac = val('doac'), antixa = val('anti-xa'), aedLevel = val('aed-level');
+        const ammonia = val('ammonia'), tsh = val('tsh'), b12 = val('b12');
+        const thiamine = val('thiamine'), rpr = val('rpr'), hiv = val('hiv'), tox = val('tox');
+        const autoimmuneLabs = val('autoimmune-labs');
+        const csfOp = val('csf-op'), csfColor = val('csf-color'), csfWbc = val('csf-wbc');
+        const csfDiff = val('csf-diff'), csfRbc = val('csf-rbc'), csfProtein = val('csf-protein');
+        const csfGluc = val('csf-glucose'), csfSerumGluc = val('csf-serum-gluc');
+        const csfXantho = val('csf-xantho'), csfCulture = val('csf-culture');
+        const csfAddl = val('csf-additional');
+        const eeg = val('eeg'), ncsEmg = val('ncs-emg'), addlLabs = val('additional-labs');
+
+        const hasLabs = sodium||potassium||bunCr||glucose||hgb||ldl||aedLevel||ammonia||tsh||b12||
+                        thiamine||csfOp||eeg||ncsEmg||addlLabs;
+        if (hasLabs) {
+            note += '▸ LABORATORY DATA\n';
+            const bmp = [];
+            if (sodium)    bmp.push('Na ' + sodium);
+            if (potassium) bmp.push('K ' + potassium);
+            if (bunCr)     bmp.push('BUN/Cr ' + bunCr);
+            if (glucose)   bmp.push('Gluc ' + glucose);
+            if (calcium)   bmp.push('Ca ' + calcium);
+            if (magnesium) bmp.push('Mg ' + magnesium);
+            if (bmp.length) note += 'BMP: ' + bmp.join(' / ') + '\n';
+
+            const cbc = [];
+            if (hgb) cbc.push('Hgb ' + hgb);
+            if (plt) cbc.push('Plt ' + plt);
+            if (inr) cbc.push('INR ' + inr);
+            if (ptt) cbc.push('PTT ' + ptt);
+            if (cbc.length) note += 'CBC/Coags: ' + cbc.join(' / ') + '\n';
+
+            const vasc = [];
+            if (ldl)      vasc.push('LDL ' + ldl);
+            if (hba1c)    vasc.push('HbA1c ' + hba1c + '%');
+            if (esrCrp)   vasc.push('ESR/CRP ' + esrCrp);
+            if (homocys)  vasc.push('Homocysteine ' + homocys);
+            if (lpa)      vasc.push('Lp(a) ' + lpa);
+            if (vasc.length) note += 'Vascular labs: ' + vasc.join(' / ') + '\n';
+
+            const spec = [];
+            if (doac)     spec.push('Anticoagulant: ' + doac);
+            if (antixa)   spec.push('Anti-Xa ' + antixa);
+            if (aedLevel) spec.push('AED level: ' + aedLevel);
+            if (ammonia)  spec.push('Ammonia ' + ammonia);
+            if (tsh)      spec.push('TSH ' + tsh);
+            if (b12)      spec.push(b12);
+            if (thiamine) spec.push('Thiamine: ' + thiamine);
+            if (rpr)      spec.push('RPR ' + rpr);
+            if (hiv)      spec.push('HIV ' + hiv);
+            if (tox)      spec.push('Toxicology: ' + tox);
+            if (spec.length) note += spec.join('\n') + '\n';
+
+            if (autoimmuneLabs) note += 'Autoimmune/paraneoplastic: ' + autoimmuneLabs + '\n';
+
+            if (csfOp || csfWbc || csfProtein) {
+                note += '\nCSF Analysis:\n';
+                if (csfOp)     note += '  Opening pressure: ' + csfOp + ' cm H₂O\n';
+                if (csfColor)  note += '  Appearance: ' + csfColor + '\n';
+                const csfLine = [];
+                if (csfWbc)    csfLine.push('WBC ' + csfWbc + (csfDiff ? ' (' + csfDiff + ')' : ''));
+                if (csfRbc)    csfLine.push('RBC ' + csfRbc);
+                if (csfProtein)csfLine.push('Protein ' + csfProtein);
+                if (csfGluc)   csfLine.push('Glucose ' + csfGluc + (csfSerumGluc ? ' (serum ' + csfSerumGluc + ')' : ''));
+                if (csfXantho) csfLine.push('Xanthochromia ' + csfXantho);
+                if (csfLine.length) note += '  ' + csfLine.join(', ') + '\n';
+                if (csfCulture) note += '  Gram stain/Culture: ' + csfCulture + '\n';
+                if (csfAddl)    note += '  ' + csfAddl + '\n';
+            }
+
+            if (eeg)    note += '\nEEG: ' + eeg + '\n';
+            if (ncsEmg) note += '\nNCS/EMG: ' + ncsEmg + '\n';
+            if (addlLabs) note += addlLabs + '\n';
+            note += '\n';
+        }
+
+        // Imaging
+        const ctHead = val('ct-head'), aspects = val('aspects'), ichVol = val('ich-volume');
+        const cta = val('cta'), ctp = val('ctp'), mriBrain = val('mri-brain');
+        const mraMrv = val('mra-mrv'), otherImg = val('other-imaging');
+
+        if (ctHead || cta || ctp || mriBrain || mraMrv || otherImg) {
+            note += '▸ NEUROIMAGING\n';
+            if (ctHead) {
+                note += 'CT Head (non-contrast): ' + ctHead + '\n';
+                if (aspects) note += '  ASPECTS: ' + aspects + '\n';
+                if (ichVol)  note += '  ICH volume: ' + ichVol + '\n';
+            }
+            if (cta)     note += 'CTA Head/Neck: ' + cta + '\n';
+            if (ctp)     note += 'CT Perfusion: ' + ctp + '\n';
+            if (mriBrain)note += 'MRI Brain: ' + mriBrain + '\n';
+            if (mraMrv)  note += 'MRA/MRV: ' + mraMrv + '\n';
+            if (otherImg)note += otherImg + '\n';
+            note += '\n';
+        }
+
+        // Assessment
+        const localization = selVal('localization');
+        const locComments = val('localization-comments');
+        const toastMech = getSelectedStageByGroup('#assessment .stage-selector');
+        const primaryDx = val('primary-dx');
+        const differential = val('differential');
+        const synthesis = val('synthesis');
+
+        if (localization || primaryDx || differential || synthesis) {
+            note += '▸ ASSESSMENT\n';
+            if (localization)  note += 'Neuroanatomic localization: ' + localization + '\n';
+            if (locComments)   note += locComments + '\n';
+            if (toastMech)     note += 'Stroke mechanism (TOAST): ' + toastMech + '\n';
+            if (primaryDx)     note += '\nPrimary diagnosis: ' + primaryDx + '\n';
+            if (differential)  note += '\nDifferential:\n' + differential + '\n';
+            if (synthesis)     note += '\nSynthesis: ' + synthesis + '\n';
+            note += '\n';
+        }
+
+        // Recommendations
+        const recsAcute         = val('recs-acute');
+        const recsAntithromb    = val('recs-antithrombotic');
+        const recsSeizure       = val('recs-seizure');
+        const recsBp            = val('recs-bp');
+        const recsWorkup        = val('recs-workup');
+        const recsSupportive    = val('recs-supportive');
+        const recsMeds          = val('recs-meds');
+        const recsMonitoring    = val('recs-monitoring');
+        const consults          = getChecked('cons-neurosurg','cons-neurointerv','cons-neuropsych',
+            'cons-slp','cons-pt','cons-ot','cons-cardio','cons-rheum','cons-heme',
+            'cons-psychiatry','cons-palliative','cons-sw');
+        const consultDetails    = val('consult-details');
+        const recsOther         = val('recs-other');
+
+        if (recsAcute||recsAntithromb||recsSeizure||recsBp||recsWorkup||recsSupportive||
+            recsMeds||recsMonitoring||consults.length||recsOther) {
+            note += '▸ RECOMMENDATIONS\n';
+            if (recsAcute)       note += '\n[Acute Interventions]\n' + recsAcute + '\n';
+            if (recsAntithromb)  note += '\n[Antithrombotic / Anticoagulation]\n' + recsAntithromb + '\n';
+            if (recsSeizure)     note += '\n[Seizure Management]\n' + recsSeizure + '\n';
+            if (recsBp)          note += '\n[BP / Hemodynamic Management]\n' + recsBp + '\n';
+            if (recsWorkup)      note += '\n[Diagnostic Workup]\n' + recsWorkup + '\n';
+            if (recsSupportive)  note += '\n[Neuroprotective / Supportive Care]\n' + recsSupportive + '\n';
+            if (recsMeds)        note += '\n[Medication Adjustments]\n' + recsMeds + '\n';
+            if (recsMonitoring)  note += '\n[Monitoring Plan]\n' + recsMonitoring + '\n';
+            if (consults.length) {
+                note += '\n[Subspecialty Consults]\n' + consults.join(', ') + '\n';
+                if (consultDetails) note += consultDetails + '\n';
+            }
+            if (recsOther)       note += '\n[Additional]\n' + recsOther + '\n';
+            note += '\n';
+        }
+
+        // Disposition
+        const disposition    = selVal('disposition');
+        const prognosis      = val('prognosis');
+        const rehab          = val('rehab');
+        const secPrev        = val('secondary-prevention');
+        const followupPlan   = val('followup-plan');
+        const attending      = val('attending');
+
+        if (disposition||prognosis||rehab||secPrev||followupPlan||attending) {
+            note += '▸ DISPOSITION & FOLLOW-UP\n';
+            if (disposition)  note += 'Level of care: ' + disposition + '\n';
+            if (prognosis)    note += 'Prognosis / GOC: ' + prognosis + '\n';
+            if (rehab)        note += 'Rehabilitation: ' + rehab + '\n';
+            if (secPrev)      note += '\nSecondary prevention:\n' + secPrev + '\n';
+            if (followupPlan) note += '\nOutpatient follow-up: ' + followupPlan + '\n';
+            if (attending)    note += '\nNeurology: ' + attending + '\n';
+            note += '\n';
+        }
+
+        const LINE2 = '═══════════════════════════════════════════════════════════\n';
+        note += LINE2;
+        note += 'Will continue to follow. Please contact neurology with questions.\n';
+        note += LINE2;
+
+        document.getElementById('generated-note').textContent = note;
+    }
+
+    function copyNote() {
+        const text = document.getElementById('generated-note').textContent;
+        navigator.clipboard.writeText(text).then(
+            () => showToast('Copied to clipboard!'),
+            () => showToast('Failed to copy')
+        );
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        calcNIHSS();
+        document.querySelectorAll('.section').forEach((s, i) => {
+            if (i > 3) s.classList.add('collapsed');
+        });
+    });
+</script>
+
+<script>
+window.addEventListener("message", function(e) {
+    if (e.data && e.data.type === "SW_VERSION") {
+        var el = document.getElementById("component-version");
+        if (el) el.textContent = e.data.version;
+    }
+});
+</script>
+
+<!-- ═══════════════════════════════════════════════════════
+     AI AUTO-FILL — NEUROLOGY CONSULT
+     Calls Anthropic API with diagnosis → populates plan fields
+     ═══════════════════════════════════════════════════════ -->
+<style>
+.ai-modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55); z-index: 9000;
+    align-items: center; justify-content: center;
+}
+.ai-modal-overlay.active { display: flex; }
+.ai-modal {
+    background: #1e293b; border: 1px solid #334155;
+    border-radius: 12px; padding: 28px 32px;
+    max-width: 420px; width: 90%; text-align: center;
+    color: #f1f5f9; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+.ai-modal-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.ai-modal h3 { margin: 0 0 8px; font-size: 1.1rem; color: #e2e8f0; }
+.ai-modal p  { margin: 0 0 18px; font-size: 0.85rem; color: #94a3b8; line-height: 1.5; }
+.ai-spinner {
+    display: inline-block; width: 32px; height: 32px;
+    border: 3px solid #334155; border-top-color: #6366f1;
+    border-radius: 50%; animation: ai-spin 0.8s linear infinite;
+    margin-bottom: 12px;
+}
+@keyframes ai-spin { to { transform: rotate(360deg); } }
+.ai-modal-btn {
+    background: #6366f1; color: #fff; border: none;
+    padding: 8px 20px; border-radius: 6px;
+    cursor: pointer; font-size: 0.85rem; font-weight: 600;
+    transition: background 0.2s;
+}
+.ai-modal-btn:hover { background: #4f46e5; }
+.ai-modal-btn.secondary {
+    background: #334155; margin-left: 8px;
+}
+.ai-modal-btn.secondary:hover { background: #475569; }
+.ai-filled-badge {
+    display: inline-block; background: #10b981;
+    color: #fff; font-size: 0.72rem; font-weight: 700;
+    padding: 2px 7px; border-radius: 4px;
+    margin-left: 6px; vertical-align: middle; letter-spacing: 0.03em;
+}
+</style>
+
+<!-- AI Modal -->
+<div class="ai-modal-overlay" id="ai-modal-overlay">
+    <div class="ai-modal" id="ai-modal-content">
+        <div id="ai-modal-loading">
+            <div class="ai-spinner"></div>
+            <h3>Generating Neurology Recommendations…</h3>
+            <p>Analyzing diagnosis and populating evidence-based plan, medications, and workup.</p>
+        </div>
+        <div id="ai-modal-error" style="display:none;">
+            <div class="ai-modal-icon">⚠️</div>
+            <h3>Unable to Generate</h3>
+            <p id="ai-error-msg">An error occurred. Please try again or fill fields manually.</p>
+            <button class="ai-modal-btn" onclick="closeAiModal()">Close</button>
+        </div>
+        <div id="ai-modal-success" style="display:none;">
+            <div class="ai-modal-icon">✅</div>
+            <h3>Fields Populated</h3>
+            <p>Review and edit the suggested content before generating your note.</p>
+            <button class="ai-modal-btn" onclick="closeAiModal()">Review</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ── AI Autofill ──────────────────────────────────────────────────────────
+function openAiModal(mode) {
+    document.getElementById('ai-modal-overlay').classList.add('active');
+    document.getElementById('ai-modal-loading').style.display = mode === 'loading' ? '' : 'none';
+    document.getElementById('ai-modal-error').style.display   = mode === 'error'   ? '' : 'none';
+    document.getElementById('ai-modal-success').style.display = mode === 'success' ? '' : 'none';
+}
+function closeAiModal() {
+    document.getElementById('ai-modal-overlay').classList.remove('active');
+}
+
+async function aiSuggest() {
+    // Gather context
+    const dxEl = document.getElementById('consult-question');
+    const dx = dxEl ? dxEl.value.trim() : '';
+    if (!dx) {
+        alert('Please enter a diagnosis or consult question first.');
+        return;
+    }
+
+    // Collect additional context from checked boxes / key fields
+    const contextParts = [dx];
+    document.querySelectorAll('input[type=checkbox]:checked').forEach(cb => {
+        const lbl = document.querySelector('label[for="' + cb.id + '"]');
+        if (lbl) contextParts.push(lbl.textContent.trim());
+    });
+
+    const userPrompt = 'Consult question / diagnosis: ' + contextParts.join(', ');
+
+    openAiModal('loading');
+
+    try {
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: 'claude-sonnet-4-20250514',
+                max_tokens: 2000,
+                system: `You are an expert neurologist. Given a consult question or diagnosis, return ONLY a JSON object with these keys:
+impression: diagnosis with localization, severity (NIHSS if stroke, mRS, Hunt-Hess if SAH), and mechanism
+differential: neurological differentials with anatomic/physiologic reasoning
+synthesis: localization logic and pathophysiology connecting exam findings to diagnosis
+acute: time-sensitive interventions (tPA eligibility/dose/window, thrombectomy criteria, seizure protocol, mannitol dosing)
+antithrombotic: specific antiplatelet or anticoagulation with agent, dose, timing, and duration
+seizure: AED with specific drug, loading dose, maintenance dose, target level
+bp: specific BP target and agents (permissive HTN post-stroke vs tight control) with doses
+workup: neuroimaging, EEG, LP, EMG/NCS, labs with urgency and indications
+medications: all neurological medication adjustments with doses
+monitoring: neuro check frequency, continuous EEG indications, ICP monitoring
+secondary_prev: long-term secondary prevention (BP target <130/80, LDL <70, antiplatelet/anticoag, lifestyle)
+
+Only populate keys relevant to the diagnosis; use "" for irrelevant keys. Return ONLY valid JSON.`,
+                messages: [{ role: 'user', content: userPrompt }]
+            })
+        });
+
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw new Error(err.error?.message || 'API error ' + response.status);
+        }
+
+        const result = await response.json();
+        const raw = result.content?.find(b => b.type === 'text')?.text || '';
+
+        // Strip markdown fences if present
+        const cleaned = raw.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
+        let data;
+        try {
+            data = JSON.parse(cleaned);
+        } catch(e) {
+            throw new Error('Could not parse response. Raw: ' + raw.substring(0, 200));
+        }
+
+        // Populate fields
+        if (data.impression !== undefined && data.impression !== '') {
+            const el = document.getElementById('primary-dx');
+            if (el) el.value = data.impression;
+        }
+        if (data.differential !== undefined && data.differential !== '') {
+            const el = document.getElementById('differential');
+            if (el) el.value = data.differential;
+        }
+        if (data.synthesis !== undefined && data.synthesis !== '') {
+            const el = document.getElementById('synthesis');
+            if (el) el.value = data.synthesis;
+        }
+        if (data.acute !== undefined && data.acute !== '') {
+            const el = document.getElementById('recs-acute');
+            if (el) el.value = data.acute;
+        }
+        if (data.antithrombotic !== undefined && data.antithrombotic !== '') {
+            const el = document.getElementById('recs-antithrombotic');
+            if (el) el.value = data.antithrombotic;
+        }
+        if (data.seizure !== undefined && data.seizure !== '') {
+            const el = document.getElementById('recs-seizure');
+            if (el) el.value = data.seizure;
+        }
+        if (data.bp !== undefined && data.bp !== '') {
+            const el = document.getElementById('recs-bp');
+            if (el) el.value = data.bp;
+        }
+        if (data.workup !== undefined && data.workup !== '') {
+            const el = document.getElementById('recs-workup');
+            if (el) el.value = data.workup;
+        }
+        if (data.medications !== undefined && data.medications !== '') {
+            const el = document.getElementById('recs-meds');
+            if (el) el.value = data.medications;
+        }
+        if (data.monitoring !== undefined && data.monitoring !== '') {
+            const el = document.getElementById('recs-monitoring');
+            if (el) el.value = data.monitoring;
+        }
+        if (data.secondary_prev !== undefined && data.secondary_prev !== '') {
+            const el = document.getElementById('secondary-prevention');
+            if (el) el.value = data.secondary_prev;
+        }
+
+        // Mark fields as AI-filled
+        document.querySelectorAll('[id^="recs-"],[id="impression"],[id="primary-dx"],[id="differential"],[id="synthesis"],[id="problem-list"],[id="recommendations"]').forEach(el => {
+            if (el.value && !el.dataset.aiFilled) {
+                el.dataset.aiFilled = '1';
+                el.style.borderColor = '#10b981';
+                const lbl = document.querySelector('label[for="' + el.id + '"]') ||
+                            el.closest('.form-group')?.querySelector('label');
+                if (lbl && !lbl.querySelector('.ai-filled-badge')) {
+                    lbl.insertAdjacentHTML('beforeend', '<span class="ai-filled-badge">AI</span>');
+                }
+            }
+        });
+
+        openAiModal('success');
+
+    } catch(err) {
+        document.getElementById('ai-error-msg').textContent = err.message || 'Unknown error';
+        openAiModal('error');
+        console.error('AI Suggest error:', err);
+    }
+}
+</script>
+</body>
+</html>

@@ -6,7 +6,7 @@
     <title>Clinical Reference Suite</title>
     <style>
         :root {
-            --sidebar-width-expanded: 220px;
+            --sidebar-width-expanded: 230px;
             --sidebar-width-collapsed: 60px;
             --header-height: 50px;
             --primary-color: #2c3e50;
@@ -28,999 +28,741 @@
 
         /* Header */
         .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            position: fixed; top: 0; left: 0; right: 0;
             height: var(--header-height);
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: flex; align-items: center; padding: 0 15px;
+            z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
-        .header-logo {
-            width: 36px;
-            height: 36px;
-            margin-right: 12px;
-        }
-        .header-title {
-            color: var(--text-color);
-            font-size: 18px;
-            font-weight: 600;
-        }
-        .header-subtitle {
-            color: #bdc3c7;
-            font-size: 12px;
-            margin-left: 10px;
-        }
+        .header-logo { width: 36px; height: 36px; margin-right: 12px; }
+        .header-title { color: var(--text-color); font-size: 18px; font-weight: 600; }
+        .header-subtitle { color: #bdc3c7; font-size: 12px; margin-left: 10px; }
 
         /* Sidebar */
         .sidebar {
-            position: fixed;
-            top: var(--header-height);
-            left: 0;
-            bottom: 0;
+            position: fixed; top: var(--header-height); left: 0; bottom: 0;
             width: var(--sidebar-width-collapsed);
             background: linear-gradient(180deg, var(--primary-color), #1a252f);
-            transition: width 0.3s ease;
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
-            overflow: hidden;
+            transition: width 0.3s ease; z-index: 999;
+            display: flex; flex-direction: column;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3); overflow: hidden;
         }
         .sidebar.expanded { width: var(--sidebar-width-expanded); }
 
         .sidebar-toggle {
-            width: 100%;
-            padding: 15px;
-            background: transparent;
-            border: none;
-            color: var(--text-color);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            width: 100%; padding: 15px; background: transparent; border: none;
+            color: var(--text-color); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; border-bottom: 1px solid rgba(255,255,255,0.1);
             -webkit-tap-highlight-color: rgba(255,255,255,0.2);
-            touch-action: manipulation;
-            min-height: 50px;
+            touch-action: manipulation; min-height: 50px;
         }
         .sidebar.expanded .sidebar-toggle { justify-content: flex-end; padding-right: 20px; }
         .sidebar-toggle:hover { background: var(--hover-color); }
 
-        .nav-items {
-            flex: 1;
-            padding: 10px 0;
-            overflow-y: auto;
-            overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            color: #bdc3c7;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-            border-left: 3px solid transparent;
-            text-decoration: none;
-            -webkit-tap-highlight-color: rgba(52, 152, 219, 0.3);
-            touch-action: manipulation;
-            min-height: 54px;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-        .nav-item:hover { background: var(--hover-color); color: var(--text-color); }
-        .nav-item.active { background: var(--accent-color); color: white; border-left-color: #fff; }
-
-        .nav-icon {
-            font-size: 22px;
-            min-width: 34px;
-            text-align: center;
-        }
-        .nav-label {
-            margin-left: 12px;
-            font-size: 14px;
-            font-weight: 500;
+        /* Sidebar section headers */
+        .nav-section-header {
+            padding: 10px 15px 4px;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.35);
             white-space: nowrap;
             opacity: 0;
             visibility: hidden;
-            pointer-events: none;
             transition: opacity 0.2s, visibility 0.2s;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            margin-top: 4px;
+        }
+        .sidebar.expanded .nav-section-header { opacity: 1; visibility: visible; }
+
+        .nav-items {
+            flex: 1; padding: 10px 0;
+            overflow-y: auto; overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        .nav-item {
+            display: flex; align-items: center; padding: 12px 15px;
+            color: #bdc3c7; cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            border-left: 3px solid transparent;
+            -webkit-tap-highlight-color: rgba(52,152,219,0.3);
+            touch-action: manipulation; min-height: 48px;
+            -webkit-user-select: none; user-select: none;
+        }
+        .nav-item:hover { background: var(--hover-color); color: var(--text-color); }
+        .nav-item.active { background: var(--accent-color); color: white; border-left-color: #fff; }
+        .nav-icon { font-size: 20px; min-width: 32px; text-align: center; }
+        .nav-label {
+            margin-left: 12px; font-size: 13px; font-weight: 500;
+            white-space: nowrap; opacity: 0; visibility: hidden;
+            pointer-events: none; transition: opacity 0.2s, visibility 0.2s;
         }
         .sidebar.expanded .nav-label { opacity: 1; visibility: visible; pointer-events: auto; }
 
         /* Main Content */
         .main-content {
-            position: fixed;
-            top: var(--header-height);
-            left: var(--sidebar-width-collapsed);
-            right: 0;
-            bottom: 0;
-            transition: left 0.3s ease;
-            background: #16213e;
-            -webkit-transform: translateZ(0);
-            transform: translateZ(0);
+            position: fixed; top: var(--header-height);
+            left: var(--sidebar-width-collapsed); right: 0; bottom: 0;
+            transition: left 0.3s ease; background: #16213e;
+            -webkit-transform: translateZ(0); transform: translateZ(0);
         }
         .sidebar.expanded ~ .main-content { left: var(--sidebar-width-expanded); }
 
         .tool-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: none;
-            -webkit-overflow-scrolling: touch;
-            overflow: auto;
+            width: 100%; height: 100%; border: none; display: none;
+            -webkit-overflow-scrolling: touch; overflow: auto;
         }
         .tool-frame.active { display: block; }
 
-        /* Loading indicator */
+        /* Home */
+        #homeContent {
+            padding: 28px; overflow-y: auto; height: 100%;
+            background: #f7fafc;
+        }
+        .home-inner { max-width: 1200px; margin: 0 auto; }
+        .home-title { color: #1a365d; margin: 0 0 6px 0; font-size: 1.75rem; }
+        .home-subtitle { color: #718096; margin: 0 0 28px 0; }
+
+        /* Section headers */
+        .section-heading {
+            color: #1a365d; font-size: 1.05rem; margin: 0 0 14px 0;
+            padding-bottom: 8px; border-bottom: 2px solid #e2e8f0;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .section-heading .badge {
+            font-size: 0.7rem; background: #e2e8f0; color: #4a5568;
+            padding: 2px 8px; border-radius: 10px; font-weight: 600;
+        }
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 16px; margin-bottom: 28px;
+        }
+        .tool-card {
+            background: #fff; border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer; overflow: hidden;
+            transition: box-shadow 0.2s, transform 0.15s;
+            border-top: 4px solid transparent;
+        }
+        .tool-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.14); transform: translateY(-1px); }
+        .card-header {
+            color: #fff; padding: 16px 18px; font-weight: 700; font-size: 0.95rem;
+        }
+        .card-body { padding: 14px 18px; }
+        .card-body p { color: #718096; margin: 0 0 10px 0; font-size: 0.88rem; line-height: 1.5; }
+        .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .card-tag {
+            background: #f0f4f8; padding: 4px 10px; border-radius: 6px;
+            font-size: 0.78rem; font-weight: 600; color: #2c5282;
+        }
+
+        /* Organ system browser */
+        .organ-browser {
+            background: #fff; border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 22px; margin-bottom: 20px;
+        }
+        .organ-browser h3 { color: #1a365d; margin: 0 0 18px 0; font-size: 1rem; }
+        .organ-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+            gap: 20px;
+        }
+        .organ-col h4 {
+            color: #24292e; font-size: 0.85rem; margin: 0 0 8px 0;
+            padding-bottom: 5px; border-bottom: 1px solid #e1e4e8;
+        }
+        .organ-link {
+            padding: 3px 0; cursor: pointer; color: #0366d6;
+            font-size: 0.82rem; display: block; transition: color 0.15s;
+        }
+        .organ-link:hover { color: #024ea4; text-decoration: underline; }
+        .organ-link.consult {
+            color: #047857; font-weight: 600;
+        }
+        .organ-link.consult:hover { color: #034d3a; }
+        .organ-link.note {
+            color: #5c4033; font-weight: 600;
+        }
+        .organ-link.note:hover { color: #3e2723; }
+
+        /* Loading */
         .loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
+            position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            color: var(--text-color);
-            font-size: 18px;
+            color: var(--text-color); font-size: 18px;
         }
         .loading::after {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #fff;
-            border-top-color: transparent;
-            border-radius: 50%;
-            margin-left: 10px;
-            animation: spin 1s linear infinite;
-            vertical-align: middle;
+            content: ''; display: inline-block;
+            width: 20px; height: 20px;
+            border: 2px solid #fff; border-top-color: transparent;
+            border-radius: 50%; margin-left: 10px;
+            animation: spin 1s linear infinite; vertical-align: middle;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Mobile responsive */
-        @media (max-width: 768px) {
-            .header-subtitle { display: none; }
-            .sidebar { width: var(--sidebar-width-collapsed); }
-            .sidebar.expanded { width: 200px; }
-            .main-content { left: var(--sidebar-width-collapsed); }
-            .sidebar.expanded ~ .main-content { left: 200px; }
-        }
-        /* ── Update notification banner ────────────────────────────────────── */
+        /* Update banner */
         #update-banner {
-          display: none;
-          position: fixed;
-          top: var(--header-height);
-          left: 0;
-          right: 0;
-          z-index: 9999;
-          background: linear-gradient(135deg, #1e3a5f, #2563eb);
-          color: white;
-          padding: 12px 20px;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-          font-size: 14px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-          box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-          animation: slideDown 0.3s ease-out;
+            display: none; position: fixed; top: var(--header-height);
+            left: 0; right: 0; z-index: 9999;
+            background: linear-gradient(135deg, #1e3a5f, #2563eb);
+            color: white; padding: 12px 20px; font-size: 14px;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease-out;
         }
         #update-banner.hidden { display: none !important; }
         @keyframes slideDown {
-          from { transform: translateY(-100%); opacity: 0; }
-          to   { transform: translateY(0);     opacity: 1; }
+            from { transform: translateY(-100%); opacity: 0; }
+            to   { transform: translateY(0);     opacity: 1; }
         }
-        #update-banner .banner-text {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          flex: 1;
-        }
+        #update-banner .banner-text { display: flex; align-items: center; gap: 8px; flex: 1; }
         #update-banner .banner-icon { font-size: 20px; }
-        #update-banner .banner-actions {
-          display: flex;
-          gap: 8px;
-          flex-shrink: 0;
-        }
+        #update-banner .banner-actions { display: flex; gap: 8px; flex-shrink: 0; }
         #update-banner button {
-          padding: 6px 14px;
-          border: none;
-          border-radius: 6px;
-          font-size: 13px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: opacity 0.15s;
+            padding: 6px 14px; border: none; border-radius: 6px;
+            font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity 0.15s;
         }
-        #update-banner button:active { opacity: 0.8; }
-        #btn-apply-update {
-          background: #ffffff;
-          color: #1e3a5f;
-        }
-        #btn-dismiss-update {
-          background: rgba(255,255,255,0.2);
-          color: white;
-        }
+        #btn-apply-update { background: #ffffff; color: #1e3a5f; }
+        #btn-dismiss-update { background: rgba(255,255,255,0.2); color: white; }
 
-        /* ── Offline indicator (bottom-right) ──────────────────────────────── */
+        /* Offline indicator */
         #offline-indicator {
-          display: none;
-          position: fixed;
-          bottom: 16px;
-          right: 16px;
-          z-index: 9998;
-          background: #374151;
-          color: white;
-          padding: 8px 14px;
-          border-radius: 20px;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-          font-size: 12px;
-          font-weight: 500;
-          opacity: 0;
-          transition: opacity 0.3s;
-          pointer-events: none;
+            display: none; position: fixed; bottom: 16px; right: 16px;
+            z-index: 9998; background: #374151; color: white;
+            padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
+            opacity: 0; transition: opacity 0.3s; pointer-events: none;
         }
         #offline-indicator.visible {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          opacity: 1;
+            display: flex; align-items: center; gap: 6px; opacity: 1;
         }
 
-        /* ── SW version chip (shows current cached version) ────────────────── */
-        #sw-version-chip {
-          display: none;
-          font-size: 11px;
-          opacity: 0.6;
-          margin-left: 8px;
-          font-family: monospace;
+        @media (max-width: 768px) {
+            .header-subtitle { display: none; }
+            .sidebar { width: var(--sidebar-width-collapsed); }
+            .sidebar.expanded { width: 210px; }
+            .main-content { left: var(--sidebar-width-collapsed); }
+            .sidebar.expanded ~ .main-content { left: 210px; }
+            #homeContent { padding: 16px; }
+            .organ-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
         }
-
     </style>
-
-    <!-- ── 1. ADD TO <head> ────────────────────────────────────────────────── -->
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ClinRef">
     <meta name="theme-color" content="#1e3a5f">
-    <!-- ── End head additions ─────────────────────────────────────────────── -->
-
 </head>
 <body ontouchstart="">
 
-  <!-- Update available banner — hidden until SW detects new version -->
-  <div id="update-banner" class="hidden" role="alert" aria-live="polite">
+<div id="update-banner" class="hidden" role="alert" aria-live="polite">
     <div class="banner-text">
-      <span class="banner-icon">🔄</span>
-      <span>
-        Clinical Reference Suite update available
-        <span id="sw-version-chip"></span>
-      </span>
+        <span class="banner-icon">🔄</span>
+        <span>Clinical Reference Suite update available</span>
     </div>
     <div class="banner-actions">
-      <button id="btn-apply-update" onclick="applyUpdate()">Update Now</button>
-      <button id="btn-dismiss-update" onclick="dismissUpdate()">Later</button>
+        <button id="btn-apply-update" onclick="applyUpdate()">Update Now</button>
+        <button id="btn-dismiss-update" onclick="dismissUpdate()">Later</button>
     </div>
-  </div>
-
-  <!-- Offline mode indicator -->
-  <div id="offline-indicator" aria-label="Offline mode active">
+</div>
+<div id="offline-indicator" aria-label="Offline mode active">
     <span>✈️</span> Offline — Cached version
-  </div>
+</div>
 
-  <!-- ── End body additions ─────────────────────────────────────────────── -->
-    <!-- Header -->
-    <header class="header">
-        <img src="https://raw.githubusercontent.com/comstocd/rapid-response-tool/main/caduceus.png" alt="Logo" class="header-logo">
-        <span class="header-title">Clinical Reference Suite</span>
-        <span class="header-subtitle">Internal Medicine Tools • <span id="suite-version">...</span></span>
-    </header>
+<header class="header">
+    <img src="https://raw.githubusercontent.com/comstocd/rapid-response-tool/main/caduceus.png" alt="Logo" class="header-logo">
+    <span class="header-title">Clinical Reference Suite</span>
+    <span class="header-subtitle">Internal Medicine • <span id="suite-version">...</span></span>
+</header>
 
-    <!-- Sidebar -->
-    <nav class="sidebar" id="sidebar">
-        <button class="sidebar-toggle" id="sidebarToggle" title="Toggle Sidebar">
-            <span id="toggleIcon">☰</span>
-        </button>
-        <div class="nav-items" id="navItems">
-            <!-- Nav items injected by JavaScript -->
-        </div>
-    </nav>
+<nav class="sidebar" id="sidebar">
+    <button class="sidebar-toggle" id="sidebarToggle" title="Toggle Sidebar">
+        <span id="toggleIcon">☰</span>
+    </button>
+    <div class="nav-items" id="navItems"></div>
+</nav>
 
-    <!-- Main Content -->
-    <main class="main-content" id="mainContent">
-        <div class="loading" id="loadingIndicator" style="display:none;">Loading tool...</div>
+<main class="main-content" id="mainContent">
+    <div class="loading" id="loadingIndicator" style="display:none;">Loading tool...</div>
 
-        <!-- Home Content with Tiles -->
-        <div id="homeContent" style="padding:30px; overflow-y:auto; height:100%; background:#f7fafc;">
-            <div style="max-width:1200px; margin:0 auto;">
-                <h1 style="color:#1a365d; margin:0 0 10px 0; font-size:1.8rem;">📚 Clinical Reference Suite <span id="home-version" style="font-size:0.5em; color:#e74c3c; font-weight:600;">...</span></h1>
-                <p style="color:#718096; margin:0 0 30px 0;">Evidence-based point-of-care references for hospital medicine</p>
+    <div id="homeContent">
+      <div class="home-inner">
+        <h1 class="home-title">📚 Clinical Reference Suite <span id="home-version" style="font-size:0.45em;color:#e74c3c;font-weight:600;"></span></h1>
+        <p class="home-subtitle">Evidence-based point-of-care references for internal medicine</p>
 
-                <h2 style="color:#1a365d; font-size:1.2rem; margin:0 0 15px 0; padding-bottom:10px; border-bottom:2px solid #e2e8f0;">📖 Core Reference Guides</h2>
-                <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:20px; margin-bottom:30px;">
-                    <div onclick="switchTool('imcrg')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#1e3a5f,#2d5a87); color:#fff; padding:20px; font-weight:700;">📚 Internal Medicine Clinical Reference Guide</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Comprehensive hospital medicine reference covering essential conditions with evidence-based diagnostic workups, treatment protocols, and clinical pearls.</p>
-                            <span style="background:#f0f4f8; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:600; color:#2c5282;">338 Conditions</span>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('id')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#004080,#0066cc); color:#fff; padding:20px; font-weight:700;">🦠 Infectious Disease Guide</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Antibiotic selection, empiric therapy, pathogen-specific guidance, renal dosing, IV-to-PO conversion, and antimicrobial stewardship tools.</p>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('labs')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#0d47a1,#1976d2); color:#fff; padding:20px; font-weight:700;">🔬 Laboratory Values Reference</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Normal ranges, critical values, and interpretation guidance for common laboratory tests including CBC, BMP, LFTs, coagulation studies, and more.</p>
-                            <span style="background:#f0f4f8; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:600; color:#2c5282;">134 Tests</span>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('dxfx')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#00695c,#00897b); color:#fff; padding:20px; font-weight:700;">🩺 Diagnostic Framework</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Systematic approaches to common clinical presentations including chest pain, dyspnea, altered mental status, and acid-base disorders.</p>
-                        </div>
-                    </div>
+        <!-- ── REFERENCE GUIDES ── -->
+        <h2 class="section-heading">📖 Reference Guides <span class="badge">4 tools</span></h2>
+        <div class="tool-grid">
+            <div class="tool-card" onclick="switchTool('imcrg')" style="border-top-color:#2d5a87;">
+                <div class="card-header" style="background:linear-gradient(135deg,#1e3a5f,#2d5a87);">📚 IM Clinical Reference Guide</div>
+                <div class="card-body">
+                    <p>Comprehensive hospital medicine reference covering essential conditions with evidence-based diagnostic workups, treatment protocols, and clinical pearls.</p>
+                    <div class="card-tags"><span class="card-tag">323 Conditions</span><span class="card-tag">Searchable</span></div>
                 </div>
-
-                <h2 style="color:#1a365d; font-size:1.2rem; margin:0 0 15px 0; padding-bottom:10px; border-bottom:2px solid #e2e8f0;">🛠️ Practical Tools</h2>
-                <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:20px; margin-bottom:30px;">
-                    <div onclick="switchTool('drugref')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#8e44ad,#9b59b6); color:#fff; padding:20px; font-weight:700;">💊 Drug Reference Guide</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Comprehensive medication reference with dosing, mechanisms, side effects, black box warnings, clinical pearls, and adjunct therapy recommendations.</p>
-                            <span style="background:#f0f4f8; padding:6px 12px; border-radius:6px; font-size:0.85rem; font-weight:600; color:#2c5282;">280 Medications</span>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('drugs')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#5c4d7d,#7c6a9a); color:#fff; padding:20px; font-weight:700;">⚠️ Drug Interactions Reference</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">High-yield drug interactions for warfarin, DOACs, immunosuppressants, CYP450 interactions, QT prolongation risk, and serotonin syndrome.</p>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('procedures')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#2d5a4a,#3d7a6a); color:#fff; padding:20px; font-weight:700;">💉 Procedures Quick Reference</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Bedside procedure guidance including paracentesis, thoracentesis, lumbar puncture, and arthrocentesis with fluid interpretation tables.</p>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('abxsteward')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#059669,#047857); color:#fff; padding:20px; font-weight:700;">🦠 Antimicrobial Stewardship</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Empiric therapy by syndrome, evidence-based durations, de-escalation pathways, IV-to-PO conversion, and culture stewardship.</p>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('renaldose')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#3b82f6,#1d4ed8); color:#fff; padding:20px; font-weight:700;">💧 Renal Dosing Reference</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Drug adjustments by CrCl for antibiotics, antivirals, cardiac meds, and more. HD supplementation and drugs to avoid in CKD.</p>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('nephroconsult')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#1a5f7a,#2d8cb8); color:#fff; padding:20px; font-weight:700;">🩺 Nephrology Consult Note</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Structured consult template with KDIGO staging, urinalysis interpretation, FENa reference, AEIOU dialysis indications, and one-click note generation.</p>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('rheumconsult')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#5b21b6,#7c3aed); color:#fff; padding:20px; font-weight:700;">🦴 Rheumatology Consult Note</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Structured consult template with joint pattern recognition, autoantibody interpretation, synovial fluid analysis, classification criteria, and one-click note generation.</p>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('idconsult')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#047857,#059669); color:#fff; padding:20px; font-weight:700;">🦠 ID Consult Note</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Structured consult template with culture review, MDR risk assessment, antimicrobial stewardship, source control, duration guidance, and one-click note generation.</p>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('cardioconsult')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#c0392b,#e74c3c); color:#fff; padding:20px; font-weight:700;">❤️ Cardiology Consult Note</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Structured consult with HFpEF diagnostic algorithms (H₂FPEF, HFA-PEFF, ABA scores), echo interpretation, NYHA classification, and GDMT optimization.</p>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('endoconsult')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#074a41,#0d6b5e); color:#fff; padding:20px; font-weight:700;">🦋 Endocrinology Consult Note</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Structured consult template covering glycemic management, thyroid, adrenal/cortisol, calcium/bone, and pituitary. Includes TFT pitfall callouts, cortisol interpretation, endocrine emergency checklist, and one-click note generation.</p>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('neuroconsult')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden;">
-                        <div style="background:linear-gradient(135deg,#1a0f40,#2d1b69); color:#fff; padding:20px; font-weight:700;">🧠 Neurology Consult Note</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Structured consult covering stroke (NIHSS calculator, tPA/thrombectomy criteria, TOAST classification), seizure, meningitis, GBS, myasthenic crisis, and more. Full 12-CN exam, motor/reflex tables, CSF pattern reference, and one-click note generation.</p>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('inpatientnote')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden; border-top:4px solid #c9a227;">
-                        <div style="background:linear-gradient(135deg,#0e1d2e,#1a2940); color:#fff; padding:20px; font-weight:700;">📋 Inpatient Note (H&amp;P / Progress / Discharge)</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Master hospitalist note with cross-specialty emergency screening (32 conditions across all organ systems), problem-based A&P, 30 chronic disease management templates, medication reconciliation, 13 safety &amp; quality checklists, pending items tracker, and discharge planning — all generating one EHR-ready note.</p>
-                        </div>
-                    </div>
-                    <div onclick="switchTool('opnote')" style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); cursor:pointer; overflow:hidden; border-top:4px solid #ef8c22;">
-                        <div style="background:linear-gradient(135deg,#3e2723,#5c4033); color:#fff; padding:20px; font-weight:700;">🏥 Outpatient Internal Medicine Note</div>
-                        <div style="padding:20px;">
-                            <p style="color:#718096; margin:0 0 12px 0; font-size:0.95rem;">Full outpatient IM note with 5 visit types, OLDCARTS HPI, tabbed PMH/Social/Family history, SDOH screening, 14-system ROS with tap-to-toggle, physical exam findings, problem-based A&P, 27-item preventive care tracker, 14 immunizations, mental health screening (PHQ-2/9, GAD-7, AUDIT-C), and E&M coding — generating a complete EHR-ready note.</p>
-                        </div>
-                    </div>
+            </div>
+            <div class="tool-card" onclick="switchTool('id')" style="border-top-color:#0066cc;">
+                <div class="card-header" style="background:linear-gradient(135deg,#004080,#0066cc);">🦠 Infectious Disease Guide</div>
+                <div class="card-body">
+                    <p>Pathogen-specific guidance, empiric therapy by syndrome, antibiotic spectra, IV-to-PO conversion, and resistance patterns.</p>
+                    <div class="card-tags"><span class="card-tag">Empiric Therapy</span><span class="card-tag">Pathogen Guide</span></div>
                 </div>
-
-                <div style="background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.08); padding:25px; margin-top:20px;">
-                    <h3 style="color:#1a365d; margin:0 0 20px 0; font-size:1.1rem;">Browse by Organ System</h3>
-
-                    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:25px;">
-                        <!-- Cardiology -->
-                        <div>
-                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Cardiology</h4>
-                            <div onclick="switchTool('imcrg','acs')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">ACS</div>
-                            <div onclick="switchTool('imcrg','heart-failure')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Heart Failure</div>
-                            <div onclick="switchTool('imcrg','afib')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Atrial Fibrillation</div>
-                            <div onclick="switchTool('imcrg','htn-emergency')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">HTN Emergency</div>
-                            <div onclick="switchTool('imcrg','syncope')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Syncope</div>
-                            <div onclick="switchTool('imcrg','aortic-dissection')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Aortic Dissection</div>
-                            <div onclick="switchTool('imcrg','cardiogenic-shock')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Cardiogenic Shock</div>
-                        </div>
-
-                        <!-- Pulmonology -->
-                        <div>
-                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Pulmonology</h4>
-                            <div onclick="switchTool('imcrg','cap')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">CAP</div>
-                            <div onclick="switchTool('imcrg','copd')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">COPD Exacerbation</div>
-                            <div onclick="switchTool('imcrg','asthma')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Asthma Exacerbation</div>
-                            <div onclick="switchTool('imcrg','pe')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Pulmonary Embolism</div>
-                            <div onclick="switchTool('imcrg','ards')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">ARDS</div>
-                            <div onclick="switchTool('imcrg','pleural-effusion')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Pleural Effusion</div>
-                        </div>
-
-                        <!-- GI / Hepatology -->
-                        <div>
-                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">GI / Hepatology</h4>
-                            <div onclick="switchTool('imcrg','ugib')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Upper GI Bleed</div>
-                            <div onclick="switchTool('imcrg','lower-gi-bleed')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Lower GI Bleed</div>
-                            <div onclick="switchTool('imcrg','cirrhosis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Cirrhosis</div>
-                            <div onclick="switchTool('imcrg','pancreatitis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Pancreatitis</div>
-                            <div onclick="switchTool('imcrg','sbp')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">SBP</div>
-                            <div onclick="switchTool('imcrg','cholangitis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Cholangitis</div>
-                        </div>
-
-                        <!-- Nephrology -->
-                        <div>
-                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Nephrology</h4>
-                            <div onclick="switchTool('imcrg','aki')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">AKI</div>
-                            <div onclick="switchTool('imcrg','hyperkalemia')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Hyperkalemia</div>
-                            <div onclick="switchTool('imcrg','hyponatremia')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Hyponatremia</div>
-                            <div onclick="switchTool('imcrg','rhabdo')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Rhabdomyolysis</div>
-                            <div onclick="switchTool('imcrg','ckd-complications')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">CKD Complications</div>
-                        </div>
-
-                        <!-- Endocrine -->
-                        <div>
-                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Endocrine</h4>
-                            <div onclick="switchTool('imcrg','dka')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">DKA</div>
-                            <div onclick="switchTool('imcrg','hhs')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">HHS</div>
-                            <div onclick="switchTool('imcrg','hyperthyroid')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Thyroid Storm</div>
-                            <div onclick="switchTool('imcrg','adrenal')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Adrenal Crisis</div>
-                            <div onclick="switchTool('imcrg','hypercalcemia')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Hypercalcemia</div>
-                        </div>
-
-                        <!-- Neurology -->
-                        <div>
-                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Neurology</h4>
-                            <div onclick="switchTool('imcrg','stroke')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Ischemic Stroke</div>
-                            <div onclick="switchTool('imcrg','ich')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">ICH</div>
-                            <div onclick="switchTool('imcrg','seizure')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Seizure / Status</div>
-                            <div onclick="switchTool('imcrg','meningitis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Meningitis</div>
-                            <div onclick="switchTool('imcrg','delirium')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Delirium</div>
-                            <div onclick="switchTool('imcrg','etoh-withdrawal')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Alcohol Withdrawal</div>
-                        </div>
-
-                        <!-- Infectious Disease -->
-                        <div>
-                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Infectious Disease</h4>
-                            <div onclick="switchTool('imcrg','sepsis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Sepsis</div>
-                            <div onclick="switchTool('imcrg','cellulitis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Cellulitis</div>
-                            <div onclick="switchTool('imcrg','neutropenic-fever')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Neutropenic Fever</div>
-                            <div onclick="switchTool('id','empiric-therapy')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Empiric Abx</div>
-                            <div onclick="switchTool('id','renal-dosing')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Renal Dosing</div>
-                        </div>
-
-                        <!-- Hematology / Oncology -->
-                        <div>
-                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Heme / Onc</h4>
-                            <div onclick="switchTool('imcrg','dvt')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">DVT</div>
-                            <div onclick="switchTool('imcrg','anemia')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Anemia</div>
-                            <div onclick="switchTool('imcrg','dic')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">DIC</div>
-                            <div onclick="switchTool('imcrg','tls')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Tumor Lysis</div>
-                            <div onclick="switchTool('imcrg','transfusion')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Transfusion Reactions</div>
-                            <div onclick="switchTool('imcrg','anticoag-reversal')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Anticoag Reversal</div>
-                        </div>
-
-                        <!-- Toxicology -->
-                        <div>
-                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Toxicology</h4>
-                            <div onclick="switchTool('imcrg','overdose')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Toxidromes</div>
-                            <div onclick="switchTool('imcrg','apap-overdose')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Acetaminophen</div>
-                            <div onclick="switchTool('imcrg','salicylate-toxicity')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Salicylate</div>
-                            <div onclick="switchTool('imcrg','opioid')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Opioid OD</div>
-                            <div onclick="switchTool('drugs','warfarin')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Drug Interactions</div>
-                        </div>
-
-                        <!-- Procedures -->
-                        <div>
-                            <h4 style="color:#24292e; font-size:0.9rem; margin:0 0 8px 0; padding-bottom:5px; border-bottom:1px solid #e1e4e8;">Procedures</h4>
-                            <div onclick="switchTool('procedures','paracentesis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Paracentesis</div>
-                            <div onclick="switchTool('procedures','thoracentesis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Thoracentesis</div>
-                            <div onclick="switchTool('procedures','lumbar-puncture')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Lumbar Puncture</div>
-                            <div onclick="switchTool('procedures','arthrocentesis')" style="padding:4px 0; cursor:pointer; color:#0366d6; font-size:0.85rem;">Arthrocentesis</div>
-                        </div>
-                    </div>
+            </div>
+            <div class="tool-card" onclick="switchTool('labs')" style="border-top-color:#1976d2;">
+                <div class="card-header" style="background:linear-gradient(135deg,#0d47a1,#1976d2);">🔬 Laboratory Values Reference</div>
+                <div class="card-body">
+                    <p>Normal ranges, critical values, and interpretation guidance for CBC, BMP, LFTs, coagulation, urinalysis, CSF, joint fluid, and more.</p>
+                    <div class="card-tags"><span class="card-tag">134 Tests</span><span class="card-tag">Critical Values</span></div>
+                </div>
+            </div>
+            <div class="tool-card" onclick="switchTool('dxfx')" style="border-top-color:#00897b;">
+                <div class="card-header" style="background:linear-gradient(135deg,#00695c,#00897b);">🩺 Diagnostic Framework</div>
+                <div class="card-body">
+                    <p>Systematic presentation-based diagnostic approaches: chest pain, dyspnea, altered mental status, acid-base disorders, and more.</p>
+                    <div class="card-tags"><span class="card-tag">Presentation-Based</span><span class="card-tag">DDx Trees</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- Iframes injected by JavaScript -->
-    </main>
-
-    <script>
-        // ============================================
-        // TOOL CONFIGURATION - Add new tools here
-        // ============================================
-        const tools = [
-            {
-                id: "imcrg",
-                name: "IM Clinical Reference",
-                icon: "📚",
-                file: "im_guide.html",
-                description: "294 Internal Medicine Conditions"
-            },
-            {
-                id: "labs",
-                name: "Laboratory Values",
-                icon: "🔬",
-                file: "lab_values.html",
-                description: "100 Laboratory Tests Reference"
-            },
-            {
-                id: "dxfx",
-                name: "Diagnostic Framework",
-                icon: "🩺",
-                file: "dx_framework.html",
-                description: "Presentation-Based Diagnostic Framework"
-            },
-            {
-                id: "id",
-                name: "Infectious Disease",
-                icon: "🦠",
-                file: "id_guide.html",
-                description: "Antibiotic & Infection Guide"
-            },
-            {
-                id: "drugs",
-                name: "Drug Interactions",
-                icon: "💊",
-                file: "drug_interactions.html",
-                description: "High-Yield Drug Interactions"
-            },
-            {
-                id: "procedures",
-                name: "Procedures",
-                icon: "💉",
-                file: "procedures_guide.html",
-                description: "Bedside Procedures Quick Reference"
-            },
-            {
-                id: "drugref",
-                name: "Drug Reference",
-                icon: "💊",
-                file: "drug_reference_guide.html",
-                description: "280 Medications - Dosing, Side Effects, Pearls"
-            },
-            {
-                id: "abxsteward",
-                name: "Antimicrobial Stewardship",
-                icon: "🦠",
-                file: "antimicrobial_stewardship_guide.html",
-                description: "Empiric Therapy, De-escalation, Duration"
-            },
-            {
-                id: "renaldose",
-                name: "Renal Dosing",
-                icon: "💧",
-                file: "renal_dosing_reference.html",
-                description: "Drug Adjustments by CrCl & HD"
-            },
-            {
-                id: "nephroconsult",
-                name: "Nephrology Consult",
-                icon: "🩺",
-                file: "nephrology_consult.html",
-                description: "Structured Consult Note Template"
-            },
-            {
-                id: "rheumconsult",
-                name: "Rheumatology Consult",
-                icon: "🦴",
-                file: "rheumatology_consult.html",
-                description: "Structured Consult Note Template"
-            },
-            {
-                id: "idconsult",
-                name: "ID Consult",
-                icon: "🦠",
-                file: "id_consult.html",
-                description: "Structured Consult Note Template"
-            },
-            {
-                id: "cardioconsult",
-                name: "Cardiology Consult",
-                icon: "❤️",
-                file: "cardiology_consult.html",
-                description: "HFpEF Algorithms & Consult Template"
-            },
-            {
-                id: "endoconsult",
-                name: "Endocrinology Consult",
-                icon: "🦋",
-                file: "endo_consult.html",
-                description: "Structured Consult Note Template"
-            },
-            {
-                id: "neuroconsult",
-                name: "Neurology Consult",
-                icon: "🧠",
-                file: "neuro_consult.html",
-                description: "Structured Consult Note Template"
-            },
-            {
-                id: "inpatientnote",
-                name: "Inpatient Note",
-                icon: "📋",
-                file: "inpatient_note.html",
-                description: "H&P / Progress Note / Discharge Summary"
-            },
-            {
-                id: "opnote",
-                name: "Outpatient IM Note",
-                icon: "🏥",
-                file: "op_note.html",
-                description: "Outpatient Internal Medicine Note"
-            }
-            // To add a new tool:
-            // { id: "newid", name: "Tool Name", icon: "🆕", file: "filename.html", description: "Description" }
-        ];
-
-        // Cross-reference mapping: Lab Values → IMCRG conditions
-        const labToImcrg = {
-            "hyponatremia": "hyponatremia",
-            "hypernatremia": "hyponatremia", // same section
-            "hypokalemia": "hyperkalemia",
-            "hyperkalemia": "hyperkalemia",
-            "hypocalcemia": "hypocalcemia",
-            "hypercalcemia": "hypercalcemia",
-            "hypomagnesemia": "hypomag",
-            "dka": "dka",
-            "hhs": "hhs",
-            "aki": "aki",
-            "ckd": "ckd-complications",
-            "troponin": "acs",
-            "bnp": "heart-failure",
-            "lactate": "sepsis",
-            "ammonia": "he",
-            "inr-liver": "cirrhosis",
-            "lipase": "pancreatitis",
-            "csf": "meningitis",
-            "pleural": "pleural-effusion",
-            "ascites": "sbp",
-            "rhabdo": "rhabdo",
-            "dic": "dic",
-            "tsh-high": "hypothyroid",
-            "tsh-low": "hyperthyroid",
-            "cortisol": "adrenal",
-            "pf-ratio": "ards",
-            "ards": "ards",
-            "pulmonary-edema": "pulmonary-edema",
-            "flash-edema": "pulmonary-edema",
-            "hepatitis": "viral-hepatitis",
-            "hav": "viral-hepatitis",
-            "hbv": "viral-hepatitis",
-            "hcv": "viral-hepatitis",
-            "shock-liver": "ischemic-hepatitis",
-            "ischemic-hepatitis": "ischemic-hepatitis",
-            "ldh-liver": "ischemic-hepatitis"
-        };
-
-        // State
-        let currentTool = null;
-        let sidebarExpanded = false;
-
-        // DOM Elements
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const toggleIcon = document.getElementById('toggleIcon');
-        const navItems = document.getElementById('navItems');
-        const mainContent = document.getElementById('mainContent');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-
-        // Initialize navigation
-        function initNav() {
-            // Add Home first, then tools
-            let navHtml = `
-                <div class="nav-item active"
-                     data-tool="home"
-                     title="Clinical Reference Suite Home">
-                    <span class="nav-icon">🏠</span>
-                    <span class="nav-label">Home</span>
+        <!-- ── PRACTICAL TOOLS ── -->
+        <h2 class="section-heading">🛠️ Practical Tools <span class="badge">5 tools</span></h2>
+        <div class="tool-grid">
+            <div class="tool-card" onclick="switchTool('drugref')" style="border-top-color:#9b59b6;">
+                <div class="card-header" style="background:linear-gradient(135deg,#8e44ad,#9b59b6);">💊 Drug Reference Guide</div>
+                <div class="card-body">
+                    <p>Dosing, mechanisms, adverse effects, black box warnings, clinical pearls, and drug–drug interactions for 280 medications.</p>
+                    <div class="card-tags"><span class="card-tag">274 Medications</span><span class="card-tag">Dosing</span><span class="card-tag">Black Box Warnings</span></div>
                 </div>
-            `;
-            navHtml += tools.map(tool => `
-                <div class="nav-item"
-                     data-tool="${tool.id}"
-                     title="${tool.description}">
-                    <span class="nav-icon">${tool.icon}</span>
-                    <span class="nav-label">${tool.name}</span>
+            </div>
+            <div class="tool-card" onclick="switchTool('drugs')" style="border-top-color:#7c6a9a;">
+                <div class="card-header" style="background:linear-gradient(135deg,#5c4d7d,#7c6a9a);">⚠️ Drug Interactions</div>
+                <div class="card-body">
+                    <p>High-yield interactions for warfarin, DOACs, immunosuppressants, CYP450 substrates, QT-prolonging drugs, and serotonin syndrome.</p>
+                    <div class="card-tags"><span class="card-tag">CYP450</span><span class="card-tag">QT Risk</span><span class="card-tag">Warfarin</span></div>
                 </div>
-            `).join('');
-            navItems.innerHTML = navHtml;
+            </div>
+            <div class="tool-card" onclick="switchTool('abxsteward')" style="border-top-color:#047857;">
+                <div class="card-header" style="background:linear-gradient(135deg,#059669,#047857);">🧪 Antimicrobial Stewardship</div>
+                <div class="card-body">
+                    <p>Empiric therapy by syndrome, evidence-based treatment durations, de-escalation pathways, and IV-to-PO conversion criteria.</p>
+                    <div class="card-tags"><span class="card-tag">Duration Guidance</span><span class="card-tag">De-escalation</span></div>
+                </div>
+            </div>
+            <div class="tool-card" onclick="switchTool('renaldose')" style="border-top-color:#1d4ed8;">
+                <div class="card-header" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">💧 Renal Dosing Reference</div>
+                <div class="card-body">
+                    <p>Drug adjustments by CrCl for antibiotics, antivirals, and cardiac medications. HD supplementation and drugs to avoid in CKD.</p>
+                    <div class="card-tags"><span class="card-tag">CrCl-Based</span><span class="card-tag">HD Dosing</span><span class="card-tag">Avoid in CKD</span></div>
+                </div>
+            </div>
+            <div class="tool-card" onclick="switchTool('procedures')" style="border-top-color:#3d7a6a;">
+                <div class="card-header" style="background:linear-gradient(135deg,#2d5a4a,#3d7a6a);">💉 Procedures Guide</div>
+                <div class="card-body">
+                    <p>Bedside procedure guidance for paracentesis, thoracentesis, lumbar puncture, and arthrocentesis with fluid interpretation tables.</p>
+                    <div class="card-tags"><span class="card-tag">Paracentesis</span><span class="card-tag">LP</span><span class="card-tag">Thoracentesis</span></div>
+                </div>
+            </div>
+        </div>
 
-            // Add click handlers
-            document.querySelectorAll('.nav-item').forEach(item => {
-                // Use touchend for iPad (more responsive than click)
-                item.addEventListener('touchend', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const toolId = e.currentTarget.dataset.tool;
-                    if (toolId) switchTool(toolId);
-                }, { passive: false });
+        <!-- ── CONSULT NOTE TEMPLATES ── -->
+        <h2 class="section-heading">📝 Specialty Consult Note Templates <span class="badge">6 templates</span></h2>
+        <div class="tool-grid">
+            <div class="tool-card" onclick="switchTool('nephroconsult')" style="border-top-color:#1a5f7a;">
+                <div class="card-header" style="background:linear-gradient(135deg,#1a5f7a,#2d8cb8);">🫘 Nephrology Consult</div>
+                <div class="card-body">
+                    <p>KDIGO AKI/CKD staging, FENa/FEUrea, AEIOU dialysis criteria. <strong>AI auto-fills impression, differential, workup, medications, and monitoring</strong> from diagnosis. Generates EHR-ready note.</p>
+                    <div class="card-tags"><span class="card-tag">KDIGO</span><span class="card-tag">Dialysis Criteria</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
+                </div>
+            </div>
+            <div class="tool-card" onclick="switchTool('cardioconsult')" style="border-top-color:#e74c3c;">
+                <div class="card-header" style="background:linear-gradient(135deg,#c0392b,#e74c3c);">❤️ Cardiology Consult</div>
+                <div class="card-body">
+                    <p>HFpEF algorithms (H₂FPEF, HFA-PEFF), echo interpretation, NYHA/ACC-AHA staging, GDMT. <strong>AI auto-fills impression, problem list, and full recommendations</strong> from diagnosis. Generates EHR-ready note.</p>
+                    <div class="card-tags"><span class="card-tag">HFpEF Scores</span><span class="card-tag">GDMT</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
+                </div>
+            </div>
+            <div class="tool-card" onclick="switchTool('rheumconsult')" style="border-top-color:#7c3aed;">
+                <div class="card-header" style="background:linear-gradient(135deg,#5b21b6,#7c3aed);">🦴 Rheumatology Consult</div>
+                <div class="card-body">
+                    <p>Joint pattern recognition, autoantibody interpretation, synovial fluid analysis, ACR/EULAR criteria. <strong>AI auto-fills impression, DMARD plan, monitoring, and workup</strong> from diagnosis. Generates EHR-ready note.</p>
+                    <div class="card-tags"><span class="card-tag">Autoantibodies</span><span class="card-tag">ACR/EULAR</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
+                </div>
+            </div>
+            <div class="tool-card" onclick="switchTool('idconsult')" style="border-top-color:#059669;">
+                <div class="card-header" style="background:linear-gradient(135deg,#047857,#059669);">🔬 ID Consult</div>
+                <div class="card-body">
+                    <p>Culture review, MDR risk assessment, source control, treatment duration. <strong>AI auto-fills antibiotic regimen with doses/duration, workup, monitoring, and OPAT plan</strong> from diagnosis. Generates EHR-ready note.</p>
+                    <div class="card-tags"><span class="card-tag">MDR Risk</span><span class="card-tag">Source Control</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
+                </div>
+            </div>
+            <div class="tool-card" onclick="switchTool('endoconsult')" style="border-top-color:#0d6b5e;">
+                <div class="card-header" style="background:linear-gradient(135deg,#074a41,#0d6b5e);">🦋 Endocrinology Consult</div>
+                <div class="card-body">
+                    <p>Glycemic management, thyroid, adrenal, calcium/bone, pituitary. <strong>AI auto-fills glucose protocol with doses, hormone management, workup, and monitoring</strong> from diagnosis. Generates EHR-ready note.</p>
+                    <div class="card-tags"><span class="card-tag">DKA/HHS</span><span class="card-tag">Thyroid Storm</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
+                </div>
+            </div>
+            <div class="tool-card" onclick="switchTool('neuroconsult')" style="border-top-color:#2d1b69;">
+                <div class="card-header" style="background:linear-gradient(135deg,#1a0f40,#2d1b69);">🧠 Neurology Consult</div>
+                <div class="card-body">
+                    <p>NIHSS, tPA/thrombectomy criteria, TOAST, seizure, GBS, myasthenic crisis, CSF patterns. <strong>AI auto-fills acute interventions, antithrombotic plan, AED dosing, and secondary prevention</strong> from diagnosis. Generates EHR-ready note.</p>
+                    <div class="card-tags"><span class="card-tag">NIHSS</span><span class="card-tag">tPA Criteria</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
+                </div>
+            </div>
+        </div>
 
-                // Keep click for desktop
-                item.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const toolId = e.currentTarget.dataset.tool;
-                    if (toolId) switchTool(toolId);
-                });
-            });
-        }
+        <!-- ── CLINICAL NOTE TEMPLATES ── -->
+        <h2 class="section-heading">📋 Clinical Note Templates <span class="badge">2 templates</span></h2>
+        <div class="tool-grid">
+            <div class="tool-card" onclick="switchTool('inpatientnote')" style="border-top-color:#c9a227;">
+                <div class="card-header" style="background:linear-gradient(135deg,#0e1d2e,#1a2940);">📋 Inpatient Note</div>
+                <div class="card-body">
+                    <p>H&amp;P, Progress Note, or Discharge Summary. Cross-specialty emergency screening, problem-based A&amp;P. <strong>AI auto-fills evidence, differential, and management plan</strong> per problem from diagnosis. Medication reconciliation, quality checklists, discharge planning.</p>
+                    <div class="card-tags"><span class="card-tag">H&P / Progress / Discharge</span><span class="card-tag">32 Emergency Conditions</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
+                </div>
+            </div>
+            <div class="tool-card" onclick="switchTool('opnote')" style="border-top-color:#ef8c22;">
+                <div class="card-header" style="background:linear-gradient(135deg,#3e2723,#5c4033);">🏥 Outpatient IM Note</div>
+                <div class="card-body">
+                    <p>New patient, follow-up, acute, annual wellness, or chronic management visit. <strong>AI auto-fills supporting data and management plan</strong> per problem. OLDCARTS HPI, 14-system ROS, preventive care tracker, E&amp;M coding.</p>
+                    <div class="card-tags"><span class="card-tag">5 Visit Types</span><span class="card-tag">Preventive Care</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
+                </div>
+            </div>
+        </div>
 
-        // Initialize iframes
-        function initFrames() {
-            tools.forEach(tool => {
-                const iframe = document.createElement('iframe');
-                iframe.id = `frame-${tool.id}`;
-                iframe.className = 'tool-frame';
-                iframe.src = tool.file;
-                iframe.scrolling = 'yes';
-                iframe.setAttribute('scrolling', 'yes');
-                iframe.onload = () => {
-                    if (tool.id === currentTool) {
-                        loadingIndicator.style.display = 'none';
-                    }
-                    // Send SW version to iframe so it can update its own display
-                    if (window._swVersion) {
-                        try { iframe.contentWindow.postMessage({ type: 'SW_VERSION', version: window._swVersion }, '*'); }
-                        catch(err) {}
-                    }
-                };
-                mainContent.appendChild(iframe);
-            });
-        }
+        <!-- ── BROWSE BY ORGAN SYSTEM ── -->
+        <div class="organ-browser">
+            <h3>🔍 Browse by Organ System / Topic</h3>
+            <p style="font-size:0.8rem;color:#718096;margin:-10px 0 16px 0;">
+                <span style="color:#0366d6;font-weight:600;">Blue</span> = IM Reference &nbsp;|&nbsp;
+                <span style="color:#047857;font-weight:600;">Green</span> = Consult Note &nbsp;|&nbsp;
+                <span style="color:#5c4033;font-weight:600;">Brown</span> = Clinical Note Template
+            </p>
+            <div class="organ-grid">
+                <div class="organ-col">
+                    <h4>❤️ Cardiology</h4>
+                    <span class="organ-link" onclick="switchTool('imcrg','acs')">ACS / STEMI / NSTEMI</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','heart-failure')">Heart Failure</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','afib')">Atrial Fibrillation</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','htn-emergency')">HTN Emergency</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','syncope')">Syncope</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','aortic-dissection')">Aortic Dissection</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','cardiogenic-shock')">Cardiogenic Shock</span>
+                    <span class="organ-link consult" onclick="switchTool('cardioconsult')">→ Cardiology Consult Note</span>
+                </div>
+                <div class="organ-col">
+                    <h4>🫁 Pulmonology</h4>
+                    <span class="organ-link" onclick="switchTool('imcrg','cap')">CAP / HAP / VAP</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','copd')">COPD Exacerbation</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','asthma')">Asthma Exacerbation</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','pe')">Pulmonary Embolism</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','ards')">ARDS</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','pleural-effusion')">Pleural Effusion</span>
+                    <span class="organ-link" onclick="switchTool('procedures','thoracentesis')">→ Thoracentesis</span>
+                </div>
+                <div class="organ-col">
+                    <h4>🫘 Nephrology</h4>
+                    <span class="organ-link" onclick="switchTool('imcrg','aki')">AKI</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','hyperkalemia')">Hyperkalemia</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','hyponatremia')">Hyponatremia / Hypernatremia</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','rhabdo')">Rhabdomyolysis</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','ckd-complications')">CKD Complications</span>
+                    <span class="organ-link" onclick="switchTool('renaldose')">→ Renal Drug Dosing</span>
+                    <span class="organ-link consult" onclick="switchTool('nephroconsult')">→ Nephrology Consult Note</span>
+                </div>
+                <div class="organ-col">
+                    <h4>🟤 GI / Hepatology</h4>
+                    <span class="organ-link" onclick="switchTool('imcrg','ugib')">Upper GI Bleed</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','lower-gi-bleed')">Lower GI Bleed</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','cirrhosis')">Cirrhosis / Ascites</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','pancreatitis')">Pancreatitis</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','sbp')">SBP</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','cholangitis')">Cholangitis</span>
+                    <span class="organ-link" onclick="switchTool('procedures','paracentesis')">→ Paracentesis</span>
+                </div>
+                <div class="organ-col">
+                    <h4>🦋 Endocrine</h4>
+                    <span class="organ-link" onclick="switchTool('imcrg','dka')">DKA</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','hhs')">HHS</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','hyperthyroid')">Thyroid Storm</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','hypothyroid')">Myxedema Coma</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','adrenal')">Adrenal Crisis</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','hypercalcemia')">Hypercalcemia</span>
+                    <span class="organ-link consult" onclick="switchTool('endoconsult')">→ Endocrinology Consult Note</span>
+                </div>
+                <div class="organ-col">
+                    <h4>🧠 Neurology</h4>
+                    <span class="organ-link" onclick="switchTool('imcrg','stroke')">Ischemic Stroke</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','ich')">ICH / SAH</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','seizure')">Seizure / Status Epilepticus</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','meningitis')">Meningitis / Encephalitis</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','delirium')">Delirium</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','etoh-withdrawal')">Alcohol Withdrawal</span>
+                    <span class="organ-link consult" onclick="switchTool('neuroconsult')">→ Neurology Consult Note</span>
+                </div>
+                <div class="organ-col">
+                    <h4>🦠 Infectious Disease</h4>
+                    <span class="organ-link" onclick="switchTool('imcrg','sepsis')">Sepsis / Septic Shock</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','cellulitis')">Cellulitis / SSTI</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','neutropenic-fever')">Neutropenic Fever</span>
+                    <span class="organ-link" onclick="switchTool('id')">Empiric Antibiotic Selection</span>
+                    <span class="organ-link" onclick="switchTool('abxsteward')">Stewardship / Duration</span>
+                    <span class="organ-link" onclick="switchTool('renaldose')">Renal Antibiotic Dosing</span>
+                    <span class="organ-link consult" onclick="switchTool('idconsult')">→ ID Consult Note</span>
+                </div>
+                <div class="organ-col">
+                    <h4>🦴 Rheumatology</h4>
+                    <span class="organ-link" onclick="switchTool('imcrg','gout')">Gout / Pseudogout</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','septic-joint')">Septic Arthritis</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','vasculitis')">Vasculitis</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','sle')">SLE Flare</span>
+                    <span class="organ-link" onclick="switchTool('procedures','arthrocentesis')">→ Arthrocentesis</span>
+                    <span class="organ-link consult" onclick="switchTool('rheumconsult')">→ Rheumatology Consult Note</span>
+                </div>
+                <div class="organ-col">
+                    <h4>🩸 Heme / Onc</h4>
+                    <span class="organ-link" onclick="switchTool('imcrg','dvt')">DVT / VTE</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','anemia')">Anemia Workup</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','dic')">DIC</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','tls')">Tumor Lysis Syndrome</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','transfusion')">Transfusion Reactions</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','anticoag-reversal')">Anticoagulation Reversal</span>
+                    <span class="organ-link" onclick="switchTool('drugs')">→ Drug Interactions (anticoag)</span>
+                </div>
+                <div class="organ-col">
+                    <h4>☠️ Toxicology</h4>
+                    <span class="organ-link" onclick="switchTool('imcrg','overdose')">Toxidromes Overview</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','apap-overdose')">Acetaminophen OD</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','salicylate-toxicity')">Salicylate Toxicity</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','opioid')">Opioid Overdose</span>
+                    <span class="organ-link" onclick="switchTool('imcrg','etoh-withdrawal')">Alcohol Withdrawal</span>
+                    <span class="organ-link" onclick="switchTool('drugs')">→ Drug Interactions</span>
+                </div>
+                <div class="organ-col">
+                    <h4>💉 Procedures</h4>
+                    <span class="organ-link" onclick="switchTool('procedures','paracentesis')">Paracentesis</span>
+                    <span class="organ-link" onclick="switchTool('procedures','thoracentesis')">Thoracentesis</span>
+                    <span class="organ-link" onclick="switchTool('procedures','lumbar-puncture')">Lumbar Puncture</span>
+                    <span class="organ-link" onclick="switchTool('procedures','arthrocentesis')">Arthrocentesis</span>
+                    <span class="organ-link" onclick="switchTool('labs')">→ CSF / Fluid Interpretation</span>
+                </div>
+                <div class="organ-col">
+                    <h4>📋 Clinical Notes</h4>
+                    <span class="organ-link note" onclick="switchTool('inpatientnote')">→ Inpatient H&P / Progress Note</span>
+                    <span class="organ-link note" onclick="switchTool('inpatientnote')">→ Discharge Summary</span>
+                    <span class="organ-link note" onclick="switchTool('opnote')">→ New Patient Visit</span>
+                    <span class="organ-link note" onclick="switchTool('opnote')">→ Annual Wellness Exam</span>
+                    <span class="organ-link note" onclick="switchTool('opnote')">→ Chronic Disease Follow-Up</span>
+                </div>
+            </div>
+        </div>
 
-        // Switch tool
-        function switchTool(toolId, anchor = null) {
-            // Handle home separately
-            if (toolId === 'home') {
-                currentTool = null;
-                document.getElementById('homeContent').style.display = 'block';
-                document.querySelectorAll('.tool-frame').forEach(frame => {
-                    frame.classList.remove('active');
-                });
-                document.querySelectorAll('.nav-item').forEach(item => {
-                    item.classList.toggle('active', item.dataset.tool === 'home');
-                });
-                if (window.innerWidth <= 768 && sidebarExpanded) {
-                    toggleSidebar();
-                }
-                return;
-            }
+      </div>
+    </div>
+    <!-- Iframes injected by JS -->
+</main>
 
-            if (!tools.find(t => t.id === toolId)) return;
+<script>
+// ── Tool registry ─────────────────────────────────────────────────────────
+const tools = [
+    { id:"imcrg",        name:"IM Reference",          icon:"📚", file:"im_guide.html",                    description:"338 Internal Medicine Conditions" },
+    { id:"labs",         name:"Lab Values",             icon:"🔬", file:"lab_values.html",                  description:"134 Laboratory Tests & Critical Values" },
+    { id:"dxfx",         name:"Diagnostic Framework",  icon:"🩺", file:"dx_framework.html",                description:"Presentation-Based Diagnostic Approaches" },
+    { id:"id",           name:"ID Guide",               icon:"🦠", file:"id_guide.html",                    description:"Antibiotic Selection & Pathogen Guide" },
+    // ── Practical Tools
+    { id:"drugref",      name:"Drug Reference",         icon:"💊", file:"drug_reference_guide.html",        description:"274 Medications — Dosing, Side Effects, Pearls" },
+    { id:"drugs",        name:"Drug Interactions",      icon:"⚠️", file:"drug_interactions.html",          description:"CYP450, QT Risk, Warfarin, Immunosuppressants" },
+    { id:"abxsteward",   name:"Abx Stewardship",        icon:"🧪", file:"antimicrobial_stewardship_guide.html", description:"Empiric Therapy, Duration, De-escalation" },
+    { id:"renaldose",    name:"Renal Dosing",           icon:"💧", file:"renal_dosing_reference.html",      description:"Drug Adjustments by CrCl & HD" },
+    { id:"procedures",   name:"Procedures",             icon:"💉", file:"procedures_guide.html",            description:"Paracentesis, LP, Thoracentesis, Arthrocentesis" },
+    // ── Consult Notes
+    { id:"nephroconsult",name:"Nephrology Consult",     icon:"🫘", file:"nephrology_consult.html",          description:"KDIGO, Dialysis Criteria, Note Generator" },
+    { id:"cardioconsult",name:"Cardiology Consult",     icon:"❤️", file:"cardiology_consult.html",         description:"HFpEF Algorithms, GDMT, Note Generator" },
+    { id:"rheumconsult", name:"Rheumatology Consult",   icon:"🦴", file:"rheumatology_consult.html",        description:"Autoantibodies, Joint Analysis, Note Generator" },
+    { id:"idconsult",    name:"ID Consult",             icon:"🔬", file:"id_consult.html",                  description:"MDR Risk, Source Control, Note Generator" },
+    { id:"endoconsult",  name:"Endocrinology Consult",  icon:"🦋", file:"endo_consult.html",                description:"Glycemic, Thyroid, Adrenal, Note Generator" },
+    { id:"neuroconsult", name:"Neurology Consult",      icon:"🧠", file:"neuro_consult.html",               description:"NIHSS, tPA Criteria, TOAST, Note Generator" },
+    // ── Clinical Notes
+    { id:"inpatientnote",name:"Inpatient Note",         icon:"📋", file:"inpatient_note.html",              description:"H&P / Progress / Discharge — 32 Emergency Conditions" },
+    { id:"opnote",       name:"Outpatient IM Note",     icon:"🏥", file:"op_note.html",                     description:"5 Visit Types, Preventive Care, Note Generator" },
+];
 
-            currentTool = toolId;
+// Sidebar groups for visual separation
+const NAV_SECTIONS = [
+    { label: "REFERENCE GUIDES", ids: ["imcrg","labs","dxfx","id"] },
+    { label: "PRACTICAL TOOLS",  ids: ["drugref","drugs","abxsteward","renaldose","procedures"] },
+    { label: "CONSULT NOTES",    ids: ["nephroconsult","cardioconsult","rheumconsult","idconsult","endoconsult","neuroconsult"] },
+    { label: "CLINICAL NOTES",   ids: ["inpatientnote","opnote"] },
+];
 
-            // Hide home content
-            document.getElementById('homeContent').style.display = 'none';
+let currentTool = null;
+let sidebarExpanded = false;
+const sidebar = document.getElementById('sidebar');
+const toggleIcon = document.getElementById('toggleIcon');
+const navItems = document.getElementById('navItems');
+const mainContent = document.getElementById('mainContent');
+const loadingIndicator = document.getElementById('loadingIndicator');
 
-            // Update nav
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.toggle('active', item.dataset.tool === toolId);
-            });
-
-            // Update frames
-            document.querySelectorAll('.tool-frame').forEach(frame => {
-                frame.classList.toggle('active', frame.id === `frame-${toolId}`);
-            });
-
-            // Navigate to anchor if specified
-            if (anchor) {
-                const frame = document.getElementById(`frame-${toolId}`);
-                if (frame && frame.contentWindow) {
-                    setTimeout(() => {
-                        frame.contentWindow.location.hash = anchor;
-                    }, 100);
-                }
-            }
-
-            // Collapse sidebar on mobile after selection
-            if (window.innerWidth <= 768 && sidebarExpanded) {
-                toggleSidebar();
-            }
-        }
-
-        // Toggle sidebar
-        function toggleSidebar() {
-            sidebarExpanded = !sidebarExpanded;
-            sidebar.classList.toggle('expanded', sidebarExpanded);
-            toggleIcon.textContent = sidebarExpanded ? '✕' : '☰';
-        }
-
-        // Handle cross-tool navigation
-        // URL format: #tool:anchor (e.g., #imcrg:dka, #labs:hypokalemia)
-        function handleCrossLink(linkString) {
-            const [toolId, anchor] = linkString.replace('#', '').split(':');
-            if (toolId && tools.find(t => t.id === toolId)) {
-                switchTool(toolId, anchor);
-            }
-        }
-
-        // Listen for messages from iframes for cross-linking
-        window.addEventListener('message', (event) => {
-            if (event.data && event.data.type === 'crosslink') {
-                handleCrossLink(event.data.target);
-            }
+// ── Build sidebar nav ────────────────────────────────────────────────────
+function initNav() {
+    let html = `<div class="nav-item active" data-tool="home" title="Home">
+        <span class="nav-icon">🏠</span><span class="nav-label">Home</span></div>`;
+    NAV_SECTIONS.forEach(section => {
+        html += `<div class="nav-section-header">${section.label}</div>`;
+        section.ids.forEach(id => {
+            const t = tools.find(x => x.id === id);
+            if (!t) return;
+            html += `<div class="nav-item" data-tool="${t.id}" title="${t.description}">
+                <span class="nav-icon">${t.icon}</span>
+                <span class="nav-label">${t.name}</span></div>`;
         });
+    });
+    navItems.innerHTML = html;
 
-        // Handle URL hash on load
-        function handleInitialHash() {
-            const hash = window.location.hash;
-            if (hash && hash.includes(':')) {
-                handleCrossLink(hash);
-            }
-        }
-
-        // Event listeners
-        sidebarToggle.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            toggleSidebar();
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('touchend', e => {
+            e.preventDefault(); e.stopPropagation();
+            switchTool(e.currentTarget.dataset.tool);
         }, { passive: false });
-        sidebarToggle.addEventListener('click', toggleSidebar);
-
-        // Keyboard shortcut: Press 'S' to toggle sidebar
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 's' && !e.ctrlKey && !e.metaKey && e.target.tagName !== 'INPUT') {
-                toggleSidebar();
-            }
+        item.addEventListener('click', e => {
+            e.stopPropagation(); switchTool(e.currentTarget.dataset.tool);
         });
+    });
+}
 
-        // Initialize
-        initNav();
-        initFrames();
-        handleInitialHash();
-    </script>
-    <!-- ── 4. ADD JUST BEFORE </body> ────────────────────────────────────── -->
-    <script>
-    (function() {
-      'use strict';
+// ── Create iframes ───────────────────────────────────────────────────────
+function initFrames() {
+    tools.forEach(tool => {
+        const iframe = document.createElement('iframe');
+        iframe.id = `frame-${tool.id}`;
+        iframe.className = 'tool-frame';
+        iframe.src = tool.file;
+        iframe.setAttribute('scrolling', 'yes');
+        iframe.onload = () => {
+            if (tool.id === currentTool) loadingIndicator.style.display = 'none';
+            if (window._swVersion) {
+                try { iframe.contentWindow.postMessage({ type:'SW_VERSION', version:window._swVersion }, '*'); } catch(e) {}
+            }
+        };
+        mainContent.appendChild(iframe);
+    });
+}
 
-      // ── Offline indicator ────────────────────────────────────────────────
-      const offlineEl = document.getElementById('offline-indicator');
-      function updateOnlineStatus() {
-        if (!navigator.onLine) {
-          offlineEl.classList.add('visible');
-        } else {
-          offlineEl.classList.remove('visible');
+// ── Switch tool ──────────────────────────────────────────────────────────
+function switchTool(toolId, anchor = null) {
+    if (toolId === 'home') {
+        currentTool = null;
+        document.getElementById('homeContent').style.display = 'block';
+        document.querySelectorAll('.tool-frame').forEach(f => f.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.toggle('active', i.dataset.tool === 'home'));
+        if (window.innerWidth <= 768 && sidebarExpanded) toggleSidebar();
+        return;
+    }
+    if (!tools.find(t => t.id === toolId)) return;
+    currentTool = toolId;
+    document.getElementById('homeContent').style.display = 'none';
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.toggle('active', i.dataset.tool === toolId));
+    document.querySelectorAll('.tool-frame').forEach(f => f.classList.toggle('active', f.id === `frame-${toolId}`));
+    if (anchor) {
+        const frame = document.getElementById(`frame-${toolId}`);
+        if (frame && frame.contentWindow) {
+            setTimeout(() => { frame.contentWindow.location.hash = anchor; }, 100);
         }
-      }
-      window.addEventListener('online',  updateOnlineStatus);
-      window.addEventListener('offline', updateOnlineStatus);
-      updateOnlineStatus();
+    }
+    if (window.innerWidth <= 768 && sidebarExpanded) toggleSidebar();
+}
 
-      // ── Service Worker registration & update detection ───────────────────
-      // Only register SW on the actual deployment domain — not in preview environments
-      const _swEligible = 'serviceWorker' in navigator &&
+// ── Sidebar toggle ───────────────────────────────────────────────────────
+function toggleSidebar() {
+    sidebarExpanded = !sidebarExpanded;
+    sidebar.classList.toggle('expanded', sidebarExpanded);
+    toggleIcon.textContent = sidebarExpanded ? '✕' : '☰';
+}
+
+// ── Cross-tool message handler ───────────────────────────────────────────
+window.addEventListener('message', event => {
+    if (event.data && event.data.type === 'crosslink') {
+        const [toolId, anchor] = event.data.target.replace('#','').split(':');
+        if (toolId && tools.find(t => t.id === toolId)) switchTool(toolId, anchor);
+    }
+});
+
+// ── Keyboard shortcut ────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+    if (e.key === 's' && !e.ctrlKey && !e.metaKey && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') toggleSidebar();
+});
+
+// ── Init ─────────────────────────────────────────────────────────────────
+document.getElementById('sidebarToggle').addEventListener('touchend', e => { e.preventDefault(); toggleSidebar(); }, { passive:false });
+document.getElementById('sidebarToggle').addEventListener('click', toggleSidebar);
+initNav();
+initFrames();
+if (window.location.hash && window.location.hash.includes(':')) {
+    const [toolId, anchor] = window.location.hash.replace('#','').split(':');
+    if (toolId && tools.find(t => t.id === toolId)) switchTool(toolId, anchor);
+}
+</script>
+
+<!-- Service worker / offline / update detection -->
+<script>
+(function(){
+    'use strict';
+    const offlineEl = document.getElementById('offline-indicator');
+    function updateOnline(){ offlineEl.classList.toggle('visible', !navigator.onLine); }
+    window.addEventListener('online', updateOnline);
+    window.addEventListener('offline', updateOnline);
+    updateOnline();
+
+    const eligible = 'serviceWorker' in navigator &&
         (location.hostname === 'comstocd.github.io' || location.hostname === 'localhost');
-      if (_swEligible) {
-        let newWorker = null;
+    if (!eligible) return;
 
-        navigator.serviceWorker.register('/Clinical-Reference-Suite/sw.js', {
-          scope: '/Clinical-Reference-Suite/'
-        })
-        .then(registration => {
-          console.log('[App] SW registered. Scope:', registration.scope);
-
-          // Get SW version and populate all version displays
-          if (navigator.serviceWorker.controller) {
+    let newWorker = null;
+    navigator.serviceWorker.register('/Clinical-Reference-Suite/sw.js', { scope:'/Clinical-Reference-Suite/' })
+    .then(reg => {
+        if (navigator.serviceWorker.controller) {
             const mc = new MessageChannel();
             mc.port1.onmessage = e => {
-              if (e.data && e.data.version) {
-                const v = e.data.version;
-                // Store globally so iframes can get it when they load
-                window._swVersion = v;
-                // Update header and home title
-                const suiteV = document.getElementById('suite-version');
-                const homeV  = document.getElementById('home-version');
-                if (suiteV) suiteV.textContent = v;
-                if (homeV)  homeV.textContent  = v;
-                // Update all home tile badges
-                // tile-build-badges removed
-                // Broadcast to any already-loaded iframes
-                document.querySelectorAll('.tool-frame').forEach(frame => {
-                  try { frame.contentWindow.postMessage({ type: 'SW_VERSION', version: v }, '*'); }
-                  catch(err) {}
-                });
-              }
+                if (e.data && e.data.version) {
+                    const v = e.data.version;
+                    window._swVersion = v;
+                    const sv = document.getElementById('suite-version');
+                    const hv = document.getElementById('home-version');
+                    if (sv) sv.textContent = v;
+                    if (hv) hv.textContent = v;
+                    document.querySelectorAll('.tool-frame').forEach(fr => {
+                        try { fr.contentWindow.postMessage({ type:'SW_VERSION', version:v }, '*'); } catch(e) {}
+                    });
+                }
             };
-            navigator.serviceWorker.controller.postMessage(
-              { type: 'GET_VERSION' }, [mc.port2]
-            );
-          }
-
-          // Detect when a new SW is waiting (= new version downloaded)
-          registration.addEventListener('updatefound', () => {
-            newWorker = registration.installing;
+            navigator.serviceWorker.controller.postMessage({ type:'GET_VERSION' }, [mc.port2]);
+        }
+        reg.addEventListener('updatefound', () => {
+            newWorker = reg.installing;
             newWorker.addEventListener('statechange', () => {
-              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                // New version is ready — show the banner
-                document.getElementById('update-banner').classList.remove('hidden');
-              }
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller)
+                    document.getElementById('update-banner').classList.remove('hidden');
             });
-          });
-
-          // Check for updates on page load (in addition to 24-hr auto-check)
-          registration.update();
-        })
-        .catch(err => {
-          console.error('[App] SW registration failed:', err);
         });
+        reg.update();
+    }).catch(err => console.error('[App] SW failed:', err));
 
-        // When the SW activates after skipWaiting, reload to get new content
-        let refreshing = false;
-        navigator.serviceWorker.addEventListener('controllerchange', () => {
-          if (!refreshing) {
-            refreshing = true;
-            window.location.reload();
-          }
-        });
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) { refreshing = true; window.location.reload(); }
+    });
 
-        // ── Update banner actions ──────────────────────────────────────────
-        window.applyUpdate = function() {
-          if (newWorker) {
-            newWorker.postMessage({ type: 'SKIP_WAITING' });
-          } else {
-            // Fallback: just reload and let the SW sort it out
-            window.location.reload(true);
-          }
-        };
-
-        window.dismissUpdate = function() {
-          document.getElementById('update-banner').classList.add('hidden');
-          // Remind again in 1 hour if still on the page
-          setTimeout(() => {
-            if (newWorker && newWorker.state === 'installed') {
-              document.getElementById('update-banner').classList.remove('hidden');
-            }
-          }, 3600000);
-        };
-      }
-    })();
-    </script>
-    <!-- ── End script additions ───────────────────────────────────────────── -->
+    window.applyUpdate = () => newWorker ? newWorker.postMessage({ type:'SKIP_WAITING' }) : window.location.reload(true);
+    window.dismissUpdate = () => {
+        document.getElementById('update-banner').classList.add('hidden');
+        setTimeout(() => {
+            if (newWorker && newWorker.state === 'installed')
+                document.getElementById('update-banner').classList.remove('hidden');
+        }, 3600000);
+    };
+})();
+</script>
 </body>
 </html>

@@ -204,6 +204,19 @@
 </style>
 </head>
 <body>
+<!-- Back-to-Suite nav chip -->
+<div style="position:fixed;top:8px;right:8px;z-index:8999;">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:5px;
+     background:rgba(30,58,95,0.92);color:#fff;text-decoration:none;
+     padding:5px 11px;border-radius:20px;font-size:0.72rem;font-weight:600;
+     border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(4px);
+     box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:background 0.2s;"
+     title="Back to Clinical Reference Suite"
+     onmouseover="this.style.background='rgba(45,88,132,0.97)'"
+     onmouseout="this.style.background='rgba(30,58,95,0.92)'">
+    📚 Suite
+  </a>
+</div>
 
 <nav id="sidebar" aria-label="Main navigation">
   <div class="title">Antimicrobial Guide</div>
@@ -355,7 +368,7 @@
 
 <header role="banner">
   <img src="mutant-icon.png" alt="logo" onerror="this.style.display='none'">
-  <h1>Antibiotic & Infection Guide</h1>
+  <h1>Antibiotic & Infection Guide <span id="component-version" style="font-size:0.38em;color:rgba(255,255,255,0.5);font-weight:400;vertical-align:middle;">BUILD #33</span></h1>
   <div class="search">
     <input id="globalSearch" type="text" placeholder="Search everything — pathogen, drug, syndrome..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
     <button class="search-clear" id="globalSearchClear" type="button">✕</button>
@@ -3453,7 +3466,7 @@
       <li>Use nasal MRSA PCR swab to guide vancomycin discontinuation — NPV &gt;96% for MRSA pneumonia</li>
       <li>Procalcitonin-guided de-escalation can reduce antibiotic exposure</li>
     </ul>
-    <p><strong>Cross-link:</strong> <a href="im_guide.html#pneumonia" style="color:#004080">📚 IMCRG: Pneumonia</a></p>
+    <p><strong>Cross-link:</strong> <a href="im_guide.html#cap" style="color:#004080">📚 IMCRG: Pneumonia</a></p>
   </div>
 </section>
 
@@ -3816,7 +3829,7 @@
       <tr><td>GI bleeding in cirrhosis (short-term)</td><td>Ceftriaxone 1 g IV q24h × 7 days — reduces bacterial infections including SBP by ~40%</td></tr>
     </table>
     <p><strong>Concerns with long-term prophylaxis:</strong> Rising fluoroquinolone-resistant and ESBL-producing bacteria in SBP — reappraise necessity regularly; consider TIPS referral for refractory ascites.</p>
-    <p><strong>Cross-link:</strong> <a href="im_guide.html#ascites" style="color:#004080">📚 IMCRG: Ascites & Paracentesis</a> | <a href="procedures_guide.html#paracentesis" style="color:#004080">🔧 Procedures: Paracentesis</a></p>
+    <p><strong>Cross-link:</strong> <a href="im_guide.html#cirrhosis" style="color:#004080">📚 IMCRG: Ascites & Paracentesis</a> | <a href="procedures_guide.html#paracentesis" style="color:#004080">🔧 Procedures: Paracentesis</a></p>
   </div>
 </section>
 

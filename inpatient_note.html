@@ -227,12 +227,26 @@ textarea.lg{min-height:120px}
 </style>
 </head>
 <body>
+<!-- Back-to-Suite nav chip -->
+<div style="position:fixed;top:8px;right:8px;z-index:8999;">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:5px;
+     background:rgba(30,58,95,0.92);color:#fff;text-decoration:none;
+     padding:5px 11px;border-radius:20px;font-size:0.72rem;font-weight:600;
+     border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(4px);
+     box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:background 0.2s;"
+     title="Back to Clinical Reference Suite"
+     onmouseover="this.style.background='rgba(45,88,132,0.97)'"
+     onmouseout="this.style.background='rgba(30,58,95,0.92)'">
+    📚 Suite
+  </a>
+</div>
 
 <div class="header">
   <div class="header-top">
-    <h1>📋 Inpatient Note <span class="header-badge" id="note-type-label">ADMISSION H&amp;P</span></h1>
+    <h1>📋 Inpatient Note <span class="header-badge" id="note-type-label">ADMISSION H&amp;P</span> <span id="component-version" style="font-size:0.4em;color:#94a3b8;font-weight:400;vertical-align:middle;">BUILD #33</span></h1>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <button class="toolbar-btn" onclick="generateNote()">📄 Generate Note</button>
+      <button class="toolbar-btn" onclick="aiSuggestInpatient(1)" style="background:#6366f1;color:#fff;border:2px solid #4f46e5;font-weight:700;" title="AI fills evidence, differential, and plan for Problem 1">🤖 AI Suggest (P1)</button>
       <button class="toolbar-btn" onclick="clearAll()">🗑️ Clear</button>
       <button class="toolbar-btn" onclick="expandAll()">📂 Expand All</button>
       <button class="toolbar-btn" onclick="collapseAll()">📁 Collapse All</button>
@@ -806,6 +820,7 @@ Recent imaging: ___"></textarea>
       <div class="form-group">
         <label class="form-label">Diagnosis / Problem</label>
         <input type="text" id="p1-dx" placeholder="e.g., Acute decompensated heart failure with reduced ejection fraction (HFrEF), NYHA Class IV">
+          <button onclick="aiSuggestInpatient(1)" style="margin-top:6px;background:#6366f1;color:#fff;border:none;padding:4px 12px;border-radius:5px;cursor:pointer;font-size:0.78rem;font-weight:700;" title="AI fills evidence, differential &amp; plan">🤖 AI Suggest P1</button>
       </div>
       <div class="form-group">
         <label class="form-label">Supporting Evidence</label>
@@ -850,6 +865,7 @@ Recent imaging: ___"></textarea>
       <div class="problem-header">
         <span class="problem-badge badge-secondary">Problem #2</span>
         <input type="text" id="p2-dx" placeholder="e.g., Acute kidney injury — prerenal, secondary to diuresis over-diuresis (Cr 1.9, baseline 0.9)" style="flex:1;font-weight:600">
+          <button onclick="aiSuggestInpatient(2)" style="margin-top:6px;background:#6366f1;color:#fff;border:none;padding:4px 12px;border-radius:5px;cursor:pointer;font-size:0.78rem;font-weight:700;" title="AI fills evidence, differential &amp; plan">🤖 AI Suggest P2</button>
       </div>
       <div class="form-group">
         <label class="form-label">Plan</label>
@@ -866,6 +882,7 @@ Recent imaging: ___"></textarea>
       <div class="problem-header">
         <span class="problem-badge badge-secondary">Problem #3</span>
         <input type="text" id="p3-dx" placeholder="e.g., Atrial fibrillation with RVR — HR 118, no prior diagnosis" style="flex:1;font-weight:600">
+          <button onclick="aiSuggestInpatient(3)" style="margin-top:6px;background:#6366f1;color:#fff;border:none;padding:4px 12px;border-radius:5px;cursor:pointer;font-size:0.78rem;font-weight:700;" title="AI fills evidence, differential &amp; plan">🤖 AI Suggest P3</button>
       </div>
       <div class="form-group">
         <label class="form-label">Plan</label>
@@ -882,6 +899,7 @@ Recent imaging: ___"></textarea>
       <div class="problem-header">
         <span class="problem-badge badge-secondary">Problem #4</span>
         <input type="text" id="p4-dx" placeholder="e.g., Hospital-acquired hypokalemia — K 3.1, on diuretics" style="flex:1;font-weight:600">
+          <button onclick="aiSuggestInpatient(4)" style="margin-top:6px;background:#6366f1;color:#fff;border:none;padding:4px 12px;border-radius:5px;cursor:pointer;font-size:0.78rem;font-weight:700;" title="AI fills evidence, differential &amp; plan">🤖 AI Suggest P4</button>
       </div>
       <div class="form-group">
         <label class="form-label">Plan</label>
@@ -897,6 +915,7 @@ Recent imaging: ___"></textarea>
       <div class="problem-header">
         <span class="problem-badge badge-secondary">Problem #5</span>
         <input type="text" id="p5-dx" placeholder="e.g., Inpatient hyperglycemia — BG 220s–280s on home metformin (held)" style="flex:1;font-weight:600">
+          <button onclick="aiSuggestInpatient(5)" style="margin-top:6px;background:#6366f1;color:#fff;border:none;padding:4px 12px;border-radius:5px;cursor:pointer;font-size:0.78rem;font-weight:700;" title="AI fills evidence, differential &amp; plan">🤖 AI Suggest P5</button>
       </div>
       <div class="form-group">
         <label class="form-label">Plan</label>
@@ -1719,6 +1738,150 @@ window.addEventListener('message', function(e) {
         const el = document.getElementById('component-version');
         if (el) el.textContent = e.data.version;
     }
+});
+</script>
+
+<style>
+.ai-modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55); z-index: 9000;
+    align-items: center; justify-content: center;
+}
+.ai-modal-overlay.active { display: flex; }
+.ai-modal {
+    background: #1e293b; border: 1px solid #334155;
+    border-radius: 12px; padding: 28px 32px;
+    max-width: 420px; width: 90%; text-align: center;
+    color: #f1f5f9; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+.ai-modal-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.ai-modal h3 { margin: 0 0 8px; font-size: 1.1rem; color: #e2e8f0; }
+.ai-modal p  { margin: 0 0 18px; font-size: 0.85rem; color: #94a3b8; line-height: 1.5; }
+.ai-spinner {
+    display: inline-block; width: 32px; height: 32px;
+    border: 3px solid #334155; border-top-color: #6366f1;
+    border-radius: 50%; animation: ai-spin 0.8s linear infinite;
+    margin-bottom: 12px;
+}
+@keyframes ai-spin { to { transform: rotate(360deg); } }
+.ai-modal-btn {
+    background: #6366f1; color: #fff; border: none;
+    padding: 8px 20px; border-radius: 6px;
+    cursor: pointer; font-size: 0.85rem; font-weight: 600;
+    transition: background 0.2s;
+}
+.ai-modal-btn:hover { background: #4f46e5; }
+.ai-filled-badge {
+    display: inline-block; background: #10b981; color: #fff;
+    font-size: 0.72rem; font-weight: 700; padding: 2px 7px;
+    border-radius: 4px; margin-left: 6px;
+    vertical-align: middle; letter-spacing: 0.03em;
+}
+</style>
+<!-- AI Suggest Modal -->
+<div class="ai-modal-overlay" id="ai-modal-overlay">
+    <div class="ai-modal">
+        <div id="ai-modal-loading">
+            <div class="ai-spinner"></div>
+            <h3 id="ai-modal-title">Generating Plan…</h3>
+            <p id="ai-modal-msg">Analyzing diagnosis and generating evidence-based assessment and plan.</p>
+        </div>
+        <div id="ai-modal-error" style="display:none;">
+            <div class="ai-modal-icon">⚠️</div>
+            <h3>Unable to Generate</h3>
+            <p id="ai-error-msg">An error occurred. Please try again or fill fields manually.</p>
+            <button class="ai-modal-btn" onclick="closeAiModal()">Close</button>
+        </div>
+        <div id="ai-modal-success" style="display:none;">
+            <div class="ai-modal-icon">✅</div>
+            <h3>Plan Generated</h3>
+            <p>Review and edit the suggested content. Then generate your note as usual.</p>
+            <button class="ai-modal-btn" onclick="closeAiModal()">Review</button>
+        </div>
+    </div>
+</div>
+<script>
+
+function openAiModal(mode, title, msg) {
+    document.getElementById('ai-modal-overlay').classList.add('active');
+    document.getElementById('ai-modal-loading').style.display = mode === 'loading' ? '' : 'none';
+    document.getElementById('ai-modal-error').style.display   = mode === 'error'   ? '' : 'none';
+    document.getElementById('ai-modal-success').style.display = mode === 'success' ? '' : 'none';
+    if (title) document.getElementById('ai-modal-title').textContent = title;
+    if (msg)   document.getElementById('ai-modal-msg').textContent   = msg;
+}
+function closeAiModal() {
+    document.getElementById('ai-modal-overlay').classList.remove('active');
+}
+
+async function aiSuggestInpatient(probNum) {
+    const dxEl = document.getElementById('p' + probNum + '-dx');
+    const dx = dxEl ? dxEl.value.trim() : '';
+    if (!dx) { alert('Enter a diagnosis in Problem ' + probNum + ' first.'); return; }
+
+    openAiModal('loading', 'Generating Inpatient Plan…',
+        'Building evidence, differential, and management plan for: ' + dx);
+
+    try {
+        const resp = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: 'claude-sonnet-4-20250514',
+                max_tokens: 1500,
+                system: `You are an expert hospital medicine physician. Given a diagnosis for a hospitalized patient, return ONLY a JSON object with these exact keys:
+evidence: 3-4 bullet points of key supporting clinical findings, labs, and imaging (e.g., "- Troponin I 4.2 → 6.8 ng/mL (rising)\n- ECG: ST depression V4-V6\n- Echo: EF 35%, new anterior WMA")
+differential: numbered differential with brief reasoning for each (e.g., "1. NSTEMI (most likely) — rising troponins, ECG changes, risk factors\n2. Demand ischemia — consider if precipitant identified")
+plan: comprehensive bullet-point inpatient management plan including:
+  - Specific medications with doses and frequencies
+  - Monitoring parameters and frequency
+  - Diagnostic workup with indications and urgency
+  - Consultations needed
+  - Diet, activity, DVT prophylaxis
+  - Discharge criteria
+
+Use clinical shorthand. Be specific with doses. Return ONLY valid JSON, no markdown.`,
+                messages: [{ role: 'user', content: 'Inpatient diagnosis: ' + dx }]
+            })
+        });
+        if (!resp.ok) throw new Error('API error ' + resp.status);
+        const result = await resp.json();
+        const raw = result.content?.find(b => b.type === 'text')?.text || '';
+        const cleaned = raw.replace(/^```json\s*/i,'').replace(/^```\s*/i,'').replace(/\s*```$/i,'').trim();
+        const data = JSON.parse(cleaned);
+
+        const fields = [
+            ['p' + probNum + '-evidence', data.evidence],
+            ['p' + probNum + '-ddx',      data.differential],
+            ['p' + probNum + '-plan',     data.plan],
+        ];
+        fields.forEach(([id, val]) => {
+            if (!val) return;
+            const el = document.getElementById(id);
+            if (el) {
+                el.value = val;
+                el.style.borderColor = '#10b981';
+                const lbl = el.closest('.form-group')?.querySelector('label');
+                if (lbl && !lbl.querySelector('.ai-filled-badge'))
+                    lbl.insertAdjacentHTML('beforeend', '<span class="ai-filled-badge">AI</span>');
+            }
+        });
+        openAiModal('success');
+    } catch(err) {
+        document.getElementById('ai-error-msg').textContent = err.message || 'Unknown error';
+        openAiModal('error');
+        console.error('AI suggest error:', err);
+    }
+}
+</script>
+
+<!-- SW version listener -->
+<script>
+window.addEventListener("message", function(e) {
+  if (e.data && e.data.type === "SW_VERSION") {
+    const el = document.getElementById("component-version");
+    if (el) el.textContent = e.data.version;
+  }
 });
 </script>
 </body>

@@ -671,9 +671,22 @@
     </style>
 </head>
 <body>
+<!-- Back-to-Suite nav chip -->
+<div style="position:fixed;top:8px;right:8px;z-index:8999;">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:5px;
+     background:rgba(30,58,95,0.92);color:#fff;text-decoration:none;
+     padding:5px 11px;border-radius:20px;font-size:0.72rem;font-weight:600;
+     border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(4px);
+     box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:background 0.2s;"
+     title="Back to Clinical Reference Suite"
+     onmouseover="this.style.background='rgba(45,88,132,0.97)'"
+     onmouseout="this.style.background='rgba(30,58,95,0.92)'">
+    📚 Suite
+  </a>
+</div>
 
 <div class="main-header">
-    <h1>💊 Comprehensive Drug Reference Guide <span id="component-version" style="font-size: 0.5em; color: #8e44ad; font-weight: 600;">v1.4 BUILD #6</span></h1>
+    <h1>💊 Comprehensive Drug Reference Guide <span id="component-version" style="font-size: 0.5em; color: #8e44ad; font-weight: 600;">BUILD #33</span></h1>
     <p class="subtitle">Clinical Pharmacology for Hospital Medicine • Cross-linked to IMCRG, Nephrology, Rheumatology & ID Guides</p>
     <div class="header-stats">
         <span class="stat-badge">📊 249 Medications</span>
@@ -2376,6 +2389,13 @@
                     <a href="im_guide.html#hap-vap" class="guide-link">IMCRG: HAP/VAP</a>
                     <a href="id_guide.html#empiric-therapy" class="guide-link">ID Guide: Empiric Therapy</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                </div>
             </div>
         </div>
 
@@ -2474,6 +2494,14 @@
                         </ul>
                     </div>
                 </div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#endocarditis" class="guide-link">IMCRG: Infective Endocarditis</a>
+                    <a href="im_guide.html#osteomyelitis" class="guide-link">IMCRG: Osteomyelitis</a>
+                    <a href="im_guide.html#cellulitis" class="guide-link">IMCRG: Cellulitis</a>
+                    <a href="im_guide.html#ssti" class="guide-link">IMCRG: Skin/Soft Tissue Infections (Cellulitis, Necrotizing Fasciitis)</a>
+                </div>
             </div>
         </div>
 
@@ -2517,6 +2545,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Must take on empty stomach (1hr before or 2hr after meals) - food significantly reduces absorption. QID dosing limits adherence.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#cellulitis" class="guide-link">IMCRG: Cellulitis</a>
+                    <a href="im_guide.html#ssti" class="guide-link">IMCRG: Skin/Soft Tissue Infections (Cellulitis, Necrotizing Fasciitis)</a>
+                    <a href="im_guide.html#osteomyelitis" class="guide-link">IMCRG: Osteomyelitis</a>
+                </div>
             </div>
         </div>
 
@@ -2567,6 +2602,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Maculopapular rash occurs in 70-100% of patients with EBV (mono) given amoxicillin - this is NOT a true allergy (type IV reaction). Avoid unnecessary penicillin allergy labels.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#cap" class="guide-link">IMCRG: Community-Acquired Pneumonia (Cap)</a>
+                    <a href="im_guide.html#uti" class="guide-link">IMCRG: Urinary Tract Infection / Pyelonephritis</a>
+                    <a href="im_guide.html#endocarditis" class="guide-link">IMCRG: Infective Endocarditis</a>
+                </div>
             </div>
         </div>
 
@@ -2736,6 +2778,14 @@
                     </div>
                 </div>
                 <div class="pearl-box">Non-purulent cellulitis (no abscess) = strep > staph → cephalexin is appropriate. Purulent cellulitis (abscess, pus) = staph likely → needs MRSA coverage (TMP-SMX, doxy)</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#cellulitis" class="guide-link">IMCRG: Cellulitis</a>
+                    <a href="im_guide.html#ssti" class="guide-link">IMCRG: Skin/Soft Tissue Infections (Cellulitis, Necrotizing Fasciitis)</a>
+                    <a href="im_guide.html#uti" class="guide-link">IMCRG: Urinary Tract Infection / Pyelonephritis</a>
+                    <a href="im_guide.html#osteomyelitis" class="guide-link">IMCRG: Osteomyelitis</a>
+                </div>
             </div>
         </div>
 
@@ -2860,6 +2910,12 @@
                     <a href="im_guide.html#hap-vap" class="guide-link">IMCRG: HAP/VAP</a>
                     <a href="id_guide.html" class="guide-link">ID Guide</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                </div>
             </div>
         </div>
 
@@ -2911,6 +2967,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Ceftazidime has WEAK gram-positive activity - do not use as monotherapy when gram-positives are suspected</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hap-vap" class="guide-link">IMCRG: Hospital-Acquired / Ventilator-Associated Pneumonia (Hap/Vap)</a>
+                    <a href="im_guide.html#neutropenic-fever" class="guide-link">IMCRG: Neutropenic Fever</a>
+                    <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis/Septic Shock</a>
+                </div>
             </div>
         </div>
 
@@ -2956,6 +3019,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Use instead of ceftriaxone in neonates - ceftriaxone causes biliary sludging and displaces bilirubin from albumin (kernicterus risk).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#meningitis" class="guide-link">IMCRG: Bacterial Meningitis</a>
+                    <a href="im_guide.html#cap" class="guide-link">IMCRG: Community-Acquired Pneumonia (Cap)</a>
+                    <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis/Septic Shock</a>
+                </div>
             </div>
         </div>
 
@@ -3008,6 +3078,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Ceftaroline is the only β-lactam with MRSA activity. Consider for MRSA pneumonia as alternative to vancomycin/linezolid.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#cap" class="guide-link">IMCRG: Community-Acquired Pneumonia (Cap)</a>
+                    <a href="im_guide.html#ssti" class="guide-link">IMCRG: Skin/Soft Tissue Infections (Cellulitis, Necrotizing Fasciitis)</a>
+                    <a href="im_guide.html#endocarditis" class="guide-link">IMCRG: Infective Endocarditis</a>
+                </div>
             </div>
         </div>
 
@@ -3079,6 +3156,12 @@
                     <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis</a>
                     <a href="id_guide.html" class="guide-link">ID Guide: ESBL</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                </div>
             </div>
         </div>
 
@@ -3127,6 +3210,14 @@
                     </div>
                 </div>
                 <div class="warning-box">Imipenem has the HIGHEST seizure risk among carbapenems. Avoid in CNS infections and patients with seizure history. Use meropenem instead.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hap-vap" class="guide-link">IMCRG: Hospital-Acquired / Ventilator-Associated Pneumonia (Hap/Vap)</a>
+                    <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis/Septic Shock</a>
+                    <a href="im_guide.html#intraabdominal-abscess" class="guide-link">IMCRG: Intra-Abdominal Abscess</a>
+                    <a href="im_guide.html#neutropenic-fever" class="guide-link">IMCRG: Neutropenic Fever</a>
+                </div>
             </div>
         </div>
 
@@ -3176,6 +3267,14 @@
                     </div>
                 </div>
                 <div class="pearl-box">Ertapenem has NO Pseudomonas coverage - do not use for suspected Pseudomonas infections. Great for OPAT due to once-daily dosing.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#cap" class="guide-link">IMCRG: Community-Acquired Pneumonia (Cap)</a>
+                    <a href="im_guide.html#intraabdominal-abscess" class="guide-link">IMCRG: Intra-Abdominal Abscess</a>
+                    <a href="im_guide.html#diabetic-foot-infection" class="guide-link">IMCRG: Diabetic Foot Infection</a>
+                    <a href="im_guide.html#uti" class="guide-link">IMCRG: Urinary Tract Infection / Pyelonephritis</a>
+                </div>
             </div>
         </div>
 
@@ -3229,6 +3328,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Ceftazidime-avibactam is first-line for KPC-producing CRE. Before using, confirm organism is NOT MBL-producer (NDM, VIM, IMP) - these are resistant. Send molecular testing if available.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hap-vap" class="guide-link">IMCRG: Hospital-Acquired / Ventilator-Associated Pneumonia (Hap/Vap)</a>
+                    <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis/Septic Shock</a>
+                    <a href="im_guide.html#intraabdominal-abscess" class="guide-link">IMCRG: Intra-Abdominal Abscess</a>
+                </div>
             </div>
         </div>
 
@@ -3268,6 +3374,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Ceftolozane-tazobactam has the best intrinsic activity against Pseudomonas of any β-lactam. NOT effective for carbapenemase-producing organisms (no KPC coverage).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hap-vap" class="guide-link">IMCRG: Hospital-Acquired / Ventilator-Associated Pneumonia (Hap/Vap)</a>
+                    <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis/Septic Shock</a>
+                </div>
             </div>
         </div>
 
@@ -3309,6 +3421,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">TANGO-II trial showed lower mortality vs best available therapy for CRE infections. Alternative to ceftazidime-avibactam for KPC-producing CRE.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hap-vap" class="guide-link">IMCRG: Hospital-Acquired / Ventilator-Associated Pneumonia (Hap/Vap)</a>
+                    <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis/Septic Shock</a>
+                    <a href="im_guide.html#intraabdominal-abscess" class="guide-link">IMCRG: Intra-Abdominal Abscess</a>
+                </div>
             </div>
         </div>
 
@@ -3359,6 +3478,12 @@
                 </div>
                 <div class="black-box">High nephrotoxicity risk - monitor renal function every other day. Usually combined with another active agent. Loading dose is critical.</div>
                 <div class="pearl-box">Colistin is last-resort for XDR/PDR Gram-negatives. Always combine with another agent when possible. Loading dose is critical for adequate early levels.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hap-vap" class="guide-link">IMCRG: Hospital-Acquired / Ventilator-Associated Pneumonia (Hap/Vap)</a>
+                    <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis/Septic Shock</a>
+                </div>
             </div>
         </div>
 
@@ -3409,6 +3534,13 @@
                 </div>
                 <div class="black-box">FDA BLACK BOX: Increased all-cause mortality in clinical trials, particularly in VAP/HAP. Reserve for situations where alternatives are not suitable.</div>
                 <div class="pearl-box">Despite broad spectrum, poor outcomes in bloodstream infections and pneumonia due to low serum concentrations. Best for skin/soft tissue and intra-abdominal infections.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hap-vap" class="guide-link">IMCRG: Hospital-Acquired / Ventilator-Associated Pneumonia (Hap/Vap)</a>
+                    <a href="im_guide.html#intraabdominal-abscess" class="guide-link">IMCRG: Intra-Abdominal Abscess</a>
+                    <a href="im_guide.html#ssti" class="guide-link">IMCRG: Skin/Soft Tissue Infections (Cellulitis, Necrotizing Fasciitis)</a>
+                </div>
             </div>
         </div>
 
@@ -3495,6 +3627,13 @@
                     <a href="id_guide.html#pathogen-guidance" class="guide-link">ID Guide: MRSA</a>
                     <a href="nephrology_study_guide.html#drugs" class="guide-link">Nephro: Drug Dosing</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-94" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Vancomycin Level</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-27" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low eGFR</a>
+                </div>
             </div>
         </div>
 
@@ -3545,6 +3684,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Dalbavancin allows completion of MRSA treatment with 1-2 IV doses - ideal for patients with adherence concerns, IV access issues, or preference to avoid daily antibiotics.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#ssti" class="guide-link">IMCRG: Skin/Soft Tissue Infections (Cellulitis, Necrotizing Fasciitis)</a>
+                    <a href="im_guide.html#cellulitis" class="guide-link">IMCRG: Cellulitis</a>
+                    <a href="im_guide.html#osteomyelitis" class="guide-link">IMCRG: Osteomyelitis</a>
+                </div>
             </div>
         </div>
 
@@ -3590,6 +3736,12 @@
                     </div>
                 </div>
                 <div class="warning-box">Oritavancin interferes with coagulation tests (PT/INR, aPTT) for up to 5 days after administration - use alternative anticoagulation monitoring if needed. Avoid in patients on IV unfractionated heparin.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#ssti" class="guide-link">IMCRG: Skin/Soft Tissue Infections (Cellulitis, Necrotizing Fasciitis)</a>
+                    <a href="im_guide.html#cellulitis" class="guide-link">IMCRG: Cellulitis</a>
+                </div>
             </div>
         </div>
 
@@ -3761,6 +3913,13 @@
                 </div>
                 <div class="warning-box">Moxifloxacin has the highest risk of QTc prolongation among FQs. Avoid in patients with baseline QTc prolongation or on other QT-prolonging drugs.</div>
                 <div class="pearl-box">Moxifloxacin is the only FQ with clinically useful anaerobic coverage. No Pseudomonas activity - don't use for suspected Pseudomonal infections.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#cap" class="guide-link">IMCRG: Community-Acquired Pneumonia (Cap)</a>
+                    <a href="im_guide.html#hap-vap" class="guide-link">IMCRG: Hospital-Acquired / Ventilator-Associated Pneumonia (Hap/Vap)</a>
+                    <a href="im_guide.html#intraabdominal-abscess" class="guide-link">IMCRG: Intra-Abdominal Abscess</a>
+                </div>
             </div>
         </div>
 
@@ -4057,6 +4216,14 @@
                 </div>
                 <div class="warning-box">High risk of C. difficile colitis - reserve for appropriate indications. Monitor for diarrhea.</div>
                 <div class="pearl-box">Add clindamycin for toxin suppression in severe group A strep infections (necrotizing fasciitis, toxic shock) - inhibits bacterial protein/toxin synthesis.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#ssti" class="guide-link">IMCRG: Skin/Soft Tissue Infections (Cellulitis, Necrotizing Fasciitis)</a>
+                    <a href="im_guide.html#cellulitis" class="guide-link">IMCRG: Cellulitis</a>
+                    <a href="im_guide.html#aspiration-pneumonia" class="guide-link">IMCRG: Aspiration Pneumonia / Pneumonitis</a>
+                    <a href="im_guide.html#osteomyelitis" class="guide-link">IMCRG: Osteomyelitis</a>
+                </div>
             </div>
         </div>
 
@@ -4167,6 +4334,23 @@
                     <div class="drug-section-content">GI bleeding/ulcers, tinnitus (high doses), Reye syndrome (children), aspirin-exacerbated respiratory disease</div>
                 </div>
                 <div class="pearl-box">CHEW 325mg in ACS for faster absorption. Primary prevention no longer recommended — bleeding risk exceeds benefit in most low-risk patients.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#acs" class="guide-link">IMCRG: Acute Coronary Syndrome (Acs)</a>
+                    <a href="im_guide.html#afib" class="guide-link">IMCRG: Atrial Fibrillation</a>
+                    <a href="im_guide.html#stroke" class="guide-link">IMCRG: Acute Ischemic Stroke</a>
+                    <a href="im_guide.html#tia" class="guide-link">IMCRG: Transient Ischemic Attack (Tia)</a>
+                    <a href="im_guide.html#chronic-cad" class="guide-link">IMCRG: Chronic Coronary Disease</a>
+                    <a href="im_guide.html#pe" class="guide-link">IMCRG: Pulmonary Embolism (Pe)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-56" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PT/INR</a>
+                    <a href="lab_values.html#lab-17" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Thrombocytopenia</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                </div>
             </div>
         </div>
 
@@ -4215,6 +4399,21 @@
                     </div>
                 </div>
                 <div class="warning-box">CYP2C19 polymorphisms affect efficacy. Consider genotyping or ticagrelor in high-risk PCI.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#acs" class="guide-link">IMCRG: Acute Coronary Syndrome (Acs)</a>
+                    <a href="im_guide.html#stroke" class="guide-link">IMCRG: Acute Ischemic Stroke</a>
+                    <a href="im_guide.html#tia" class="guide-link">IMCRG: Transient Ischemic Attack (Tia)</a>
+                    <a href="im_guide.html#chronic-cad" class="guide-link">IMCRG: Chronic Coronary Disease</a>
+                    <a href="im_guide.html#pci-cabg" class="guide-link">IMCRG: Pci Vs Cabg Indications</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-17" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Thrombocytopenia</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                </div>
             </div>
         </div>
 
@@ -4258,6 +4457,18 @@
                 </div>
                 <div class="warning-box">Use only aspirin 81mg with ticagrelor — higher doses reduce efficacy.</div>
                 <div class="pearl-box">Preferred P2Y12 in ACS. BID dosing required. Hold 3-5 days before surgery (faster offset than clopidogrel).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#acs" class="guide-link">IMCRG: Acute Coronary Syndrome (Acs)</a>
+                    <a href="im_guide.html#pci-cabg" class="guide-link">IMCRG: Pci Vs Cabg Indications</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-17" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Thrombocytopenia</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                </div>
             </div>
         </div>
 
@@ -4295,6 +4506,12 @@
                 </div>
                 <div class="black-box"><strong>CONTRAINDICATED in prior stroke/TIA</strong> — increased ICH. Also avoid if age ≥75 or weight &lt;60kg (use reduced dose).</div>
                 <div class="pearl-box">Most potent P2Y12. Reserve for high-risk PCI (STEMI, diabetics) without stroke history. Once-daily advantage over ticagrelor.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#acs" class="guide-link">IMCRG: Acute Coronary Syndrome (Acs)</a>
+                    <a href="im_guide.html#pci-cabg" class="guide-link">IMCRG: Pci Vs Cabg Indications</a>
+                </div>
             </div>
         </div>
 
@@ -4376,6 +4593,13 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#pe" class="guide-link">IMCRG: PE</a>
                     <a href="im_guide.html#acs" class="guide-link">IMCRG: ACS</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-57" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PTT</a>
+                    <a href="lab_values.html#lab-56" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PT/INR</a>
+                    <a href="lab_values.html#lab-17" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Thrombocytopenia</a>
                 </div>
             </div>
         </div>
@@ -4508,7 +4732,14 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#afib" class="guide-link">IMCRG: AFib</a>
                     <a href="im_guide.html#pe" class="guide-link">IMCRG: PE</a>
-                    <a href="rheumatology_study_guide.html#aps" class="guide-link">Rheum: APS</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum: APS</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-56" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PT/INR</a>
+                    <a href="lab_values.html#lab-57" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PTT</a>
+                    <a href="lab_values.html#lab-43" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated D-dimer</a>
                 </div>
             </div>
         </div>
@@ -4613,6 +4844,14 @@
                     </div>
                 </div>
                 <div class="warning-box">Rivaroxaban 15 mg and 20 mg doses MUST be taken with food - absorption reduced by 30-40% if taken fasting.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#dvt" class="guide-link">IMCRG: Deep Vein Thrombosis (Dvt)</a>
+                    <a href="im_guide.html#pe" class="guide-link">IMCRG: Pulmonary Embolism (Pe)</a>
+                    <a href="im_guide.html#afib" class="guide-link">IMCRG: Atrial Fibrillation</a>
+                    <a href="im_guide.html#vte-prophylaxis" class="guide-link">IMCRG: Vte Prophylaxis</a>
+                </div>
             </div>
         </div>
 
@@ -4657,6 +4896,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Dabigatran is the only DOAC with a specific, fully effective reversal agent (idarucizumab). Consider for patients at high bleeding risk who may need emergent reversal.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#dvt" class="guide-link">IMCRG: Deep Vein Thrombosis (Dvt)</a>
+                    <a href="im_guide.html#pe" class="guide-link">IMCRG: Pulmonary Embolism (Pe)</a>
+                    <a href="im_guide.html#afib" class="guide-link">IMCRG: Atrial Fibrillation</a>
+                </div>
             </div>
         </div>
 
@@ -4707,6 +4953,13 @@
                 </div>
                 <div class="warning-box"><strong>Renal Paradox:</strong> Avoid if CrCl &gt;95 for AF — unique among DOACs. Less effective than warfarin in patients with good renal function.</div>
                 <div class="pearl-box">Once-daily DOAC. Requires parenteral lead-in for VTE (unlike rivaroxaban/apixaban). Fewer drug interactions than rivaroxaban.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#dvt" class="guide-link">IMCRG: Deep Vein Thrombosis (Dvt)</a>
+                    <a href="im_guide.html#pe" class="guide-link">IMCRG: Pulmonary Embolism (Pe)</a>
+                    <a href="im_guide.html#afib" class="guide-link">IMCRG: Atrial Fibrillation</a>
+                </div>
             </div>
         </div>
 
@@ -4815,6 +5068,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Vasopressin is used at FIXED dose (0.03-0.04 units/min) in septic shock - not titrated. Add when norepinephrine dose is escalating to reduce catecholamine requirements.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis/Septic Shock</a>
+                    <a href="im_guide.html#cardiogenic-shock" class="guide-link">IMCRG: Cardiogenic Shock</a>
+                    <a href="im_guide.html#variceal-bleeding" class="guide-link">IMCRG: Variceal Bleeding</a>
+                </div>
             </div>
         </div>
 
@@ -4859,6 +5119,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Dobutamine is an INOTROPE (increases contractility) not a vasopressor. It may DROP blood pressure due to β2 vasodilation. Often used with norepinephrine in cardiogenic shock.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#cardiogenic-shock" class="guide-link">IMCRG: Cardiogenic Shock</a>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                </div>
             </div>
         </div>
 
@@ -4908,6 +5174,21 @@
                 </div>
                 <div class="warning-box">Nephrotoxicity (usually reversible) and ototoxicity (may be irreversible). Monitor renal function. Extended-interval dosing reduces toxicity.</div>
                 <div class="pearl-box">Synergy dosing uses LOWER doses — goal is synergy, not standalone coverage. Extended-interval is standard for most indications.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#endocarditis" class="guide-link">IMCRG: Infective Endocarditis</a>
+                    <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis/Septic Shock</a>
+                    <a href="im_guide.html#uti" class="guide-link">IMCRG: Urinary Tract Infection / Pyelonephritis</a>
+                    <a href="im_guide.html#hap-vap" class="guide-link">IMCRG: Hospital-Acquired / Ventilator-Associated Pneumonia (Hap/Vap)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-95" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Aminoglycoside Levels</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-27" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low eGFR</a>
+                </div>
             </div>
         </div>
 
@@ -4946,6 +5227,20 @@
                     </div>
                 </div>
                 <div class="pearl-box">Preferred aminoglycoside for Pseudomonas. Inhaled TOBI is CF standard — cycled 28 days on/off.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hap-vap" class="guide-link">IMCRG: Hospital-Acquired / Ventilator-Associated Pneumonia (Hap/Vap)</a>
+                    <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis/Septic Shock</a>
+                    <a href="im_guide.html#cystic-fibrosis" class="guide-link">IMCRG: Cystic Fibrosis</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-95" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Aminoglycoside Levels</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-27" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low eGFR</a>
+                </div>
             </div>
         </div>
 
@@ -4986,6 +5281,20 @@
                     </div>
                 </div>
                 <div class="pearl-box">Reserve for resistant organisms. For MAC: part of clarithromycin + ethambutol + amikacin regimen.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hap-vap" class="guide-link">IMCRG: Hospital-Acquired / Ventilator-Associated Pneumonia (Hap/Vap)</a>
+                    <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis/Septic Shock</a>
+                    <a href="im_guide.html#neutropenic-fever" class="guide-link">IMCRG: Neutropenic Fever</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-95" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Aminoglycoside Levels</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-27" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low eGFR</a>
+                </div>
             </div>
         </div>
 
@@ -5049,6 +5358,17 @@
                 </div>
                 <div class="black-box">Hepatotoxicity - monitor LFTs monthly. Discontinue if AST/ALT >3× ULN with symptoms or >5× ULN without symptoms.</div>
                 <div class="pearl-box">INH is metabolized by N-acetyltransferase. "Slow acetylators" have higher drug levels and ↑risk of neuropathy and hepatotoxicity. Always give B6 with INH.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#tb" class="guide-link">IMCRG: Tuberculosis (Active Disease)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                </div>
             </div>
         </div>
 
@@ -5109,6 +5429,20 @@
                 </div>
                 <div class="danger-box">NEVER use rifampin monotherapy for Staph - rapid resistance develops. Always combine with another active agent.</div>
                 <div class="pearl-box">Rifampin has the most drug interactions of any antibiotic. Always review entire medication list. For HIV patients, consider rifabutin instead (less CYP induction).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#tb" class="guide-link">IMCRG: Tuberculosis (Active Disease)</a>
+                    <a href="im_guide.html#osteomyelitis" class="guide-link">IMCRG: Osteomyelitis</a>
+                    <a href="im_guide.html#endocarditis" class="guide-link">IMCRG: Infective Endocarditis</a>
+                    <a href="im_guide.html#meningitis" class="guide-link">IMCRG: Bacterial Meningitis</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-56" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PT/INR</a>
+                </div>
             </div>
         </div>
 
@@ -5158,6 +5492,11 @@
                     </div>
                 </div>
                 <div class="pearl-box">PZA's unique sterilizing activity against dormant TB is why it enables 6-month (vs 9-month) regimens. Only used during intensive phase (first 2 months).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#tb" class="guide-link">IMCRG: Tuberculosis (Active Disease)</a>
+                </div>
             </div>
         </div>
 
@@ -5207,6 +5546,11 @@
                 </div>
                 <div class="black-box">Optic neuritis: Baseline visual acuity and color vision testing required. Monthly monitoring recommended. Discontinue immediately if visual changes occur.</div>
                 <div class="pearl-box">Can be discontinued after 2 months if isolate is susceptible to INH and rifampin. Avoid in young children who cannot report visual symptoms.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#tb" class="guide-link">IMCRG: Tuberculosis (Active Disease)</a>
+                </div>
             </div>
         </div>
 
@@ -5255,6 +5599,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Rifabutin is preferred over rifampin in HIV patients because of fewer drug interactions with antiretrovirals.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#tb" class="guide-link">IMCRG: Tuberculosis (Active Disease)</a>
+                    <a href="im_guide.html#opportunistic" class="guide-link">IMCRG: Opportunistic Infections In Immunocompromised Host</a>
+                </div>
             </div>
         </div>
 
@@ -5322,6 +5672,12 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Candidemia</a>
                     <a href="id_guide.html#fungal-infections" class="guide-link">ID Guide: Fungal</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-56" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PT/INR</a>
                 </div>
             </div>
         </div>
@@ -5431,6 +5787,20 @@
                 </div>
                 <div class="warning-box">Voriconazole levels are highly variable - therapeutic drug monitoring (TDM) is essential. Target trough 1-5 mcg/mL. Toxicity increases with levels >5.5.</div>
                 <div class="pearl-box">Voriconazole is first-line for invasive aspergillosis. Visual side effects ("seeing in technicolor") are common but transient - warn patients.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#aspergillosis" class="guide-link">IMCRG: Invasive Aspergillosis</a>
+                    <a href="im_guide.html#invasive-candida" class="guide-link">IMCRG: Invasive Candidiasis</a>
+                    <a href="im_guide.html#opportunistic" class="guide-link">IMCRG: Opportunistic Infections In Immunocompromised Host</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-117" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Free T4/Free T3</a>
+                </div>
             </div>
         </div>
 
@@ -5485,6 +5855,13 @@
                     <a href="nephrology_study_guide.html" class="guide-link">Nephro: Nephrotoxins</a>
                     <a href="id_guide.html#fungal-infections" class="guide-link">ID Guide: Fungal</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-7" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hypomagnesemia</a>
+                </div>
             </div>
         </div>
 
@@ -5534,6 +5911,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Posaconazole DR tablets have superior absorption vs oral suspension. The only azole with reliable anti-Mucorales activity - can use as step-down after amphotericin B.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#aspergillosis" class="guide-link">IMCRG: Invasive Aspergillosis</a>
+                    <a href="im_guide.html#neutropenic-fever" class="guide-link">IMCRG: Neutropenic Fever</a>
+                    <a href="im_guide.html#opportunistic" class="guide-link">IMCRG: Opportunistic Infections In Immunocompromised Host</a>
+                </div>
             </div>
         </div>
 
@@ -5583,6 +5967,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Isavuconazole has better tolerability than voriconazole (no visual/skin toxicity). Non-inferior to voriconazole for aspergillosis. Consider as first-line for patients who cannot tolerate voriconazole.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#aspergillosis" class="guide-link">IMCRG: Invasive Aspergillosis</a>
+                    <a href="im_guide.html#invasive-candida" class="guide-link">IMCRG: Invasive Candidiasis</a>
+                </div>
             </div>
         </div>
 
@@ -5633,6 +6023,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Echinocandins are essentially interchangeable for candidemia. All have excellent safety profiles and cover azole-resistant Candida. Poor CNS penetration - NOT for CNS infections.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#invasive-candida" class="guide-link">IMCRG: Invasive Candidiasis</a>
+                    <a href="im_guide.html#aspergillosis" class="guide-link">IMCRG: Invasive Aspergillosis</a>
+                    <a href="im_guide.html#neutropenic-fever" class="guide-link">IMCRG: Neutropenic Fever</a>
+                </div>
             </div>
         </div>
 
@@ -5679,6 +6076,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Anidulafungin has no significant drug interactions - consider in patients on complex medication regimens or with hepatic impairment.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#invasive-candida" class="guide-link">IMCRG: Invasive Candidiasis</a>
+                    <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis/Septic Shock</a>
+                </div>
             </div>
         </div>
 
@@ -5751,8 +6154,16 @@
                 <div class="cross-links">
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#copd" class="guide-link">IMCRG: COPD</a>
-                    <a href="rheumatology_study_guide.html" class="guide-link">Rheum Guide</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum Guide</a>
                     <a href="nephrology_study_guide.html" class="guide-link">Nephro Guide</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-46" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperglycemia</a>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-55" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low Vitamin D</a>
+                    <a href="lab_values.html#lab-67" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated LDL</a>
                 </div>
             </div>
         </div>
@@ -5809,6 +6220,16 @@
                     </div>
                 </div>
                 <div class="pearl-box">IV Solu-Medrol when PO not feasible. Pulse dosing (500-1000mg × 3-5 days) for severe autoimmune flares — dramatically effective but monitor glucose and psych effects.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#asthma" class="guide-link">IMCRG: Asthma Exacerbation</a>
+                    <a href="im_guide.html#copd" class="guide-link">IMCRG: Copd Exacerbation</a>
+                    <a href="im_guide.html#ms" class="guide-link">IMCRG: Multiple Sclerosis</a>
+                    <a href="im_guide.html#ards" class="guide-link">IMCRG: Ards (Acute Respiratory Distress Syndrome)</a>
+                    <a href="im_guide.html#anaphylaxis" class="guide-link">IMCRG: Anaphylaxis</a>
+                    <a href="im_guide.html#lupus-nephritis" class="guide-link">IMCRG: Lupus Nephritis</a>
+                </div>
             </div>
         </div>
 
@@ -5862,7 +6283,13 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#meningitis" class="guide-link">IMCRG: Meningitis</a>
                     <a href="id_guide.html" class="guide-link">ID Guide</a>
-                    <a href="rheumatology_study_guide.html" class="guide-link">Rheum Guide</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum Guide</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-46" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperglycemia</a>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
                 </div>
             </div>
         </div>
@@ -5915,6 +6342,13 @@
                     <a href="im_guide.html#adrenal" class="guide-link">IMCRG: Adrenal Crisis</a>
                     <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-46" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperglycemia</a>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-50" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low Cortisol</a>
+                </div>
             </div>
         </div>
 
@@ -5950,6 +6384,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">"Pure pressor" — raises BP without raising HR. Reflex bradycardia is expected and often desired.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis/Septic Shock</a>
+                    <a href="im_guide.html#neurogenic-shock" class="guide-link">IMCRG: Neurogenic Shock</a>
+                </div>
             </div>
         </div>
 
@@ -5987,6 +6427,13 @@
                     </div>
                 </div>
                 <div class="warning-box">"Renal dose" (1-5 mcg/kg/min) does NOT prevent AKI — abandoned. More arrhythmogenic than norepinephrine.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#cardiogenic-shock" class="guide-link">IMCRG: Cardiogenic Shock</a>
+                    <a href="im_guide.html#sepsis" class="guide-link">IMCRG: Sepsis/Septic Shock</a>
+                    <a href="im_guide.html#bradycardia" class="guide-link">IMCRG: Symptomatic Bradycardia/Heart Block (Pacing)</a>
+                </div>
             </div>
         </div>
 
@@ -6023,6 +6470,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Inodilator: ↑contractility + ↓afterload + ↓pulmonary pressures. Particularly useful for RV failure. May need concurrent norepi for BP.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#cardiogenic-shock" class="guide-link">IMCRG: Cardiogenic Shock</a>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                    <a href="im_guide.html#pulmonary-hypertension" class="guide-link">IMCRG: Pulmonary Hypertension</a>
+                </div>
             </div>
         </div>
 
@@ -6096,6 +6550,13 @@
                     <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Heart Failure</a>
                     <a href="nephrology_study_guide.html#htn" class="guide-link">Nephro: HTN</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-28" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Proteinuria</a>
+                </div>
             </div>
         </div>
 
@@ -6141,6 +6602,20 @@
                     </div>
                 </div>
                 <div class="pearl-box">ARBs are NOT cough-free for ACEi angioedema - still ~10% cross-reactivity. For ACEi angioedema, consider ARB only if ACEi essential, with close monitoring.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                    <a href="im_guide.html#htn-emergency" class="guide-link">IMCRG: Hypertensive Emergency</a>
+                    <a href="im_guide.html#aki" class="guide-link">IMCRG: Acute Kidney Injury (Aki)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-28" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Proteinuria</a>
+                </div>
             </div>
         </div>
 
@@ -6191,7 +6666,7 @@
                 <div class="cross-links">
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="nephrology_study_guide.html#htn" class="guide-link">Nephro: HTN</a>
-                    <a href="rheumatology_study_guide.html#raynaud" class="guide-link">Rheum: Raynaud's</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum: Raynaud's</a>
                 </div>
             </div>
         </div>
@@ -6301,6 +6776,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Carvedilol has α-blocking (vasodilating) effect - may cause more orthostatic hypotension than metoprolol. Take with food. Both have equal mortality benefit in HFrEF.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                    <a href="im_guide.html#afib" class="guide-link">IMCRG: Atrial Fibrillation</a>
+                    <a href="im_guide.html#htn-emergency" class="guide-link">IMCRG: Hypertensive Emergency</a>
+                </div>
             </div>
         </div>
 
@@ -6408,7 +6890,7 @@
                 <div class="cross-links">
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Heart Failure</a>
-                    <a href="rheumatology_study_guide.html#drug-lupus" class="guide-link">Rheum: Drug-Induced Lupus</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum: Drug-Induced Lupus</a>
                 </div>
             </div>
         </div>
@@ -6466,6 +6948,12 @@
                     <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Heart Failure</a>
                     <a href="im_guide.html#cirrhosis" class="guide-link">IMCRG: Cirrhosis</a>
                     <a href="nephrology_study_guide.html#hyperkalemia" class="guide-link">Nephro: Hyperkalemia</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
                 </div>
             </div>
         </div>
@@ -6526,6 +7014,14 @@
                     <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Heart Failure</a>
                     <a href="nephrology_study_guide.html" class="guide-link">Nephro Guide</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-3" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hypokalemia</a>
+                    <a href="lab_values.html#lab-1" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyponatremia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-7" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hypomagnesemia</a>
+                </div>
             </div>
         </div>
 
@@ -6566,6 +7062,14 @@
                     </div>
                 </div>
                 <div class="pearl-box">First-line for most HTN emergencies. In dissection: start esmolol FIRST (prevent reflex tachy), then add nicardipine for BP goal.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#htn-emergency" class="guide-link">IMCRG: Hypertensive Emergency</a>
+                    <a href="im_guide.html#stroke" class="guide-link">IMCRG: Acute Ischemic Stroke</a>
+                    <a href="im_guide.html#ich" class="guide-link">IMCRG: Intracerebral Hemorrhage (Ich)</a>
+                    <a href="im_guide.html#sah" class="guide-link">IMCRG: Subarachnoid Hemorrhage (Sah)</a>
+                </div>
             </div>
         </div>
 
@@ -6602,6 +7106,12 @@
                 </div>
                 <div class="warning-box">Contains lipid emulsion — contraindicated in soy/egg allergy. Count toward daily lipid intake (propofol, TPN).</div>
                 <div class="pearl-box">Ultra-short acting — effects gone within minutes. Ideal for frequent neuro checks. More expensive than nicardipine.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#htn-emergency" class="guide-link">IMCRG: Hypertensive Emergency</a>
+                    <a href="im_guide.html#aortic-dissection" class="guide-link">IMCRG: Aortic Dissection</a>
+                </div>
             </div>
         </div>
 
@@ -6673,6 +7183,15 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#afib" class="guide-link">IMCRG: AFib</a>
                     <a href="im_guide.html#vt-vf" class="guide-link">IMCRG: VT</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-48" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated TSH</a>
+                    <a href="lab_values.html#lab-49" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low TSH</a>
+                    <a href="lab_values.html#lab-117" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Free T4/Free T3</a>
+                    <a href="lab_values.html#lab-41" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Troponin</a>
                 </div>
             </div>
         </div>
@@ -6790,6 +7309,13 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#digoxin-toxicity" class="guide-link">IMCRG: Digoxin Toxicity</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-93" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Digoxin Level</a>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                </div>
             </div>
         </div>
 
@@ -6829,6 +7355,12 @@
                 </div>
                 <div class="black-box"><strong>CAST Trial:</strong> Increased mortality in structural heart disease/CAD. CONTRAINDICATED in: CAD, prior MI, HF, LV dysfunction.</div>
                 <div class="pearl-box">"Pill-in-pocket": Test first dose in monitored setting. Always combine with AV nodal blocker.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#afib" class="guide-link">IMCRG: Atrial Fibrillation</a>
+                    <a href="im_guide.html#svt" class="guide-link">IMCRG: Supraventricular Tachycardia (Svt)</a>
+                </div>
             </div>
         </div>
 
@@ -6864,6 +7396,12 @@
                     </div>
                 </div>
                 <div class="black-box"><strong>QT Prolongation:</strong> Must initiate in hospital × 3 days. Contraindicated if QTc >450ms or CrCl &lt;40.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#afib" class="guide-link">IMCRG: Atrial Fibrillation</a>
+                    <a href="im_guide.html#vt-vf" class="guide-link">IMCRG: Ventricular Tachycardia/Ventricular Fibrillation</a>
+                </div>
             </div>
         </div>
 
@@ -6904,6 +7442,11 @@
                 </div>
                 <div class="black-box"><strong>REMS Program:</strong> Certified prescribers/pharmacies only. IN-HOSPITAL initiation × 3 days required.</div>
                 <div class="pearl-box">Dose is ENTIRELY based on CrCl. Check drug interactions — many increase levels. Safe in HF.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#afib" class="guide-link">IMCRG: Atrial Fibrillation</a>
+                </div>
             </div>
         </div>
 
@@ -6939,6 +7482,11 @@
                     </div>
                 </div>
                 <div class="warning-box">Torsades risk ~4%. Correct K+/Mg+ first. Have defibrillator ready. Pre-treat with Mg 1-2g may reduce risk.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#afib" class="guide-link">IMCRG: Atrial Fibrillation</a>
+                </div>
             </div>
         </div>
 
@@ -6994,6 +7542,11 @@
                     </ul>
                 </div>
                 <div class="pearl-box">Dronedarone is less effective than amiodarone but avoids thyroid/pulmonary toxicity. Only use in paroxysmal/persistent AF with preserved LV function. NEVER in permanent AF or decompensated HF.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#afib" class="guide-link">IMCRG: Atrial Fibrillation</a>
+                </div>
             </div>
         </div>
 
@@ -7043,6 +7596,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Ranolazine is add-on antianginal that works differently - does not affect HR or BP. Useful in refractory angina when maxed out on beta-blockers, nitrates, CCBs. Also has mild HbA1c-lowering effect.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#chronic-cad" class="guide-link">IMCRG: Chronic Coronary Disease</a>
+                    <a href="im_guide.html#afib" class="guide-link">IMCRG: Atrial Fibrillation</a>
+                </div>
             </div>
         </div>
 
@@ -7109,6 +7668,19 @@
                 </div>
                 <div class="warning-box">Euglycemic DKA: Can occur with normal glucose, even in non-diabetics. Hold SGLT2i during acute illness, surgery, or fasting. Check ketones if nausea/vomiting develops.</div>
                 <div class="pearl-box">SGLT2 inhibitors are now a PILLAR of GDMT — start in ALL HF patients (EF reduced, mildly reduced, OR preserved) regardless of diabetes status. Benefits seen within weeks.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                    <a href="im_guide.html#aki" class="guide-link">IMCRG: Acute Kidney Injury (Aki)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-46" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperglycemia</a>
+                    <a href="lab_values.html#lab-13" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low Bicarbonate</a>
+                </div>
             </div>
         </div>
 
@@ -7164,6 +7736,18 @@
                 </div>
                 <div class="warning-box">Euglycemic DKA: Can occur with near-normal glucose. Hold during acute illness, surgery, prolonged fasting. Check ketones if nausea/vomiting.</div>
                 <div class="pearl-box">DAPA-CKD showed benefit regardless of diabetes status — SGLT2i now recommended for CKD with albuminuria even WITHOUT diabetes per KDIGO 2024.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-46" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperglycemia</a>
+                    <a href="lab_values.html#lab-13" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low Bicarbonate</a>
+                </div>
             </div>
         </div>
 
@@ -7215,6 +7799,18 @@
                     </div>
                 </div>
                 <div class="pearl-box">Choose eplerenone over spironolactone when gynecomastia/breast tenderness is a concern. More expensive but better tolerated in men.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                    <a href="im_guide.html#primary-aldosteronism" class="guide-link">IMCRG: Primary Aldosteronism (Conn Syndrome)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                </div>
             </div>
         </div>
 
@@ -7269,6 +7865,11 @@
                 </div>
                 <div class="warning-box">Contraindicated in: AF/flutter, sick sinus syndrome, SA/AV block (without pacemaker), HR &lt;70, severe hepatic impairment, pacemaker-dependent, acute decompensated HF.</div>
                 <div class="pearl-box">Ivabradine is NOT a substitute for beta-blockers — it's add-on therapy when HR remains ≥70 despite maximally tolerated BB. Does not lower BP.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                </div>
             </div>
         </div>
 
@@ -7320,6 +7921,18 @@
                     </div>
                 </div>
                 <div class="pearl-box">Finerenone is the ONLY MRA with proven cardiorenal benefit in DKD. Use ON TOP of max ACEi/ARB and SGLT2i per KDIGO 2024 guidelines.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                    <a href="im_guide.html#aki" class="guide-link">IMCRG: Acute Kidney Injury (Aki)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                </div>
             </div>
         </div>
 
@@ -7371,6 +7984,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Only 3 beta-blockers have mortality benefit in HFrEF: carvedilol, metoprolol succinate, and bisoprolol. Bisoprolol is most β1-selective — consider in patients with reactive airway disease.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                    <a href="im_guide.html#afib" class="guide-link">IMCRG: Atrial Fibrillation</a>
+                </div>
             </div>
         </div>
 
@@ -7437,6 +8056,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Bumetanide has more predictable oral bioavailability than furosemide (80-100% vs 10-100%). Consider switching when PO furosemide response is inconsistent.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                    <a href="im_guide.html#cirrhosis" class="guide-link">IMCRG: Cirrhosis With Ascites</a>
+                </div>
             </div>
         </div>
 
@@ -7490,6 +8115,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Torsemide's longer duration of action may reduce "rebound" sodium retention seen with shorter-acting loops. Some HF experts prefer it over furosemide for outpatient management.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                    <a href="im_guide.html#cirrhosis" class="guide-link">IMCRG: Cirrhosis With Ascites</a>
+                </div>
             </div>
         </div>
 
@@ -7545,6 +8176,11 @@
                 </div>
                 <div class="warning-box">VERY potent when combined with loops — can cause massive diuresis and electrolyte derangements. Check BMP within 24-48h. Often used short-term (2-3 days) rather than continuously.</div>
                 <div class="pearl-box">Unlike HCTZ, metolazone remains effective at low GFR. Give 30-60 min BEFORE the loop diuretic to "prime" the distal nephron. Monitor electrolytes closely!</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                </div>
         <!-- ACETAZOLAMIDE -->
         <div class="drug-card" id="acetazolamide" data-search="acetazolamide diamox carbonic anhydrase inhibitor metabolic alkalosis altitude glaucoma iih">
             <div class="drug-header" onclick="toggleDrug(this)">
@@ -7599,6 +8235,12 @@
                 </div>
                 <div class="warning-box">Contains sulfonamide — caution in sulfa allergy. Avoid in hepatic cirrhosis (can precipitate encephalopathy by ↑ammonia).</div>
                 <div class="pearl-box">Paresthesias = expected, not dangerous. For altitude: start 1 day before ascent. Carbonated drinks taste flat on this drug (blocks CO2 sensing).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                    <a href="im_guide.html#iih" class="guide-link">IMCRG: Iih (Idiopathic Intracranial Hypertension)</a>
+                </div>
             </div>
         </div>
 
@@ -7653,6 +8295,20 @@
                 <div class="pearl-box">Must initiate in hospital to monitor Na closely. Allow patient to drink to thirst — do NOT restrict fluids initially. Very expensive.</div>
             </div>
         </div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                    <a href="im_guide.html#hyponatremia" class="guide-link">IMCRG: Hyponatremia</a>
+                    <a href="im_guide.html#siadh" class="guide-link">IMCRG: Siadh (Syndrome Of Inappropriate Adh)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-1" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyponatremia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-98" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Serum Osmolality</a>
+                </div>
             </div>
         </div>
         <!-- ============================================== -->
@@ -7731,6 +8387,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Weekly dosing (70 mg) is preferred for adherence. Consider bisphosphonate holiday after 5 years — residual benefit persists due to long skeletal half-life (years).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#osteoporosis" class="guide-link">IMCRG: Osteoporosis</a>
+                    <a href="im_guide.html#hypercalcemia" class="guide-link">IMCRG: Hypercalcemia</a>
+                    <a href="im_guide.html#osteonecrosis" class="guide-link">IMCRG: Osteonecrosis (Avascular Necrosis)</a>
+                </div>
             </div>
         </div>
 
@@ -7786,6 +8449,13 @@
                 </div>
                 <div class="warning-box">Pre-infusion: Check creatinine, correct hypocalcemia, ensure vitamin D replete. Hydrate well. Infuse over at least 15 minutes to reduce nephrotoxicity.</div>
                 <div class="pearl-box">Post-hip fracture: Zoledronic acid within 90 days reduces mortality and future fractures (HORIZON-RFT). Ideal for adherence issues — once yearly dosing.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#osteoporosis" class="guide-link">IMCRG: Osteoporosis</a>
+                    <a href="im_guide.html#hypercalcemia" class="guide-link">IMCRG: Hypercalcemia</a>
+                    <a href="im_guide.html#myeloma" class="guide-link">IMCRG: Multiple Myeloma</a>
+                </div>
             </div>
         </div>
 
@@ -7841,6 +8511,12 @@
                 </div>
                 <div class="black-box"><strong>REBOUND VERTEBRAL FRACTURES:</strong> Discontinuation leads to rapid bone loss and increased vertebral fracture risk. If stopping denosumab, transition to a bisphosphonate (e.g., zoledronic acid 6 months after last Prolia dose).</div>
                 <div class="pearl-box">Unlike bisphosphonates, denosumab is safe in CKD. However, you CANNOT just stop it — must transition to bisphosphonate to prevent rebound fractures.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#osteoporosis" class="guide-link">IMCRG: Osteoporosis</a>
+                    <a href="im_guide.html#hypercalcemia" class="guide-link">IMCRG: Hypercalcemia</a>
+                </div>
             </div>
         </div>
 
@@ -7894,6 +8570,11 @@
                 </div>
                 <div class="black-box"><strong>Osteosarcoma risk:</strong> Caused osteosarcoma in rats at high doses. Contraindicated in: Paget disease, prior radiation to bone, unexplained ALP elevation, open epiphyses, bone metastases, skeletal malignancy, hypercalcemia.</div>
                 <div class="pearl-box">Anabolic therapy BUILDS bone — use for severe osteoporosis. Must follow with bisphosphonate or denosumab after 2 years or bone gains will be lost!</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#osteoporosis" class="guide-link">IMCRG: Osteoporosis</a>
+                </div>
             </div>
         </div>
 
@@ -7948,6 +8629,11 @@
                 </div>
                 <div class="black-box"><strong>Cardiovascular risk:</strong> May increase risk of MI, stroke, and CV death. Contraindicated within 1 year of MI or stroke. Avoid in high CV risk patients.</div>
                 <div class="pearl-box">Most potent osteoporosis drug available — increases spine BMD by ~13% in 1 year. Reserve for very high-risk patients without recent CV events. Always follow with antiresorptive.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#osteoporosis" class="guide-link">IMCRG: Osteoporosis</a>
+                </div>
             </div>
         </div>
 
@@ -8000,6 +8686,11 @@
                 </div>
                 <div class="black-box"><strong>VTE Risk:</strong> Increases risk of DVT and PE. Contraindicated with history of or active VTE. Discontinue 72 hours before prolonged immobilization.</div>
                 <div class="pearl-box">Raloxifene primarily prevents vertebral fractures (NOT hip). Best candidate: Postmenopausal woman with spine osteoporosis + high breast cancer risk + low VTE risk.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#osteoporosis" class="guide-link">IMCRG: Osteoporosis</a>
+                </div>
             </div>
         </div>
 
@@ -8065,6 +8756,14 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#dka" class="guide-link">IMCRG: T2DM</a>
                     <a href="nephrology_study_guide.html#ckd" class="guide-link">Nephro: CKD</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-27" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low eGFR</a>
+                    <a href="lab_values.html#lab-54" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated HbA1c</a>
+                    <a href="lab_values.html#lab-45" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Lactate</a>
                 </div>
             </div>
         </div>
@@ -8178,6 +8877,12 @@
                     <a href="im_guide.html#dka" class="guide-link">IMCRG: T2DM</a>
                     <a href="im_guide.html#dka" class="guide-link">IMCRG: Obesity</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-54" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated HbA1c</a>
+                    <a href="lab_values.html#lab-38" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Lipase</a>
+                </div>
             </div>
         </div>
 
@@ -8226,6 +8931,21 @@
                     </div>
                 </div>
                 <div class="pearl-box">Glargine is "peakless" basal insulin - less nocturnal hypoglycemia than NPH. Cannot be mixed with other insulins. Toujeo (U-300) has even flatter profile.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#dka" class="guide-link">IMCRG: Diabetic Ketoacidosis (Dka)</a>
+                    <a href="im_guide.html#hhs" class="guide-link">IMCRG: Hyperosmolar Hyperglycemic State (Hhs)</a>
+                    <a href="im_guide.html#steroid-hyperglycemia" class="guide-link">IMCRG: Steroid-Induced Hyperglycemia</a>
+                    <a href="im_guide.html#inpatient-insulin" class="guide-link">IMCRG: Inpatient Insulin Management</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-46" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperglycemia</a>
+                    <a href="lab_values.html#lab-47" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hypoglycemia</a>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                </div>
             </div>
         </div>
 
@@ -8275,6 +8995,21 @@
                     </div>
                 </div>
                 <div class="pearl-box">Rapid-acting insulins (lispro, aspart, glulisine) are preferred over regular insulin for mealtime dosing - better match to postprandial glucose and less late hypoglycemia.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#dka" class="guide-link">IMCRG: Diabetic Ketoacidosis (Dka)</a>
+                    <a href="im_guide.html#hhs" class="guide-link">IMCRG: Hyperosmolar Hyperglycemic State (Hhs)</a>
+                    <a href="im_guide.html#steroid-hyperglycemia" class="guide-link">IMCRG: Steroid-Induced Hyperglycemia</a>
+                    <a href="im_guide.html#inpatient-insulin" class="guide-link">IMCRG: Inpatient Insulin Management</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-46" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperglycemia</a>
+                    <a href="lab_values.html#lab-47" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hypoglycemia</a>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                </div>
             </div>
         </div>
 
@@ -8450,6 +9185,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Rifaximin reduces recurrent HE by ~50% when added to lactulose. Very expensive but effective - reserve for recurrent HE after lactulose optimization.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#he" class="guide-link">IMCRG: Hepatic Encephalopathy</a>
+                    <a href="im_guide.html#sbp" class="guide-link">IMCRG: Spontaneous Bacterial Peritonitis (Sbp)</a>
+                    <a href="im_guide.html#cirrhosis" class="guide-link">IMCRG: Cirrhosis With Ascites</a>
+                </div>
             </div>
         </div>
 
@@ -8559,6 +9301,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">First-line for PBC — improves LFTs and survival. For gallstones: only works on cholesterol stones <20mm with functioning gallbladder. Takes 6-24 months.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#pbc" class="guide-link">IMCRG: Primary Biliary Cholangitis (Pbc)</a>
+                    <a href="im_guide.html#psc" class="guide-link">IMCRG: Primary Sclerosing Cholangitis (Psc)</a>
+                    <a href="im_guide.html#cholangitis" class="guide-link">IMCRG: Acute Cholangitis</a>
+                </div>
             </div>
         </div>
 
@@ -8611,6 +9360,12 @@
                 </div>
                 <div class="warning-box"><strong>Avoid in C. diff and invasive diarrhea</strong> — can precipitate toxic megacolon. High-dose abuse can cause fatal cardiac arrhythmias.</div>
                 <div class="pearl-box">OTC max 8mg/day, Rx can go to 16mg/day. Avoid if dysentery (bloody stool + fever). Safe in most travelers' diarrhea with antibiotics.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#cdiff" class="guide-link">IMCRG: C. Difficile Infection (Cdi)</a>
+                    <a href="im_guide.html#ibd" class="guide-link">IMCRG: Inflammatory Bowel Disease (Ibd) Flare</a>
+                </div>
             </div>
         </div>
 
@@ -8657,6 +9412,11 @@
                     </div>
                 </div>
                 <div class="pearl-box">IDSA 2021: Fidaxomicin preferred over oral vanco for initial and recurrent C. diff. Lower recurrence rate (13% vs 27%). More expensive but cost-effective if prevents recurrence.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#cdiff" class="guide-link">IMCRG: C. Difficile Infection (Cdi)</a>
+                </div>
             </div>
         </div>
     </div>
@@ -8725,6 +9485,14 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="nephrology_study_guide.html#transplant" class="guide-link">Nephro: Transplant</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                </div>
             </div>
         </div>
 
@@ -8778,7 +9546,14 @@
                 <div class="cross-links">
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="nephrology_study_guide.html" class="guide-link">Nephro Guide</a>
-                    <a href="rheumatology_study_guide.html#sle" class="guide-link">Rheum: SLE</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum: SLE</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
                 </div>
             </div>
         </div>
@@ -8831,8 +9606,15 @@
                 <div class="warning-box">Check TPMT before starting. TPMT deficiency → severe myelosuppression. Heterozygotes may need dose reduction.</div>
                 <div class="cross-links">
                     <div class="cross-links-title">📎 Referenced in:</div>
-                    <a href="rheumatology_study_guide.html" class="guide-link">Rheum Guide</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum Guide</a>
                     <a href="im_guide.html#ibd" class="guide-link">IMCRG: IBD</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
                 </div>
             </div>
         </div>
@@ -8890,6 +9672,13 @@
                 </div>
                 <div class="black-box"><strong>Hemorrhagic cystitis:</strong> Hydrate + Mesna. <strong>Myelosuppression:</strong> Monitor CBC. <strong>Secondary malignancy.</strong> <strong>Teratogenic.</strong></div>
                 <div class="pearl-box">Give Mesna (same dose as cyclophosphamide) with each dose. Antiemetics: ondansetron + dexamethasone. Consider fertility preservation before starting. Rituximab now often preferred for ANCA vasculitis.</div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-82" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Urinalysis</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                </div>
             </div>
         </div>
     </div>
@@ -8967,7 +9756,18 @@
                 <div class="pearl-box">Methotrexate is anchor drug for RA - start early. Combines well with biologics. Low-dose MTX has excellent long-term safety record.</div>
                 <div class="cross-links">
                     <div class="cross-links-title">📎 Referenced in:</div>
-                    <a href="rheumatology_study_guide.html#ra" class="guide-link">Rheum: RA</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum: RA</a>
+                    <a href="im_guide.html#rheumatoid-arthritis" class="guide-link">IMCRG: Rheumatoid Arthritis</a>
+                    <a href="im_guide.html#sle" class="guide-link">IMCRG: Lupus Nephritis</a>
+                    <a href="im_guide.html#ibd" class="guide-link">IMCRG: Ibd</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-28" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Proteinuria</a>
                 </div>
             </div>
         </div>
@@ -9026,9 +9826,16 @@
                 <div class="pearl-box">B-cell depletion lasts 6-12 months. Check CD19/CD20 counts to guide retreatment. May cause prolonged hypogammaglobulinemia with repeated dosing.</div>
                 <div class="cross-links">
                     <div class="cross-links-title">📎 Referenced in:</div>
-                    <a href="rheumatology_study_guide.html#ra" class="guide-link">Rheum: RA</a>
-                    <a href="rheumatology_study_guide.html#vasculitis" class="guide-link">Rheum: Vasculitis</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum: RA</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum: Vasculitis</a>
                     <a href="nephrology_study_guide.html" class="guide-link">Nephro Guide</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-19" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Leukocytosis</a>
+                    <a href="lab_values.html#lab-20" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Leukopenia/Neutropenia</a>
                 </div>
             </div>
         </div>
@@ -9083,8 +9890,15 @@
                 <div class="pearl-box">All TNF inhibitors require TB screening before initiation. Live vaccines contraindicated during therapy.</div>
                 <div class="cross-links">
                     <div class="cross-links-title">📎 Referenced in:</div>
-                    <a href="rheumatology_study_guide.html#ra" class="guide-link">Rheum: RA</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum: RA</a>
                     <a href="im_guide.html#ibd" class="guide-link">IMCRG: IBD</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-71" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated ESR</a>
                 </div>
             </div>
         </div>
@@ -9135,8 +9949,13 @@
                 <div class="pearl-box">HCQ is the only DMARD safe in pregnancy - continue in pregnant SLE patients (reduces flares). Also protective against thrombosis in APS.</div>
                 <div class="cross-links">
                     <div class="cross-links-title">📎 Referenced in:</div>
-                    <a href="rheumatology_study_guide.html#sle" class="guide-link">Rheum: SLE</a>
-                    <a href="rheumatology_study_guide.html#ra" class="guide-link">Rheum: RA</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum: SLE</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum: RA</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
                 </div>
             </div>
         </div>
@@ -9192,8 +10011,15 @@
                 <div class="pearl-box">For acute gout: Low-dose colchicine (AGREE trial regimen) is as effective and much better tolerated than old high-dose regimens.</div>
                 <div class="cross-links">
                     <div class="cross-links-title">📎 Referenced in:</div>
-                    <a href="rheumatology_study_guide.html#gout" class="guide-link">Rheum: Gout</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum: Gout</a>
                     <a href="im_guide.html#pericarditis" class="guide-link">IMCRG: Pericarditis</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
                 </div>
             </div>
         </div>
@@ -9251,6 +10077,21 @@
                 </div>
                 <div class="black-box"><strong>Serious Infections:</strong> TB, invasive fungal, bacterial. Screen for TB before starting. <strong>GI Perforation:</strong> Use with caution in diverticulitis history.</div>
                 <div class="pearl-box">IL-6 blockade → CRP/ESR will NOT rise even with infection — cannot rely on inflammatory markers. For GCA: allows faster steroid taper, ↓relapse. CRS: dramatic response within hours.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#rheumatoid-arthritis" class="guide-link">IMCRG: Rheumatoid Arthritis</a>
+                    <a href="im_guide.html#vasculitis-emergency" class="guide-link">IMCRG: Vasculitis Emergencies</a>
+                    <a href="im_guide.html#covid" class="guide-link">IMCRG: Covid-19 Severe Disease</a>
+                    <a href="im_guide.html#adult-still" class="guide-link">IMCRG: Adult-Onset Still'S Disease (Aosd)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-72" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated CRP</a>
+                </div>
             </div>
         </div>
 
@@ -9307,6 +10148,13 @@
                 <div class="warning-box">Active metabolite (M6G) accumulates in renal failure → prolonged effect, toxicity. Avoid or reduce dose significantly with CKD. Consider alternatives (fentanyl, hydromorphone).</div>
                 <div class="adjunct-box">START BOWEL REGIMEN with opioid initiation: Senna 8.6 mg BID + docusate 100 mg BID. Titrate to daily BM. Constipation does NOT improve with tolerance.</div>
                 <div class="pearl-box">Morphine causes more histamine release (hypotension, pruritus) than other opioids. For hemodynamically unstable patients, fentanyl preferred.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#acs" class="guide-link">IMCRG: Acute Coronary Syndrome (Acs)</a>
+                    <a href="im_guide.html#pancreatitis" class="guide-link">IMCRG: Acute Pancreatitis</a>
+                    <a href="im_guide.html#burns-third-spacing" class="guide-link">IMCRG: Burns / Third-Spacing</a>
+                </div>
             </div>
         </div>
 
@@ -9345,6 +10193,13 @@
                 </div>
                 <div class="warning-box">Transdermal patch: For opioid-TOLERANT patients only. 12-24h to reach steady state; effects persist 12-24h after removal. Never apply heat (increases absorption).</div>
                 <div class="pearl-box">Fentanyl is preferred in renal failure (no active metabolites) and hemodynamic instability (no histamine release). Chest wall rigidity with rapid high-dose IV push.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#ards" class="guide-link">IMCRG: Ards (Acute Respiratory Distress Syndrome)</a>
+                    <a href="im_guide.html#burns-third-spacing" class="guide-link">IMCRG: Burns / Third-Spacing</a>
+                    <a href="im_guide.html#pancreatitis" class="guide-link">IMCRG: Acute Pancreatitis</a>
+                </div>
             </div>
         </div>
 
@@ -9384,6 +10239,13 @@
                 </div>
                 <div class="warning-box">Naloxone duration (30-90 min) is SHORTER than most opioids. Monitor for resedation and redose PRN. Consider infusion (2/3 of effective bolus per hour).</div>
                 <div class="pearl-box">In opioid-tolerant patients, titrate small doses (0.04-0.1 mg) to avoid precipitating severe withdrawal. Goal is adequate ventilation, not full alertness.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#opioid-overdose" class="guide-link">IMCRG: Opioid Overdose</a>
+                    <a href="im_guide.html#opioid" class="guide-link">IMCRG: Opioid Overdose/Withdrawal</a>
+                    <a href="im_guide.html#overdose" class="guide-link">IMCRG: Drug Overdose/Toxidromes</a>
+                </div>
             </div>
         </div>
 
@@ -9436,6 +10298,13 @@
                 </div>
                 <div class="black-box">Propofol Infusion Syndrome (PRIS): High doses (>83 mcg/kg/min) for >48h → metabolic acidosis, rhabdomyolysis, hyperkalemia, cardiac failure. Monitor for early signs.</div>
                 <div class="pearl-box">Propofol has NO analgesic effect - always combine with opioid for painful procedures/conditions. Lipid emulsion provides 1.1 kcal/mL - count toward nutrition.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#ards" class="guide-link">IMCRG: Ards (Acute Respiratory Distress Syndrome)</a>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                    <a href="im_guide.html#increased-icp" class="guide-link">IMCRG: Increased Intracranial Pressure (Icp)</a>
+                </div>
             </div>
         </div>
 
@@ -9488,6 +10357,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Ketamine is ideal for bronchospasm (bronchodilator) and hypotensive patients (maintains BP). Maintains airway reflexes - but not a substitute for NPO status.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#asthma" class="guide-link">IMCRG: Asthma Exacerbation</a>
+                    <a href="im_guide.html#ards" class="guide-link">IMCRG: Ards (Acute Respiratory Distress Syndrome)</a>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                </div>
             </div>
         </div>
 
@@ -9549,6 +10425,19 @@
                     </div>
                 </div>
                 <div class="pearl-box">Levetiracetam advantages: No drug interactions, IV=PO dosing, no drug level monitoring needed. Disadvantage: Behavioral side effects. Can give vitamin B6 to reduce irritability.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                    <a href="im_guide.html#stroke" class="guide-link">IMCRG: Acute Ischemic Stroke</a>
+                    <a href="im_guide.html#ich" class="guide-link">IMCRG: Intracerebral Hemorrhage (Ich)</a>
+                    <a href="im_guide.html#traumatic-brain-injury" class="guide-link">IMCRG: Traumatic Brain Injury (Tbi)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                </div>
             </div>
         </div>
 
@@ -9600,6 +10489,11 @@
                 </div>
                 <div class="warning-box">PR interval prolongation - caution in cardiac conduction disorders or with other PR-prolonging drugs. Consider ECG monitoring.</div>
                 <div class="pearl-box">Lacosamide has linear pharmacokinetics, minimal drug interactions, and IV option. Good choice for focal seizures. Watch for PR prolongation - unique cardiac effect among anticonvulsants.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                </div>
             </div>
         </div>
 
@@ -9654,6 +10548,20 @@
                 <div class="warning-box">IV phenytoin: Max rate 50 mg/min (cardiac toxicity). Use fosphenytoin when possible - faster infusion, less tissue injury. Check free level in renal failure/low albumin.</div>
                 <div class="adjunct-box">Long-term: Folic acid 1 mg daily (phenytoin interferes with folate metabolism), Vitamin D supplementation (increased metabolism → osteoporosis). Monitor CBC, vitamin D levels.</div>
                 <div class="pearl-box">Corrected phenytoin (Sheiner-Tozer): For albumin <3.5, adjusted level = measured/(0.2 × albumin + 0.1). Or just check free level directly.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                    <a href="im_guide.html#ich" class="guide-link">IMCRG: Intracerebral Hemorrhage (Ich)</a>
+                    <a href="im_guide.html#traumatic-brain-injury" class="guide-link">IMCRG: Traumatic Brain Injury (Tbi)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-96" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Phenytoin Level</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-35" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low Albumin</a>
+                </div>
             </div>
         </div>
 
@@ -9710,6 +10618,21 @@
                 <div class="black-box">Highly teratogenic - neural tube defects. Contraindicated in pregnancy for migraine/bipolar. If must use for epilepsy, use lowest effective dose + high-dose folate.</div>
                 <div class="warning-box">Valproate + carbapenem (meropenem, ertapenem) → dramatically reduces VPA levels. Avoid combination or use alternative antibiotic.</div>
                 <div class="pearl-box">Check ammonia if altered mental status on valproate - hyperammonemic encephalopathy can occur even with therapeutic levels and normal LFTs. Treat with lactulose or L-carnitine.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                    <a href="im_guide.html#bipolar" class="guide-link">IMCRG: Bipolar Disorder</a>
+                    <a href="im_guide.html#headache-syndromes" class="guide-link">IMCRG: Headache Syndromes</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-56" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PT/INR</a>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-35" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low Albumin</a>
+                </div>
             </div>
         </div>
 
@@ -9774,6 +10697,13 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#apap-overdose" class="guide-link">IMCRG: Acetaminophen OD</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-126" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Acetaminophen Level</a>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-37" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated INR</a>
+                </div>
             </div>
         </div>
 
@@ -9810,6 +10740,11 @@
                 </div>
                 <div class="black-box">Can precipitate seizures in benzodiazepine-dependent patients or mixed overdoses. Rarely indicated in overdose setting - supportive care preferred. Reserved for iatrogenic oversedation.</div>
                 <div class="warning-box">Duration shorter than most benzodiazepines - resedation may occur. Monitor for at least 2 hours after last dose.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#overdose" class="guide-link">IMCRG: Drug Overdose/Toxidromes</a>
+                </div>
             </div>
         </div>
 
@@ -9905,6 +10840,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Remember "PHAILS" - charcoal does NOT adsorb: Pesticides/petroleum, Hydrocarbons, Acids/alkalis/alcohols, Iron, Lithium, Solvents.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#overdose" class="guide-link">IMCRG: Drug Overdose/Toxidromes</a>
+                    <a href="im_guide.html#apap-overdose" class="guide-link">IMCRG: Acetaminophen Overdose</a>
+                    <a href="im_guide.html#salicylate-toxicity" class="guide-link">IMCRG: Salicylate Toxicity</a>
+                </div>
             </div>
         </div>
 
@@ -9941,6 +10883,11 @@
                 </div>
                 <div class="black-box"><strong>CONTRAINDICATED in TCA overdose</strong> — can cause asystole. If wide QRS or seizure history, do NOT give.</div>
                 <div class="pearl-box">"Hot as a hare, blind as a bat, dry as a bone, red as a beet, mad as a hatter" = anticholinergic. Have atropine at bedside before giving.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#overdose" class="guide-link">IMCRG: Drug Overdose/Toxidromes</a>
+                </div>
             </div>
         </div>
 
@@ -9981,6 +10928,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">LAST: CNS sx first (tinnitus, metallic taste, seizures) → CV collapse. Give lipid early — don't wait for arrest.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#bb-ccb-toxicity" class="guide-link">IMCRG: Beta Blocker / Calcium Channel Blocker Toxicity</a>
+                    <a href="im_guide.html#overdose" class="guide-link">IMCRG: Drug Overdose/Toxidromes</a>
+                </div>
             </div>
         </div>
 
@@ -10035,6 +10988,11 @@
                 </div>
                 <div class="black-box"><strong>Serotonin Syndrome:</strong> Contraindicated with SSRIs, SNRIs, MAOIs. <strong>G6PD Deficiency:</strong> Ineffective and causes hemolysis — use ascorbic acid instead.</div>
                 <div class="pearl-box">MetHb causes: dapsone, nitrites, benzocaine, nitric oxide. Pulse ox reads ~85% falsely in MetHb. Co-oximetry required for diagnosis. Blue urine/skin is expected, not dangerous.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#overdose" class="guide-link">IMCRG: Drug Overdose/Toxidromes</a>
+                </div>
             </div>
         </div>
 
@@ -10090,6 +11048,11 @@
                 </div>
                 <div class="warning-box">After Fab administration, total digoxin level will be VERY HIGH (measures bound + unbound) — this is expected. Free digoxin level is accurate but rarely available. Monitor for hypokalemia.</div>
                 <div class="pearl-box">Classic toxicity: nausea, visual changes (yellow halos), arrhythmias. ECG: "scooped" ST, ↑PR, any arrhythmia with ↑automaticity + ↓conduction (PAT with block, bidirectional VT). Also treats oleander, foxglove, toad toxin (bufotoxin).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#digoxin-toxicity" class="guide-link">IMCRG: Digoxin Toxicity</a>
+                </div>
             </div>
         </div>
 
@@ -10189,6 +11152,15 @@
                 </div>
                 <div class="warning-box">Monitor reflexes (first sign of toxicity). Antidote for Mg toxicity: Calcium gluconate 1-2 g IV. Reduce dose in renal failure.</div>
                 <div class="pearl-box">1 g MgSO4 = 8 mEq Mg = 98 mg elemental Mg. Serum Mg poorly reflects total body stores - may need empiric replacement.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hyponatremia" class="guide-link">IMCRG: Hyponatremia</a>
+                    <a href="im_guide.html#asthma" class="guide-link">IMCRG: Asthma Exacerbation</a>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                    <a href="im_guide.html#vt-vf" class="guide-link">IMCRG: Ventricular Tachycardia/Ventricular Fibrillation</a>
+                    <a href="im_guide.html#htn-emergency" class="guide-link">IMCRG: Hypertensive Emergency</a>
+                </div>
             </div>
         </div>
 
@@ -10508,6 +11480,11 @@
                 </div>
                 <div class="warning-box">Ritonavir causes major CYP3A4 interactions. Check EVERY medication. Many need to be held (tacrolimus, some statins, rivaroxaban, etc.). Use Liverpool COVID-19 Drug Interactions checker.</div>
                 <div class="pearl-box">Most effective when started within 5 days of symptoms. "Paxlovid rebound" (symptoms returning after treatment) occurs in ~10-15% but is usually mild.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#covid" class="guide-link">IMCRG: Covid-19 Severe Disease</a>
+                </div>
             </div>
         </div>
 
@@ -10556,6 +11533,11 @@
                     </div>
                 </div>
                 <div class="pearl-box">Greatest benefit when given early in illness to hospitalized patients not yet requiring high-flow O2 or mechanical ventilation. Less clear benefit in severe/late disease.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#covid" class="guide-link">IMCRG: Covid-19 Severe Disease</a>
+                </div>
             </div>
         </div>
 
@@ -10607,6 +11589,11 @@
                     </div>
                 </div>
                 <div class="pearl-box">Biktarvy is one of the most commonly prescribed initial ART regimens - high efficacy, high barrier to resistance, once-daily single tablet, minimal interactions.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hiv-aids" class="guide-link">IMCRG: Hiv/Aids Complications</a>
+                </div>
             </div>
         </div>
 
@@ -10657,6 +11644,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Dolutegravir has the highest barrier to resistance of any ARV. CNS side effects (insomnia, anxiety) may limit use in some patients.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hiv-aids" class="guide-link">IMCRG: Hiv/Aids Complications</a>
+                    <a href="im_guide.html#opportunistic" class="guide-link">IMCRG: Opportunistic Infections In Immunocompromised Host</a>
+                </div>
             </div>
         </div>
 
@@ -10713,6 +11706,11 @@
                 </div>
                 <div class="black-box">HBV reactivation risk - test for HBsAg, anti-HBc before starting.</div>
                 <div class="pearl-box">Epclusa is pangenotypic (no genotyping needed), 12-week course, >95% cure rates. Can be used in decompensated cirrhosis with ribavirin.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#viral-hepatitis" class="guide-link">IMCRG: Viral Hepatitis (Acute)</a>
+                </div>
             </div>
         </div>
 
@@ -10770,6 +11768,11 @@
                     </div>
                 </div>
                 <div class="pearl-box">Mavyret is preferred for patients with CKD (including dialysis). Offers shortest duration (8 weeks) for most treatment-naive. Cannot use in decompensated cirrhosis - use Epclusa + ribavirin instead.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#viral-hepatitis" class="guide-link">IMCRG: Viral Hepatitis (Acute)</a>
+                </div>
             </div>
         </div>
 
@@ -11047,6 +12050,12 @@
                 </div>
                 <div class="black-box"><strong>CONTRAINDICATED with nitrates</strong> — can cause severe hypotension. Also avoid with riociguat.</div>
                 <div class="pearl-box">For PAH, use Revatio (20mg TID). Viagra dosing is different. Often combined with other PAH therapies (ERA, prostacyclin).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#pulmonary-hypertension" class="guide-link">IMCRG: Pulmonary Hypertension</a>
+                    <a href="im_guide.html#systemic-sclerosis" class="guide-link">IMCRG: Systemic Sclerosis (Scleroderma)</a>
+                </div>
             </div>
         </div>
 
@@ -11095,6 +12104,12 @@
                 </div>
                 <div class="black-box"><strong>Neuropsychiatric Events:</strong> Agitation, aggression, depression, suicidal thinking. Monitor closely. Consider risks vs benefits.</div>
                 <div class="pearl-box">Particularly useful in AERD (aspirin triad). Not preferred over ICS for asthma per guidelines due to psych risks. Best taken in evening.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#asthma" class="guide-link">IMCRG: Asthma Exacerbation</a>
+                    <a href="im_guide.html#allergic-rhinitis" class="guide-link">IMCRG: Allergic Rhinitis</a>
+                </div>
             </div>
         </div>
 
@@ -11148,6 +12163,12 @@
                 </div>
                 <div class="warning-box">Narrow therapeutic index — many drug interactions (CYP1A2). Levels ↑ with: ciprofloxacin, cimetidine, macrolides. Levels ↓ with: smoking, phenytoin, rifampin.</div>
                 <div class="pearl-box">Mostly replaced by LABAs/LAMAs. Check level if using. Toxicity: seizures (treat with benzos, NOT phenytoin), arrhythmias. Consider charcoal/hemodialysis for severe toxicity.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#asthma" class="guide-link">IMCRG: Asthma Exacerbation</a>
+                    <a href="im_guide.html#copd" class="guide-link">IMCRG: Copd Exacerbation</a>
+                </div>
             </div>
         </div>
     </div>
@@ -11210,6 +12231,22 @@
                 </div>
                 <div class="warning-box">In trauma: Give within 3 hours of injury. After 3 hours, TXA may increase mortality (CRASH-2). Time matters!</div>
                 <div class="pearl-box">CRASH-2 showed 10% reduction in death due to bleeding in trauma. WOMAN trial showed benefit in postpartum hemorrhage. Inexpensive and widely available.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#ugib" class="guide-link">IMCRG: Upper Gi Bleed</a>
+                    <a href="im_guide.html#dic" class="guide-link">IMCRG: Disseminated Intravascular Coagulation (Dic)</a>
+                    <a href="im_guide.html#variceal-bleeding" class="guide-link">IMCRG: Variceal Bleeding</a>
+                    <a href="im_guide.html#hemoptysis" class="guide-link">IMCRG: Hemoptysis (Massive)</a>
+                    <a href="im_guide.html#ich" class="guide-link">IMCRG: Intracerebral Hemorrhage (Ich)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-56" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PT/INR</a>
+                    <a href="lab_values.html#lab-17" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Thrombocytopenia</a>
+                    <a href="lab_values.html#lab-60" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 DIC Panel</a>
+                </div>
             </div>
         </div>
 
@@ -11259,6 +12296,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Bone pain from G-CSF can be significant - treat with antihistamines, NSAIDs, or opioids. Pegfilgrastim (once per cycle) is more convenient than daily filgrastim.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#neutropenic-fever" class="guide-link">IMCRG: Neutropenic Fever</a>
+                    <a href="im_guide.html#bone-marrow-failure" class="guide-link">IMCRG: Bone Marrow Failure / Mds / Aplastic Anemia</a>
+                </div>
             </div>
         </div>
 
@@ -11313,6 +12356,12 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#ugib" class="guide-link">IMCRG: GI Bleed</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-56" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PT/INR</a>
+                    <a href="lab_values.html#lab-37" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated INR</a>
+                </div>
             </div>
         </div>
 
@@ -11362,6 +12411,19 @@
                     </div>
                 </div>
                 <div class="pearl-box">4-factor PCC is preferred over FFP for warfarin reversal: Works in minutes (vs hours for FFP), no volume overload, no ABO matching needed.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#dic" class="guide-link">IMCRG: Disseminated Intravascular Coagulation (Dic)</a>
+                    <a href="im_guide.html#ich" class="guide-link">IMCRG: Intracerebral Hemorrhage (Ich)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-56" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PT/INR</a>
+                    <a href="lab_values.html#lab-57" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PTT</a>
+                    <a href="lab_values.html#lab-43" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated D-dimer</a>
+                </div>
             </div>
         </div>
 
@@ -11417,6 +12479,19 @@
                 </div>
                 <div class="warning-box">Monitor CBC closely — hold if ANC &lt;2000, platelets &lt;80K, Hgb &lt;4.5, retics &lt;80K (in SCD). Resume at lower dose when recovered.</div>
                 <div class="pearl-box">SCD: Takes 3-6 months for full HbF effect. MCV increase confirms adherence. Reduces mortality in SCD. First-line for high-risk PV/ET.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#scd-prevention" class="guide-link">IMCRG: Sudden Cardiac Death Prevention</a>
+                    <a href="im_guide.html#mpn" class="guide-link">IMCRG: Myeloproliferative Neoplasms</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-73" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Uric Acid</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                </div>
             </div>
         </div>
 
@@ -11475,6 +12550,22 @@
                 </div>
                 <div class="black-box"><strong>Thrombosis:</strong> Risk of arterial and venous thrombosis. Use caution in hypercoagulable states, immobility, CVD. <strong>Renal:</strong> AKI risk — avoid sucrose products in renal impairment, hydrate well.</div>
                 <div class="pearl-box">Premedicate with acetaminophen and diphenhydramine. For ITP: platelet rise in 24-48 hrs, lasts 2-4 weeks. Very expensive ($10,000+ per infusion).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#gbs" class="guide-link">IMCRG: Guillain-Barré Syndrome (Gbs)</a>
+                    <a href="im_guide.html#myasthenia" class="guide-link">IMCRG: Myasthenia Gravis Crisis</a>
+                    <a href="im_guide.html#thrombocytopenia" class="guide-link">IMCRG: Thrombocytopenia (Itp, Hit, Ttp/Hus)</a>
+                    <a href="im_guide.html#hlh" class="guide-link">IMCRG: Hlh (Hemophagocytic Lymphohistiocytosis)</a>
+                    <a href="im_guide.html#vasculitis-emergency" class="guide-link">IMCRG: Vasculitis Emergencies</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-43" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated D-dimer</a>
+                    <a href="lab_values.html#lab-99" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 LDH</a>
+                </div>
             </div>
         </div>
     </div>
@@ -11589,6 +12680,11 @@
                 </div>
                 <div class="black-box">Increased mortality in elderly patients with dementia-related psychosis. QTc prolongation and torsades risk with IV administration - monitor EKG.</div>
                 <div class="pearl-box">For acute agitation: IM haloperidol + lorazepam + diphenhydramine ("B52" cocktail) is commonly used. IV haloperidol has lower EPS risk but more QTc risk.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#delirium" class="guide-link">IMCRG: Delirium</a>
+                </div>
             </div>
         </div>
 
@@ -11639,6 +12735,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Quetiapine has the lowest D2 affinity of antipsychotics - preferred for delirium in Parkinson's disease and Lewy body dementia where D2 blockade worsens parkinsonism.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#delirium" class="guide-link">IMCRG: Delirium</a>
+                    <a href="im_guide.html#bipolar" class="guide-link">IMCRG: Bipolar Disorder</a>
+                </div>
             </div>
         </div>
 
@@ -11747,6 +12849,12 @@
                 <div class="black-box">Increased risk of suicidal thinking in children, adolescents, and young adults (18-24). Monitor closely during initiation and dose changes.</div>
                 <div class="warning-box">Do not combine with MAOIs - serotonin syndrome risk. Taper gradually (do not stop abruptly) - discontinuation syndrome.</div>
                 <div class="pearl-box">Sertraline has the most GI side effects of SSRIs but fewest drug interactions. Generally well-tolerated and first-line for most anxiety/depression.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#mdd" class="guide-link">IMCRG: Major Depressive Disorder</a>
+                    <a href="im_guide.html#anxiety" class="guide-link">IMCRG: Anxiety Disorders (Gad / Panic)</a>
+                </div>
             </div>
         </div>
 
@@ -11786,6 +12894,18 @@
                     </div>
                 </div>
                 <div class="warning-box">Synergistic respiratory depression with benzos — intubation may be needed. Effects persist for days.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                    <a href="im_guide.html#etoh-withdrawal" class="guide-link">IMCRG: Alcohol Withdrawal</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                </div>
             </div>
         </div>
 
@@ -11869,6 +12989,11 @@
                     </div>
                 </div>
                 <div class="pearl-box">Consider brivaracetam for patients who had behavioral side effects on levetiracetam. Higher SV2A affinity may mean better efficacy. No titration needed - can start at therapeutic dose. IV available for status/NPO.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                </div>
             </div>
         </div>
 
@@ -11905,6 +13030,18 @@
                 </div>
                 <div class="black-box"><strong>HLA-B*1502:</strong> Screen Asians before starting — 10× SJS/TEN risk if positive.</div>
                 <div class="pearl-box">First-line for trigeminal neuralgia. Potent CYP inducer — many interactions. Monitor Na+ (SIADH common).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-1" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyponatremia</a>
+                </div>
             </div>
         </div>
 
@@ -11944,6 +13081,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Long-acting = smoother ETOH withdrawal. Rectal Diastat for home seizure rescue. Avoid in liver disease — use lorazepam.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                    <a href="im_guide.html#etoh-withdrawal" class="guide-link">IMCRG: Alcohol Withdrawal</a>
+                    <a href="im_guide.html#catatonia" class="guide-link">IMCRG: Catatonia</a>
+                </div>
             </div>
         </div>
 
@@ -11981,6 +13125,11 @@
                     </div>
                 </div>
                 <div class="warning-box">AVOID in liver disease — accumulates. Use lorazepam instead. Not for severe withdrawal (need IV).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#etoh-withdrawal" class="guide-link">IMCRG: Alcohol Withdrawal</a>
+                </div>
             </div>
         </div>
 
@@ -12034,6 +13183,11 @@
                 </div>
                 <div class="warning-box">Do NOT stop abruptly — can precipitate neuroleptic malignant-like syndrome. Avoid with non-selective MAOIs (hypertensive crisis).</div>
                 <div class="pearl-box">"Honeymoon period" 3-5 years before motor complications. Motor fluctuations: add COMT inhibitor (entacapone), MAO-B inhibitor, or dopamine agonist. Hallucinations: reduce or add quetiapine/clozapine.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#parkinsons" class="guide-link">IMCRG: Parkinson Disease</a>
+                </div>
             </div>
         </div>
 
@@ -12086,6 +13240,11 @@
                 </div>
                 <div class="warning-box">Screen for impulse control disorders regularly. Warn patients about sleep attacks - may need to avoid driving. Taper slowly (withdrawal can cause neuroleptic malignant-like syndrome).</div>
                 <div class="pearl-box">Dopamine agonists cause less motor fluctuations than levodopa but more psychiatric side effects (hallucinations, impulse control). Preferred for younger patients with early PD to delay levodopa.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#parkinsons" class="guide-link">IMCRG: Parkinson Disease</a>
+                </div>
             </div>
         </div>
 
@@ -12132,6 +13291,11 @@
                     </div>
                 </div>
                 <div class="pearl-box">Ropinirole XL allows once-daily dosing. CYP1A2 substrate - smoking induces metabolism (may need higher doses), ciprofloxacin inhibits (↑levels).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#parkinsons" class="guide-link">IMCRG: Parkinson Disease</a>
+                </div>
             </div>
         </div>
 
@@ -12179,6 +13343,11 @@
                     </div>
                 </div>
                 <div class="pearl-box">MAO-B inhibitors (rasagiline, selegiline) are mild but well-tolerated. Can be used as monotherapy in early PD or as adjunct to extend levodopa effect. Selegiline metabolizes to amphetamine (insomnia) - rasagiline doesn't.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#parkinsons" class="guide-link">IMCRG: Parkinson Disease</a>
+                </div>
             </div>
         </div>
 
@@ -12231,6 +13400,11 @@
                 </div>
                 <div class="black-box"><strong>Contraindicated:</strong> CAD, Prinzmetal angina, uncontrolled HTN, prior stroke/TIA, PVD, hemiplegic/basilar migraine. Avoid within 24hr of ergots or other triptans.</div>
                 <div class="pearl-box">Take at onset of headache for best effect. SC fastest for cluster headache. Chest tightness usually benign ("triptan sensations") but evaluate cardiac risk. Limit to &lt;10 days/month to avoid MOH.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#headache-syndromes" class="guide-link">IMCRG: Headache Syndromes</a>
+                </div>
             </div>
         </div>
 
@@ -12285,6 +13459,13 @@
                 </div>
                 <div class="warning-box">Monitor serum osmolality — hold if &gt;320 mOsm/kg (osmolar gap &gt;20). Avoid in severe renal failure, pulmonary edema, severe dehydration.</div>
                 <div class="pearl-box">Alternative: Hypertonic saline (23.4% or 3%) — no osm gap concerns, can use in renal failure. Mannitol effect peaks 20-60 min, lasts 4-6 hr. Filter the IV line.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#increased-icp" class="guide-link">IMCRG: Increased Intracranial Pressure (Icp)</a>
+                    <a href="im_guide.html#ich" class="guide-link">IMCRG: Intracerebral Hemorrhage (Ich)</a>
+                    <a href="im_guide.html#traumatic-brain-injury" class="guide-link">IMCRG: Traumatic Brain Injury (Tbi)</a>
+                </div>
             </div>
         </div>
         <!-- LITHIUM -->
@@ -12340,6 +13521,19 @@
                 </div>
                 <div class="warning-box"><strong>Narrow therapeutic index.</strong> Toxicity precipitated by: dehydration, NSAIDs, ACE-I/ARBs, thiazides. Renal clearance = sodium clearance. Hold during acute illness.</div>
                 <div class="pearl-box">Monitor: Lithium level q3-6mo, TSH/Cr q6mo, ECG baseline. Toxicity Tx: fluids, hemodialysis if level &gt;4 or severe symptoms. Only med proven to reduce suicide risk.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#bipolar" class="guide-link">IMCRG: Bipolar Disorder</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-97" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Lithium Level</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-1" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyponatremia</a>
+                </div>
             </div>
         </div>
 
@@ -12396,6 +13590,11 @@
                 </div>
                 <div class="black-box"><strong>REMS Program Required:</strong> ANC monitoring — weekly × 6 months, biweekly × 6 months, then monthly. D/C if ANC &lt;1000. Also: myocarditis, cardiomyopathy, seizures, severe constipation/ileus.</div>
                 <div class="pearl-box">Only antipsychotic proven effective in treatment-resistant schizophrenia (~30% respond). Also reduces suicide risk. Sialorrhea tx: glycopyrrolate, atropine drops. Smoking ↓ levels (CYP1A2).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#delirium" class="guide-link">IMCRG: Delirium</a>
+                </div>
             </div>
         </div>
     </div>
@@ -12463,7 +13662,15 @@
                 <div class="pearl-box">"Start low, go slow" - starting at high doses increases flare and hypersensitivity risk. Most patients need 300-400 mg to reach target uric acid.</div>
                 <div class="cross-links">
                     <div class="cross-links-title">📎 Referenced in:</div>
-                    <a href="rheumatology_study_guide.html#gout" class="guide-link">Rheum: Gout</a>
+                    <a href="rheumatology_consult.html" class="guide-link">Rheum: Gout</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-73" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Uric Acid</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
                 </div>
             </div>
         </div>
@@ -12512,6 +13719,17 @@
                 </div>
                 <div class="black-box">FDA black box for cardiovascular death: CARES trial showed higher CV death with febuxostat vs allopurinol. Reserve for allopurinol failure/intolerance.</div>
                 <div class="pearl-box">Febuxostat is second-line due to CV concerns. Advantage: Can use in CKD without dose adjustment (hepatic metabolism).</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#gout" class="guide-link">IMCRG: Acute Gout/Pseudogout (Crystal Arthropathy)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-73" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Uric Acid</a>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                </div>
             </div>
         </div>
 
@@ -12565,6 +13783,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Most potent NSAID but most GI toxic. Pericarditis: indomethacin + colchicine is first-line. Diagnostic response to indomethacin defines certain headache syndromes.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#gout" class="guide-link">IMCRG: Acute Gout/Pseudogout (Crystal Arthropathy)</a>
+                    <a href="im_guide.html#cppd" class="guide-link">IMCRG: Cppd (Calcium Pyrophosphate Deposition Disease)</a>
+                    <a href="im_guide.html#pericarditis" class="guide-link">IMCRG: Pericarditis/Pericardial Effusion/Cardiac Tamponade</a>
+                </div>
             </div>
         </div>
 
@@ -12615,6 +13840,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Gout rescue when NSAIDs (renal), colchicine (interactions), and steroids (DM) all contraindicated. Still's disease: often dramatically effective.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#gout" class="guide-link">IMCRG: Acute Gout/Pseudogout (Crystal Arthropathy)</a>
+                    <a href="im_guide.html#adult-still" class="guide-link">IMCRG: Adult-Onset Still'S Disease (Aosd)</a>
+                    <a href="im_guide.html#cppd" class="guide-link">IMCRG: Cppd (Calcium Pyrophosphate Deposition Disease)</a>
+                </div>
             </div>
         </div>
 
@@ -12679,6 +13911,13 @@
                 <div class="black-box">Can cause fatal hyperkalemia in susceptible patients. Avoid in burns, crush injuries, denervation, prolonged immobility, neuromuscular disease.</div>
                 <div class="warning-box">Malignant hyperthermia: Presents with hyperthermia, rigidity, hypercarbia, rhabdomyolysis. Treat with dantrolene. Have dantrolene available when using succinylcholine.</div>
                 <div class="pearl-box">Succinylcholine is the fastest-onset paralytic but has many contraindications. Rocuronium 1.2 mg/kg with sugammadex available is often preferred alternative.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#ards" class="guide-link">IMCRG: Ards (Acute Respiratory Distress Syndrome)</a>
+                    <a href="im_guide.html#increased-icp" class="guide-link">IMCRG: Increased Intracranial Pressure (Icp)</a>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                </div>
             </div>
         </div>
 
@@ -12739,6 +13978,13 @@
                 </div>
                 <div class="warning-box">ALWAYS ensure adequate sedation before paralysis. Monitor with train-of-four. Prolonged use associated with ICU-acquired weakness.</div>
                 <div class="pearl-box">High-dose rocuronium (1.2 mg/kg) + sugammadex available is now preferred over succinylcholine for RSI in many centers - similar onset, safer profile, complete reversal possible.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#ards" class="guide-link">IMCRG: Ards (Acute Respiratory Distress Syndrome)</a>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                    <a href="im_guide.html#increased-icp" class="guide-link">IMCRG: Increased Intracranial Pressure (Icp)</a>
+                </div>
             </div>
         </div>
 
@@ -12785,6 +14031,12 @@
                 </div>
                 <div class="warning-box">Adrenal suppression: Single-dose etomidate blocks cortisol synthesis for 24-48h. Controversial in septic shock - some avoid, others use with stress-dose steroids.</div>
                 <div class="pearl-box">Etomidate is "hemodynamically neutral" - best choice for hypotensive patients needing intubation. Ketamine is alternative if etomidate unavailable.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                    <a href="im_guide.html#increased-icp" class="guide-link">IMCRG: Increased Intracranial Pressure (Icp)</a>
+                </div>
             </div>
         </div>
 
@@ -12903,6 +14155,11 @@
                 </div>
                 <div class="warning-box">Neurocysticercosis: Give steroids BEFORE albendazole to prevent inflammatory response from dying cysts. Can worsen symptoms acutely without steroids.</div>
                 <div class="pearl-box">Albendazole has better systemic absorption than mebendazole - preferred for tissue parasites. Mebendazole stays in gut - fine for intestinal worms only.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#opportunistic" class="guide-link">IMCRG: Opportunistic Infections In Immunocompromised Host</a>
+                </div>
             </div>
         </div>
 
@@ -13023,6 +14280,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">For migraine: Prochlorperazine 10 mg IV + diphenhydramine 25 mg IV is highly effective. The diphenhydramine prevents dystonic reactions.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#headache-syndromes" class="guide-link">IMCRG: Headache Syndromes</a>
+                    <a href="im_guide.html#gastroparesis" class="guide-link">IMCRG: Gastroparesis</a>
+                </div>
             </div>
         </div>
 
@@ -13076,6 +14339,11 @@
                 </div>
                 <div class="black-box">Tardive dyskinesia: Risk increases with duration >12 weeks and cumulative dose. Often irreversible. Limit treatment duration.</div>
                 <div class="pearl-box">The only FDA-approved prokinetic for gastroparesis. Limit to 12 weeks when possible. IV given over 15 min to reduce dystonia risk.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#gastroparesis" class="guide-link">IMCRG: Gastroparesis</a>
+                </div>
             </div>
         </div>
 
@@ -13127,6 +14395,11 @@
                 </div>
                 <div class="black-box">IV administration carries risk of severe tissue necrosis. NEVER give SubQ or intra-arterial. IM or deep IV through large vein preferred. Contraindicated in children &lt;2 years (fatal respiratory depression).</div>
                 <div class="warning-box">Many institutions have restricted or removed IV promethazine due to tissue injury risk. Consider ondansetron or prochlorperazine instead.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#anaphylaxis" class="guide-link">IMCRG: Anaphylaxis</a>
+                </div>
             </div>
         </div>
 
@@ -13178,6 +14451,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Hydromorphone is preferred over morphine in CKD/ESRD patients - morphine's metabolite (M6G) accumulates and causes prolonged sedation. Also causes less histamine release.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#pancreatitis" class="guide-link">IMCRG: Acute Pancreatitis</a>
+                    <a href="im_guide.html#burns-third-spacing" class="guide-link">IMCRG: Burns / Third-Spacing</a>
+                </div>
             </div>
         </div>
 
@@ -13232,6 +14511,13 @@
                 <div class="black-box">Increased risk of GI bleeding, cardiovascular events, and renal failure. Maximum 5 days. Not for chronic pain.</div>
                 <div class="warning-box">Avoid in elderly, CKD, hypovolemia, or with other nephrotoxins. Even short courses can cause AKI in at-risk patients.</div>
                 <div class="pearl-box">Excellent for renal colic and post-op pain. Limited to 5 days to reduce GI/renal risk. Very effective opioid-sparing agent when not contraindicated.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#gout" class="guide-link">IMCRG: Acute Gout/Pseudogout (Crystal Arthropathy)</a>
+                    <a href="im_guide.html#headache-syndromes" class="guide-link">IMCRG: Headache Syndromes</a>
+                    <a href="im_guide.html#pancreatitis" class="guide-link">IMCRG: Acute Pancreatitis</a>
+                </div>
             </div>
         </div>
 
@@ -13281,6 +14567,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">IV acetaminophen is much more expensive than PO ($20-40 vs cents). Reserve for NPO patients or when rapid onset needed. Efficacy similar to oral.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#pancreatitis" class="guide-link">IMCRG: Acute Pancreatitis</a>
+                    <a href="im_guide.html#burns-third-spacing" class="guide-link">IMCRG: Burns / Third-Spacing</a>
+                </div>
             </div>
         </div>
 
@@ -13322,6 +14614,11 @@
                 </div>
                 <div class="warning-box">Avoid with seizure history and serotonergic medications. Serotonin syndrome and seizures more common than with traditional opioids.</div>
                 <div class="pearl-box">Tramadol is NOT a "safe" opioid alternative - has abuse potential and unique risks (seizures, serotonin syndrome). ~10% of population are poor CYP2D6 metabolizers with minimal analgesic effect.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#osteoarthritis" class="guide-link">IMCRG: Osteoarthritis</a>
+                </div>
             </div>
         </div>
 
@@ -13376,6 +14673,13 @@
                 </div>
                 <div class="warning-box">FDA warning: Serious breathing problems when combined with opioids or in patients with respiratory risk factors. Start low in elderly.</div>
                 <div class="pearl-box">Pregabalin has linear pharmacokinetics and faster onset than gabapentin. Both are schedule V (abuse potential). Taper when discontinuing to avoid withdrawal.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#seizure" class="guide-link">IMCRG: Seizure / Status Epilepticus</a>
+                    <a href="im_guide.html#peripheral-neuropathy" class="guide-link">IMCRG: Peripheral Neuropathy</a>
+                    <a href="im_guide.html#herpes-zoster" class="guide-link">IMCRG: Herpes Zoster (Shingles)</a>
+                </div>
             </div>
         </div>
 
@@ -13620,6 +14924,13 @@
                 <div class="black-box">Cyanide toxicity: Releases cyanide during metabolism. Risk with high doses (>2 mcg/kg/min for >48h) or renal impairment. Signs: lactic acidosis, AMS, seizures. Treat with hydroxocobalamin or sodium thiosulfate.</div>
                 <div class="warning-box">Limit to short-term use (<48-72h). Monitor thiocyanate levels if >48h use. Co-administer sodium thiosulfate for prolonged infusions.</div>
                 <div class="pearl-box">For aortic dissection: Must use with β-blocker first (to prevent reflex tachycardia and increased dP/dt). Clevidipine or nicardipine are safer alternatives.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#htn-emergency" class="guide-link">IMCRG: Hypertensive Emergency</a>
+                    <a href="im_guide.html#aortic-dissection" class="guide-link">IMCRG: Aortic Dissection</a>
+                    <a href="im_guide.html#cardiogenic-shock" class="guide-link">IMCRG: Cardiogenic Shock</a>
+                </div>
             </div>
         </div>
 
@@ -13670,6 +14981,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">Ultra-short half-life (9 min) allows rapid titration and quick offset if problems occur. Ideal "test dose" when unsure if patient will tolerate β-blocker. For aortic dissection: Target HR <60, SBP 100-120.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#htn-emergency" class="guide-link">IMCRG: Hypertensive Emergency</a>
+                    <a href="im_guide.html#aortic-dissection" class="guide-link">IMCRG: Aortic Dissection</a>
+                    <a href="im_guide.html#svt" class="guide-link">IMCRG: Supraventricular Tachycardia (Svt)</a>
+                </div>
             </div>
         </div>
 
@@ -13775,6 +15093,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Atropine works on SA and AV node - effective for sinus bradycardia and AV nodal block (Mobitz I). Less effective for infranodal block (Mobitz II, complete) - prepare for pacing.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#bradycardia" class="guide-link">IMCRG: Symptomatic Bradycardia/Heart Block (Pacing)</a>
+                    <a href="im_guide.html#bradyarrhythmias" class="guide-link">IMCRG: Bradyarrhythmias & Pacing</a>
+                </div>
             </div>
         </div>
 
@@ -13886,6 +15210,12 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Heart Failure</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                </div>
             </div>
         </div>
 
@@ -13933,6 +15263,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">A-HeFT trial: Isosorbide dinitrate + hydralazine (BiDil) reduces mortality in Black patients with HFrEF already on standard therapy. Provides additional mortality benefit.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#chronic-cad" class="guide-link">IMCRG: Chronic Coronary Disease</a>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                </div>
             </div>
         </div>
 
@@ -14103,6 +15439,11 @@
                 </div>
                 <div class="warning-box">Avoid in CrCl <30 - inadequate urine levels and increased toxicity. Not for pyelonephritis (no tissue penetration). Monitor for pulmonary toxicity with prolonged use.</div>
                 <div class="pearl-box">First-line for uncomplicated cystitis per IDSA guidelines. Preserves fluoroquinolones for more serious infections. Must have adequate renal function for urine concentration.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#uti" class="guide-link">IMCRG: Urinary Tract Infection / Pyelonephritis</a>
+                </div>
             </div>
         </div>
 
@@ -14167,6 +15508,11 @@
                     </div>
                 </div>
                 <div class="pearl-box">Evidence suggests docusate adds little to senna alone for opioid-induced constipation. Many institutions use senna ± osmotic laxative (MiraLAX) instead of docusate.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#bowel-obstruction" class="guide-link">IMCRG: Bowel Obstruction (Small/Large)</a>
+                </div>
             </div>
         </div>
 
@@ -14216,6 +15562,11 @@
                     </div>
                 </div>
                 <div class="pearl-box">PEG 3350 is tasteless and mixes well - better tolerated than lactulose. First-line osmotic laxative for chronic constipation. Can use for fecal impaction disimpaction.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#bowel-obstruction" class="guide-link">IMCRG: Bowel Obstruction (Small/Large)</a>
+                </div>
             </div>
         </div>
 
@@ -14267,6 +15618,13 @@
                     </div>
                 </div>
                 <div class="pearl-box">H2 blockers have fewer long-term side effects than PPIs - consider for long-term acid suppression if possible. Adding to antihistamine in allergic reactions may provide additional benefit.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#ugib" class="guide-link">IMCRG: Upper Gi Bleed</a>
+                    <a href="im_guide.html#gastritis-erosions" class="guide-link">IMCRG: Gastritis / Gastric Erosions</a>
+                    <a href="im_guide.html#gerd" class="guide-link">IMCRG: Gerd / Esophagitis</a>
+                </div>
             </div>
         </div>
 
@@ -14315,6 +15673,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Sucralfate is less commonly used now due to drug interactions and QID dosing. May have lower pneumonia risk than acid-suppressing agents for stress prophylaxis.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#ugib" class="guide-link">IMCRG: Upper Gi Bleed</a>
+                    <a href="im_guide.html#gastritis-erosions" class="guide-link">IMCRG: Gastritis / Gastric Erosions</a>
+                </div>
             </div>
         </div>
 
@@ -14381,6 +15745,12 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#hit" class="guide-link">IMCRG: HIT</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-57" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PTT</a>
+                    <a href="lab_values.html#lab-56" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PT/INR</a>
+                </div>
             </div>
         </div>
 
@@ -14432,6 +15802,14 @@
                     </div>
                 </div>
                 <div class="pearl-box">Fondaparinux is the only anticoagulant that NEVER causes HIT (no PF4 binding). Can be used for prophylaxis or treatment when HIT history/concern exists. Very long half-life limits its use when reversibility needed.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#dvt" class="guide-link">IMCRG: Deep Vein Thrombosis (Dvt)</a>
+                    <a href="im_guide.html#pe" class="guide-link">IMCRG: Pulmonary Embolism (Pe)</a>
+                    <a href="im_guide.html#vte-prophylaxis" class="guide-link">IMCRG: Vte Prophylaxis</a>
+                    <a href="im_guide.html#hit" class="guide-link">IMCRG: Heparin-Induced Thrombocytopenia (Hit)</a>
+                </div>
             </div>
         </div>
 
@@ -14507,6 +15885,12 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#hypothyroid" class="guide-link">IMCRG: Hypothyroidism</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-48" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated TSH</a>
+                    <a href="lab_values.html#lab-117" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Free T4/Free T3</a>
+                </div>
             </div>
         </div>
 
@@ -14560,6 +15944,14 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#hyperthyroid" class="guide-link">IMCRG: Hyperthyroidism</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-49" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low TSH</a>
+                    <a href="lab_values.html#lab-117" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Free T4/Free T3</a>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                </div>
             </div>
         </div>
 
@@ -14606,6 +15998,13 @@
                 </div>
                 <div class="warning-box">In alcoholics or malnourished patients, give THIAMINE before or with glucose to prevent precipitating Wernicke encephalopathy.</div>
                 <div class="pearl-box">D10 through peripheral IV is safer than D50. Glucagon 1 mg IM/SubQ is alternative if IV access not available.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hypoglycemia" class="guide-link">IMCRG: Hypoglycemia</a>
+                    <a href="im_guide.html#dka" class="guide-link">IMCRG: Diabetic Ketoacidosis (Dka)</a>
+                    <a href="im_guide.html#hyperkalemia" class="guide-link">IMCRG: Hyperkalemia</a>
+                </div>
             </div>
         </div>
 
@@ -14666,6 +16065,13 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#dka" class="guide-link">IMCRG: DKA</a>
                     <a href="nephrology_study_guide.html#hyperkalemia" class="guide-link">Nephro: Hyperkalemia</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-46" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperglycemia</a>
+                    <a href="lab_values.html#lab-47" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hypoglycemia</a>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
                 </div>
             </div>
         </div>
@@ -14732,6 +16138,18 @@
                     </div>
                 </div>
                 <div class="pearl-box">KDIGO 2024: SGLT2i is now FIRST-LINE for CKD with albuminuria — same priority as ACEi/ARB. Start even if eGFR as low as 20. Benefits are INDEPENDENT of diabetes status.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#aki" class="guide-link">IMCRG: Acute Kidney Injury (Aki)</a>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-27" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low eGFR</a>
+                </div>
             </div>
         </div>
 
@@ -14782,6 +16200,19 @@
                     </div>
                 </div>
                 <div class="pearl-box">EMPA-KIDNEY showed benefit even with eGFR as low as 20 and regardless of diabetes. The "eGFR dip" after starting is expected and PROTECTIVE — don't stop the drug!</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#aki" class="guide-link">IMCRG: Acute Kidney Injury (Aki)</a>
+                    <a href="im_guide.html#heart-failure" class="guide-link">IMCRG: Acute Decompensated Heart Failure</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                    <a href="lab_values.html#lab-46" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperglycemia</a>
+                    <a href="lab_values.html#lab-27" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low eGFR</a>
+                </div>
             </div>
         </div>
 
@@ -14832,6 +16263,20 @@
                     </div>
                 </div>
                 <div class="pearl-box">Ferric carboxymaltose allows larger single doses (750 mg) with less total visits. Iron sucrose has excellent safety record in CKD. Check ferritin and TSAT before and after treatment.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#anemia" class="guide-link">IMCRG: Anemia</a>
+                    <a href="im_guide.html#iron-deficiency-anemia" class="guide-link">IMCRG: Iron Deficiency Anemia</a>
+                    <a href="im_guide.html#aki" class="guide-link">IMCRG: Acute Kidney Injury (Aki)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-63" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Ferritin</a>
+                    <a href="lab_values.html#lab-65" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Low Transferrin Saturation</a>
+                </div>
             </div>
         </div>
 
@@ -14882,6 +16327,19 @@
                 </div>
                 <div class="black-box">ESAs increase risk of death, MI, stroke, and tumor progression when targeting Hgb >11. Use lowest dose to avoid transfusion. Not recommended in cancer unless receiving chemotherapy.</div>
                 <div class="pearl-box">Ensure iron stores adequate before starting (TSAT >20%, ferritin >100). Poor response often due to iron deficiency, inflammation, or blood loss.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#anemia" class="guide-link">IMCRG: Anemia</a>
+                    <a href="im_guide.html#aki" class="guide-link">IMCRG: Acute Kidney Injury (Aki)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                </div>
             </div>
         </div>
 
@@ -14980,6 +16438,18 @@
                     </div>
                 </div>
                 <div class="pearl-box">Sevelamer is preferred over calcium-based binders in patients with hypercalcemia or vascular calcification. Also lowers LDL. Must be taken WITH meals to be effective.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#aki" class="guide-link">IMCRG: Acute Kidney Injury (Aki)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-6" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hypercalcemia</a>
+                    <a href="lab_values.html#lab-10" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperphosphatemia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                </div>
             </div>
         </div>
 
@@ -15044,6 +16514,12 @@
                 </div>
                 <div class="warning-box">Do NOT give IM olanzapine with parenteral benzodiazepines - increased risk of respiratory depression, hypotension, and death. Wait at least 1 hour between doses.</div>
                 <div class="pearl-box">IM olanzapine is highly effective for acute agitation with lower EPS than haloperidol. ODT formulation dissolves rapidly - useful when pill hiding is a concern.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#delirium" class="guide-link">IMCRG: Delirium</a>
+                    <a href="im_guide.html#nms" class="guide-link">IMCRG: Neuroleptic Malignant Syndrome (Nms)</a>
+                </div>
             </div>
         </div>
 
@@ -15093,6 +16569,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Trazodone is most commonly used for insomnia at 25-100 mg rather than as an antidepressant. Non-habit forming alternative to benzodiazepines and Z-drugs.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#mdd" class="guide-link">IMCRG: Major Depressive Disorder</a>
+                    <a href="im_guide.html#sleep-disorders" class="guide-link">IMCRG: Sleep Disorders</a>
+                </div>
             </div>
         </div>
 
@@ -15140,6 +16622,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Paradoxically, mirtazapine is MORE sedating at 15 mg than 30 mg (H1 blockade predominates at low doses; higher doses have more noradrenergic activation). Excellent choice for depressed patients with insomnia, poor appetite, or nausea.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#mdd" class="guide-link">IMCRG: Major Depressive Disorder</a>
+                    <a href="im_guide.html#sleep-disorders" class="guide-link">IMCRG: Sleep Disorders</a>
+                </div>
             </div>
         </div>
 
@@ -15191,6 +16679,12 @@
                     </div>
                 </div>
                 <div class="pearl-box">Melatonin is first-line for insomnia in hospitalized patients - safer than benzodiazepines especially in elderly. Part of ABCDEF bundle for ICU delirium prevention.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#delirium" class="guide-link">IMCRG: Delirium</a>
+                    <a href="im_guide.html#sleep-disorders" class="guide-link">IMCRG: Sleep Disorders</a>
+                </div>
             </div>
         </div>
 
@@ -15259,6 +16753,12 @@
                     <a href="im_guide.html#wernicke" class="guide-link">IMCRG: Wernicke</a>
                     <a href="im_guide.html#etoh-withdrawal" class="guide-link">IMCRG: Alcohol Withdrawal</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-46" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperglycemia</a>
+                    <a href="lab_values.html#lab-31" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated AST/ALT</a>
+                </div>
             </div>
         </div>
 
@@ -15310,6 +16810,20 @@
                 </div>
                 <div class="warning-box">Folate supplementation can correct anemia of B12 deficiency while allowing neurologic damage to progress. Always check B12 level before treating folate deficiency.</div>
                 <div class="pearl-box">Folic acid with methotrexate reduces GI and hematologic toxicity without reducing efficacy. Give on different day than MTX or daily is fine.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#anemia" class="guide-link">IMCRG: Anemia</a>
+                    <a href="im_guide.html#b12-folate-deficiency" class="guide-link">IMCRG: B12 / Folate Deficiency Anemia</a>
+                    <a href="im_guide.html#etoh-withdrawal" class="guide-link">IMCRG: Alcohol Withdrawal</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-131" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Folate</a>
+                    <a href="lab_values.html#lab-21" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated MCV</a>
+                </div>
             </div>
         </div>
 
@@ -15364,6 +16878,14 @@
                 <div class="cross-links">
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="im_guide.html#anemia" class="guide-link">IMCRG: B12 Deficiency</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-15" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Anemia</a>
+                    <a href="lab_values.html#lab-130" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Vitamin B12</a>
+                    <a href="lab_values.html#lab-21" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated MCV</a>
+                    <a href="lab_values.html#lab-132" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Methylmalonic Acid/Homocysteine</a>
                 </div>
             </div>
         </div>
@@ -15428,6 +16950,12 @@
                     <div class="cross-links-title">📎 Referenced in:</div>
                     <a href="nephrology_study_guide.html#hyperkalemia" class="guide-link">Nephro: Hyperkalemia</a>
                 </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                </div>
             </div>
         </div>
 
@@ -15474,6 +17002,18 @@
                 </div>
                 <div class="warning-box">Patiromer binds many oral medications. Separate administration by at least 3 hours. NOT for acute hyperkalemia - takes 7+ hours to work.</div>
                 <div class="pearl-box">Patiromer is for chronic management only - too slow for acute hyperkalemia. Allows patients to continue RAASi therapy. Monitor magnesium levels.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hyperkalemia" class="guide-link">IMCRG: Hyperkalemia</a>
+                    <a href="im_guide.html#aki" class="guide-link">IMCRG: Acute Kidney Injury (Aki)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                </div>
             </div>
         </div>
 
@@ -15515,6 +17055,17 @@
                 <div class="black-box">Risk of intestinal necrosis, especially when given with sorbitol. Cases of fatal GI injury reported. Avoid sorbitol-containing preparations.</div>
                 <div class="warning-box">Kayexalate has fallen out of favor due to safety concerns and questionable efficacy. Newer agents (Lokelma, Veltassa) are preferred when available.</div>
                 <div class="pearl-box">Many institutions have restricted or removed Kayexalate. If used, avoid sorbitol and use in water. Newer K+ binders (Lokelma, patiromer) are safer and more effective.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#hyperkalemia" class="guide-link">IMCRG: Hyperkalemia</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-4" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Hyperkalemia</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                </div>
             </div>
         </div>
 
@@ -15635,6 +17186,18 @@
                     </div>
                 </div>
                 <div class="pearl-box">Idarucizumab provides immediate, complete reversal of dabigatran. For factor Xa inhibitors (apixaban, rivaroxaban), use andexanet alfa or 4-factor PCC if unavailable.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#dic" class="guide-link">IMCRG: Disseminated Intravascular Coagulation (Dic)</a>
+                    <a href="im_guide.html#ich" class="guide-link">IMCRG: Intracerebral Hemorrhage (Ich)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-57" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PTT</a>
+                    <a href="lab_values.html#lab-25" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated Creatinine</a>
+                </div>
             </div>
         </div>
 
@@ -15682,6 +17245,18 @@
                 </div>
                 <div class="black-box">Thrombotic events including stroke, MI, DVT, PE reported. Use only for life-threatening bleeding. Resume anticoagulation as soon as appropriate.</div>
                 <div class="pearl-box">Andexanet is very expensive and availability limited. 4-factor PCC (25-50 units/kg) is a reasonable alternative for factor Xa inhibitor reversal if andexanet unavailable.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#dic" class="guide-link">IMCRG: Disseminated Intravascular Coagulation (Dic)</a>
+                    <a href="im_guide.html#ich" class="guide-link">IMCRG: Intracerebral Hemorrhage (Ich)</a>
+                </div>
+
+                <div class="cross-links" style="margin-top:6px;">
+                    <div class="cross-links-title">🔬 Lab Monitoring:</div>
+                    <a href="lab_values.html#lab-56" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated PT/INR</a>
+                    <a href="lab_values.html#lab-43" class="guide-link" style="background:#f0f9ff; border-color:#0891b2; color:#0c4a6e;">🔬 Elevated D-dimer</a>
+                </div>
             </div>
         </div>
 
@@ -15732,6 +17307,11 @@
                     </div>
                 </div>
                 <div class="pearl-box">Sugammadex at 16 mg/kg can immediately reverse even RSI-dose rocuronium - enables rocuronium to replace succinylcholine for RSI with option for complete reversal if needed.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#overdose" class="guide-link">IMCRG: Drug Overdose/Toxidromes</a>
+                </div>
             </div>
         </div>
 
@@ -15850,6 +17430,13 @@
                 </div>
                 <div class="warning-box">Avoid in elderly patients - high anticholinergic burden increases delirium risk. Use non-sedating antihistamines (cetirizine, loratadine) when possible.</div>
                 <div class="pearl-box">For acute dystonia: IV diphenhydramine 50 mg works within minutes. Also useful as adjunct to prochlorperazine for migraine (prevents dystonia). Part of "B52" cocktail for agitation.</div>
+
+                <div class="cross-links">
+                    <div class="cross-links-title">📎 Referenced in:</div>
+                    <a href="im_guide.html#anaphylaxis" class="guide-link">IMCRG: Anaphylaxis</a>
+                    <a href="im_guide.html#transfusion-reactions" class="guide-link">IMCRG: Transfusion Reactions</a>
+                    <a href="im_guide.html#allergic-rhinitis" class="guide-link">IMCRG: Allergic Rhinitis</a>
+                </div>
             </div>
         </div>
 

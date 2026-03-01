@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Endocrinology Consult Note Template</title>
+    <style>
+        :root {
+            --primary: #0d6b5e;
+            --primary-light: #19b89b;
+            --primary-dark: #074a41;
+            --accent: #c9a227;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-muted: #6c757d;
+            --border: #dee2e6;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --section-header: #e6f4f1;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            font-size: 16px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .header h1 { margin: 0; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
+        .header-subtitle { font-size: 0.875rem; opacity: 0.9; margin-top: 4px; }
+
+        .toolbar { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+
+        .toolbar-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .toolbar-btn:hover, .toolbar-btn:active { background: rgba(255,255,255,0.25); }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 16px; }
+
+        .quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .nav-chip {
+            background: var(--section-header);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        .nav-chip:hover, .nav-chip:active { background: var(--primary); color: white; }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--section-header);
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            user-select: none;
+        }
+
+        .section-header h2 { margin: 0; font-size: 1rem; font-weight: 600; color: var(--primary-dark); display: flex; align-items: center; gap: 8px; }
+        .section-icon { font-size: 1.1rem; }
+        .section-toggle { font-size: 1.2rem; color: var(--primary); transition: transform 0.3s; }
+        .section.collapsed .section-toggle { transform: rotate(-90deg); }
+        .section.collapsed .section-content { display: none; }
+        .section-content { padding: 16px; }
+
+        .form-group { margin-bottom: 16px; }
+        .form-group:last-child { margin-bottom: 0; }
+
+        .form-label { display: block; font-weight: 600; font-size: 0.875rem; color: var(--text); margin-bottom: 6px; }
+        .form-sublabel { font-weight: 400; color: var(--text-muted); font-size: 0.8rem; display: block; margin-top: 2px; }
+
+        textarea, input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: white;
+            color: var(--text);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        textarea:focus, input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(13, 107, 94, 0.1);
+        }
+        textarea { min-height: 80px; resize: vertical; }
+        textarea.large { min-height: 120px; }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .checkbox-item:hover { background: var(--section-header); }
+        .checkbox-item input { width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary); }
+        .checkbox-item label { font-size: 0.9rem; cursor: pointer; flex: 1; }
+
+        /* Three-state exam findings */
+        .exam-finding-group { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+
+        .exam-finding {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            user-select: none;
+        }
+        .exam-finding:hover { background: var(--section-header); }
+        .exam-finding .state-indicator {
+            width: 24px; height: 24px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: bold; flex-shrink: 0;
+            border: 2px solid #ccc; background: white; color: #ccc;
+        }
+        .exam-finding .finding-label { font-size: 0.9rem; flex: 1; }
+
+        .exam-finding[data-state="neutral"] .state-indicator { border-color: #ccc; background: white; color: #ccc; }
+        .exam-finding[data-state="neutral"] .state-indicator::after { content: "○"; }
+
+        .exam-finding[data-state="positive"] { background: #d4edda; border-color: #28a745; }
+        .exam-finding[data-state="positive"] .state-indicator { border-color: #28a745; background: #28a745; color: white; }
+        .exam-finding[data-state="positive"] .state-indicator::after { content: "✓"; }
+
+        .exam-finding[data-state="negative"] { background: #f8d7da; border-color: #dc3545; }
+        .exam-finding[data-state="negative"] .state-indicator { border-color: #dc3545; background: #dc3545; color: white; }
+        .exam-finding[data-state="negative"] .state-indicator::after { content: "✗"; }
+
+        .exam-finding-legend { display: flex; gap: 16px; margin-bottom: 12px; font-size: 0.8rem; color: var(--text-muted); }
+        .exam-finding-legend span { display: flex; align-items: center; gap: 4px; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .legend-dot.neutral { background: #ccc; }
+        .legend-dot.positive { background: #28a745; }
+        .legend-dot.negative { background: #dc3545; }
+
+        .inline-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+        .inline-group { display: flex; flex-direction: column; }
+        .inline-group label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; }
+        .inline-group input { padding: 8px 10px; }
+
+        .callout { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid; }
+        .callout-info { background: #e6f4f1; border-color: var(--primary); }
+        .callout-warning { background: #fff8e6; border-color: var(--warning); }
+        .callout-danger { background: #ffe6e6; border-color: var(--danger); }
+        .callout-title { font-weight: 600; font-size: 0.875rem; margin-bottom: 4px; }
+        .callout-content { font-size: 0.875rem; }
+
+        .reference-box {
+            background: linear-gradient(135deg, #f6f8fa 0%, #eef1f5 100%);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px;
+            margin-top: 12px;
+        }
+        .reference-box h4 { margin: 0 0 8px 0; font-size: 0.85rem; color: var(--primary-dark); text-transform: uppercase; letter-spacing: 0.03em; }
+        .reference-box ul { margin: 0; padding-left: 18px; font-size: 0.875rem; }
+        .reference-box li { margin-bottom: 4px; }
+
+        .tag-group { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+        .tag {
+            display: inline-flex; align-items: center;
+            padding: 4px 10px; border-radius: 4px;
+            font-size: 0.8rem; font-weight: 500;
+            cursor: pointer; transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .tag-glucose    { background: #fff3cd; color: #856404; border-color: #ffc107; }
+        .tag-thyroid    { background: #d1ecf1; color: #0c5460; border-color: #bee5eb; }
+        .tag-adrenal    { background: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+        .tag-pituitary  { background: #e2d9f3; color: #4a235a; border-color: #c3aee8; }
+        .tag-calcium    { background: #d4edda; color: #155724; border-color: #c3e6cb; }
+        .tag-other      { background: #e8e8e8; color: #444;    border-color: #ccc; }
+        .tag.selected   { transform: scale(1.05); box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+
+        .output-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .output-section h3 { margin: 0 0 16px 0; color: var(--primary-dark); font-size: 1.1rem; }
+
+        #generated-note {
+            background: #fafbfc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: "SF Mono", Monaco, "Courier New", monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            min-height: 200px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .output-actions { display: flex; gap: 10px; margin-top: 12px; }
+
+        .btn { padding: 12px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; border: none; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover, .btn-primary:active { background: var(--primary-dark); }
+        .btn-secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+        .btn-secondary:hover, .btn-secondary:active { background: var(--border); }
+
+        .toast {
+            position: fixed; bottom: 20px; left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--primary-dark); color: white;
+            padding: 12px 24px; border-radius: 8px;
+            font-size: 0.9rem; opacity: 0;
+            transition: all 0.3s ease; z-index: 1000;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        .emergency-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+            border: 2px solid var(--danger);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+        .emergency-box h4 { color: var(--danger); margin: 0 0 10px 0; font-size: 0.9rem; display: flex; align-items: center; gap: 6px; }
+        .emergency-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+        .emergency-list li { display: flex; align-items: flex-start; gap: 8px; padding: 8px 12px; background: white; border-radius: 6px; font-size: 0.875rem; }
+        .emergency-list li strong { color: var(--danger); min-width: 20px; }
+
+        .stage-selector { display: flex; gap: 8px; flex-wrap: wrap; }
+        .stage-badge {
+            padding: 8px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 500;
+            cursor: pointer; border: 2px solid var(--border); background: white; transition: all 0.2s;
+        }
+        .stage-badge:hover { border-color: var(--primary-light); }
+        .stage-badge.selected { border-color: var(--primary); background: var(--section-header); color: var(--primary-dark); }
+        .stage-badge.sev-mild    { border-left: 4px solid #ffc107; }
+        .stage-badge.sev-moderate{ border-left: 4px solid #ff9800; }
+        .stage-badge.sev-severe  { border-left: 4px solid #f44336; }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.3rem; }
+            .inline-inputs { grid-template-columns: 1fr 1fr; }
+            .checkbox-group { grid-template-columns: 1fr; }
+        }
+
+        @media print {
+            .header, .toolbar, .quick-nav, .output-actions { display: none !important; }
+            .section { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+            body { font-size: 11pt; }
+        }
+    </style>
+</head>
+<body>
+<!-- Back-to-Suite nav chip -->
+<div style="position:fixed;top:8px;right:8px;z-index:8999;">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:5px;
+     background:rgba(30,58,95,0.92);color:#fff;text-decoration:none;
+     padding:5px 11px;border-radius:20px;font-size:0.72rem;font-weight:600;
+     border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(4px);
+     box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:background 0.2s;"
+     title="Back to Clinical Reference Suite"
+     onmouseover="this.style.background='rgba(45,88,132,0.97)'"
+     onmouseout="this.style.background='rgba(30,58,95,0.92)'">
+    📚 Suite
+  </a>
+</div>
+<div class="header">
+    <h1>🦋 Endocrinology Consult Note <span id="component-version" style="font-size:0.38em;color:rgba(255,255,255,0.5);font-weight:400;vertical-align:middle;">BUILD #33</span></h1>
+    <div class="header-subtitle">Structured Template for Comprehensive Endocrine Consultation</div>
+    <div class="toolbar">
+        <button class="toolbar-btn" onclick="generateNote()">📋 Generate Note</button>
+            <button class="toolbar-btn" onclick="aiSuggest()" style="background:#6366f1;color:#fff;border:2px solid #4f46e5;font-weight:700;" title="AI auto-fills plan, medications, and tests based on diagnosis">🤖 AI Suggest</button>
+        <button class="toolbar-btn" onclick="clearAll()">🗑️ Clear All</button>
+        <button class="toolbar-btn" onclick="expandAll()">📂 Expand All</button>
+        <button class="toolbar-btn" onclick="collapseAll()">📁 Collapse All</button>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Quick Navigation -->
+    <div class="quick-nav">
+        <button class="nav-chip" onclick="scrollToSection('consult-reason')">Reason</button>
+        <button class="nav-chip" onclick="scrollToSection('history')">History</button>
+        <button class="nav-chip" onclick="scrollToSection('exam')">Exam</button>
+        <button class="nav-chip" onclick="scrollToSection('labs')">Labs</button>
+        <button class="nav-chip" onclick="scrollToSection('imaging')">Imaging</button>
+        <button class="nav-chip" onclick="scrollToSection('assessment')">Assessment</button>
+        <button class="nav-chip" onclick="scrollToSection('recommendations')">Recs</button>
+        <button class="nav-chip" onclick="scrollToSection('disposition-section')">Disposition</button>
+    </div>
+
+    <!-- Reason for Consultation -->
+    <div class="section" id="consult-reason">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">📞</span> Reason for Consultation</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+            <div class="callout callout-info">
+                <div class="callout-content">State the specific clinical question (e.g., "Inpatient diabetes management with persistent BG >300 despite basal-bolus insulin" — not just "endocrine consult")</div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Primary Consult Question</label>
+                <textarea id="consult-question" placeholder="e.g., Assistance with inpatient hyperglycemia management in T2DM patient on high-dose dexamethasone for newly diagnosed brain tumor; BG ranging 280–420 mg/dL on current sliding scale alone"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Consult Category</label>
+                <div class="tag-group">
+                    <span class="tag tag-glucose"   onclick="toggleTag(this)">Hyperglycemia / DM</span>
+                    <span class="tag tag-glucose"   onclick="toggleTag(this)">DKA / HHS</span>
+                    <span class="tag tag-glucose"   onclick="toggleTag(this)">Steroid-Induced Hyperglycemia</span>
+                    <span class="tag tag-thyroid"   onclick="toggleTag(this)">Hypothyroidism</span>
+                    <span class="tag tag-thyroid"   onclick="toggleTag(this)">Hyperthyroidism / Thyroid Storm</span>
+                    <span class="tag tag-thyroid"   onclick="toggleTag(this)">Thyroid Nodule / Goiter</span>
+                    <span class="tag tag-adrenal"   onclick="toggleTag(this)">Adrenal Insufficiency / Crisis</span>
+                    <span class="tag tag-adrenal"   onclick="toggleTag(this)">Cushing Syndrome</span>
+                    <span class="tag tag-adrenal"   onclick="toggleTag(this)">Pheochromocytoma</span>
+                    <span class="tag tag-pituitary" onclick="toggleTag(this)">Pituitary / Panhypopituitarism</span>
+                    <span class="tag tag-pituitary" onclick="toggleTag(this)">Pituitary Apoplexy</span>
+                    <span class="tag tag-calcium"   onclick="toggleTag(this)">Hypercalcemia</span>
+                    <span class="tag tag-calcium"   onclick="toggleTag(this)">Hypocalcemia</span>
+                    <span class="tag tag-calcium"   onclick="toggleTag(this)">Osteoporosis / Bone Disease</span>
+                    <span class="tag tag-other"     onclick="toggleTag(this)">SIADH / DI</span>
+                    <span class="tag tag-other"     onclick="toggleTag(this)">Perioperative Glucose Mgmt</span>
+                    <span class="tag tag-other"     onclick="toggleTag(this)">Other</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Relevant History -->
+    <div class="section" id="history">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">📜</span> Relevant Endocrine History</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+
+            <!-- Diabetes -->
+            <div class="form-group">
+                <label class="form-label">Diabetes History</label>
+                <div class="inline-inputs">
+                    <div class="inline-group">
+                        <label>Diabetes Type</label>
+                        <select id="dm-type">
+                            <option value="">-- None / Unknown --</option>
+                            <option value="Type 1 DM">Type 1 DM</option>
+                            <option value="Type 2 DM">Type 2 DM</option>
+                            <option value="LADA">LADA</option>
+                            <option value="Pancreatogenic (Type 3c)">Pancreatogenic (Type 3c)</option>
+                            <option value="Steroid-induced">Steroid-induced (new)</option>
+                            <option value="No known diabetes">No known diabetes</option>
+                        </select>
+                    </div>
+                    <div class="inline-group">
+                        <label>Duration (years)</label>
+                        <input type="text" id="dm-duration" placeholder="e.g., 12">
+                    </div>
+                    <div class="inline-group">
+                        <label>Most Recent HbA1c (%)</label>
+                        <input type="text" id="hba1c-prior" placeholder="e.g., 9.2">
+                    </div>
+                    <div class="inline-group">
+                        <label>HbA1c Date</label>
+                        <input type="text" id="hba1c-date" placeholder="e.g., 3 months ago">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Home Diabetes Regimen</label>
+                <textarea id="home-dm-regimen" placeholder="e.g., Glargine 30 units QHS + lispro 6 units TID with meals + metformin 1g BID; or insulin pump (type, settings); or diet-controlled only"></textarea>
+            </div>
+
+            <!-- Thyroid -->
+            <div class="form-group">
+                <label class="form-label">Thyroid History</label>
+                <textarea id="thyroid-hx" placeholder="e.g., Graves disease diagnosed 2018, on methimazole 10mg daily; or hypothyroidism on levothyroxine 100mcg daily; or no known thyroid disease"></textarea>
+            </div>
+
+            <!-- Adrenal / Pituitary -->
+            <div class="form-group">
+                <label class="form-label">Adrenal / Pituitary History</label>
+                <textarea id="adrenal-hx" placeholder="e.g., Known adrenal insufficiency on hydrocortisone 20mg AM / 10mg PM; or pituitary adenoma status post transsphenoidal surgery 2021 on panhypopituitarism replacement; or no known adrenal/pituitary disease"></textarea>
+            </div>
+
+            <!-- Calcium/Bone -->
+            <div class="form-group">
+                <label class="form-label">Calcium / Bone / Parathyroid History</label>
+                <textarea id="calcium-hx" placeholder="e.g., Primary hyperparathyroidism, followed outpatient, last Ca 11.2; or osteoporosis on alendronate; or no known calcium/bone disease"></textarea>
+            </div>
+
+            <!-- Current Endocrine Medications -->
+            <div class="form-group">
+                <label class="form-label">Current Endocrine-Relevant Medications</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="checkbox" id="med-insulin"><label for="med-insulin">Insulin (any)</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-metformin"><label for="med-metformin">Metformin</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-sglt2"><label for="med-sglt2">SGLT2 inhibitor</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-glp1"><label for="med-glp1">GLP-1 agonist</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-su"><label for="med-su">Sulfonylurea</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-dpp4"><label for="med-dpp4">DPP-4 inhibitor</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-levo"><label for="med-levo">Levothyroxine</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-methimazole"><label for="med-methimazole">Methimazole / PTU</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-hc"><label for="med-hc">Hydrocortisone</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-pred"><label for="med-pred">Prednisone / Dexamethasone</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-fludro"><label for="med-fludro">Fludrocortisone</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-calcitriol"><label for="med-calcitriol">Calcitriol / Vitamin D</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-bisphos"><label for="med-bisphos">Bisphosphonate</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-cabergoline"><label for="med-cabergoline">Cabergoline / Bromocriptine</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-testosterone"><label for="med-testosterone">Testosterone / Estrogen</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="med-ddavp"><label for="med-ddavp">Desmopressin (DDAVP)</label></div>
+                </div>
+                <textarea id="med-details" placeholder="Specific doses, durations, recent changes (e.g., steroid dose/duration, insulin doses)..." style="margin-top: 10px;"></textarea>
+            </div>
+
+            <!-- Comorbidities -->
+            <div class="form-group">
+                <label class="form-label">Relevant Comorbidities</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="checkbox" id="comorb-obesity"><label for="comorb-obesity">Obesity</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="comorb-htn"><label for="comorb-htn">Hypertension</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="comorb-hld"><label for="comorb-hld">Hyperlipidemia</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="comorb-ckd"><label for="comorb-ckd">CKD</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="comorb-cirrhosis"><label for="comorb-cirrhosis">Cirrhosis</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="comorb-pancreatitis"><label for="comorb-pancreatitis">Chronic Pancreatitis</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="comorb-malignancy"><label for="comorb-malignancy">Malignancy</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="comorb-autoimmune"><label for="comorb-autoimmune">Autoimmune Disease</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="comorb-chf"><label for="comorb-chf">Heart Failure</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="comorb-pregnancy"><label for="comorb-pregnancy">Pregnancy / Postpartum</label></div>
+                </div>
+            </div>
+
+            <!-- Additional History -->
+            <div class="form-group">
+                <label class="form-label">Additional Relevant History</label>
+                <textarea id="additional-history" class="large" placeholder="Hospitalization reason, recent procedures/surgeries, relevant family history, recent imaging results, prior endocrine evaluations, dietary habits, substance use..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Physical Examination -->
+    <div class="section" id="exam">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">🩺</span> Focused Physical Examination</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+            <div class="callout callout-warning">
+                <div class="callout-title">Key Endocrine Exam Focus Areas</div>
+                <div class="callout-content">Thyroid palpation, cushingoid features, signs of hypo/hyperthyroidism, acromegaly features, hypocalcemia signs (Trousseau/Chvostek), skin/pigmentation changes, visual fields (pituitary)</div>
+            </div>
+
+            <div class="exam-finding-legend">
+                <span><span class="legend-dot neutral"></span> Not documented</span>
+                <span><span class="legend-dot positive"></span> Present (positive)</span>
+                <span><span class="legend-dot negative"></span> Absent (pertinent negative)</span>
+            </div>
+
+            <!-- Vitals -->
+            <div class="form-group">
+                <label class="form-label">Vital Signs</label>
+                <div class="inline-inputs">
+                    <div class="inline-group">
+                        <label>BP (mmHg)</label>
+                        <input type="text" id="bp" placeholder="e.g., 148/92">
+                    </div>
+                    <div class="inline-group">
+                        <label>HR (bpm)</label>
+                        <input type="text" id="hr" placeholder="e.g., 98">
+                    </div>
+                    <div class="inline-group">
+                        <label>Temp (°F)</label>
+                        <input type="text" id="temp" placeholder="e.g., 98.2">
+                    </div>
+                    <div class="inline-group">
+                        <label>SpO2 (%)</label>
+                        <input type="text" id="spo2" placeholder="e.g., 97% RA">
+                    </div>
+                    <div class="inline-group">
+                        <label>Weight (kg)</label>
+                        <input type="text" id="weight" placeholder="e.g., 102">
+                    </div>
+                    <div class="inline-group">
+                        <label>BMI</label>
+                        <input type="text" id="bmi" placeholder="e.g., 34.2">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thyroid Exam -->
+            <div class="form-group">
+                <label class="form-label">Thyroid Examination</label>
+                <div class="exam-finding-group">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Normal (non-tender, non-enlarged)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Diffuse goiter</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Nodular goiter</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Palpable nodule</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Thyroid tenderness</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Thyroid bruit</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Surgical scar (thyroidectomy)</span>
+                    </div>
+                </div>
+                <textarea id="thyroid-comments" placeholder="Nodule characteristics (size, consistency, mobility, cervical lymphadenopathy)..." style="margin-top: 8px;"></textarea>
+            </div>
+
+            <!-- Hyperthyroid Signs -->
+            <div class="form-group">
+                <label class="form-label">Signs of Hyperthyroidism / Thyrotoxicosis</label>
+                <div class="exam-finding-group">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Fine resting tremor</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Warm, moist skin</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Tachycardia / palpitations</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Atrial fibrillation</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Hyperreflexia</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Proptosis / exophthalmos</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Lid lag / lid retraction</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Pretibial myxedema</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Agitation / restlessness</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Fever (thyroid storm)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hypothyroid Signs -->
+            <div class="form-group">
+                <label class="form-label">Signs of Hypothyroidism / Myxedema</label>
+                <div class="exam-finding-group">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Bradycardia</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Dry, coarse skin</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Periorbital puffiness</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Non-pitting edema</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Delayed relaxation of reflexes</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Macroglossia</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Hoarseness</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Hair thinning / loss</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Hypothermia</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">AMS / somnolence (myxedema)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cushingoid Features -->
+            <div class="form-group">
+                <label class="form-label">Cushingoid Features</label>
+                <div class="exam-finding-group">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Central obesity</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Moon facies</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Buffalo hump / supraclavicular pads</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Wide purple striae (>1 cm)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Easy bruising / thin skin</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Proximal muscle weakness</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Hirsutism</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Acne (facial/truncal)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adrenal Insufficiency Signs -->
+            <div class="form-group">
+                <label class="form-label">Signs of Adrenal Insufficiency</label>
+                <div class="exam-finding-group">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Hypotension / orthostatic changes</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Hyperpigmentation (primary)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Buccal / gingival pigmentation</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Vitiligo (autoimmune)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Signs of volume depletion</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hypocalcemia Signs -->
+            <div class="form-group">
+                <label class="form-label">Signs of Hypocalcemia / Hypoparathyroidism</label>
+                <div class="exam-finding-group">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Chvostek sign (facial twitch)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Trousseau sign (carpal spasm)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Carpopedal spasm / tetany</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Perioral paresthesias</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Post-thyroidectomy scar</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Acromegaly Features -->
+            <div class="form-group">
+                <label class="form-label">Acromegaly / GH Excess Features</label>
+                <div class="exam-finding-group">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Enlarged hands / feet</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Coarsened facial features</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Prognathism / malocclusion</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Macroglossia</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Skin tags</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Neurologic / Pituitary -->
+            <div class="form-group">
+                <label class="form-label">Neurologic / Pituitary Findings</label>
+                <div class="exam-finding-group">
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Bitemporal visual field defect</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">CN III palsy (ptosis, dilated pupil)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Diplopia</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Headache (severe, retro-orbital)</span>
+                    </div>
+                    <div class="exam-finding" data-state="neutral" onclick="cycleState(this)">
+                        <span class="state-indicator"></span>
+                        <span class="finding-label">Altered mental status</span>
+                    </div>
+                </div>
+                <textarea id="neuro-comments" placeholder="Visual acuity, confrontational visual fields, detailed CN exam if pituitary apoplexy suspected..." style="margin-top: 8px;"></textarea>
+            </div>
+
+            <!-- General Exam -->
+            <div class="form-group">
+                <label class="form-label">General / Other Findings</label>
+                <textarea id="general-exam" class="large" placeholder="Overall appearance, BMI-related findings, skin findings (acanthosis nigricans, xanthomas, lipodystrophy), musculoskeletal, cardiovascular, abdominal, lower extremity exam (diabetic foot), any other pertinent findings..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Laboratory Data -->
+    <div class="section" id="labs">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">🧪</span> Laboratory Data</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+
+            <!-- Glucose -->
+            <div class="form-group">
+                <label class="form-label">Glucose Data</label>
+                <div class="inline-inputs">
+                    <div class="inline-group">
+                        <label>Current BG (mg/dL)</label>
+                        <input type="text" id="bg-current" placeholder="e.g., 318">
+                    </div>
+                    <div class="inline-group">
+                        <label>HbA1c (%)</label>
+                        <input type="text" id="hba1c" placeholder="e.g., 10.4">
+                    </div>
+                    <div class="inline-group">
+                        <label>Fasting BG</label>
+                        <input type="text" id="bg-fasting" placeholder="e.g., 242">
+                    </div>
+                    <div class="inline-group">
+                        <label>BG Range (admit)</label>
+                        <input type="text" id="bg-range" placeholder="e.g., 180–420">
+                    </div>
+                </div>
+                <textarea id="bg-trend" placeholder="BG trend over last 24–48h or POC glucose log (e.g., fasting 242, pre-lunch 318, pre-dinner 395, bedtime 280)" style="margin-top: 10px;"></textarea>
+            </div>
+
+            <!-- BMP / Electrolytes -->
+            <div class="form-group">
+                <label class="form-label">BMP / Electrolytes</label>
+                <div class="inline-inputs">
+                    <div class="inline-group">
+                        <label>Na (mEq/L)</label>
+                        <input type="text" id="sodium" placeholder="e.g., 134">
+                    </div>
+                    <div class="inline-group">
+                        <label>K (mEq/L)</label>
+                        <input type="text" id="potassium" placeholder="e.g., 4.1">
+                    </div>
+                    <div class="inline-group">
+                        <label>Cl (mEq/L)</label>
+                        <input type="text" id="chloride" placeholder="e.g., 98">
+                    </div>
+                    <div class="inline-group">
+                        <label>HCO₃ (mEq/L)</label>
+                        <input type="text" id="bicarb" placeholder="e.g., 22">
+                    </div>
+                    <div class="inline-group">
+                        <label>BUN (mg/dL)</label>
+                        <input type="text" id="bun" placeholder="e.g., 18">
+                    </div>
+                    <div class="inline-group">
+                        <label>Cr (mg/dL)</label>
+                        <input type="text" id="cr" placeholder="e.g., 0.9">
+                    </div>
+                    <div class="inline-group">
+                        <label>Anion Gap</label>
+                        <input type="text" id="ag" placeholder="e.g., 14">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calcium Panel -->
+            <div class="form-group">
+                <label class="form-label">Calcium Panel</label>
+                <div class="inline-inputs">
+                    <div class="inline-group">
+                        <label>Total Ca (mg/dL)</label>
+                        <input type="text" id="calcium" placeholder="e.g., 12.4">
+                    </div>
+                    <div class="inline-group">
+                        <label>Ionized Ca (mmol/L)</label>
+                        <input type="text" id="calcium-ionized" placeholder="e.g., 1.52">
+                    </div>
+                    <div class="inline-group">
+                        <label>Albumin (g/dL)</label>
+                        <input type="text" id="albumin" placeholder="e.g., 3.8">
+                    </div>
+                    <div class="inline-group">
+                        <label>Corrected Ca</label>
+                        <input type="text" id="calcium-corrected" placeholder="e.g., 12.8">
+                    </div>
+                    <div class="inline-group">
+                        <label>Phos (mg/dL)</label>
+                        <input type="text" id="phos" placeholder="e.g., 2.1">
+                    </div>
+                    <div class="inline-group">
+                        <label>Mg (mg/dL)</label>
+                        <input type="text" id="magnesium" placeholder="e.g., 1.9">
+                    </div>
+                    <div class="inline-group">
+                        <label>PTH (pg/mL)</label>
+                        <input type="text" id="pth" placeholder="e.g., 142">
+                    </div>
+                    <div class="inline-group">
+                        <label>Vit D 25-OH (ng/mL)</label>
+                        <input type="text" id="vitd" placeholder="e.g., 18">
+                    </div>
+                </div>
+                <div class="reference-box" style="margin-top: 10px;">
+                    <h4>Calcium Interpretation</h4>
+                    <ul>
+                        <li><strong>Corrected Ca</strong> = Measured Ca + 0.8 × (4.0 − Albumin)</li>
+                        <li><strong>High Ca + High PTH</strong> → Primary hyperparathyroidism (or tertiary)</li>
+                        <li><strong>High Ca + Low PTH</strong> → Malignancy, granulomatous disease, vitamin D toxicity</li>
+                        <li><strong>Low Ca + High PTH</strong> → Secondary hyperparathyroidism (VitD deficiency, CKD)</li>
+                        <li><strong>Low Ca + Low PTH</strong> → Hypoparathyroidism (post-surgical, autoimmune)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Thyroid Panel -->
+            <div class="form-group">
+                <label class="form-label">Thyroid Function Tests</label>
+                <div class="inline-inputs">
+                    <div class="inline-group">
+                        <label>TSH (mIU/L)</label>
+                        <input type="text" id="tsh" placeholder="e.g., 0.01">
+                    </div>
+                    <div class="inline-group">
+                        <label>Free T4 (ng/dL)</label>
+                        <input type="text" id="ft4" placeholder="e.g., 3.8">
+                    </div>
+                    <div class="inline-group">
+                        <label>Total T3 (ng/dL)</label>
+                        <input type="text" id="t3" placeholder="e.g., 280">
+                    </div>
+                    <div class="inline-group">
+                        <label>Free T3 (pg/mL)</label>
+                        <input type="text" id="ft3" placeholder="e.g., 8.4">
+                    </div>
+                    <div class="inline-group">
+                        <label>Anti-TPO Ab</label>
+                        <input type="text" id="tpo" placeholder="e.g., Positive / 1240">
+                    </div>
+                    <div class="inline-group">
+                        <label>TSI / TRAb</label>
+                        <input type="text" id="tsi" placeholder="e.g., Positive / 3.2">
+                    </div>
+                    <div class="inline-group">
+                        <label>Thyroglobulin</label>
+                        <input type="text" id="tg" placeholder="e.g., 24">
+                    </div>
+                </div>
+                <div class="reference-box" style="margin-top: 10px;">
+                    <h4>TFT Interpretation Pitfalls (Inpatient)</h4>
+                    <ul>
+                        <li><strong>Sick euthyroid:</strong> Low T3 ± low T4 with normal/low TSH — do NOT treat if no clinical thyroid syndrome</li>
+                        <li><strong>TSH rebound (recovery phase):</strong> Transiently elevated TSH (3–20) — recheck outpatient</li>
+                        <li><strong>Dopamine / high-dose steroids:</strong> Suppress TSH — do not diagnose hyperthyroidism</li>
+                        <li><strong>TSH &gt;20 + low free T4:</strong> True hypothyroidism — treat</li>
+                        <li><strong>Biotin supplements:</strong> Cause assay interference — hold 2–3 days before testing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Adrenal / Pituitary Panel -->
+            <div class="form-group">
+                <label class="form-label">Adrenal / Cortisol Studies</label>
+                <div class="inline-inputs">
+                    <div class="inline-group">
+                        <label>Random Cortisol (µg/dL)</label>
+                        <input type="text" id="cortisol" placeholder="e.g., 4.2">
+                    </div>
+                    <div class="inline-group">
+                        <label>AM Cortisol (µg/dL)</label>
+                        <input type="text" id="cortisol-am" placeholder="e.g., 8.0">
+                    </div>
+                    <div class="inline-group">
+                        <label>ACTH (pg/mL)</label>
+                        <input type="text" id="acth" placeholder="e.g., 12">
+                    </div>
+                    <div class="inline-group">
+                        <label>24h UFC (µg/24h)</label>
+                        <input type="text" id="ufc" placeholder="e.g., 280">
+                    </div>
+                    <div class="inline-group">
+                        <label>Stim Cortisol (post-250µg ACTH)</label>
+                        <input type="text" id="cortisol-stim" placeholder="e.g., 14.2">
+                    </div>
+                    <div class="inline-group">
+                        <label>DHEA-S (µg/dL)</label>
+                        <input type="text" id="dheas" placeholder="e.g., 42">
+                    </div>
+                    <div class="inline-group">
+                        <label>Aldosterone (ng/dL)</label>
+                        <input type="text" id="aldosterone" placeholder="e.g., 22">
+                    </div>
+                    <div class="inline-group">
+                        <label>Plasma Renin Activity</label>
+                        <input type="text" id="renin" placeholder="e.g., 0.4">
+                    </div>
+                </div>
+                <div class="reference-box" style="margin-top: 10px;">
+                    <h4>Cortisol Interpretation</h4>
+                    <ul>
+                        <li><strong>Random cortisol &lt;3 µg/dL</strong> → strongly suggests adrenal insufficiency</li>
+                        <li><strong>Random cortisol &gt;18–20 µg/dL</strong> → adrenal insufficiency unlikely (if critically ill, threshold may be higher)</li>
+                        <li><strong>Stimulated cortisol &lt;18 µg/dL</strong> at 30 or 60 min → adrenal insufficiency</li>
+                        <li><strong>Low cortisol + high ACTH</strong> → primary adrenal insufficiency (Addison's)</li>
+                        <li><strong>Low cortisol + low ACTH</strong> → secondary/tertiary (pituitary/hypothalamic)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Pituitary Hormones -->
+            <div class="form-group">
+                <label class="form-label">Pituitary Hormones (if applicable)</label>
+                <div class="inline-inputs">
+                    <div class="inline-group">
+                        <label>Prolactin (ng/mL)</label>
+                        <input type="text" id="prolactin" placeholder="e.g., 85">
+                    </div>
+                    <div class="inline-group">
+                        <label>IGF-1 (ng/mL)</label>
+                        <input type="text" id="igf1" placeholder="e.g., 620">
+                    </div>
+                    <div class="inline-group">
+                        <label>GH (ng/mL)</label>
+                        <input type="text" id="gh" placeholder="e.g., 12">
+                    </div>
+                    <div class="inline-group">
+                        <label>LH (mIU/mL)</label>
+                        <input type="text" id="lh" placeholder="e.g., 1.2">
+                    </div>
+                    <div class="inline-group">
+                        <label>FSH (mIU/mL)</label>
+                        <input type="text" id="fsh" placeholder="e.g., 0.8">
+                    </div>
+                    <div class="inline-group">
+                        <label>Testosterone (ng/dL)</label>
+                        <input type="text" id="testosterone" placeholder="e.g., 88">
+                    </div>
+                    <div class="inline-group">
+                        <label>Estradiol (pg/mL)</label>
+                        <input type="text" id="estradiol" placeholder="e.g., 22">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Urine Glucose / Ketones (DKA) -->
+            <div class="form-group">
+                <label class="form-label">Urine / Ketone Studies (DKA / HHS Workup)</label>
+                <div class="inline-inputs">
+                    <div class="inline-group">
+                        <label>Serum β-hydroxybutyrate</label>
+                        <input type="text" id="bhb" placeholder="e.g., 4.8 mmol/L">
+                    </div>
+                    <div class="inline-group">
+                        <label>Urine Ketones</label>
+                        <input type="text" id="uketones" placeholder="e.g., 3+">
+                    </div>
+                    <div class="inline-group">
+                        <label>Urine Glucose</label>
+                        <input type="text" id="uglucose" placeholder="e.g., 4+">
+                    </div>
+                    <div class="inline-group">
+                        <label>Serum Osm (mOsm/kg)</label>
+                        <input type="text" id="serum-osm" placeholder="e.g., 318">
+                    </div>
+                    <div class="inline-group">
+                        <label>VBG / ABG</label>
+                        <input type="text" id="abg" placeholder="e.g., pH 7.24 / HCO3 11">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Labs -->
+            <div class="form-group">
+                <label class="form-label">Additional Labs</label>
+                <textarea id="additional-labs" class="large" placeholder="CBC, LFTs, lipid panel, urine microalbumin, C-peptide, GAD-65/ICA antibodies (T1DM workup), plasma metanephrines/catecholamines (pheo), 24h urine catecholamines, urine calcium/phosphate, SPEP, inflammatory markers, other relevant results..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Imaging -->
+    <div class="section" id="imaging">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">📷</span> Imaging & Studies</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+            <div class="form-group">
+                <label class="form-label">Thyroid Ultrasound</label>
+                <textarea id="thyroid-us" placeholder="Gland size, echogenicity, nodule characteristics (size, margins, echogenicity, vascularity, calcifications, ACR TIRADS category), cervical lymphadenopathy..."></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Pituitary MRI</label>
+                <textarea id="pituitary-mri" placeholder="Sellar/suprasellar mass, hemorrhage (T1 bright), size, cavernous sinus invasion, optic chiasm compression, stalk deviation, empty sella..."></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Adrenal Imaging (CT / MRI)</label>
+                <textarea id="adrenal-imaging" placeholder="Adrenal mass size, density (HU), lipid content, washout characteristics, bilateral vs unilateral, atrophy (primary adrenal insufficiency), adenoma vs carcinoma features..."></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">DEXA Scan</label>
+                <textarea id="dexa" placeholder="Lumbar spine T-score, femoral neck T-score, total hip T-score, fracture history, FRAX 10-year risk..."></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Other Relevant Imaging</label>
+                <textarea id="other-imaging" placeholder="Nuclear thyroid scan (hot vs cold nodules), radioiodine uptake, adrenal scintigraphy, skeletal survey, CT chest/abdomen/pelvis for malignancy workup, CXR..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assessment -->
+    <div class="section" id="assessment">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">🧠</span> Assessment & Synthesis</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+
+            <!-- Emergency box for crisis presentations -->
+            <div class="emergency-box">
+                <h4>🚨 Endocrine Emergencies — Confirm None Present</h4>
+                <ul class="emergency-list">
+                    <li><strong>⚡</strong> <span>Adrenal Crisis — Hypotension, N/V, hyponatremia, cortisol &lt;3 µg/dL → Hydrocortisone 100 mg IV NOW</span></li>
+                    <li><strong>⚡</strong> <span>Thyroid Storm (Burch-Wartofsky ≥45) — High-dose PTU/methimazole, iodine, steroids, beta-blocker</span></li>
+                    <li><strong>⚡</strong> <span>Myxedema Coma — IV levothyroxine + hydrocortisone (always cover adrenals first)</span></li>
+                    <li><strong>⚡</strong> <span>Pituitary Apoplexy — Hydrocortisone immediately; neurosurgery if vision loss</span></li>
+                    <li><strong>⚡</strong> <span>Severe Hypercalcemia (&gt;14) — Aggressive IVF, calcitonin, bisphosphonate</span></li>
+                    <li><strong>⚡</strong> <span>Severe Hypocalcemia / Tetany — IV calcium gluconate (1–2 g over 20 min)</span></li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Severity Assessment (if applicable)</label>
+                <div class="stage-selector">
+                    <span class="stage-badge sev-mild"     onclick="selectStage(this, 'sev')">Mild</span>
+                    <span class="stage-badge sev-moderate" onclick="selectStage(this, 'sev')">Moderate</span>
+                    <span class="stage-badge sev-severe"   onclick="selectStage(this, 'sev')">Severe / Crisis</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Primary Endocrine Diagnosis</label>
+                <textarea id="primary-dx" placeholder="e.g., Steroid-induced hyperglycemia in T2DM, markedly uncontrolled (BG 280–420 mg/dL, HbA1c 10.4%) in context of high-dose dexamethasone 16 mg/day for malignant cerebral edema"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Differential Diagnosis with Reasoning</label>
+                <textarea id="differential" class="large" placeholder="1. [Most likely] — reasoning based on labs/exam/history
+2. [Second consideration] — reasoning
+3. [Less likely but important] — reasoning"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Clinical Synthesis / Narrative</label>
+                <textarea id="synthesis" class="large" placeholder="Integrate the history, exam, and data into a coherent narrative explaining your assessment. Include pathophysiology when relevant (e.g., dexamethasone predominantly drives afternoon hyperglycemia via hepatic glucose production; relatively preserved fasting glucose consistent with steroid pattern)..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recommendations -->
+    <div class="section" id="recommendations">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">📋</span> Recommendations</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+
+            <div class="form-group">
+                <label class="form-label">Glycemic Management</label>
+                <textarea id="recs-glucose" placeholder="- Initiate NPH ___ units SC with morning dexamethasone (NPH peak matches dexamethasone afternoon hyperglycemia)
+- OR: Glargine ___ units QHS + lispro ___ units TID with meals (basal-bolus for divided-dose or 24h steroid)
+- Correction scale: lispro per sliding scale for BG >180 (mild / moderate / aggressive)
+- BG target: 140–180 mg/dL inpatient
+- Monitor BG AC/HS; add targeted PM checks while on steroids
+- Hold metformin (hospitalized, renal function, contrast risk)
+- Hold SGLT2 inhibitor (euglycemic DKA risk)
+- HbA1c checked: ___. [Results suggest / consistent with] underlying diabetes vs new steroid-induced hyperglycemia"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Thyroid Management</label>
+                <textarea id="recs-thyroid" placeholder="- Continue / initiate levothyroxine ___ mcg daily (or IV if NPO)
+- Initiate methimazole ___ mg TID / PTU ___ mg TID
+- Add Lugol's iodine / SSKI ___ drops TID (give at least 1h after thionamide)
+- Propranolol ___ mg PO/IV for heart rate and symptom control
+- Hydrocortisone ___ mg IV q8h (blocks T4→T3 conversion in thyroid storm)
+- Cholestyramine ___ g QID to reduce enterohepatic recirculation
+- Recheck TFTs in ___ weeks
+- Recommend repeat TFTs as outpatient (sick euthyroid — defer interpretation until recovered)"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Adrenal / Steroid Management</label>
+                <textarea id="recs-adrenal" placeholder="- Hydrocortisone 100 mg IV q8h (stress dosing for adrenal crisis) → taper to maintenance when stable
+- Maintenance: Hydrocortisone 15–20 mg AM / 5–10 mg early PM + Fludrocortisone 0.1 mg daily (primary AI)
+- Stress dose guidelines: double/triple home steroid dose for moderate illness; 100 mg IV hydrocortisone q8h for major surgery/critical illness
+- Do NOT hold home glucocorticoids; patient on chronic steroids suppressing HPA axis
+- ACTH stimulation test result: ___
+- Cortisol [adequate / inadequate] for degree of illness"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Calcium / Bone Management</label>
+                <textarea id="recs-calcium" placeholder="- Aggressive IV hydration (NS at ___ mL/hr) for hypercalcemia
+- Calcitonin 4 units/kg SC/IM q12h × 48h (rapid onset, tachyphylaxis by 48h)
+- Zoledronic acid 4 mg IV over 15 min (onset 2–4 days; holds 4–6 weeks) — check Cr, Ca, Phos, Mg first
+- Denosumab 120 mg SC (preferred if renal impairment; hypocalcemia risk on cessation)
+- Cinacalcet ___ mg daily (hyperparathyroidism)
+- IV calcium gluconate 1–2 g over 20 min for severe hypocalcemia/tetany
+- Oral calcium carbonate ___ mg + calcitriol ___ mcg daily
+- DEXA scan recommended; FRAX calculated
+- Bisphosphonate / denosumab for osteoporosis: [initiate / continue / defer]"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Pituitary / Hormone Replacement</label>
+                <textarea id="recs-pituitary" placeholder="- Hydrocortisone IV immediately for apoplexy / panhypopituitarism — cover adrenal axis before thyroid replacement
+- Levothyroxine initiation [after adrenal axis addressed]
+- Testosterone / estrogen replacement: [initiate / defer pending acute stabilization]
+- Desmopressin (DDAVP) ___ mcg intranasal or IV for central DI
+- Monitor urine output, sodium closely for post-op DI
+- Neurosurgery informed / involved: [yes/no]
+- Ophthalmology visual fields: [ordered / reviewed]
+- MRI pituitary [results / pending]"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Diagnostic Workup to Order</label>
+                <textarea id="recs-workup" placeholder="- Morning cortisol / ACTH stimulation test
+- C-peptide + anti-GAD65/ICA antibodies (T1DM vs T2DM workup)
+- Plasma free metanephrines (pheo workup)
+- 24h urine free cortisol / late-night salivary cortisol (Cushing workup)
+- TSH + free T4 / thyroid antibodies
+- Thyroid ultrasound / nuclear scan
+- Pituitary MRI with gadolinium
+- Adrenal CT for incidentaloma / characterization
+- DEXA scan
+- PTH, ionized calcium, 25-OH vitamin D, 24h urine calcium"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Medication Adjustments</label>
+                <textarea id="recs-meds" placeholder="- Hold SGLT2 inhibitor (hospitalized, euglycemic DKA risk)
+- Hold GLP-1 agonist (NPO / surgery pending; aspiration risk)
+- Hold metformin (renal impairment, contrast, NPO)
+- Adjust levothyroxine dose: ___ to ___ mcg daily
+- Adjust methimazole dose: ___ mg TID
+- Renal dosing review for insulin (reduce doses if AKI)
+- Avoid iodinated contrast until thyroid status clarified
+- Biotin supplements: hold 3 days before thyroid testing"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Monitoring Plan</label>
+                <textarea id="recs-monitoring" placeholder="- BG monitoring: AC/HS (4x/day) ± targeted additional checks (e.g., 2h post-meal, 2 AM)
+- Electrolytes daily (Na, K — critical in adrenal crisis, DKA, DI)
+- Cortisol / cortisol stim test results → confirm AI diagnosis
+- Repeat TFTs in ___ weeks / [outpatient upon recovery from illness]
+- Urine output q4–6h if concern for DI
+- Serum Na q4–6h if rapid correction needed
+- Ca, Phos, Mg q24h while on calcium infusions
+- Repeat ionized Ca after IV calcium gluconate in 1–2h"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Other Recommendations</label>
+                <textarea id="recs-other" placeholder="Additional recommendations not covered above..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Disposition -->
+    <div class="section" id="disposition-section">
+        <div class="section-header" onclick="toggleSection(this)">
+            <h2><span class="section-icon">🏥</span> Disposition & Follow-up</h2>
+            <span class="section-toggle">▼</span>
+        </div>
+        <div class="section-content">
+            <div class="form-group">
+                <label class="form-label">Inpatient Disposition</label>
+                <select id="disposition">
+                    <option value="">-- Select --</option>
+                    <option value="Floor level of care appropriate">Floor level of care appropriate</option>
+                    <option value="Step-down / intermediate care recommended">Step-down / intermediate care recommended</option>
+                    <option value="ICU transfer recommended">ICU transfer recommended</option>
+                    <option value="Discharge planning in progress">Discharge planning in progress</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Discharge Endocrine Medication Plan</label>
+                <textarea id="discharge-meds" placeholder="Insulin regimen on discharge (glargine ___ units QHS + lispro ___ units TID), titration instructions, SGLT2i hold vs resume, levothyroxine dose, steroid taper plan if applicable, steroid emergency card if new AI..."></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Patient Education Points</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="checkbox" id="edu-bg-monitoring"><label for="edu-bg-monitoring">BG monitoring at home</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="edu-insulin-technique"><label for="edu-insulin-technique">Insulin injection technique</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="edu-hypoglycemia"><label for="edu-hypoglycemia">Hypoglycemia recognition / treatment</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="edu-sick-day"><label for="edu-sick-day">Sick-day management rules</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="edu-steroid-taper"><label for="edu-steroid-taper">Steroid taper / insulin reduction</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="edu-adrenal-card"><label for="edu-adrenal-card">Adrenal crisis emergency card / injection kit</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="edu-thyroid-meds"><label for="edu-thyroid-meds">Thyroid medication instructions</label></div>
+                    <div class="checkbox-item"><input type="checkbox" id="edu-calcium"><label for="edu-calcium">Calcium / vitamin D supplementation</label></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Outpatient Endocrinology Follow-up</label>
+                <textarea id="followup-plan" placeholder="e.g., Follow-up with endocrinology in 2–4 weeks post-discharge; repeat HbA1c at 3 months; TFTs in 6 weeks; repeat 24h UFC in 4 weeks once illness resolved; pituitary MRI scheduled outpatient..."></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Consulting Endocrinologist / Fellow</label>
+                <input type="text" id="attending" placeholder="Name / pager / service">
+            </div>
+        </div>
+    </div>
+
+    <!-- Generated Note -->
+    <div class="output-section">
+        <h3>📄 Generated Consult Note</h3>
+        <div id="generated-note">Click "Generate Note" to create a formatted consult note from the fields above.</div>
+        <div class="output-actions">
+            <button class="btn btn-primary" onclick="copyNote()">📋 Copy to Clipboard</button>
+            <button class="btn btn-secondary" onclick="generateNote()">🔄 Regenerate</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast">Copied to clipboard!</div>
+
+<script>
+    function toggleSection(header) {
+        header.parentElement.classList.toggle('collapsed');
+    }
+
+    function cycleState(el) {
+        const s = el.getAttribute('data-state');
+        el.setAttribute('data-state', s === 'neutral' ? 'positive' : s === 'positive' ? 'negative' : 'neutral');
+    }
+
+    function getExamFindings(state) {
+        const findings = [];
+        document.querySelectorAll(`.exam-finding[data-state="${state}"]`).forEach(el => {
+            const l = el.querySelector('.finding-label');
+            if (l) findings.push(l.textContent.trim());
+        });
+        return findings;
+    }
+
+    function toggleTag(tag) { tag.classList.toggle('selected'); }
+
+    function selectStage(badge, type) {
+        badge.parentElement.querySelectorAll('.stage-badge').forEach(b => b.classList.remove('selected'));
+        badge.classList.toggle('selected');
+    }
+
+    function scrollToSection(id) {
+        const s = document.getElementById(id);
+        if (s) { s.classList.remove('collapsed'); s.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    }
+
+    function expandAll()   { document.querySelectorAll('.section').forEach(s => s.classList.remove('collapsed')); }
+    function collapseAll() { document.querySelectorAll('.section').forEach(s => s.classList.add('collapsed')); }
+
+    function clearAll() {
+        if (!confirm('Clear all fields? This cannot be undone.')) return;
+        document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+        document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
+        document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+        document.querySelectorAll('.tag, .stage-badge').forEach(el => el.classList.remove('selected'));
+        document.querySelectorAll('.exam-finding').forEach(el => el.setAttribute('data-state', 'neutral'));
+        document.getElementById('generated-note').textContent = 'Click "Generate Note" to create a formatted consult note from the fields above.';
+    }
+
+    function getSelectedTags() {
+        return [...document.querySelectorAll('.tag.selected')].map(t => t.textContent.trim());
+    }
+
+    function getSelectedStageText() {
+        const sel = document.querySelector('.stage-badge.selected');
+        return sel ? sel.textContent.trim() : '';
+    }
+
+    function getChecked(...ids) {
+        const out = [];
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && el.checked) { const lbl = el.nextElementSibling; if (lbl) out.push(lbl.textContent.trim()); }
+        });
+        return out;
+    }
+
+    function val(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+    function generateNote() {
+        let note = '';
+        const LINE = '═══════════════════════════════════════════════════════════\n';
+        const div  = '───────────────────────────────────────────────────────────\n';
+
+        note += LINE;
+        note += '                  ENDOCRINOLOGY CONSULT NOTE\n';
+        note += LINE + '\n';
+
+        // ── Reason for Consultation ──────────────────────────────────────
+        const consultQ = val('consult-question');
+        const tags = getSelectedTags();
+        if (consultQ || tags.length) {
+            note += '▸ REASON FOR CONSULTATION\n';
+            if (consultQ) note += consultQ + '\n';
+            if (tags.length) note += 'Category: ' + tags.join(', ') + '\n';
+            note += '\n';
+        }
+
+        // ── Relevant History ─────────────────────────────────────────────
+        const dmType     = val('dm-type');
+        const dmDur      = val('dm-duration');
+        const hba1cPrior = val('hba1c-prior');
+        const hba1cDate  = val('hba1c-date');
+        const homeDm     = val('home-dm-regimen');
+        const thyroidHx  = val('thyroid-hx');
+        const adrenalHx  = val('adrenal-hx');
+        const calciumHx  = val('calcium-hx');
+        const meds = getChecked('med-insulin','med-metformin','med-sglt2','med-glp1','med-su','med-dpp4',
+            'med-levo','med-methimazole','med-hc','med-pred','med-fludro','med-calcitriol',
+            'med-bisphos','med-cabergoline','med-testosterone','med-ddavp');
+        const medDetails = val('med-details');
+        const comorbidities = getChecked('comorb-obesity','comorb-htn','comorb-hld','comorb-ckd',
+            'comorb-cirrhosis','comorb-pancreatitis','comorb-malignancy','comorb-autoimmune',
+            'comorb-chf','comorb-pregnancy');
+        const addlHx = val('additional-history');
+
+        note += '▸ RELEVANT HISTORY\n';
+        if (dmType) {
+            let dmLine = dmType;
+            if (dmDur) dmLine += ', duration ' + dmDur + ' years';
+            note += 'Diabetes: ' + dmLine + '\n';
+        }
+        if (hba1cPrior) { note += 'Most recent HbA1c: ' + hba1cPrior + '%'; if (hba1cDate) note += ' (' + hba1cDate + ')'; note += '\n'; }
+        if (homeDm)     note += 'Home DM regimen: ' + homeDm + '\n';
+        if (thyroidHx)  note += 'Thyroid: ' + thyroidHx + '\n';
+        if (adrenalHx)  note += 'Adrenal/Pituitary: ' + adrenalHx + '\n';
+        if (calciumHx)  note += 'Calcium/Bone: ' + calciumHx + '\n';
+        if (meds.length) note += 'Endocrine medications: ' + meds.join(', ') + '\n';
+        if (medDetails)  note += medDetails + '\n';
+        if (comorbidities.length) note += 'Comorbidities: ' + comorbidities.join(', ') + '\n';
+        if (addlHx) note += addlHx + '\n';
+        note += '\n';
+
+        // ── Physical Examination ─────────────────────────────────────────
+        const bp     = val('bp'), hr = val('hr'), temp = val('temp');
+        const spo2   = val('spo2'), weight = val('weight'), bmi = val('bmi');
+        const positives = getExamFindings('positive');
+        const negatives = getExamFindings('negative');
+        const thyroidComments = val('thyroid-comments');
+        const neuroComments   = val('neuro-comments');
+        const generalExam     = val('general-exam');
+        const severity        = getSelectedStageText();
+
+        if (bp || positives.length || negatives.length || thyroidComments || generalExam) {
+            note += '▸ PHYSICAL EXAMINATION\n';
+            const vitals = [];
+            if (bp)     vitals.push('BP ' + bp);
+            if (hr)     vitals.push('HR ' + hr);
+            if (temp)   vitals.push('T ' + temp + '°F');
+            if (spo2)   vitals.push('SpO2 ' + spo2);
+            if (weight) vitals.push('Wt ' + weight + ' kg');
+            if (bmi)    vitals.push('BMI ' + bmi);
+            if (vitals.length) note += 'Vitals: ' + vitals.join(', ') + '\n';
+            if (positives.length) note += '\n(+) ' + positives.join(', ') + '\n';
+            if (negatives.length) note += '(-) No ' + negatives.join(', no ') + '\n';
+            if (thyroidComments) note += 'Thyroid: ' + thyroidComments + '\n';
+            if (neuroComments)   note += 'Neurologic: ' + neuroComments + '\n';
+            if (generalExam)     note += generalExam + '\n';
+            note += '\n';
+        }
+
+        // ── Laboratory Data ──────────────────────────────────────────────
+        const bgCurrent = val('bg-current'), hba1c = val('hba1c'), bgFasting = val('bg-fasting');
+        const bgRange = val('bg-range'), bgTrend = val('bg-trend');
+        const sodium = val('sodium'), potassium = val('potassium'), cl = val('chloride');
+        const bicarb = val('bicarb'), bun = val('bun'), cr = val('cr'), ag = val('ag');
+        const calcium = val('calcium'), caIonized = val('calcium-ionized'), albumin = val('albumin');
+        const caCorrected = val('calcium-corrected'), phos = val('phos'), mg = val('magnesium');
+        const pth = val('pth'), vitd = val('vitd');
+        const tsh = val('tsh'), ft4 = val('ft4'), t3 = val('t3'), ft3 = val('ft3');
+        const tpo = val('tpo'), tsi = val('tsi'), tg = val('tg');
+        const cortisol = val('cortisol'), cortisolAm = val('cortisol-am'), acth = val('acth');
+        const ufc = val('ufc'), cortisolStim = val('cortisol-stim'), dheas = val('dheas');
+        const aldosterone = val('aldosterone'), renin = val('renin');
+        const prolactin = val('prolactin'), igf1 = val('igf1'), gh = val('gh');
+        const lh = val('lh'), fsh = val('fsh'), testosterone = val('testosterone'), estradiol = val('estradiol');
+        const bhb = val('bhb'), uketones = val('uketones'), uglucose = val('uglucose');
+        const serumOsm = val('serum-osm'), abg = val('abg');
+        const addlLabs = val('additional-labs');
+
+        note += '▸ LABORATORY DATA\n';
+
+        // Glucose
+        const glucParts = [];
+        if (bgCurrent) glucParts.push('Current BG ' + bgCurrent);
+        if (bgFasting)  glucParts.push('Fasting BG ' + bgFasting);
+        if (bgRange)    glucParts.push('Range ' + bgRange);
+        if (hba1c)      glucParts.push('HbA1c ' + hba1c + '%');
+        if (glucParts.length) note += 'Glucose: ' + glucParts.join(' / ') + '\n';
+        if (bgTrend)    note += 'BG trend: ' + bgTrend + '\n';
+
+        // BMP
+        const bmpParts = [];
+        if (sodium)    bmpParts.push('Na ' + sodium);
+        if (potassium) bmpParts.push('K ' + potassium);
+        if (cl)        bmpParts.push('Cl ' + cl);
+        if (bicarb)    bmpParts.push('HCO3 ' + bicarb);
+        if (bun)       bmpParts.push('BUN ' + bun);
+        if (cr)        bmpParts.push('Cr ' + cr);
+        if (ag)        bmpParts.push('AG ' + ag);
+        if (bmpParts.length) note += 'BMP: ' + bmpParts.join(' / ') + '\n';
+
+        // Calcium panel
+        const caParts = [];
+        if (calcium)     caParts.push('Ca ' + calcium);
+        if (caIonized)   caParts.push('iCa ' + caIonized);
+        if (caCorrected) caParts.push('corrected Ca ' + caCorrected);
+        if (albumin)     caParts.push('Alb ' + albumin);
+        if (phos)        caParts.push('Phos ' + phos);
+        if (mg)          caParts.push('Mg ' + mg);
+        if (pth)         caParts.push('PTH ' + pth);
+        if (vitd)        caParts.push('25-OH VitD ' + vitd);
+        if (caParts.length) note += 'Calcium panel: ' + caParts.join(' / ') + '\n';
+
+        // TFTs
+        const tftParts = [];
+        if (tsh) tftParts.push('TSH ' + tsh);
+        if (ft4) tftParts.push('fT4 ' + ft4);
+        if (t3)  tftParts.push('T3 ' + t3);
+        if (ft3) tftParts.push('fT3 ' + ft3);
+        if (tpo) tftParts.push('Anti-TPO ' + tpo);
+        if (tsi) tftParts.push('TSI/TRAb ' + tsi);
+        if (tg)  tftParts.push('Thyroglobulin ' + tg);
+        if (tftParts.length) note += 'TFTs: ' + tftParts.join(' / ') + '\n';
+
+        // Adrenal
+        const adParts = [];
+        if (cortisol)     adParts.push('Random cortisol ' + cortisol);
+        if (cortisolAm)   adParts.push('AM cortisol ' + cortisolAm);
+        if (acth)         adParts.push('ACTH ' + acth);
+        if (cortisolStim) adParts.push('Stim cortisol ' + cortisolStim);
+        if (ufc)          adParts.push('24h UFC ' + ufc);
+        if (dheas)        adParts.push('DHEA-S ' + dheas);
+        if (aldosterone)  adParts.push('Aldosterone ' + aldosterone);
+        if (renin)        adParts.push('PRA ' + renin);
+        if (adParts.length) note += 'Adrenal: ' + adParts.join(' / ') + '\n';
+
+        // Pituitary
+        const pitParts = [];
+        if (prolactin)   pitParts.push('Prolactin ' + prolactin);
+        if (igf1)        pitParts.push('IGF-1 ' + igf1);
+        if (gh)          pitParts.push('GH ' + gh);
+        if (lh)          pitParts.push('LH ' + lh);
+        if (fsh)         pitParts.push('FSH ' + fsh);
+        if (testosterone)pitParts.push('Testosterone ' + testosterone);
+        if (estradiol)   pitParts.push('Estradiol ' + estradiol);
+        if (pitParts.length) note += 'Pituitary/gonadal: ' + pitParts.join(' / ') + '\n';
+
+        // DKA workup
+        const dkaParts = [];
+        if (bhb)      dkaParts.push('β-hydroxybutyrate ' + bhb);
+        if (uketones) dkaParts.push('Urine ketones ' + uketones);
+        if (uglucose) dkaParts.push('Urine glucose ' + uglucose);
+        if (serumOsm) dkaParts.push('Serum Osm ' + serumOsm);
+        if (abg)      dkaParts.push('VBG/ABG: ' + abg);
+        if (dkaParts.length) note += 'DKA/HHS: ' + dkaParts.join(' / ') + '\n';
+
+        if (addlLabs) note += addlLabs + '\n';
+        note += '\n';
+
+        // ── Imaging ──────────────────────────────────────────────────────
+        const thyroidUs   = val('thyroid-us');
+        const pitMri      = val('pituitary-mri');
+        const adrenalImg  = val('adrenal-imaging');
+        const dexa        = val('dexa');
+        const otherImg    = val('other-imaging');
+        if (thyroidUs || pitMri || adrenalImg || dexa || otherImg) {
+            note += '▸ IMAGING\n';
+            if (thyroidUs)  note += 'Thyroid US: ' + thyroidUs + '\n';
+            if (pitMri)     note += 'Pituitary MRI: ' + pitMri + '\n';
+            if (adrenalImg) note += 'Adrenal imaging: ' + adrenalImg + '\n';
+            if (dexa)       note += 'DEXA: ' + dexa + '\n';
+            if (otherImg)   note += otherImg + '\n';
+            note += '\n';
+        }
+
+        // ── Assessment ───────────────────────────────────────────────────
+        const primaryDx  = val('primary-dx');
+        const differential = val('differential');
+        const synthesis  = val('synthesis');
+        if (severity || primaryDx || differential || synthesis) {
+            note += '▸ ASSESSMENT\n';
+            if (severity)     note += 'Severity: ' + severity + '\n';
+            if (primaryDx)    note += '\nPrimary diagnosis: ' + primaryDx + '\n';
+            if (differential) note += '\nDifferential:\n' + differential + '\n';
+            if (synthesis)    note += '\nSynthesis: ' + synthesis + '\n';
+            note += '\n';
+        }
+
+        // ── Recommendations ───────────────────────────────────────────────
+        const recsGlucose   = val('recs-glucose');
+        const recsThyroid   = val('recs-thyroid');
+        const recsAdrenal   = val('recs-adrenal');
+        const recsCalcium   = val('recs-calcium');
+        const recsPituitary = val('recs-pituitary');
+        const recsWorkup    = val('recs-workup');
+        const recsMeds      = val('recs-meds');
+        const recsMonitor   = val('recs-monitoring');
+        const recsOther     = val('recs-other');
+
+        if (recsGlucose || recsThyroid || recsAdrenal || recsCalcium || recsPituitary ||
+            recsWorkup || recsMeds || recsMonitor || recsOther) {
+            note += '▸ RECOMMENDATIONS\n';
+            if (recsGlucose)   note += '\n[Glycemic Management]\n' + recsGlucose + '\n';
+            if (recsThyroid)   note += '\n[Thyroid Management]\n' + recsThyroid + '\n';
+            if (recsAdrenal)   note += '\n[Adrenal / Steroid Management]\n' + recsAdrenal + '\n';
+            if (recsCalcium)   note += '\n[Calcium / Bone Management]\n' + recsCalcium + '\n';
+            if (recsPituitary) note += '\n[Pituitary / Hormone Replacement]\n' + recsPituitary + '\n';
+            if (recsWorkup)    note += '\n[Diagnostic Workup]\n' + recsWorkup + '\n';
+            if (recsMeds)      note += '\n[Medication Adjustments]\n' + recsMeds + '\n';
+            if (recsMonitor)   note += '\n[Monitoring Plan]\n' + recsMonitor + '\n';
+            if (recsOther)     note += '\n[Additional]\n' + recsOther + '\n';
+            note += '\n';
+        }
+
+        // ── Disposition ───────────────────────────────────────────────────
+        const disposition    = val('disposition') ||
+            (document.getElementById('disposition') ? document.getElementById('disposition').value : '');
+        const dischargeMeds  = val('discharge-meds');
+        const eduItems       = getChecked('edu-bg-monitoring','edu-insulin-technique','edu-hypoglycemia',
+            'edu-sick-day','edu-steroid-taper','edu-adrenal-card','edu-thyroid-meds','edu-calcium');
+        const followupPlan   = val('followup-plan');
+        const attending      = val('attending');
+
+        if (disposition || dischargeMeds || eduItems.length || followupPlan || attending) {
+            note += '▸ DISPOSITION & FOLLOW-UP\n';
+            if (disposition)       note += 'Disposition: ' + disposition + '\n';
+            if (dischargeMeds)     note += 'Discharge medications: ' + dischargeMeds + '\n';
+            if (eduItems.length)   note += 'Patient education: ' + eduItems.join(', ') + '\n';
+            if (followupPlan)      note += 'Outpatient follow-up: ' + followupPlan + '\n';
+            if (attending)         note += '\nEndocrinology: ' + attending + '\n';
+            note += '\n';
+        }
+
+        // Footer
+        note += LINE;
+        note += 'Will continue to follow. Please contact endocrinology with questions.\n';
+        note += LINE;
+
+        document.getElementById('generated-note').textContent = note;
+    }
+
+    function copyNote() {
+        const text = document.getElementById('generated-note').textContent;
+        navigator.clipboard.writeText(text).then(
+            () => showToast('Copied to clipboard!'),
+            () => showToast('Failed to copy')
+        );
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.section').forEach((s, i) => {
+            if (i > 3) s.classList.add('collapsed');
+        });
+    });
+</script>
+
+<script>
+window.addEventListener("message", function(e) {
+  if (e.data && e.data.type === "SW_VERSION") {
+    var el = document.getElementById("component-version");
+    if (el) el.textContent = e.data.version;
+  }
+});
+</script>
+
+<!-- ═══════════════════════════════════════════════════════
+     AI AUTO-FILL — ENDOCRINOLOGY CONSULT
+     Calls Anthropic API with diagnosis → populates plan fields
+     ═══════════════════════════════════════════════════════ -->
+<style>
+.ai-modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55); z-index: 9000;
+    align-items: center; justify-content: center;
+}
+.ai-modal-overlay.active { display: flex; }
+.ai-modal {
+    background: #1e293b; border: 1px solid #334155;
+    border-radius: 12px; padding: 28px 32px;
+    max-width: 420px; width: 90%; text-align: center;
+    color: #f1f5f9; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+.ai-modal-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.ai-modal h3 { margin: 0 0 8px; font-size: 1.1rem; color: #e2e8f0; }
+.ai-modal p  { margin: 0 0 18px; font-size: 0.85rem; color: #94a3b8; line-height: 1.5; }
+.ai-spinner {
+    display: inline-block; width: 32px; height: 32px;
+    border: 3px solid #334155; border-top-color: #6366f1;
+    border-radius: 50%; animation: ai-spin 0.8s linear infinite;
+    margin-bottom: 12px;
+}
+@keyframes ai-spin { to { transform: rotate(360deg); } }
+.ai-modal-btn {
+    background: #6366f1; color: #fff; border: none;
+    padding: 8px 20px; border-radius: 6px;
+    cursor: pointer; font-size: 0.85rem; font-weight: 600;
+    transition: background 0.2s;
+}
+.ai-modal-btn:hover { background: #4f46e5; }
+.ai-modal-btn.secondary {
+    background: #334155; margin-left: 8px;
+}
+.ai-modal-btn.secondary:hover { background: #475569; }
+.ai-filled-badge {
+    display: inline-block; background: #10b981;
+    color: #fff; font-size: 0.72rem; font-weight: 700;
+    padding: 2px 7px; border-radius: 4px;
+    margin-left: 6px; vertical-align: middle; letter-spacing: 0.03em;
+}
+</style>
+
+<!-- AI Modal -->
+<div class="ai-modal-overlay" id="ai-modal-overlay">
+    <div class="ai-modal" id="ai-modal-content">
+        <div id="ai-modal-loading">
+            <div class="ai-spinner"></div>
+            <h3>Generating Endocrinology Recommendations…</h3>
+            <p>Analyzing diagnosis and populating evidence-based plan, medications, and workup.</p>
+        </div>
+        <div id="ai-modal-error" style="display:none;">
+            <div class="ai-modal-icon">⚠️</div>
+            <h3>Unable to Generate</h3>
+            <p id="ai-error-msg">An error occurred. Please try again or fill fields manually.</p>
+            <button class="ai-modal-btn" onclick="closeAiModal()">Close</button>
+        </div>
+        <div id="ai-modal-success" style="display:none;">
+            <div class="ai-modal-icon">✅</div>
+            <h3>Fields Populated</h3>
+            <p>Review and edit the suggested content before generating your note.</p>
+            <button class="ai-modal-btn" onclick="closeAiModal()">Review</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ── AI Autofill ──────────────────────────────────────────────────────────
+function openAiModal(mode) {
+    document.getElementById('ai-modal-overlay').classList.add('active');
+    document.getElementById('ai-modal-loading').style.display = mode === 'loading' ? '' : 'none';
+    document.getElementById('ai-modal-error').style.display   = mode === 'error'   ? '' : 'none';
+    document.getElementById('ai-modal-success').style.display = mode === 'success' ? '' : 'none';
+}
+function closeAiModal() {
+    document.getElementById('ai-modal-overlay').classList.remove('active');
+}
+
+async function aiSuggest() {
+    // Gather context
+    const dxEl = document.getElementById('consult-question');
+    const dx = dxEl ? dxEl.value.trim() : '';
+    if (!dx) {
+        alert('Please enter a diagnosis or consult question first.');
+        return;
+    }
+
+    // Collect additional context from checked boxes / key fields
+    const contextParts = [dx];
+    document.querySelectorAll('input[type=checkbox]:checked').forEach(cb => {
+        const lbl = document.querySelector('label[for="' + cb.id + '"]');
+        if (lbl) contextParts.push(lbl.textContent.trim());
+    });
+
+    const userPrompt = 'Consult question / diagnosis: ' + contextParts.join(', ');
+
+    openAiModal('loading');
+
+    try {
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: 'claude-sonnet-4-20250514',
+                max_tokens: 2000,
+                system: `You are an expert endocrinologist. Given a consult question or diagnosis, return ONLY a JSON object with these keys:
+impression: clinical diagnosis with severity/staging and relevant lab values
+differential: endocrine differentials with distinguishing features
+synthesis: pathophysiology and clinical reasoning
+glucose: inpatient glucose management (basal/bolus/correction doses, targets, hypoglycemia protocol)
+thyroid: thyroid management (methimazole/PTU doses, levothyroxine dose, beta-blocker if needed)
+adrenal: adrenal management (hydrocortisone dosing, stress dosing, fludrocortisone if indicated)
+calcium: calcium/phosphorus/vitamin D management with specific doses
+pituitary: pituitary hormone replacement or suppression with specific agents
+workup: specific endocrine labs, dynamic tests, imaging with indications (e.g., "- 8am cortisol, ACTH stimulation test if cortisol < 18\n- 24h urine free cortisol")
+medications: all endocrine medication adjustments with doses
+monitoring: lab check frequency and targets
+
+Only populate keys relevant to the diagnosis; leave others empty (""). Return ONLY valid JSON.`,
+                messages: [{ role: 'user', content: userPrompt }]
+            })
+        });
+
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw new Error(err.error?.message || 'API error ' + response.status);
+        }
+
+        const result = await response.json();
+        const raw = result.content?.find(b => b.type === 'text')?.text || '';
+
+        // Strip markdown fences if present
+        const cleaned = raw.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
+        let data;
+        try {
+            data = JSON.parse(cleaned);
+        } catch(e) {
+            throw new Error('Could not parse response. Raw: ' + raw.substring(0, 200));
+        }
+
+        // Populate fields
+        if (data.impression !== undefined && data.impression !== '') {
+            const el = document.getElementById('primary-dx');
+            if (el) el.value = data.impression;
+        }
+        if (data.differential !== undefined && data.differential !== '') {
+            const el = document.getElementById('differential');
+            if (el) el.value = data.differential;
+        }
+        if (data.synthesis !== undefined && data.synthesis !== '') {
+            const el = document.getElementById('synthesis');
+            if (el) el.value = data.synthesis;
+        }
+        if (data.glucose !== undefined && data.glucose !== '') {
+            const el = document.getElementById('recs-glucose');
+            if (el) el.value = data.glucose;
+        }
+        if (data.thyroid !== undefined && data.thyroid !== '') {
+            const el = document.getElementById('recs-thyroid');
+            if (el) el.value = data.thyroid;
+        }
+        if (data.adrenal !== undefined && data.adrenal !== '') {
+            const el = document.getElementById('recs-adrenal');
+            if (el) el.value = data.adrenal;
+        }
+        if (data.calcium !== undefined && data.calcium !== '') {
+            const el = document.getElementById('recs-calcium');
+            if (el) el.value = data.calcium;
+        }
+        if (data.pituitary !== undefined && data.pituitary !== '') {
+            const el = document.getElementById('recs-pituitary');
+            if (el) el.value = data.pituitary;
+        }
+        if (data.workup !== undefined && data.workup !== '') {
+            const el = document.getElementById('recs-workup');
+            if (el) el.value = data.workup;
+        }
+        if (data.medications !== undefined && data.medications !== '') {
+            const el = document.getElementById('recs-meds');
+            if (el) el.value = data.medications;
+        }
+        if (data.monitoring !== undefined && data.monitoring !== '') {
+            const el = document.getElementById('recs-monitoring');
+            if (el) el.value = data.monitoring;
+        }
+
+        // Mark fields as AI-filled
+        document.querySelectorAll('[id^="recs-"],[id="impression"],[id="primary-dx"],[id="differential"],[id="synthesis"],[id="problem-list"],[id="recommendations"]').forEach(el => {
+            if (el.value && !el.dataset.aiFilled) {
+                el.dataset.aiFilled = '1';
+                el.style.borderColor = '#10b981';
+                const lbl = document.querySelector('label[for="' + el.id + '"]') ||
+                            el.closest('.form-group')?.querySelector('label');
+                if (lbl && !lbl.querySelector('.ai-filled-badge')) {
+                    lbl.insertAdjacentHTML('beforeend', '<span class="ai-filled-badge">AI</span>');
+                }
+            }
+        });
+
+        openAiModal('success');
+
+    } catch(err) {
+        document.getElementById('ai-error-msg').textContent = err.message || 'Unknown error';
+        openAiModal('error');
+        console.error('AI Suggest error:', err);
+    }
+}
+</script>
+</body>
+</html>

@@ -132,9 +132,22 @@ textarea.lg{min-height:120px}
 </style>
 </head>
 <body>
+<!-- Back-to-Suite nav chip -->
+<div style="position:fixed;top:8px;right:8px;z-index:8999;">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:5px;
+     background:rgba(30,58,95,0.92);color:#fff;text-decoration:none;
+     padding:5px 11px;border-radius:20px;font-size:0.72rem;font-weight:600;
+     border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(4px);
+     box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:background 0.2s;"
+     title="Back to Clinical Reference Suite"
+     onmouseover="this.style.background='rgba(45,88,132,0.97)'"
+     onmouseout="this.style.background='rgba(30,58,95,0.92)'">
+    📚 Suite
+  </a>
+</div>
 <!-- HEADER -->
 <div class="header">
-  <h1>🏥 Outpatient Internal Medicine Note</h1>
+  <h1>🏥 Outpatient Internal Medicine Note <span id="component-version" style="font-size:0.4em;color:#94a3b8;font-weight:400;vertical-align:middle;">BUILD #33</span></h1>
   <div class="vt-bar">
     <button class="vt-btn active" onclick="setVT('new',this)">🆕 New Patient</button>
     <button class="vt-btn" onclick="setVT('followup',this)">🔄 Follow-Up</button>
@@ -144,6 +157,7 @@ textarea.lg{min-height:120px}
   </div>
   <div class="toolbar">
     <button class="tb" onclick="genNote()">📄 Generate Note</button>
+  <button class="tb" onclick="aiSuggestOP(1)" style="background:#6366f1;color:#fff;border:2px solid #4f46e5;font-weight:700;" title="AI fills supporting data and plan for Problem 1">🤖 AI Suggest (P1)</button>
     <button class="tb" onclick="clearAll()">🗑️ Clear</button>
     <button class="tb" onclick="expandAll()">📂 Expand All</button>
     <button class="tb" onclick="collapseAll()">📁 Collapse All</button>
@@ -916,6 +930,7 @@ function addAP(dx='',data='',plan=''){
     <div class="ap-hdr">
       <span class="ap-num">${n}</span>
       <input class="ap-dx" id="ap-dx-${n}" value="${dx}" placeholder="Diagnosis — specify severity/control (e.g., Hypertension — uncontrolled, SBP consistently 155–165)">
+      <button onclick="aiSuggestOP(${n})" style="background:#6366f1;color:#fff;border:none;padding:3px 10px;border-radius:5px;cursor:pointer;font-size:0.75rem;font-weight:700;white-space:nowrap;" title="AI fills supporting data and plan">🤖 AI</button>
     </div>
     <div class="ap-fields">
       <div class="fg" style="margin:0">
@@ -1295,6 +1310,144 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('.section').forEach((s,i)=>{if(i>1)s.classList.add('collapsed');});
 });
 window.addEventListener('message',e=>{if(e.data&&e.data.type==='SW_VERSION'){const el=document.getElementById('component-version');if(el)el.textContent=e.data.version;}});
+</script>
+
+<style>
+.ai-modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55); z-index: 9000;
+    align-items: center; justify-content: center;
+}
+.ai-modal-overlay.active { display: flex; }
+.ai-modal {
+    background: #1e293b; border: 1px solid #334155;
+    border-radius: 12px; padding: 28px 32px;
+    max-width: 420px; width: 90%; text-align: center;
+    color: #f1f5f9; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+.ai-modal-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.ai-modal h3 { margin: 0 0 8px; font-size: 1.1rem; color: #e2e8f0; }
+.ai-modal p  { margin: 0 0 18px; font-size: 0.85rem; color: #94a3b8; line-height: 1.5; }
+.ai-spinner {
+    display: inline-block; width: 32px; height: 32px;
+    border: 3px solid #334155; border-top-color: #6366f1;
+    border-radius: 50%; animation: ai-spin 0.8s linear infinite;
+    margin-bottom: 12px;
+}
+@keyframes ai-spin { to { transform: rotate(360deg); } }
+.ai-modal-btn {
+    background: #6366f1; color: #fff; border: none;
+    padding: 8px 20px; border-radius: 6px;
+    cursor: pointer; font-size: 0.85rem; font-weight: 600;
+    transition: background 0.2s;
+}
+.ai-modal-btn:hover { background: #4f46e5; }
+.ai-filled-badge {
+    display: inline-block; background: #10b981; color: #fff;
+    font-size: 0.72rem; font-weight: 700; padding: 2px 7px;
+    border-radius: 4px; margin-left: 6px;
+    vertical-align: middle; letter-spacing: 0.03em;
+}
+</style>
+<!-- AI Suggest Modal -->
+<div class="ai-modal-overlay" id="ai-modal-overlay">
+    <div class="ai-modal">
+        <div id="ai-modal-loading">
+            <div class="ai-spinner"></div>
+            <h3 id="ai-modal-title">Generating Plan…</h3>
+            <p id="ai-modal-msg">Analyzing diagnosis and generating evidence-based assessment and plan.</p>
+        </div>
+        <div id="ai-modal-error" style="display:none;">
+            <div class="ai-modal-icon">⚠️</div>
+            <h3>Unable to Generate</h3>
+            <p id="ai-error-msg">An error occurred. Please try again or fill fields manually.</p>
+            <button class="ai-modal-btn" onclick="closeAiModal()">Close</button>
+        </div>
+        <div id="ai-modal-success" style="display:none;">
+            <div class="ai-modal-icon">✅</div>
+            <h3>Plan Generated</h3>
+            <p>Review and edit the suggested content. Then generate your note as usual.</p>
+            <button class="ai-modal-btn" onclick="closeAiModal()">Review</button>
+        </div>
+    </div>
+</div>
+<script>
+
+function openAiModal(mode, title, msg) {
+    document.getElementById('ai-modal-overlay').classList.add('active');
+    document.getElementById('ai-modal-loading').style.display = mode === 'loading' ? '' : 'none';
+    document.getElementById('ai-modal-error').style.display   = mode === 'error'   ? '' : 'none';
+    document.getElementById('ai-modal-success').style.display = mode === 'success' ? '' : 'none';
+    if (title) document.getElementById('ai-modal-title').textContent = title;
+    if (msg)   document.getElementById('ai-modal-msg').textContent   = msg;
+}
+function closeAiModal() {
+    document.getElementById('ai-modal-overlay').classList.remove('active');
+}
+
+async function aiSuggestOP(n) {
+    const dxEl = document.getElementById('ap-dx-' + n);
+    const dx = dxEl ? dxEl.value.trim() : '';
+    if (!dx) { alert('Enter a diagnosis in Problem ' + n + ' first.'); return; }
+
+    openAiModal('loading', 'Generating Outpatient Plan…',
+        'Building today\'s findings and management plan for: ' + dx);
+
+    try {
+        const resp = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: 'claude-sonnet-4-20250514',
+                max_tokens: 1000,
+                system: `You are an expert outpatient internal medicine physician. Given a diagnosis for a clinic visit, return ONLY a JSON object with these exact keys:
+data: 2-3 bullet points of today's key findings supporting this diagnosis (e.g., "- BP today: 158/92, repeat 155/90\n- Last HbA1c: 8.4% (3 months ago)\n- Home glucose log: avg fasting 145 mg/dL")
+plan: specific, actionable outpatient management plan including:
+  - Medication changes with specific doses, directions, and rationale
+  - Labs or studies to order with timing
+  - Referrals if indicated
+  - Patient education points (1-2 key messages)
+  - Return precautions and follow-up timing
+
+Use outpatient clinical shorthand. Be specific. Return ONLY valid JSON, no markdown.`,
+                messages: [{ role: 'user', content: 'Outpatient diagnosis: ' + dx }]
+            })
+        });
+        if (!resp.ok) throw new Error('API error ' + resp.status);
+        const result = await resp.json();
+        const raw = result.content?.find(b => b.type === 'text')?.text || '';
+        const cleaned = raw.replace(/^```json\s*/i,'').replace(/^```\s*/i,'').replace(/\s*```$/i,'').trim();
+        const data = JSON.parse(cleaned);
+
+        const fields = [
+            ['ap-d-' + n, data.data],
+            ['ap-p-' + n, data.plan],
+        ];
+        fields.forEach(([id, val]) => {
+            if (!val) return;
+            const el = document.getElementById(id);
+            if (el) {
+                el.value = val;
+                el.style.borderColor = '#10b981';
+            }
+        });
+        openAiModal('success');
+    } catch(err) {
+        document.getElementById('ai-error-msg').textContent = err.message || 'Unknown error';
+        openAiModal('error');
+        console.error('AI suggest error:', err);
+    }
+}
+</script>
+
+<!-- SW version listener -->
+<script>
+window.addEventListener("message", function(e) {
+  if (e.data && e.data.type === "SW_VERSION") {
+    const el = document.getElementById("component-version");
+    if (el) el.textContent = e.data.version;
+  }
+});
 </script>
 </body>
 </html>
