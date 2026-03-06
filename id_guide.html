@@ -201,6 +201,154 @@
     white-space: nowrap;
   }
 
+
+/* ── EXPANDED SECTIONS CSS (class-scoped only, no global overrides) ── */
+
+/* Section structure for expanded sections */
+.section-header {
+  background: linear-gradient(90deg, #1c2128 0%, #161b22 100%);
+  border-bottom: 2px solid #3fb950;
+  padding: 14px 20px;
+  border-radius: 0;
+}
+.section-header h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #3fb950 !important;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+.section-content { padding: 8px; }
+
+/* Topic collapsible */
+.topic {
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  margin: 6px;
+  overflow: hidden;
+}
+.topic-header {
+  background: #1c2128;
+  padding: 11px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+  transition: background 0.15s;
+}
+.topic-header:hover { background: #21262d; }
+.topic-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #58a6ff !important;
+  flex: 1;
+  margin: 0;
+}
+.topic-header::after {
+  content: '▼';
+  color: #8b949e;
+  font-size: 11px;
+  transition: transform 0.2s;
+}
+.topic-header.collapsed::after { transform: rotate(-90deg); }
+.topic-content {
+  background: #0d1117;
+  padding: 14px 16px;
+  border-top: 1px solid #30363d;
+}
+.topic-content.hidden { display: none; }
+
+/* Content inside expanded sections — light text for dark bg */
+.section-content p,
+.section-content li,
+.topic-content p,
+.topic-content li {
+  color: #e6edf3 !important;
+  line-height: 1.65;
+}
+.section-content strong,
+.topic-content strong { color: #cdd9e5 !important; }
+.section-content em,
+.topic-content em { color: #8b949e; }
+.section-content a,
+.topic-content a { color: #58a6ff; }
+.section-content table,
+.topic-content table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+.section-content th,
+.topic-content th { background: #161b22; color: #58a6ff; padding: 8px 12px; text-align: left;
+  border-bottom: 1px solid #3fb950; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+.section-content td,
+.topic-content td { padding: 8px 12px; border-bottom: 1px solid #21262d; color: #e6edf3; vertical-align: top; }
+.section-content tr:nth-child(even) td,
+.topic-content tr:nth-child(even) td { background: #161b2280; }
+
+/* Subsections */
+.subsection {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin: 8px 0;
+}
+.subsection-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8b949e;
+  margin-bottom: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #30363d;
+}
+
+/* High-yield & guideline boxes */
+.high-yield {
+  background: #1c1a0a;
+  border-left: 3px solid #d29922;
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+}
+.high-yield-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #d29922;
+  margin-bottom: 8px;
+}
+.guideline-box {
+  background: #0d1a2e;
+  border-left: 3px solid #58a6ff;
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
+}
+.guideline-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #58a6ff;
+  margin-bottom: 8px;
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: #1f6feb33;
+  color: #58a6ff;
+  border: 1px solid #1f6feb66;
+  margin: 1px 2px;
+  vertical-align: middle;
+}
+
+/* patch-banner not needed in merged guide */
+.patch-banner { display: none; }
+
 </style>
 </head>
 <body>
@@ -290,6 +438,7 @@
       <li><a href="#opportunistic-infections">Opportunistic Infections</a></li>
       <li><a href="#id-travel">Travel Medicine</a></li>
       <li><a href="#tickborne-infections">Tickborne Infections</a></li>
+      <li><a href="#immunocompromised-host">Immunocompromised Host</a></li>
     </ul>
   </div>
 
@@ -332,6 +481,8 @@
       <li><a href="#pathogen-guidance">Pathogen Guidance (Quick)</a></li>
       <li><a href="#pathogen-overview">Pathogen Overview</a></li>
       <li><a href="#fungal-infections">Fungal Infections</a></li>
+      <li><a href="#viral-infections">Viral Diseases</a></li>
+      <li><a href="#viral-encephalopathies">Viral Encephalopathies</a></li>
     </ul>
   </div>
 
@@ -352,7 +503,23 @@
     </ul>
   </div>
 
-  <!-- 10. Reference Tools -->
+  <!-- 10. Infection Prevention -->
+  <div class="nav-group">
+    <button class="nav-group-btn open" data-group="ipc">
+      🛡️ Infection Prevention <span class="nav-arrow">▶</span>
+    </button>
+    <ul class="nav-group-links" id="nav-ipc">
+      <li><a href="#infection-prevention">IPC Overview</a></li>
+      <li><a href="#ipc-isolation">Isolation Precautions</a></li>
+      <li><a href="#ipc-hand-hygiene">Hand Hygiene</a></li>
+      <li><a href="#ipc-bundles">HAI Prevention Bundles</a></li>
+      <li><a href="#ipc-hw-exposures">HCW Exposures</a></li>
+      <li><a href="#ipc-outbreak">Outbreak Investigation</a></li>
+      <li><a href="#ipc-disinfection">Disinfection &amp; Sterilization</a></li>
+    </ul>
+  </div>
+
+  <!-- 11. Reference Tools -->
   <div class="nav-group">
     <button class="nav-group-btn open" data-group="tools">
       🧰 Reference Tools <span class="nav-arrow">▶</span>
@@ -368,7 +535,7 @@
 
 <header role="banner">
   <img src="mutant-icon.png" alt="logo" onerror="this.style.display='none'">
-  <h1>Antibiotic & Infection Guide <span id="component-version" style="font-size:0.38em;color:rgba(255,255,255,0.5);font-weight:400;vertical-align:middle;">BUILD #33</span></h1>
+  <h1>Antibiotic & Infection Guide <span id="component-version" style="font-size:0.38em;color:rgba(255,255,255,0.5);font-weight:400;vertical-align:middle;">BUILD #34</span></h1>
   <div class="search">
     <input id="globalSearch" type="text" placeholder="Search everything — pathogen, drug, syndrome..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
     <button class="search-clear" id="globalSearchClear" type="button">✕</button>
@@ -1769,77 +1936,1263 @@
 
 <!-- FUNGAL -->
 <section id="fungal-infections">
-  <h2>Fungal Infections</h2>
+  <div class="section-header"><h2>🍄 Fungal Infections</h2></div>
+  <div class="section-content">
 
-  <button class="collapsible">Candida (candidemia)</button>
-  <div class="panel">
-    <ul>
-      <li>Empiric: Echinocandin (micafungin/caspofungin) IV for critically ill.</li>
-      <li>Step-down: Fluconazole for susceptible species after clearance and ID consultation.</li>
-      <li>Duration: 14 days after first negative blood culture if uncomplicated.</li>
-    </ul>
+    <!-- CANDIDA -->
+    <div class="topic" id="fungi-candida">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Candidiasis</h3><span class="badge">HIGH YIELD</span>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Species & Resistance Patterns</div>
+          <table><thead><tr><th>Species</th><th>Frequency</th><th>Fluconazole</th><th>Echinocandin</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><strong>C. albicans</strong></td><td>Most common</td><td>Usually susceptible</td><td>Susceptible</td><td>Standard first-line options apply</td></tr>
+            <tr><td><strong>C. glabrata</strong></td><td>2nd most common</td><td>Often resistant (dose-dependent)</td><td>Susceptible</td><td>Echinocandin preferred; check susceptibility</td></tr>
+            <tr><td><strong>C. parapsilosis</strong></td><td>Common (NICU, lines)</td><td>Susceptible</td><td>Intrinsically less susceptible</td><td>Fluconazole acceptable; biofilm on devices</td></tr>
+            <tr><td><strong>C. tropicalis</strong></td><td>Hematologic malignancy</td><td>May be resistant</td><td>Susceptible</td><td>Echinocandin preferred in high-risk</td></tr>
+            <tr><td><strong>C. krusei</strong></td><td>Rare</td><td>Intrinsically resistant</td><td>Susceptible</td><td>Never use fluconazole</td></tr>
+            <tr><td><strong>C. auris</strong></td><td>Emerging MDR</td><td>Usually resistant</td><td>Usually susceptible (check)</td><td>Contact precautions; notify infection control</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Candidemia Management</div>
+          <ul>
+            <li><strong>Always clinically significant</strong> — never a contaminant, even single bottle</li>
+            <li><strong>First-line:</strong> Echinocandin (caspofungin 70 mg IV load → 50 mg/day; micafungin 100 mg/day; anidulafungin 200 mg load → 100 mg/day)</li>
+            <li><strong>Step-down to fluconazole:</strong> Acceptable after clinical improvement, known susceptible species, negative repeat cultures — fluconazole 800 mg load → 400 mg/day</li>
+            <li><strong>Remove central line</strong> when feasible — significant reduction in mortality</li>
+            <li><strong>Duration:</strong> 14 days from first negative blood culture (uncomplicated)</li>
+          </ul>
+        </div>
+
+        <div class="guideline-box">
+          <div class="guideline-title">📘 IDSA 2016 Candidemia Workup (All Patients)</div>
+          <ul>
+            <li>Dilated fundoscopic exam (endophthalmitis — present in 5-10%)</li>
+            <li>Repeat blood cultures q48h until negative (document clearance)</li>
+            <li>Echocardiogram if prolonged candidemia (&gt;5 days) or prosthetic valve</li>
+            <li>Remove central lines when feasible</li>
+            <li>ID consultation for complex cases</li>
+          </ul>
+        </div>
+
+        <div class="high-yield">
+          <div class="high-yield-title">⚡ BOARD PEARLS: Candida</div>
+          <ul>
+            <li><strong>Candida peritonitis</strong> (post-op, perforated viscus): fluconazole or echinocandin × 4 weeks</li>
+            <li><strong>Esophageal candidiasis:</strong> Fluconazole 200 mg PO × 14–21 days (no need for IV)</li>
+            <li><strong>Oropharyngeal (thrush):</strong> Clotrimazole troches or nystatin swish × 7–14 days; fluconazole if severe</li>
+            <li><strong>Vulvovaginal:</strong> Fluconazole 150 mg PO × 1 dose; topical azole alternatives</li>
+            <li><strong>Prophylaxis in ICU:</strong> Controversial; consider fluconazole if high risk (abdominal surgery, TPN, prolonged broad-spectrum abx)</li>
+          </ul>
+        </div>
+
+      </div>
+    </div><!-- /candida -->
+
+    <!-- ASPERGILLUS -->
+    <div class="topic" id="fungi-aspergillus">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Invasive Aspergillosis</h3><span class="badge">HIGH YIELD</span>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Risk Groups (Who Gets Invasive Aspergillosis)</div>
+          <ul>
+            <li><strong>Prolonged neutropenia</strong> (ANC &lt;100 for &gt;10 days) — hematologic malignancy, HSCT</li>
+            <li><strong>Allogeneic HSCT</strong> — especially with GVHD and steroid therapy</li>
+            <li><strong>Solid organ transplant</strong> — lung transplant highest risk; liver/kidney lower risk</li>
+            <li><strong>High-dose corticosteroids</strong> (≥20 mg prednisone × &gt;3 weeks)</li>
+            <li><strong>Inherited immunodeficiency</strong> — chronic granulomatous disease (CGD), STAT3 defects</li>
+            <li><strong>COVID-19-associated pulmonary aspergillosis (CAPA)</strong> — ICU patients on steroids</li>
+            <li><strong>Influenza-associated aspergillosis (IAPA)</strong> — mechanically ventilated</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Clinical Syndromes</div>
+          <ul>
+            <li><strong>Invasive pulmonary aspergillosis (IPA):</strong> Most common — fever, cough, pleuritic chest pain, hemoptysis; may be insidious in profound neutropenia</li>
+            <li><strong>Tracheobronchitis:</strong> In lung transplant recipients — ulcerative/pseudomembranous; diagnosis by bronchoscopy</li>
+            <li><strong>Sinusitis (invasive):</strong> Diabetics, neutropenic; extend to orbit/CNS; aggressive surgical debridement required</li>
+            <li><strong>CNS aspergillosis:</strong> Hematogenous dissemination — ring-enhancing lesions, high mortality</li>
+            <li><strong>Aspergilloma (chronic):</strong> Pre-existing lung cavities (TB, sarcoid); hemoptysis; local treatment only unless invasive</li>
+            <li><strong>Allergic bronchopulmonary aspergillosis (ABPA):</strong> Asthma/CF patients; IgE elevation, central bronchiectasis; NOT invasive — treat with steroids ± itraconazole</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Diagnosis</div>
+          <table><thead><tr><th>Test</th><th>Sensitivity</th><th>Specificity</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><strong>CT Chest — Halo Sign</strong></td><td>~80% (early)</td><td>Moderate</td><td>Nodule surrounded by ground-glass halo = angioinvasion. Early finding — disappears in days. Air-crescent sign = late (recovery).</td></tr>
+            <tr><td><strong>Serum Galactomannan (GM)</strong></td><td>~70-80% (heme malignancy)</td><td>~85%</td><td>Sensitivity lower in solid organ transplant and non-neutropenic hosts. False positives: pip-tazo (less now), mold colonization, certain foods.</td></tr>
+            <tr><td><strong>BAL Galactomannan</strong></td><td>~85%</td><td>~90%</td><td>Higher sensitivity than serum for IPA; preferred when available</td></tr>
+            <tr><td><strong>Beta-D-Glucan (BDG)</strong></td><td>~75%</td><td>~80%</td><td>Non-specific (positive in PJP, Candida, Fusarium too); useful for ruling out fungal infection when negative</td></tr>
+            <tr><td><strong>PCR (Aspergillus)</strong></td><td>~85%</td><td>~75%</td><td>Increasingly available; 2 positive results improve specificity</td></tr>
+            <tr><td><strong>Culture (BAL/tissue)</strong></td><td>~30-50%</td><td>~99%</td><td>Low sensitivity but highly specific; required for species identification and susceptibility testing</td></tr>
+            <tr><td><strong>Tissue biopsy</strong></td><td>~50%</td><td>~99%</td><td>Gold standard for proven IPA; septate branching hyphae (45° angle) on histopathology</td></tr>
+          </tbody></table>
+          <p style="margin-top:8px"><strong>Key histopathology:</strong> Septate hyphae with 45° acute angle branching — distinguishes from Mucor (non-septate, 90° angle). Culture required for species identification (A. fumigatus most common, A. terreus — amphotericin resistant).</p>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Treatment</div>
+          <table><thead><tr><th>Scenario</th><th>First-Line</th><th>Dose</th><th>Duration</th></tr></thead>
+          <tbody>
+            <tr><td>Invasive Pulmonary (IPA)</td><td><strong>Voriconazole</strong></td><td>6 mg/kg IV q12h × 2 doses (load), then 4 mg/kg IV q12h; step to PO 200–300 mg BID</td><td>Minimum 6–12 weeks; continue until immunosuppression resolved and imaging improved</td></tr>
+            <tr><td>Isavuconazole (alternative)</td><td>Isavuconazonium</td><td>372 mg IV/PO q8h × 6 doses (load), then 372 mg q24h</td><td>Same as above; fewer drug interactions, better tolerated than voriconazole</td></tr>
+            <tr><td>Voriconazole intolerant or resistant</td><td>Liposomal AmB</td><td>3–5 mg/kg IV daily</td><td>Until clinical response, then step down to azole</td></tr>
+            <tr><td>Salvage (refractory)</td><td>Micafungin or Caspofungin</td><td>Standard dosing</td><td>Add-on to azole or monotherapy; ID/heme consult</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="guideline-box">
+          <div class="guideline-title">📘 Voriconazole TDM (Therapeutic Drug Monitoring)</div>
+          <ul>
+            <li><strong>Target trough:</strong> 1–5.5 mcg/mL (efficacy &lt;1; neurotoxicity &gt;5.5)</li>
+            <li><strong>Check level:</strong> After 5 days (steady state); adjust dose and recheck</li>
+            <li><strong>Highly variable PK:</strong> CYP2C19 polymorphisms — poor metabolizers (Asian populations) may accumulate; ultra-rapid metabolizers may sub-therapeutic</li>
+            <li><strong>Major drug interactions:</strong> Rifampin (contraindicated — reduces voriconazole levels 93%), rifabutin, phenytoin, carbamazepine</li>
+            <li><strong>Side effects:</strong> Visual disturbances (most common — hallucinations, photopsia), hepatotoxicity, photosensitivity, periostitis with prolonged use, QTc prolongation</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Prophylaxis</div>
+          <ul>
+            <li><strong>HSCT (allogeneic, engraftment/GVHD):</strong> Posaconazole 300 mg PO daily OR voriconazole — during neutropenia and GVHD treatment</li>
+            <li><strong>Hematologic malignancy (induction chemo):</strong> Posaconazole 200 mg PO TID (with food) reduces invasive fungal infection mortality vs. fluconazole (NEJM 2007)</li>
+            <li><strong>Lung transplant:</strong> Voriconazole or inhaled amphotericin B; protocol varies by center</li>
+          </ul>
+        </div>
+
+      </div>
+    </div><!-- /aspergillus -->
+
+    <!-- MUCORMYCOSIS -->
+    <div class="topic" id="fungi-mucor">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Mucormycosis (Mucorales)</h3><span class="badge">HIGH YIELD</span>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Classic Risk Factor Triad</div>
+          <ul>
+            <li><strong>Diabetic ketoacidosis (DKA)</strong> — most common; low pH and high glucose favor Mucor growth. Rhinocerebral pattern predominates.</li>
+            <li><strong>Iron overload / deferoxamine therapy</strong> — deferoxamine acts as siderophore, providing iron to Mucor; classic board association</li>
+            <li><strong>Hematologic malignancy / prolonged neutropenia</strong> — pulmonary pattern predominates; overlaps with Aspergillus in this population</li>
+            <li><strong>Other:</strong> Solid organ transplant, high-dose steroids, trauma/burns (cutaneous), injection drug use, COVID-19 (especially with steroid use)</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Clinical Syndromes</div>
+          <ul>
+            <li><strong>Rhinoorbital-cerebral (ROCM):</strong> Most common — starts with sinusitis, spreads to orbit (proptosis, ophthalmoplegia), then intracranially. Black eschar on palate/nasal mucosa = pathognomonic. Rapid and fatal without treatment.</li>
+            <li><strong>Pulmonary:</strong> Hematologic malignancy/HSCT — fever, hemoptysis, cavitation. "Reverse halo sign" on CT (ground glass surrounded by consolidation) — relatively specific.</li>
+            <li><strong>Cutaneous:</strong> Post-trauma, burns, injection sites. Local necrosis with black discoloration.</li>
+            <li><strong>Disseminated:</strong> Multiple organ involvement; extremely high mortality (&gt;80%).</li>
+            <li><strong>GI:</strong> Rare; neonates, malnourished patients.</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Diagnosis</div>
+          <ul>
+            <li><strong>Histopathology:</strong> Broad, non-septate (pauci-septate) hyphae with 90° right-angle branching — contrasts with septate Aspergillus at 45°. Ribbon-like and irregular morphology.</li>
+            <li><strong>Culture:</strong> Required for genus/species ID; grows on standard media as cottony colonies. Notify lab to hold for mold growth.</li>
+            <li><strong>Galactomannan / Beta-D-glucan:</strong> Typically NEGATIVE — distinguishes from Aspergillus. GM-negative invasive mold = think Mucor.</li>
+            <li><strong>CT (sinus/chest):</strong> Multi-sinus involvement, bony erosion (ROCM); reverse halo sign (pulmonary).</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Treatment — Requires Triple Approach</div>
+          <ol>
+            <li><strong>Antifungal:</strong> Liposomal amphotericin B 5–10 mg/kg IV daily (higher doses than standard candidiasis/aspergillosis). Continue until clinical improvement, then step down to posaconazole 300 mg PO BID for consolidation/maintenance.</li>
+            <li><strong>Surgical debridement:</strong> Urgent and aggressive — remove all necrotic tissue. Serial debridements often required. May require orbital exenteration for ROCM with orbital involvement.</li>
+            <li><strong>Reverse underlying risk factors:</strong> Correct DKA aggressively (pH normalization). Stop/reduce steroids if possible. Control hyperglycemia. Discontinue deferoxamine.</li>
+          </ol>
+          <p><strong>Voriconazole and fluconazole are NOT active</strong> against Mucorales — critical distinction from Aspergillus. Posaconazole and isavuconazole have activity (salvage/step-down).</p>
+        </div>
+
+        <div class="high-yield">
+          <div class="high-yield-title">⚡ CRITICAL BOARD PEARL</div>
+          <p>Galactomannan NEGATIVE + non-septate 90° branching hyphae + DKA or iron overload = <strong>Mucormycosis</strong>, NOT Aspergillus. Starting voriconazole (active against Aspergillus) in this scenario is a classic clinical error — it has no activity against Mucor.</p>
+        </div>
+
+      </div>
+    </div><!-- /mucor -->
+
+    <!-- HISTOPLASMOSIS -->
+    <div class="topic" id="fungi-histo">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Histoplasmosis</h3>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Epidemiology & Exposure</div>
+          <ul>
+            <li><strong>Endemic:</strong> Ohio and Mississippi River valleys; Central America, parts of South America</li>
+            <li><strong>Exposure:</strong> Bird/bat droppings, soil disturbance (construction, spelunking, chicken coops, demolition)</li>
+            <li><strong>Dimorphic fungus:</strong> Mold in environment → yeast at 37°C (body temperature)</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Clinical Syndromes</div>
+          <table><thead><tr><th>Syndrome</th><th>Population</th><th>Features</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Acute pulmonary</strong></td><td>Immunocompetent, large exposure</td><td>Self-limited flu-like illness; hilar lymphadenopathy on CXR; resolves spontaneously in most</td></tr>
+            <tr><td><strong>Subacute pulmonary</strong></td><td>Mild immunosuppression</td><td>Prolonged weeks of fever, fatigue, cough; mediastinal lymphadenopathy</td></tr>
+            <tr><td><strong>Disseminated (PDH)</strong></td><td>HIV (CD4 &lt;150), transplant, TNF inhibitors</td><td>Fever, weight loss, hepatosplenomegaly, pancytopenia, elevated LDH and alkaline phosphatase; may mimic sepsis</td></tr>
+            <tr><td><strong>CNS histoplasmosis</strong></td><td>Severely immunocompromised</td><td>Chronic meningitis, focal CNS lesions; high mortality</td></tr>
+            <tr><td><strong>Mediastinal fibrosis</strong></td><td>Rare complication (non-infectious)</td><td>Fibrous tissue occludes mediastinal structures; SVC syndrome, pulmonary hypertension</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Diagnosis</div>
+          <ul>
+            <li><strong>Urine Histoplasma antigen:</strong> Most sensitive (90%+) for disseminated/severe disease; also positive in serum. Less sensitive for mild pulmonary.</li>
+            <li><strong>Serology (complement fixation, immunodiffusion):</strong> H and M bands on immunodiffusion diagnostic; CF ≥1:32 significant. Takes weeks to develop — not useful acutely.</li>
+            <li><strong>Culture (blood, BAL, bone marrow):</strong> Gold standard; slow growth (2–6 weeks) on fungal media</li>
+            <li><strong>Histopathology:</strong> Small oval intracellular yeast within macrophages — GMS or PAS stain. "Owl's eye" appearance.</li>
+            <li><strong>BAL:</strong> For pulmonary disease — culture + antigen + stain</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Treatment</div>
+          <table><thead><tr><th>Syndrome</th><th>Treatment</th><th>Duration</th></tr></thead>
+          <tbody>
+            <tr><td>Mild acute pulmonary</td><td>No treatment (self-limited) OR itraconazole 200 mg TID × 3 days → BID if symptoms &gt;4 weeks</td><td>3 months if treating</td></tr>
+            <tr><td>Moderate-severe pulmonary</td><td>Liposomal AmB 3 mg/kg/day × 1–2 weeks → itraconazole 200 mg TID × 3 days → BID</td><td>12 weeks total</td></tr>
+            <tr><td>Disseminated (PDH) — mild/moderate</td><td>Itraconazole 200 mg TID × 3 days → BID</td><td>12 months</td></tr>
+            <tr><td>Disseminated (PDH) — severe/HIV</td><td>Liposomal AmB 3 mg/kg/day IV × 1–2 weeks → itraconazole 200 mg TID × 3 days → BID</td><td>12 months minimum; lifelong if CD4 persistently &lt;150</td></tr>
+            <tr><td>CNS histoplasmosis</td><td>Liposomal AmB 5 mg/kg/day × 4–6 weeks → itraconazole</td><td>12+ months; indefinite if immunosuppressed</td></tr>
+          </tbody></table>
+          <p><strong>Itraconazole TDM:</strong> Check serum level after 2 weeks — target trough ≥1 mcg/mL (random level ≥1 mcg/mL). Poor oral absorption if gastric pH elevated — avoid PPIs; take with acidic beverage if needed.</p>
+        </div>
+
+      </div>
+    </div><!-- /histo -->
+
+    <!-- COCCIDIOIDOMYCOSIS -->
+    <div class="topic" id="fungi-cocci">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Coccidioidomycosis</h3>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Epidemiology</div>
+          <ul>
+            <li><strong>Endemic:</strong> Sonoran Desert — Arizona, California (Central Valley), New Mexico, West Texas; expanding northward with climate change</li>
+            <li><strong>Exposure:</strong> Soil disturbance, construction, archaeology, military training in Southwest; risk after dust storms</li>
+            <li><strong>High-risk populations:</strong> African American and Filipino descent (dissemination risk ×50× higher), HIV/AIDS (CD4 &lt;250), pregnancy (3rd trimester), transplant, TNF inhibitors, diabetes</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Clinical Syndromes</div>
+          <ul>
+            <li><strong>Primary pulmonary (60% asymptomatic):</strong> "Valley Fever" — fever, cough, pleuritic chest pain, arthralgias ("desert rheumatism"), erythema nodosum/multiforme. Most resolve spontaneously.</li>
+            <li><strong>Chronic pulmonary:</strong> Cavities, nodules, fibrosis — may persist for years</li>
+            <li><strong>Disseminated:</strong> Skin (verrucous lesions, subcutaneous abscesses), bone/joints (spine, knees), meningitis. Meningitis = most feared complication — high mortality without lifelong therapy.</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Diagnosis</div>
+          <ul>
+            <li><strong>Serology (EIA, complement fixation):</strong> IgM early (first 3 weeks); IgG later (complement fixation CF titer ≥1:16 suggests dissemination or severe disease). CF titer tracks response to therapy.</li>
+            <li><strong>Urine/serum antigen (MiraVista):</strong> Useful in HIV/immunocompromised — may be seronegative</li>
+            <li><strong>Culture:</strong> Highly infectious in lab — notify lab. Spherules in tissue (distinct from hyphae in environment).</li>
+            <li><strong>Histopathology:</strong> Spherules filled with endospores — pathognomonic</li>
+            <li><strong>CSF:</strong> Lymphocytic pleocytosis, low glucose; CF titer often positive. LP essential if CNS suspected.</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Treatment</div>
+          <table><thead><tr><th>Syndrome</th><th>Treatment</th><th>Duration</th></tr></thead>
+          <tbody>
+            <tr><td>Mild self-limited pulmonary (immunocompetent)</td><td>Observation; treat if symptoms &gt;6 weeks or risk factors for dissemination</td><td>N/A (watchful waiting)</td></tr>
+            <tr><td>Non-meningeal, non-severe</td><td>Fluconazole 400–800 mg PO daily OR itraconazole 200 mg PO BID</td><td>3–6+ months; until resolution</td></tr>
+            <tr><td>Severe/disseminated (non-meningeal)</td><td>Amphotericin B (lipid formulation) 3–5 mg/kg/day → step down to azole</td><td>Until improved, then oral azole × years</td></tr>
+            <tr><td><strong>Meningitis</strong></td><td><strong>Fluconazole 800–1200 mg PO/IV daily</strong> (AmB intrathecal rarely used now)</td><td><strong>LIFELONG</strong> — stopping therapy leads to relapse; indefinite fluconazole required</td></tr>
+          </tbody></table>
+        </div>
+
+      </div>
+    </div><!-- /cocci -->
+
+    <!-- BLASTOMYCOSIS -->
+    <div class="topic" id="fungi-blasto">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Blastomycosis</h3>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Key Features</div>
+          <ul>
+            <li><strong>Endemic:</strong> Overlaps with Histoplasma — Ohio/Mississippi valleys, Great Lakes region, southeastern US; also parts of Canada</li>
+            <li><strong>Exposure:</strong> Moist soil, decomposing wood, near waterways; outdoor workers, hunters</li>
+            <li><strong>Dimorphic:</strong> Mold in environment, broad-based budding yeast at body temperature (distinguishing feature)</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Clinical Presentation</div>
+          <ul>
+            <li><strong>Pulmonary:</strong> Can mimic bacterial pneumonia, lung cancer, or TB — lobar consolidation, mass lesions, cavitation. Often misdiagnosed initially.</li>
+            <li><strong>Skin:</strong> Most common extrapulmonary site — verrucous (warty) or ulcerative skin lesions; violaceous, crusted borders</li>
+            <li><strong>Bone:</strong> Osteolytic lesions; spine, ribs, long bones</li>
+            <li><strong>GU:</strong> Prostatitis, epididymo-orchitis — uncommon but classic board finding</li>
+            <li><strong>CNS:</strong> Rare; meningitis or abscess in severely immunocompromised</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Diagnosis &amp; Treatment</div>
+          <ul>
+            <li><strong>Histopathology/KOH:</strong> Broad-based budding yeast (8–15 µm) with thick refractile cell wall — highly specific</li>
+            <li><strong>Culture:</strong> Definitive; dimorphic growth pattern</li>
+            <li><strong>Antigen (urine/serum):</strong> MiraVista Blastomyces antigen — cross-reacts with Histoplasma</li>
+            <li><strong>Mild-moderate:</strong> Itraconazole 200 mg TID × 3 days → BID × 6–12 months</li>
+            <li><strong>Severe/CNS:</strong> Liposomal AmB → itraconazole; CNS requires 12+ months</li>
+          </ul>
+        </div>
+
+      </div>
+    </div><!-- /blasto -->
+
+    <!-- ANTIFUNGAL THERAPY FRAMEWORK -->
+    <div class="topic" id="fungi-antifungal-framework">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Antifungal Therapy Framework</h3><span class="badge">HIGH YIELD</span>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Drug Classes & Spectrum Summary</div>
+          <table><thead><tr><th>Class</th><th>Agents</th><th>Candida</th><th>Aspergillus</th><th>Mucor</th><th>Cryptococcus</th><th>Histo/Cocci/Blasto</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Polyenes</strong></td><td>Liposomal AmB, AmB deoxycholate</td><td>✅</td><td>✅</td><td>✅ (first-line)</td><td>✅ (first-line induction)</td><td>✅ (severe)</td></tr>
+            <tr><td><strong>Azoles (triazoles)</strong></td><td>Fluconazole</td><td>✅ (limited species)</td><td>❌</td><td>❌</td><td>✅ (consolidation/maintenance)</td><td>✅ (moderate)</td></tr>
+            <tr><td></td><td>Itraconazole</td><td>✅</td><td>✅ (limited)</td><td>❌</td><td>Limited</td><td>✅ (first-line moderate)</td></tr>
+            <tr><td></td><td>Voriconazole</td><td>✅</td><td>✅ (first-line)</td><td>❌ (NOT active)</td><td>Limited</td><td>Limited</td></tr>
+            <tr><td></td><td>Posaconazole</td><td>✅</td><td>✅ (prophylaxis/salvage)</td><td>✅ (step-down)</td><td>✅</td><td>✅</td></tr>
+            <tr><td></td><td>Isavuconazole</td><td>✅</td><td>✅ (alternative)</td><td>✅ (salvage)</td><td>Limited</td><td>Limited</td></tr>
+            <tr><td><strong>Echinocandins</strong></td><td>Caspofungin, Micafungin, Anidulafungin</td><td>✅ (first-line candidemia)</td><td>✅ (salvage)</td><td>❌</td><td>❌</td><td>❌</td></tr>
+            <tr><td><strong>Antimetabolite</strong></td><td>Flucytosine (5-FC)</td><td>✅ (combination)</td><td>Limited</td><td>❌</td><td>✅ (combination with AmB)</td><td>❌</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Antifungal Prophylaxis by Population</div>
+          <table><thead><tr><th>Population</th><th>Regimen</th><th>Duration</th></tr></thead>
+          <tbody>
+            <tr><td>HIV CD4 &lt;200 (PJP)</td><td>TMP-SMX 1 DS daily</td><td>Until CD4 &gt;200 × 3 months on ART</td></tr>
+            <tr><td>HIV CD4 &lt;100 (Toxoplasma IgG+)</td><td>TMP-SMX 1 DS daily (also covers Toxo)</td><td>Until CD4 &gt;200 × 6 months</td></tr>
+            <tr><td>Allogeneic HSCT (engraftment)</td><td>Fluconazole 400 mg daily (Candida only) OR posaconazole 300 mg daily (broader)</td><td>Through neutropenia; GVHD patients extend</td></tr>
+            <tr><td>Allogeneic HSCT (GVHD treatment)</td><td>Posaconazole 300 mg PO daily OR voriconazole</td><td>Duration of GVHD treatment + steroid taper</td></tr>
+            <tr><td>AML/MDS induction chemotherapy</td><td>Posaconazole 200 mg TID (with food) OR 300 mg delayed-release QD</td><td>Through neutropenia recovery</td></tr>
+            <tr><td>Liver transplant (high-risk)</td><td>Fluconazole 400 mg daily OR micafungin OR liposomal AmB</td><td>4–6 weeks post-transplant</td></tr>
+            <tr><td>Lung transplant</td><td>Voriconazole OR inhaled amphotericin B</td><td>3–6+ months; center-specific</td></tr>
+            <tr><td>High-dose steroids (≥20 mg prednisone × &gt;4 weeks)</td><td>TMP-SMX 1 SS or DS daily (PJP prevention)</td><td>Duration of steroid therapy</td></tr>
+          </tbody></table>
+        </div>
+
+      </div>
+    </div><!-- /antifungal framework -->
+
   </div>
+</section><!-- END FUNGAL -->
 
-  <button class="collapsible">Aspergillus</button>
-  <div class="panel">
-    <ul>
-      <li>Voriconazole first-line for invasive aspergillosis (weight-based IV dosing then PO); consider TDM.</li>
-      <li>Liposomal amphotericin B for intolerance or certain species.</li>
-    </ul>
-  </div>
 
-  <button class="collapsible">Cryptococcus</button>
-  <div class="panel">
-    <ul>
-      <li>Induction: liposomal amphotericin B + flucytosine; consolidation/maintenance with fluconazole per guidelines.</li>
-      <li>Consult ID for CNS disease and immunocompromised hosts.</li>
-    </ul>
-  </div>
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 2: VIRAL DISEASES (EXPANDED)
+     Replace existing #viral-infections section
+     ═══════════════════════════════════════════════════════════ -->
 
-  <button class="collapsible">Mucorales</button>
-  <div class="panel">
-    <ul>
-      <li>Liposomal amphotericin B 5–10 mg/kg IV daily; urgent surgical debridement and control of underlying risk factors (e.g., hyperglycemia).</li>
-    </ul>
-  </div>
-
-  <div style="background: linear-gradient(135deg, #f5f0ff 0%, #ede4ff 100%); border-left: 4px solid #8e44ad; padding: 12px 15px; margin-top: 15px; border-radius: 0 8px 8px 0;">
-    <span style="font-weight: 600; color: #6b21a8;">📖 Drug Reference Guide:</span> <a href="drug_reference_guide.html#fluconazole" style="color: #8e44ad; text-decoration: none;">💊 Fluconazole</a>, <a href="drug_reference_guide.html#amphotericin-b-liposomal" style="color: #8e44ad; text-decoration: none;">💊 Amphotericin B Liposomal</a>, <a href="drug_reference_guide.html#micafungin" style="color: #8e44ad; text-decoration: none;">💊 Micafungin</a>, <a href="drug_reference_guide.html#voriconazole" style="color: #8e44ad; text-decoration: none;">💊 Voriconazole</a>
-  </div>
-</section>
-
-<!-- VIRAL -->
 <section id="viral-infections">
-  <h2>Viral Infections</h2>
-  <table>
-    <thead><tr><th>Virus</th><th>Therapy</th><th>Dose / Notes</th></tr></thead>
-    <tbody>
-      <tr><td>Influenza A/B</td><td>Oseltamivir</td><td>75 mg PO BID ×5 d (longer if severe)</td></tr>
-      <tr><td>HSV-1 / HSV-2 (severe/encephalitis)</td><td>Acyclovir</td><td>10 mg/kg IV q8h ×14–21 d for encephalitis (adjust renal)</td></tr>
-      <tr><td>CMV (organ-invasive)</td><td>Ganciclovir / Valganciclovir</td><td>Ganciclovir 5 mg/kg IV q12h induction; monitor counts</td></tr>
-      <tr><td>RSV (severe)</td><td>Supportive / Ribavirin in select</td><td>Consider in transplant/infants per local protocols</td></tr>
-    </tbody>
-  </table>
-  
-  <button class="collapsible">Viral Hepatitis — HAV, HBV, HCV, HDV, HEV</button>
-  <div class="panel">
-    <ul>
-      <li><strong>Hepatitis A (HAV):</strong> Supportive care only; self-limited. Post-exposure prophylaxis for close contacts: HAV vaccine (age 1-40) or immunoglobulin.</li>
-      <li><strong>Hepatitis B (Acute):</strong> Supportive care; 95% of adults clear spontaneously. Antivirals (tenofovir, entecavir) only if severe/protracted course, acute liver failure, or immunocompromised.</li>
-      <li><strong>Hepatitis B (Chronic):</strong> Tenofovir disoproxil (TDF) 300 mg daily or Entecavir 0.5 mg daily (1 mg if lamivudine-resistant). Treat if HBV DNA elevated with ALT >2× ULN or fibrosis.</li>
-      <li><strong>Hepatitis C:</strong> Direct-acting antivirals (DAAs) - specific regimen based on genotype and fibrosis. Common: Sofosbuvir/velpatasvir (Epclusa) 1 tab daily ×12 weeks. Cure rate >95%.</li>
-      <li><strong>Hepatitis D:</strong> Coinfection with HBV only; pegylated interferon-alpha is traditional therapy. Bulevirtide (Hepcludex) newly approved.</li>
-      <li><strong>Hepatitis E:</strong> Usually self-limited; chronic in immunocompromised - reduce immunosuppression, consider ribavirin.</li>
-      <li><strong>IMCRG Reference:</strong> <a href="im_guide.html#viral-hepatitis" style="color:#004080">#121 Acute Viral Hepatitis</a> - serologic workup, acute liver failure criteria</li>
-    </ul>
-  </div>
+  <div class="section-header"><h2>🦠 Viral Diseases</h2></div>
+  <div class="section-content">
 
-  <div style="background: linear-gradient(135deg, #f5f0ff 0%, #ede4ff 100%); border-left: 4px solid #8e44ad; padding: 12px 15px; margin-top: 15px; border-radius: 0 8px 8px 0;">
-    <span style="font-weight: 600; color: #6b21a8;">📖 Drug Reference Guide:</span> <a href="drug_reference_guide.html#acyclovir-valacyclovir" style="color: #8e44ad; text-decoration: none;">💊 Acyclovir /Valacyclovir</a>, <a href="drug_reference_guide.html#oseltamivir" style="color: #8e44ad; text-decoration: none;">💊 Oseltamivir</a>, <a href="drug_reference_guide.html#ganciclovir-valganciclovir" style="color: #8e44ad; text-decoration: none;">💊 Ganciclovir/Valganciclovir</a>
-  </div>
-</section>
+    <!-- HERPESVIRUSES -->
+    <div class="topic" id="viral-herpesviruses">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Herpesviruses — Overview</h3><span class="badge">HIGH YIELD</span>
+      </div>
+      <div class="topic-content">
 
-<!-- TICKBORNE -->
+        <div class="subsection"><div class="subsection-title">HSV-1 and HSV-2</div>
+          <table><thead><tr><th>Syndrome</th><th>First-Line Treatment</th><th>Dose &amp; Duration</th></tr></thead>
+          <tbody>
+            <tr><td>Orolabial herpes (primary)</td><td>Valacyclovir</td><td>1 g PO BID × 7–10 days</td></tr>
+            <tr><td>Orolabial herpes (recurrent)</td><td>Valacyclovir</td><td>2 g PO BID × 1 day (episodic) OR 500 mg daily (suppression)</td></tr>
+            <tr><td>Genital herpes (primary)</td><td>Acyclovir or Valacyclovir</td><td>Acyclovir 400 mg PO TID × 7–10 days; Valacyclovir 1 g BID × 7–10 days</td></tr>
+            <tr><td>Genital herpes (recurrent)</td><td>Valacyclovir</td><td>500 mg BID × 3 days (episodic) OR 500 mg daily (suppression)</td></tr>
+            <tr><td>Suppressive therapy (≥6 recurrences/year)</td><td>Valacyclovir</td><td>500–1000 mg daily; reassess annually</td></tr>
+            <tr><td>HSV encephalitis</td><td>Acyclovir IV</td><td>10 mg/kg IV q8h × 14–21 days; adjust for renal function</td></tr>
+            <tr><td>Neonatal HSV</td><td>Acyclovir IV</td><td>20 mg/kg IV q8h × 14 days (SEM) or 21 days (CNS/disseminated)</td></tr>
+            <tr><td>Severe/disseminated (immunocompromised)</td><td>Acyclovir IV</td><td>10 mg/kg IV q8h × 14–21 days → oral suppression</td></tr>
+            <tr><td>Acyclovir-resistant HSV</td><td>Foscarnet</td><td>40 mg/kg IV q8h × 21 days (renal dosing); monitor lytes</td></tr>
+          </tbody></table>
+          <p><strong>Acyclovir resistance:</strong> Thymidine kinase mutation — suspect if no response after 7–10 days IV acyclovir in immunocompromised. Foscarnet is treatment of choice. Cidofovir second-line.</p>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Varicella-Zoster Virus (VZV)</div>
+          <table><thead><tr><th>Syndrome</th><th>Treatment</th><th>Duration</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Primary varicella (chickenpox) — adults</td><td>Acyclovir 800 mg PO 5×/day OR Valacyclovir 1 g TID</td><td>7 days; start within 72h of rash onset</td><td>Hospitalize if pneumonitis, encephalitis, or immunocompromised</td></tr>
+            <tr><td>Herpes zoster (shingles) — immunocompetent</td><td>Valacyclovir 1 g PO TID</td><td>7 days; start within 72h</td><td>Reduces severity and duration of PHN; famciclovir 500 mg TID × 7 days alternative</td></tr>
+            <tr><td>Herpes zoster — immunocompromised</td><td>Acyclovir 10 mg/kg IV q8h</td><td>Until no new lesions + 48h, then PO to complete 10–14 days</td><td>Dissemination risk; IV mandatory until controlled</td></tr>
+            <tr><td>HZO (ophthalmic zoster)</td><td>Valacyclovir 1 g TID</td><td>7–10 days</td><td>Urgent ophthalmology; tip-of-nose sign (Hutchinson's) predicts ocular involvement</td></tr>
+            <tr><td>Ramsay Hunt syndrome</td><td>Valacyclovir + prednisone</td><td>7 days each</td><td>Facial nerve palsy + auricular vesicles + hearing loss triad</td></tr>
+            <tr><td>VZV meningitis/encephalitis</td><td>Acyclovir 10 mg/kg IV q8h</td><td>14–21 days</td><td>CSF PCR diagnostic; also consider VZV vasculopathy (stroke syndrome)</td></tr>
+          </tbody></table>
+          <p><strong>Post-herpetic neuralgia (PHN) prevention:</strong> Shingrix (recombinant zoster vaccine) 2 doses IM × 2–6 months apart — age ≥50, immunocompromised ≥18 years (ask about vaccination status). 97% efficacy vs. zoster; markedly reduces PHN.</p>
+          <p><strong>Post-exposure prophylaxis (PEP):</strong> VZIG (VariZIG) within 10 days for immunocompromised or pregnant non-immune patients exposed to varicella. Vaccine within 5 days for healthy susceptible adults.</p>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Epstein-Barr Virus (EBV)</div>
+          <ul>
+            <li><strong>Infectious mononucleosis:</strong> Classic triad — fever, pharyngitis with exudate, lymphadenopathy. Splenomegaly in 50%. Monospot/EBV-VCA IgM. Supportive care — no specific antiviral. Avoid amoxicillin (maculopapular rash in ~80% with EBV pharyngitis).</li>
+            <li><strong>Complications:</strong> Airway obstruction (steroids if severe), splenic rupture (avoid contact sports 3–4 weeks), hemophagocytic lymphohistiocytosis (HLH), hemolytic anemia, thrombocytopenia</li>
+            <li><strong>EBV-associated malignancies:</strong> Burkitt lymphoma (African children), nasopharyngeal carcinoma, Hodgkin lymphoma, CNS lymphoma in HIV (EBV PCR in CSF), post-transplant lymphoproliferative disorder (PTLD)</li>
+            <li><strong>PTLD:</strong> B-cell proliferation in transplant recipients — reduce immunosuppression first-line; rituximab for CD20+ PTLD; rare cases require chemotherapy</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Human Herpesviruses 6, 7, 8 (HHV-6, 7, 8)</div>
+          <ul>
+            <li><strong>HHV-6:</strong> Roseola infantum (exanthem subitum) in young children — high fever then rash. In HSCT: encephalitis, marrow suppression — ganciclovir or foscarnet.</li>
+            <li><strong>HHV-7:</strong> Second cause of roseola; rarely clinically significant in adults.</li>
+            <li><strong>HHV-8 (KSHV):</strong> Kaposi sarcoma (HIV, immunocompromised), primary effusion lymphoma, Castleman disease. Treat underlying HIV/immunosuppression; chemotherapy for advanced KS.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div><!-- /herpesviruses -->
+
+    <!-- HEPATITIS — reference to existing expanded section -->
+    <div class="topic" id="viral-hepatitis-link">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Viral Hepatitis (HAV, HBV, HCV, HDV, HEV)</h3>
+      </div>
+      <div class="topic-content">
+        <p>Full coverage in the <strong>GI &amp; Hepatic section</strong> above — see <a href="#viral-infections">Viral Hepatitis section</a> for all five hepatitis viruses with treatment protocols.</p>
+
+        <div class="subsection"><div class="subsection-title">HBV Reactivation with Immunosuppression — HIGH YIELD</div>
+          <p>A critical but often-missed clinical scenario:</p>
+          <ul>
+            <li><strong>Risk agents:</strong> Rituximab (highest risk — &gt;20% reactivation if HBsAg+), anthracyclines, corticosteroids (&gt;10 mg/day × &gt;4 weeks), TNF inhibitors, JAK inhibitors, checkpoint inhibitors</li>
+            <li><strong>Screening (BEFORE immunosuppression):</strong> Check HBsAg AND anti-HBc (core antibody). Anti-HBc+ alone (resolved infection) carries reactivation risk with rituximab and high-intensity chemotherapy.</li>
+            <li><strong>Prophylaxis:</strong> HBsAg+ patients: Entecavir 0.5 mg/day OR tenofovir 300 mg/day starting 1 week before immunosuppression; continue 6–12 months after</li>
+            <li><strong>Anti-HBc+ only (resolved):</strong> Prophylaxis with rituximab or high-risk chemo; monitoring (HBV DNA q1–3 months) with lower-risk regimens</li>
+            <li><strong>Failure to screen = preventable fulminant hepatitis</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFLUENZA -->
+    <div class="topic" id="viral-influenza-expanded">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Influenza</h3><span class="badge">HIGH YIELD</span>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Antivirals — Indications and Treatment</div>
+          <table><thead><tr><th>Drug</th><th>Class</th><th>Dose</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Oseltamivir (Tamiflu)</strong></td><td>Neuraminidase inhibitor</td><td>75 mg PO BID × 5 days (treatment); 75 mg PO daily (prophylaxis)</td><td>First-line; renal adjustment required (CrCl &lt;30: 30 mg BID); most effective within 48h</td></tr>
+            <tr><td><strong>Zanamivir (Relenza)</strong></td><td>Neuraminidase inhibitor (inhaled)</td><td>10 mg inhaled BID × 5 days</td><td>Alternative if oseltamivir-resistant; contraindicated in asthma/COPD (bronchospasm)</td></tr>
+            <tr><td><strong>Peramivir (Rapivab)</strong></td><td>Neuraminidase inhibitor (IV)</td><td>600 mg IV × 1 dose (uncomplicated); daily for severe</td><td>IV option for unable to take PO/inhaled; only FDA-approved IV influenza antiviral</td></tr>
+            <tr><td><strong>Baloxavir (Xofluza)</strong></td><td>Endonuclease inhibitor (cap-dependent)</td><td>40–80 mg PO × 1 dose (weight-based)</td><td>Single-dose convenience; not for immunocompromised (resistance risk); not in pregnancy</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Who Must Be Treated (Regardless of 48h Window)</div>
+          <ul>
+            <li>Hospitalized patients with confirmed or suspected influenza</li>
+            <li>Severe/progressive illness (pneumonia, respiratory failure, sepsis)</li>
+            <li>High-risk outpatients: age ≥65, age &lt;2, pregnancy, chronic cardiopulmonary disease, immunocompromised, BMI &gt;40, nursing home residents, American Indian/Alaska Native</li>
+            <li>Consider for any symptomatic patient presenting within 48h (reduces duration even in healthy adults)</li>
+          </ul>
+          <p><em>Treat even if rapid influenza test is negative — sensitivity only 50–70%; negative test does NOT rule out influenza.</em></p>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Influenza Complications</div>
+          <ul>
+            <li><strong>Primary influenza pneumonia:</strong> Viral pneumonia — bilateral infiltrates, no bacteria on Gram stain; no antibiotic benefit</li>
+            <li><strong>Secondary bacterial pneumonia:</strong> S. aureus (MSSA/MRSA), S. pneumoniae, H. influenzae — occurs days after initial improvement; add appropriate antibiotics</li>
+            <tr><td>ARDS: H1N1 and avian influenza (H5N1, H7N9) — high ARDS risk; early prone positioning, lung-protective ventilation</tr></td>
+            <li><strong>Myocarditis/pericarditis:</strong> Rare but important; elevated troponin, ECG changes</li>
+            <li><strong>Influenza-associated pulmonary aspergillosis (IAPA):</strong> ICU, steroids, mechanically ventilated — check galactomannan, BAL</li>
+            <li><strong>Encephalopathy/encephalitis:</strong> Children more than adults; supportive care</li>
+            <li><strong>Reye syndrome:</strong> Children, aspirin use — hepatic failure, encephalopathy; NEVER give aspirin to children with viral illness</li>
+          </ul>
+        </div>
+
+      </div>
+    </div><!-- /influenza -->
+
+    <!-- RESPIRATORY VIRUSES -->
+    <div class="topic" id="viral-respiratory">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Respiratory Viruses (RSV, Parainfluenza, Adenovirus, Rhinovirus)</h3>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">RSV (Respiratory Syncytial Virus)</div>
+          <ul>
+            <li><strong>High-risk groups:</strong> Infants (&lt;6 months), elderly (&gt;65), heart/lung disease, immunocompromised (HSCT — high mortality)</li>
+            <li><strong>Clinical:</strong> Bronchiolitis (infants); adults usually upper respiratory; HSCT — progression from upper to lower respiratory tract infection (LRI) is key concern</li>
+            <li><strong>Diagnosis:</strong> Nasal swab PCR (preferred, high sensitivity); rapid antigen (lower sensitivity in adults)</li>
+            <li><strong>Treatment:</strong>
+              <ul>
+                <li><strong>Adults/general:</strong> Supportive care primarily</li>
+                <li><strong>Nirsevimab (Beyfortus):</strong> Monoclonal antibody — single dose prophylaxis for all infants (&lt;8 months) going into RSV season (2023 ACIP recommendation)</li>
+                <li><strong>Palivizumab:</strong> Older monoclonal antibody — monthly injections; reserved for high-risk infants (CHD, prematurity, CLD)</li>
+                <li><strong>RSV vaccines:</strong> Abrysvo (Pfizer), mResvia (Moderna) — adults ≥60; Abrysvo also approved for maternal immunization (pregnant 32–36 weeks)</li>
+                <li><strong>HSCT/immunocompromised:</strong> Inhaled or IV ribavirin + IVIG or palivizumab (limited evidence; often used for documented RSV LRI)</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Human Metapneumovirus (hMPV)</div>
+          <ul>
+            <li>Similar to RSV — bronchiolitis in infants, pneumonia in elderly/immunocompromised</li>
+            <li>Diagnosed by PCR respiratory panel; no specific antiviral treatment</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Adenovirus</div>
+          <ul>
+            <li><strong>Clinical:</strong> Pharyngitis/conjunctivitis (military barracks, daycares), pneumonia, GI infection, hemorrhagic cystitis (HSCT)</li>
+            <li><strong>Immunocompromised:</strong> Disseminated adenovirus (HSCT) — high mortality; quantitative PCR for monitoring</li>
+            <li><strong>Treatment:</strong> Cidofovir IV (with probenecid hydration) for serious adenovirus in immunocompromised; brincidofovir (oral prodrug) — FDA-approved for adenovirus in HSCT (2021)</li>
+          </ul>
+        </div>
+
+      </div>
+    </div><!-- /respiratory viruses -->
+
+    <!-- FLAVIVIRUSES / ARBOVIRAL -->
+    <div class="topic" id="viral-flavivirus">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Flaviviruses &amp; Arboviruses (Dengue, Zika, West Nile, Chikungunya)</h3>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Dengue Fever</div>
+          <ul>
+            <li><strong>Vector:</strong> Aedes aegypti mosquito; tropical/subtropical regions worldwide; dengue 1–4 serotypes</li>
+            <li><strong>Classic:</strong> "Breakbone fever" — high fever, severe myalgias/arthralgias, retro-orbital headache, maculopapular rash, leukopenia, thrombocytopenia</li>
+            <li><strong>Severe dengue:</strong> Plasma leakage (ascites, pleural effusion), severe bleeding, organ impairment — occurs during defervescence (days 4–6). Warning signs: severe abdominal pain, persistent vomiting, rapid breathing, mucosal bleeding, lethargy, liver enlargement, increasing hematocrit.</li>
+            <li><strong>Diagnosis:</strong> NS1 antigen (first 5 days), dengue PCR (first week), IgM/IgG serology (after day 5)</li>
+            <li><strong>Treatment:</strong> Supportive — IV fluids for plasma leakage, avoid NSAIDs/aspirin (bleeding risk), acetaminophen for fever. No specific antiviral.</li>
+            <li><strong>Pearl:</strong> Secondary dengue infection (different serotype) → antibody-dependent enhancement → higher risk of severe dengue</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Zika Virus</div>
+          <ul>
+            <li><strong>Vector:</strong> Aedes mosquito; also sexual transmission (persists in semen weeks to months)</li>
+            <li><strong>Clinical (adults):</strong> Usually mild — fever, rash, conjunctivitis, arthralgias; most asymptomatic</li>
+            <li><strong>Complications:</strong> Guillain-Barré syndrome (rare); <strong>congenital Zika</strong> — microcephaly, brain malformations (critical in pregnancy)</li>
+            <li><strong>Pregnancy:</strong> Screen all symptomatic pregnant women with travel exposure; consult maternal-fetal medicine; serial fetal ultrasounds</li>
+            <li><strong>Diagnosis:</strong> Serum/urine Zika RT-PCR (first 1–2 weeks); IgM serology (cross-reacts with dengue/flaviviruses)</li>
+            <li><strong>Treatment:</strong> Supportive only; no antiviral</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Chikungunya</div>
+          <ul>
+            <li><strong>Vector:</strong> Aedes mosquito; endemic Africa, Asia, Americas; Caribbean outbreaks; local US transmission reported (Florida)</li>
+            <li><strong>Clinical:</strong> Fever + severe symmetric polyarthralgia/arthritis (hands, wrists, ankles) — "that which bends up." Rash (maculopapular). Arthralgias can persist months to years (chronic chikungunya).</li>
+            <li><strong>Diagnosis:</strong> PCR (acute), IgM/IgG serology</li>
+            <li><strong>Treatment:</strong> NSAIDs/acetaminophen for joint pain; no specific antiviral. Chloroquine studied but not established.</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">West Nile Virus — see Viral Encephalopathies section</div>
+          <p>WNV, EEE, St. Louis encephalitis, Japanese encephalitis, rabies — covered in Viral Encephalopathies section above.</p>
+        </div>
+
+      </div>
+    </div><!-- /flavivirus -->
+
+    <!-- HPV -->
+    <div class="topic" id="viral-hpv">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Human Papillomavirus (HPV)</h3>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Key Concepts</div>
+          <ul>
+            <li><strong>Low-risk types (6, 11):</strong> Condylomata acuminata (genital warts), recurrent respiratory papillomatosis</li>
+            <li><strong>High-risk types (16, 18, 31, 33, 45):</strong> Cervical, oropharyngeal, anal, vulvar, vaginal, penile cancers. HPV 16/18 → 70% of cervical cancers.</li>
+            <li><strong>Screening:</strong> Cervical Pap smear + HPV co-testing per ASCCP guidelines; anal Pap (men who have sex with men, HIV+)</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Vaccination (Gardasil 9)</div>
+          <ul>
+            <li><strong>Routine:</strong> Ages 11–12 (2-dose series if starting &lt;15 years; 3-dose if starting 15–26 years)</li>
+            <li><strong>Catch-up:</strong> Ages 13–26 regardless of prior sexual activity</li>
+            <li><strong>Shared decision:</strong> Ages 27–45 (less benefit — most already exposed; discuss with patient)</li>
+            <li><strong>Immunocompromised:</strong> 3-dose series recommended regardless of age</li>
+            <li><strong>HIV:</strong> Vaccinate up to age 26 routinely; consider up to 45</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Treatment of HPV-Associated Conditions</div>
+          <ul>
+            <li><strong>Genital warts:</strong> Patient-applied: imiquimod 5% cream, podophyllotoxin 0.5% solution. Provider-applied: trichloroacetic acid (TCA), cryotherapy, surgical excision. No treatment superior for all cases.</li>
+            <li><strong>Cervical dysplasia:</strong> Per ASCCP guidelines — colposcopy, LEEP, cryotherapy based on grade</li>
+            <li><strong>Anal HSIL:</strong> High-resolution anoscopy + ablation in high-risk individuals (HIV, MSM)</li>
+          </ul>
+        </div>
+
+      </div>
+    </div><!-- /HPV -->
+
+    <!-- POLYOMAVIRUS / BK / JC -->
+    <div class="topic" id="viral-polyoma">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Polyomaviruses (BK Virus, JC Virus)</h3>
+      </div>
+      <div class="topic-content">
+        <div class="subsection"><div class="subsection-title">BK Virus</div>
+          <ul>
+            <li><strong>BK nephropathy (BKVAN):</strong> Kidney transplant recipients — viral reactivation causes tubulointerstitial nephritis; rising creatinine, decoy cells on urine cytology</li>
+            <li><strong>Hemorrhagic cystitis:</strong> HSCT recipients; gross hematuria</li>
+            <li><strong>Diagnosis:</strong> Urine BK PCR (screening); plasma BK PCR (&gt;10,000 copies/mL = significant viremia); kidney biopsy for definitive BKVAN diagnosis</li>
+            <li><strong>Treatment:</strong> Reduce immunosuppression (primary intervention — no proven antiviral); cidofovir or leflunomide used in refractory cases (limited evidence)</li>
+          </ul>
+        </div>
+        <div class="subsection"><div class="subsection-title">JC Virus — Progressive Multifocal Leukoencephalopathy (PML)</div>
+          <ul>
+            <li><strong>Risk:</strong> HIV (CD4 &lt;100), natalizumab (MS treatment — 1:100 risk with anti-JCV antibody+), rituximab, other biologics</li>
+            <li><strong>Clinical:</strong> Subacute focal neurologic deficits, cognitive decline — NO fever, NO headache (distinguishes from bacterial/fungal causes)</li>
+            <li><strong>Imaging:</strong> MRI — non-enhancing white matter lesions, no mass effect (contrast enhancement suggests IRIS)</li>
+            <li><strong>Diagnosis:</strong> CSF JC virus PCR; brain biopsy if PCR negative with high suspicion</li>
+            <li><strong>Treatment:</strong> No effective antiviral. Restore immune function: ART for HIV, stop natalizumab (plasmapheresis to remove drug), reduce immunosuppression. Immune reconstitution (IRIS-PML) can cause paradoxical worsening — steroids for severe IRIS.</li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- /polyoma -->
+
+    <!-- PARVOVIRUS B19 -->
+    <div class="topic" id="viral-parvo">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Parvovirus B19</h3>
+      </div>
+      <div class="topic-content">
+        <ul>
+          <li><strong>Erythema infectiosum (5th disease):</strong> Children — "slapped cheek" rash, lacy rash on trunk/extremities; self-limited</li>
+          <li><strong>Aplastic crisis:</strong> Patients with underlying hemolysis (sickle cell, hereditary spherocytosis, thalassemia) — transient red cell aplasia, severe anemia, reticulocytopenia</li>
+          <li><strong>Chronic pure red cell aplasia:</strong> Immunocompromised (HIV, HSCT) — persistent anemia, reticulocytopenia</li>
+          <li><strong>Hydrops fetalis:</strong> Maternal infection during pregnancy → fetal anemia → heart failure → hydrops; intrauterine transfusion may be lifesaving</li>
+          <li><strong>Arthritis:</strong> Adults (especially women) — symmetric small joint arthritis, may mimic rheumatoid arthritis</li>
+          <li><strong>Diagnosis:</strong> Parvovirus IgM/IgG; PCR for immunocompromised (serology may be falsely negative)</li>
+          <li><strong>Treatment:</strong> Supportive for most; IVIG for chronic pure red cell aplasia in immunocompromised (reduces viremia, allows erythropoiesis to resume)</li>
+        </ul>
+      </div>
+    </div><!-- /parvo -->
+
+    <!-- VIRAL HEMORRHAGIC FEVERS (brief) -->
+    <div class="topic" id="viral-vhf">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Viral Hemorrhagic Fevers (VHF)</h3>
+      </div>
+      <div class="topic-content">
+        <table><thead><tr><th>Disease</th><th>Virus/Family</th><th>Vector/Exposure</th><th>Treatment</th><th>Isolation</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Ebola</strong></td><td>Filovirus</td><td>Contact with infected blood/body fluids; fruit bats (reservoir)</td><td>Supportive; Atoltivimab/maftivimab/odesivimab (Inmazeb) — FDA approved for Ebola Zaire; Ansuvimab (Ebanga)</td><td>Strict contact/droplet; PPE; CDC notification</td></tr>
+          <tr><td><strong>Marburg</strong></td><td>Filovirus</td><td>Cave exposure (bats); contact transmission</td><td>Supportive; no approved specific treatment</td><td>Strict contact isolation; public health notification</td></tr>
+          <tr><td><strong>Lassa</strong></td><td>Arenavirus</td><td>West Africa; rodent contact/excreta; person-to-person possible</td><td>Ribavirin IV (early treatment improves survival)</td><td>Standard + contact; airborne for aerosol-generating procedures</td></tr>
+          <tr><td><strong>Hantavirus (HCPS)</strong></td><td>Bunyavirus</td><td>Rodent droppings (US — deer mouse); not person-to-person</td><td>Supportive; ICU + ECMO for cardiopulmonary shock</td><td>Standard precautions; NO person-to-person</td></tr>
+          <tr><td><strong>Yellow Fever</strong></td><td>Flavivirus</td><td>Aedes mosquito; Central Africa, S. America</td><td>Supportive only</td><td>Standard; vector control</td></tr>
+        </tbody></table>
+        <p><strong>Approach to suspected VHF:</strong> Travel history to endemic region + hemorrhagic fever → immediately isolate, notify infection control and public health, defer invasive procedures. Do not send to general lab without prior notification.</p>
+      </div>
+    </div><!-- /VHF -->
+
+  </div>
+</section><!-- END VIRAL -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 3: IMMUNOCOMPROMISED HOST (NEW SECTION)
+     Add after Special Populations nav group
+     ═══════════════════════════════════════════════════════════ -->
+
+<section id="immunocompromised-host">
+  <div class="section-header"><h2>🛡️ Immunocompromised Host</h2></div>
+  <div class="section-content">
+
+    <!-- SOLID ORGAN TRANSPLANT -->
+    <div class="topic" id="ic-sot">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Solid Organ Transplant — Infection Timeline</h3><span class="badge">HIGH YIELD</span>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Net State of Immunosuppression Concept</div>
+          <p>The risk of infection in transplant recipients is determined by the <strong>net state of immunosuppression</strong>: the cumulative effect of all immunosuppressive agents × dose × duration, plus host factors (viral coinfections — CMV, EBV, HCV — that independently impair immunity).</p>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Timeline of Infections Post-Transplant</div>
+          <table><thead><tr><th>Time Period</th><th>Likely Infections</th><th>Key Pathogens</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>0–1 Month</strong><br><em>(Post-operative period)</em></td>
+              <td>Surgical site infections, donor-derived infections, HAIs</td>
+              <td>S. aureus, gram-negative rods, Candida (wound/line/UTI), C. difficile. Surgical complications (bile leak, anastomotic leak). <em>If unusual pathogens in first month — consider donor-derived transmission.</em></td>
+            </tr>
+            <tr>
+              <td><strong>1–6 Months</strong><br><em>(Peak immunosuppression)</em></td>
+              <td>Opportunistic infections predominate</td>
+              <td><strong>CMV</strong> (highest risk — D+/R- serology), PJP, Listeria, Nocardia, endemic fungi (Histo, Cocci, Crypto), Toxoplasma (heart transplant with D+/R-), BK virus (kidney), Aspergillus (lung transplant). Active CMV prophylaxis/preemptive monitoring in this window.</td>
+            </tr>
+            <tr>
+              <td><strong>&gt;6 Months</strong><br><em>(Maintenance immunosuppression)</em></td>
+              <td>Community-acquired + late opportunistic</td>
+              <td>Community infections (pneumonia, UTI) dominate in patients doing well. Late opportunistic infections in patients with chronic rejection, GVHD, augmented immunosuppression, or prior CMV disease. EBV-PTLD (B-cell lymphoma). Skin cancers (accelerated by immunosuppression).</td>
+            </tr>
+          </tbody></table>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Organ-Specific Infection Risks</div>
+          <table><thead><tr><th>Transplant Type</th><th>Unique Infections</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Lung</strong></td><td>Aspergillus (highest risk of all SOT), Pseudomonas, CMV pneumonitis, PJP, NTM</td><td>Lung exposed to environment directly; longer antifungal prophylaxis; most infectious deaths of all SOT types</td></tr>
+            <tr><td><strong>Liver</strong></td><td>Intra-abdominal infections, biliary infections, HCV recurrence (now cured with DAAs), HBV reactivation</td><td>First month dominated by surgical complications; CMV and fungal risk 1–6 months</td></tr>
+            <tr><td><strong>Kidney</strong></td><td>UTI (most common), BK nephropathy, CMV</td><td>BK viremia monitored q3 months in first 2 years; reduce MMF if BK viremia &gt;10,000 copies</td></tr>
+            <tr><td><strong>Heart</strong></td><td>CMV, Toxoplasma (D+/R- = high risk), Aspergillus</td><td>Toxoplasma heart serology checked pre-transplant; D+/R- → TMP-SMX prophylaxis × 6 months</td></tr>
+            <tr><td><strong>Pancreas/Islet</strong></td><td>Intra-abdominal infections, CMV, candidiasis</td><td>High exocrine leak rate; surgical complications predominate early</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="guideline-box">
+          <div class="guideline-title">📘 Standard Prophylaxis Post-Transplant</div>
+          <ul>
+            <li><strong>PJP:</strong> TMP-SMX 1 SS or DS tab daily × 6–12 months (all SOT; longer in lung, heart)</li>
+            <li><strong>CMV:</strong> Valganciclovir 900 mg PO daily × 3–6 months (D+/R-); preemptive monitoring (R+) with weekly PCR → treat if threshold reached</li>
+            <li><strong>Candida (liver/pancreas):</strong> Fluconazole 400 mg daily × 4 weeks in high-risk (re-operation, renal failure, prolonged OR)</li>
+            <li><strong>HSV/VZV:</strong> Acyclovir or valacyclovir in seropositive patients — typically 1 year post-transplant</li>
+            <li><strong>Toxoplasma (heart D+/R-):</strong> TMP-SMX × 6 months (also covers PJP)</li>
+          </ul>
+        </div>
+
+      </div>
+    </div><!-- /SOT -->
+
+    <!-- HSCT -->
+    <div class="topic" id="ic-hsct">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Hematopoietic Stem Cell Transplant (HSCT) — Infection Timeline</h3><span class="badge">HIGH YIELD</span>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Three Phases of Infection Risk</div>
+          <table><thead><tr><th>Phase</th><th>Time</th><th>Immune Defects</th><th>Key Pathogens</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Phase 1</strong><br>Pre-engraftment</td>
+              <td>0–30 days</td>
+              <td>Profound neutropenia (ANC &lt;100), mucositis, central lines</td>
+              <td>Gram-positive (CoNS, VGS, S. aureus — line/mucositis), Gram-negative (ESBL, Pseudomonas), Candida (gut flora breach from mucositis), Herpes simplex (reactivation), C. difficile</td>
+            </tr>
+            <tr>
+              <td><strong>Phase 2</strong><br>Post-engraftment</td>
+              <td>30–100 days</td>
+              <td>Impaired cell-mediated immunity; GVHD; steroid use</td>
+              <td><strong>CMV</strong> (peak risk for D+/R-; preemptive monitoring essential), Aspergillus (especially with GVHD), PJP, Toxoplasma, HHV-6 encephalitis, adenovirus, RSV</td>
+            </tr>
+            <tr>
+              <td><strong>Phase 3</strong><br>Late</td>
+              <td>&gt;100 days</td>
+              <td>Chronic GVHD → prolonged immune dysfunction; functional asplenia in some</td>
+              <td>Encapsulated bacteria (S. pneumoniae, H. influenzae, N. meningitidis) — treat like asplenic patient; late CMV, EBV-PTLD, VZV reactivation (years post-HSCT), community respiratory viruses</td>
+            </tr>
+          </tbody></table>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Allogeneic vs. Autologous Risk</div>
+          <ul>
+            <li><strong>Allogeneic HSCT:</strong> Higher risk — GVHD, prolonged T-cell deficiency, steroid use. All phases significant. CMV prophylaxis/preemptive therapy required.</li>
+            <li><strong>Autologous HSCT:</strong> Lower risk — no GVHD; neutropenic phase only (&sim;2 weeks); CMV reactivation less common. Bacterial/fungal infections pre-engraftment.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div><!-- /HSCT -->
+
+    <!-- BIOLOGIC AGENTS -->
+    <div class="topic" id="ic-biologics">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Biologic &amp; Disease-Modifying Agents — Infection Risks</h3><span class="badge">HIGH YIELD</span>
+      </div>
+      <div class="topic-content">
+
+        <table><thead><tr><th>Agent Class</th><th>Examples</th><th>Key Infection Risks</th><th>Pre-Tx Screening</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>TNF-α Inhibitors</strong></td>
+            <td>Infliximab, etanercept, adalimumab, certolizumab</td>
+            <td>
+              <strong>TB reactivation</strong> (most important — 5× increased risk); Histoplasmosis, Coccidioidomycosis, Blastomycosis; Listeria; Legionella; opportunistic infections including PJP (less common than HIV doses)
+            </td>
+            <td>
+              <strong>TB:</strong> TST or IGRA — treat LTBI before starting (isoniazid × 9 months, or rifampin × 4 months)<br>
+              HBV: HBsAg + anti-HBc → antiviral prophylaxis before starting<br>
+              HCV, HIV screening; varicella/zoster vaccination before if seronegative
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Anti-IL-6</strong></td>
+            <td>Tocilizumab, sarilumab</td>
+            <td>Bacterial infections; mask fever and CRP (CRP suppressed by IL-6 blockade — classic board pearl: CRP unreliable as infection marker); TB risk lower than TNF-i</td>
+            <td>TB screening; HBV screening</td>
+          </tr>
+          <tr>
+            <td><strong>Anti-CD20 (B-cell depleting)</strong></td>
+            <td>Rituximab, obinutuzumab, ofatumumab</td>
+            <td>
+              <strong>HBV reactivation</strong> (highest risk of all biologics — 20-40% if HBsAg+, 1-10% if anti-HBc+ only); PJP; hypogammaglobulinemia → recurrent bacterial sinopulmonary infections; late T-cell defects (months to years after)
+            </td>
+            <td><strong>HBV:</strong> HBsAg AND anti-HBc — prophylactic antivirals for all HBsAg+; prophylaxis or monitoring for anti-HBc+ only<br>HIV, HCV, TB</td>
+          </tr>
+          <tr>
+            <td><strong>JAK Inhibitors</strong></td>
+            <td>Tofacitinib, baricitinib, ruxolitinib, upadacitinib</td>
+            <td>Herpes zoster (2-4× increased risk — PJP prophylaxis recommended; Shingrix vaccination before starting if possible); TB reactivation; bacterial infections; cryptococcosis; VZV reactivation prominent</td>
+            <td>TB screening; HBV screening; consider PJP prophylaxis with TMP-SMX; Shingrix before starting (wait 2 weeks after vaccination)</td>
+          </tr>
+          <tr>
+            <td><strong>Checkpoint Inhibitors (anti-PD1, anti-CTLA4)</strong></td>
+            <td>Nivolumab, pembrolizumab, ipilimumab</td>
+            <td>Not primarily immunosuppressive — immune-related adverse events (irAEs) actually cause inflammatory syndromes. <strong>High-dose steroids for irAEs</strong> → superimposed PJP risk. Paradoxically may unmask TB/endemic fungi by reversing tolerance. JC virus → PML possible.</td>
+            <td>TB screening if high-risk; consider PJP prophylaxis if requiring high-dose/prolonged steroids for irAEs</td>
+          </tr>
+          <tr>
+            <td><strong>Corticosteroids</strong></td>
+            <td>Prednisone ≥20 mg/day × ≥4 weeks</td>
+            <td>PJP (most important); Strongyloides hyperinfection; TB reactivation; candidiasis; Aspergillus; bacterial infections</td>
+            <td>TB screening; Strongyloides serology if endemic exposure; consider PJP prophylaxis with TMP-SMX</td>
+          </tr>
+          <tr>
+            <td><strong>Complement inhibitors</strong></td>
+            <td>Eculizumab, ravulizumab</td>
+            <td><strong>Encapsulated bacteria — Neisseria meningitidis</strong> (10,000× increased risk of meningococcal disease); also N. gonorrhoeae, H. influenzae, S. pneumoniae</td>
+            <td><strong>Mandatory vaccinations BEFORE starting:</strong> Meningococcal (MenACWY + MenB), Hib, pneumococcal (PCV15/20 + PPSV23). Ongoing penicillin prophylaxis recommended in many guidelines.</td>
+          </tr>
+        </tbody></table>
+
+        <div class="high-yield">
+          <div class="high-yield-title">⚡ HIGHEST YIELD BIOLOGIC PEARLS FOR BOARDS</div>
+          <ul>
+            <li><strong>TNF inhibitors → screen and treat LTBI</strong> before starting (TST/IGRA mandatory)</li>
+            <li><strong>Rituximab → HBV reactivation</strong> — screen HBsAg AND anti-HBc; prophylactic antivirals for all HBsAg+</li>
+            <li><strong>Tocilizumab suppresses CRP</strong> — CRP cannot be used as infection biomarker in patients on IL-6 blockade</li>
+            <li><strong>Eculizumab → meningococcal vaccines mandatory</strong> before starting; highest infectious risk is N. meningitidis</li>
+            <li><strong>JAK inhibitors → Shingrix before starting;</strong> herpes zoster prophylaxis consideration</li>
+          </ul>
+        </div>
+
+      </div>
+    </div><!-- /biologics -->
+
+    <!-- PRIMARY IMMUNODEFICIENCY -->
+    <div class="topic" id="ic-primary">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Primary Immunodeficiency — Infection Patterns</h3>
+      </div>
+      <div class="topic-content">
+
+        <table><thead><tr><th>Defect Type</th><th>Condition</th><th>Characteristic Infections</th><th>Clues</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Antibody (B-cell)</strong></td><td>XLA (Bruton's), CVID, IgA deficiency</td><td>Encapsulated bacteria (S. pneumoniae, H. influenzae, N. meningitidis), Giardia (IgA deficiency), Campylobacter bacteremia, recurrent sinopulmonary infections, Cryptosporidium (CVID)</td><td>Recurrent bacterial infections starting after 6 months (maternal IgG wanes); low immunoglobulins</td></tr>
+          <tr><td><strong>T-cell / Combined (T+B)</strong></td><td>DiGeorge, SCID, Wiskott-Aldrich</td><td>Opportunistic infections (PJP, Candida, CMV, EBV, Cryptosporidium), disseminated BCG after vaccination, live vaccine complications</td><td>Early infancy; opportunistic infections; contraindication to live vaccines</td></tr>
+          <tr><td><strong>Phagocyte</strong></td><td>CGD, leukocyte adhesion deficiency (LAD), Chediak-Higashi</td><td>CGD: catalase-positive organisms (S. aureus, Aspergillus, Nocardia, Burkholderia cepacia, Serratia, gram-negative bacteria). LAD: severe/recalcitrant bacterial infections without pus formation.</td><td>CGD: recurrent deep-seated abscesses/granulomas; nitroblue tetrazolium (NBT) test diagnostic</td></tr>
+          <tr><td><strong>Complement</strong></td><td>C3 deficiency, terminal complement (C5-C9) deficiency</td><td>C3 deficiency: encapsulated bacteria (same as asplenia). Terminal complement (C5-C9, MAC): <strong>Neisseria</strong> (recurrent meningococcal/gonococcal)</td><td>Recurrent Neisseria infections → check complement levels (CH50); vaccinate against encapsulated organisms</td></tr>
+          <tr><td><strong>Innate immune signaling</strong></td><td>MyD88/IRAK4 deficiency, TLR pathway</td><td>Invasive pneumococcal disease, Staphylococcal bacteremia; surprisingly normal against opportunists</td><td>Invasive bacterial disease without typical inflammatory signs (poor fever/CRP response)</td></tr>
+        </tbody></table>
+
+      </div>
+    </div><!-- /primary immuno -->
+
+    <!-- ASPLENIA -->
+    <div class="topic" id="ic-asplenia">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Asplenia &amp; Functional Hyposplenism</h3><span class="badge">HIGH YIELD</span>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Causes of Hyposplenism</div>
+          <ul>
+            <li><strong>Surgical splenectomy:</strong> Trauma, ITP, hereditary spherocytosis, portal hypertension</li>
+            <li><strong>Functional asplenia:</strong> Sickle cell disease (autoinfarction by age 5), celiac disease, bone marrow infiltration, heavy alcohol use, SLE, hypothyroidism</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">OPSI — Overwhelming Post-Splenectomy Infection</div>
+          <ul>
+            <li><strong>Presentation:</strong> Rapidly fulminant sepsis — may start as mild flu-like illness then deteriorate within hours to multi-organ failure, DIC, death. Mortality 50–70% without rapid treatment.</li>
+            <li><strong>Classic organisms:</strong> Encapsulated bacteria — <strong>S. pneumoniae</strong> (50-90%), H. influenzae type b, N. meningitidis. Less common: E. coli, S. aureus, Capnocytophaga canimorsus (dog bite), Babesia (tick-borne).</li>
+            <li><strong>Capnocytophaga canimorsus:</strong> Classic board case — dog bite + asplenic patient → rapidly fatal sepsis. Treat with amoxicillin-clavulanate or penicillin.</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Vaccinations — MANDATORY for Asplenic Patients</div>
+          <table><thead><tr><th>Vaccine</th><th>Timing (Elective Splenectomy)</th><th>Schedule</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Pneumococcal (PCV20 or PCV15 → PPSV23)</strong></td><td>&gt;2 weeks before surgery (ideally 4–6 weeks)</td><td>PCV20 × 1; OR PCV15 → PPSV23 ≥8 weeks later. PPSV23 booster at 5 years if high-risk.</td></tr>
+            <tr><td><strong>Meningococcal (MenACWY)</strong></td><td>&gt;2 weeks before surgery</td><td>MenACWY × 1 (Menveo or Menactra); booster q5 years as long as asplenic</td></tr>
+            <tr><td><strong>Meningococcal B (MenB)</strong></td><td>&gt;2 weeks before surgery</td><td>2-dose or 3-dose series depending on product (Bexsero or Trumenba); booster q3–5 years</td></tr>
+            <tr><td><strong>Hib (H. influenzae type b)</strong></td><td>&gt;2 weeks before surgery</td><td>1 dose if not previously vaccinated</td></tr>
+          </tbody></table>
+          <p><strong>Emergency splenectomy:</strong> Vaccinate ≥2 weeks post-operatively (earlier vaccination less immunogenic due to surgical stress).</p>
+          <p><strong>Antibiotic prophylaxis:</strong> Amoxicillin 250–500 mg PO daily (or penicillin V). Most guidelines recommend for children lifelong; adults at minimum for 2 years post-splenectomy or lifelong if high risk. Amoxicillin-clavulanate if Capnocytophaga coverage desired.</p>
+        </div>
+
+        <div class="high-yield">
+          <div class="high-yield-title">⚡ Clinical Emergency: Asplenic Patient with Fever</div>
+          <p>Treat as OPSI until proven otherwise:<br>
+          1. Blood cultures × 2 immediately<br>
+          2. Empiric antibiotics within 30 minutes: Ceftriaxone 2 g IV (covers pneumococcus, meningococcus, H. influenzae)<br>
+          3. Add vancomycin if penicillin-resistant pneumococcus suspected<br>
+          4. Do NOT wait for cultures — mortality accelerates by the hour</p>
+        </div>
+
+      </div>
+    </div><!-- /asplenia -->
+
+  </div>
+</section><!-- END IMMUNOCOMPROMISED HOST -->
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 4: INFECTION PREVENTION & CONTROL (NEW SECTION)
+     ═══════════════════════════════════════════════════════════ -->
+
+<section id="infection-prevention">
+  <div class="section-header"><h2>🏥 Infection Prevention &amp; Control</h2></div>
+  <div class="section-content">
+
+    <!-- ISOLATION PRECAUTIONS -->
+    <div class="topic" id="ipc-isolation">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Isolation Precautions</h3><span class="badge">HIGH YIELD</span>
+      </div>
+      <div class="topic-content">
+
+        <table><thead><tr><th>Precaution Type</th><th>PPE Required</th><th>Room</th><th>Indications</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Standard Precautions</strong></td>
+            <td>Gloves (blood/body fluids), gown (splash risk), mask (splash risk), eye protection (splash risk), hand hygiene always</td>
+            <td>Any room</td>
+            <td>ALL patients, ALL settings — baseline; assumes any patient may be infectious</td>
+          </tr>
+          <tr>
+            <td><strong>Contact Precautions</strong></td>
+            <td>Gloves + gown for ALL contact with patient or patient environment</td>
+            <td>Private room preferred; cohort if not available</td>
+            <td>MRSA, VRE, ESBL, CRE, C. diff, Acinetobacter, C. auris, scabies, impetigo, RSV (infants), norovirus</td>
+          </tr>
+          <tr>
+            <td><strong>Droplet Precautions</strong></td>
+            <td>Surgical mask within 3 feet of patient; gown and gloves per standard</td>
+            <td>Private room preferred; door may remain open</td>
+            <td>Influenza, COVID-19 (≥ droplet), Bordetella, Mycoplasma, N. meningitidis, mumps, rubella, Group A Strep pharyngitis</td>
+          </tr>
+          <tr>
+            <td><strong>Airborne Precautions</strong></td>
+            <td>N95 respirator (fit-tested) for all who enter room; PAPR for high-risk aerosol-generating procedures</td>
+            <td>Negative-pressure room (AIIR — &gt;12 air changes/hour); door CLOSED at all times</td>
+            <td><strong>MAVT:</strong> Measles, Airborne (Aspergillus in immunocompromised), Varicella/Zoster (disseminated), Tuberculosis. Also: SARS-CoV-2 during AGPs, smallpox, Monkeypox (contact + airborne for AGPs)</td>
+          </tr>
+        </tbody></table>
+
+        <div class="high-yield">
+          <div class="high-yield-title">⚡ High-Yield Isolation Mnemonics</div>
+          <ul>
+            <li><strong>MAVT (Airborne):</strong> Measles, Aspergillus (immunocompromised), Varicella/Zoster, TB</li>
+            <li><strong>Contact precautions "MDROs + Skin":</strong> MRSA, VRE, CRE, ESBL, C. diff, C. auris + skin/wound infections, RSV, norovirus</li>
+            <li><strong>C. difficile:</strong> Contact precautions + SOAP AND WATER handwashing (alcohol does not kill C. diff spores)</li>
+            <li><strong>Duration of precautions:</strong> MRSA/VRE: until 3 negative swabs (institutional policy varies); C. diff: until 48h after last liquid stool; TB: until 3 negative AFB smears on 3 separate days</li>
+          </ul>
+        </div>
+
+      </div>
+    </div><!-- /isolation -->
+
+    <!-- HAND HYGIENE -->
+    <div class="topic" id="ipc-hand-hygiene">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Hand Hygiene</h3>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">WHO "5 Moments" for Hand Hygiene</div>
+          <ol>
+            <li>Before touching a patient</li>
+            <li>Before clean/aseptic procedures</li>
+            <li>After body fluid exposure risk</li>
+            <li>After touching a patient</li>
+            <li>After touching patient surroundings</li>
+          </ol>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Alcohol-Based Hand Rub (ABHR) vs. Soap &amp; Water</div>
+          <table><thead><tr><th></th><th>ABHR (Preferred)</th><th>Soap &amp; Water (Required)</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Efficacy</strong></td><td>Superior for most pathogens; kills bacteria, enveloped viruses, most fungi</td><td>Required to remove/kill certain pathogens</td></tr>
+            <tr><td><strong>When required</strong></td><td>Most clinical situations</td><td><strong>C. difficile spores</strong> (ABHR insufficient); norovirus (controversial — ABHR has some efficacy; soap preferred); visibly soiled hands</td></tr>
+            <tr><td><strong>Duration</strong></td><td>15–30 seconds until dry</td><td>20 seconds minimum; dry with paper towel</td></tr>
+          </tbody></table>
+          <p><strong>Compliance:</strong> Hand hygiene compliance is the single most evidence-based intervention for preventing HAIs. Regular auditing and feedback improve compliance rates.</p>
+        </div>
+
+      </div>
+    </div><!-- /hand hygiene -->
+
+    <!-- HAI PREVENTION BUNDLES -->
+    <div class="topic" id="ipc-bundles">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>HAI Prevention Bundles (CLABSI, CAUTI, VAP, SSI)</h3><span class="badge">HIGH YIELD</span>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">CLABSI Prevention Bundle</div>
+          <ul>
+            <li>Hand hygiene before line placement and dressing changes</li>
+            <li>Maximal sterile barrier precautions (cap, mask, gown, sterile gloves, full drape) during insertion</li>
+            <li>Chlorhexidine skin antisepsis (2% chlorhexidine preferred; allow to dry)</li>
+            <li><strong>Avoid femoral site</strong> (highest infection risk); subclavian lowest infection risk; IJ intermediate</li>
+            <li>Daily review of line necessity — remove as soon as no longer needed</li>
+            <li>Chlorhexidine-impregnated dressings for high-risk patients</li>
+            <li>Antibiotic or antiseptic-impregnated catheters if institutional CLABSI rate remains high despite bundle</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">CAUTI Prevention Bundle</div>
+          <ul>
+            <li>Insert only when indicated (specific criteria — not for incontinence, not for nursing convenience)</li>
+            <li>Aseptic insertion technique; smallest appropriate catheter</li>
+            <li>Maintain closed drainage system — never disconnect unless necessary</li>
+            <li>Keep bag below bladder level — never let bag touch floor</li>
+            <li><strong>Daily review</strong> of catheter necessity — remove as soon as possible</li>
+            <li>Catheter securement to prevent movement/trauma</li>
+            <li>Routine catheter change NOT recommended unless malfunctioning</li>
+            <li>Antimicrobial-coated catheters: silver-alloy catheters show modest CAUTI reduction; routine use debated</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">VAP Prevention Bundle</div>
+          <ul>
+            <li><strong>HOB elevation 30–45°</strong> (reduces microaspiration)</li>
+            <li>Daily sedation interruption ("sedation vacation") + spontaneous breathing trial assessment</li>
+            <li>Oral care with chlorhexidine 0.12% BID (reduces oral colonization)</li>
+            <li>Subglottic secretion drainage (specialized ETT with subglottic port) — reduces early-onset VAP</li>
+            <li>Daily assessment of readiness for extubation — minimize ventilator days</li>
+            <li>VTE prophylaxis + stress ulcer prophylaxis (part of original "ventilator bundle")</li>
+            <li>Avoid routine ventilator circuit changes (more changes = higher risk)</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">SSI Prevention Bundle</div>
+          <ul>
+            <li><strong>Appropriate antibiotic prophylaxis:</strong> Within 60 minutes before incision (within 120 min for vancomycin/fluoroquinolones); re-dose if procedure &gt;4 hours or blood loss &gt;1.5 L; discontinue within 24 hours post-op</li>
+            <li>Normothermia: Maintain intraoperative temperature &gt;36°C (warming blankets, warmed fluids)</li>
+            <li>Glycemic control: Perioperative glucose &lt;180–200 mg/dL (avoid hypoglycemia)</li>
+            <li>Minimize blood transfusion when possible</li>
+            <li>Sterile surgical technique: Appropriate draping, skin antisepsis (chlorhexidine-alcohol preferred)</li>
+            <li>MRSA nasal decolonization (mupirocin 2% nasal ointment × 5 days pre-op) for cardiac/orthopedic surgery</li>
+            <li>Showering with chlorhexidine night before and morning of surgery</li>
+          </ul>
+        </div>
+
+      </div>
+    </div><!-- /bundles -->
+
+    <!-- HEALTHCARE WORKER EXPOSURES -->
+    <div class="topic" id="ipc-hw-exposures">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Healthcare Worker Exposures (Needlestick, Blood/Body Fluid)</h3><span class="badge">HIGH YIELD</span>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Immediate Management of Needlestick/Splash</div>
+          <ol>
+            <li><strong>Wound/exposure site:</strong> Wash with soap and water (needlestick); flush mucous membranes with water or saline. Do NOT squeeze wound or use bleach.</li>
+            <li><strong>Report immediately</strong> to occupational health / employee health</li>
+            <li><strong>Source patient testing:</strong> Rapid HIV, HBsAg, anti-HCV (with consent if possible — public health laws vary by state)</li>
+            <li><strong>Risk assessment</strong> — start PEP while awaiting results if indicated</li>
+          </ol>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">HIV Post-Exposure Prophylaxis (PEP)</div>
+          <table><thead><tr><th></th><th>Details</th></tr></thead>
+          <tbody>
+            <tr><td><strong>When to start</strong></td><td>Within 72 hours (ideally &lt;4 hours); efficacy decreases with delay; after 72 hours — not recommended</td></tr>
+            <tr><td><strong>Preferred regimen</strong></td><td>Tenofovir DF/emtricitabine (TDF/FTC) 300/200 mg PO daily + Dolutegravir 50 mg PO daily × 28 days</td></tr>
+            <tr><td><strong>Alternative</strong></td><td>TDF/FTC + Raltegravir 400 mg BID × 28 days</td></tr>
+            <tr><td><strong>Duration</strong></td><td>28 days — must complete full course</td></tr>
+            <tr><td><strong>Follow-up HIV testing</strong></td><td>Baseline, 6 weeks, 12 weeks; some recommend 6 months if source has acute HIV</td></tr>
+            <tr><td><strong>Transmission risk</strong></td><td>Percutaneous (needlestick): ~0.3% per exposure from known HIV+ source; mucous membrane: ~0.09%; intact skin: negligible</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Hepatitis B (HBV) Post-Exposure Prophylaxis</div>
+          <table><thead><tr><th>HCW Status</th><th>Source HBsAg+</th><th>Source Unknown</th></tr></thead>
+          <tbody>
+            <tr><td>Vaccinated, anti-HBs ≥10 mIU/mL</td><td>No treatment</td><td>No treatment</td></tr>
+            <tr><td>Vaccinated, anti-HBs &lt;10 mIU/mL (non-responder)</td><td>HBIG × 2 doses (1 month apart); consider re-vaccination series</td><td>Consider HBIG × 1 + revaccination</td></tr>
+            <tr><td>Unvaccinated</td><td><strong>HBIG 0.06 mL/kg IM × 1</strong> + Begin HBV vaccine series within 24 hours</td><td>Begin HBV vaccine series</td></tr>
+            <tr><td>Vaccination in progress</td><td>HBIG × 1 + complete vaccination series</td><td>Complete vaccination series</td></tr>
+          </tbody></table>
+          <p><strong>HBIG timing:</strong> Most effective within 24 hours; up to 7 days for sexual exposure.</p>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Hepatitis C (HCV) Post-Exposure</div>
+          <ul>
+            <li>No post-exposure prophylaxis available (no vaccine, no effective PEP)</li>
+            <li>Transmission risk percutaneous: ~1.8% per exposure (higher than HIV, lower than HBV)</li>
+            <li><strong>Monitoring protocol:</strong> HCV antibody + HCV RNA at baseline; HCV RNA at 3–6 weeks; HCV antibody + RNA at 4–6 months</li>
+            <li><strong>Early treatment if infection occurs:</strong> DAA therapy (sofosbuvir/velpatasvir × 12 weeks) — &gt;95% cure rate. Some experts treat early acute HCV (&lt;24 weeks from infection) with 8–12 week shortened course.</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">HCW Vaccination Requirements</div>
+          <table><thead><tr><th>Vaccine</th><th>Requirement</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Influenza</strong></td><td>Annual — mandatory at most US hospitals</td><td>Reduces patient mortality; HCW with contraindication should wear mask</td></tr>
+            <tr><td><strong>Hepatitis B</strong></td><td>Required for all HCWs with blood/body fluid exposure risk</td><td>Document anti-HBs post-vaccination titer; booster if non-responder</td></tr>
+            <tr><td><strong>Varicella</strong></td><td>Required; 2-dose series if no history of disease or prior vaccination</td><td>Document serology if uncertain immune status</td></tr>
+            <tr><td><strong>MMR</strong></td><td>Required; 2 doses if born after 1957</td><td>Seronegative HCW exposed to measles → prophylaxis within 72h (MMR vaccine) or IVIG within 6 days</td></tr>
+            <tr><td><strong>COVID-19</strong></td><td>Most healthcare systems require or strongly recommend</td><td>Updated formulations annually similar to influenza</td></tr>
+            <tr><td><strong>Tdap</strong></td><td>1 dose; Td booster q10 years</td><td>Cocooning strategy — protects neonates in NICU/obstetrics</td></tr>
+          </tbody></table>
+        </div>
+
+      </div>
+    </div><!-- /HCW exposures -->
+
+    <!-- OUTBREAK INVESTIGATION -->
+    <div class="topic" id="ipc-outbreak">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Outbreak Investigation — Applied Epidemiology</h3><span class="badge">HIGH YIELD</span>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Steps in Outbreak Investigation (Systematic Framework)</div>
+          <ol>
+            <li><strong>Verify the diagnosis</strong> — Confirm cases are real; review laboratory and clinical criteria. Rule out laboratory errors or reporting artifacts.</li>
+            <li><strong>Confirm the existence of an outbreak</strong> — Compare current incidence to baseline (expected rate). Epidemic curve plots cases over time.</li>
+            <li><strong>Define a case</strong> — Case definition includes person (demographics), place (unit, hospital), time (onset dates), clinical criteria. Differentiate confirmed, probable, possible cases.</li>
+            <li><strong>Find all cases — Epidemic curve</strong> — Plot onset dates to identify common source vs. propagated outbreak pattern.</li>
+            <li><strong>Describe and orient the data (Descriptive Epidemiology)</strong> — Person (who), Place (where), Time (when). Calculate attack rates by subgroups.</li>
+            <li><strong>Develop hypotheses</strong> — Identify potential source/vehicle/reservoir based on descriptive data.</li>
+            <li><strong>Analytical study</strong> — Case-control or cohort study to test hypotheses. Identify risk factors.</li>
+            <li><strong>Implement and evaluate control measures</strong> — Simultaneously with investigation. Specific to pathogen (contact precautions, environmental cleaning, cohorting).</li>
+            <li><strong>Communicate findings</strong> — Infection control, administration, public health as appropriate.</li>
+          </ol>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Epidemic Curve Interpretation</div>
+          <table><thead><tr><th>Pattern</th><th>Interpretation</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Point source</strong></td><td>Sharp peak within 1 incubation period; all exposed simultaneously</td><td>Contaminated food at a single meal event; single-dose chemical exposure</td></tr>
+            <tr><td><strong>Continuous common source</strong></td><td>Sustained elevated cases over multiple incubation periods; ongoing exposure</td><td>Contaminated water supply; infected food worker over weeks</td></tr>
+            <tr><td><strong>Propagated (person-to-person)</strong></td><td>Successive peaks each separated by one incubation period; successive generations</td><td>Influenza, norovirus in a closed institution; measles outbreak</td></tr>
+            <tr><td><strong>Mixed</strong></td><td>Initial point source then person-to-person spread</td><td>Norovirus: initial contaminated buffet → then spread among roommates</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Key Biostatistics Concepts for ID</div>
+          <table><thead><tr><th>Measure</th><th>Definition</th><th>Formula</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Attack rate</strong></td><td>Proportion of exposed who develop disease during an outbreak</td><td>Cases / Exposed persons × 100</td></tr>
+            <tr><td><strong>Relative Risk (RR)</strong></td><td>Rate of disease in exposed vs. unexposed (cohort study)</td><td>Risk in exposed / Risk in unexposed</td></tr>
+            <tr><td><strong>Odds Ratio (OR)</strong></td><td>Odds of exposure in cases vs. controls (case-control study); approximates RR for rare disease</td><td>(a×d) / (b×c) from 2×2 table</td></tr>
+            <tr><td><strong>Attributable Risk</strong></td><td>Excess risk due to specific exposure</td><td>Risk(exposed) − Risk(unexposed)</td></tr>
+            <tr><td><strong>Number Needed to Treat (NNT)</strong></td><td>Number of patients who must receive treatment to prevent 1 adverse outcome</td><td>1 / Absolute Risk Reduction</td></tr>
+            <tr><td><strong>Sensitivity</strong></td><td>True positive rate — ability to detect disease when present</td><td>TP / (TP + FN)</td></tr>
+            <tr><td><strong>Specificity</strong></td><td>True negative rate — ability to rule out disease when absent</td><td>TN / (TN + FP)</td></tr>
+            <tr><td><strong>PPV</strong></td><td>Probability disease present given positive test — affected by prevalence</td><td>TP / (TP + FP)</td></tr>
+            <tr><td><strong>NPV</strong></td><td>Probability disease absent given negative test — affected by prevalence</td><td>TN / (TN + FN)</td></tr>
+          </tbody></table>
+          <p><strong>High-yield board pearl:</strong> In a low-prevalence setting, even a highly specific test will have many false positives (low PPV). In a high-prevalence setting, even a highly sensitive test will have many false negatives (low NPV relative to pretest probability).</p>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Healthcare Quality Improvement Metrics</div>
+          <ul>
+            <li><strong>Standardized Infection Ratio (SIR):</strong> Observed HAIs / Predicted HAIs. SIR &lt;1.0 = better than predicted; used for national benchmarking (NHSN).</li>
+            <li><strong>Device-day denominators:</strong> Central line-days, ventilator-days, catheter-days — adjusts for patient exposure time when calculating HAI rates</li>
+            <li><strong>Process vs. outcome measures:</strong> Process = bundle compliance (e.g., % of patients with daily line necessity review); outcome = CLABSI rate per 1000 central line-days</li>
+            <li><strong>PDSA cycles (Plan-Do-Study-Act):</strong> Standard QI methodology for iterative improvement in HAI prevention programs</li>
+          </ul>
+        </div>
+
+      </div>
+    </div><!-- /outbreak -->
+
+    <!-- DISINFECTION & STERILIZATION -->
+    <div class="topic" id="ipc-disinfection">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Disinfection, Sterilization &amp; Environmental Control</h3>
+      </div>
+      <div class="topic-content">
+
+        <div class="subsection"><div class="subsection-title">Spaulding Classification</div>
+          <table><thead><tr><th>Category</th><th>Device Type</th><th>Required Level</th><th>Examples</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Critical</strong></td><td>Enters sterile tissue or vasculature</td><td><strong>Sterilization</strong> (kills all microorganisms including spores)</td><td>Surgical instruments, cardiac catheters, implants, needles, endoscopes that enter sterile cavities</td></tr>
+            <tr><td><strong>Semi-critical</strong></td><td>Contacts mucous membranes or non-intact skin</td><td><strong>High-level disinfection</strong> (kills all except high levels of bacterial spores)</td><td>Flexible endoscopes (GI/respiratory), bronchoscopes, laryngoscope blades, vaginal probes</td></tr>
+            <tr><td><strong>Non-critical</strong></td><td>Contacts intact skin only</td><td><strong>Low-to-intermediate disinfection</strong></td><td>Blood pressure cuffs, stethoscopes, bed rails, floors, patient furniture</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Sterilization Methods</div>
+          <ul>
+            <li><strong>Steam autoclave (moist heat):</strong> Gold standard for heat-stable items. 121°C × 15 minutes at 15 psi (gravity cycle) or 132–135°C × 3–4 min (vacuum cycle)</li>
+            <li><strong>Ethylene oxide (ETO):</strong> For heat-sensitive items (electronics, plastics). Long aeration time required (toxic gas).</li>
+            <li><strong>Hydrogen peroxide gas plasma:</strong> Low temperature; rapid; for heat-sensitive items; no toxic residues</li>
+            <li><strong>Glutaraldehyde (2.4%):</strong> High-level disinfection for endoscopes — 20-minute contact time; cidex. Sterilization with 10-hour soak.</li>
+          </ul>
+        </div>
+
+        <div class="subsection"><div class="subsection-title">Environmental Cleaning for Specific Pathogens</div>
+          <table><thead><tr><th>Pathogen</th><th>Recommended Disinfectant</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><strong>C. difficile</strong></td><td>EPA-registered sporicidal (hypochlorite/bleach 1000–5000 ppm, or hydrogen peroxide vapor)</td><td>Standard quaternary ammonium compounds are NOT effective against C. diff spores; bleach required in C. diff rooms</td></tr>
+            <tr><td><strong>Norovirus</strong></td><td>Hypochlorite (bleach 1000–5000 ppm); hydrogen peroxide</td><td>Quaternary ammonium inadequate; wash hands with soap + water (not just ABHR)</td></tr>
+            <tr><td><strong>MRSA/VRE/CRE</strong></td><td>Quaternary ammonium or accelerated hydrogen peroxide (standard hospital disinfectants)</td><td>Enhanced cleaning protocols; terminal cleaning with UV disinfection shown to reduce acquisition</td></tr>
+            <tr><td><strong>C. auris</strong></td><td>EPA-registered products specifically tested against C. auris (many common disinfectants less effective)</td><td>Persists on surfaces weeks; contact precautions + enhanced environmental cleaning essential</td></tr>
+          </tbody></table>
+        </div>
+
+      </div>
+    </div><!-- /disinfection -->
+
+    <!-- LONG-TERM CARE -->
+    <div class="topic" id="ipc-ltcf">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <h3>Infections in Long-Term Care Facilities (LTCF)</h3>
+      </div>
+      <div class="topic-content">
+        <div class="subsection"><div class="subsection-title">Key Considerations</div>
+          <ul>
+            <li><strong>Most common infections in LTCF:</strong> UTI (most common diagnosis, but often overtreated), pneumonia (highest mortality), skin/soft tissue (pressure ulcers, cellulitis), GI (C. difficile, norovirus outbreaks)</li>
+            <li><strong>Asymptomatic bacteriuria:</strong> Very common in LTCF residents (20–50% of women, 15–40% of men with catheters); <strong>do NOT treat</strong> — treat only if symptomatic UTI criteria met (dysuria, new/worsening urinary sx, fever, altered mental status with no other cause)</li>
+            <li><strong>Antibiotic stewardship:</strong> McGeer criteria for initiating antibiotics in LTCF — evidence-based minimum criteria for each infection type to reduce inappropriate antibiotic use</li>
+            <li><strong>MDRO management:</strong> Isolation precautions adapted for LTCF — balance infection control with patient quality of life and dignity; cohorting residents; dedicated staff if possible during outbreaks</li>
+            <li><strong>Vaccination in LTCF:</strong> Annual influenza (residents and staff), pneumococcal (PCV20 × 1 if not previously vaccinated), COVID-19 boosters, zoster (Shingrix × 2)</li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- /LTCF -->
+
+  </div>
+</section><!-- END INFECTION PREVENTION -->
+
 <section id="tickborne-infections">
   <h2>Tickborne Infections</h2>
 
@@ -1932,6 +3285,7 @@
 </section>
 
 <!-- CALCULATORS -->
+
 <section id="calculators">
   <h2>Calculators</h2>
 
@@ -6149,5 +7503,360 @@ function resetDifferential() {
 
 </script>
 
+
+<!-- ISOLATION BADGE PATCH v2 -->
+<script>
+/**
+ * ID GUIDE - ISOLATION BADGE PATCH v2
+ * Adds isolation badge + evidence-based duration to every disease card header.
+ * Paste entire contents wrapped in <script><\/script> just before </body>.
+ * No other HTML changes required.
+ * 
+ * SOURCES: CDC/HICPAC Isolation Guidelines 2007 + 2019 update; IDSA; CDC HAI;
+ *          SHEA/IDSA/APIC "Compendium of Strategies to Prevent HAIs" 2022 update.
+ */
+(function () {
+
+  /* ── CSS ─────────────────────────────────────────────── */
+  const css = `
+    .iso-wrap {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-left: 4px;
+      flex-shrink: 0;
+      line-height: 1.2;
+    }
+    .iso-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 2px 7px 2px 5px;
+      border-radius: 6px 6px 0 0;
+      white-space: nowrap;
+    }
+    .iso-dur {
+      font-size: 9px;
+      font-weight: 600;
+      padding: 1px 7px 2px 5px;
+      border-radius: 0 0 6px 6px;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      opacity: 0.92;
+    }
+    /* No duration — round all corners */
+    .iso-badge.iso-nodur { border-radius: 6px; }
+
+    .iso-AIRBORNE     { background:#2d0f0e; color:#f85149; border:1px solid #f8514966; border-bottom: none; }
+    .iso-DROPLET      { background:#2d1f0e; color:#ffa657; border:1px solid #ffa65766; border-bottom: none; }
+    .iso-CONTACT      { background:#1f2d0e; color:#7ee787; border:1px solid #7ee78766; border-bottom: none; }
+    .iso-CONTACT-SOAP { background:#1a2d0e; color:#56d364; border:1px solid #56d36466; border-bottom: none; }
+    .iso-STANDARD     { background:#0d1f2d; color:#58a6ff; border:1px solid #58a6ff66; border-bottom: none; }
+    .iso-CONTACT-AIR  { background:#2d180e; color:#ffa657; border:1px solid #f8514966; border-bottom: none; }
+    .iso-DROPLET-AIR  { background:#2d150e; color:#ff7b72; border:1px solid #ffa65766; border-bottom: none; }
+
+    .dur-AIRBORNE     { background:#230b0a; color:#f8514999; border:1px solid #f8514944; border-top: none; }
+    .dur-DROPLET      { background:#231708; color:#ffa65799; border:1px solid #ffa65744; border-top: none; }
+    .dur-CONTACT      { background:#172308; color:#7ee78799; border:1px solid #7ee78744; border-top: none; }
+    .dur-CONTACT-SOAP { background:#142308; color:#56d36499; border:1px solid #56d36444; border-top: none; }
+    .dur-STANDARD     { background:#081923; color:#58a6ff99; border:1px solid #58a6ff44; border-top: none; }
+    .dur-CONTACT-AIR  { background:#231208; color:#ffa65799; border:1px solid #f8514944; border-top: none; }
+    .dur-DROPLET-AIR  { background:#200f08; color:#ff7b7299; border:1px solid #ffa65744; border-top: none; }
+
+    .topic-header .iso-wrap { margin-left: 2px; }
+  `;
+  const style = document.createElement('style');
+  style.textContent = css;
+  document.head.appendChild(style);
+
+  /* ── ISOLATION LEVEL DEFINITIONS ────────────────────── */
+  const ISO = {
+    AIRBORNE:     { cssClass: 'iso-AIRBORNE',     durClass: 'dur-AIRBORNE',     icon: '🔴', label: 'Airborne' },
+    DROPLET:      { cssClass: 'iso-DROPLET',      durClass: 'dur-DROPLET',      icon: '🟠', label: 'Droplet' },
+    CONTACT:      { cssClass: 'iso-CONTACT',      durClass: 'dur-CONTACT',      icon: '🟡', label: 'Contact' },
+    CDIFF:        { cssClass: 'iso-CONTACT-SOAP', durClass: 'dur-CONTACT-SOAP', icon: '🟡', label: 'Contact + Soap/H₂O' },
+    STANDARD:     { cssClass: 'iso-STANDARD',     durClass: 'dur-STANDARD',     icon: '🔵', label: 'Standard' },
+    CONT_AIR:     { cssClass: 'iso-CONTACT-AIR',  durClass: 'dur-CONTACT-AIR',  icon: '🔴', label: 'Contact + Airborne' },
+    DROP_AIR:     { cssClass: 'iso-DROPLET-AIR',  durClass: 'dur-DROPLET-AIR',  icon: '🔴', label: 'Droplet + Airborne (AGP)' },
+  };
+
+  /* ── HELPER: build entry with optional duration ──────── */
+  function e(isoLevel, duration) {
+    return { iso: isoLevel, duration: duration || null };
+  }
+
+  /* ─────────────────────────────────────────────────────
+     DURATION EVIDENCE NOTES (inline for maintainability)
+     All durations referenced against:
+       CDC/HICPAC 2007 Guideline for Isolation Precautions
+       SHEA Compendium 2022
+       IDSA/ATS CAP, TB, Influenza, COVID guidelines
+     ───────────────────────────────────────────────────── */
+
+  /* ── LOOKUP: section/topic ID ──────────────────────── */
+  const BY_ID = {
+    /* Respiratory */
+    'id-tb':                    e(ISO.AIRBORNE,  '3 neg AFB smears on 3 separate days + ≥2 wks effective therapy + clinical improvement'),
+    'id-pneumonia':             e(ISO.STANDARD,  null),
+    'id-influenza':             e(ISO.DROPLET,   '24h afebrile without antipyretics (immunocomp: duration of illness)'),
+    'viral-influenza-expanded': e(ISO.DROPLET,   '24h afebrile without antipyretics (immunocomp: duration of illness)'),
+    'id-covid':                 e(ISO.DROP_AIR,  'Day 10 from symptom onset + afebrile ≥24h (severe/immunocomp: Day 20+)'),
+    'id-meningitis-expanded':   e(ISO.DROPLET,   '24h of effective antibiotic therapy (N. meningitidis only; others: standard)'),
+    'viral-encephalopathies':   e(ISO.STANDARD,  null),
+    'id-cdiff':                 e(ISO.CDIFF,     '48h after last unformed/liquid stool'),
+    'id-sbp':                   e(ISO.STANDARD,  null),
+    'id-uti':                   e(ISO.STANDARD,  null),
+    'id-sti':                   e(ISO.STANDARD,  null),
+    'id-hiv':                   e(ISO.STANDARD,  null),
+    'opportunistic-infections': e(ISO.STANDARD,  null),
+    'id-travel':                e(ISO.STANDARD,  null),
+    'tickborne-infections':     e(ISO.STANDARD,  null),
+
+    /* MSK / Periop */
+    'msk-septic-arthritis':     e(ISO.STANDARD,  null),
+    'msk-hematogenous-osteo':   e(ISO.STANDARD,  null),
+    'msk-vertebral-osteo':      e(ISO.STANDARD,  null),
+    'msk-spinal-abscess':       e(ISO.STANDARD,  null),
+    'msk-pji':                  e(ISO.STANDARD,  null),
+    'msk-diabetic-foot':        e(ISO.STANDARD,  null),
+    'periop-fever':             e(ISO.STANDARD,  null),
+    'periop-ssi':               e(ISO.STANDARD,  null),
+    'periop-hardware':          e(ISO.STANDARD,  null),
+    'periop-specific':          e(ISO.STANDARD,  null),
+
+    /* Fungal */
+    'fungi-candida':            e(ISO.STANDARD,  null),
+    'fungi-aspergillus':        e(ISO.STANDARD,  'Patient requires protective environment (reverse precautions), not source isolation'),
+    'fungi-mucor':              e(ISO.STANDARD,  null),
+    'fungi-histo':              e(ISO.STANDARD,  null),
+    'fungi-cocci':              e(ISO.STANDARD,  null),
+    'fungi-blasto':             e(ISO.STANDARD,  null),
+
+    /* Viral (expanded) */
+    'viral-herpesviruses':      e(ISO.CONTACT,   'Until all lesions fully crusted/healed; disseminated VZV → airborne until crusted'),
+    'viral-hepatitis-link':     e(ISO.STANDARD,  null),
+    'viral-respiratory':        e(ISO.DROPLET,   'Duration of illness; RSV immunocomp may shed 21+ days'),
+    'viral-flavivirus':         e(ISO.STANDARD,  'Vector-borne; no person-to-person (Zika: sexual precautions for 3 months post-illness)'),
+    'viral-hpv':                e(ISO.STANDARD,  null),
+    'viral-polyoma':            e(ISO.STANDARD,  null),
+    'viral-parvo':              e(ISO.DROPLET,   'Until rash appears (contagious only during viremic phase, ~7 days pre-rash)'),
+    'viral-vhf':                e(ISO.CONT_AIR,  'Duration of acute illness; discontinue when PCR negative from blood x2'),
+
+    /* Immunocompromised */
+    'ic-sot':                   e(ISO.STANDARD,  null),
+    'ic-hsct':                  e(ISO.STANDARD,  'Patient requires protective (reverse) isolation during engraftment; not source isolation'),
+    'ic-biologics':             e(ISO.STANDARD,  null),
+    'ic-primary':               e(ISO.STANDARD,  null),
+    'ic-asplenia':              e(ISO.STANDARD,  null),
+
+    /* Infection prevention meta — no badge */
+    'ipc-isolation':            null,
+    'ipc-hand-hygiene':         null,
+    'ipc-bundles':              null,
+    'ipc-hw-exposures':         null,
+    'ipc-outbreak':             null,
+    'ipc-disinfection':         null,
+    'ipc-ltcf':                 null,
+  };
+
+  /* ── LOOKUP: h3 text → entry ────────────────────────── */
+  const BY_TEXT = {
+    /* High-Yield Syndromes */
+    'infective endocarditis':
+      e(ISO.STANDARD, null),
+    'bacterial meningitis':
+      e(ISO.DROPLET, '24h of effective antibiotic therapy; standard thereafter'),
+    'necrotizing fasciitis':
+      e(ISO.CONTACT, 'Until wound surgically closed/covered and drainage resolved'),
+    'diabetic foot infections':
+      e(ISO.STANDARD, null),
+    'prosthetic joint infection':
+      e(ISO.STANDARD, null),
+    'clabsi':
+      e(ISO.STANDARD, null),
+    'spinal epidural abscess':
+      e(ISO.STANDARD, null),
+    'febrile neutropenia':
+      e(ISO.STANDARD, 'Patient requires protective (reverse) isolation; not source isolation'),
+    'brain abscess':
+      e(ISO.STANDARD, null),
+    'cied infections':
+      e(ISO.STANDARD, null),
+    'acute cholangitis':
+      e(ISO.STANDARD, null),
+    'acute bacterial prostatitis':
+      e(ISO.STANDARD, null),
+
+    /* Pathogen Overview */
+    'escherichia coli':
+      e(ISO.STANDARD, null),
+    'klebsiella spp.':
+      e(ISO.CONTACT, 'Duration of hospitalization; notify on readmission if ESBL/CRE'),
+    'pseudomonas aeruginosa':
+      e(ISO.CONTACT, 'Duration of hospitalization for MDR strains; standard if pan-susceptible'),
+    'burkholderia cepacia complex':
+      e(ISO.CONTACT, 'Lifelong strict cohorting in CF care settings; no contact with other CF patients'),
+    'bacteroides fragilis':
+      e(ISO.STANDARD, null),
+    'actinomyces':
+      e(ISO.STANDARD, null),
+    'mycobacterium tuberculosis (brief)':
+      e(ISO.AIRBORNE, '3 neg AFB smears on 3 separate days + ≥2 wks effective therapy + clinical improvement'),
+    'nocardia':
+      e(ISO.STANDARD, null),
+    'clostridioides difficile':
+      e(ISO.CDIFF, '48h after last unformed/liquid stool; consider extending to discharge in outbreak settings'),
+    'vre (vancomycin-resistant enterococcus)':
+      e(ISO.CONTACT, 'Until 3 consecutive negative rectal/stool cultures ≥1 week apart (institutional policy varies)'),
+    'esbl producers':
+      e(ISO.CONTACT, 'Duration of hospitalization; notify on readmission'),
+    'cre (carbapenem-resistant enterobacteriaceae)':
+      e(ISO.CONTACT, 'Duration of hospitalization + notify on all readmissions (CDC recommends indefinite precautions)'),
+    'acinetobacter baumannii':
+      e(ISO.CONTACT, 'Duration of hospitalization; notify on readmission for MDR strains'),
+    'stenotrophomonas maltophilia':
+      e(ISO.STANDARD, null),
+    'listeria monocytogenes':
+      e(ISO.STANDARD, null),
+    'legionella pneumophila':
+      e(ISO.STANDARD, 'No person-to-person transmission; source investigation (water system) required'),
+
+    /* OIs */
+    'pjp (pneumocystis jirovecii pneumonia)':
+      e(ISO.STANDARD, 'No definitive person-to-person evidence; some centers use contact precautions in HSCT units'),
+    'cytomegalovirus (cmv)':
+      e(ISO.STANDARD, null),
+    'hsv/vzv in immunocompromised':
+      e(ISO.CONTACT, 'Until all lesions fully crusted; disseminated VZV → airborne until all crusted'),
+    'mac (mycobacterium avium complex)':
+      e(ISO.STANDARD, null),
+    'cryptococcal meningitis':
+      e(ISO.STANDARD, null),
+    'toxoplasma gondii encephalitis':
+      e(ISO.STANDARD, null),
+    'histoplasmosis (disseminated)':
+      e(ISO.STANDARD, null),
+    'coccidioidomycosis (disseminated)':
+      e(ISO.STANDARD, null),
+    'progressive multifocal leukoencephalopathy (pml)':
+      e(ISO.STANDARD, null),
+
+    /* Expanded viral topics */
+    'herpesviruses — overview':
+      e(ISO.CONTACT, 'Until all lesions fully crusted/healed; VZV disseminated → airborne until all crusted'),
+    'viral hepatitis (hav, hbv, hcv, hdv, hev)':
+      e(ISO.STANDARD, null),
+    'influenza':
+      e(ISO.DROPLET, '24h afebrile without antipyretics; immunocomp: duration of illness'),
+    'respiratory viruses (rsv, parainfluenza, adenovirus, rhinovirus)':
+      e(ISO.DROPLET, 'Duration of illness; immunocomp may shed for weeks — extend per clinical judgement'),
+    'flaviviruses & arboviruses (dengue, zika, west nile, chikungunya)':
+      e(ISO.STANDARD, 'Vector-borne; no sustained person-to-person'),
+    'human papillomavirus (hpv)':
+      e(ISO.STANDARD, null),
+    'polyomaviruses (bk virus, jc virus)':
+      e(ISO.STANDARD, null),
+    'parvovirus b19':
+      e(ISO.DROPLET, 'Until rash appears (viremic ~7 days pre-rash; once rash present, no longer contagious in immunocompetent)'),
+    'viral hemorrhagic fevers (vhf)':
+      e(ISO.CONT_AIR, 'Duration of acute illness; discontinue when PCR negative from blood ×2; notify public health immediately'),
+
+    /* Immunocompromised */
+    'solid organ transplant — infection timeline':
+      e(ISO.STANDARD, null),
+    'hematopoietic stem cell transplant (hsct) — infection timeline':
+      e(ISO.STANDARD, 'Patient requires protective (reverse) isolation during engraftment — see individual OI cards for source precautions'),
+    'biologic & disease-modifying agents — infection risks':
+      e(ISO.STANDARD, null),
+    'primary immunodeficiency — infection patterns':
+      e(ISO.STANDARD, null),
+    'asplenia & functional hyposplenism':
+      e(ISO.STANDARD, null),
+
+    /* Misc */
+    'sepsis':
+      e(ISO.STANDARD, null),
+    'cap / hap / vap':
+      e(ISO.STANDARD, 'Standard unless specific organism warrants additional precautions (e.g., TB → airborne, influenza → droplet)'),
+    'covid-19':
+      e(ISO.DROP_AIR, 'Day 10 from symptom onset + afebrile ≥24h (severe/immunocomp: Day 20+; institutional policy may vary)'),
+    'tuberculosis':
+      e(ISO.AIRBORNE, '3 neg AFB smears on 3 separate days + ≥2 wks effective therapy + clinical improvement'),
+
+    /* Syndromes by site */
+    'candidasis':
+      e(ISO.STANDARD, null),
+    'invasive aspergillosis':
+      e(ISO.STANDARD, 'Patient requires protective (reverse) isolation; no source isolation for Aspergillus'),
+    'mucormycosis (mucorales)':
+      e(ISO.STANDARD, null),
+    'histoplasmosis':
+      e(ISO.STANDARD, null),
+    'coccidioidomycosis':
+      e(ISO.STANDARD, null),
+    'blastomycosis':
+      e(ISO.STANDARD, null),
+  };
+
+  /* ── BADGE FACTORY ───────────────────────────────────── */
+  function makeBadge(entry) {
+    const { iso, duration } = entry;
+    const wrap = document.createElement('span');
+    wrap.className = 'iso-wrap';
+
+    const badge = document.createElement('span');
+    badge.className = `iso-badge ${iso.cssClass}${duration ? '' : ' iso-nodur'}`;
+    badge.textContent = `${iso.icon} ${iso.label}`;
+
+    wrap.appendChild(badge);
+
+    if (duration) {
+      const dur = document.createElement('span');
+      dur.className = `iso-dur ${iso.durClass}`;
+      dur.textContent = `⏱ ${duration}`;
+      wrap.appendChild(dur);
+    }
+
+    wrap.title = duration
+      ? `Isolation: ${iso.label}\nDuration: ${duration}`
+      : `Isolation: ${iso.label}`;
+
+    return wrap;
+  }
+
+  function inject(header, entry) {
+    if (!entry || !header) return;
+    if (header.querySelector('.iso-wrap')) return; // no double-inject
+    header.appendChild(makeBadge(entry));
+  }
+
+  /* ── PASS 1: by element ID ───────────────────────────── */
+  Object.entries(BY_ID).forEach(([id, entry]) => {
+    if (!entry) return;
+    const el = document.getElementById(id);
+    if (!el) return;
+    const header = el.classList.contains('topic-header')
+      ? el : el.querySelector('.topic-header');
+    if (header) inject(header, entry);
+  });
+
+  /* ── PASS 2: by h3 text ──────────────────────────────── */
+  document.querySelectorAll('.topic-header').forEach(header => {
+    if (header.querySelector('.iso-wrap')) return;
+    const h3 = header.querySelector('h3');
+    if (!h3) return;
+    const key = h3.textContent.trim().toLowerCase();
+    const entry = BY_TEXT[key];
+    if (entry) inject(header, entry);
+  });
+
+})();
+
+</script>
 </body>
 </html>
