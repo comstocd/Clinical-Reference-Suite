@@ -3,14 +3,14 @@
  * ==========================================
  * HOW TO UPDATE:
  *   1. Change DISPLAY_VERSION to the new build number (e.g. BUILD #31)
- *   2. Change CACHE_VERSION to match (e.g. crs-v6-build3.8)
+ *   2. Change CACHE_VERSION to match (e.g. crs-v3.7-build31)
  *   3. Commit and push both changes to GitHub
  *   That's it — the app will update automatically next time the iPad is on WiFi.
  */
 
 // ── CHANGE THESE TWO LINES EVERY TIME YOU PUSH A CLINICAL UPDATE ─────────────
-const DISPLAY_VERSION = 'BUILD #6.00';           // shown everywhere in the app
-const CACHE_VERSION   = 'crs-v6.0-build1.0';   // must be unique per release
+const DISPLAY_VERSION = 'BUILD #34';           // shown everywhere in the app
+const CACHE_VERSION   = 'crs-v3.7-build34';   // must be unique per release
 // ─────────────────────────────────────────────────────────────────────────────
 
 const CACHE_NAME = `clinical-ref-${CACHE_VERSION}`;
@@ -41,6 +41,8 @@ const PRECACHE_URLS = [
   `${BASE_PATH}/neuro_consult.html`,
   `${BASE_PATH}/inpatient_note.html`,
   `${BASE_PATH}/op_note.html`,
+  `${BASE_PATH}/abx-companion.html`,
+  `${BASE_PATH}/abx-manifest.json`,
 ];
 
 // ── INSTALL ──────────────────────────────────────────────────────────────────
