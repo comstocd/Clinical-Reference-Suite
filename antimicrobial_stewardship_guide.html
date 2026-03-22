@@ -979,5 +979,63 @@ window.addEventListener("message", function(e) {
   }
 });
 </script>
+
+<script>
+/* ── SUITE NAVIGATION HELPER ─────────────────────────────────────────────────
+   Intercepts clicks on cross-tool links. When running inside the index.html
+   shell (iframe), routes to window.parent.switchTool() so the shell stays in
+   control of navigation. When running standalone, falls through to normal href.
+   ─────────────────────────────────────────────────────────────────────────── */
+(function () {
+  var SUITE = {
+    'index.html':                           'home',
+    'im_guide.html':                        'imcrg',
+    'lab_values.html':                      'labs',
+    'dx_framework.html':                    'dxfx',
+    'id_guide.html':                        'id',
+    'abx-companion.html':                   'abxcomp',
+    'drug_reference_guide.html':            'drugref',
+    'drug_interactions.html':               'drugs',
+    'antimicrobial_stewardship_guide.html': 'abxsteward',
+    'renal_dosing_reference.html':          'renaldose',
+    'procedures_guide.html':               'procedures',
+    'nephrology_consult.html':              'nephroconsult',
+    'cardiology_consult.html':              'cardioconsult',
+    'rheumatology_consult.html':            'rheumconsult',
+    'id_consult.html':                      'idconsult',
+    'endo_consult.html':                    'endoconsult',
+    'neuro_consult.html':                   'neuroconsult',
+    'inpatient_note.html':                  'inpatientnote',
+    'op_note.html':                         'opnote',
+  };
+
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href]');
+    if (!a) return;
+
+    var href = a.getAttribute('href');
+    if (!href) return;
+    // Skip external, mailto, tel, and pure hash links
+    if (/^(https?:|mailto:|tel:|#)/.test(href)) return;
+
+    var parts  = href.split('#');
+    var file   = parts[0];
+    var anchor = parts[1] || null;
+
+    var toolId = SUITE[file];
+    if (!toolId) return; // not a suite file — let it navigate normally
+
+    // Inside index shell
+    if (window.parent !== window && typeof window.parent.switchTool === 'function') {
+      e.preventDefault();
+      window.parent.switchTool(toolId, anchor);
+      return;
+    }
+
+    // Standalone: navigate normally (href fires as usual)
+  }, true);
+})();
+</script>
+
 </body>
 </html>
