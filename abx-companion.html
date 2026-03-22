@@ -581,63 +581,9 @@
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-  /* ── STANDALONE INSTALL BANNER ───────────────────────── */
-  #abx-install-banner {
-    display: none;
-    align-items: center;
-    gap: 12px;
-    background: linear-gradient(90deg, #0d2b24 0%, #0a1f1a 100%);
-    border-bottom: 1px solid var(--accent);
-    padding: 10px 16px;
-    font-family: var(--font-ui);
-    font-size: 13px;
-    color: #c8ede6;
-  }
-  #abx-install-banner.visible { display: flex; }
-  #abx-install-banner .banner-icon { font-size: 20px; flex-shrink: 0; }
-  #abx-install-banner .banner-text { flex: 1; line-height: 1.4; }
-  #abx-install-banner .banner-text strong { color: var(--accent); }
-  #abx-install-banner .banner-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--accent);
-    color: #0a0d13;
-    font-weight: 700;
-    font-size: 12px;
-    padding: 7px 14px;
-    border-radius: 6px;
-    text-decoration: none;
-    flex-shrink: 0;
-    white-space: nowrap;
-  }
-  #abx-install-banner .banner-dismiss {
-    background: none;
-    border: none;
-    color: var(--muted);
-    font-size: 18px;
-    cursor: pointer;
-    padding: 0 4px;
-    flex-shrink: 0;
-    line-height: 1;
-  }
 </style>
 </head>
 <body>
-
-<!-- ── STANDALONE INSTALL BANNER (shown only when running inside an installed PWA) ── -->
-<div id="abx-install-banner" role="banner" aria-label="Install ABX Companion">
-  <span class="banner-icon">💊</span>
-  <span class="banner-text">
-    <strong>Install ABX Companion</strong> as a separate app —
-    open in Safari, then Share → Add to Home Screen
-  </span>
-  <a href="#" onclick="window.top.location.href='https://comstocd.github.io/Clinical-Reference-Suite/abx-companion.html'; return false;" class="banner-link">
-    Open in Safari ↗
-  </a>
-  <button class="banner-dismiss" onclick="this.parentElement.classList.remove('visible'); sessionStorage.setItem('abx-banner-dismissed','1');" aria-label="Dismiss">✕</button>
-</div>
 
 <!-- ═══════════════════════════════════════════════════════
      TOP NAV
@@ -3081,19 +3027,6 @@ function filterPearls(query) {
       }
     }
   });
-</script>
-
-<script>
-  // Show install banner only when page is running inside an installed PWA (standalone mode)
-  // In that context Safari's "Add to Home Screen" is not accessible, so we surface a direct link
-  (function () {
-    const isStandalone = navigator.standalone === true ||
-                         window.matchMedia('(display-mode: standalone)').matches;
-    const dismissed = sessionStorage.getItem('abx-banner-dismissed');
-    if (isStandalone && !dismissed) {
-      document.getElementById('abx-install-banner').classList.add('visible');
-    }
-  })();
 </script>
 
 </body>
