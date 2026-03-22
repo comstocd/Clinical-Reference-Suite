@@ -1,0 +1,3101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABX Companion · Cunha Framework</title>
+<link rel="manifest" href="abx-manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="ABX">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/comstocd/rapid-response-tool/main/caduceus.png">
+<style>
+  :root {
+    --bg:        #0e1117;
+    --surface:   #161b25;
+    --surface2:  #1e2535;
+    --border:    #2a3347;
+    --text:      #e4e8f0;
+    --muted:     #7a8499;
+    --accent:    #4fa3e0;
+
+    /* System colors */
+    --cns:       #9b7fe8;
+    --resp:      #4fa3e0;
+    --cv:        #e05c5c;
+    --gi:        #e09c4f;
+    --gu:        #4fc4a3;
+    --ssti:      #e0c44f;
+    --sepsis:    #e06b4f;
+    --immuno:    #7fbf7f;
+
+    --preferred: #4fc4a3;
+    --alternate: #4fa3e0;
+    --caution:   #e09c4f;
+    --danger:    #e05c5c;
+
+    --font-main: 'Georgia', 'Times New Roman', serif;
+    --font-ui:   'Helvetica Neue', 'Arial', sans-serif;
+    --font-mono: 'Menlo', 'Courier New', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ── TOP NAV ─────────────────────────────────────────── */
+  #topnav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0a0d13;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 12px;
+    height: 46px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  #topnav .suite-title {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-right: 16px;
+    flex-shrink: 0;
+  }
+
+  #topnav a {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 8px;
+    height: 46px;
+    display: inline-flex;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+
+  #topnav a:hover { color: var(--text); }
+  #topnav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ── LAYOUT ──────────────────────────────────────────── */
+  #wrapper {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: calc(100vh - 46px);
+  }
+
+  /* ── SIDEBAR / TOC ───────────────────────────────────── */
+  #sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 46px;
+    height: calc(100vh - 46px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 0 32px;
+  }
+
+  .toc-section {
+    padding: 0 0 8px;
+  }
+
+  .toc-chapter {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 16px 4px;
+    display: block;
+  }
+
+  .toc-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 16px 5px 20px;
+    font-family: var(--font-ui);
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: background 0.1s, color 0.1s;
+    border-left: 2px solid transparent;
+  }
+
+  .toc-link:hover {
+    background: var(--surface2);
+    color: var(--text);
+  }
+
+  .toc-link.active {
+    color: var(--text);
+    border-left-color: var(--accent);
+    background: var(--surface2);
+  }
+
+  .toc-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── MAIN CONTENT ────────────────────────────────────── */
+  #main {
+    padding: 32px 40px 80px;
+    max-width: 900px;
+  }
+
+  /* ── PAGE HEADER ─────────────────────────────────────── */
+  .page-header {
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-header h1 {
+    font-family: var(--font-ui);
+    font-size: 26px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .page-header .subtitle {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .build-badge {
+    display: inline-block;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+
+  /* ── CHAPTER HEADERS ─────────────────────────────────── */
+  .chapter-header {
+    margin: 48px 0 24px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .chapter-header h2 {
+    font-family: var(--font-ui);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .chapter-header .ch-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── SYSTEM GROUP HEADERS ────────────────────────────── */
+  .system-group {
+    margin: 32px 0 16px;
+  }
+
+  .system-label {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  /* ── SYNDROME CARDS ──────────────────────────────────── */
+  .syndrome-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px 10px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .card-header:hover { background: var(--surface2); }
+
+  .card-title {
+    font-family: var(--font-ui);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sys-pip {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .card-meta {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .expand-icon {
+    font-size: 10px;
+    color: var(--muted);
+    transition: transform 0.2s;
+    margin-left: 4px;
+  }
+
+  .syndrome-card.open .expand-icon { transform: rotate(180deg); }
+
+  .card-body {
+    display: none;
+    padding: 16px;
+  }
+
+  .syndrome-card.open .card-body { display: block; }
+
+  /* card sections */
+  .card-section {
+    margin-bottom: 16px;
+  }
+
+  .card-section:last-child { margin-bottom: 0; }
+
+  .section-label {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  /* therapy rows */
+  .therapy-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: start;
+    background: var(--surface2);
+    border-radius: 5px;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    border-left: 3px solid transparent;
+  }
+
+  .therapy-row.preferred { border-left-color: var(--preferred); }
+  .therapy-row.alternate { border-left-color: var(--alternate); }
+  .therapy-row.caution   { border-left-color: var(--caution); }
+
+  .therapy-drug {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .therapy-drug .dose {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 1px;
+  }
+
+  .therapy-drug a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dotted var(--border);
+  }
+
+  .therapy-drug a:hover { border-bottom-color: var(--accent); color: var(--accent); }
+
+  .duration-badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 7px;
+    color: var(--muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  /* pathogens */
+  .pathogen-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .pathogen-tag {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    color: var(--text);
+  }
+
+  .pathogen-tag a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .pathogen-tag a:hover { color: var(--accent); }
+
+  /* IV-to-PO */
+  .ivo-row {
+    display: grid;
+    grid-template-columns: 1fr 20px 1fr;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 4px;
+    font-family: var(--font-ui);
+    font-size: 12px;
+  }
+
+  .ivo-arrow { color: var(--muted); text-align: center; }
+
+  .ivo-iv {
+    background: var(--surface2);
+    border-radius: 4px;
+    padding: 5px 8px;
+    color: var(--text);
+  }
+
+  .ivo-po {
+    background: var(--surface2);
+    border-radius: 4px;
+    padding: 5px 8px;
+    color: var(--preferred);
+  }
+
+  /* pearls */
+  .pearl-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .pearl-list li {
+    font-family: var(--font-main);
+    font-size: 13px;
+    color: var(--text);
+    padding: 4px 0 4px 16px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pearl-list li:last-child { border-bottom: none; }
+
+  .pearl-list li::before {
+    content: '◆';
+    font-size: 7px;
+    color: var(--caution);
+    position: absolute;
+    left: 0;
+    top: 8px;
+  }
+
+  /* renal/hepatic dosing */
+  .dosing-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-ui);
+    font-size: 12px;
+  }
+
+  .dosing-table th {
+    background: var(--surface2);
+    padding: 5px 8px;
+    text-align: left;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--border);
+  }
+
+  .dosing-table td {
+    padding: 5px 8px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+
+  /* source badges */
+  .source-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  .source-badge {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+
+  .src-idsa   { background: #1a3a5c; color: #5ab0ff; border: 1px solid #2a5080; }
+  .src-ats    { background: #1a3a2a; color: #5adf90; border: 1px solid #2a5040; }
+  .src-aha    { background: #3a1a1a; color: #ff7070; border: 1px solid #502a2a; }
+  .src-cdc    { background: #2a2a1a; color: #dfdf5a; border: 1px solid #404020; }
+  .src-dhhs   { background: #2a1a3a; color: #b07fe8; border: 1px solid #3a2a50; }
+  .src-pmid   { background: #1a2a3a; color: #7ab0df; border: 1px solid #2a3a50; }
+  .src-ut     { background: #1a3a38; color: #5adfd8; border: 1px solid #2a5050; }
+  .src-escmid { background: #1a2a1a; color: #7adf7a; border: 1px solid #2a402a; }
+
+  /* crosslinks */
+  .crosslink-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .crosslink {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    color: var(--accent);
+    text-decoration: none;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    transition: background 0.1s;
+  }
+
+  .crosslink:hover { background: var(--border); }
+  .crosslink::before { content: '→ '; color: var(--muted); }
+
+  /* ── STUB NOTICE ─────────────────────────────────────── */
+  .stub-notice {
+    background: #1a2010;
+    border: 1px dashed #3a5020;
+    border-radius: 5px;
+    padding: 10px 14px;
+    font-family: var(--font-ui);
+    font-size: 12px;
+    color: #7aaf5a;
+    margin-bottom: 12px;
+  }
+
+  .stub-notice::before { content: '⚙ STUB — '; font-weight: 700; }
+
+  /* ── PLACEHOLDER CHAPTERS ────────────────────────────── */
+  .chapter-placeholder {
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 16px;
+    text-align: center;
+    color: var(--muted);
+    font-family: var(--font-ui);
+    font-size: 13px;
+  }
+
+  .chapter-placeholder strong { display: block; color: var(--text); margin-bottom: 6px; font-size: 14px; }
+
+  /* ── UTILITY ──────────────────────────────────────────── */
+  .text-preferred { color: var(--preferred); }
+  .text-alternate { color: var(--alternate); }
+  .text-caution   { color: var(--caution); }
+  .text-danger    { color: var(--danger); }
+  .text-muted     { color: var(--muted); }
+
+  /* ── RESPONSIVE / IPAD ───────────────────────────────── */
+  @media (max-width: 640px) {
+    #wrapper { grid-template-columns: 1fr; }
+    #sidebar {
+      position: static;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    #main { padding: 20px 16px 60px; }
+    .ivo-row { grid-template-columns: 1fr; }
+    .ivo-arrow { display: none; }
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── STANDALONE INSTALL BANNER ───────────────────────── */
+  #abx-install-banner {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(90deg, #0d2b24 0%, #0a1f1a 100%);
+    border-bottom: 1px solid var(--accent);
+    padding: 10px 16px;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: #c8ede6;
+  }
+  #abx-install-banner.visible { display: flex; }
+  #abx-install-banner .banner-icon { font-size: 20px; flex-shrink: 0; }
+  #abx-install-banner .banner-text { flex: 1; line-height: 1.4; }
+  #abx-install-banner .banner-text strong { color: var(--accent); }
+  #abx-install-banner .banner-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent);
+    color: #0a0d13;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 7px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  #abx-install-banner .banner-dismiss {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 4px;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── STANDALONE INSTALL BANNER (shown only when running inside an installed PWA) ── -->
+<div id="abx-install-banner" role="banner" aria-label="Install ABX Companion">
+  <span class="banner-icon">💊</span>
+  <span class="banner-text">
+    <strong>Install ABX Companion</strong> as a separate app —
+    open in Safari, then Share → Add to Home Screen
+  </span>
+  <a href="https://comstocd.github.io/Clinical-Reference-Suite/abx-companion.html"
+     target="_blank" rel="noopener" class="banner-link">
+    Open in Safari ↗
+  </a>
+  <button class="banner-dismiss" onclick="this.parentElement.classList.remove('visible'); sessionStorage.setItem('abx-banner-dismissed','1');" aria-label="Dismiss">✕</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TOP NAV
+════════════════════════════════════════════════════════ -->
+<nav id="topnav">
+  <span class="suite-title">GL · CRS</span>
+  <a href="index.html">Home</a>
+  <a href="im_guide.html">IM Guide</a>
+  <a href="id_guide.html">ID Guide</a>
+  <a href="abx-companion.html" class="active">ABX</a>
+  <a href="antimicrobial_stewardship_guide.html">Stewardship</a>
+  <a href="drug_reference_guide.html">Drug Ref</a>
+  <a href="drug_interactions.html">Interactions</a>
+  <a href="lab_values.html">Labs</a>
+  <a href="dx_framework.html">Dx Framework</a>
+  <a href="cardiology_consult.html">Cardiology</a>
+  <a href="neuro_consult.html">Neuro</a>
+  <a href="endo_consult.html">Endo</a>
+  <a href="procedures_guide.html">Procedures</a>
+  <a href="op_note.html">Op Note</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════
+     WRAPPER
+════════════════════════════════════════════════════════ -->
+<div id="wrapper">
+
+  <!-- ── SIDEBAR TOC ──────────────────────────────────── -->
+  <aside id="sidebar">
+
+    <div class="toc-section">
+      <span class="toc-chapter">ABX Companion</span>
+      <a href="#ch1" class="toc-link"><span class="toc-dot" style="background:var(--accent)"></span>Ch 1 · Principles</a>
+      <a href="#ch2" class="toc-link"><span class="toc-dot" style="background:var(--accent)"></span>Ch 2 · Empiric Therapy</a>
+      <a href="#ch3" class="toc-link"><span class="toc-dot" style="background:var(--accent)"></span>Ch 3 · Susceptibility</a>
+      <a href="#ch4" class="toc-link"><span class="toc-dot" style="background:var(--accent)"></span>Ch 4 · Fungi / Parasites</a>
+      <a href="#ch5" class="toc-link"><span class="toc-dot" style="background:var(--accent)"></span>Ch 5 · HIV / OIs</a>
+      <a href="#ch6" class="toc-link"><span class="toc-dot" style="background:var(--accent)"></span>Ch 6 · Prophylaxis</a>
+      <a href="#ch7" class="toc-link"><span class="toc-dot" style="background:var(--accent)"></span>Ch 7 · Pearls &amp; Pitfalls</a>
+      <a href="#ch8" class="toc-link"><span class="toc-dot" style="background:var(--accent)"></span>Ch 8 · Drug PK Cards</a>
+    </div>
+
+    <div class="toc-section">
+      <span class="toc-chapter">CNS</span>
+      <a href="#bm-ca" class="toc-link"><span class="toc-dot" style="background:var(--cns)"></span>Meningitis — Comm. Acq.</a>
+      <a href="#bm-ha" class="toc-link"><span class="toc-dot" style="background:var(--cns)"></span>Meningitis — HA / Post-op</a>
+      <a href="#brain-abscess" class="toc-link"><span class="toc-dot" style="background:var(--cns)"></span>Brain Abscess</a>
+    </div>
+
+    <div class="toc-section">
+      <span class="toc-chapter">Respiratory</span>
+      <a href="#cap-typical" class="toc-link"><span class="toc-dot" style="background:var(--resp)"></span>CAP — Typical</a>
+      <a href="#cap-atypical" class="toc-link"><span class="toc-dot" style="background:var(--resp)"></span>CAP — Atypical</a>
+      <a href="#hap-vap" class="toc-link"><span class="toc-dot" style="background:var(--resp)"></span>HAP / VAP</a>
+      <a href="#lung-abscess" class="toc-link"><span class="toc-dot" style="background:var(--resp)"></span>Lung Abscess / Aspiration</a>
+      <a href="#empyema" class="toc-link"><span class="toc-dot" style="background:var(--resp)"></span>Empyema</a>
+    </div>
+
+    <div class="toc-section">
+      <span class="toc-chapter">Cardiovascular</span>
+      <a href="#ie-native" class="toc-link"><span class="toc-dot" style="background:var(--cv)"></span>IE — Native Valve</a>
+      <a href="#ie-prosthetic" class="toc-link"><span class="toc-dot" style="background:var(--cv)"></span>IE — Prosthetic / CIED</a>
+    </div>
+
+    <div class="toc-section">
+      <span class="toc-chapter">GI / Hepatobiliary</span>
+      <a href="#cdiff" class="toc-link"><span class="toc-dot" style="background:var(--gi)"></span>C. difficile Infection</a>
+      <a href="#infectious-colitis" class="toc-link"><span class="toc-dot" style="background:var(--gi)"></span>Infectious Colitis</a>
+      <a href="#sbp" class="toc-link"><span class="toc-dot" style="background:var(--gi)"></span>SBP</a>
+      <a href="#cholangitis" class="toc-link"><span class="toc-dot" style="background:var(--gi)"></span>Cholangitis</a>
+      <a href="#cholecystitis" class="toc-link"><span class="toc-dot" style="background:var(--gi)"></span>Cholecystitis</a>
+      <a href="#hepatic-abscess" class="toc-link"><span class="toc-dot" style="background:var(--gi)"></span>Hepatic Abscess</a>
+    </div>
+
+    <div class="toc-section">
+      <span class="toc-chapter">Genitourinary</span>
+      <a href="#uti-uncomplicated" class="toc-link"><span class="toc-dot" style="background:var(--gu)"></span>Uncomplicated UTI</a>
+      <a href="#pyelo" class="toc-link"><span class="toc-dot" style="background:var(--gu)"></span>Pyelonephritis</a>
+      <a href="#cauti" class="toc-link"><span class="toc-dot" style="background:var(--gu)"></span>CAUTI</a>
+      <a href="#perinephric-abscess" class="toc-link"><span class="toc-dot" style="background:var(--gu)"></span>Perinephric Abscess</a>
+    </div>
+
+    <div class="toc-section">
+      <span class="toc-chapter">Parasites</span>
+      <a href="#parasites-blood" class="toc-link"><span class="toc-dot" style="background:#7fe8b0"></span>Blood — Malaria / Babesia</a>
+      <a href="#parasites-liver" class="toc-link"><span class="toc-dot" style="background:#7fe8b0"></span>Liver — Amebic / Echino</a>
+      <a href="#parasites-tissue" class="toc-link"><span class="toc-dot" style="background:#7fe8b0"></span>Tissue — Toxo / Strongy</a>
+      <a href="#cellulitis" class="toc-link"><span class="toc-dot" style="background:var(--ssti)"></span>Cellulitis / Erysipelas</a>
+      <a href="#nf" class="toc-link"><span class="toc-dot" style="background:var(--ssti)"></span>Necrotizing Fasciitis</a>
+      <a href="#dfi" class="toc-link"><span class="toc-dot" style="background:var(--ssti)"></span>Diabetic Foot Infection</a>
+      <a href="#osteo" class="toc-link"><span class="toc-dot" style="background:var(--ssti)"></span>Osteomyelitis</a>
+    </div>
+
+    <div class="toc-section">
+      <span class="toc-chapter">Sepsis</span>
+      <a href="#sepsis-unk" class="toc-link"><span class="toc-dot" style="background:var(--sepsis)"></span>Sepsis — Unknown Source</a>
+      <a href="#sepsis-biliary" class="toc-link"><span class="toc-dot" style="background:var(--sepsis)"></span>Sepsis — Biliary</a>
+      <a href="#bsi-staph" class="toc-link"><span class="toc-dot" style="background:var(--sepsis)"></span>BSI — S. aureus</a>
+    </div>
+
+    <div class="toc-section">
+      <span class="toc-chapter">Immunocompromised</span>
+      <a href="#fn" class="toc-link"><span class="toc-dot" style="background:var(--immuno)"></span>Febrile Neutropenia</a>
+      <a href="#pcp" class="toc-link"><span class="toc-dot" style="background:var(--immuno)"></span>PCP</a>
+      <a href="#iai" class="toc-link"><span class="toc-dot" style="background:var(--immuno)"></span>Intra-abdominal Infection</a>
+      <a href="#septic-arthritis" class="toc-link"><span class="toc-dot" style="background:var(--immuno)"></span>Septic Arthritis</a>
+    </div>
+
+  </aside>
+
+  <!-- ── MAIN CONTENT ─────────────────────────────────── -->
+  <main id="main">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <h1>ABX Companion <span class="build-badge">BUILD #1</span></h1>
+      <p class="subtitle">Syndrome-based empiric therapy framework · Cunha organizational structure · Primary source content<br>
+      <span style="font-size:11px; color:var(--muted)">Last updated: 2026-03-21 · Content: IDSA / ATS / ESCMID / DHHS guidelines + primary literature</span></p>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════
+         CH 1 — PRINCIPLES
+    ═══════════════════════════════════════════════ -->
+    <div id="ch1">
+      <div class="chapter-header">
+        <span class="ch-num">CH 1</span>
+        <h2>Overview &amp; Principles</h2>
+      </div>
+
+      <div class="chapter-placeholder">
+        <strong>Antibiotic Selection Framework · PK/PD Concepts · IV-to-PO Criteria · Stewardship · Spectrum Summaries</strong>
+        Phase 2 build — interactive IV-to-PO switch tool and spectrum matrix planned.
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════
+         CH 2 — EMPIRIC THERAPY
+    ═══════════════════════════════════════════════ -->
+    <div id="ch2">
+      <div class="chapter-header">
+        <span class="ch-num">CH 2</span>
+        <h2>Empiric Therapy by Syndrome</h2>
+      </div>
+
+
+      <!-- ─── CNS ──────────────────────────────────── -->
+      <div class="system-group">
+        <span class="system-label" style="background:#1a1230; color:var(--cns); border:1px solid #2a1a50;">● CNS Infections</span>
+      </div>
+
+      <!-- 1. Bacterial Meningitis — CA -->
+      <div class="syndrome-card" id="bm-ca">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--cns)"></span>
+            Bacterial Meningitis — Community-Acquired
+          </div>
+          <div class="card-meta">
+            <span class="expand-icon">▼</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+
+          <div class="card-section">
+            <div class="section-label">Usual Pathogens</div>
+            <div class="pathogen-list">
+              <span class="pathogen-tag"><a href="id_guide.html#strep-pneumo">S. pneumoniae</a></span>
+              <span class="pathogen-tag"><a href="id_guide.html#n-meningitidis">N. meningitidis</a></span>
+              <span class="pathogen-tag"><a href="id_guide.html#listeria">L. monocytogenes</a> (age &gt;50, immunocomp)</span>
+              <span class="pathogen-tag">H. influenzae (unvaccinated)</span>
+            </div>
+          </div>
+
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 2 g IV q12h
+                <div class="dose">+ <a href="drug_reference_guide.html#vancomycin">Vancomycin</a> 25–30 mg/kg/day IV ÷ q8–12h (target AUC 400–600)</div>
+                <div class="dose">+ <a href="drug_reference_guide.html#dexamethasone">Dexamethasone</a> 0.15 mg/kg IV q6h × 4 days (give before or with first ABX dose)</div>
+                <div class="dose">+ <a href="drug_reference_guide.html#ampicillin">Ampicillin</a> 2 g IV q4h if Listeria risk</div>
+              </div>
+              <span class="duration-badge">10–14 d</span>
+            </div>
+          </div>
+
+          <div class="card-section">
+            <div class="section-label">IV-to-PO Switch</div>
+            <div class="ivo-row">
+              <div class="ivo-iv">Ceftriaxone IV</div>
+              <div class="ivo-arrow">→</div>
+              <div class="ivo-po">No reliable oral equivalent — complete IV course</div>
+            </div>
+          </div>
+
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Do not delay antibiotics for CT scan if no focal neuro findings and no papilledema — blood cultures, then start ABX immediately</li>
+              <li>Dexamethasone benefit greatest for S. pneumoniae; may reduce rifampin penetration if used for Listeria</li>
+              <li>LP opening pressure, cell count, glucose, protein, Gram stain, culture, meningococcal/pneumococcal PCR panel</li>
+              <li>Add Ampicillin if age &gt;50, immunocompromised, alcoholism, or pregnancy (Listeria coverage)</li>
+            </ul>
+          </div>
+
+          <div class="card-section">
+            <div class="section-label">Renal / Hepatic Dosing Notes</div>
+            <div class="text-muted" style="font-family:var(--font-ui);font-size:12px;">
+              Vancomycin: AUC-guided dosing — adjust per pharmacy / PK consult. Ceftriaxone: no renal adjustment. Ampicillin: reduce dose if CrCl &lt;10.
+            </div>
+          </div>
+
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/bacterial-meningitis/" target="_blank" class="source-badge src-idsa">IDSA 2004/Update</a>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="source-badge src-pmid">de Gans NEJM 2002</a>
+            <a href="im_guide.html#meningitis" class="source-badge src-ut">→ IMCRG</a>
+            <div style="flex:1"></div>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#ceftriaxone" class="crosslink">Ceftriaxone</a>
+              <a href="drug_reference_guide.html#vancomycin" class="crosslink">Vancomycin</a>
+              <a href="id_guide.html#strep-pneumo" class="crosslink">S. pneumoniae</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Bacterial Meningitis — HA -->
+      <div class="syndrome-card" id="bm-ha">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--cns)"></span>
+            Bacterial Meningitis — Healthcare-Associated / Post-Neurosurgical
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Usual Pathogens</div>
+            <div class="pathogen-list">
+              <span class="pathogen-tag"><a href="id_guide.html#s-aureus">S. aureus / CoNS</a></span>
+              <span class="pathogen-tag">Gram-negative rods (<a href="id_guide.html#pseudomonas">Pseudomonas</a>, <a href="id_guide.html#klebsiella">Klebsiella</a>, <a href="id_guide.html#acinetobacter">Acinetobacter</a>)</span>
+              <span class="pathogen-tag">S. pneumoniae (post-basilar skull #)</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#vancomycin">Vancomycin</a> (AUC-guided)
+                <div class="dose">+ <a href="drug_reference_guide.html#cefepime">Cefepime</a> 2 g IV q8h <em>or</em> <a href="drug_reference_guide.html#meropenem">Meropenem</a> 2 g IV q8h</div>
+              </div>
+              <span class="duration-badge">21 d</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/bacterial-meningitis/" target="_blank" class="source-badge src-idsa">IDSA 2004</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#vancomycin" class="crosslink">Vancomycin</a>
+              <a href="drug_reference_guide.html#cefepime" class="crosslink">Cefepime</a>
+              <a href="drug_reference_guide.html#meropenem" class="crosslink">Meropenem</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Brain Abscess -->
+      <div class="syndrome-card" id="brain-abscess">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--cns)"></span>
+            Brain Abscess
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Usual Pathogens</div>
+            <div class="pathogen-list">
+              <span class="pathogen-tag">Streptococcal spp. (milleri group)</span>
+              <span class="pathogen-tag">Bacteroides spp.</span>
+              <span class="pathogen-tag">Staphylococcus (hematogenous)</span>
+              <span class="pathogen-tag">Toxoplasma (immunocomp → see Ch 5)</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#metronidazole">Metronidazole</a> 500 mg IV q8h
+                <div class="dose">+ <a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 2 g IV q12h</div>
+                <div class="dose">Add Vancomycin if post-neurosurgical or hematogenous S. aureus source</div>
+              </div>
+              <span class="duration-badge">6–8 wk</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="#" class="source-badge src-idsa">IDSA / UpToDate</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#metronidazole" class="crosslink">Metronidazole</a>
+              <a href="drug_reference_guide.html#ceftriaxone" class="crosslink">Ceftriaxone</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ─── RESPIRATORY ───────────────────────────── -->
+      <div class="system-group">
+        <span class="system-label" style="background:#0d1e30; color:var(--resp); border:1px solid #1a3550;">● Lower Respiratory</span>
+      </div>
+
+      <!-- 4. CAP Typical -->
+      <div class="syndrome-card" id="cap-typical">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--resp)"></span>
+            Community-Acquired Pneumonia — Typical
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Usual Pathogens</div>
+            <div class="pathogen-list">
+              <span class="pathogen-tag"><a href="id_guide.html#strep-pneumo">S. pneumoniae</a></span>
+              <span class="pathogen-tag">H. influenzae</span>
+              <span class="pathogen-tag">Klebsiella (alcoholism, aspiration risk)</span>
+              <span class="pathogen-tag">S. aureus (post-influenza)</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Outpatient (no comorbidities):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#amoxicillin">Amoxicillin</a> 1 g PO TID × 5 d <em>or</em> <a href="drug_reference_guide.html#doxycycline">Doxycycline</a> 100 mg PO BID × 5 d</div>
+              </div>
+              <span class="duration-badge">5 d</span>
+            </div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Inpatient (non-ICU):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 1–2 g IV q24h + <a href="drug_reference_guide.html#azithromycin">Azithromycin</a> 500 mg IV/PO q24h</div>
+                <div class="dose"><em>or</em> <a href="drug_reference_guide.html#levofloxacin">Levofloxacin</a> 750 mg IV/PO q24h monotherapy</div>
+              </div>
+              <span class="duration-badge">5 d</span>
+            </div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>ICU:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 1–2 g IV q24h + <a href="drug_reference_guide.html#azithromycin">Azithromycin</a> 500 mg IV q24h</div>
+                <div class="dose">If Pseudomonas risk: <a href="drug_reference_guide.html#piperacillin-tazobactam">Pip-tazo</a> + <a href="drug_reference_guide.html#levofloxacin">Levofloxacin</a></div>
+              </div>
+              <span class="duration-badge">5–7 d</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">IV-to-PO Switch</div>
+            <div class="ivo-row">
+              <div class="ivo-iv">Ceftriaxone + Azithromycin IV</div>
+              <div class="ivo-arrow">→</div>
+              <div class="ivo-po">Amoxicillin-clavulanate + Azithromycin PO <em>or</em> Levofloxacin 750 mg PO</div>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>CURB-65 or PSI to guide inpatient vs. outpatient decision</li>
+              <li>Blood cultures before antibiotics in ICU-level illness — low yield in non-severe CAP</li>
+              <li>Urine Ag for Legionella and pneumococcus if ICU or severe</li>
+              <li>Steroids not routinely recommended; consider if refractory shock or severe inflammatory response</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/community-acquired-pneumonia-cap-in-adults/" target="_blank" class="source-badge src-idsa">IDSA/ATS 2019</a>
+            <a href="#" class="source-badge src-ats">ATS</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#ceftriaxone" class="crosslink">Ceftriaxone</a>
+              <a href="drug_reference_guide.html#azithromycin" class="crosslink">Azithromycin</a>
+              <a href="drug_reference_guide.html#levofloxacin" class="crosslink">Levofloxacin</a>
+              <a href="im_guide.html#cap" class="crosslink">IMCRG CAP</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. CAP Atypical -->
+      <div class="syndrome-card" id="cap-atypical">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--resp)"></span>
+            Community-Acquired Pneumonia — Atypical
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Usual Pathogens</div>
+            <div class="pathogen-list">
+              <span class="pathogen-tag">Mycoplasma pneumoniae</span>
+              <span class="pathogen-tag">Chlamydophila pneumoniae</span>
+              <span class="pathogen-tag">Legionella pneumophila</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#doxycycline">Doxycycline</a> 100 mg PO BID
+                <div class="dose"><em>or</em> <a href="drug_reference_guide.html#azithromycin">Azithromycin</a> 500 mg PO q24h</div>
+                <div class="dose"><em>or</em> <a href="drug_reference_guide.html#levofloxacin">Levofloxacin</a> 750 mg PO q24h (Legionella preferred)</div>
+              </div>
+              <span class="duration-badge">5 d (Myco/Chlam) · 5–10 d (Legionella)</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/community-acquired-pneumonia-cap-in-adults/" target="_blank" class="source-badge src-idsa">IDSA/ATS 2019</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#doxycycline" class="crosslink">Doxycycline</a>
+              <a href="drug_reference_guide.html#levofloxacin" class="crosslink">Levofloxacin</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. HAP / VAP -->
+      <div class="syndrome-card" id="hap-vap">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--resp)"></span>
+            Hospital-Acquired / Ventilator-Associated Pneumonia
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Usual Pathogens</div>
+            <div class="pathogen-list">
+              <span class="pathogen-tag"><a href="id_guide.html#s-aureus">MRSA</a></span>
+              <span class="pathogen-tag"><a href="id_guide.html#pseudomonas">P. aeruginosa</a></span>
+              <span class="pathogen-tag"><a href="id_guide.html#klebsiella">Klebsiella</a> / <a href="id_guide.html#enterobacter">Enterobacter</a></span>
+              <span class="pathogen-tag"><a href="id_guide.html#acinetobacter">Acinetobacter</a> (late HAP)</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                Low MDR risk: <a href="drug_reference_guide.html#piperacillin-tazobactam">Pip-tazo</a> 4.5 g IV q6h (extended infusion)
+                <div class="dose"><em>or</em> <a href="drug_reference_guide.html#cefepime">Cefepime</a> 2 g IV q8h</div>
+              </div>
+              <span class="duration-badge">7 d</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                High MDR risk / MRSA risk: Add <a href="drug_reference_guide.html#vancomycin">Vancomycin</a> or <a href="drug_reference_guide.html#linezolid">Linezolid</a>
+                <div class="dose">XDR/carbapenem-resistant: ID consult; consider <a href="drug_reference_guide.html#ceftazidime-avibactam">Ceftazidime-avibactam</a>, <a href="drug_reference_guide.html#cefiderocol">Cefiderocol</a></div>
+              </div>
+              <span class="duration-badge">7 d</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/management-of-adults-with-hospital-acquired-and-ventilator-associated-pneumonia/" target="_blank" class="source-badge src-idsa">IDSA/ATS 2016</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#piperacillin-tazobactam" class="crosslink">Pip-Tazo</a>
+              <a href="drug_reference_guide.html#vancomycin" class="crosslink">Vancomycin</a>
+              <a href="id_guide.html#mrsa" class="crosslink">MRSA</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Lung Abscess -->
+      <div class="syndrome-card" id="lung-abscess">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--resp)"></span>
+            Lung Abscess / Aspiration Pneumonia
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#amoxicillin-clavulanate">Amoxicillin-clavulanate</a> 875/125 mg PO BID (mild, outpatient)
+                <div class="dose"><em>or</em> <a href="drug_reference_guide.html#clindamycin">Clindamycin</a> 600 mg IV q8h → 300 mg PO QID (if PCN allergy)</div>
+              </div>
+              <span class="duration-badge">3–6 wk</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="#" class="source-badge src-idsa">IDSA / UpToDate</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#clindamycin" class="crosslink">Clindamycin</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMPYEMA -->
+      <div class="syndrome-card" id="empyema">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--resp)"></span>
+            Empyema / Parapneumonic Effusion
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Usual Pathogens</div>
+            <div class="pathogen-list">
+              <span class="pathogen-tag">S. pneumoniae</span>
+              <span class="pathogen-tag">S. aureus (MSSA/MRSA)</span>
+              <span class="pathogen-tag">Streptococcal spp. (milleri group)</span>
+              <span class="pathogen-tag">Gram-negative rods (healthcare-associated)</span>
+              <span class="pathogen-tag">Oral anaerobes (aspiration-associated)</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Light's Criteria — Exudate vs Transudate</div>
+            <div style="font-family:var(--font-ui);font-size:12px;color:var(--muted);background:var(--surface2);padding:8px 10px;border-radius:5px;">
+              Exudate if ANY of: pleural/serum protein &gt;0.5 · pleural/serum LDH &gt;0.6 · pleural LDH &gt;⅔ ULN serum LDH
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Community-acquired:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 2 g IV q24h + <a href="drug_reference_guide.html#metronidazole">Metronidazole</a> 500 mg IV q8h</div>
+                <div class="dose"><em>or</em> <a href="drug_reference_guide.html#amoxicillin-clavulanate">Amoxicillin-clavulanate</a> IV → PO step-down</div>
+              </div>
+              <span class="duration-badge">3–6 wk (drainage-dependent)</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>Healthcare-associated / MRSA risk:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#vancomycin">Vancomycin</a> + <a href="drug_reference_guide.html#piperacillin-tazobactam">Pip-tazo</a> 4.5 g IV q6h</div>
+              </div>
+              <span class="duration-badge">3–6 wk</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Drainage Decision (BTS Framework)</div>
+            <table class="dosing-table">
+              <thead><tr><th>Pleural Fluid Feature</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr><td>pH &lt;7.2</td><td>Drain — high risk of loculation</td></tr>
+                <tr><td>Glucose &lt;60 mg/dL</td><td>Drain</td></tr>
+                <tr><td>LDH &gt;1000 IU/L</td><td>Drain</td></tr>
+                <tr><td>Frank pus (frank empyema)</td><td>Drain immediately — all frank empyemas</td></tr>
+                <tr><td>Positive Gram stain / culture</td><td>Drain</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Intrapleural Fibrinolytics</div>
+            <div style="font-family:var(--font-ui);font-size:12px;color:var(--text);">
+              tPA 10 mg + DNase 5 mg intrapleurally q12h × 6 doses for multiloculated empyema not draining adequately with chest tube alone (MIST-2 trial).
+              <a href="https://pubmed.ncbi.nlm.nih.gov/21381049/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;vertical-align:middle;margin-left:4px;">MIST-2 PMID 21381049</a>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Antibiotics alone are insufficient for frank empyema — drainage is mandatory and drives duration of therapy</li>
+              <li>Thoracic surgery (VATS) for failed tube thoracostomy or organized/loculated empyema not responding to fibrinolytics</li>
+              <li>Decortication for chronic empyema with trapped lung</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://www.brit-thoracic.org.uk/quality-improvement/guidelines/pleural-disease/" target="_blank" class="source-badge src-ats">BTS 2010</a>
+            <a href="#" class="source-badge src-ats">ATS / IDSA</a>
+            <div class="crosslink-row">
+              <a href="#lung-abscess" class="crosslink">Lung Abscess card</a>
+              <a href="drug_reference_guide.html#ceftriaxone" class="crosslink">Ceftriaxone</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="system-group">
+        <span class="system-label" style="background:#2a0d0d; color:var(--cv); border:1px solid #501a1a;">● Cardiovascular</span>
+      </div>
+
+      <!-- 8. IE Native -->
+      <div class="syndrome-card" id="ie-native">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--cv)"></span>
+            Infective Endocarditis — Native Valve
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Usual Pathogens</div>
+            <div class="pathogen-list">
+              <span class="pathogen-tag">S. aureus (MSSA / MRSA)</span>
+              <span class="pathogen-tag">Viridans group Streptococci</span>
+              <span class="pathogen-tag">Enterococcus faecalis</span>
+              <span class="pathogen-tag">HACEK organisms</span>
+              <span class="pathogen-tag">CoNS (subacute)</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Empiric (pre-culture data)</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#vancomycin">Vancomycin</a> (AUC-guided) + <a href="drug_reference_guide.html#gentamicin">Gentamicin</a> 3 mg/kg/day (Enterococcus synergy if appropriate)
+                <div class="dose">Modify urgently when sensitivities return — organism-directed therapy critical</div>
+              </div>
+              <span class="duration-badge">4–6 wk</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>3 sets blood cultures from separate sites before starting ABX — timing matters less than obtaining all sets</li>
+              <li>Echocardiography: TTE first; TEE if TTE non-diagnostic, prosthetic valve, or S. aureus BSI</li>
+              <li>MSSA NVE: Nafcillin/Oxacillin superior to Vancomycin — always confirm susceptibilities</li>
+              <li>Surgical consultation early in S. aureus NVE</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/infective-endocarditis/" target="_blank" class="source-badge src-idsa">IDSA 2015</a>
+            <a href="#" class="source-badge src-aha">AHA 2015</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#vancomycin" class="crosslink">Vancomycin</a>
+              <a href="drug_reference_guide.html#nafcillin" class="crosslink">Nafcillin</a>
+              <a href="im_guide.html#endocarditis" class="crosslink">IMCRG IE</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. IE Prosthetic / CIED -->
+      <div class="syndrome-card" id="ie-prosthetic">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--cv)"></span>
+            Infective Endocarditis — Prosthetic Valve / CIED
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#vancomycin">Vancomycin</a> (AUC-guided)
+                <div class="dose">+ <a href="drug_reference_guide.html#rifampin">Rifampin</a> 300–600 mg PO/IV q8–12h (add after BSI cleared)</div>
+                <div class="dose">+ <a href="drug_reference_guide.html#gentamicin">Gentamicin</a> 3 mg/kg/day (first 2 weeks)</div>
+              </div>
+              <span class="duration-badge">≥6 wk</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/infective-endocarditis/" target="_blank" class="source-badge src-idsa">IDSA 2015</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#vancomycin" class="crosslink">Vancomycin</a>
+              <a href="drug_reference_guide.html#rifampin" class="crosslink">Rifampin</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ─── GI ────────────────────────────────────── -->
+      <div class="system-group">
+        <span class="system-label" style="background:#2a1e0d; color:var(--gi); border:1px solid #503a1a;">● Gastrointestinal</span>
+      </div>
+
+      <!-- 10. C. diff -->
+      <div class="syndrome-card" id="cdiff">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--gi)"></span>
+            <em>C. difficile</em> Infection
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Severity Classification (IDSA 2021)</div>
+            <div style="font-family:var(--font-ui);font-size:12px;color:var(--muted);">
+              <strong style="color:var(--text)">Non-severe:</strong> WBC ≤15,000 + SCr &lt;1.5 mg/dL ·
+              <strong style="color:var(--text)">Severe:</strong> WBC &gt;15,000 or SCr ≥1.5 mg/dL ·
+              <strong style="color:var(--text)">Fulminant:</strong> Hypotension / ileus / megacolon
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Preferred Therapy by Severity</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Non-severe / Severe (initial episode):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#fidaxomicin">Fidaxomicin</a> 200 mg PO BID (preferred over Vancomycin per IDSA 2021)</div>
+                <div class="dose"><em>or</em> <a href="drug_reference_guide.html#vancomycin-oral">Vancomycin</a> 125 mg PO QID</div>
+              </div>
+              <span class="duration-badge">10 d</span>
+            </div>
+            <div class="therapy-row caution">
+              <div class="therapy-drug">
+                <strong>Fulminant:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#vancomycin-oral">Vancomycin</a> 500 mg PO/NG QID + <a href="drug_reference_guide.html#metronidazole">Metronidazole</a> 500 mg IV q8h</div>
+                <div class="dose">Surgical consult immediately; consider FMT / bezlotoxumab discussion</div>
+              </div>
+              <span class="duration-badge">Until stable</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Metronidazole no longer first-line for any severity per IDSA 2021</li>
+              <li>Fidaxomicin reduces recurrence vs. Vancomycin — cost-effectiveness favorable in high-recurrence risk</li>
+              <li>Bezlotoxumab (Zinplava) monoclonal antibody for recurrence prevention if high risk</li>
+              <li>Discontinue offending antibiotic as soon as clinically feasible</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/clostridium-difficile/" target="_blank" class="source-badge src-idsa">IDSA 2021</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#fidaxomicin" class="crosslink">Fidaxomicin</a>
+              <a href="drug_reference_guide.html#vancomycin-oral" class="crosslink">Vancomycin PO</a>
+              <a href="im_guide.html#cdiff" class="crosslink">IMCRG CDI</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11. SBP -->
+      <div class="syndrome-card" id="sbp">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--gi)"></span>
+            Spontaneous Bacterial Peritonitis
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#cefotaxime">Cefotaxime</a> 2 g IV q8h <em>or</em> <a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 2 g IV q24h
+                <div class="dose">+ <a href="drug_reference_guide.html#albumin">Albumin</a> 1.5 g/kg IV on day 1, 1 g/kg on day 3 (prevents HRS)</div>
+              </div>
+              <span class="duration-badge">5 d</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="#" class="source-badge src-idsa">AASLD / EASL</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#ceftriaxone" class="crosslink">Ceftriaxone</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── HEPATOBILIARY (expanded) ─────────────── -->
+      <div class="system-group">
+        <span class="system-label" style="background:#2a1e0d; color:var(--gi); border:1px solid #503a1a;">● Hepatobiliary / GI (continued)</span>
+      </div>
+
+      <!-- INFECTIOUS COLITIS -->
+      <div class="syndrome-card" id="infectious-colitis">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--gi)"></span>
+            Infectious Colitis / Gastroenteritis
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Pathogen-Directed Therapy</div>
+            <table class="dosing-table">
+              <thead><tr><th>Organism</th><th>Preferred Therapy</th><th>Duration</th><th>Notes</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><a href="id_guide.html#salmonella">Salmonella typhi (Typhoid)</a></td>
+                  <td><a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 2 g IV q24h <em>or</em> <a href="drug_reference_guide.html#ciprofloxacin">Cipro</a> 500 mg PO BID (if susceptible)</td>
+                  <td>7–14 d</td>
+                  <td>Rising FQ resistance — check susceptibility; Azithromycin for resistant strains</td>
+                </tr>
+                <tr>
+                  <td><a href="id_guide.html#salmonella">Non-typhoidal Salmonella</a></td>
+                  <td>Usually self-limited — antibiotics NOT indicated in immunocompetent host</td>
+                  <td>—</td>
+                  <td>Treat if: bacteremia, immunocompromised, age &lt;1 or &gt;50, prosthetic hardware</td>
+                </tr>
+                <tr>
+                  <td>Shigella</td>
+                  <td><a href="drug_reference_guide.html#azithromycin">Azithromycin</a> 500 mg PO q24h (preferred due to FQ resistance) <em>or</em> <a href="drug_reference_guide.html#ciprofloxacin">Cipro</a> if susceptible</td>
+                  <td>3–5 d</td>
+                  <td>Avoid antimotility agents</td>
+                </tr>
+                <tr>
+                  <td>Campylobacter</td>
+                  <td><a href="drug_reference_guide.html#azithromycin">Azithromycin</a> 500 mg PO q24h</td>
+                  <td>3–5 d</td>
+                  <td>High FQ resistance; treat only severe/prolonged illness or immunocompromised</td>
+                </tr>
+                <tr>
+                  <td>STEC (E. coli O157:H7)</td>
+                  <td><strong>Antibiotics contraindicated</strong></td>
+                  <td>—</td>
+                  <td>Increases HUS risk — avoid antibiotics and antimotility agents</td>
+                </tr>
+                <tr>
+                  <td>Yersinia enterocolitica</td>
+                  <td><a href="drug_reference_guide.html#trimethoprim-sulfamethoxazole">TMP-SMX</a> DS BID <em>or</em> <a href="drug_reference_guide.html#doxycycline">Doxycycline</a></td>
+                  <td>5–7 d</td>
+                  <td>Treat only invasive disease; pseudoappendicitis presentation</td>
+                </tr>
+                <tr>
+                  <td>Vibrio cholerae</td>
+                  <td><a href="drug_reference_guide.html#doxycycline">Doxycycline</a> 300 mg PO × 1 dose</td>
+                  <td>Single dose</td>
+                  <td>Aggressive IV rehydration is the primary intervention</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Most bacterial gastroenteritis is self-limited — antibiotics reserved for severe illness, immunocompromised, or bacteremia risk</li>
+              <li>STEC (O157:H7): antibiotics increase Shiga toxin release and HUS risk — this is a firm contraindication</li>
+              <li>Non-typhoidal Salmonella in immunocompetent adults: do not treat — prolongs carrier state</li>
+              <li>Culture stool before empiric therapy in severe cases; blood cultures if systemic signs</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/food-borne-diseases/" target="_blank" class="source-badge src-idsa">IDSA Foodborne 2017</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#azithromycin" class="crosslink">Azithromycin</a>
+              <a href="id_guide.html#salmonella" class="crosslink">Salmonella</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHOLANGITIS -->
+      <div class="syndrome-card" id="cholangitis">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--gi)"></span>
+            Acute Cholangitis (Biliary Tract Infection)
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Usual Pathogens</div>
+            <div class="pathogen-list">
+              <span class="pathogen-tag">E. coli</span>
+              <span class="pathogen-tag">Klebsiella</span>
+              <span class="pathogen-tag">Enterococcus</span>
+              <span class="pathogen-tag">Bacteroides (anaerobes)</span>
+              <span class="pathogen-tag">Pseudomonas (post-ERCP / stented)</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Tokyo Guidelines 2018 — Severity Grading</div>
+            <table class="dosing-table">
+              <thead><tr><th>Grade</th><th>Criteria</th><th>Intervention Timing</th></tr></thead>
+              <tbody>
+                <tr><td><strong style="color:var(--preferred)">Grade I (Mild)</strong></td><td>Charcot's triad; no organ dysfunction; responds to initial medical therapy</td><td>Elective biliary drainage</td></tr>
+                <tr><td><strong style="color:var(--caution)">Grade II (Moderate)</strong></td><td>High WBC (&gt;12,000), fever &gt;39°C, age &gt;75, bilirubin &gt;4, hypoalbuminemia; no organ failure</td><td>Early biliary drainage (&lt;72h)</td></tr>
+                <tr><td><strong style="color:var(--danger)">Grade III (Severe)</strong></td><td>Organ dysfunction (CV, neuro, respiratory, renal, hepatic, hematologic)</td><td>Urgent drainage (&lt;24h) + ICU</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Mild–Moderate (community-acquired):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 2 g IV q24h + <a href="drug_reference_guide.html#metronidazole">Metronidazole</a> 500 mg IV q8h</div>
+                <div class="dose"><em>or</em> <a href="drug_reference_guide.html#piperacillin-tazobactam">Pip-tazo</a> 4.5 g IV q6h (monotherapy)</div>
+              </div>
+              <span class="duration-badge">4–7 d post-drainage</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>Severe / Healthcare-associated / post-ERCP:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#meropenem">Meropenem</a> 1 g IV q8h <em>or</em> <a href="drug_reference_guide.html#imipenem">Imipenem</a> 500 mg IV q6h</div>
+                <div class="dose">Add <a href="drug_reference_guide.html#vancomycin">Vancomycin</a> if Enterococcus concern (prosthetic biliary hardware, recurrent)</div>
+              </div>
+              <span class="duration-badge">4–7 d post-drainage</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Charcot's triad: RUQ pain + fever + jaundice. Reynolds' pentad adds AMS + septic shock — urgent biliary decompression required</li>
+              <li>Biliary drainage (ERCP preferred; PTC or surgical if ERCP fails) is the definitive treatment — antibiotics are adjunctive</li>
+              <li>Blood cultures before antibiotics — bacteremia in 20–30% of Grade II–III cholangitis</li>
+              <li>Post-ERCP cholangitis: cover Pseudomonas and resistant GNRs — ERCP instruments harbor resistant organisms</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://link.springer.com/article/10.1007/s00534-018-0744-x" target="_blank" class="source-badge src-idsa">Tokyo Guidelines 2018</a>
+            <div class="crosslink-row">
+              <a href="#sepsis-biliary" class="crosslink">Biliary Sepsis card</a>
+              <a href="drug_reference_guide.html#piperacillin-tazobactam" class="crosslink">Pip-Tazo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHOLECYSTITIS -->
+      <div class="syndrome-card" id="cholecystitis">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--gi)"></span>
+            Acute Cholecystitis
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Usual Pathogens</div>
+            <div class="pathogen-list">
+              <span class="pathogen-tag">E. coli</span>
+              <span class="pathogen-tag">Klebsiella</span>
+              <span class="pathogen-tag">Enterococcus</span>
+              <span class="pathogen-tag">Bacteroides / anaerobes (gangrenous / emphysematous)</span>
+              <span class="pathogen-tag">Clostridium perfringens (emphysematous CC)</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Tokyo Guidelines 2018 — Severity Grading</div>
+            <table class="dosing-table">
+              <thead><tr><th>Grade</th><th>Key Features</th><th>Management</th></tr></thead>
+              <tbody>
+                <tr><td><strong style="color:var(--preferred)">Grade I (Mild)</strong></td><td>No organ dysfunction; responds to medical therapy</td><td>Early cholecystectomy preferred (within 72h)</td></tr>
+                <tr><td><strong style="color:var(--caution)">Grade II (Moderate)</strong></td><td>WBC &gt;18,000; palpable mass; &gt;72h symptoms; significant local inflammation</td><td>Early cholecystectomy or percutaneous drainage if high surgical risk</td></tr>
+                <tr><td><strong style="color:var(--danger)">Grade III (Severe)</strong></td><td>Organ dysfunction</td><td>Urgent percutaneous cholecystostomy + delayed interval cholecystectomy</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Mild–Moderate:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 2 g IV q24h + <a href="drug_reference_guide.html#metronidazole">Metronidazole</a> 500 mg IV q8h</div>
+                <div class="dose"><em>or</em> <a href="drug_reference_guide.html#piperacillin-tazobactam">Pip-tazo</a> 4.5 g IV q6h</div>
+              </div>
+              <span class="duration-badge">24–48h perioperative then discontinue if cholecystectomy performed</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>Severe / Emphysematous / Gangrenous:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#piperacillin-tazobactam">Pip-tazo</a> 4.5 g IV q6h <em>or</em> <a href="drug_reference_guide.html#meropenem">Meropenem</a> 1 g IV q8h</div>
+              </div>
+              <span class="duration-badge">4–7 d (longer if source control delayed)</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Emphysematous cholecystitis (gas in gallbladder wall on CT): Clostridium perfringens — high mortality, emergent surgery</li>
+              <li>Acalculous cholecystitis: occurs in critically ill patients (ICU, TPN, trauma, burns) — US or CT with HIDA scan if unclear</li>
+              <li>If cholecystectomy performed promptly, post-op antibiotics are not necessary beyond perioperative prophylaxis in Grade I–II</li>
+              <li>Murphy's sign (inspiratory arrest on RUQ palpation) has high specificity; sonographic Murphy's sign on US is highly specific</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://link.springer.com/article/10.1007/s00534-018-0744-x" target="_blank" class="source-badge src-idsa">Tokyo Guidelines 2018</a>
+            <div class="crosslink-row">
+              <a href="#cholangitis" class="crosslink">Cholangitis card</a>
+              <a href="#sepsis-biliary" class="crosslink">Biliary Sepsis card</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEPATIC ABSCESS -->
+      <div class="syndrome-card" id="hepatic-abscess">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--gi)"></span>
+            Hepatic Abscess — Pyogenic &amp; Amebic
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Pyogenic Hepatic Abscess</div>
+            <div class="pathogen-list" style="margin-bottom:10px;">
+              <span class="pathogen-tag">E. coli / Klebsiella</span>
+              <span class="pathogen-tag">Streptococcal spp. (milleri)</span>
+              <span class="pathogen-tag">Bacteroides / mixed anaerobes</span>
+              <span class="pathogen-tag">Klebsiella pneumoniae (hypermucoviscous — invasive liver abscess syndrome)</span>
+            </div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#piperacillin-tazobactam">Pip-tazo</a> 4.5 g IV q6h <em>or</em> <a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> + <a href="drug_reference_guide.html#metronidazole">Metronidazole</a>
+                <div class="dose">+ Percutaneous drainage (CT-guided) — antibiotics alone insufficient for abscess &gt;3 cm</div>
+              </div>
+              <span class="duration-badge">4–6 wk total (IV → PO step-down)</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Amebic Hepatic Abscess (Entamoeba histolytica)</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#metronidazole">Metronidazole</a> 750 mg PO/IV TID × 7–10 d
+                <div class="dose">followed by <a href="drug_reference_guide.html#paromomycin">Paromomycin</a> 500 mg PO TID × 7 d (luminal agent to eradicate intestinal cysts)</div>
+                <div class="dose"><em>or</em> <a href="drug_reference_guide.html#iodoquinol">Iodoquinol</a> 650 mg PO TID × 20 d as luminal follow-up</div>
+              </div>
+              <span class="duration-badge">7–10 d (tissue) + 7–20 d (luminal)</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Amebic abscess: serology (Entamoeba IgG) positive in &gt;90% — strongly prefer over aspiration for diagnosis. Most respond to Metronidazole alone without drainage</li>
+              <li>Drainage indications for amebic abscess: failure of medical therapy at 5–7 days, large left-lobe abscess (peritoneal rupture risk), uncertain diagnosis</li>
+              <li>Klebsiella invasive liver abscess syndrome: metastatic complications (endophthalmitis, meningitis) — ophthalmology and neurology involvement essential. Predominantly affects patients from Southeast Asia / East Asia</li>
+              <li>Always follow tissue-active agent with a luminal agent to prevent relapse from intestinal E. histolytica</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/amebiasis/" target="_blank" class="source-badge src-idsa">IDSA Amebiasis 2009</a>
+            <div class="crosslink-row">
+              <a href="#parasites-liver" class="crosslink">Parasites — Liver card</a>
+              <a href="drug_reference_guide.html#metronidazole" class="crosslink">Metronidazole</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="system-group">
+        <span class="system-label" style="background:#0d2a24; color:var(--gu); border:1px solid #1a4a40;">● Genitourinary</span>
+      </div>
+
+      <!-- 12. Uncomplicated UTI -->
+      <div class="syndrome-card" id="uti-uncomplicated">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--gu)"></span>
+            Uncomplicated UTI / Cystitis
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#nitrofurantoin">Nitrofurantoin</a> macrocrystals 100 mg PO BID (if CrCl ≥30)
+              </div>
+              <span class="duration-badge">5 d</span>
+            </div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#trimethoprim-sulfamethoxazole">TMP-SMX</a> DS 1 tab PO BID (if local resistance &lt;20%)
+              </div>
+              <span class="duration-badge">3 d</span>
+            </div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#fosfomycin">Fosfomycin</a> 3 g PO × 1 dose
+              </div>
+              <span class="duration-badge">1 dose</span>
+            </div>
+            <div class="therapy-row caution">
+              <div class="therapy-drug">
+                Fluoroquinolones: reserve — collateral damage risk; not first-line for uncomplicated UTI
+              </div>
+              <span class="duration-badge">—</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/urinary-tract-infection-uti/" target="_blank" class="source-badge src-idsa">IDSA 2010/Update</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#nitrofurantoin" class="crosslink">Nitrofurantoin</a>
+              <a href="drug_reference_guide.html#fosfomycin" class="crosslink">Fosfomycin</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 13. Pyelonephritis -->
+      <div class="syndrome-card" id="pyelo">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--gu)"></span>
+            Pyelonephritis
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Outpatient:</strong> <a href="drug_reference_guide.html#trimethoprim-sulfamethoxazole">TMP-SMX</a> DS BID <em>or</em> <a href="drug_reference_guide.html#ciprofloxacin">Ciprofloxacin</a> 500 mg PO BID (if local susceptibility ≥90%)
+              </div>
+              <span class="duration-badge">7–14 d</span>
+            </div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Inpatient:</strong> <a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 1–2 g IV q24h <em>or</em> <a href="drug_reference_guide.html#ertapenem">Ertapenem</a> 1 g IV q24h (if ESBL risk)
+              </div>
+              <span class="duration-badge">7 d</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/urinary-tract-infection-uti/" target="_blank" class="source-badge src-idsa">IDSA 2010</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#ceftriaxone" class="crosslink">Ceftriaxone</a>
+              <a href="drug_reference_guide.html#ertapenem" class="crosslink">Ertapenem</a>
+              <a href="id_guide.html#esbl" class="crosslink">ESBL</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 14. CAUTI -->
+      <div class="syndrome-card" id="cauti">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--gu)"></span>
+            Catheter-Associated UTI (CAUTI)
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Remove or replace catheter before starting antibiotics whenever possible</li>
+              <li>Asymptomatic bacteriuria with a catheter: do NOT treat (except pre-urologic procedure or pregnancy)</li>
+              <li>7-day course if symptoms resolve promptly; 10–14 days if delayed response</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/catheter-associated-urinary-tract-infections-cauti/" target="_blank" class="source-badge src-idsa">IDSA 2009</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PERINEPHRIC ABSCESS -->
+      <div class="syndrome-card" id="perinephric-abscess">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--gu)"></span>
+            Perinephric Abscess / Renal Cortical Abscess
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Usual Pathogens &amp; Pathogenesis</div>
+            <div class="pathogen-list" style="margin-bottom:8px;">
+              <span class="pathogen-tag">S. aureus (hematogenous — cortical abscess)</span>
+              <span class="pathogen-tag">E. coli / Klebsiella / Proteus (ascending — perinephric)</span>
+              <span class="pathogen-tag">Mixed GNR (urologic procedure-associated)</span>
+            </div>
+            <div style="font-family:var(--font-ui);font-size:12px;color:var(--muted);">
+              <strong style="color:var(--text)">Cortical abscess</strong> → hematogenous (S. aureus most common; prior skin infection or IV drug use) ·
+              <strong style="color:var(--text)">Perinephric abscess</strong> → ascending UTI / pyelonephritis complication or renal cortical rupture into perirenal space
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Ascending (GNR-predominant):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 2 g IV q24h <em>or</em> <a href="drug_reference_guide.html#ertapenem">Ertapenem</a> 1 g IV q24h (ESBL risk)</div>
+              </div>
+              <span class="duration-badge">4–6 wk (drainage-dependent)</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>Hematogenous / MRSA risk:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#vancomycin">Vancomycin</a> IV (AUC-guided) → <a href="drug_reference_guide.html#trimethoprim-sulfamethoxazole">TMP-SMX</a> DS PO BID (MRSA, susceptible) or <a href="drug_reference_guide.html#dicloxacillin">Dicloxacillin</a> (MSSA)</div>
+              </div>
+              <span class="duration-badge">4–6 wk</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Drainage Decision</div>
+            <div style="font-family:var(--font-ui);font-size:12px;color:var(--text);">
+              CT-guided percutaneous drainage for abscesses &gt;3–5 cm or failure to improve with antibiotics at 48–72h.
+              Small (&lt;3 cm) cortical abscesses may be treated with antibiotics alone with close monitoring.
+              Nephrectomy reserved for destroyed kidney or failure of drainage.
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Classic triad (fever + flank pain + flank mass) present in only ~30% — high index of suspicion required; CT is the imaging of choice</li>
+              <li>Distinguish from pyelonephritis: absence of clinical improvement after 3–5 days of antibiotics for presumed pyelonephritis should prompt CT imaging to rule out abscess or obstruction</li>
+              <li>Renal cortical abscess in young adults without UTI history: consider hematogenous seeding from skin/soft tissue or IVDU — investigate for primary source</li>
+              <li>Xanthogranulomatous pyelonephritis (XGP): chronic destructive granulomatous process, often mimics abscess or renal cell carcinoma on imaging — typically requires nephrectomy</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="#" class="source-badge src-idsa">IDSA / UpToDate</a>
+            <div class="crosslink-row">
+              <a href="#pyelo" class="crosslink">Pyelonephritis card</a>
+              <a href="drug_reference_guide.html#vancomycin" class="crosslink">Vancomycin</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="system-group">
+        <span class="system-label" style="background:#2a2410; color:var(--ssti); border:1px solid #504820;">● Skin / Soft Tissue / Bone</span>
+      </div>
+
+      <!-- 15. Cellulitis -->
+      <div class="syndrome-card" id="cellulitis">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--ssti)"></span>
+            Cellulitis / Erysipelas
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Non-purulent (beta-hemolytic Strep coverage):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#cephalexin">Cephalexin</a> 500 mg PO QID <em>or</em> <a href="drug_reference_guide.html#dicloxacillin">Dicloxacillin</a> 500 mg PO QID</div>
+              </div>
+              <span class="duration-badge">5 d</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>Purulent / MRSA concern:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#trimethoprim-sulfamethoxazole">TMP-SMX</a> DS 1–2 tabs PO BID <em>or</em> <a href="drug_reference_guide.html#doxycycline">Doxycycline</a> 100 mg PO BID</div>
+              </div>
+              <span class="duration-badge">5 d</span>
+            </div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Inpatient / Systemic illness:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#nafcillin">Nafcillin</a> 1–2 g IV q4h (MSSA) <em>or</em> <a href="drug_reference_guide.html#vancomycin">Vancomycin</a> (MRSA / PCN allergy)</div>
+              </div>
+              <span class="duration-badge">5–14 d</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/skin-and-soft-tissue-infections-ssti/" target="_blank" class="source-badge src-idsa">IDSA 2014</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#cephalexin" class="crosslink">Cephalexin</a>
+              <a href="im_guide.html#cellulitis" class="crosslink">IMCRG Cellulitis</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 16. Necrotizing Fasciitis -->
+      <div class="syndrome-card" id="nf">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--ssti)"></span>
+            Necrotizing Fasciitis
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Type I (polymicrobial):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#vancomycin">Vancomycin</a> + <a href="drug_reference_guide.html#piperacillin-tazobactam">Pip-tazo</a> 4.5 g IV q6h + <a href="drug_reference_guide.html#clindamycin">Clindamycin</a> 900 mg IV q8h (toxin suppression)</div>
+              </div>
+              <span class="duration-badge">Until surgical control</span>
+            </div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Type II (GAS / mono-microbial):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#penicillin-g">Penicillin G</a> 4 MU IV q4h + <a href="drug_reference_guide.html#clindamycin">Clindamycin</a> 900 mg IV q8h (clindamycin for Eagle effect)</div>
+              </div>
+              <span class="duration-badge">Until surgical control</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>SURGICAL EMERGENCY — antibiotics are adjunctive; immediate wide debridement is the treatment</li>
+              <li>LRINEC score can raise suspicion but does not rule out NF</li>
+              <li>Clindamycin added in ALL types for toxin production suppression (protein synthesis inhibitor)</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/skin-and-soft-tissue-infections-ssti/" target="_blank" class="source-badge src-idsa">IDSA 2014</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#clindamycin" class="crosslink">Clindamycin</a>
+              <a href="drug_reference_guide.html#vancomycin" class="crosslink">Vancomycin</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 17. Diabetic Foot -->
+      <div class="syndrome-card" id="dfi">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--ssti)"></span>
+            Diabetic Foot Infection
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Mild–Moderate (IDSA Grade 2–3):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#amoxicillin-clavulanate">Amoxicillin-clavulanate</a> 875/125 mg PO BID</div>
+              </div>
+              <span class="duration-badge">5–14 d</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>Severe / MRSA risk / Pseudomonas risk:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#vancomycin">Vancomycin</a> + <a href="drug_reference_guide.html#piperacillin-tazobactam">Pip-tazo</a> IV</div>
+              </div>
+              <span class="duration-badge">2–4 wk</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/diabetic-foot-infections/" target="_blank" class="source-badge src-idsa">IDSA 2012</a>
+            <div class="crosslink-row">
+              <a href="im_guide.html#diabetic-foot" class="crosslink">IMCRG DFI</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 18. Osteomyelitis -->
+      <div class="syndrome-card" id="osteo">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--ssti)"></span>
+            Osteomyelitis — Hematogenous &amp; Contiguous
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>MSSA (confirmed/suspected):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#nafcillin">Nafcillin</a> 2 g IV q4h <em>or</em> <a href="drug_reference_guide.html#cefazolin">Cefazolin</a> 2 g IV q8h → PO step-down</div>
+              </div>
+              <span class="duration-badge">6 wk</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>MRSA:</strong> <a href="drug_reference_guide.html#vancomycin">Vancomycin</a> IV → <a href="drug_reference_guide.html#trimethoprim-sulfamethoxazole">TMP-SMX</a> PO (high bioavailability, excellent bone penetration)
+              </div>
+              <span class="duration-badge">6 wk</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/osteomyelitis/" target="_blank" class="source-badge src-idsa">IDSA 2012</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#vancomycin" class="crosslink">Vancomycin</a>
+              <a href="drug_reference_guide.html#trimethoprim-sulfamethoxazole" class="crosslink">TMP-SMX</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ─── SEPSIS ──────────────────────────────────── -->
+      <div class="system-group">
+        <span class="system-label" style="background:#2a1508; color:var(--sepsis); border:1px solid #502810;">● Sepsis</span>
+      </div>
+
+      <!-- 19. Sepsis Unknown Source -->
+      <div class="syndrome-card" id="sepsis-unk">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--sepsis)"></span>
+            Sepsis — Unknown Source / Undifferentiated
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Community-acquired sepsis (no MRSA / Pseudomonas risk):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 2 g IV q24h + <a href="drug_reference_guide.html#metronidazole">Metronidazole</a> 500 mg IV q8h (if abdominal source possible)</div>
+              </div>
+              <span class="duration-badge">Source-directed</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>Healthcare-associated / high-acuity:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#vancomycin">Vancomycin</a> + <a href="drug_reference_guide.html#piperacillin-tazobactam">Pip-tazo</a> 4.5 g IV q6h (extended infusion)</div>
+                <div class="dose"><em>or</em> Vancomycin + <a href="drug_reference_guide.html#meropenem">Meropenem</a> 1 g IV q8h (if ESBL / high MDR risk)</div>
+              </div>
+              <span class="duration-badge">Source-directed</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Blood cultures × 2 sets BEFORE antibiotics — do not delay antibiotics &gt;1 hour for cultures in septic shock</li>
+              <li>Source control is a priority — drain, debride, remove catheter/line as early as feasible</li>
+              <li>De-escalate at 48–72 hours based on culture data and clinical trajectory</li>
+              <li>Surviving Sepsis Campaign: antibiotics within 1 hour of septic shock recognition</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://www.sccm.org/SurvivingSepsisCampaign" target="_blank" class="source-badge src-idsa">SSC 2021</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#piperacillin-tazobactam" class="crosslink">Pip-Tazo</a>
+              <a href="drug_reference_guide.html#meropenem" class="crosslink">Meropenem</a>
+              <a href="im_guide.html#sepsis" class="crosslink">IMCRG Sepsis</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20. Biliary Sepsis -->
+      <div class="syndrome-card" id="sepsis-biliary">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--sepsis)"></span>
+            Sepsis — Biliary Source (Cholangitis / Cholecystitis)
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Mild–Moderate:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 2 g IV q24h + <a href="drug_reference_guide.html#metronidazole">Metronidazole</a> 500 mg IV q8h</div>
+              </div>
+              <span class="duration-badge">4–7 d post-source control</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>Severe / Healthcare-associated:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#piperacillin-tazobactam">Pip-tazo</a> 4.5 g IV q6h <em>or</em> <a href="drug_reference_guide.html#meropenem">Meropenem</a> 1 g IV q8h</div>
+              </div>
+              <span class="duration-badge">4–7 d post-source control</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Tokyo Guidelines 2018: grade severity before choosing intervention timing</li>
+              <li>ERCP or biliary drainage is source control — antibiotics do not substitute</li>
+              <li>Charcot's triad: fever, RUQ pain, jaundice; add mental status changes + hypotension = Reynolds' pentad (acute suppurative cholangitis)</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="#" class="source-badge src-idsa">Tokyo Guidelines 2018</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#piperacillin-tazobactam" class="crosslink">Pip-Tazo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 21. S. aureus BSI -->
+      <div class="syndrome-card" id="bsi-staph">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--sepsis)"></span>
+            Bloodstream Infection — <em>Staphylococcus aureus</em> (MSSA / MRSA)
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Therapy (organism-directed)</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>MSSA:</strong> <a href="drug_reference_guide.html#nafcillin">Nafcillin</a> 2 g IV q4h <em>or</em> <a href="drug_reference_guide.html#cefazolin">Cefazolin</a> 2 g IV q8h (noninferior, preferred in CNS disease)
+              </div>
+              <span class="duration-badge">≥14 d (uncomplicated) · ≥42 d (complicated/endocarditis)</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>MRSA:</strong> <a href="drug_reference_guide.html#vancomycin">Vancomycin</a> AUC-guided <em>or</em> <a href="drug_reference_guide.html#daptomycin">Daptomycin</a> 6 mg/kg IV q24h (≥8–10 if endocarditis)
+              </div>
+              <span class="duration-badge">≥14 d (uncomplicated) · ≥42 d (endocarditis)</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>ALL S. aureus bacteremia requires echocardiography (TEE preferred) to rule out endocarditis</li>
+              <li>Repeat blood cultures at 48–72h to confirm clearance — persistent BSI requires source hunting</li>
+              <li>Daptomycin is inactivated by pulmonary surfactant — do NOT use for pneumonia</li>
+              <li>Ophthalmology consult if persistent fever / septic emboli concern (endophthalmitis)</li>
+              <li>Do not use Vancomycin for MSSA — higher failure rates vs. beta-lactams</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/staphylococcus-aureus-infections/" target="_blank" class="source-badge src-idsa">IDSA S. aureus 2011</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#nafcillin" class="crosslink">Nafcillin</a>
+              <a href="drug_reference_guide.html#vancomycin" class="crosslink">Vancomycin</a>
+              <a href="drug_reference_guide.html#daptomycin" class="crosslink">Daptomycin</a>
+              <a href="id_guide.html#mrsa" class="crosslink">MRSA</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ─── IMMUNOCOMPROMISED ───────────────────────── -->
+      <div class="system-group">
+        <span class="system-label" style="background:#0d2010; color:var(--immuno); border:1px solid #1a4020;">● Immunocompromised / Special Populations</span>
+      </div>
+
+      <!-- 22. Febrile Neutropenia -->
+      <div class="syndrome-card" id="fn">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--immuno)"></span>
+            Febrile Neutropenia
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Low risk (MASCC ≥21):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#ciprofloxacin">Ciprofloxacin</a> 500 mg PO BID + <a href="drug_reference_guide.html#amoxicillin-clavulanate">Amoxicillin-clavulanate</a> 500/125 mg PO TID</div>
+              </div>
+              <span class="duration-badge">Until ANC &gt;500</span>
+            </div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>High risk:</strong> <a href="drug_reference_guide.html#cefepime">Cefepime</a> 2 g IV q8h <em>or</em> <a href="drug_reference_guide.html#piperacillin-tazobactam">Pip-tazo</a> 4.5 g IV q6h <em>or</em> <a href="drug_reference_guide.html#meropenem">Meropenem</a> 1 g IV q8h
+                <div class="dose">Add Vancomycin if: catheter infection, pneumonia, hemodynamic instability, MRSA colonized</div>
+              </div>
+              <span class="duration-badge">Until ANC &gt;500, afebrile ≥48h</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/fever-and-neutropenia/" target="_blank" class="source-badge src-idsa">IDSA 2010</a>
+            <a href="#" class="source-badge src-idsa">ASCO/IDSA 2018</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#cefepime" class="crosslink">Cefepime</a>
+              <a href="im_guide.html#febrile-neutropenia" class="crosslink">IMCRG FN</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 23. PCP -->
+      <div class="syndrome-card" id="pcp">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--immuno)"></span>
+            <em>Pneumocystis jirovecii</em> Pneumonia (PCP)
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#trimethoprim-sulfamethoxazole">TMP-SMX</a> 15–20 mg/kg/day (TMP component) IV/PO ÷ q6–8h
+                <div class="dose">+ <a href="drug_reference_guide.html#prednisone">Prednisone</a> 40 mg PO BID × 5 d → 40 mg q24h × 5 d → 20 mg q24h × 11 d (if PaO₂ &lt;70 or A-a gradient &gt;35)</div>
+              </div>
+              <span class="duration-badge">21 d</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>TMP-SMX intolerant:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#primaquine">Primaquine</a> + <a href="drug_reference_guide.html#clindamycin">Clindamycin</a> (moderate–severe)</div>
+                <div class="dose"><em>or</em> <a href="drug_reference_guide.html#atovaquone">Atovaquone</a> (mild)</div>
+              </div>
+              <span class="duration-badge">21 d</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://clinicalinfo.hiv.gov/en/guidelines/hiv-clinical-guidelines-adult-and-adolescent-opportunistic-infections/pneumocystis" target="_blank" class="source-badge src-dhhs">DHHS OI Guidelines</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#trimethoprim-sulfamethoxazole" class="crosslink">TMP-SMX</a>
+              <a href="id_guide.html#pcp" class="crosslink">ID Guide PCP</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 24. Intra-abdominal -->
+      <div class="syndrome-card" id="iai">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--immuno)"></span>
+            Intra-Abdominal Infection / Secondary Peritonitis
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Mild–Moderate, community-acquired:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#ertapenem">Ertapenem</a> 1 g IV q24h <em>or</em> <a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> + <a href="drug_reference_guide.html#metronidazole">Metronidazole</a></div>
+              </div>
+              <span class="duration-badge">4–7 d post-source control</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>High severity / healthcare-associated:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#piperacillin-tazobactam">Pip-tazo</a> 4.5 g IV q6h <em>or</em> <a href="drug_reference_guide.html#meropenem">Meropenem</a> 1 g IV q8h</div>
+              </div>
+              <span class="duration-badge">4–7 d post-source control</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/intra-abdominal-infections/" target="_blank" class="source-badge src-idsa">IDSA / SIS 2010</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#ertapenem" class="crosslink">Ertapenem</a>
+              <a href="drug_reference_guide.html#meropenem" class="crosslink">Meropenem</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 25. Septic Arthritis -->
+      <div class="syndrome-card" id="septic-arthritis">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:var(--immuno)"></span>
+            Septic Arthritis — Native Joint
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="stub-notice">Content pending — structure ready for population</div>
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Non-gonococcal:</strong> <a href="drug_reference_guide.html#vancomycin">Vancomycin</a> IV (MRSA coverage) + <a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 2 g IV q24h (GNR coverage)
+                <div class="dose">De-escalate based on Gram stain / culture</div>
+              </div>
+              <span class="duration-badge">2–4 wk</span>
+            </div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Gonococcal:</strong> <a href="drug_reference_guide.html#ceftriaxone">Ceftriaxone</a> 1 g IV q24h
+              </div>
+              <span class="duration-badge">7 d</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Joint aspiration is both diagnostic AND therapeutic — drain the joint daily or by arthroscopy</li>
+              <li>Synovial WBC &gt;50,000 raises concern; &gt;100,000 highly suggestive (but crystal disease overlaps)</li>
+              <li>S. aureus most common non-gonococcal cause in adults — take echocardiography threshold low</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="#" class="source-badge src-idsa">IDSA / UpToDate</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#vancomycin" class="crosslink">Vancomycin</a>
+              <a href="drug_reference_guide.html#ceftriaxone" class="crosslink">Ceftriaxone</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── PARASITES ──────────────────────────────── -->
+      <div class="system-group">
+        <span class="system-label" style="background:#0d2a18; color:#7fe8b0; border:1px solid #1a4a30;">● Parasites</span>
+      </div>
+
+      <!-- BLOOD PARASITES -->
+      <div class="syndrome-card" id="parasites-blood">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:#7fe8b0"></span>
+            Blood Parasites — Malaria &amp; Babesiosis
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Malaria — Species &amp; Therapy</div>
+            <table class="dosing-table">
+              <thead><tr><th>Species / Scenario</th><th>Preferred Therapy</th><th>Duration</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><em>P. falciparum</em> — Uncomplicated (chloroquine-resistant region)</td>
+                  <td>Artemether-Lumefantrine (Coartem) <em>or</em> Atovaquone-Proguanil (Malarone) <em>or</em> Quinine + Doxycycline</td>
+                  <td>3 d (AL/AP) · 7 d (Quinine)</td>
+                </tr>
+                <tr>
+                  <td><em>P. falciparum</em> — Severe / Cerebral</td>
+                  <td><strong>IV Artesunate</strong> (preferred; available via CDC) + exchange transfusion if parasitemia &gt;10%</td>
+                  <td>Until PO tolerated → complete PO course</td>
+                </tr>
+                <tr>
+                  <td><em>P. vivax / P. ovale</em> — Chloroquine-sensitive</td>
+                  <td>Chloroquine 1g → 500 mg at 6h → 500 mg q24h × 2 d + <a href="drug_reference_guide.html#primaquine">Primaquine</a> 30 mg PO q24h × 14 d (eradicate hypnozoites)</td>
+                  <td>3 d (blood) + 14 d (liver)</td>
+                </tr>
+                <tr>
+                  <td><em>P. vivax</em> — Chloroquine-resistant</td>
+                  <td>Atovaquone-Proguanil or Quinine + Doxycycline + Primaquine</td>
+                  <td>As above</td>
+                </tr>
+                <tr>
+                  <td><em>P. malariae</em></td>
+                  <td>Chloroquine (no hypnozoites — Primaquine not needed)</td>
+                  <td>3 d</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Malaria Pearls</div>
+            <ul class="pearl-list">
+              <li>Obtain thick and thin blood smears × 3 (q12–24h if initial negative) — peripheral smear is the gold standard; RDT for rapid confirmation</li>
+              <li>G6PD deficiency must be screened before Primaquine — causes hemolytic anemia in G6PD-deficient patients</li>
+              <li>Severe malaria: parasitemia &gt;5%, cerebral malaria, severe anemia, respiratory failure, renal failure, hypoglycemia — IV artesunate, ICU care</li>
+              <li>Contact CDC Malaria Branch (24/7: 770-488-7788) for IV Artesunate access and complex cases</li>
+            </ul>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Babesiosis (Babesia microti — Northeast US; B. divergens — Europe)</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Mild–Moderate:</strong>
+                <div class="dose"><a href="drug_reference_guide.html#atovaquone">Atovaquone</a> 750 mg PO q12h + <a href="drug_reference_guide.html#azithromycin">Azithromycin</a> 500 mg PO day 1 → 250 mg q24h</div>
+              </div>
+              <span class="duration-badge">7–10 d</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>Severe / Immunocompromised:</strong>
+                <div class="dose">Clindamycin 600 mg IV q8h + Quinine 650 mg PO TID</div>
+                <div class="dose">Consider exchange transfusion if: parasitemia &gt;10%, severe hemolysis, or end-organ failure</div>
+              </div>
+              <span class="duration-badge">7–10 d (up to 6 wk in asplenic/immunocomp)</span>
+            </div>
+            <div class="card-section">
+              <div class="section-label">Babesia Pearls</div>
+              <ul class="pearl-list">
+                <li>Transmitted by <em>Ixodes scapularis</em> (same tick as Lyme / Anaplasmosis) — co-infection common; check for Lyme antibodies and Anaplasma PCR in endemic areas</li>
+                <li>Asplenic patients: high mortality — aggressive early treatment and low threshold for exchange transfusion</li>
+                <li>Intraerythrocytic ring forms on smear; "Maltese cross" (tetrad) is pathognomonic but uncommon — PCR is most sensitive</li>
+              </ul>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://www.cdc.gov/malaria/diagnosis_treatment/index.html" target="_blank" class="source-badge src-cdc">CDC Malaria Tx</a>
+            <a href="https://www.idsociety.org/practice-guideline/babesiosis/" target="_blank" class="source-badge src-idsa">IDSA Babesiosis 2021</a>
+            <div class="crosslink-row">
+              <a href="id_guide.html#malaria" class="crosslink">ID Guide Malaria</a>
+              <a href="id_guide.html#babesia" class="crosslink">ID Guide Babesia</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIVER PARASITES -->
+      <div class="syndrome-card" id="parasites-liver">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:#7fe8b0"></span>
+            Liver Parasites — Amebic Abscess &amp; Echinococcosis
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Entamoeba histolytica — Amebic Liver Abscess</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#metronidazole">Metronidazole</a> 750 mg PO/IV TID × 7–10 d
+                <div class="dose">→ followed by luminal agent: <a href="drug_reference_guide.html#paromomycin">Paromomycin</a> 500 mg PO TID × 7 d <em>or</em> Iodoquinol 650 mg PO TID × 20 d</div>
+              </div>
+              <span class="duration-badge">7–10 d (tissue) + luminal course</span>
+            </div>
+            <div style="font-family:var(--font-ui);font-size:12px;color:var(--muted);margin-top:6px;">
+              See full management → <a href="#hepatic-abscess" style="color:var(--accent);">Hepatic Abscess card</a>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Echinococcosis (Hydatid Disease)</div>
+            <div class="pathogen-list" style="margin-bottom:8px;">
+              <span class="pathogen-tag">E. granulosus (cystic — sheep-associated)</span>
+              <span class="pathogen-tag">E. multilocularis (alveolar — fox-associated; more aggressive)</span>
+            </div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Cystic echinococcosis (CE):</strong> PAIR procedure (Puncture-Aspiration-Injection-Re-aspiration) + Albendazole
+                <div class="dose"><a href="drug_reference_guide.html#albendazole">Albendazole</a> 400 mg PO BID (with fatty meal) × 1–6 months; start 4 days before PAIR</div>
+              </div>
+              <span class="duration-badge">Variable — surgery/PAIR dependent</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>Alveolar echinococcosis (AE):</strong> Surgical resection (curative intent if possible) + long-term Albendazole
+                <div class="dose">Albendazole indefinitely if incomplete resection or inoperable</div>
+              </div>
+              <span class="duration-badge">Long-term / indefinite</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Do NOT aspirate a suspected hydatid cyst without albendazole pre-treatment and proper PAIR protocol — anaphylaxis and peritoneal seeding risk</li>
+              <li>Echinococcal serology (ELISA, WB) for diagnosis; CT/MRI for cyst characterization (WHO-IWGE classification guides management)</li>
+              <li>Eosinophilia present in ~25% of echinococcosis — eosinophilia + cystic liver lesion in immigrant from endemic region = hydatid until proven otherwise</li>
+              <li>E. multilocularis mimics hepatocellular carcinoma on imaging — irregular infiltrating lesion</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/amebiasis/" target="_blank" class="source-badge src-idsa">IDSA Amebiasis 2009</a>
+            <a href="https://www.who.int/news-room/fact-sheets/detail/echinococcosis" target="_blank" class="source-badge src-cdc">WHO Echinococcosis</a>
+            <div class="crosslink-row">
+              <a href="#hepatic-abscess" class="crosslink">Hepatic Abscess card</a>
+              <a href="drug_reference_guide.html#albendazole" class="crosslink">Albendazole</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TISSUE PARASITES -->
+      <div class="syndrome-card" id="parasites-tissue">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title">
+            <span class="sys-pip" style="background:#7fe8b0"></span>
+            Tissue Parasites — Toxoplasmosis, Strongyloidiasis, Trichinellosis
+          </div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Toxoplasma gondii</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>CNS toxoplasmosis (AIDS-defining):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#pyrimethamine">Pyrimethamine</a> 200 mg PO × 1 load → 50–75 mg/day + <a href="drug_reference_guide.html#sulfadiazine">Sulfadiazine</a> 1–1.5 g PO QID + Leucovorin 10–25 mg/day</div>
+                <div class="dose"><em>or</em> <a href="drug_reference_guide.html#trimethoprim-sulfamethoxazole">TMP-SMX</a> DS 5 mg/kg (TMP component) IV/PO BID (alternative; less preferred)</div>
+              </div>
+              <span class="duration-badge">Acute: 6 wk → lifelong suppression if CD4 &lt;200</span>
+            </div>
+            <ul class="pearl-list" style="margin-top:8px;">
+              <li>Empiric therapy for ring-enhancing lesion in HIV (CD4 &lt;100) + positive Toxo IgG — treat empirically; biopsy if no clinical response at 10–14 days</li>
+              <li>Toxo IgG negative in HIV + ring-enhancing lesion → primary CNS lymphoma higher probability — biopsy early</li>
+              <li>Leucovorin (not folic acid) prevents pyrimethamine-induced myelosuppression — prescribe together</li>
+            </ul>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Strongyloides stercoralis</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#ivermectin">Ivermectin</a> 200 mcg/kg PO q24h × 2 days
+                <div class="dose"><strong>Hyperinfection syndrome:</strong> Ivermectin 200 mcg/kg PO q24h until stool negative × 2 weeks + broad-spectrum antibiotics (intestinal barrier disruption → bacteremia / meningitis from gut flora)</div>
+              </div>
+              <span class="duration-badge">2 d (uncomplicated); 2–4 wk+ (hyperinfection)</span>
+            </div>
+            <ul class="pearl-list" style="margin-top:8px;">
+              <li><strong>Screen all immunosuppression candidates for Strongyloides</strong> — serologic screen before initiating corticosteroids, immunosuppressants, or anti-TNF therapy in patients from endemic regions (sub-Saharan Africa, SE Asia, Latin America, Appalachia). Hyperinfection is fatal in untreated carriers who become immunosuppressed</li>
+              <li>Hyperinfection = accelerated autoinfection cycle with larvae disseminating to lungs, CNS, and other organs. Gram-negative bacteremia/meningitis from larvae carrying intestinal flora</li>
+              <li>Eosinophilia is the clue — eosinophilia in a patient from an endemic area on steroids should prompt Strongyloides serology immediately</li>
+            </ul>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Trichinella spiralis (Trichinellosis)</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#albendazole">Albendazole</a> 400 mg PO BID × 8–14 d (for tissue larval stage)
+                <div class="dose">+ Prednisone 1 mg/kg/day for severe myositis / myocarditis / CNS involvement</div>
+                <div class="dose">Note: Albendazole less effective once larvae encyst in muscle (&gt;3 weeks post-exposure)</div>
+              </div>
+              <span class="duration-badge">8–14 d</span>
+            </div>
+            <ul class="pearl-list" style="margin-top:8px;">
+              <li>Epidemiologic triad: periorbital edema + myalgia + eosinophilia after eating undercooked pork, wild game, or bear meat</li>
+              <li>Elevated CPK + eosinophilia + fever after meat ingestion = Trichinella until proven otherwise</li>
+              <li>Muscle biopsy (deltoid) or serology (ELISA) for confirmation</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://clinicalinfo.hiv.gov/en/guidelines/hiv-clinical-guidelines-adult-and-adolescent-opportunistic-infections/toxoplasma" target="_blank" class="source-badge src-dhhs">DHHS OI: Toxo</a>
+            <a href="https://www.cdc.gov/parasites/strongyloides/" target="_blank" class="source-badge src-cdc">CDC Strongyloides</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#ivermectin" class="crosslink">Ivermectin</a>
+              <a href="drug_reference_guide.html#albendazole" class="crosslink">Albendazole</a>
+              <a href="#pcp" class="crosslink">PCP / OI card</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /ch2 -->
+
+
+    <!-- ═══════════════════════════════════════════════
+         CH 3–8 PLACEHOLDERS
+    ═══════════════════════════════════════════════ -->
+    <div id="ch3">
+      <div class="chapter-header"><span class="ch-num">CH 3</span><h2>Antibiotic Susceptibility Profiles</h2></div>
+      <div class="chapter-placeholder"><strong>Gram-Positive · Gram-Negative · Anaerobes · Problem Pathogens</strong>CLSI breakpoints + local antibiogram integration — Phase 3 build.</div>
+    </div>
+
+    <div id="ch4">
+      <div class="chapter-header"><span class="ch-num">CH 4</span><h2>Fungi, Parasites &amp; Unusual Organisms</h2></div>
+      <div class="chapter-placeholder"><strong>Candida · Aspergillus · Crypto · Parasites · Nocardia · Actinomyces</strong>Cross-links to ID Guide fungal section — Phase 3 build.</div>
+    </div>
+
+    <div id="ch5">
+      <div class="chapter-header"><span class="ch-num">CH 5</span><h2>HIV Infection &amp; Opportunistic Infections</h2></div>
+      <div class="chapter-placeholder"><strong>ART Overview · OI Treatment · OI Prophylaxis thresholds</strong>DHHS OI Guidelines content — Phase 3 build. Cross-links to ID Guide HIV section.</div>
+    </div>
+
+    <div id="ch6">
+      <div class="chapter-header"><span class="ch-num">CH 6</span><h2>Prophylaxis &amp; Immunizations</h2></div>
+      <div class="chapter-placeholder"><strong>Surgical Prophylaxis · Endocarditis Prophylaxis · PCP/MAC/Toxo Prophylaxis · ACIP Immunization Schedule</strong>Phase 4 build.</div>
+    </div>
+
+    <div id="ch7">
+      <div class="chapter-header"><span class="ch-num">CH 7</span><h2>Pearls &amp; Pitfalls</h2></div>
+      <p style="font-family:var(--font-ui);font-size:12px;color:var(--muted);margin-bottom:20px;">
+        Primary source content: IDSA guidelines · landmark trials · FDA labels · PK/PD literature · organized by drug class and syndrome.
+        Each pearl is independently citable. Click a section to expand.
+      </p>
+
+      <!-- ── SEARCH BAR ──────────────────────────────── -->
+      <div style="margin-bottom:20px;">
+        <input type="text" id="pp-search" placeholder="Search pearls &amp; pitfalls…"
+          oninput="filterPearls(this.value)"
+          style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;
+                 padding:9px 14px;color:var(--text);font-family:var(--font-ui);font-size:13px;outline:none;">
+      </div>
+
+      <!-- ════════════════════════════════════════════
+           SECTION A — BY DRUG CLASS
+      ════════════════════════════════════════════ -->
+      <div class="pp-section-header" style="font-family:var(--font-ui);font-size:11px;font-weight:700;
+           letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin:24px 0 12px;
+           padding-bottom:6px;border-bottom:1px solid var(--border);">
+        Section A · By Drug Class
+      </div>
+
+      <!-- GLYCOPEPTIDES -->
+      <div class="pp-card" id="pp-vancomycin">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#9b7fe8"></span>Vancomycin (Glycopeptide)</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <ul class="pearl-list" data-tags="vancomycin glycopeptide mrsa auc trough">
+            <li><strong>AUC/MIC-guided dosing is now standard</strong> — trough-only monitoring is obsolete. Target AUC₂₄ 400–600 mg·h/L. Trough-only monitoring overestimates nephrotoxicity risk and underestimates efficacy failure. <a href="https://pubmed.ncbi.nlm.nih.gov/32207637/" target="_blank" class="source-badge src-idsa" style="font-size:10px;padding:1px 6px;">ASHP/IDSA/SIDP 2020 PMID 32207637</a></li>
+            <li><strong>Never use Vancomycin as definitive therapy for MSSA</strong> — beta-lactams are superior. Multiple studies and meta-analyses demonstrate higher clinical failure rates with Vancomycin for MSSA bacteremia vs. antistaphylococcal penicillins or cefazolin. <a href="https://pubmed.ncbi.nlm.nih.gov/21810755/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">CID 2011 PMID 21810755</a></li>
+            <li><strong>Vancomycin penetration into the lung is poor relative to achievable serum concentrations</strong> — for MRSA pneumonia, Linezolid achieves superior ELF concentrations. Consider Linezolid as preferred agent for MRSA VAP/HAP when appropriate. <a href="https://pubmed.ncbi.nlm.nih.gov/22669489/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">IDSA/ATS HAP 2016</a></li>
+            <li><strong>Nephrotoxicity risk is synergistic with piperacillin-tazobactam</strong> — the Vanc + Pip-Tazo combination carries significantly higher AKI rates than Vanc + carbapenem or Vanc monotherapy. Use with awareness; consider substituting Cefepime or Meropenem when combination is required. <a href="https://pubmed.ncbi.nlm.nih.gov/27694236/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">PMID 27694236</a></li>
+            <li><strong>Oral Vancomycin is not absorbed systemically</strong> — active only intraluminally. Do not use for systemic infections. High-dose oral Vancomycin (500 mg QID) can be used for fulminant CDI when enteric access is preserved.</li>
+            <li><strong>Red Man Syndrome is infusion-rate dependent, not a true allergy</strong> — slow the infusion rate; premedicate with diphenhydramine. Do not document as "Vancomycin allergy." Distinguish from true IgE-mediated hypersensitivity (rare).</li>
+          </ul>
+          <div class="crosslink-row" style="margin-top:10px;">
+            <a href="drug_reference_guide.html#vancomycin" class="crosslink">Drug Guide: Vancomycin</a>
+            <a href="#bsi-staph" class="crosslink">S. aureus BSI card</a>
+            <a href="#hap-vap" class="crosslink">HAP/VAP card</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIPOPEPTIDES -->
+      <div class="pp-card" id="pp-daptomycin">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#4fa3e0"></span>Daptomycin (Lipopeptide)</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <ul class="pearl-list" data-tags="daptomycin lipopeptide mrsa pneumonia surfactant">
+            <li><strong>Daptomycin is inactivated by pulmonary surfactant</strong> — it is absolutely contraindicated for pneumonia of any etiology. Do not use for MRSA pneumonia. This is one of the most critical drug-class pitfalls in ID. <a href="https://pubmed.ncbi.nlm.nih.gov/15150609/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">PMID 15150609</a></li>
+            <li><strong>Dose-escalate for bacteremia and endocarditis</strong> — standard 6 mg/kg/day is appropriate for skin/soft tissue infections. For S. aureus bacteremia and right-sided endocarditis, use ≥6 mg/kg; for left-sided endocarditis, ≥8–10 mg/kg. <a href="https://pubmed.ncbi.nlm.nih.gov/16195521/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">PMID 16195521</a></li>
+            <li><strong>Monitor CK weekly</strong> — myopathy/rhabdomyolysis risk, especially with concurrent statins. Discontinue statins if able during Daptomycin therapy. Hold if CK &gt;5× ULN.</li>
+            <li><strong>Daptomycin MIC creep in MRSA</strong> — prior Vancomycin exposure can reduce Daptomycin susceptibility (heteroresistance). If MIC rising or clinical failure, consider high-dose Daptomycin ± beta-lactam combination (Daptomycin + ceftaroline synergy is documented). <a href="https://pubmed.ncbi.nlm.nih.gov/25182998/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">PMID 25182998</a></li>
+            <li><strong>Concentration-dependent killing</strong> — single daily dosing is pharmacodynamically optimal. No benefit to divided dosing.</li>
+          </ul>
+          <div class="crosslink-row" style="margin-top:10px;">
+            <a href="drug_reference_guide.html#daptomycin" class="crosslink">Drug Guide: Daptomycin</a>
+            <a href="#bsi-staph" class="crosslink">S. aureus BSI card</a>
+            <a href="#ie-native" class="crosslink">IE Native Valve card</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- OXAZOLIDINONES -->
+      <div class="pp-card" id="pp-linezolid">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#4fc4a3"></span>Linezolid (Oxazolidinone)</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <ul class="pearl-list" data-tags="linezolid oxazolidinone mrsa serotonin thrombocytopenia lung">
+            <li><strong>Serotonin syndrome with SSRIs/SNRIs/TCAs</strong> — Linezolid is a reversible MAO inhibitor. Potentially fatal serotonin toxicity when combined with serotonergic agents. Requires careful risk-benefit assessment; consider stopping serotonergic drug if clinical urgency demands Linezolid. <a href="https://pubmed.ncbi.nlm.nih.gov/21810757/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">FDA Safety Communication</a></li>
+            <li><strong>Linezolid is preferred over Vancomycin for MRSA pneumonia</strong> — superior epithelial lining fluid concentrations; ZEPHyR trial demonstrated non-inferiority with trend toward superiority for clinical cure in MRSA VAP. <a href="https://pubmed.ncbi.nlm.nih.gov/22506023/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">ZEPHyR Trial PMID 22506023</a></li>
+            <li><strong>Thrombocytopenia is the most common serious adverse effect</strong> — occurs in ~3% overall; higher with courses &gt;2 weeks and in renal impairment. Check CBC weekly. Discontinue if platelet count falls significantly.</li>
+            <li><strong>Near-complete oral bioavailability (~100%)</strong> — IV-to-PO switch can be made immediately in clinically stable patients with functioning GI tract. Oral Linezolid achieves identical serum levels to IV. <a href="https://pubmed.ncbi.nlm.nih.gov/10227160/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">PMID 10227160</a></li>
+            <li><strong>Bacteriostatic, not bactericidal</strong> — caution in endocarditis and CNS infections where bactericidal activity is generally preferred. Not first-line for endocarditis; reserve as salvage option.</li>
+            <li><strong>Lactic acidosis</strong> — rare but life-threatening with prolonged use (&gt;28 days). Presents with nausea, abdominal pain, elevated lactate. Monitor lactate in long courses.</li>
+          </ul>
+          <div class="crosslink-row" style="margin-top:10px;">
+            <a href="drug_reference_guide.html#linezolid" class="crosslink">Drug Guide: Linezolid</a>
+            <a href="#hap-vap" class="crosslink">HAP/VAP card</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- FLUOROQUINOLONES -->
+      <div class="pp-card" id="pp-fluoroquinolones">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#e09c4f"></span>Fluoroquinolones</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <ul class="pearl-list" data-tags="fluoroquinolone ciprofloxacin levofloxacin moxifloxacin quinolone resistance stewardship">
+            <li><strong>Fluoroquinolones are broad-spectrum collateral damage agents</strong> — reserve for serious infections where no reasonable alternative exists. Avoid for uncomplicated UTI, upper respiratory infections, and routine sinusitis. Overuse drives Clostridioides difficile, MRSA, and resistant GNR selection. <a href="https://pubmed.ncbi.nlm.nih.gov/27629084/" target="_blank" class="source-badge src-idsa" style="font-size:10px;padding:1px 6px;">IDSA UTI 2010</a></li>
+            <li><strong>Pseudomonas monotherapy resistance emergence is rapid</strong> — for serious Pseudomonas infections, Ciprofloxacin or Levofloxacin monotherapy is associated with emergence of resistance on-therapy. Combination therapy or high-dose regimens should be used for high-inoculum infections. <a href="https://pubmed.ncbi.nlm.nih.gov/16195524/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">PMID 16195524</a></li>
+            <li><strong>QTc prolongation — additive with other QT-prolonging drugs</strong> — obtain baseline ECG and avoid combining with other QTc prolongers (antipsychotics, azithromycin, amiodarone). Moxifloxacin has the highest QTc risk among quinolones.</li>
+            <li><strong>Tendinopathy and tendon rupture</strong> — Achilles most common. Risk increased with age &gt;60, corticosteroids, renal failure. FDA Black Box Warning. Counsel patients to stop and report tendon pain immediately.</li>
+            <li><strong>Neurotoxicity and aortic aneurysm/dissection risk</strong> — FDA Black Box Warnings (2016, 2018). Peripheral neuropathy may be permanent. Association with aortic dissection in population-based studies — avoid in patients with known aortic disease.</li>
+            <li><strong>Ciprofloxacin is NOT reliable for Streptococcal or pneumococcal infections</strong> — do not use for CAP empiric therapy unless you have documented susceptibility. Levofloxacin and Moxifloxacin have adequate pneumococcal activity; Ciprofloxacin does not.</li>
+            <li><strong>Excellent oral bioavailability (~70–99%)</strong> — strong IV-to-PO switch candidates for Ciprofloxacin (70–80%), Levofloxacin (~99%), and Moxifloxacin (~90%).</li>
+          </ul>
+          <div class="crosslink-row" style="margin-top:10px;">
+            <a href="drug_reference_guide.html#ciprofloxacin" class="crosslink">Drug Guide: Cipro</a>
+            <a href="drug_reference_guide.html#levofloxacin" class="crosslink">Drug Guide: Levofloxacin</a>
+            <a href="#cap-typical" class="crosslink">CAP card</a>
+            <a href="#uti-uncomplicated" class="crosslink">UTI card</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- AMINOGLYCOSIDES -->
+      <div class="pp-card" id="pp-aminoglycosides">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#e05c5c"></span>Aminoglycosides</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <ul class="pearl-list" data-tags="aminoglycoside gentamicin tobramycin amikacin nephrotoxicity ototoxicity synergy">
+            <li><strong>Extended-interval (once-daily) dosing is preferred for systemic infections</strong> — exploits concentration-dependent killing and post-antibiotic effect; demonstrated equal or superior efficacy with less nephrotoxicity vs. traditional divided dosing. Hartford nomogram or trough-based monitoring. <a href="https://pubmed.ncbi.nlm.nih.gov/8512153/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">PMID 8512153</a></li>
+            <li><strong>Traditional divided dosing retained for synergy (endocarditis)</strong> — Gentamicin 3 mg/kg/day ÷ q8h for Enterococcal synergy and for streptococcal endocarditis short-course regimens. Extended-interval dosing is NOT appropriate for synergy indications.</li>
+            <li><strong>Nephrotoxicity is largely reversible; ototoxicity is not</strong> — cochlear toxicity (high-frequency hearing loss) and vestibular toxicity may be permanent. Monitor renal function, drug levels, and counsel patients about tinnitus and hearing changes.</li>
+            <li><strong>Avoid prolonged courses</strong> — beyond 5–7 days, cumulative nephrotoxicity and ototoxicity risk rises substantially. For most systemic GNR infections, 5 days with a beta-lactam backbone is adequate; de-escalate to beta-lactam monotherapy once clinical response established.</li>
+            <li><strong>Once-daily aminoglycosides should NOT be used in endocarditis, pregnancy, burns (&gt;20% BSA), or ascites</strong> — altered volume of distribution invalidates standard nomograms. Use traditional dosing with individualized PK monitoring.</li>
+            <li><strong>Amikacin retains activity when Gentamicin-resistant</strong> — different enzyme inactivation pathways. When susceptibilities show Gentamicin-resistance, Amikacin should be tested.</li>
+          </ul>
+          <div class="crosslink-row" style="margin-top:10px;">
+            <a href="drug_reference_guide.html#gentamicin" class="crosslink">Drug Guide: Gentamicin</a>
+            <a href="drug_reference_guide.html#amikacin" class="crosslink">Drug Guide: Amikacin</a>
+            <a href="#ie-native" class="crosslink">IE Native card</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- BETA-LACTAMS -->
+      <div class="pp-card" id="pp-beta-lactams">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#7fbf7f"></span>Beta-Lactams — Selected Class Pearls</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <ul class="pearl-list" data-tags="beta-lactam penicillin cephalosporin carbapenem cefazolin nafcillin pip-tazo meropenem esbl extended infusion">
+            <li><strong>Cefazolin is non-inferior to Nafcillin/Oxacillin for MSSA bacteremia</strong> — and has fewer adverse effects (hepatotoxicity, interstitial nephritis). IDSA guidelines now list Cefazolin as an acceptable alternative. Exception: CNS infections — Nafcillin preferred due to higher CSF penetration. <a href="https://pubmed.ncbi.nlm.nih.gov/29020263/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">PMID 29020263</a></li>
+            <li><strong>Extended-infusion beta-lactam dosing optimizes T&gt;MIC for resistant organisms</strong> — Pip-tazo 4.5 g over 4 hours q8h and Meropenem 2 g over 3 hours q8h maximize the pharmacodynamic target for elevated-MIC Pseudomonas and ESBL-producing organisms. Supported by Monte Carlo simulation data and clinical outcome studies. <a href="https://pubmed.ncbi.nlm.nih.gov/18281844/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">PMID 18281844</a></li>
+            <li><strong>Piperacillin-tazobactam should NOT be used as definitive therapy for ESBL-producing Enterobacterales bacteremia</strong> — the MERINO trial demonstrated significantly higher 30-day mortality with Pip-Tazo vs. Meropenem for ceftriaxone-resistant E. coli and Klebsiella BSI (12.3% vs. 3.7%). Use a carbapenem. <a href="https://pubmed.ncbi.nlm.nih.gov/30208454/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">MERINO Trial PMID 30208454</a></li>
+            <li><strong>Ceftriaxone 1× daily is pharmacodynamically appropriate for most indications</strong> — t½ ~8 hours; adequate T&gt;MIC for susceptible organisms with once-daily dosing. 2 g q24h for meningitis and serious CNS infections (higher CSF concentrations).</li>
+            <li><strong>Penicillin allergy cross-reactivity with cephalosporins is far lower than historical estimates</strong> — true cross-reactivity is ~1–2%, not 10%. Skin test or graded challenge is appropriate for patients with low-risk penicillin allergy history before avoiding all beta-lactams. Cephalosporins are not contraindicated in patients with a reported PCN allergy without documented anaphylaxis. <a href="https://pubmed.ncbi.nlm.nih.gov/25484630/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">PMID 25484630</a></li>
+            <li><strong>Imipenem has the highest seizure risk among carbapenems</strong> — especially at high doses or in CNS disease / renal impairment. Meropenem is preferred for meningitis and CNS infections. Ertapenem lacks Pseudomonas coverage — do not use when Pseudomonas is a concern.</li>
+          </ul>
+          <div class="crosslink-row" style="margin-top:10px;">
+            <a href="drug_reference_guide.html#cefazolin" class="crosslink">Drug Guide: Cefazolin</a>
+            <a href="drug_reference_guide.html#piperacillin-tazobactam" class="crosslink">Drug Guide: Pip-Tazo</a>
+            <a href="drug_reference_guide.html#meropenem" class="crosslink">Drug Guide: Meropenem</a>
+            <a href="drug_reference_guide.html#ertapenem" class="crosslink">Drug Guide: Ertapenem</a>
+            <a href="id_guide.html#esbl" class="crosslink">ESBL</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- TETRACYCLINES -->
+      <div class="pp-card" id="pp-tetracyclines">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#e0c44f"></span>Tetracyclines / Glycylcyclines</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <ul class="pearl-list" data-tags="doxycycline minocycline tetracycline tigecycline atypical tick-borne RMSF">
+            <li><strong>Doxycycline is the drug of choice for all tick-borne rickettsial diseases</strong> — including in children (AAP and CDC guidance supports Doxycycline even in children &lt;8 years for RMSF when the diagnosis is suspected, due to risk of fatal delay). Do not substitute with other agents for RMSF — mortality rises sharply with delayed or incorrect therapy. <a href="https://pubmed.ncbi.nlm.nih.gov/16964828/" target="_blank" class="source-badge src-cdc" style="font-size:10px;padding:1px 6px;">CDC / AAP PMID 16964828</a></li>
+            <li><strong>Doxycycline has high oral bioavailability (~93%)</strong> — strong IV-to-PO switch candidate. IV and PO doxycycline are clinically interchangeable in patients with intact GI absorption.</li>
+            <li><strong>Minocycline &gt; Doxycycline for Acinetobacter baumannii</strong> — Minocycline retains activity against strains resistant to Doxycycline; different efflux pump susceptibility profile. Consider for MDR Acinetobacter as part of combination regimen. <a href="https://pubmed.ncbi.nlm.nih.gov/26316527/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">PMID 26316527</a></li>
+            <li><strong>Tigecycline: once-daily high-dose regimens are preferred</strong> — standard dosing (50 mg q12h) results in low serum concentrations. High-dose (100 mg q12h or 200 mg once daily) achieves better PK targets for serious infections. Do not use for bacteremia or UTI — serum and urine concentrations are inadequate. <a href="https://pubmed.ncbi.nlm.nih.gov/25733600/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">PMID 25733600</a></li>
+            <li><strong>Tetracyclines are bacteriostatic</strong> — not for endocarditis monotherapy or other infections requiring bactericidal activity. Exception: Doxycycline for Brucella, rickettsial disease, atypical pneumonia where bacteriostatic activity is clinically effective.</li>
+            <li><strong>Avoid dairy / divalent cations within 2 hours of oral dose</strong> — chelation reduces absorption for oral Doxycycline by up to 50%. Minocycline is less affected by food.</li>
+          </ul>
+          <div class="crosslink-row" style="margin-top:10px;">
+            <a href="drug_reference_guide.html#doxycycline" class="crosslink">Drug Guide: Doxycycline</a>
+            <a href="drug_reference_guide.html#tigecycline" class="crosslink">Drug Guide: Tigecycline</a>
+            <a href="#cap-atypical" class="crosslink">CAP Atypical card</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MACROLIDES -->
+      <div class="pp-card" id="pp-macrolides">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#b07fe8"></span>Macrolides / Azalides</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <ul class="pearl-list" data-tags="azithromycin clarithromycin macrolide QTc cardiac atypical legionella">
+            <li><strong>Azithromycin carries QTc prolongation risk</strong> — particularly relevant in patients with underlying cardiac disease, electrolyte abnormalities, or concurrent QTc-prolonging drugs. NEJM 2012 cardiovascular mortality signal in high-risk populations. Consider Doxycycline as alternative for atypical CAP in cardiac-risk patients. <a href="https://pubmed.ncbi.nlm.nih.gov/22475600/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">NEJM 2012 PMID 22475600</a></li>
+            <li><strong>Azithromycin is NOT the preferred monotherapy for severe Legionella</strong> — Fluoroquinolones (Levofloxacin 750 mg) are preferred for ICU-level Legionnaire's disease due to superior intracellular killing. Azithromycin is appropriate for mild-moderate atypical CAP. <a href="https://pubmed.ncbi.nlm.nih.gov/30481853/" target="_blank" class="source-badge src-idsa" style="font-size:10px;padding:1px 6px;">IDSA/ATS 2019</a></li>
+            <li><strong>High macrolide resistance rates in S. pneumoniae in many regions</strong> — check local antibiogram; macrolide monotherapy for CAP is inappropriate in areas with &gt;25% macrolide-resistant pneumococcal rates. Use in combination with a beta-lactam or switch to a respiratory fluoroquinolone. <a href="https://pubmed.ncbi.nlm.nih.gov/30481853/" target="_blank" class="source-badge src-idsa" style="font-size:10px;padding:1px 6px;">IDSA/ATS 2019</a></li>
+            <li><strong>Clarithromycin is a potent CYP3A4 inhibitor</strong> — significant drug interactions with statins, warfarin, cyclosporine, and many other agents. Prefer Azithromycin (minimal CYP3A4 effect) when interaction risk is a concern.</li>
+            <li><strong>Azithromycin tissue concentrations greatly exceed serum levels</strong> — 3-day Z-pack achieves 5-day intracellular tissue concentrations. Serum levels do not reflect tissue PK. Drug persists in alveolar macrophages for days after last dose.</li>
+          </ul>
+          <div class="crosslink-row" style="margin-top:10px;">
+            <a href="drug_reference_guide.html#azithromycin" class="crosslink">Drug Guide: Azithromycin</a>
+            <a href="#cap-typical" class="crosslink">CAP card</a>
+            <a href="#cap-atypical" class="crosslink">CAP Atypical card</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- TMP-SMX -->
+      <div class="pp-card" id="pp-tmpsmx">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#4fc4a3"></span>TMP-SMX (Trimethoprim-Sulfamethoxazole)</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <ul class="pearl-list" data-tags="tmp-smx trimethoprim sulfamethoxazole bactrim pcp uti mrsa bone">
+            <li><strong>Oral TMP-SMX achieves near-identical serum levels to IV</strong> — bioavailability ~90–100%. Excellent IV-to-PO switch candidate for MRSA SSTI, PCP, Nocardia, and susceptible UTI/pyelonephritis. Bone and CNS penetration are excellent. <a href="https://pubmed.ncbi.nlm.nih.gov/1849646/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">PMID 1849646</a></li>
+            <li><strong>High-dose TMP-SMX is first-line for all severities of PCP</strong> — 15–20 mg/kg/day (TMP component). No agent has demonstrated superiority; alternatives (Primaquine-Clindamycin, Atovaquone, Pentamidine) carry higher failure/toxicity rates. <a href="https://clinicalinfo.hiv.gov/en/guidelines/hiv-clinical-guidelines-adult-and-adolescent-opportunistic-infections/pneumocystis" target="_blank" class="source-badge src-dhhs" style="font-size:10px;padding:1px 6px;">DHHS OI Guidelines</a></li>
+            <li><strong>False elevation of serum creatinine without true AKI</strong> — TMP inhibits tubular secretion of creatinine (competes with creatinine for organic cation transporter), raising SCr by 0.1–0.3 mg/dL without reducing GFR. Do not reflexively hold TMP-SMX for mild SCr elevation unless trend continues.</li>
+            <li><strong>Hyperkalemia risk, especially in the elderly and CKD</strong> — TMP acts as a potassium-sparing diuretic (similar to amiloride), blocking sodium channels in the distal nephron. Monitor K⁺, especially with ACE inhibitors, ARBs, or spironolactone. <a href="https://pubmed.ncbi.nlm.nih.gov/25416274/" target="_blank" class="source-badge src-pmid" style="font-size:10px;padding:1px 6px;">PMID 25416274</a></li>
+            <li><strong>Folate supplementation does not overcome TMP-SMX mechanism</strong> — TMP blocks bacterial DHFR; human cells use dietary folate directly. Supplemental folate does NOT reverse antimicrobial efficacy. Leucovorin rescue is used to reduce hematologic toxicity in high-risk patients (HIV, myelosuppression) — it does not diminish antibacterial activity.</li>
+          </ul>
+          <div class="crosslink-row" style="margin-top:10px;">
+            <a href="drug_reference_guide.html#trimethoprim-sulfamethoxazole" class="crosslink">Drug Guide: TMP-SMX</a>
+            <a href="#pcp" class="crosslink">PCP card</a>
+            <a href="#uti-uncomplicated" class="crosslink">UTI card</a>
+            <a href="#osteo" class="crosslink">Osteomyelitis card</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- METRONIDAZOLE -->
+      <div class="pp-card" id="pp-metronidazole">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#e09c4f"></span>Metronidazole</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <ul class="pearl-list" data-tags="metronidazole flagyl cdiff anaerobe cns">
+            <li><strong>Metronidazole is no longer first-line for any severity of CDI</strong> — IDSA 2021 guidelines replaced Metronidazole with Vancomycin PO or Fidaxomicin as preferred therapy for all severities. Metronidazole is retained for fulminant CDI only as an adjunct (IV) when enteric access is limited. <a href="https://pubmed.ncbi.nlm.nih.gov/34519664/" target="_blank" class="source-badge src-idsa" style="font-size:10px;padding:1px 6px;">IDSA CDI 2021 PMID 34519664</a></li>
+            <li><strong>Excellent CNS penetration</strong> — achieves therapeutic concentrations in brain abscess; essential component of brain abscess empiric regimens when anaerobes are suspected.</li>
+            <li><strong>Peripheral neuropathy with prolonged courses</strong> — cumulative exposure risk, particularly &gt;4 weeks. Monitor for paresthesias. Usually reversible but may be prolonged.</li>
+            <li><strong>Disulfiram-like reaction with alcohol</strong> — counsel all patients to strictly avoid alcohol and alcohol-containing products (including mouthwash) during and for 48 hours after therapy.</li>
+            <li><strong>IV and PO Metronidazole are bioequivalent</strong> — oral bioavailability ~100%. Switch IV to PO as soon as GI tract is functional; no pharmacokinetic penalty.</li>
+          </ul>
+          <div class="crosslink-row" style="margin-top:10px;">
+            <a href="drug_reference_guide.html#metronidazole" class="crosslink">Drug Guide: Metronidazole</a>
+            <a href="#cdiff" class="crosslink">C. diff card</a>
+            <a href="#brain-abscess" class="crosslink">Brain Abscess card</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANTIFUNGALS -->
+      <div class="pp-card" id="pp-antifungals">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#e05c5c"></span>Antifungals — Selected Pearls</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <ul class="pearl-list" data-tags="fluconazole voriconazole echinocandin amphotericin candida aspergillus">
+            <li><strong>Echinocandins are first-line for candidemia in most adults</strong> — superior early fungicidal activity vs. azoles; activity against fluconazole-resistant Candida species. Micafungin, Caspofungin, Anidulafungin are options. Step-down to Fluconazole when susceptibilities confirmed and patient clinically stable. <a href="https://www.idsociety.org/practice-guideline/candidiasis/" target="_blank" class="source-badge src-idsa" style="font-size:10px;padding:1px 6px;">IDSA Candida 2016</a></li>
+            <li><strong>Remove all intravascular catheters in candidemia</strong> — central lines are a persistent source; failure to remove is associated with higher mortality. Replace after repeat blood cultures clear.</li>
+            <li><strong>Ophthalmology exam is mandatory in candidemia</strong> — Candida endophthalmitis occurs in ~10–15% of candidemia and may be asymptomatic. Funduscopic exam by ophthalmology within 1 week of diagnosis.</li>
+            <li><strong>Voriconazole has complex PK with nonlinear saturable hepatic metabolism</strong> — CYP2C19 polymorphisms cause wide interpatient variability. Therapeutic drug monitoring is essential; target trough 1–5.5 mcg/mL. Below 1 = likely subtherapeutic; above 5.5 = neurotoxicity risk. <a href="https://www.idsociety.org/practice-guideline/aspergillosis/" target="_blank" class="source-badge src-idsa" style="font-size:10px;padding:1px 6px;">IDSA Aspergillus 2016</a></li>
+            <li><strong>Amphotericin B — liposomal formulation preferred for most indications</strong> — dramatically lower nephrotoxicity vs. conventional Ampho B deoxycholate, equivalent efficacy. Use conventional formulation only when cost is prohibitive and careful monitoring is feasible.</li>
+            <li><strong>Azoles are potent CYP inhibitors — drug interaction minefield</strong> — Fluconazole (CYP2C9, 3A4) and Voriconazole/Posaconazole (3A4, 2C19) interact with tacrolimus, cyclosporine, warfarin, statins, many chemotherapy agents. Review all medications before prescribing.</li>
+          </ul>
+          <div class="crosslink-row" style="margin-top:10px;">
+            <a href="drug_reference_guide.html#fluconazole" class="crosslink">Drug Guide: Fluconazole</a>
+            <a href="drug_reference_guide.html#voriconazole" class="crosslink">Drug Guide: Voriconazole</a>
+            <a href="id_guide.html#candida" class="crosslink">ID Guide: Candida</a>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ════════════════════════════════════════════
+           SECTION B — BY SYNDROME
+      ════════════════════════════════════════════ -->
+      <div class="pp-section-header" style="font-family:var(--font-ui);font-size:11px;font-weight:700;
+           letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin:32px 0 12px;
+           padding-bottom:6px;border-bottom:1px solid var(--border);">
+        Section B · By Syndrome
+      </div>
+
+      <!-- ANTIBIOTIC FAILURE -->
+      <div class="pp-card" id="pp-abx-failure">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#9b7fe8"></span>Apparent Antibiotic Failure — Framework</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <ul class="pearl-list" data-tags="antibiotic failure fever persistence non-infectious mimics stewardship">
+            <li><strong>Most "antibiotic failures" are not antibiotic failures</strong> — before changing antibiotics, systematically rule out: undrained source (abscess, empyema, infected hardware), drug fever, non-infectious fever mimics, wrong diagnosis, inadequate source control, or superinfection.</li>
+            <li><strong>Drug fever can mimic treatment failure</strong> — occurs most commonly 7–10 days into a course; any antibiotic can cause it. Suspect if patient appears well despite fever, eosinophilia is present, and cultures remain negative. Stopping the offending drug results in defervescence within 48–72h.</li>
+            <li><strong>Persistent fever after 72h of appropriate antibiotics</strong> — reassess: Is the diagnosis correct? Is there a drainable source? Is the organism susceptible? Are concentrations adequate at the site of infection? Is there a complication (septic thrombophlebitis, endocarditis, metastatic foci)?</li>
+            <li><strong>Inadequate source control is the most common cause of true antibiotic failure in complicated infections</strong> — abscess, infected prosthetic material, obstructed biliary tract, empyema, and infected hardware will not respond to antibiotics alone regardless of in vitro susceptibility.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- BACTEREMIA / BSI -->
+      <div class="pp-card" id="pp-bsi-pearls">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#e05c5c"></span>Bacteremia / Bloodstream Infection</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <ul class="pearl-list" data-tags="bacteremia bsi blood culture staph gram negative endocarditis">
+            <li><strong>All S. aureus bacteremia requires echocardiography</strong> — TEE is strongly preferred over TTE; superior sensitivity for vegetations, perivalvular abscess. Endocarditis cannot be excluded by TTE alone. <a href="https://pubmed.ncbi.nlm.nih.gov/26373316/" target="_blank" class="source-badge src-idsa" style="font-size:10px;padding:1px 6px;">IDSA S. aureus PMID 26373316</a></li>
+            <li><strong>CoNS bacteremia: first evaluate for catheter source</strong> — a single blood culture positive for CoNS is usually contamination. Two separate positive cultures, especially with an indwelling catheter, increases probability of true BSI. Remove catheter when possible.</li>
+            <li><strong>Gram-negative BSI: look for urinary, biliary, or GI source first</strong> — source localization drives both antibiotic selection and source control strategy.</li>
+            <li><strong>Repeat blood cultures at 48–72h for all S. aureus BSI</strong> — persistent bacteremia beyond 72h signals a complication: endocarditis, septic thrombophlebitis, metastatic foci, or inadequate source control. Duration of therapy is measured from first negative blood culture.</li>
+          </ul>
+          <div class="crosslink-row" style="margin-top:10px;">
+            <a href="#bsi-staph" class="crosslink">S. aureus BSI card</a>
+            <a href="#ie-native" class="crosslink">IE Native card</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEVER PATTERNS -->
+      <div class="pp-card" id="pp-fever">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#4fc4a3"></span>Fever — Clinical Diagnostic Pearls</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <ul class="pearl-list" data-tags="fever fuo relative bradycardia pattern diagnostic legionella salmonella drug fever">
+            <li><strong>Relative bradycardia (Faget's sign) narrows the differential</strong> — fever without the expected compensatory tachycardia (pulse-temperature dissociation) is classically associated with: Legionella, Salmonella typhi, Brucella, Psittacosis, viral infections (dengue, yellow fever), and drug fever. An infectious cause with expected tachycardia makes these less likely.</li>
+            <li><strong>Fever pattern has diagnostic value when consistently recorded</strong> — quotidian (daily spike): visceral leishmaniasis, miliary TB, juvenile idiopathic arthritis; tertian/quartan (every 48–72h): malaria; saddle-back (biphasic): dengue, Colorado tick fever, yellow fever.</li>
+            <li><strong>Legionnaires' disease: six characteristic clinical predictors</strong> (Cunha criteria) — high fever (&gt;39°C), relative bradycardia, diarrhea, CNS manifestations, elevated LDH, and low sodium. Cluster of these features should prompt urine Legionella antigen and empiric coverage.</li>
+            <li><strong>Highly elevated serum ferritin (&gt;10,000 ng/mL) is a key clue for specific diagnoses</strong> — adult-onset Still's disease, hemophagocytic lymphohistiocytosis (HLH), miliary TB, and visceral leishmaniasis. Extreme hyperferritinemia in the right clinical context should prompt workup for these entities, not broader empiric antibiotics.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- IV-TO-PO MASTER TABLE -->
+      <div class="pp-card" id="pp-ivtopo">
+        <div class="pp-card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#7fbf7f"></span>IV-to-PO Switch — Master Criteria &amp; High-Bioavailability Agents</div>
+          <span class="expand-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Switch Criteria (all four should be met)</div>
+            <ul class="pearl-list" data-tags="iv oral switch bioavailability step-down">
+              <li>Clinical improvement: fever trending down, hemodynamics stable, WBC improving</li>
+              <li>GI tract functional: absorbing, no ileus, no vomiting, no malabsorption</li>
+              <li>Appropriate oral agent exists with adequate bioavailability and site-of-infection penetration</li>
+              <li>No infection type requiring mandatory IV duration (endocarditis, CNS infection, fungal BSI — these have specific IV duration requirements)</li>
+            </ul>
+          </div>
+          <div class="card-section">
+            <div class="section-label">High-Bioavailability Agents — Switch Immediately on Clinical Stability</div>
+            <table class="dosing-table">
+              <thead><tr><th>Drug</th><th>Oral Bioavailability</th><th>Switch Equivalent</th></tr></thead>
+              <tbody>
+                <tr><td><a href="drug_reference_guide.html#linezolid" style="color:var(--accent);">Linezolid</a></td><td>~100%</td><td>IV → PO dose-for-dose identical</td></tr>
+                <tr><td><a href="drug_reference_guide.html#metronidazole" style="color:var(--accent);">Metronidazole</a></td><td>~100%</td><td>IV → PO dose-for-dose identical</td></tr>
+                <tr><td><a href="drug_reference_guide.html#trimethoprim-sulfamethoxazole" style="color:var(--accent);">TMP-SMX</a></td><td>~95–100%</td><td>IV → PO dose-for-dose identical</td></tr>
+                <tr><td><a href="drug_reference_guide.html#fluconazole" style="color:var(--accent);">Fluconazole</a></td><td>~90%</td><td>IV → PO dose-for-dose identical</td></tr>
+                <tr><td><a href="drug_reference_guide.html#levofloxacin" style="color:var(--accent);">Levofloxacin</a></td><td>~99%</td><td>IV → PO dose-for-dose identical</td></tr>
+                <tr><td><a href="drug_reference_guide.html#ciprofloxacin" style="color:var(--accent);">Ciprofloxacin</a></td><td>~70–80%</td><td>PO dose slightly higher: IV 400 mg q8h → PO 500 mg q8h</td></tr>
+                <tr><td><a href="drug_reference_guide.html#moxifloxacin" style="color:var(--accent);">Moxifloxacin</a></td><td>~90%</td><td>IV → PO dose-for-dose identical</td></tr>
+                <tr><td><a href="drug_reference_guide.html#doxycycline" style="color:var(--accent);">Doxycycline</a></td><td>~93%</td><td>IV → PO dose-for-dose identical</td></tr>
+                <tr><td><a href="drug_reference_guide.html#clindamycin" style="color:var(--accent);">Clindamycin</a></td><td>~90%</td><td>IV → PO dose-for-dose identical</td></tr>
+                <tr><td><a href="drug_reference_guide.html#voriconazole" style="color:var(--accent);">Voriconazole</a></td><td>~96%</td><td>IV → PO dose-for-dose identical (TDM still required)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Agents Without Reliable Oral Equivalents — Complete IV</div>
+            <div class="pathogen-list">
+              <span class="pathogen-tag">Vancomycin (systemic)</span>
+              <span class="pathogen-tag">Daptomycin</span>
+              <span class="pathogen-tag">Aminoglycosides</span>
+              <span class="pathogen-tag">Carbapenems</span>
+              <span class="pathogen-tag">Ceftriaxone (no oral third-gen ceph equivalent)</span>
+              <span class="pathogen-tag">Amphotericin B</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /ch7 -->
+
+<style>
+  .pp-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .pp-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 16px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    border-bottom: 1px solid transparent;
+    transition: background 0.1s;
+  }
+  .pp-card-header:hover { background: var(--surface2); }
+  .pp-card.open .pp-card-header { border-bottom-color: var(--border); }
+  .pp-card .card-body { display: none; padding: 14px 16px; }
+  .pp-card.open .card-body { display: block; }
+  .pp-card.open .expand-icon { transform: rotate(180deg); }
+  .pp-card .expand-icon { transition: transform 0.2s; }
+</style>
+
+<script>
+function filterPearls(query) {
+  const q = query.toLowerCase();
+  document.querySelectorAll('.pp-card').forEach(card => {
+    const text = card.innerText.toLowerCase();
+    const tags = card.querySelector('[data-tags]')?.getAttribute('data-tags') || '';
+    const match = !q || text.includes(q) || tags.includes(q);
+    card.style.display = match ? '' : 'none';
+  });
+}
+</script>
+
+    <div id="ch8">
+      <div class="chapter-header"><span class="ch-num">CH 8</span><h2>Drug PK Summary Cards</h2></div>
+      <div class="chapter-placeholder"><strong>Redirects to Drug Reference Guide (274 cards) with PK parameters</strong>Cross-linked stubs with Vd, protein binding, CNS penetration, renal dosing — Phase 4 build.</div>
+    </div>
+
+  </main>
+</div><!-- /wrapper -->
+
+
+<script>
+  // ── Card toggle ─────────────────────────────────────────
+  function toggleCard(header) {
+    const card = header.closest('.syndrome-card');
+    card.classList.toggle('open');
+  }
+
+  // ── Active TOC highlight on scroll ───────────────────────
+  const tocLinks = document.querySelectorAll('.toc-link');
+  const sections = [];
+
+  tocLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      const el = document.getElementById(href.slice(1));
+      if (el) sections.push({ el, link });
+    }
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tocLinks.forEach(l => l.classList.remove('active'));
+        const found = sections.find(s => s.el === entry.target);
+        if (found) found.link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40px 0px -80% 0px' });
+
+  sections.forEach(s => observer.observe(s.el));
+
+  // ── Open card if arriving via anchor hash ─────────────────
+  window.addEventListener('DOMContentLoaded', () => {
+    if (location.hash) {
+      const target = document.querySelector(location.hash);
+      if (target && target.classList.contains('syndrome-card')) {
+        target.classList.add('open');
+      }
+    }
+  });
+</script>
+
+<script>
+  // Show install banner only when page is running inside an installed PWA (standalone mode)
+  // In that context Safari's "Add to Home Screen" is not accessible, so we surface a direct link
+  (function () {
+    const isStandalone = navigator.standalone === true ||
+                         window.matchMedia('(display-mode: standalone)').matches;
+    const dismissed = sessionStorage.getItem('abx-banner-dismissed');
+    if (isStandalone && !dismissed) {
+      document.getElementById('abx-install-banner').classList.add('visible');
+    }
+  })();
+</script>
+
+</body>
+</html>

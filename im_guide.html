@@ -266,6 +266,44 @@
             background: #0256c7;
         }
 
+        .nav-header-links {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .nav-suite-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.12);
+            color: #e6edf3;
+            padding: 6px 14px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 9pt;
+            border: 1px solid rgba(255,255,255,0.18);
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .nav-suite-link:hover {
+            background: rgba(255,255,255,0.22);
+            border-color: rgba(255,255,255,0.35);
+            color: #fff;
+        }
+
+        .nav-suite-link.abx {
+            background: rgba(79,196,163,0.18);
+            border-color: rgba(79,196,163,0.45);
+            color: #4fc4a3;
+        }
+
+        .nav-suite-link.abx:hover {
+            background: rgba(79,196,163,0.30);
+            border-color: #4fc4a3;
+            color: #6fdec0;
+        }
+
         .toc {
             padding: 30px;
             background: #f6f8fa;
@@ -509,7 +547,10 @@
         <div class="nav-header">
             <h1>Internal Medicine Clinical Reference Guide</h1>
             <p>338 Essential Conditions for Hospital Medicine</p>
-            <a href="#toc" class="back-to-top">↑ Table of Contents</a>
+            <div class="nav-header-links">
+                <a href="#toc" class="back-to-top">↑ Table of Contents</a>
+                <a href="abx-companion.html" class="nav-suite-link abx">💊 ABX Companion</a>
+            </div>
         </div>
 
                 <!-- TABLE OF CONTENTS -->
@@ -519,6 +560,20 @@
             <p class="toc-subtitle">Version 3.7 • 338 Conditions • <strong id="component-version" style="color: #e74c3c;">BUILD #30</strong></p>
             <p class="toc-subtitle"><em>Tap any condition below to jump to its management protocol.</em></p>
             <p class="toc-subtitle" style="margin-top: 10px;"><a href="#system-toc" style="color: #0366d6; font-weight: 600;">Or browse by Organ System →</a></p>
+
+            <!-- ABX Companion install callout -->
+            <div style="margin-top: 14px; background: #0d2b24; border: 1px solid #4fc4a3; border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <span style="font-size: 20px;">💊</span>
+                <span style="flex: 1; font-size: 9.5pt; color: #c8ede6; line-height: 1.5;">
+                    <strong style="color: #4fc4a3;">ABX Companion</strong> is available as a standalone app.
+                    Open in Safari, then <strong style="color: #e6edf3;">Share → Add to Home Screen</strong> to install.
+                </span>
+                <a href="https://comstocd.github.io/Clinical-Reference-Suite/abx-companion.html"
+                   target="_blank" rel="noopener"
+                   style="display: inline-block; background: #4fc4a3; color: #0a0d13; font-weight: 700; font-size: 9pt; padding: 7px 14px; border-radius: 6px; text-decoration: none; white-space: nowrap;">
+                    Open in Safari ↗
+                </a>
+            </div>
 
             <div class="toc-search-wrapper">
                 <input type="text" class="toc-search" id="tocSearch" placeholder="Search conditions (e.g., ACS, sepsis, DKA...)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
@@ -3671,7 +3726,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#cap-typical" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ CAP — Typical</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
         </div>
 <div id="copd" class="condition-page">
             <div class="page-header">
@@ -4159,7 +4222,16 @@
             </div>
 
             <div class="section">
-                <div class="section-title">DIAGNOSTIC WORKUP</div>
+                <div class="section-title">DIAGNOSTIC WORKUP
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#sepsis-unk" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Sepsis — Unknown Source</a>
+        </div>
+    </div>
+
+</div>
                 <div class="section-content">
                     <p><span class="label">Labs:</span> Blood cultures ×2 (different sites, before antibiotics), CBC, CMP, lactate (repeat q2–4h if >2 mmol/L), procalcitonin, coagulation studies (PT/INR, fibrinogen), LFTs</p>
                     <p><span class="label">Source Identification:</span> UA/urine culture, CXR, wound cultures, consider CT abdomen/pelvis if source unclear</p>
@@ -5504,7 +5576,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#sbp" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Spontaneous Bacterial Peritonitis</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
         </div>
 <div id="he" class="condition-page">
             <div class="page-header">
@@ -6117,7 +6197,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#cellulitis" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Cellulitis / SSTI</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
         </div>
 <div id="uti" class="condition-page">
             <div class="page-header">
@@ -6466,7 +6554,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#uti-uncomplicated" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ UTI / Pyelonephritis</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
         </div>
 <div id="cdiff" class="condition-page">
             <div class="page-header">
@@ -6772,7 +6868,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#cdiff" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ C. difficile Colitis</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
         </div>
 <div id="dvt" class="condition-page">
             <div class="page-header">
@@ -7846,7 +7950,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#bm-ca" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Bacterial Meningitis</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
         </div>
 <div id="anemia" class="condition-page">
             <div class="page-header">
@@ -8254,7 +8366,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#fn" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Febrile Neutropenia</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
         </div>
 <div id="etoh-withdrawal" class="condition-page">
             <div class="page-header">
@@ -9888,7 +10008,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#ie-native" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Infective Endocarditis</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
         </div>
 <div id="myocarditis" class="condition-page">
             <div class="page-header">
@@ -12691,7 +12819,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#cap-typical" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Influenza / CAP</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
         </div>
 <div id="covid" class="condition-page">
             <div class="page-header">
@@ -13167,7 +13303,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#nf" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Necrotizing Fasciitis</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
         </div>
 <div id="tb" class="condition-page">
             <div class="page-header">
@@ -16336,7 +16480,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#cholangitis" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Cholangitis</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
         </div>
 <div id="cholecystitis" class="condition-page">
             <div class="page-header">
@@ -16454,7 +16606,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#cholecystitis" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Cholecystitis</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
         </div>
 <div id="encephalitis" class="condition-page">
             <div class="page-header">
@@ -34136,7 +34296,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#osteo" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Osteomyelitis</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
 </div>
 
 <div id="septic-arthritis" class="condition-page">
@@ -34321,7 +34489,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#septic-arthritis" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Septic Arthritis</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
 </div>
 
 <div id="epidural-abscess" class="condition-page">
@@ -35803,7 +35979,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#empyema" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Empyema</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
 </div>
 
 <!-- LUNG ABSCESS -->
@@ -35932,7 +36116,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#lung-abscess" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Lung Abscess</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
 </div>
 
 <!-- HERPES ZOSTER -->
@@ -36356,7 +36548,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#brain-abscess" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Brain Abscess</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
 </div>
 
 <!-- PROSTHETIC JOINT INFECTION -->
@@ -44324,7 +44524,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#sepsis-unk" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Invasive Candida / Sepsis</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
 </div>
 
 <!-- PCP -->
@@ -44393,7 +44601,15 @@
                 </div>
             </div>
 
-            <a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
+            
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#pcp" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ PCP (Pneumocystis)</a>
+        </div>
+    </div>
+<a href="#toc" class="back-to-top">↑ Back to Table of Contents</a>
 </div>
 
 <!-- ASPERGILLOSIS -->
@@ -45778,6 +45994,15 @@
             <span style="font-weight: 600; color: #6b21a8;">📖 Drug Reference:</span> <a href="drug_reference_guide.html#piperacillin-tazobactam" style="color: #8e44ad;">💊 Pip-Tazo</a>, <a href="drug_reference_guide.html#meropenem" style="color: #8e44ad;">💊 Meropenem</a>, <a href="drug_reference_guide.html#metronidazole" style="color: #8e44ad;">💊 Metronidazole</a>
         </div>
     </div>
+
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#cholecystitis" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ Acalculous Cholecystitis</a>
+        </div>
+    </div>
+
 </div>
 
 <!-- COAGULOPATHY OF LIVER DISEASE -->
@@ -50831,6 +51056,15 @@
             <span style="font-weight: 600; color: #6b21a8;">📖 Drug Reference:</span> <a href="drug_reference_guide.html#piperacillin-tazobactam" style="color: #8e44ad;">💊 Pip-Tazo</a>, <a href="drug_reference_guide.html#cefepime" style="color: #8e44ad;">💊 Cefepime</a>, <a href="drug_reference_guide.html#meropenem" style="color: #8e44ad;">💊 Meropenem</a>, <a href="drug_reference_guide.html#vancomycin" style="color: #8e44ad;">💊 Vancomycin</a>, <a href="drug_reference_guide.html#linezolid" style="color: #8e44ad;">💊 Linezolid</a>
         </div>
     </div>
+
+    <div class="section" style="background: linear-gradient(135deg, #0e1117 0%, #161b25 100%); border-left: 4px solid #4fa3e0; margin-top: 15px; border-radius: 4px;">
+        <div class="section-content" style="padding: 12px 15px;">
+            <span style="font-weight: 700; color: #4fa3e0; font-size: 0.9em; letter-spacing: 0.05em;">🧫 ABX COMPANION</span>
+            <span style="color: #7a8499; font-size: 0.82em; margin-left: 8px;">Cunha Empiric Framework</span><br>
+            <a href="abx-companion_v1.html#hap-vap" style="color: #4fc4a3; font-weight: 600; text-decoration: none; font-size: 0.88em;">→ HAP / VAP</a>
+        </div>
+    </div>
+
 </div>
 
 <!-- FAT EMBOLISM SYNDROME -->
