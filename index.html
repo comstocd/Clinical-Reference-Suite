@@ -152,6 +152,8 @@
             color: #fff; padding: 16px 18px; font-weight: 700; font-size: 0.95rem;
         }
         .card-body { padding: 14px 18px; }
+        .tool-card { display: flex; flex-direction: column; }
+        .tool-card .card-body { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .card-body p { color: #718096; margin: 0 0 10px 0; font-size: 0.88rem; line-height: 1.5; }
         .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
         .card-tag {
@@ -313,14 +315,14 @@
             <div class="tool-card" onclick="switchTool('abxcomp')" style="border-top-color:#4fc4a3;">
                 <div class="card-header" style="background:linear-gradient(135deg,#0d2b24,#1a4a3a);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">ABX</span>ABX Companion</div>
                 <div class="card-body">
-                    <p>Empiric antibiotic regimens using the Cunha clinical framework — syndrome-based selection, dosing, stewardship pearls, and resistance considerations.</p>
+                    <p>Empiric antibiotic regimens — syndrome-based selection, dosing, stewardship pearls, and resistance considerations.</p>
                     <div class="card-tags"><span class="card-tag">Empiric Regimens</span><span class="card-tag">Cunha Framework</span></div>
                 </div>
             </div>
             <div class="tool-card" onclick="switchTool('bodyatlas')" style="border-top-color:#4fa3e0;">
                 <div class="card-header" style="background:linear-gradient(135deg,#0d1f35,#1a3a5f);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">ATLAS</span>ID Body Atlas</div>
                 <div class="card-body">
-                    <p>Anatomic reference — tap any body region to see dominant pathogens, antibiotic tissue penetration, and empiric regimens. Symptom filter highlights likely sites.</p>
+                    <p>Tap any body region — pathogens, antibiotic tissue penetration, and empiric regimens by anatomic site.</p>
                     <div class="card-tags"><span class="card-tag">18 Regions</span><span class="card-tag">3 Layers</span><span class="card-tag">Symptom Filter</span></div>
                 </div>
             </div>
@@ -335,14 +337,14 @@
             <div class="tool-card" onclick="switchTool('labs')" style="border-top-color:#1976d2;">
                 <div class="card-header" style="background:linear-gradient(135deg,#0d47a1,#1976d2);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">LAB</span>Laboratory Values Reference</div>
                 <div class="card-body">
-                    <p>Normal ranges, critical values, and interpretation guidance for CBC, BMP, LFTs, coagulation, urinalysis, CSF, joint fluid, and more.</p>
+                    <p>Normal ranges, critical values, and interpretation for CBC, BMP, LFTs, coagulation, urinalysis, CSF, and more.</p>
                     <div class="card-tags"><span class="card-tag">134 Tests</span><span class="card-tag">Critical Values</span></div>
                 </div>
             </div>
             <div class="tool-card" onclick="switchTool('dxfx')" style="border-top-color:#00897b;">
                 <div class="card-header" style="background:linear-gradient(135deg,#00695c,#00897b);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">DX</span>Diagnostic Framework</div>
                 <div class="card-body">
-                    <p>Systematic presentation-based diagnostic approaches: chest pain, dyspnea, altered mental status, acid-base disorders, and more.</p>
+                    <p>Presentation-based diagnostic approaches: chest pain, dyspnea, altered mental status, acid-base, and more.</p>
                     <div class="card-tags"><span class="card-tag">Presentation-Based</span><span class="card-tag">DDx Trees</span></div>
                 </div>
             </div>
