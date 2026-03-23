@@ -4181,8 +4181,8 @@ function filterPearls(query) {
 <script>
   // ── Card toggle ─────────────────────────────────────────
   function toggleCard(header) {
-    const card = header.closest('.syndrome-card');
-    card.classList.toggle('open');
+    const card = header.closest('.syndrome-card') || header.closest('.pp-card');
+    if (card) card.classList.toggle('open');
   }
 
   // ── Active TOC highlight on scroll ───────────────────────
