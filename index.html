@@ -325,6 +325,13 @@
                 </div>
             </div>
             </div>
+            <div class="tool-card" onclick="switchTool('audio')" style="border-top-color:#4fa3e0;">
+                <div class="card-header" style="background:linear-gradient(135deg,#0a1520,#1a2a3a);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">AUDIO</span>ID Audio Companion</div>
+                <div class="card-body">
+                    <p>Commute-friendly study — lecture and flashcard modes for all 18 body regions. Offline capable. AI deep-dive on WiFi.</p>
+                    <div class="card-tags"><span class="card-tag">Lecture Mode</span><span class="card-tag">Flashcards</span><span class="card-tag">Offline</span></div>
+                </div>
+            </div>
             <div class="tool-card" onclick="switchTool('labs')" style="border-top-color:#1976d2;">
                 <div class="card-header" style="background:linear-gradient(135deg,#0d47a1,#1976d2);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">LAB</span>Laboratory Values Reference</div>
                 <div class="card-body">
@@ -602,13 +609,14 @@ const tools = [
     { id:"neuroconsult", name:"Neurology Consult",      icon:"🧠", badge:"<span style='display:inline-flex;align-items:center;justify-content:center;background:#1a0f40;color:#e8e0ff;font-family:-apple-system,BlinkMacSystemFont,monospace;font-size:9px;font-weight:800;letter-spacing:0.04em;border-radius:4px;padding:2px 5px;min-width:36px;text-align:center;line-height:1.2;'>NEURO</span>", file:"neuro_consult.html",               description:"NIHSS, tPA Criteria, TOAST, Note Generator" },
     // ── Clinical Notes
     { id:"inpatientnote",name:"Inpatient Note",         icon:"📋", badge:"<span style='display:inline-flex;align-items:center;justify-content:center;background:#0e1d2e;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,monospace;font-size:9px;font-weight:800;letter-spacing:0.04em;border-radius:4px;padding:2px 5px;min-width:36px;text-align:center;line-height:1.2;'>IP</span>", file:"inpatient_note.html",              description:"H&P / Progress / Discharge — 32 Emergency Conditions" },
+    { id:"audio",        name:"Audio Companion",     icon:"🎧", file:"audio-companion.html",          description:"Audio study tool — commute-friendly lecture and flashcard modes for all 18 body regions" },
     { id:"bodyatlas",    name:"Body Atlas",           icon:"🫁", file:"body-atlas.html",               description:"Anatomic ID Reference — Pathogens, Penetration, Empiric Rx by Site" },
     { id:"opnote",       name:"Outpatient IM Note",     icon:"🏥", badge:"<span style='display:inline-flex;align-items:center;justify-content:center;background:#3e2723;color:#fce8e0;font-family:-apple-system,BlinkMacSystemFont,monospace;font-size:9px;font-weight:800;letter-spacing:0.04em;border-radius:4px;padding:2px 5px;min-width:36px;text-align:center;line-height:1.2;'>OP</span>", file:"op_note.html",                     description:"5 Visit Types, Preventive Care, Note Generator" },
 ];
 
 // Sidebar groups for visual separation
 const NAV_SECTIONS = [
-    { label: "REFERENCE GUIDES", ids: ["imcrg","labs","dxfx","id","abxcomp","bodyatlas"] },
+    { label: "REFERENCE GUIDES", ids: ["imcrg","labs","dxfx","id","abxcomp","bodyatlas","audio"] },
     { label: "PRACTICAL TOOLS",  ids: ["drugref","drugs","abxsteward","renaldose","procedures"] },
     { label: "CONSULT NOTES",    ids: ["nephroconsult","cardioconsult","rheumconsult","idconsult","endoconsult","neuroconsult"] },
     { label: "CLINICAL NOTES",   ids: ["inpatientnote","opnote"] },

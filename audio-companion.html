@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="ID Audio">
+<title>ID Audio Companion · Clinical Reference Suite</title>
+<style>
+  :root {
+    --bg:        #0a0d13;
+    --surface:   #111520;
+    --surface2:  #181e2c;
+    --surface3:  #1e2535;
+    --border:    #2a3347;
+    --text:      #e4e8f0;
+    --muted:     #7a8499;
+    --accent:    #4fa3e0;
+    --green:     #4fc4a3;
+    --yellow:    #e0c44f;
+    --red:       #e05c5c;
+    --font:      'Helvetica Neue', 'Arial', sans-serif;
+    --font-mono: 'Menlo', 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: var(--font); font-size: 15px;
+    display: flex; flex-direction: column;
+    -webkit-user-select: none; user-select: none;
+    overflow: hidden;
+  }
+
+  /* ── TOP NAV ── */
+  #topnav {
+    position: relative; z-index: 10;
+    background: #080a10; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0;
+    padding: 0 12px; height: 44px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap;
+  }
+  #topnav .suite-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent); margin-right: 16px; flex-shrink: 0;
+  }
+  #topnav a {
+    font-size: 12px; color: var(--muted); text-decoration: none;
+    padding: 0 8px; height: 44px; display: inline-flex; align-items: center;
+    border-bottom: 2px solid transparent; flex-shrink: 0;
+  }
+  #topnav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+  #topnav a:hover { color: var(--text); }
+
+  /* ── MAIN LAYOUT ── */
+  #app { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* ── MODE BAR ── */
+  #mode-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 16px; background: var(--surface);
+    border-bottom: 1px solid var(--border); flex-shrink: 0;
+  }
+  .mode-btn {
+    flex: 1; padding: 8px 0; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--surface2);
+    color: var(--muted); font-family: var(--font);
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: all 0.15s; text-align: center;
+  }
+  .mode-btn.active { background: var(--accent); color: #080a10; border-color: var(--accent); }
+
+  /* ── PLAYLIST PANEL ── */
+  #playlist-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 16px; background: var(--surface);
+    border-bottom: 1px solid var(--border); flex-shrink: 0; overflow-x: auto;
+    -webkit-overflow-scrolling: touch; white-space: nowrap;
+  }
+  .playlist-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px; border-radius: 20px;
+    border: 1px solid var(--border); background: var(--surface2);
+    font-size: 11px; font-weight: 600; color: var(--muted); cursor: pointer;
+    flex-shrink: 0; transition: all 0.15s;
+  }
+  .playlist-chip.active {
+    border-color: var(--accent); color: var(--accent);
+    background: rgba(79,163,224,0.1);
+  }
+  .playlist-chip .chip-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--chip-color, var(--accent));
+  }
+
+  /* ── CONTENT AREA ── */
+  #content-area {
+    flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+    padding: 20px 16px 120px;
+  }
+
+  /* ── NOW PLAYING CARD ── */
+  #now-playing {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px;
+    margin-bottom: 16px; position: relative;
+    border-left: 4px solid var(--playing-color, var(--accent));
+  }
+  #now-playing .np-system {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--muted); margin-bottom: 6px;
+  }
+  #now-playing .np-title {
+    font-size: 20px; font-weight: 700; color: var(--text);
+    margin-bottom: 4px; line-height: 1.2;
+  }
+  #now-playing .np-sub {
+    font-size: 12px; color: var(--muted); margin-bottom: 14px;
+  }
+  #now-playing .np-progress-track {
+    width: 100%; height: 3px; background: var(--surface3);
+    border-radius: 2px; margin-bottom: 8px; overflow: hidden;
+  }
+  #now-playing .np-progress-fill {
+    height: 100%; background: var(--accent); border-radius: 2px;
+    transition: width 0.3s linear; width: 0%;
+  }
+  #now-playing .np-time {
+    font-size: 11px; color: var(--muted); font-family: var(--font-mono);
+    display: flex; justify-content: space-between;
+  }
+
+  /* ── SCRIPT DISPLAY ── */
+  #script-display {
+    background: var(--surface2); border-radius: 12px;
+    padding: 16px; margin-bottom: 16px;
+    min-height: 100px; position: relative;
+  }
+  #script-display .script-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px;
+  }
+  #script-text {
+    font-size: 14px; line-height: 1.65; color: var(--text);
+  }
+  #script-text .highlight {
+    background: rgba(79,163,224,0.2); border-radius: 3px;
+    padding: 0 2px; color: var(--accent); font-weight: 600;
+  }
+
+  /* ── FLASHCARD ── */
+  #flashcard {
+    display: none; perspective: 1000px;
+    margin-bottom: 16px; cursor: pointer;
+  }
+  #flashcard.visible { display: block; }
+  .fc-inner {
+    position: relative; width: 100%; min-height: 180px;
+    transition: transform 0.5s; transform-style: preserve-3d;
+  }
+  #flashcard.flipped .fc-inner { transform: rotateY(180deg); }
+  .fc-face {
+    border-radius: 14px; padding: 24px 20px;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    min-height: 180px; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+  }
+  .fc-front {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-top: 4px solid var(--accent);
+  }
+  .fc-back {
+    background: var(--surface3); border: 1px solid var(--border);
+    border-top: 4px solid var(--green);
+    position: absolute; top: 0; left: 0; right: 0;
+    transform: rotateY(180deg);
+  }
+  .fc-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--muted); margin-bottom: 12px;
+  }
+  .fc-question {
+    font-size: 16px; font-weight: 600; color: var(--text); line-height: 1.4;
+    margin-bottom: 10px;
+  }
+  .fc-hint {
+    font-size: 11px; color: var(--muted);
+  }
+  .fc-answer {
+    font-size: 14px; color: var(--text); line-height: 1.6;
+  }
+
+  /* ── TRACK LIST ── */
+  #track-list { display: flex; flex-direction: column; gap: 8px; }
+  .track-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer; transition: all 0.15s;
+    border-left: 3px solid transparent;
+  }
+  .track-item:hover { border-color: var(--accent); background: var(--surface2); }
+  .track-item.playing {
+    border-left-color: var(--accent);
+    background: rgba(79,163,224,0.07);
+  }
+  .track-item.completed { opacity: 0.5; }
+  .track-num {
+    font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+    min-width: 24px; text-align: center;
+  }
+  .track-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .track-info { flex: 1; min-width: 0; }
+  .track-name { font-size: 13px; font-weight: 600; color: var(--text); }
+  .track-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .track-duration {
+    font-size: 11px; color: var(--muted); font-family: var(--font-mono);
+    flex-shrink: 0;
+  }
+
+  /* ── TRANSPORT BAR ── */
+  #transport {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--surface); border-top: 1px solid var(--border);
+    padding: 12px 16px 20px; z-index: 100;
+  }
+  .transport-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; margin-bottom: 10px;
+  }
+  .t-btn {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 50%; color: var(--text); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .t-btn:hover { background: var(--surface3); border-color: var(--accent); }
+  .t-btn.sm { width: 40px; height: 40px; font-size: 16px; }
+  .t-btn.md { width: 52px; height: 52px; font-size: 20px; }
+  .t-btn.lg { width: 64px; height: 64px; font-size: 26px; }
+  .t-btn.play-btn {
+    background: var(--accent); border-color: var(--accent); color: #080a10;
+  }
+  .t-btn.play-btn:hover { background: #6bb8e8; }
+  .t-btn.active-btn { border-color: var(--accent); color: var(--accent); }
+
+  .transport-meta {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px;
+  }
+  .speed-display {
+    font-size: 12px; font-weight: 700; color: var(--muted);
+    font-family: var(--font-mono); min-width: 36px; text-align: center;
+  }
+  .progress-row {
+    flex: 1; display: flex; align-items: center; gap: 8px;
+  }
+  .progress-track {
+    flex: 1; height: 4px; background: var(--surface3);
+    border-radius: 2px; position: relative; cursor: pointer;
+  }
+  .progress-fill {
+    height: 100%; background: var(--accent); border-radius: 2px;
+    transition: width 0.3s linear; width: 0%; pointer-events: none;
+  }
+  .progress-time {
+    font-size: 10px; color: var(--muted); font-family: var(--font-mono);
+    flex-shrink: 0; white-space: nowrap;
+  }
+  .vol-btn {
+    background: none; border: none; color: var(--muted);
+    font-size: 18px; cursor: pointer; padding: 4px;
+  }
+
+  /* ── AI EXPAND BTN ── */
+  #ai-expand-btn {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(79,163,224,0.1); border: 1px solid rgba(79,163,224,0.3);
+    border-radius: 8px; padding: 10px 14px; margin-bottom: 16px;
+    cursor: pointer; transition: all 0.15s; width: 100%;
+  }
+  #ai-expand-btn:hover { background: rgba(79,163,224,0.18); }
+  #ai-expand-btn .ai-icon { font-size: 16px; }
+  #ai-expand-btn .ai-label { font-size: 13px; color: var(--accent); font-weight: 600; flex: 1; }
+  #ai-expand-btn .ai-sub { font-size: 11px; color: var(--muted); }
+
+  #ai-content {
+    display: none; background: var(--surface2); border-radius: 12px;
+    padding: 16px; margin-bottom: 16px; font-size: 13px;
+    line-height: 1.7; color: var(--text);
+  }
+  #ai-content.visible { display: block; }
+  #ai-content .ai-loading { color: var(--muted); font-style: italic; }
+
+  /* ── SETTINGS SHEET ── */
+  #settings-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6); z-index: 200;
+    align-items: flex-end;
+  }
+  #settings-overlay.open { display: flex; }
+  #settings-panel {
+    background: var(--surface); border-radius: 16px 16px 0 0;
+    border-top: 1px solid var(--border);
+    width: 100%; padding: 20px 20px 36px;
+  }
+  .settings-title {
+    font-size: 16px; font-weight: 700; margin-bottom: 18px;
+    color: var(--text);
+  }
+  .settings-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .settings-row:last-child { border-bottom: none; }
+  .settings-label { font-size: 14px; color: var(--text); }
+  .settings-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .settings-control { display: flex; gap: 8px; align-items: center; }
+  .seg-btn {
+    padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border);
+    background: var(--surface2); color: var(--muted); font-size: 12px;
+    font-weight: 600; cursor: pointer; transition: all 0.15s;
+  }
+  .seg-btn.active { background: var(--accent); color: #080a10; border-color: var(--accent); }
+
+  /* Waveform animation */
+  @keyframes wave {
+    0%, 100% { height: 4px; }
+    50% { height: 16px; }
+  }
+  .waveform {
+    display: flex; align-items: center; gap: 2px; height: 20px;
+  }
+  .wave-bar {
+    width: 3px; background: var(--accent); border-radius: 2px;
+    height: 4px;
+  }
+  .wave-bar.playing {
+    animation: wave 0.8s ease-in-out infinite;
+  }
+  .wave-bar:nth-child(1) { animation-delay: 0s; }
+  .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+  .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+  .wave-bar:nth-child(4) { animation-delay: 0.15s; }
+  .wave-bar:nth-child(5) { animation-delay: 0.05s; }
+</style>
+</head>
+<body>
+
+<nav id="topnav">
+  <span class="suite-title">GL · CRS</span>
+  <a href="index.html">Home</a>
+  <a href="body-atlas.html">Body Atlas</a>
+  <a href="abx-companion.html">ABX</a>
+  <a href="id_guide.html">ID Guide</a>
+  <a href="audio-companion.html" class="active">Audio</a>
+</nav>
+
+<div id="app">
+
+  <!-- Mode selector -->
+  <div id="mode-bar">
+    <button class="mode-btn active" id="btn-lecture" onclick="setMode('lecture')">📖 Lecture</button>
+    <button class="mode-btn" id="btn-flashcard" onclick="setMode('flashcard')">⚡ Flashcard</button>
+    <button class="mode-btn" id="btn-playlist" onclick="setMode('playlist')">📋 Playlist</button>
+  </div>
+
+  <!-- Playlist filter bar -->
+  <div id="playlist-bar">
+    <div class="playlist-chip active" data-filter="all" onclick="setFilter('all', this)">All Regions</div>
+    <div class="playlist-chip" data-filter="head" style="--chip-color:#9b7fe8" onclick="setFilter('head', this)"><span class="chip-dot"></span>Head & Neck</div>
+    <div class="playlist-chip" data-filter="thorax" style="--chip-color:#4fa3e0" onclick="setFilter('thorax', this)"><span class="chip-dot"></span>Thorax</div>
+    <div class="playlist-chip" data-filter="abdomen" style="--chip-color:#e09c4f" onclick="setFilter('abdomen', this)"><span class="chip-dot"></span>Abdomen</div>
+    <div class="playlist-chip" data-filter="msk" style="--chip-color:#c4a35a" onclick="setFilter('msk', this)"><span class="chip-dot"></span>MSK</div>
+    <div class="playlist-chip" data-filter="systemic" style="--chip-color:#e06b4f" onclick="setFilter('systemic', this)"><span class="chip-dot"></span>Systemic</div>
+    <div class="playlist-chip" data-filter="emergencies" style="--chip-color:#e05c5c" onclick="setFilter('emergencies', this)">🚨 Emergencies</div>
+  </div>
+
+  <!-- Main content area -->
+  <div id="content-area">
+
+    <!-- Now playing -->
+    <div id="now-playing" style="display:none;">
+      <div class="np-system" id="np-system">Head &amp; Neck</div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+        <div style="flex:1;">
+          <div class="np-title" id="np-title">CNS / Brain</div>
+          <div class="np-sub" id="np-sub">Meningitis · Encephalitis · Brain Abscess</div>
+        </div>
+        <div class="waveform" id="waveform">
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+          <div class="wave-bar"></div>
+        </div>
+      </div>
+      <div class="np-progress-track">
+        <div class="np-progress-fill" id="np-progress"></div>
+      </div>
+      <div class="np-time">
+        <span id="np-elapsed">0:00</span>
+        <span id="np-segment">Pathogens · 1 of 3</span>
+      </div>
+    </div>
+
+    <!-- Script display (lecture mode) -->
+    <div id="script-display" style="display:none;">
+      <div class="script-label">Now Reading</div>
+      <div id="script-text"></div>
+    </div>
+
+    <!-- Flashcard (flashcard mode) -->
+    <div id="flashcard" onclick="flipCard()">
+      <div class="fc-inner">
+        <div class="fc-face fc-front">
+          <div class="fc-label">Question</div>
+          <div class="fc-question" id="fc-question"></div>
+          <div class="fc-hint">Tap to reveal answer</div>
+        </div>
+        <div class="fc-face fc-back">
+          <div class="fc-label">Answer</div>
+          <div class="fc-answer" id="fc-answer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI deep-dive button -->
+    <div id="ai-expand-btn" onclick="aiExpand()" style="display:none;">
+      <span class="ai-icon">🤖</span>
+      <div style="flex:1;">
+        <div class="ai-label">Generate Deeper Explanation</div>
+        <div class="ai-sub">Uses AI to expand on this topic · requires WiFi</div>
+      </div>
+      <span style="color:var(--muted);font-size:14px;">›</span>
+    </div>
+    <div id="ai-content"></div>
+
+    <!-- Track list -->
+    <div id="track-list"></div>
+
+  </div><!-- /content-area -->
+
+</div><!-- /app -->
+
+<!-- Transport bar -->
+<div id="transport">
+  <div class="transport-row">
+    <button class="t-btn sm" onclick="skipBack()" title="Previous">⏮</button>
+    <button class="t-btn md" onclick="skipSegment(-1)" title="Rewind 15s">↺</button>
+    <button class="t-btn lg play-btn" id="play-btn" onclick="togglePlay()">▶</button>
+    <button class="t-btn md" onclick="skipSegment(1)" title="Skip 15s">↻</button>
+    <button class="t-btn sm" onclick="skipForward()" title="Next">⏭</button>
+  </div>
+  <div class="transport-meta">
+    <button class="vol-btn" onclick="cycleSpeed()" title="Speed">
+      <span class="speed-display" id="speed-display">1×</span>
+    </button>
+    <div class="progress-row">
+      <span class="progress-time" id="t-elapsed">0:00</span>
+      <div class="progress-track" onclick="seekTrack(event)">
+        <div class="progress-fill" id="t-progress"></div>
+      </div>
+      <span class="progress-time" id="t-total">0:00</span>
+    </div>
+    <button class="t-btn sm" id="repeat-btn" onclick="toggleRepeat()" title="Repeat">🔁</button>
+    <button class="t-btn sm" onclick="openSettings()" title="Settings">⚙️</button>
+  </div>
+</div>
+
+<!-- Settings sheet -->
+<div id="settings-overlay" onclick="closeSettings(event)">
+  <div id="settings-panel">
+    <div class="settings-title">⚙️ Settings</div>
+    <div class="settings-row">
+      <div><div class="settings-label">Voice</div><div class="settings-sub">Text-to-speech voice</div></div>
+      <div class="settings-control">
+        <select id="voice-select" style="background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:6px;font-size:12px;" onchange="setVoice(this.value)"></select>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div><div class="settings-label">Auto-advance</div><div class="settings-sub">Play next region automatically</div></div>
+      <div class="settings-control">
+        <button class="seg-btn active" id="auto-on" onclick="setAuto(true)">On</button>
+        <button class="seg-btn" id="auto-off" onclick="setAuto(false)">Off</button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div><div class="settings-label">Flashcard pause</div><div class="settings-sub">Seconds before revealing answer</div></div>
+      <div class="settings-control">
+        <button class="seg-btn" onclick="setFcPause(3)">3s</button>
+        <button class="seg-btn active" id="fc-pause-5" onclick="setFcPause(5)">5s</button>
+        <button class="seg-btn" onclick="setFcPause(8)">8s</button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div><div class="settings-label">Content focus</div><div class="settings-sub">What each region covers</div></div>
+      <div class="settings-control">
+        <button class="seg-btn active" onclick="setFocus('all')">All</button>
+        <button class="seg-btn" onclick="setFocus('pathogens')">Pathogens</button>
+        <button class="seg-btn" onclick="setFocus('empiric')">Empiric</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// REGION DATA — all 18 regions with audio scripts
+// ═══════════════════════════════════════════════════════════════════════════
+const REGIONS = [
+  {
+    id: 'cns', group: 'head', emergency: true,
+    name: 'CNS / Brain', sub: 'Meningitis · Encephalitis · Brain Abscess',
+    color: '#9b7fe8', groupLabel: 'Head & Neck',
+    lecture: [
+      { segment: 'Pathogens', text: `CNS infections. The most critical concept: pathogen probability shifts dramatically with age and immune status. In community-acquired bacterial meningitis in adults, Streptococcus pneumoniae is most common, followed by Neisseria meningitidis in young adults and clusters, and Listeria monocytogenes in patients over 50, alcoholics, pregnant women, and the immunocompromised. H. influenzae is now rare in vaccinated populations. For viral meningitis — which is actually more common overall — enteroviruses dominate, and HSV-1 is the most common cause of treatable encephalitis. In the post-neurosurgical or healthcare-associated setting, S. aureus and coagulase-negative staph from hardware, and gram-negative rods including Pseudomonas are the key pathogens.` },
+      { segment: 'Penetration', text: `Antibiotic penetration into the CNS. Metronidazole achieves nearly 100% CSF penetration — it is excellent for brain abscess anaerobic coverage. TMP-SMX achieves 25 to 50 percent CSF levels. Fluoroquinolones reach 50 to 80 percent. Linezolid achieves approximately 70 percent — useful for resistant gram-positives. Ceftriaxone achieves 17 to 40 percent in inflamed meninges — the inflammation actually helps. Meropenem achieves 20 to 40 percent and is preferred over Imipenem for CNS infections due to lower seizure risk. Vancomycin is the problem drug — only 5 to 20 percent CNS penetration, highly variable. Never use Vancomycin monotherapy for meningitis. Aminoglycosides achieve less than 10 percent and require intrathecal administration for gram-negative meningitis. Daptomycin and Cefazolin should never be used for CNS infections.` },
+      { segment: 'Empiric Therapy', text: `Empiric treatment for community-acquired bacterial meningitis: Ceftriaxone 2 grams IV every 12 hours, plus Vancomycin AUC-guided, plus Dexamethasone 0.15 milligrams per kilogram every 6 hours for 4 days. Crucially — give the Dexamethasone before or with the first antibiotic dose; it reduces mortality in pneumococcal meningitis. Add Ampicillin 2 grams IV every 4 hours if Listeria risk — age over 50, immunocompromised, or pregnancy. Duration: 10 to 14 days for pneumococcus, 7 days for meningococcus. For HSV encephalitis, start Acyclovir 10 milligrams per kilogram every 8 hours empirically while awaiting CSF PCR — do not delay, mortality approaches 70 percent without treatment.` },
+      { segment: 'Pearls', text: `Key clinical pearls. First: do not delay antibiotics for CT scan. If there is no focal deficit and no papilledema, take blood cultures and start antibiotics immediately. Second: Dexamethasone benefit is greatest for pneumococcal meningitis. Be aware it may reduce Rifampin penetration if Listeria is in the picture. Third: LP opening pressure greater than 25 centimeters of water in cryptococcal meningitis requires therapeutic lumbar punctures — ICP management is critical and significantly impacts survival. Fourth: Vancomycin CNS levels are unreliable — always pair with Ceftriaxone for pneumococcal coverage.` }
+    ],
+    flashcards: [
+      { q: 'Most common cause of bacterial meningitis in adults over 50?', a: 'Streptococcus pneumoniae remains most common overall. Listeria monocytogenes risk increases significantly after age 50 — always add Ampicillin for this group.' },
+      { q: 'When do you add Ampicillin to meningitis treatment?', a: 'Age >50, immunocompromised, pregnancy, or alcoholism — all situations where Listeria monocytogenes risk is elevated. Dose: Ampicillin 2 g IV q4h.' },
+      { q: 'Why is Dexamethasone given BEFORE or WITH the first antibiotic dose?', a: 'Steroids reduce inflammation triggered by bacterial lysis. If given after, the inflammatory cascade has already been triggered. Benefit is greatest for pneumococcal meningitis — reduces mortality and neurologic sequelae.' },
+      { q: 'What is the CNS penetration of Vancomycin?', a: 'Only 5–20% — highly variable. Never monotherapy for meningitis. Always pair with Ceftriaxone. For refractory ventriculitis, consider intrathecal Vancomycin.' },
+      { q: 'First-line treatment for HSV encephalitis?', a: 'Acyclovir 10 mg/kg IV q8h for 14–21 days. Start empirically — do not await CSF PCR result. Mortality approaches 70% without treatment. Temporal lobe involvement on MRI is classic.' },
+    ]
+  },
+  {
+    id: 'eye', group: 'head', emergency: true,
+    name: 'Eye / Orbit', sub: 'Endophthalmitis · Orbital Cellulitis',
+    color: '#c87fe8', groupLabel: 'Head & Neck',
+    lecture: [
+      { segment: 'Pathogens', text: `Eye and orbital infections. Post-surgical endophthalmitis: coagulase-negative staph, particularly S. epidermidis, is most common after cataract surgery. S. aureus causes more aggressive disease. Endogenous endophthalmitis from hematogenous seeding: Candida in IV drug users and candidemia patients — classic white fluffy chorioretinal lesions. Klebsiella pneumoniae causes monomicrobial endogenous endophthalmitis in East Asian patients with liver abscess — an important recognition pattern. Orbital cellulitis is typically S. aureus or streptococcal species, often with contiguous sinusitis involvement.` },
+      { segment: 'Penetration', text: `The key principle for ocular infections: systemic antibiotics generally do not achieve therapeutic vitreous levels, with one major exception — Moxifloxacin has the best ocular penetration of all systemic agents. Voriconazole oral achieves therapeutic vitreous levels for fungal endophthalmitis. Linezolid has reasonable vitreous penetration. Systemic Vancomycin is inadequate for endophthalmitis — intravitreal injection is required. This is why the standard of care for bacterial endophthalmitis is direct intravitreal injection of Vancomycin 1 milligram plus Ceftazidime 2.25 milligrams.` },
+      { segment: 'Empiric Therapy', text: `Bacterial endophthalmitis is an ophthalmologic emergency — hours matter for visual outcome. Treatment is intravitreal Vancomycin 1 milligram plus Ceftazidime 2.25 milligrams, injected directly into the vitreous. Add systemic Moxifloxacin as adjunctive therapy. For fungal endophthalmitis from candidemia: Fluconazole 400 to 800 milligrams for azole-susceptible species, with intravitreal antifungal for sight-threatening disease. For orbital cellulitis: Vancomycin plus Ceftriaxone IV, and CT orbit to rule out subperiosteal abscess requiring surgical drainage.` },
+      { segment: 'Pearls', text: `Critical pearls. All candidemia patients require ophthalmology exam within 7 days — endophthalmitis occurs in 5 to 10 percent. Distinguish preseptal from orbital cellulitis: proptosis, ophthalmoplegia, and pain with eye movement indicate orbital involvement posterior to the septum — CT is required. Gonococcal conjunctivitis: copious purulent discharge with hyperacute onset is an ocular emergency — Ceftriaxone 1 gram IM or IV single dose plus saline irrigation.` }
+    ],
+    flashcards: [
+      { q: 'What is the standard empiric treatment for bacterial endophthalmitis?', a: 'Intravitreal injection: Vancomycin 1 mg + Ceftazidime 2.25 mg directly into the vitreous. Systemic antibiotics alone are insufficient — vitreous penetration is too poor.' },
+      { q: 'All candidemia patients require what within 7 days?', a: 'Ophthalmology examination — endophthalmitis occurs in 5–10% of candidemia cases. Also require: echocardiography and follow-up blood cultures to confirm clearance.' },
+      { q: 'Klebsiella liver abscess + vision loss in an East Asian patient = ?', a: 'Endogenous Klebsiella endophthalmitis — classic association. Klebsiella can cause monomicrobial liver abscess with metastatic infection to the eye and CNS. Systemic fluoroquinolone + intravitreal therapy.' },
+    ]
+  },
+  {
+    id: 'ent', group: 'head', emergency: false,
+    name: 'ENT / Head & Neck', sub: 'Sinusitis · Pharyngitis · Deep Space',
+    color: '#a87fc8', groupLabel: 'Head & Neck',
+    lecture: [
+      { segment: 'Pathogens', text: `Head and neck infections. Acute bacterial sinusitis: S. pneumoniae is most common, followed by H. influenzae and M. catarrhalis. GAS — Group A Streptococcus — causes 15 to 30 percent of adult pharyngitis. The majority of sore throats are viral. Fusobacterium necrophorum is an underappreciated cause in young adults and carries risk of Lemierre syndrome. Deep space infections including Ludwig angina, parapharyngeal, and peritonsillar abscesses are polymicrobial — streptococcal species plus oral anaerobes including Fusobacterium and Prevotella.` },
+      { segment: 'Empiric Therapy', text: `GAS pharyngitis: Penicillin V 500 milligrams twice daily or Amoxicillin 500 milligrams twice daily for 10 days. Treat to prevent rheumatic fever. Do not treat without positive rapid strep or culture. For sinusitis meeting antibiotic criteria — symptoms beyond 10 days, severe onset, or worsening after 5 days: Amoxicillin-clavulanate 875/125 milligrams twice daily for 5 to 7 days. Ludwig angina: airway emergency first — secure the airway, then Ampicillin-sulbactam plus Metronidazole IV. Malignant otitis externa from Pseudomonas: Ciprofloxacin 750 milligrams orally twice daily for 6 to 8 weeks — diabetics are at highest risk.` },
+      { segment: 'Pearls', text: `Lemierre syndrome: young adult with peritonsillar infection, spiking fevers, neck pain — Fusobacterium necrophorum causing internal jugular vein thrombophlebitis with septic pulmonary emboli. Treat with Metronidazole plus a beta-lactam for 4 to 6 weeks. Do not reflexively treat pharyngitis — most is viral. Ludwig angina: bilateral submandibular space infection causing tongue elevation and airway compromise — secure airway immediately, this is life-threatening.` }
+    ],
+    flashcards: [
+      { q: 'Duration of antibiotic treatment for GAS pharyngitis and why?', a: '10 days — required to eradicate GAS from the pharynx and prevent rheumatic fever. Shorter courses have higher bacteriologic failure rates.' },
+      { q: 'Lemierre syndrome: pathogen, source, and treatment?', a: 'Fusobacterium necrophorum from pharyngeal/peritonsillar infection → internal jugular vein thrombophlebitis → septic pulmonary emboli. Treat: Metronidazole + beta-lactam × 4–6 weeks.' },
+      { q: 'When should you NOT prescribe antibiotics for sinusitis?', a: 'Most acute sinusitis is viral. Antibiotics only if: symptoms ≥10 days without improvement, severe onset (high fever + facial pain + purulent discharge), or worsening after initial improvement ("double-sickening" pattern).' },
+    ]
+  },
+  {
+    id: 'lung', group: 'thorax', emergency: true,
+    name: 'Lung / Pleura', sub: 'CAP · HAP/VAP · Empyema · Lung Abscess',
+    color: '#4fa3e0', groupLabel: 'Thorax',
+    lecture: [
+      { segment: 'Pathogens', text: `Pulmonary infections. CAP typical pathogens: S. pneumoniae is the dominant inpatient CAP pathogen. H. influenzae. Klebsiella in alcoholism and aspiration. S. aureus post-influenza causes necrotizing, severe pneumonia. CAP atypical: Mycoplasma pneumoniae in young adults, the classic walking pneumonia. Chlamydophila pneumoniae. Legionella pneumophila — key recognition: Cunha criteria — high fever above 39, relative bradycardia, diarrhea, hyponatremia, elevated LDH. Legionella requires fluoroquinolone for ICU-level disease, not macrolide monotherapy. HAP and VAP: MRSA, Pseudomonas aeruginosa, and ESBL-producing gram-negatives dominate.` },
+      { segment: 'Penetration', text: `The critical penetration principle for the lung: Daptomycin is absolutely contraindicated for any pulmonary infection. Pulmonary surfactant irreversibly inactivates Daptomycin — regardless of pathogen susceptibility, regardless of the clinical scenario, this drug cannot be used for pneumonia. Azithromycin achieves ELF concentrations over 100 times serum — macrophage accumulation, tissue persistence. Linezolid ELF exceeds serum — this is why Linezolid is preferred over Vancomycin for MRSA pneumonia; the ZEPHyR trial confirmed superiority. Vancomycin achieves only 25 percent ELF — subtherapeutic for MRSA VAP.` },
+      { segment: 'Empiric Therapy', text: `CAP outpatient no comorbidities: Amoxicillin 1 gram three times daily or Doxycycline 100 milligrams twice daily for 5 days. CAP inpatient non-ICU: Ceftriaxone plus Azithromycin, or Levofloxacin monotherapy, 5 days. CAP ICU: Ceftriaxone plus Azithromycin; add antipseudomonal coverage if Pseudomonas risk. HAP/VAP low MDR risk: Pip-tazo extended infusion or Cefepime, 7 days. MRSA risk: add Linezolid — preferred over Vancomycin for MRSA pneumonia. Use procalcitonin to guide de-escalation.` },
+      { segment: 'Pearls', text: `Pearls. Daptomycin for lung: never. Linezolid beats Vancomycin for MRSA VAP — ELF concentration advantage, confirmed in ZEPHyR trial. Vancomycin plus Pip-tazo has significantly higher AKI rates than Cefepime plus Vancomycin — use Cefepime when combination is required. 7-day HAP/VAP course is sufficient — longer courses do not improve outcomes and increase C. diff and resistance. Procalcitonin fall over 80 percent from peak supports stopping antibiotics.` }
+    ],
+    flashcards: [
+      { q: 'Why is Daptomycin absolutely contraindicated for pneumonia?', a: 'Pulmonary surfactant irreversibly inactivates Daptomycin. This applies to ALL pulmonary infections — community, hospital, any pathogen. It is one of the most dangerous drug-site mismatches in ID.' },
+      { q: 'Why is Linezolid preferred over Vancomycin for MRSA pneumonia?', a: 'Linezolid ELF concentrations exceed serum levels. Vancomycin only achieves 25% of serum ELF — subtherapeutic. ZEPHyR trial confirmed non-inferiority with trend toward superiority for clinical cure in MRSA VAP.' },
+      { q: 'Cunha criteria for Legionella — name four features?', a: 'High fever >39°C, relative bradycardia, diarrhea, hyponatremia, elevated LDH, and neurologic features. A cluster of these should prompt urine Legionella antigen and Levofloxacin (not Azithromycin for ICU disease).' },
+      { q: 'What is the risk of Vancomycin + Pip-tazo combination?', a: 'Synergistic AKI — 3 to 5 times higher acute kidney injury rate than Cefepime + Vancomycin. When MRSA plus gram-negative coverage is needed, use Cefepime instead of Pip-tazo.' },
+    ]
+  },
+  {
+    id: 'heart', group: 'thorax', emergency: true,
+    name: 'Heart / Pericardium', sub: 'Endocarditis · Myocarditis',
+    color: '#e05c5c', groupLabel: 'Thorax',
+    lecture: [
+      { segment: 'Pathogens', text: `Cardiac infections. Infective endocarditis native valve: S. aureus is now the most common cause overall — acute, aggressive, and associated with IV drug use for right-sided disease. Viridans streptococci cause subacute endocarditis from dental sources. Enterococcus faecalis from GU and GI sources, especially elderly patients. HACEK organisms are culture-negative considerations. For prosthetic valve: early less than 12 months is S. aureus and coagulase-negative staph from perioperative contamination. Late is similar to native valve.` },
+      { segment: 'Penetration & Treatment Principles', text: `Endocarditis penetration: the key principle is bactericidal activity. Vegetations are high-inoculum, fibrin-rich matrices requiring bactericidal agents — bacteriostatic drugs like Linezolid and tetracyclines are avoided as monotherapy due to higher relapse rates. For MSSA native valve endocarditis: Nafcillin or Cefazolin — both bactericidal and superior to Vancomycin for MSSA. Never use Vancomycin for MSSA when a beta-lactam can be used. For MRSA: Vancomycin AUC-guided or Daptomycin at 8 to 10 milligrams per kilogram for left-sided disease. Rifampin in prosthetic valve: add only after bacteremia cleared — adding during active BSI selects resistance within days.` },
+      { segment: 'Empiric and Pearls', text: `All S. aureus bacteremia requires echocardiography — TEE is preferred, as TTE alone misses perivalvular extension and vegetations on posterior leaflets. Duration: 4 to 6 weeks minimum. Key pearl: do NOT use Vancomycin as definitive therapy for MSSA. Multiple meta-analyses show higher clinical failure rates versus antistaphylococcal penicillins or Cefazolin. Daptomycin for right-sided endocarditis with pulmonary involvement: don't use — surfactant inactivation again. Gentamicin synergy for Enterococcus: limits to first 2 weeks maximum due to nephrotoxicity.` }
+    ],
+    flashcards: [
+      { q: 'Which is preferred for MSSA endocarditis: Nafcillin or Vancomycin?', a: 'Nafcillin (or Cefazolin — noninferior, preferred in bacteremia). Vancomycin is inferior for MSSA — higher clinical failure rates in multiple meta-analyses. Only use Vancomycin when beta-lactam is contraindicated.' },
+      { q: 'When do you add Rifampin in prosthetic valve endocarditis?', a: 'Only AFTER bacteremia is cleared — confirmed by negative blood cultures at 48–72 hours. Adding Rifampin during active bacteremia selects resistance within days due to high-inoculum exposure.' },
+      { q: 'Minimum blood culture sets before starting antibiotics in suspected IE?', a: 'Three sets from separate venipuncture sites — timing matters less than obtaining all three sets before starting ABX. Single positive blood culture is often insufficient for diagnosis.' },
+    ]
+  },
+  {
+    id: 'liver', group: 'abdomen', emergency: true,
+    name: 'Liver / Biliary', sub: 'Cholangitis · Hepatic Abscess · SBP',
+    color: '#d4834a', groupLabel: 'Abdomen & Pelvis',
+    lecture: [
+      { segment: 'Pathogens', text: `Hepatobiliary infections. Cholangitis and cholecystitis: E. coli is most common, followed by Klebsiella, Enterococcus faecalis, and anaerobes including Bacteroides fragilis. Pseudomonas in healthcare-associated infection or biliary stent. Pyogenic hepatic abscess: polymicrobial with E. coli, Klebsiella, anaerobes. Special pattern: Klebsiella monomicrobial liver abscess in East Asian patients — associated with septic emboli to the eye and CNS. Amebic liver abscess: Entamoeba histolytica in travelers and immigrants from endemic regions — single right lobe abscess with anchovy paste aspirate.` },
+      { segment: 'Empiric Therapy', text: `Tokyo Guidelines severity grading governs intervention timing. Grade 1 and 2 cholangitis: Ceftriaxone 2 grams plus Metronidazole, or Pip-tazo monotherapy, 4 to 7 days after source control by ERCP or biliary drainage. Grade 3 severe: Pip-tazo or Meropenem. Source control — biliary drainage — is the primary intervention. Antibiotics do not substitute for drainage. Reynolds pentad: Charcot triad of fever, RUQ pain, jaundice plus hypotension and altered mental status indicates acute suppurative cholangitis — emergent ERCP. Amebic abscess: Metronidazole 750 milligrams three times daily for 7 to 10 days followed by a luminal agent to eradicate intestinal colonization.` },
+      { segment: 'Pearls', text: `Ceftriaxone achieves 40 percent biliary excretion — excellent intrinsic biliary activity; always add Metronidazole for anaerobic coverage. SBP: PMN count of 250 or greater in ascitic fluid triggers treatment. Albumin infusion is mandatory — 1.5 grams per kilogram on day 1, 1 gram per kilogram on day 3. The Sort trial demonstrated markedly reduced hepatorenal syndrome and mortality. Aminoglycosides are contraindicated in cirrhosis — nephrotoxicity risk is prohibitive. Klebsiella liver abscess: always examine the eyes — endophthalmitis is a known metastatic complication.` }
+    ],
+    flashcards: [
+      { q: 'Reynolds pentad — 5 components?', a: 'Charcot triad (fever + RUQ pain + jaundice) PLUS hypotension and altered mental status. Indicates acute suppurative cholangitis — emergent biliary drainage required.' },
+      { q: 'SBP diagnosis: what PMN count in ascitic fluid?', a: 'PMN ≥250 cells/mm³ — treat empirically even before culture results return. Do NOT wait for positive culture.' },
+      { q: 'Why is albumin mandatory in SBP treatment?', a: 'Sort trial: albumin 1.5 g/kg day 1 + 1 g/kg day 3 markedly reduces hepatorenal syndrome and mortality. It is not optional — it is standard of care.' },
+    ]
+  },
+  {
+    id: 'bowel', group: 'abdomen', emergency: false,
+    name: 'Bowel / Peritoneum', sub: 'IAI · C. diff · Colitis',
+    color: '#e09c4f', groupLabel: 'Abdomen & Pelvis',
+    lecture: [
+      { segment: 'Pathogens', text: `Bowel and peritoneal infections. Secondary peritonitis and intra-abdominal infections: E. coli dominates as the gram-negative rod, Bacteroides fragilis is the key anaerobe. Enterococcus in healthcare-associated infection. C. difficile: toxin-producing strains, ribotypes 027 and 106. Risk factors: prior antibiotics — clindamycin, fluoroquinolones, cephalosporins — PPI use, age over 65, healthcare exposure. For infectious colitis: STEC E. coli O157:H7 — antibiotics are contraindicated and increase HUS risk.` },
+      { segment: 'Empiric Therapy', text: `IAI community-acquired mild to moderate: Ertapenem monotherapy or Ceftriaxone plus Metronidazole. STOP-IT trial: 4 days of antibiotics after adequate source control was equivalent to 8 days — do not over-treat. Severe or healthcare-associated: Pip-tazo or Meropenem. Note: Pip-tazo is not acceptable for ESBL bacteremia even if susceptible in vitro due to inoculum effect — use carbapenem. CDI: Fidaxomicin 200 milligrams twice daily for 10 days is now preferred over Vancomycin per IDSA 2021 — lower recurrence rates. Fulminant CDI: Vancomycin 500 milligrams orally four times daily plus IV Metronidazole if ileus.` },
+      { segment: 'Pearls', text: `STEC: antibiotics contraindicated — they promote Shiga toxin release and increase HUS risk. Fidaxomicin reduces CDI recurrence versus Vancomycin — particularly valuable in high-recurrence-risk patients. Metronidazole is no longer first-line for any CDI severity per IDSA 2021 — Vancomycin and Fidaxomicin are standard. STOP-IT trial: 4-day antibiotic course after source control is sufficient — extending to 8 days provides no benefit and increases resistance and C. diff risk.` }
+    ],
+    flashcards: [
+      { q: 'What is the STOP-IT trial and what did it show?', a: 'Compared 4 vs 8 days of antibiotics after adequate source control for intra-abdominal infection. Result: no difference in outcomes. Clinical practice: stop antibiotics at 4 days post-source-control — do not over-treat IAI.' },
+      { q: 'CDI first-line treatment per IDSA 2021?', a: 'Fidaxomicin 200 mg PO BID × 10 days (preferred — lower recurrence). Vancomycin 125 mg PO QID × 10 days is acceptable. Metronidazole is no longer first-line for any severity.' },
+      { q: 'STEC colitis: treat with antibiotics?', a: 'Never. Antibiotics are contraindicated — they promote Shiga toxin release and dramatically increase the risk of hemolytic uremic syndrome. Supportive care only.' },
+    ]
+  },
+  {
+    id: 'kidney', group: 'abdomen', emergency: false,
+    name: 'Kidney / Ureter', sub: 'Pyelonephritis · UTI · CAUTI',
+    color: '#4fc4a3', groupLabel: 'Abdomen & Pelvis',
+    lecture: [
+      { segment: 'Pathogens', text: `Urinary tract infections. E. coli causes 75 to 85 percent of community-acquired UTIs. Klebsiella, Proteus, S. saprophyticus in young women. Enterococcus and Pseudomonas in structural abnormality, healthcare exposure, or prolonged catheterization. For complicated UTI and CAUTI: expect more resistant organisms — ESBL-producing E. coli is common, especially with prior fluoroquinolone or cephalosporin use.` },
+      { segment: 'Penetration', text: `Critical penetration concept: Nitrofurantoin and Fosfomycin are bladder agents only. They achieve excellent urinary concentrations but minimal renal parenchymal penetration. Never use Nitrofurantoin for pyelonephritis — it will fail because it doesn't reach the kidney. Fluoroquinolones achieve urinary levels far exceeding serum MIC — this is why 3 days is sufficient for uncomplicated UTI. TMP-SMX achieves both high urinary levels AND renal parenchymal penetration — appropriate for pyelonephritis. Doxycycline and Azithromycin: minimal urinary excretion — not appropriate for any UTI.` },
+      { segment: 'Empiric Therapy', text: `Uncomplicated cystitis: Nitrofurantoin macrocrystals 100 milligrams twice daily for 5 days if CrCl over 30, or TMP-SMX DS twice daily for 3 days, or Fosfomycin 3 grams single dose. Fluoroquinolones are not first-line. Pyelonephritis outpatient: TMP-SMX or Ciprofloxacin if local susceptibility exceeds 90 percent. Inpatient: Ceftriaxone IV, or Ertapenem if ESBL risk. CAUTI: remove or replace catheter first. Treat only if symptomatic — never treat asymptomatic bacteriuria with a catheter.` },
+      { segment: 'Pearls', text: `Nitrofurantoin: bladder only — contraindicated for pyelonephritis and any systemic infection. Also contraindicated if CrCl under 30 — insufficient urinary levels. ESBL pyelonephritis: Pip-tazo inadequate even if susceptible in vitro — inoculum effect at high tissue concentrations. Use carbapenem. Asymptomatic bacteriuria in catheterized patients: do not treat. Catheter change alone resolves 25 percent of CAUTI cases without antibiotics.` }
+    ],
+    flashcards: [
+      { q: 'Can you use Nitrofurantoin for pyelonephritis?', a: 'No — Nitrofurantoin achieves excellent bladder concentrations but inadequate renal parenchymal levels. It will fail for kidney infections. Also contraindicated if CrCl <30.' },
+      { q: 'ESBL pyelonephritis: is Pip-tazo acceptable if susceptible in vitro?', a: 'No — the MERINO trial showed higher mortality with Pip-tazo for ESBL bacteremia. Inoculum effect at high tissue concentrations. Use Ertapenem or Meropenem for ESBL UTI/pyelonephritis.' },
+      { q: 'Should you treat asymptomatic bacteriuria in a catheterized patient?', a: 'No — do not treat. Asymptomatic bacteriuria with catheter is colonization, not infection. Treatment leads to resistance without benefit. Exception: pre-urologic procedure or pregnancy.' },
+    ]
+  },
+  {
+    id: 'spine', group: 'msk', emergency: true,
+    name: 'Spine / Epidural', sub: 'Vertebral OM · Epidural Abscess',
+    color: '#7fb8e0', groupLabel: 'Musculoskeletal',
+    lecture: [
+      { segment: 'Pathogens', text: `Spinal infections. Vertebral osteomyelitis and discitis: S. aureus is the most common pathogen, predominantly hematogenous spread from skin, vascular, or dental sources. IV drug use is a major risk factor for both S. aureus and gram-negative rods including Pseudomonas. Mycobacterium tuberculosis causes Pott disease — insidious onset, anterior vertebral body involvement, paraspinal abscess, and gibbus deformity, most commonly thoracic. Spinal epidural abscess: S. aureus in over 60 percent of cases.` },
+      { segment: 'Penetration & Treatment', text: `Bone penetration for spinal infections: TMP-SMX achieves approximately 50 percent bone levels — validated by the OVIVA trial for step-down oral therapy. Fluoroquinolones reach 30 to 50 percent bone levels — excellent for gram-negative osteomyelitis oral step-down. Linezolid approximately 40 percent — useful for MRSA when Vancomycin not tolerated. Rifampin: excellent bone and biofilm penetration — always combine, never monotherapy. OVIVA trial key finding: high-bioavailability oral agents are non-inferior to IV for bone and joint infections. Early PO transition is safe and reduces hospitalization. Duration: 6 weeks total for most vertebral OM.` },
+      { segment: 'Pearls', text: `Spinal epidural abscess triad: fever, back pain, neurologic deficit. MRI spine with gadolinium within 1 hour — this is a neurosurgical emergency if progressive deficits develop. Do not start antibiotics before bone biopsy in clinically stable vertebral OM — pre-treatment antibiotics reduce culture yield to under 50 percent. Pott disease: TB spondylitis causes anterior vertebral body destruction and can compress the spinal cord. Standard 4-drug TB regimen for 9 to 12 months.` }
+    ],
+    flashcards: [
+      { q: 'OVIVA trial: what did it prove about bone and joint infections?', a: 'High-bioavailability oral agents (TMP-SMX, fluoroquinolones, Linezolid) are non-inferior to IV antibiotics for bone and joint infections. Early PO transition is safe and reduces hospitalization without worse outcomes.' },
+      { q: 'Spinal epidural abscess: what is the classic triad?', a: 'Fever + back pain + neurologic deficit. MRI spine with gadolinium STAT within 1 hour. Progressive neurologic deficit = neurosurgical emergency requiring emergent decompression.' },
+      { q: 'Why should you hold antibiotics before bone biopsy in vertebral OM?', a: 'Pre-treatment antibiotics reduce bone culture yield to <50%. If patient is clinically stable, obtain bone biopsy first to guide organism-directed therapy — empiric therapy without culture data leads to over-treatment.' },
+    ]
+  },
+  {
+    id: 'bone', group: 'msk', emergency: false,
+    name: 'Long Bone', sub: 'Hematogenous & Contiguous Osteomyelitis',
+    color: '#c4a35a', groupLabel: 'Musculoskeletal',
+    lecture: [
+      { segment: 'Pathogens & Treatment', text: `Long bone osteomyelitis. S. aureus is dominant across all types. Important special cases: Salmonella osteomyelitis in sickle cell disease — this is the classic association, Salmonella exceeds S. aureus in this population. Pseudomonas calcaneal osteomyelitis following puncture wound through a sneaker — a classic pediatric presentation. Diabetic foot osteomyelitis is polymicrobial. Probe-to-bone test in diabetic foot: sensitivity 66 percent, specificity 85 percent for osteomyelitis. Fluoroquinolone oral step-down is excellent for gram-negative osteomyelitis. TMP-SMX and Doxycycline for MRSA oral step-down after IV induction. 6-week total duration is standard, with emerging data supporting 4 weeks for uncomplicated MSSA.` }
+    ],
+    flashcards: [
+      { q: 'Osteomyelitis in sickle cell disease: most common pathogen?', a: 'Salmonella — not S. aureus. This is a classic exam pearl. Treat with fluoroquinolone or Ceftriaxone for 6 weeks.' },
+      { q: 'Pseudomonas osteomyelitis: classic clinical scenario?', a: 'Puncture wound through a sneaker — typically a child stepping on a nail. Pseudomonas from sneaker sole contamination causes calcaneal osteomyelitis. Treatment: Ciprofloxacin.' },
+    ]
+  },
+  {
+    id: 'joint', group: 'msk', emergency: true,
+    name: 'Joint / Prosthetic', sub: 'Septic Arthritis · PJI',
+    color: '#d4b86a', groupLabel: 'Musculoskeletal',
+    lecture: [
+      { segment: 'Pathogens', text: `Joint infections. Native joint septic arthritis: S. aureus is the most common non-gonococcal cause in adults. N. gonorrhoeae is the most common cause in sexually active young adults — the classic presentation is migratory polyarthritis, tenosynovitis, and skin lesions before monoarthritis settles. Kingella kingae in children under 5 years. Prosthetic joint infection: early under 3 months is perioperative S. aureus and CoNS. Delayed 3 to 24 months is CoNS with biofilm. Late over 24 months resembles native valve — hematogenous seeding by S. aureus or streptococcal species.` },
+      { segment: 'Treatment', text: `Joint aspiration is mandatory — both diagnostic and therapeutic. Synovial WBC over 50,000 raises concern for septic arthritis; over 100,000 is highly suggestive, though crystal disease overlaps. Daily drainage reduces pressure and bioburden. Empiric therapy: Vancomycin plus Ceftriaxone. Gonococcal arthritis: Ceftriaxone 1 gram daily — no fluoroquinolones due to resistance. Prosthetic joint infection DAIR protocol: débridement, antibiotics, implant retention. Rifampin is essential — add after wound closure and bacteremia cleared. Fluoroquinolone plus Rifampin for gram-negative or susceptible organisms. TMP-SMX or Doxycycline plus Rifampin for MRSA or CoNS. Duration 3 months for hip and knee.` },
+      { segment: 'Pearls', text: `S. aureus septic arthritis: obtain echocardiogram — low threshold for evaluating endocarditis. Rifampin in PJI: start after operative wound closure and confirmed bacteremia clearance. Adding during active bacteremia selects resistance in days. OVIVA trial confirms oral step-down is safe for joint infections. Crystal disease and septic arthritis can coexist — do not let synovial crystals provide false reassurance.` }
+    ],
+    flashcards: [
+      { q: 'Gonococcal arthritis: first-line antibiotic?', a: 'Ceftriaxone 1 g IV/IM daily — no fluoroquinolones, high resistance rates. Add Doxycycline or Azithromycin for chlamydia co-infection. Step-down to Cefixime when improving.' },
+      { q: 'Rifampin in PJI: when do you start it?', a: 'After operative wound closure AND after bacteremia is cleared (negative blood cultures 48–72 hours). Starting during active bacteremia selects high-level Rifampin resistance within days due to high inoculum.' },
+    ]
+  },
+  {
+    id: 'ssti', group: 'systemic', emergency: true,
+    name: 'Skin / Soft Tissue', sub: 'Cellulitis · Abscess · Necrotizing Fasciitis',
+    color: '#e0c44f', groupLabel: 'Skin & Systemic',
+    lecture: [
+      { segment: 'Pathogens', text: `Skin and soft tissue infections. Non-purulent cellulitis is predominantly beta-hemolytic streptococci — Group A, B, C, and G. S. aureus is not the dominant pathogen in non-purulent cellulitis, so MRSA coverage is not routinely required. Purulent cellulitis and abscesses: S. aureus — MSSA or MRSA — dominates. Community MRSA USA300 clone carries Panton-Valentine leukocidin and is associated with furunculosis and severe SSTIs. Necrotizing fasciitis Type 1 is polymicrobial: streptococcal species, GNR, and anaerobes. Type 2 is monomicrobial GAS in young healthy hosts — associated with toxic shock syndrome. Type 3 from Vibrio vulnificus with seawater exposure in liver disease patients.` },
+      { segment: 'Empiric Therapy', text: `Non-purulent cellulitis: Cephalexin 500 milligrams four times daily or Dicloxacillin 500 milligrams four times daily for 5 days. Inpatient severe: Nafcillin or Vancomycin. Purulent cellulitis and abscess: I and D is the primary treatment for abscesses. TMP-SMX DS or Doxycycline 100 milligrams twice daily for MRSA coverage. Necrotizing fasciitis: surgical emergency — immediate wide débridement. Antibiotics are adjunctive. Type 1: Vancomycin plus Pip-tazo plus Clindamycin for toxin suppression. Type 2 GAS: Penicillin G plus Clindamycin — the Eagle effect means Clindamycin added to Penicillin suppresses exotoxin production.` },
+      { segment: 'Pearls', text: `Bilateral lower extremity cellulitis is almost never infectious — consider stasis dermatitis, venous insufficiency, lipodermatosclerosis. Mark borders with a skin marker to objectively track progression or improvement. Necrotizing fasciitis: pain out of proportion to findings, crepitus, bullae, rapid spread — LRINEC score raises suspicion but does not rule out. Clindamycin must be added in ALL types of NF for toxin suppression — protein synthesis inhibitor regardless of gram-positive or gram-negative etiology.` }
+    ],
+    flashcards: [
+      { q: 'Non-purulent cellulitis: which organism, which antibiotic?', a: 'Beta-hemolytic Streptococci (not S. aureus) — Cephalexin or Dicloxacillin. MRSA coverage is NOT required for non-purulent cellulitis unless purulent drainage, abscess, or known MRSA colonization.' },
+      { q: 'Why add Clindamycin in necrotizing fasciitis from GAS?', a: 'Eagle effect — GAS in exponential growth phase produces exotoxin. Clindamycin suppresses protein synthesis (including toxin production) even in static-phase organisms where Penicillin loses efficacy.' },
+      { q: 'Bilateral lower extremity cellulitis: what should you think first?', a: 'True bilateral infectious cellulitis is rare. First consider: stasis dermatitis, venous insufficiency, lipodermatosclerosis, contact dermatitis. Over 90% of "bilateral cellulitis" cases have a non-infectious etiology.' },
+    ]
+  },
+  {
+    id: 'bsi', group: 'systemic', emergency: true,
+    name: 'Bloodstream / Sepsis', sub: 'Bacteremia · Candidemia · Septic Shock',
+    color: '#e06b4f', groupLabel: 'Skin & Systemic',
+    lecture: [
+      { segment: 'Pathogens', text: `Bloodstream infections and sepsis. Community-acquired: E. coli from urinary and biliary sources — most common cause of gram-negative bacteremia. S. aureus from skin, vascular, and endovascular sources — the most dangerous bacteremia, always requiring echocardiography and minimum 14-day IV therapy. S. pneumoniae in elderly and immunocompromised. Healthcare-associated: MRSA from lines and wounds. Pseudomonas. Candidemia from TPN, immunocompromised states, and broad-spectrum antibiotic exposure. ESBL and CRE GNR in the ICU setting.` },
+      { segment: 'Empiric Therapy', text: `Surviving Sepsis Campaign 2021: antibiotics within 1 hour of septic shock recognition. This is non-negotiable. Community sepsis unknown source: Ceftriaxone plus Metronidazole if abdominal source possible. Healthcare-associated or high acuity: Vancomycin plus Pip-tazo extended infusion, or Vancomycin plus Meropenem for ESBL or high MDR risk. Septic shock undifferentiated: Vancomycin plus Meropenem is the broadest empiric choice. Add Micafungin if Candida risk: TPN, prolonged broad-spectrum antibiotics, immunocompromised. De-escalate at 48 to 72 hours based on culture data — this is a therapeutic intervention.` },
+      { segment: 'Pearls', text: `All S. aureus bacteremia: echocardiography, minimum 14-day IV therapy, source control, repeat blood cultures at 48 to 72 hours to confirm clearance. Candidemia: remove CVC immediately, ophthalmology exam, echocardiography, minimum 14 days from first negative blood culture. De-escalation reduces resistance and C. diff — failure to de-escalate is a prescribing error. Procalcitonin-guided therapy reduces antibiotic duration by 2 to 3 days in sepsis without increased mortality per PRORATA trial.` }
+    ],
+    flashcards: [
+      { q: 'SSC 2021: antibiotic timing in septic shock?', a: 'Within 1 hour of recognition. This is evidence-based — each hour of delay increases mortality. Take blood cultures, then start antibiotics immediately — do not wait for imaging or source identification.' },
+      { q: 'S. aureus bacteremia: what 4 things are mandatory?', a: '1) Echocardiography (TEE preferred). 2) Minimum 14-day IV therapy. 3) Source control (remove focus). 4) Repeat blood cultures at 48–72 hours to confirm clearance — persistent BSI requires aggressive source hunt.' },
+      { q: 'Candidemia: what is the minimum duration of treatment?', a: '14 days from the FIRST NEGATIVE blood culture — not from diagnosis, not from symptom improvement. Plus: CVC removal, ophthalmology exam, echocardiography for persistent candidemia.' },
+    ]
+  },
+  {
+    id: 'vascular', group: 'systemic', emergency: true,
+    name: 'Vascular / Endovascular', sub: 'CLABSI · CIED · Vascular Graft',
+    color: '#e07070', groupLabel: 'Skin & Systemic',
+    lecture: [
+      { segment: 'Pathogens & Pearls', text: `Vascular and endovascular infections. CLABSI: CoNS is most common — but a single positive blood culture bottle is often contamination; two or more positives with a catheter in place should be treated as true CLABSI. S. aureus from a line is always a true infection — never dismiss as contaminant. Candida CLABSI: remove catheter immediately, ophthalmology exam, echocardiography. CIED infection — pacemakers and ICDs: CoNS for pocket infections, S. aureus for lead and systemic disease. Complete system removal is standard — antibiotics alone fail over 90 percent of the time. Rifampin adjunct: essential for biofilm penetration in device infections; add only after wound closure and bacteremia cleared.` }
+    ],
+    flashcards: [
+      { q: 'Single positive blood culture for CoNS with a central line — contaminant or treat?', a: 'Likely contaminant — repeat culture. If 2+ bottles positive or if there are signs of infection, treat as true CLABSI. S. aureus: always treat, never contaminant.' },
+      { q: 'CIED infection: can antibiotics alone treat it?', a: 'No — complete system removal is required. Antibiotics suppress but cannot eradicate biofilm on device leads and generators. Suppressive antibiotics without removal fail >90% of the time.' },
+    ]
+  },
+  {
+    id: 'mediastinum', group: 'thorax', emergency: true,
+    name: 'Mediastinum', sub: 'Mediastinitis · Post-Surgical',
+    color: '#e07070', groupLabel: 'Thorax',
+    lecture: [
+      { segment: 'Pathogens & Treatment', text: `Mediastinal infections are surgical emergencies. Descending necrotizing mediastinitis from head and neck source: polymicrobial — streptococcal species and oral anaerobes. Extension from peritonsillar, Ludwig, or odontogenic abscess. Mortality 20 to 40 percent even with aggressive treatment. Post-sternotomy mediastinitis after CABG: S. aureus and MRSA are key pathogens, 90-day mortality approximately 25 percent. Treatment: Vancomycin plus Pip-tazo plus Metronidazole. Surgical débridement is primary — wide débridement and drainage with VAC dressing. Antibiotics alone are insufficient.` }
+    ],
+    flashcards: [
+      { q: 'Mortality of descending necrotizing mediastinitis?', a: '20–40% even with aggressive surgical débridement and antibiotics. It is a surgical emergency — airway management first, then operative intervention.' },
+    ]
+  },
+  {
+    id: 'pelvis', group: 'abdomen', emergency: false,
+    name: 'GYN / Pelvis', sub: 'PID · Tubo-ovarian Abscess',
+    color: '#7fc4a3', groupLabel: 'Abdomen & Pelvis',
+    lecture: [
+      { segment: 'Pathogens & Treatment', text: `Gynecologic infections. PID pathogens: N. gonorrhoeae and C. trachomatis are the primary STI causes, but most PID is polymicrobial with ascending vaginal flora including anaerobes and gram-negatives. Always treat both gonorrhea and chlamydia empirically — co-infection is common and chlamydia testing has limited sensitivity. Gonorrhea: Ceftriaxone is now standard — fluoroquinolones are not used due to resistance. Tubo-ovarian abscess: 75 percent respond to antibiotics alone; drainage needed for abscesses over 9 centimeters or clinical failure at 72 hours. Fitz-Hugh-Curtis syndrome: perihepatitis from ascending gonococcal or chlamydial infection presenting as RUQ pain with PID signs.` }
+    ],
+    flashcards: [
+      { q: 'PID: do you treat for gonorrhea AND chlamydia empirically?', a: 'Yes, always — treat both empirically regardless of test results. Chlamydia testing has limited sensitivity and co-infection is common. Standard regimen: Ceftriaxone IM × 1 + Doxycycline PO × 14 days + Metronidazole × 14 days.' },
+    ]
+  },
+];
+
+// Emergency-tagged IDs
+const EMERGENCY_IDS = REGIONS.filter(r => r.emergency).map(r => r.id);
+
+// ═══════════════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════════════
+let mode          = 'lecture';
+let filter        = 'all';
+let playlist      = [...REGIONS];
+let trackIndex    = 0;
+let segIndex      = 0;
+let playing       = false;
+let speed         = 1.0;
+let autoAdvance   = true;
+let fcPause       = 5;
+let contentFocus  = 'all';
+let repeatMode    = false;
+let voices        = [];
+let selectedVoice = null;
+let utterance     = null;
+let fcFlipped     = false;
+let fcPauseTimer  = null;
+let fcCards       = [];
+let fcCardIndex   = 0;
+
+// Progress tracking
+let startTime     = 0;
+let elapsed       = 0;
+let totalEstimate = 0;
+let progressTimer = null;
+
+const SPEEDS = [0.75, 1.0, 1.25, 1.5, 1.75];
+let speedIdx = 1;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════════════
+window.addEventListener('load', () => {
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+  buildTrackList();
+  updateNowPlaying();
+  // Keep screen awake on iOS during playback
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && playing) pauseSpeech();
+  });
+});
+
+function loadVoices() {
+  voices = window.speechSynthesis.getVoices()
+    .filter(v => v.lang.startsWith('en'));
+  const sel = document.getElementById('voice-select');
+  sel.innerHTML = voices.map((v,i) =>
+    `<option value="${i}" ${v.name.includes('Samantha') || v.name.includes('Daniel') ? 'selected' : ''}>${v.name.replace('(en-','(').replace(')',')').substring(0,28)}</option>`
+  ).join('');
+  // Default to a good iOS voice
+  const samantha = voices.findIndex(v => v.name.includes('Samantha'));
+  if (samantha >= 0) { sel.value = samantha; selectedVoice = voices[samantha]; }
+  else if (voices.length) { selectedVoice = voices[0]; }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PLAYLIST & FILTER
+// ═══════════════════════════════════════════════════════════════════════════
+function setFilter(f, el) {
+  filter = f;
+  document.querySelectorAll('.playlist-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+
+  if (f === 'all')        playlist = [...REGIONS];
+  else if (f === 'emergencies') playlist = REGIONS.filter(r => r.emergency);
+  else                    playlist = REGIONS.filter(r => r.group === f);
+
+  trackIndex = 0; segIndex = 0;
+  buildTrackList();
+  if (playing) { stopSpeech(); playing = false; updatePlayBtn(); }
+  updateNowPlaying();
+}
+
+function buildTrackList() {
+  const container = document.getElementById('track-list');
+  container.innerHTML = playlist.map((r, i) => `
+    <div class="track-item ${i === trackIndex ? 'playing' : ''}" id="track-${r.id}" onclick="jumpToTrack(${i})">
+      <span class="track-num">${i+1}</span>
+      <div class="track-dot" style="background:${r.color}"></div>
+      <div class="track-info">
+        <div class="track-name">${r.name}</div>
+        <div class="track-sub">${r.sub}</div>
+      </div>
+      <span class="track-duration">${estimateDuration(r)}</span>
+    </div>
+  `).join('');
+}
+
+function estimateDuration(r) {
+  if (mode === 'flashcard') {
+    const cards = buildFlashcards(r);
+    const mins = Math.ceil((cards.length * (fcPause + 8)) / 60);
+    return `~${mins}m`;
+  }
+  const chars = r.lecture.map(s => s.text.length).reduce((a,b) => a+b, 0);
+  const secs  = Math.ceil(chars / (18 * speed)); // ~18 chars/sec at 1x
+  const mins  = Math.floor(secs/60);
+  const s     = secs % 60;
+  return `${mins}:${s.toString().padStart(2,'0')}`;
+}
+
+function jumpToTrack(i) {
+  stopSpeech();
+  trackIndex = i; segIndex = 0;
+  updateNowPlaying();
+  buildTrackList();
+  if (mode === 'flashcard') startFlashcardMode();
+  else if (playing) playCurrentSegment();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// MODE
+// ═══════════════════════════════════════════════════════════════════════════
+function setMode(m) {
+  mode = m;
+  document.getElementById('btn-lecture').classList.toggle('active', m === 'lecture');
+  document.getElementById('btn-flashcard').classList.toggle('active', m === 'flashcard');
+  document.getElementById('btn-playlist').classList.toggle('active', m === 'playlist');
+
+  document.getElementById('script-display').style.display = (m === 'lecture') ? 'block' : 'none';
+  document.getElementById('flashcard').classList.toggle('visible', m === 'flashcard');
+  document.getElementById('ai-expand-btn').style.display = (m === 'lecture') ? 'flex' : 'none';
+  document.getElementById('ai-content').classList.remove('visible');
+  document.getElementById('track-list').style.display = (m === 'playlist') ? 'flex' : 'none';
+  document.getElementById('now-playing').style.display = (m !== 'playlist') ? 'block' : 'none';
+  document.getElementById('script-display').style.display = (m === 'lecture') ? 'block' : 'none';
+
+  stopSpeech();
+  playing = false;
+  updatePlayBtn();
+  segIndex = 0;
+
+  if (m === 'flashcard') startFlashcardMode();
+  buildTrackList();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// NOW PLAYING
+// ═══════════════════════════════════════════════════════════════════════════
+function updateNowPlaying() {
+  const r = playlist[trackIndex];
+  if (!r) return;
+  document.getElementById('np-system').textContent    = r.groupLabel;
+  document.getElementById('np-title').textContent     = r.name;
+  document.getElementById('np-sub').textContent       = r.sub;
+  document.getElementById('now-playing').style.setProperty('--playing-color', r.color);
+  document.getElementById('ai-expand-btn').style.display = (mode === 'lecture') ? 'flex' : 'none';
+  document.getElementById('ai-content').classList.remove('visible');
+  document.getElementById('ai-content').innerHTML = '';
+
+  const segs = r.lecture;
+  document.getElementById('np-segment').textContent =
+    `${segs[segIndex]?.segment || ''} · ${segIndex+1} of ${segs.length}`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SPEECH
+// ═══════════════════════════════════════════════════════════════════════════
+function togglePlay() {
+  if (mode === 'flashcard') { toggleFlashcardPlay(); return; }
+  if (playing) { pauseSpeech(); }
+  else         { playCurrentSegment(); }
+}
+
+function playCurrentSegment() {
+  const r = playlist[trackIndex];
+  if (!r) return;
+
+  let segs = r.lecture;
+  if (contentFocus === 'pathogens') segs = r.lecture.filter(s => s.segment === 'Pathogens');
+  else if (contentFocus === 'empiric') segs = r.lecture.filter(s => s.segment.includes('Empiric') || s.segment.includes('Treatment'));
+  if (!segs.length) segs = r.lecture;
+
+  if (segIndex >= segs.length) {
+    if (autoAdvance) { nextTrack(); return; }
+    segIndex = 0;
+  }
+
+  const seg = segs[segIndex];
+  const text = `${r.name}. ${seg.segment}. ${seg.text}`;
+
+  document.getElementById('script-text').innerHTML = formatScript(seg.text);
+  document.getElementById('np-segment').textContent = `${seg.segment} · ${segIndex+1} of ${segs.length}`;
+
+  utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate  = speed;
+  utterance.pitch = 0.95;
+  if (selectedVoice) utterance.voice = selectedVoice;
+
+  utterance.onstart = () => {
+    playing = true;
+    updatePlayBtn();
+    animateWaveform(true);
+    startProgressTimer(text.length);
+  };
+  utterance.onend = () => {
+    stopProgressTimer();
+    segIndex++;
+    if (segIndex < segs.length) {
+      setTimeout(() => playCurrentSegment(), 400);
+    } else {
+      animateWaveform(false);
+      if (autoAdvance) {
+        setTimeout(() => nextTrack(), 800);
+      } else {
+        playing = false; updatePlayBtn();
+      }
+    }
+  };
+  utterance.onerror = () => {
+    playing = false; updatePlayBtn(); animateWaveform(false);
+  };
+
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utterance);
+}
+
+function pauseSpeech() {
+  window.speechSynthesis.cancel();
+  playing = false;
+  stopProgressTimer();
+  updatePlayBtn();
+  animateWaveform(false);
+}
+
+function stopSpeech() {
+  window.speechSynthesis.cancel();
+  if (fcPauseTimer) { clearTimeout(fcPauseTimer); fcPauseTimer = null; }
+  stopProgressTimer();
+  animateWaveform(false);
+}
+
+function skipForward() {
+  stopSpeech();
+  trackIndex = Math.min(trackIndex + 1, playlist.length - 1);
+  segIndex = 0;
+  updateNowPlaying();
+  buildTrackList();
+  if (playing) playCurrentSegment();
+  if (mode === 'flashcard') startFlashcardMode();
+}
+
+function skipBack() {
+  stopSpeech();
+  if (segIndex > 0 || elapsed > 3) { segIndex = 0; elapsed = 0; }
+  else { trackIndex = Math.max(trackIndex - 1, 0); segIndex = 0; }
+  updateNowPlaying();
+  buildTrackList();
+  if (playing) playCurrentSegment();
+  if (mode === 'flashcard') startFlashcardMode();
+}
+
+function nextTrack() {
+  stopSpeech();
+  if (repeatMode) { segIndex = 0; playCurrentSegment(); return; }
+  if (trackIndex < playlist.length - 1) {
+    trackIndex++; segIndex = 0;
+    updateNowPlaying(); buildTrackList();
+    if (mode === 'flashcard') startFlashcardMode();
+    else playCurrentSegment();
+  } else {
+    playing = false; updatePlayBtn(); animateWaveform(false);
+  }
+}
+
+function skipSegment(dir) {
+  // Skip forward/back within segments
+  const r = playlist[trackIndex];
+  if (!r) return;
+  stopSpeech();
+  segIndex = Math.max(0, Math.min(segIndex + dir, r.lecture.length - 1));
+  updateNowPlaying();
+  if (playing) playCurrentSegment();
+}
+
+function seekTrack(e) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  const r = playlist[trackIndex];
+  if (!r) return;
+  segIndex = Math.floor(pct * r.lecture.length);
+  stopSpeech();
+  if (playing) playCurrentSegment();
+}
+
+function updatePlayBtn() {
+  document.getElementById('play-btn').textContent = playing ? '⏸' : '▶';
+}
+
+function animateWaveform(on) {
+  document.querySelectorAll('.wave-bar').forEach(b => b.classList.toggle('playing', on));
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PROGRESS TIMER
+// ═══════════════════════════════════════════════════════════════════════════
+function startProgressTimer(textLen) {
+  startTime = Date.now();
+  totalEstimate = Math.ceil(textLen / (18 * speed)) * 1000;
+  stopProgressTimer();
+  progressTimer = setInterval(tickProgress, 500);
+}
+
+function stopProgressTimer() {
+  if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+}
+
+function tickProgress() {
+  elapsed = (Date.now() - startTime) / 1000;
+  const pct = Math.min(elapsed / (totalEstimate / 1000) * 100, 100);
+  document.getElementById('np-progress').style.width = pct + '%';
+  document.getElementById('t-progress').style.width  = pct + '%';
+  document.getElementById('np-elapsed').textContent  = formatTime(elapsed);
+  document.getElementById('t-elapsed').textContent   = formatTime(elapsed);
+  document.getElementById('t-total').textContent     = formatTime(totalEstimate / 1000);
+}
+
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const ss = Math.floor(s % 60);
+  return `${m}:${ss.toString().padStart(2,'0')}`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// FLASHCARD MODE
+// ═══════════════════════════════════════════════════════════════════════════
+function buildFlashcards(r) {
+  const cards = [...r.flashcards];
+  // Add pathogen identification cards
+  r.pathogens?.forEach(group => {
+    if (group.tags.length >= 2) {
+      cards.push({
+        q: `${group.label}: name the key pathogens`,
+        a: group.tags.join('. ')
+      });
+    }
+  });
+  // Add empiric therapy card
+  if (r.empiric?.length) {
+    const e = r.empiric[0];
+    cards.push({
+      q: `Empiric treatment for ${e.title}?`,
+      a: `${e.drug}. Duration: ${e.duration}.${e.note ? ' ' + e.note : ''}`
+    });
+  }
+  return cards;
+}
+
+function startFlashcardMode() {
+  const r = playlist[trackIndex];
+  if (!r) return;
+  fcCards = buildFlashcards(r);
+  fcCardIndex = 0;
+  fcFlipped = false;
+  document.getElementById('flashcard').classList.remove('flipped');
+  showFlashcard();
+}
+
+function showFlashcard() {
+  if (fcCardIndex >= fcCards.length) {
+    // All done — advance to next track
+    if (autoAdvance && trackIndex < playlist.length - 1) {
+      setTimeout(() => { skipForward(); }, 1000);
+    }
+    return;
+  }
+  const card = fcCards[fcCardIndex];
+  document.getElementById('fc-question').textContent = card.q;
+  document.getElementById('fc-answer').textContent   = card.a;
+  document.getElementById('flashcard').classList.remove('flipped');
+  fcFlipped = false;
+
+  document.getElementById('np-segment').textContent =
+    `Card ${fcCardIndex+1} of ${fcCards.length}`;
+
+  if (playing) speakFlashcard(card);
+}
+
+function speakFlashcard(card) {
+  const q = new SpeechSynthesisUtterance(card.q);
+  q.rate  = speed; q.pitch = 0.95;
+  if (selectedVoice) q.voice = selectedVoice;
+  q.onend = () => {
+    fcPauseTimer = setTimeout(() => {
+      flipCard(true);
+      const a = new SpeechSynthesisUtterance(card.a);
+      a.rate = speed; a.pitch = 0.95;
+      if (selectedVoice) a.voice = selectedVoice;
+      a.onend = () => {
+        fcPauseTimer = setTimeout(() => {
+          fcCardIndex++;
+          showFlashcard();
+        }, 1200);
+      };
+      window.speechSynthesis.speak(a);
+    }, fcPause * 1000);
+  };
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(q);
+  animateWaveform(true);
+}
+
+function flipCard(auto) {
+  fcFlipped = !fcFlipped;
+  document.getElementById('flashcard').classList.toggle('flipped', fcFlipped);
+  if (!auto && !playing && fcFlipped) {
+    // Manual flip — speak answer
+    const card = fcCards[fcCardIndex];
+    if (card) {
+      const a = new SpeechSynthesisUtterance(card.a);
+      a.rate = speed; a.pitch = 0.95;
+      if (selectedVoice) a.voice = selectedVoice;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(a);
+    }
+  }
+  if (!fcFlipped && !auto) {
+    // Flipped back — advance
+    fcCardIndex++;
+    showFlashcard();
+  }
+}
+
+function toggleFlashcardPlay() {
+  if (playing) {
+    pauseSpeech();
+  } else {
+    playing = true;
+    updatePlayBtn();
+    speakFlashcard(fcCards[fcCardIndex]);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SETTINGS
+// ═══════════════════════════════════════════════════════════════════════════
+function cycleSpeed() {
+  speedIdx = (speedIdx + 1) % SPEEDS.length;
+  speed = SPEEDS[speedIdx];
+  document.getElementById('speed-display').textContent = speed + '×';
+  if (playing) { stopSpeech(); playCurrentSegment(); }
+}
+
+function toggleRepeat() {
+  repeatMode = !repeatMode;
+  document.getElementById('repeat-btn').classList.toggle('active-btn', repeatMode);
+}
+
+function openSettings()  { document.getElementById('settings-overlay').classList.add('open'); }
+function closeSettings(e) {
+  if (!e || e.target === document.getElementById('settings-overlay'))
+    document.getElementById('settings-overlay').classList.remove('open');
+}
+function setVoice(i) { selectedVoice = voices[parseInt(i)]; }
+function setAuto(v) {
+  autoAdvance = v;
+  document.getElementById('auto-on').classList.toggle('active', v);
+  document.getElementById('auto-off').classList.toggle('active', !v);
+}
+function setFcPause(s) {
+  fcPause = s;
+  document.querySelectorAll('.settings-row:nth-child(3) .seg-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+function setFocus(f) {
+  contentFocus = f;
+  document.querySelectorAll('.settings-row:nth-child(4) .seg-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// AI EXPAND
+// ═══════════════════════════════════════════════════════════════════════════
+async function aiExpand() {
+  const r = playlist[trackIndex];
+  if (!r) return;
+  const container = document.getElementById('ai-content');
+  const btn       = document.getElementById('ai-expand-btn');
+  btn.style.display = 'none';
+  container.classList.add('visible');
+  container.innerHTML = '<div class="ai-loading">Generating deeper explanation...</div>';
+
+  const prompt = `You are an infectious disease educator. Provide a detailed clinical teaching explanation (6–8 sentences, conversational tone suitable for audio playback) about infections at the ${r.name} site. Include: (1) the most clinically important pathogen nuance not commonly known, (2) a key pharmacologic pearl about antibiotic selection or tissue penetration at this site, and (3) a high-yield clinical pitfall that causes harm when missed. Speak directly to a medical trainee. Do not use headers or bullet points — continuous flowing prose.`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await response.json();
+    const text = data.content?.map(c => c.text || '').join('') || 'No response received.';
+    container.innerHTML = `<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:10px;">🤖 AI Deep Dive</div>${text}
+      <div style="margin-top:14px;">
+        <button onclick="speakAI(this)" style="background:var(--accent);color:#080a10;border:none;border-radius:6px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;">▶ Read Aloud</button>
+      </div>`;
+  } catch(e) {
+    container.innerHTML = '<div class="ai-loading">Unable to connect — check WiFi and try again.</div>';
+    btn.style.display = 'flex';
+  }
+}
+
+function speakAI(btn) {
+  const text = document.getElementById('ai-content').innerText.replace('🤖 AI Deep Dive', '').replace('▶ Read Aloud', '').trim();
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = speed; u.pitch = 0.95;
+  if (selectedVoice) u.voice = selectedVoice;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+  btn.textContent = '⏸ Reading...';
+  u.onend = () => { btn.textContent = '▶ Read Aloud'; };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════════════════════════════════════
+function formatScript(text) {
+  // Highlight drug names and key terms
+  return text
+    .replace(/\b(Ceftriaxone|Vancomycin|Meropenem|Pip-tazo|Linezolid|Daptomycin|TMP-SMX|Metronidazole|Ampicillin|Nafcillin|Cefazolin|Ciprofloxacin|Levofloxacin|Azithromycin|Doxycycline|Rifampin|Fluconazole|Voriconazole|Micafungin|Caspofungin|Acyclovir|Fidaxomicin|Ertapenem|Cefepime|Clindamycin|Penicillin)/g,
+      '<span class="highlight">$1</span>')
+    .replace(/\b(MRSA|MSSA|ESBL|CRE|MDR|VRE|GAS|CoNS|CLABSI|CAUTI|PJI|HAP|VAP|CAP|BSI|IAI|PID|SBP|CDI|NF)\b/g,
+      '<span class="highlight">$1</span>');
+}
+
+// suiteNav
+(function(){
+  var SUITE = {
+    'index.html':'home','im_guide.html':'imcrg','lab_values.html':'labs',
+    'dx_framework.html':'dxfx','id_guide.html':'id','abx-companion.html':'abxcomp',
+    'body-atlas.html':'bodyatlas','audio-companion.html':'audio',
+    'drug_reference_guide.html':'drugref','drug_interactions.html':'drugs',
+    'antimicrobial_stewardship_guide.html':'abxsteward',
+    'nephrology_consult.html':'nephroconsult','cardiology_consult.html':'cardioconsult',
+    'rheumatology_consult.html':'rheumconsult','id_consult.html':'idconsult',
+    'endo_consult.html':'endoconsult','neuro_consult.html':'neuroconsult',
+    'inpatient_note.html':'inpatientnote','op_note.html':'opnote',
+  };
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href]');
+    if(!a) return;
+    var href = a.getAttribute('href');
+    if(!href || /^(https?:|mailto:|tel:|#)/.test(href)) return;
+    var file = href.split('#')[0];
+    var anchor = href.split('#')[1] || null;
+    var toolId = SUITE[file];
+    if(!toolId) return;
+    if(window.parent !== window && typeof window.parent.switchTool === 'function'){
+      e.preventDefault();
+      window.parent.switchTool(toolId, anchor);
+    }
+  }, true);
+})();
+</script>
+</body>
+</html>

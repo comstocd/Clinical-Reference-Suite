@@ -44,6 +44,7 @@ const PRECACHE_URLS = [
   `${BASE_PATH}/abx-companion.html`,
   `${BASE_PATH}/abx-manifest.json`,
   `${BASE_PATH}/body-atlas.html`,
+  `${BASE_PATH}/audio-companion.html`,
 ];
 
 // ── INSTALL ──────────────────────────────────────────────────────────────────
