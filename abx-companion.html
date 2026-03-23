@@ -613,6 +613,7 @@
       <span class="toc-chapter">ABX Companion</span>
       <a href="#ch1" class="toc-link"><span class="toc-dot" style="background:var(--accent)"></span>Ch 1 · Principles</a>
       <a href="#ch1-selection" class="toc-link" style="padding-left:28px;"><span class="toc-dot" style="background:var(--accent);opacity:0.6"></span>Selection Framework</a>
+      <a href="#ch1-tissue" class="toc-link" style="padding-left:28px;"><span class="toc-dot" style="background:var(--accent);opacity:0.6"></span>Tissue Penetration</a>
       <a href="#ch1-pkpd" class="toc-link" style="padding-left:28px;"><span class="toc-dot" style="background:var(--accent);opacity:0.6"></span>PK/PD Concepts</a>
       <a href="#ch1-ivpo" class="toc-link" style="padding-left:28px;"><span class="toc-dot" style="background:var(--accent);opacity:0.6"></span>IV-to-PO Switch</a>
       <a href="#ch1-stewardship" class="toc-link" style="padding-left:28px;"><span class="toc-dot" style="background:var(--accent);opacity:0.6"></span>Stewardship</a>
@@ -801,6 +802,140 @@
               <li><strong>Local antibiogram matters</strong> — resistance rates for E. coli TMP-SMX, FQ, and cephalosporins vary dramatically by institution and region; check annually</li>
               <li><strong>Never use Vancomycin for MSSA</strong> — beta-lactams are superior; Vanc is a fallback, not an upgrade</li>
             </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TISSUE PENETRATION ── -->
+      <div class="syndrome-card" id="ch1-tissue">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:var(--accent)"></span>Tissue Penetration — Site-Based Selection Guide</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Tissue Penetration by Compartment</div>
+            <table class="dosing-table">
+              <thead>
+                <tr>
+                  <th>Site / Compartment</th>
+                  <th>Excellent Penetration</th>
+                  <th>Adequate</th>
+                  <th>Poor / Avoid</th>
+                  <th>Clinical Implication</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>CNS / CSF</strong></td>
+                  <td>Metronidazole (~100%), TMP-SMX (25–50%), Fluoroquinolones (50–80%), Linezolid (~70%), Meropenem (20–40% inflamed), Ampicillin (inflamed)</td>
+                  <td>Ceftriaxone (17–40% inflamed), Penicillin G (inflamed), Cefepime (inflamed)</td>
+                  <td>Vancomycin (5–20%, variable), Aminoglycosides (&lt;10%), Daptomycin, Cefazolin, Ertapenem</td>
+                  <td>Inflamed meninges dramatically improve beta-lactam penetration. Vancomycin CNS levels unpredictable — AUC-guided dosing + consider intrathecal for ventriculitis. Never use Daptomycin or Cefazolin for CNS infections.</td>
+                </tr>
+                <tr>
+                  <td><strong>Bone</strong></td>
+                  <td>TMP-SMX (~50%), Fluoroquinolones (30–50%), Linezolid (~40%), Rifampin (excellent), Clindamycin (30–40%), Doxycycline</td>
+                  <td>Nafcillin/Cefazolin (10–15%), Vancomycin (10–20%), Pip-tazo, Ceftriaxone</td>
+                  <td>Aminoglycosides (&lt;10%), most beta-lactams achieve marginal levels without extended courses</td>
+                  <td>OVIVA trial: high-bioavailability PO agents (TMP-SMX, FQ, Linezolid) non-inferior to IV for bone/joint. Long courses (6 wk) compensate for modest tissue levels. Rifampin adds biofilm penetration for hardware-associated infections.</td>
+                </tr>
+                <tr>
+                  <td><strong>Lung — ELF</strong><br><small>(Epithelial Lining Fluid)</small></td>
+                  <td>Azithromycin (ELF &gt;100× serum — intracellular accumulation), Linezolid (ELF &gt;serum), Fluoroquinolones (ELF ~1× serum), TMP-SMX</td>
+                  <td>Ceftriaxone, Pip-tazo, Meropenem (ELF ~30–50% serum)</td>
+                  <td>Daptomycin (inactivated by surfactant — absolute contraindication), Vancomycin (ELF ~25% serum — subtherapeutic for MRSA pneumonia)</td>
+                  <td>Linezolid superior to Vancomycin for MRSA pneumonia (ZEPHyR trial) due to ELF concentration advantage. Azithromycin tissue concentrations persist days after last dose. Never use Daptomycin for any pulmonary infection.</td>
+                </tr>
+                <tr>
+                  <td><strong>Intracellular</strong><br><small>(Macrophages, Phagocytes)</small></td>
+                  <td>Azithromycin / Macrolides (concentrated 10–100×), Fluoroquinolones (2–10×), Doxycycline (good), TMP-SMX (good), Rifampin (excellent), Linezolid</td>
+                  <td>Clindamycin (moderate)</td>
+                  <td>Beta-lactams (poor intracellular penetration — no activity against intracellular pathogens), Vancomycin, Aminoglycosides</td>
+                  <td>Essential for atypicals (Legionella, Mycoplasma, Chlamydophila), Brucella, Salmonella, Listeria, Toxoplasma, MAC. Explains why beta-lactam monotherapy fails for Legionella and why macrolides/FQs are mandatory for atypical CAP coverage.</td>
+                </tr>
+                <tr>
+                  <td><strong>Urine</strong></td>
+                  <td>Nitrofurantoin (urine only — no systemic activity), Fosfomycin (high urinary concentration), TMP-SMX (high urinary levels), Fluoroquinolones, most beta-lactams (renally excreted)</td>
+                  <td>Ceftriaxone, Gentamicin</td>
+                  <td>Doxycycline (poor urinary levels), Azithromycin (minimal urinary excretion), Clindamycin</td>
+                  <td>Nitrofurantoin and Fosfomycin are NOT suitable for pyelonephritis or systemic infection — activity confined to the bladder. Fluoroquinolone urinary levels far exceed serum MIC — explains 3-day efficacy for uncomplicated UTI.</td>
+                </tr>
+                <tr>
+                  <td><strong>Prostate</strong></td>
+                  <td>Fluoroquinolones (Ciprofloxacin, Levofloxacin — excellent lipid solubility, 30–50% tissue levels), TMP-SMX (good), Doxycycline</td>
+                  <td>Azithromycin (moderate)</td>
+                  <td>Most beta-lactams (poor lipid solubility, low tissue levels), Aminoglycosides, Vancomycin, Nitrofurantoin</td>
+                  <td>Fluoroquinolones are first-line for bacterial prostatitis for this reason. Beta-lactams fail despite adequate urinary levels — poor stromal penetration. Minimum 4–6 weeks required for chronic prostatitis regardless of agent.</td>
+                </tr>
+                <tr>
+                  <td><strong>Biofilm</strong><br><small>(Hardware / Implant)</small></td>
+                  <td>Rifampin (biofilm penetration — always combine, never monotherapy), Fluoroquinolones (relative biofilm activity), Daptomycin (high-dose)</td>
+                  <td>Linezolid, TMP-SMX, Fosfomycin (combination)</td>
+                  <td>Beta-lactams (minimal biofilm activity alone), Vancomycin (poor biofilm penetration despite MRSA activity), Aminoglycosides</td>
+                  <td>Biofilm increases MIC 100–1000×. Hardware removal is definitive treatment — antibiotics suppress but rarely eradicate biofilm infection. Rifampin must always be combined (monotherapy selects resistance in days). DAIR (débridement, antibiotics, implant retention) protocol requires Rifampin combination.</td>
+                </tr>
+                <tr>
+                  <td><strong>Abscess Cavity</strong></td>
+                  <td>Metronidazole (excellent penetration + anaerobic activity), Fluoroquinolones, TMP-SMX, Linezolid, Clindamycin</td>
+                  <td>Beta-lactams (penetrate but reduced activity in low pH/anaerobic environment)</td>
+                  <td>Aminoglycosides (inactivated at low pH, poor anaerobic penetration), Vancomycin</td>
+                  <td>Drainage is mandatory — antibiotics cannot penetrate necrotic core. Aminoglycosides lose activity in acidic abscess environment regardless of systemic levels. Most agents require drainage for clinical cure.</td>
+                </tr>
+                <tr>
+                  <td><strong>Vitreous / Aqueous</strong><br><small>(Endophthalmitis)</small></td>
+                  <td>Fluoroquinolones (Moxifloxacin — best ocular penetration of all systemic agents), Voriconazole (fungal), Linezolid</td>
+                  <td>Vancomycin (intravitreal preferred), TMP-SMX</td>
+                  <td>Most beta-lactams, Aminoglycosides (systemic dosing inadequate — require intravitreal)</td>
+                  <td>Systemic antibiotics rarely achieve therapeutic vitreous levels — intravitreal injection (Vancomycin 1 mg + Ceftazidime 2.25 mg) is standard for bacterial endophthalmitis. Moxifloxacin is exception with adequate systemic penetration. Voriconazole PO achieves therapeutic vitreous levels for fungal endophthalmitis.</td>
+                </tr>
+                <tr>
+                  <td><strong>Cardiac Vegetations</strong><br><small>(Endocarditis)</small></td>
+                  <td>Bactericidal agents required: Penicillin G, Nafcillin, Cefazolin (MSSA); Vancomycin, Daptomycin (MRSA); Ampicillin + Gentamicin (Enterococcus)</td>
+                  <td>Ceftriaxone (viridans strep)</td>
+                  <td>Bacteriostatic agents (Linezolid, Tetracyclines, Clindamycin) — avoid as monotherapy; vegetation penetration less relevant than bactericidal requirement</td>
+                  <td>Vegetations are high-inoculum, protein-rich fibrin matrices. Bactericidal activity mandatory — bacteriostatic agents associated with relapse. Duration 4–6 weeks minimum to sterilize. Aminoglycoside synergy shortens duration for susceptible streptococci.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Tissue Penetration — Agent Summary</div>
+            <table class="dosing-table">
+              <thead><tr><th>Agent</th><th>Best Sites</th><th>Avoid / Inadequate</th></tr></thead>
+              <tbody>
+                <tr><td>Metronidazole</td><td>CNS, abscess, anaerobic tissue, GI</td><td>Aerobic infections</td></tr>
+                <tr><td>TMP-SMX</td><td>CNS, bone, lung, urine, prostate, intracellular</td><td>—</td></tr>
+                <tr><td>Fluoroquinolones</td><td>Lung ELF, bone, prostate, urine, intracellular, CNS</td><td>Biofilm (moderate only)</td></tr>
+                <tr><td>Linezolid</td><td>Lung ELF, bone, CNS, soft tissue</td><td>Endocarditis (bacteriostatic)</td></tr>
+                <tr><td>Rifampin</td><td>Biofilm, intracellular, bone (adjunct)</td><td>Never monotherapy — resistance emerges rapidly</td></tr>
+                <tr><td>Azithromycin</td><td>Intracellular (macrophage), lung ELF, soft tissue</td><td>Urine, CNS, bone</td></tr>
+                <tr><td>Doxycycline</td><td>Intracellular, lung, bone, prostate</td><td>CNS (adequate but not preferred), urine</td></tr>
+                <tr><td>Vancomycin</td><td>Variable soft tissue</td><td>CNS (unreliable), lung ELF (poor), biofilm, bone</td></tr>
+                <tr><td>Daptomycin</td><td>Soft tissue, bacteremia, endocarditis</td><td>Lung (absolutely contraindicated — surfactant inactivation)</td></tr>
+                <tr><td>Beta-lactams (general)</td><td>Soft tissue, most systemic infections</td><td>Intracellular pathogens, biofilm, prostate (most), abscess core</td></tr>
+                <tr><td>Aminoglycosides</td><td>Synergy for endocarditis (short course), urinary</td><td>CNS, abscess (pH inactivation), bone (monotherapy inadequate)</td></tr>
+                <tr><td>Nitrofurantoin / Fosfomycin</td><td>Bladder / lower urinary tract only</td><td>Kidney parenchyma, systemic, prostate</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls</div>
+            <ul class="pearl-list">
+              <li><strong>Tissue level ≠ serum level</strong> — many agents with excellent serum concentrations fail at specific sites (Vancomycin in lung, aminoglycosides in abscess, beta-lactams intracellularly)</li>
+              <li><strong>Inflammation opens barriers</strong> — meningeal, blood-brain, and blood-prostate barriers become more permeable with active infection; this is why some agents work in acute but not chronic infection</li>
+              <li><strong>Daptomycin + lung = never</strong> — pulmonary surfactant irreversibly inactivates Daptomycin; this applies to any pulmonary infection regardless of pathogen susceptibility</li>
+              <li><strong>Biofilm demands hardware removal</strong> — no antibiotic reliably sterilizes a mature biofilm; Rifampin combination is the best pharmacologic adjunct but is not a substitute for source control</li>
+              <li><strong>Urine concentration ≠ tissue penetration</strong> — Nitrofurantoin has excellent bladder levels but zero kidney or systemic activity; never use for pyelonephritis</li>
+              <li><strong>Intracellular pathogens need intracellular antibiotics</strong> — Legionella, Mycoplasma, Brucella, Chlamydophila, Salmonella, and MAC all survive inside phagocytes; beta-lactams never reach them</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="#ch1-pkpd" class="crosslink">PK/PD Concepts ↓</a>
+            <a href="#ch1-ivpo" class="crosslink">IV-to-PO Switch ↓</a>
+            <a href="#pp-beta-lactams" class="crosslink">Beta-Lactam Pearls</a>
+            <a href="#pp-vancomycin" class="crosslink">Vancomycin Pearls</a>
+            <a href="#pp-daptomycin" class="crosslink">Daptomycin Pearls</a>
           </div>
         </div>
       </div>
