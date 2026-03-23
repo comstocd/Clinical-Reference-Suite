@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infectious Disease Body Atlas · Clinical Reference Suite</title>
+<style>
+  :root {
+    --bg:        #0e1117;
+    --surface:   #161b25;
+    --surface2:  #1e2535;
+    --border:    #2a3347;
+    --text:      #e4e8f0;
+    --muted:     #7a8499;
+    --accent:    #4fa3e0;
+
+    --cns:       #9b7fe8;
+    --eye:       #c87fe8;
+    --ent:       #a87fc8;
+    --resp:      #4fa3e0;
+    --cv:        #e05c5c;
+    --gi:        #e09c4f;
+    --liver:     #d4834a;
+    --gu:        #4fc4a3;
+    --gyn:       #7fc4a3;
+    --spine:     #7fb8e0;
+    --bone:      #c4a35a;
+    --joint:     #d4b86a;
+    --ssti:      #e0c44f;
+    --vasc:      #e07070;
+    --bsi:       #e06b4f;
+    --immuno:    #7fbf7f;
+
+    --pen-excellent: #4fc4a3;
+    --pen-adequate:  #e0c44f;
+    --pen-poor:      #e05c5c;
+
+    --font-ui:   'Helvetica Neue', 'Arial', sans-serif;
+    --font-mono: 'Menlo', 'Courier New', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-ui);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* ── TOP NAV ── */
+  #topnav {
+    position: sticky; top: 0; z-index: 100;
+    background: #0a0d13;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center;
+    gap: 0; padding: 0 12px;
+    height: 46px; overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+  #topnav .suite-title {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-right: 16px; flex-shrink: 0;
+  }
+  #topnav a {
+    font-size: 12px; color: var(--muted);
+    text-decoration: none; padding: 0 8px;
+    height: 46px; display: inline-flex; align-items: center;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s; flex-shrink: 0;
+  }
+  #topnav a:hover { color: var(--text); }
+  #topnav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    padding: 28px 32px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .page-header h1 {
+    font-size: 22px; font-weight: 300;
+    letter-spacing: -0.02em; color: var(--text);
+    margin-bottom: 4px;
+  }
+  .page-header .subtitle { font-size: 13px; color: var(--muted); }
+
+  /* ── LAYER TOGGLES ── */
+  .layer-bar {
+    display: flex; gap: 8px; padding: 16px 32px;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    flex-wrap: wrap; align-items: center;
+  }
+  .layer-bar .label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--muted); margin-right: 4px;
+  }
+  .layer-btn {
+    font-family: var(--font-ui); font-size: 12px; font-weight: 600;
+    padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border);
+    background: var(--surface2); color: var(--muted);
+    cursor: pointer; transition: all 0.15s; white-space: nowrap;
+  }
+  .layer-btn.active {
+    background: var(--accent); color: #0a0d13;
+    border-color: var(--accent);
+  }
+  .layer-btn:hover:not(.active) { border-color: var(--accent); color: var(--text); }
+
+  /* ── SYNDROME CHECKLIST TOGGLE ── */
+  .checklist-toggle {
+    margin-left: auto; font-family: var(--font-ui);
+    font-size: 12px; font-weight: 600;
+    padding: 6px 14px; border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface2); color: var(--muted);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .checklist-toggle:hover { border-color: var(--accent); color: var(--text); }
+  .checklist-toggle.active { border-color: var(--accent); color: var(--accent); }
+
+  /* ── CHECKLIST PANEL ── */
+  #checklist-panel {
+    display: none; background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 32px;
+  }
+  #checklist-panel.open { display: block; }
+  #checklist-panel h3 {
+    font-size: 13px; font-weight: 700; color: var(--text);
+    margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .symptom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px; margin-bottom: 14px;
+  }
+  .symptom-chip {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; padding: 7px 12px; cursor: pointer;
+    transition: all 0.15s; font-size: 12px; color: var(--muted);
+    -webkit-user-select: none; user-select: none;
+  }
+  .symptom-chip.selected {
+    background: rgba(79,163,224,0.15);
+    border-color: var(--accent); color: var(--text);
+  }
+  .symptom-chip input { display: none; }
+  .checklist-actions {
+    display: flex; gap: 10px; margin-top: 6px;
+  }
+  .checklist-actions button {
+    font-family: var(--font-ui); font-size: 12px; font-weight: 600;
+    padding: 7px 16px; border-radius: 6px; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-primary {
+    background: var(--accent); color: #0a0d13; border: none;
+  }
+  .btn-secondary {
+    background: transparent; color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--text); }
+
+  /* ── REGION GRID ── */
+  #main-content { padding: 28px 32px 60px; }
+
+  .system-section { margin-bottom: 32px; }
+  .system-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--muted);
+    padding-bottom: 8px; margin-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .region-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  /* ── REGION TILE ── */
+  .region-tile {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 0;
+    cursor: pointer; overflow: hidden;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .region-tile:hover {
+    border-color: var(--tile-color, var(--accent));
+    box-shadow: 0 0 0 1px var(--tile-color, var(--accent));
+  }
+  .region-tile.highlighted {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent), 0 4px 20px rgba(79,163,224,0.25);
+  }
+  .tile-header {
+    padding: 12px 14px 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .tile-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    background: var(--tile-color, var(--accent));
+  }
+  .tile-name {
+    font-size: 13px; font-weight: 700; color: var(--text);
+    line-height: 1.2;
+  }
+  .tile-sub {
+    font-size: 11px; color: var(--muted); margin-top: 2px;
+  }
+  .tile-body { padding: 10px 14px 12px; }
+  .tile-peek {
+    font-size: 11px; color: var(--muted); line-height: 1.4;
+  }
+  .tile-peek strong { color: var(--text); }
+
+  /* Penetration layer colors on tiles */
+  .region-tile[data-layer="penetration"] .tile-body { display: none; }
+  .region-tile[data-layer="penetration"] .tile-pen { display: block; }
+  .tile-pen { display: none; padding: 8px 0 0; }
+  .pen-row {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; margin-bottom: 4px;
+  }
+  .pen-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .pen-excellent { background: var(--pen-excellent); }
+  .pen-adequate  { background: var(--pen-adequate); }
+  .pen-poor      { background: var(--pen-poor); }
+
+  /* ── DETAIL PANEL (modal) ── */
+  #detail-overlay {
+    display: none; position: fixed;
+    inset: 0; background: rgba(0,0,0,0.65);
+    z-index: 200; -webkit-tap-highlight-color: transparent;
+  }
+  #detail-overlay.open { display: flex; align-items: flex-end; }
+  @media (min-width: 768px) {
+    #detail-overlay.open { align-items: center; justify-content: center; }
+  }
+  #detail-panel {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-radius: 16px 16px 0 0;
+    width: 100%; max-height: 88vh;
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+    padding: 0 0 32px;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+  }
+  #detail-overlay.open #detail-panel { transform: translateY(0); }
+  @media (min-width: 768px) {
+    #detail-panel {
+      border-radius: 16px;
+      width: 720px; max-width: 95vw;
+      max-height: 85vh;
+      transform: scale(0.95); opacity: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    #detail-overlay.open #detail-panel {
+      transform: scale(1); opacity: 1;
+    }
+  }
+  .panel-drag { height: 4px; width: 40px; background: var(--border);
+    border-radius: 2px; margin: 12px auto 0; }
+  .panel-header {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 16px 20px 14px; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; background: var(--surface); z-index: 2;
+  }
+  .panel-color-bar { width: 5px; border-radius: 3px; flex-shrink: 0; align-self: stretch; min-height: 40px; }
+  .panel-title { font-size: 18px; font-weight: 700; color: var(--text); line-height: 1.2; }
+  .panel-subtitle { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .panel-close {
+    margin-left: auto; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 6px;
+    color: var(--muted); font-size: 16px; padding: 4px 10px;
+    cursor: pointer; flex-shrink: 0;
+  }
+  .panel-close:hover { color: var(--text); }
+
+  /* Panel layer tabs */
+  .panel-tabs {
+    display: flex; padding: 0 20px;
+    border-bottom: 1px solid var(--border);
+    gap: 0; overflow-x: auto;
+  }
+  .panel-tab {
+    font-family: var(--font-ui); font-size: 12px; font-weight: 600;
+    padding: 10px 16px; color: var(--muted); cursor: pointer;
+    border-bottom: 2px solid transparent; white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .panel-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .panel-tab-content { display: none; padding: 18px 20px; }
+  .panel-tab-content.active { display: block; }
+
+  /* Panel content styles */
+  .panel-section { margin-bottom: 18px; }
+  .panel-section-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--muted);
+    margin-bottom: 10px; padding-bottom: 5px;
+    border-bottom: 1px solid var(--border);
+  }
+  .pathogen-tag {
+    display: inline-block; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 3px 8px; font-size: 11px; color: var(--text);
+    margin: 3px 4px 3px 0;
+  }
+  .pen-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .pen-table th {
+    text-align: left; padding: 6px 8px; font-size: 10px;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--muted); border-bottom: 1px solid var(--border);
+  }
+  .pen-table td { padding: 7px 8px; border-bottom: 1px solid var(--border); }
+  .pen-table tr:last-child td { border-bottom: none; }
+  .pen-badge {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+  }
+  .pen-badge.excellent { background: rgba(79,196,163,0.2); color: var(--pen-excellent); }
+  .pen-badge.adequate  { background: rgba(224,196,79,0.2);  color: var(--pen-adequate); }
+  .pen-badge.poor      { background: rgba(224,92,92,0.2);   color: var(--pen-poor); }
+
+  .regimen-card {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 16px; margin-bottom: 12px;
+  }
+  .regimen-title {
+    font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 8px;
+  }
+  .regimen-drug {
+    font-size: 13px; color: var(--pen-excellent); font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .regimen-dose { font-size: 12px; color: var(--muted); }
+  .duration-badge {
+    display: inline-block; background: rgba(79,163,224,0.15);
+    border: 1px solid rgba(79,163,224,0.3);
+    color: var(--accent); font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 4px; margin-top: 6px;
+  }
+  .pearl-list { list-style: none; }
+  .pearl-list li {
+    padding: 6px 0 6px 14px; font-size: 12px; color: var(--muted);
+    border-bottom: 1px solid var(--border); position: relative;
+  }
+  .pearl-list li:last-child { border-bottom: none; }
+  .pearl-list li::before {
+    content: '›'; position: absolute; left: 0;
+    color: var(--accent); font-weight: 700;
+  }
+  .crosslink-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .crosslink {
+    display: inline-block; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 4px 10px; font-size: 11px; color: var(--accent);
+    text-decoration: none; transition: border-color 0.15s;
+  }
+  .crosslink:hover { border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<nav id="topnav">
+  <span class="suite-title">GL · CRS</span>
+  <a href="index.html">Home</a>
+  <a href="im_guide.html">IM Guide</a>
+  <a href="id_guide.html">ID Guide</a>
+  <a href="abx-companion.html">ABX</a>
+  <a href="body-atlas.html" class="active">Body Atlas</a>
+  <a href="antimicrobial_stewardship_guide.html">Stewardship</a>
+  <a href="drug_reference_guide.html">Drug Ref</a>
+  <a href="lab_values.html">Labs</a>
+</nav>
+
+<div class="page-header">
+  <h1>Infectious Disease Body Atlas</h1>
+  <p class="subtitle">Anatomic reference — pathogens by site · antibiotic tissue penetration · empiric therapy</p>
+</div>
+
+<!-- Layer toggles + checklist -->
+<div class="layer-bar">
+  <span class="label">Layer:</span>
+  <button class="layer-btn active" onclick="setLayer('pathogens', this)">🦠 Pathogens</button>
+  <button class="layer-btn" onclick="setLayer('penetration', this)">🔬 Penetration</button>
+  <button class="layer-btn" onclick="setLayer('empiric', this)">💊 Empiric Rx</button>
+  <button class="checklist-toggle" id="checklistToggle" onclick="toggleChecklist()">⚡ Symptom Filter</button>
+</div>
+
+<!-- Symptom checklist -->
+<div id="checklist-panel">
+  <h3>Select Presenting Symptoms / Findings</h3>
+  <div class="symptom-grid" id="symptomGrid"></div>
+  <div class="checklist-actions">
+    <button class="btn-primary" onclick="applyChecklist()">Highlight Regions</button>
+    <button class="btn-secondary" onclick="clearChecklist()">Clear</button>
+  </div>
+</div>
+
+<!-- Main region grid -->
+<div id="main-content">
+
+  <div class="system-section">
+    <div class="system-label">Head &amp; Neck</div>
+    <div class="region-grid" id="grid-head"></div>
+  </div>
+
+  <div class="system-section">
+    <div class="system-label">Thorax</div>
+    <div class="region-grid" id="grid-thorax"></div>
+  </div>
+
+  <div class="system-section">
+    <div class="system-label">Abdomen &amp; Pelvis</div>
+    <div class="region-grid" id="grid-abdomen"></div>
+  </div>
+
+  <div class="system-section">
+    <div class="system-label">Musculoskeletal</div>
+    <div class="region-grid" id="grid-msk"></div>
+  </div>
+
+  <div class="system-section">
+    <div class="system-label">Skin &amp; Systemic</div>
+    <div class="region-grid" id="grid-systemic"></div>
+  </div>
+
+</div>
+
+<!-- Detail panel overlay -->
+<div id="detail-overlay" onclick="closeDetail(event)">
+  <div id="detail-panel">
+    <div class="panel-drag"></div>
+    <div class="panel-header">
+      <div class="panel-color-bar" id="panelColorBar"></div>
+      <div>
+        <div class="panel-title" id="panelTitle"></div>
+        <div class="panel-subtitle" id="panelSubtitle"></div>
+      </div>
+      <button class="panel-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div class="panel-tabs">
+      <div class="panel-tab active" onclick="switchTab('pathogens', this)">🦠 Pathogens</div>
+      <div class="panel-tab" onclick="switchTab('penetration', this)">🔬 Penetration</div>
+      <div class="panel-tab" onclick="switchTab('empiric', this)">💊 Empiric Rx</div>
+      <div class="panel-tab" onclick="switchTab('pearls', this)">⚡ Pearls</div>
+    </div>
+    <div id="tab-pathogens" class="panel-tab-content active"></div>
+    <div id="tab-penetration" class="panel-tab-content"></div>
+    <div id="tab-empiric" class="panel-tab-content"></div>
+    <div id="tab-pearls" class="panel-tab-content"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// REGION DATA
+// ═══════════════════════════════════════════════════════════════════════════
+const REGIONS = [
+
+  // HEAD & NECK
+  {
+    id: 'cns', group: 'head',
+    name: 'CNS / Brain', sub: 'Meningitis · Encephalitis · Brain Abscess',
+    color: '#9b7fe8',
+    symptoms: ['fever','headache','altered-ms','meningismus','focal-neuro','seizure'],
+    peek: { pathogens: 'S. pneumoniae · N. meningitidis · L. monocytogenes', empiric: 'Ceftriaxone + Vancomycin ± Ampicillin' },
+    pathogens: [
+      { label: 'Community-Acquired Meningitis', tags: ['S. pneumoniae (most common adults)', 'N. meningitidis (young adults, clusters)', 'L. monocytogenes (age >50, immunocomp, EtOH)', 'H. influenzae (unvaccinated)', 'Viral: HSV-1/2, Enterovirus (most common overall)'] },
+      { label: 'Healthcare-Associated / Post-Neurosurgical', tags: ['S. aureus / CoNS (hardware)', 'Gram-negative rods (Pseudomonas, Klebsiella, Acinetobacter)', 'S. pneumoniae (post-basilar skull fracture)'] },
+      { label: 'Brain Abscess', tags: ['Streptococcal spp. (milleri group — contiguous sinus/dental)', 'Bacteroides (oral anaerobes)', 'S. aureus (hematogenous — endocarditis, IV drug use)', 'Toxoplasma (HIV, CD4 <100)', 'Nocardia (immunocomp)'] },
+      { label: 'Encephalitis', tags: ['HSV-1 (most common treatable — temporal lobe)', 'West Nile Virus (elderly, summer)', 'CMV (HIV/immunocomp)', 'Listeria (rhombencephalitis)', 'Autoimmune > infectious in most cases'] }
+    ],
+    penetration: [
+      { agent: 'Metronidazole', level: 'excellent', note: '~100% CSF/brain penetration' },
+      { agent: 'TMP-SMX', level: 'excellent', note: '25–50% CSF levels' },
+      { agent: 'Fluoroquinolones', level: 'excellent', note: '50–80% CSF penetration' },
+      { agent: 'Linezolid', level: 'excellent', note: '~70% CSF penetration' },
+      { agent: 'Meropenem', level: 'adequate', note: '20–40% inflamed meninges — preferred over Imipenem (lower seizure risk)' },
+      { agent: 'Ceftriaxone', level: 'adequate', note: '17–40% inflamed meninges' },
+      { agent: 'Ampicillin', level: 'adequate', note: 'Good inflamed meninges — essential for Listeria' },
+      { agent: 'Vancomycin', level: 'poor', note: '5–20% variable — AUC-guided; intrathecal for refractory ventriculitis' },
+      { agent: 'Aminoglycosides', level: 'poor', note: '<10% — intrathecal required for Gram-negative meningitis' },
+      { agent: 'Daptomycin', level: 'poor', note: 'Do not use for CNS infections' },
+      { agent: 'Cefazolin / Ertapenem', level: 'poor', note: 'Inadequate CNS levels — do not use for meningitis' }
+    ],
+    empiric: [
+      { title: 'Community-Acquired Bacterial Meningitis', drug: 'Ceftriaxone 2 g IV q12h + Vancomycin 25–30 mg/kg/day AUC-guided + Dexamethasone 0.15 mg/kg IV q6h × 4 days', dose: 'Add Ampicillin 2 g IV q4h if age >50, immunocomp, or pregnancy (Listeria coverage)', duration: '10–14 days (S. pneumoniae) · 7 days (N. meningitidis)', note: 'Give Dexamethasone before or with first ABX dose' },
+      { title: 'Healthcare-Associated / Post-Neurosurgical', drug: 'Vancomycin (AUC-guided) + Cefepime 2 g IV q8h OR Meropenem 2 g IV q8h', dose: '', duration: '21 days (GNR) · 14 days (Gram-positive cocci)', note: 'Remove/replace infected hardware whenever feasible' },
+      { title: 'Brain Abscess', drug: 'Metronidazole 500 mg IV q8h + Ceftriaxone 2 g IV q12h', dose: 'Add Vancomycin if post-neurosurgical or S. aureus source suspected', duration: '6–8 weeks', note: 'Neurosurgical drainage mandatory for abscesses >2.5 cm' },
+      { title: 'HSV Encephalitis', drug: 'Acyclovir 10 mg/kg IV q8h (start empirically while awaiting CSF PCR)', dose: '', duration: '14–21 days', note: 'Do not delay — mortality without treatment approaches 70%' }
+    ],
+    pearls: ['Do not delay antibiotics for CT scan — if no focal deficit or papilledema, blood cultures then ABX immediately', 'Dexamethasone benefit greatest for S. pneumoniae; may reduce Rifampin penetration for Listeria', 'HSV encephalitis: temporal lobe involvement on MRI + CSF lymphocytosis — start Acyclovir empirically', 'LP opening pressure: >25 cmH₂O in cryptococcal meningitis — therapeutic LP critical for ICP management', 'Vancomycin CNS levels unreliable — always add Ceftriaxone for pneumococcal coverage; never use Vancomycin monotherapy for meningitis']
+  },
+
+  {
+    id: 'eye', group: 'head',
+    name: 'Eye / Orbit', sub: 'Endophthalmitis · Orbital Cellulitis',
+    color: '#c87fe8',
+    symptoms: ['eye-pain','vision-loss','periorbital-swelling','fever','proptosis'],
+    peek: { pathogens: 'S. aureus · CoNS (post-surgical) · S. pneumoniae', empiric: 'Intravitreal Vancomycin + Ceftazidime' },
+    pathogens: [
+      { label: 'Endophthalmitis — Post-Surgical', tags: ['CoNS (S. epidermidis — most common post-cataract)', 'S. aureus (MSSA/MRSA)', 'Streptococcal spp.', 'Gram-negative rods (rare, fulminant)'] },
+      { label: 'Endophthalmitis — Endogenous (Hematogenous)', tags: ['Candida spp. (IV drug use, candidemia — white fluffy lesions)', 'S. aureus (bacteremia, endocarditis)', 'Klebsiella (liver abscess — East Asian patients)', 'Aspergillus (immunocomp)'] },
+      { label: 'Orbital / Preseptal Cellulitis', tags: ['S. aureus / MRSA', 'Streptococcal spp.', 'H. influenzae (unvaccinated children)', 'Polymicrobial (contiguous sinusitis)'] },
+      { label: 'Conjunctivitis', tags: ['Viral: Adenovirus (most common), HSV', 'Bacterial: S. aureus, S. pneumoniae, H. influenzae', 'Gonococcal: N. gonorrhoeae (hyperacute, copious discharge — ocular emergency)'] }
+    ],
+    penetration: [
+      { agent: 'Moxifloxacin (FQ)', level: 'excellent', note: 'Best systemic ocular penetration of all oral/IV agents' },
+      { agent: 'Voriconazole', level: 'excellent', note: 'PO achieves therapeutic vitreous levels for fungal' },
+      { agent: 'Linezolid', level: 'adequate', note: 'Reasonable vitreous penetration' },
+      { agent: 'Intravitreal Vancomycin', level: 'excellent', note: 'Local delivery bypasses penetration barrier — standard of care' },
+      { agent: 'Systemic Vancomycin', level: 'poor', note: 'Inadequate vitreous levels — must use intravitreal' },
+      { agent: 'Most beta-lactams (systemic)', level: 'poor', note: 'Inadequate vitreous/aqueous levels — intravitreal required for bacterial endophthalmitis' }
+    ],
+    empiric: [
+      { title: 'Bacterial Endophthalmitis (Post-Surgical)', drug: 'Intravitreal: Vancomycin 1 mg + Ceftazidime 2.25 mg (injected directly into vitreous)', dose: 'Add systemic Moxifloxacin 400 mg PO daily for adjunctive coverage', duration: 'Vitrectomy + intravitreal ABX — ophthalmology emergency', note: 'Do not delay — hours matter for visual outcome' },
+      { title: 'Endogenous Fungal Endophthalmitis (Candida)', drug: 'Fluconazole 400–800 mg IV/PO q24h (azole-susceptible Candida)', dose: 'Voriconazole for mold/resistant species; intravitreal antifungal for sight-threatening', duration: '4–6 weeks minimum', note: 'Ophthalmology exam within 7 days for all candidemia patients' },
+      { title: 'Orbital Cellulitis', drug: 'Vancomycin + Ceftriaxone 2 g IV q24h (covers MRSA + Gram-negatives from sinusitis)', dose: '', duration: '10–14 days IV then PO transition', note: 'CT orbit to rule out subperiosteal abscess — surgical drainage if present' }
+    ],
+    pearls: ['All candidemia patients require ophthalmology exam within 7 days — endophthalmitis in 5–10%', 'Post-surgical endophthalmitis is an ophthalmologic emergency — same-day intravitreal injection', 'Preseptal vs orbital cellulitis: proptosis, ophthalmoplegia, pain with eye movement = orbital (posterior to septum) — CT required', 'Gonococcal conjunctivitis: copious purulent discharge, hyperacute onset — Ceftriaxone 1 g IM × 1 + saline irrigation']
+  },
+
+  {
+    id: 'ent', group: 'head',
+    name: 'ENT / Head & Neck', sub: 'Sinusitis · Otitis · Pharyngitis · Deep Space',
+    color: '#a87fc8',
+    symptoms: ['fever','ear-pain','sore-throat','neck-swelling','trismus','sinus-pain'],
+    peek: { pathogens: 'S. pneumoniae · GAS · S. aureus · Oral anaerobes', empiric: 'Amoxicillin-clavulanate or Penicillin (GAS)' },
+    pathogens: [
+      { label: 'Acute Bacterial Sinusitis', tags: ['S. pneumoniae (most common)', 'H. influenzae', 'M. catarrhalis', 'S. aureus (frontal, sphenoid — complicated)'] },
+      { label: 'Pharyngitis / Tonsillitis', tags: ['Group A Streptococcus (GAS) — 15–30% of adult sore throats', 'Viral (EBV, Adenovirus, HSV) — majority', 'Fusobacterium necrophorum (Lemierre syndrome risk — young adults)'] },
+      { label: 'Otitis Media / Externa', tags: ['S. pneumoniae · H. influenzae · M. catarrhalis (AOM)', 'P. aeruginosa · S. aureus (otitis externa / malignant OE)', 'Polymicrobial (chronic OM)'] },
+      { label: 'Deep Space Infections (Ludwig, Parapharyngeal, Peritonsillar)', tags: ['Polymicrobial: Streptococcal spp. + oral anaerobes (Fusobacterium, Prevotella, Bacteroides)', 'S. aureus (MRSA in severe cases)', 'Fusobacterium necrophorum (Lemierre — IJV thrombophlebitis + septic emboli)'] }
+    ],
+    penetration: [
+      { agent: 'Amoxicillin-clavulanate', level: 'excellent', note: 'Excellent sinus, middle ear, and soft tissue levels' },
+      { agent: 'Fluoroquinolones', level: 'excellent', note: 'Good sinus penetration; respiratory FQs (Levofloxacin, Moxifloxacin) for resistant pneumococcus' },
+      { agent: 'Clindamycin', level: 'excellent', note: 'Excellent tissue and abscess penetration; good for oral anaerobes' },
+      { agent: 'Metronidazole', level: 'excellent', note: 'Essential for anaerobic deep space coverage' },
+      { agent: 'Penicillin / Amoxicillin', level: 'adequate', note: 'Adequate for GAS pharyngitis and susceptible pneumococcus' },
+      { agent: 'Most IV agents', level: 'adequate', note: 'Ceftriaxone + Metronidazole IV for severe/deep space infections' }
+    ],
+    empiric: [
+      { title: 'GAS Pharyngitis', drug: 'Penicillin V 500 mg PO BID–TID OR Amoxicillin 500 mg PO BID', dose: 'PCN allergy: Azithromycin 500 mg × 1 then 250 mg × 4 days OR Clindamycin 300 mg PO TID', duration: '10 days', note: 'Treat to prevent rheumatic fever; positive rapid Strep or culture required' },
+      { title: 'Acute Bacterial Sinusitis (meets criteria for ABX)', drug: 'Amoxicillin-clavulanate 875/125 mg PO BID', dose: 'Respiratory FQ (Levofloxacin 500 mg, Moxifloxacin 400 mg) if PCN allergy or high-risk resistant pneumococcus', duration: '5–7 days', note: 'Most sinusitis is viral — ABX only if: ≥10 days symptoms, severe onset, worsening after 5 days' },
+      { title: 'Deep Space Infection (Ludwig, Parapharyngeal, Peritonsillar Abscess)', drug: 'Ampicillin-sulbactam 3 g IV q6h + Metronidazole 500 mg IV q8h', dose: 'Add Vancomycin if MRSA concern or severe sepsis', duration: 'Surgical drainage essential; IV until stable then PO transition 10–14 days total', note: 'Ludwig angina = airway emergency — secure airway first' },
+      { title: 'Malignant Otitis Externa (Pseudomonas)', drug: 'Ciprofloxacin 400 mg IV q8h OR 750 mg PO BID', dose: '', duration: '6–8 weeks', note: 'Diabetic/immunocomp patients; skull base osteomyelitis — long course required' }
+    ],
+    pearls: ['Lemierre syndrome: young adult, peritonsillar infection, spiking fevers, neck pain → Fusobacterium necrophorum + internal jugular vein thrombophlebitis → septic pulmonary emboli. Treat with Metronidazole + beta-lactam × 4–6 weeks', 'Do not prescribe ABX for acute pharyngitis without positive GAS test — viral etiology in majority', 'Malignant OE: Pseudomonas → temporal bone osteomyelitis in diabetics — CT/MRI skull base; long-course Ciprofloxacin', 'Peritonsillar abscess: I&D + penicillin (needle aspiration acceptable if no complete fluctuance)']
+  },
+
+  // THORAX
+  {
+    id: 'lung', group: 'thorax',
+    name: 'Lung / Pleura', sub: 'CAP · HAP/VAP · Empyema · Lung Abscess',
+    color: '#4fa3e0',
+    symptoms: ['fever','cough','dyspnea','pleuritic-pain','sputum','hypoxia'],
+    peek: { pathogens: 'S. pneumoniae · Atypicals · MRSA (HAP) · GNR (HAP)', empiric: 'Ceftriaxone + Azithromycin (CAP) · Pip-tazo ± Vancomycin (HAP)' },
+    pathogens: [
+      { label: 'CAP — Typical', tags: ['S. pneumoniae (most common inpatient CAP)', 'H. influenzae', 'Klebsiella (alcoholism, aspiration)', 'S. aureus (post-influenza — severe, necrotizing)'] },
+      { label: 'CAP — Atypical', tags: ['Mycoplasma pneumoniae (young adults, walking pneumonia)', 'Chlamydophila pneumoniae', 'Legionella pneumophila (water exposure, Cunha criteria: high fever + relative bradycardia + diarrhea + hyponatremia)'] },
+      { label: 'HAP / VAP', tags: ['MRSA', 'P. aeruginosa', 'Klebsiella / Enterobacter / Acinetobacter (late VAP)', 'ESBL-producing GNR (healthcare exposure)'] },
+      { label: 'Lung Abscess / Aspiration', tags: ['Oral anaerobes: Fusobacterium, Prevotella, Bacteroides (aspiration)', 'Klebsiella (alcoholism — bulging fissure sign)', 'S. aureus (hematogenous — septic emboli)'] },
+      { label: 'Empyema', tags: ['S. pneumoniae', 'S. aureus (MSSA/MRSA)', 'Streptococcal milleri group', 'Oral anaerobes (aspiration-associated)', 'Gram-negatives (healthcare-associated)'] }
+    ],
+    penetration: [
+      { agent: 'Azithromycin (ELF)', level: 'excellent', note: 'ELF >100× serum — macrophage accumulation; tissue levels persist days after last dose' },
+      { agent: 'Linezolid (ELF)', level: 'excellent', note: 'ELF > serum — preferred over Vancomycin for MRSA pneumonia (ZEPHyR trial)' },
+      { agent: 'Fluoroquinolones (ELF)', level: 'excellent', note: 'ELF ~1× serum — good for both typical and atypical coverage' },
+      { agent: 'TMP-SMX', level: 'excellent', note: 'Excellent ELF — first-line for PCP' },
+      { agent: 'Beta-lactams (ELF)', level: 'adequate', note: 'ELF 30–50% serum — adequate with standard dosing' },
+      { agent: 'Vancomycin (ELF)', level: 'poor', note: 'ELF ~25% serum — subtherapeutic for MRSA VAP; use Linezolid instead' },
+      { agent: 'Daptomycin', level: 'poor', note: 'ABSOLUTELY CONTRAINDICATED — inactivated by pulmonary surfactant; never use for any pulmonary infection' }
+    ],
+    empiric: [
+      { title: 'CAP — Outpatient (no comorbidities)', drug: 'Amoxicillin 1 g PO TID OR Doxycycline 100 mg PO BID', dose: '', duration: '5 days', note: 'CURB-65 0–1: outpatient appropriate' },
+      { title: 'CAP — Inpatient Non-ICU', drug: 'Ceftriaxone 1–2 g IV q24h + Azithromycin 500 mg IV/PO q24h', dose: 'OR Levofloxacin 750 mg IV/PO q24h monotherapy', duration: '5 days', note: '' },
+      { title: 'CAP — ICU', drug: 'Ceftriaxone 2 g IV q24h + Azithromycin 500 mg IV q24h', dose: 'Pseudomonas risk: Pip-tazo 4.5 g q6h EI + Levofloxacin 750 mg', duration: '5–7 days', note: 'Add Vancomycin if MRSA risk (prior MRSA, nasal swab positive, necrotizing pneumonia)' },
+      { title: 'HAP / VAP — Low MDR Risk', drug: 'Pip-tazo 4.5 g IV q6h EI OR Cefepime 2 g IV q8h', dose: '', duration: '7 days', note: '' },
+      { title: 'HAP / VAP — MRSA Risk', drug: 'Add Linezolid 600 mg IV/PO q12h (preferred over Vancomycin for pneumonia)', dose: '', duration: '7 days', note: 'Procalcitonin to guide de-escalation' },
+      { title: 'Lung Abscess / Aspiration', drug: 'Amoxicillin-clavulanate 875/125 mg PO BID (outpatient) OR Ampicillin-sulbactam 3 g IV q6h (inpatient)', dose: 'PCN allergy: Clindamycin 600 mg IV q8h → 300 mg PO QID', duration: '3–6 weeks (until cavity resolved)', note: '' }
+    ],
+    pearls: ['Daptomycin is never acceptable for pulmonary infections — pulmonary surfactant irreversibly inactivates it', 'Linezolid > Vancomycin for MRSA VAP — superior ELF concentrations (ZEPHyR trial)', 'Legionella: urine antigen only detects serogroup 1 (~80% of cases) — negative does not rule out; Levofloxacin 750 mg preferred over Azithromycin for ICU-level disease (Cunha)', 'Vancomycin + Pip-tazo: significantly higher AKI rate vs Cefepime + Vancomycin — use Cefepime when combination needed', '7-day course sufficient for most HAP/VAP — longer courses increase resistance and C. diff without benefit']
+  },
+
+  {
+    id: 'heart', group: 'thorax',
+    name: 'Heart / Pericardium', sub: 'Endocarditis · Myocarditis · Pericarditis',
+    color: '#e05c5c',
+    symptoms: ['fever','new-murmur','emboli','chest-pain','pleuritic-pain','palpitations'],
+    peek: { pathogens: 'S. aureus (most common) · Viridans Strep · Enterococcus', empiric: 'Vancomycin ± Gentamicin (empiric IE)' },
+    pathogens: [
+      { label: 'Infective Endocarditis — Native Valve', tags: ['S. aureus (most common — acute, aggressive, right-sided in IVDU)', 'Viridans Streptococci (subacute, dental source)', 'Enterococcus faecalis (GU/GI source, elderly)', 'HACEK organisms (slow-growing, culture-negative)', 'CoNS (subacute, indolent)'] },
+      { label: 'Infective Endocarditis — Prosthetic Valve', tags: ['Early (<12 mo): CoNS, S. aureus (perioperative)', 'Late (>12 mo): Viridans Strep, Enterococcus (similar to NVE)'] },
+      { label: 'Myocarditis', tags: ['Viral: Enterovirus (Coxsackievirus B most common), Adenovirus, Parvovirus B19', 'SARS-CoV-2', 'Bacterial: S. aureus (rare, toxic shock), Borrelia (Lyme — conduction defects)', 'Chagas (Trypanosoma cruzi — Latin America)'] },
+      { label: 'Pericarditis', tags: ['Viral (most common): Coxsackievirus, Echovirus', 'Bacterial: S. aureus (purulent — rare, high mortality)', 'TB (developing world — constrictive risk)', 'Post-cardiac injury (Dressler syndrome — autoimmune)'] }
+    ],
+    penetration: [
+      { agent: 'Penicillin G / Ampicillin', level: 'excellent', note: 'Drug of choice for susceptible Strep IE and Enterococcus (bactericidal)' },
+      { agent: 'Nafcillin / Cefazolin', level: 'excellent', note: 'MSSA NVE — superior to Vancomycin; bactericidal' },
+      { agent: 'Vancomycin', level: 'adequate', note: 'MRSA IE — adequate but inferior to beta-lactams for MSSA; AUC-guided dosing' },
+      { agent: 'Daptomycin (high dose)', level: 'excellent', note: '≥8–10 mg/kg/day for left-sided IE; concentration-dependent bactericidal activity' },
+      { agent: 'Gentamicin (synergy)', level: 'adequate', note: 'Low-dose synergy for Strep/Enterococcus IE — short course (2 wk max); nephrotoxic' },
+      { agent: 'Linezolid / Bacteriostatic agents', level: 'poor', note: 'Bacteriostatic agents avoid for IE monotherapy — higher relapse rates' },
+      { agent: 'Rifampin', level: 'excellent', note: 'Prosthetic valve IE — add after BSI cleared (not during bacteremia — resistance emerges)' }
+    ],
+    empiric: [
+      { title: 'IE — Pre-Culture Empiric (Native Valve, Acute)', drug: 'Vancomycin (AUC-guided, target AUC 400–600) + Cefepime 2 g IV q8h (if Gram-negative concern)', dose: '', duration: 'Narrow urgently when cultures return — organism-directed therapy critical', note: '3 sets blood cultures from separate sites before starting ABX' },
+      { title: 'IE — MSSA (NVE, confirmed)', drug: 'Nafcillin 2 g IV q4h OR Cefazolin 2 g IV q8h (preferred for bacteremia)', dose: '', duration: '4–6 weeks (uncomplicated) · 6 weeks (complicated, prosthetic)', note: 'Do NOT use Vancomycin for MSSA — inferior outcomes' },
+      { title: 'IE — MRSA (NVE)', drug: 'Vancomycin AUC-guided OR Daptomycin ≥8–10 mg/kg IV q24h (non-pulmonary)', dose: '', duration: '≥6 weeks', note: 'TEE for all S. aureus bacteremia' },
+      { title: 'IE — Prosthetic Valve (Empiric)', drug: 'Vancomycin + Rifampin 300–600 mg PO/IV q8–12h (add after BSI cleared) + Gentamicin 3 mg/kg/day (first 2 wk)', dose: '', duration: '≥6 weeks', note: 'Cardiac surgery consult early — high surgical rate in PVE' }
+    ],
+    pearls: ['ALL S. aureus bacteremia requires echocardiography — TEE preferred (superior sensitivity); TTE alone is insufficient to exclude IE', 'Never use Vancomycin as definitive therapy for MSSA — beta-lactams (Nafcillin/Cefazolin) are superior', 'Daptomycin is inactivated by pulmonary surfactant — do NOT use if right-sided IE with pulmonary involvement', 'Rifampin in prosthetic valve IE: add only after bacteremia cleared — adding during active BSI selects resistance within days', 'Duke Criteria: major (positive blood cultures, endocardial involvement on echo) + minor (predisposing condition, fever, vascular phenomena, immunologic, micro)']
+  },
+
+  {
+    id: 'mediastinum', group: 'thorax',
+    name: 'Mediastinum', sub: 'Mediastinitis · Descending Necrotizing',
+    color: '#e07070',
+    symptoms: ['chest-pain','fever','neck-swelling','dysphagia','sepsis'],
+    peek: { pathogens: 'Oral anaerobes · S. aureus · GNR (post-surgical)', empiric: 'Vancomycin + Pip-tazo + Metronidazole' },
+    pathogens: [
+      { label: 'Descending Necrotizing Mediastinitis (from head/neck)', tags: ['Polymicrobial: Streptococcal spp. + oral anaerobes (Fusobacterium, Prevotella)', 'Extension from peritonsillar, Ludwig, or odontogenic abscess'] },
+      { label: 'Post-Surgical Mediastinitis (post-CABG/sternotomy)', tags: ['S. aureus (MSSA/MRSA — most common)', 'CoNS (S. epidermidis)', 'Gram-negative rods (Pseudomonas, Klebsiella)'] },
+      { label: 'Esophageal Perforation', tags: ['Mixed oral/GI flora: Streptococcal spp., anaerobes, GNR', 'Polymicrobial contamination — rapid mediastinitis'] }
+    ],
+    penetration: [
+      { agent: 'Vancomycin', level: 'excellent', note: 'MRSA mediastinitis — adequate tissue levels with proper dosing' },
+      { agent: 'Pip-tazo / Carbapenems', level: 'excellent', note: 'Broad GNR and anaerobic coverage for post-surgical / polymicrobial' },
+      { agent: 'Metronidazole', level: 'excellent', note: 'Essential anaerobic component in descending necrotizing mediastinitis' }
+    ],
+    empiric: [
+      { title: 'Descending Necrotizing Mediastinitis', drug: 'Vancomycin + Pip-tazo 4.5 g IV q6h + Metronidazole 500 mg IV q8h', dose: '', duration: 'Until surgical control — typically 4–6 weeks', note: 'SURGICAL EMERGENCY — wide débridement + drainage is primary treatment' },
+      { title: 'Post-Sternotomy Mediastinitis', drug: 'Vancomycin (MRSA coverage) + Cefepime or Pip-tazo (GNR coverage)', dose: '', duration: '4–6 weeks', note: 'Surgical débridement + VAC dressing; consider muscle flap reconstruction' }
+    ],
+    pearls: ['Descending necrotizing mediastinitis: mortality 20–40% even with aggressive treatment — surgical emergency', 'Post-sternotomy mediastinitis: 90-day mortality ~25%; MRSA is the key pathogen to cover empirically', 'CT chest is diagnostic — gas and fluid in mediastinum, tissue edema extending from neck in descending necrotizing type']
+  },
+
+  // ABDOMEN & PELVIS
+  {
+    id: 'liver', group: 'abdomen',
+    name: 'Liver / Biliary', sub: 'Cholangitis · Cholecystitis · Hepatic Abscess',
+    color: '#d4834a',
+    symptoms: ['fever','rUQ-pain','jaundice','nausea','sepsis'],
+    peek: { pathogens: 'E. coli · Klebsiella · Enterococcus · Anaerobes', empiric: 'Pip-tazo or Ceftriaxone + Metronidazole' },
+    pathogens: [
+      { label: 'Cholangitis / Cholecystitis', tags: ['E. coli (most common)', 'Klebsiella pneumoniae', 'Enterococcus faecalis', 'Bacteroides fragilis / Oral anaerobes', 'Pseudomonas (healthcare-associated, biliary stent)'] },
+      { label: 'Pyogenic Hepatic Abscess', tags: ['Polymicrobial: E. coli, Klebsiella, anaerobes, Streptococcal spp.', 'Klebsiella pneumoniae (monomicrobial — East Asian patients, associated with septic emboli to eye, CNS)'] },
+      { label: 'Amebic Liver Abscess', tags: ['Entamoeba histolytica (travel, immigration from endemic areas)', 'Single right lobe abscess — "anchovy paste" aspirate'] }
+    ],
+    penetration: [
+      { agent: 'Pip-tazo', level: 'excellent', note: 'Broad GNR + anaerobe coverage; biliary excretion' },
+      { agent: 'Carbapenems (Ertapenem / Meropenem)', level: 'excellent', note: 'ESBL risk or severe disease; good biliary penetration' },
+      { agent: 'Ceftriaxone', level: 'excellent', note: 'Excreted in bile at high concentrations — excellent biliary levels; add Metronidazole for anaerobes' },
+      { agent: 'Metronidazole', level: 'excellent', note: 'Essential for anaerobic coverage; also first-line for amebic abscess' },
+      { agent: 'Fluoroquinolones', level: 'excellent', note: 'Good biliary penetration; use if susceptibility confirmed' }
+    ],
+    empiric: [
+      { title: 'Cholangitis — Mild/Moderate (Tokyo Grade I–II)', drug: 'Ceftriaxone 2 g IV q24h + Metronidazole 500 mg IV q8h', dose: 'OR Pip-tazo 4.5 g IV q6h monotherapy', duration: '4–7 days after source control (ERCP or biliary drainage)', note: 'Source control is primary — antibiotics do not substitute for drainage' },
+      { title: 'Cholangitis — Severe / Healthcare-Associated (Tokyo Grade III)', drug: 'Pip-tazo 4.5 g IV q6h OR Meropenem 1 g IV q8h', dose: '', duration: '4–7 days after source control', note: 'Reynolds pentad: Charcot triad + hypotension + AMS = acute suppurative cholangitis — emergent drainage' },
+      { title: 'Pyogenic Hepatic Abscess', drug: 'Ceftriaxone + Metronidazole OR Pip-tazo', dose: '', duration: '4–6 weeks (drainage-dependent)', note: 'Percutaneous drainage ± catheter drainage for abscesses >5 cm' },
+      { title: 'Amebic Liver Abscess', drug: 'Metronidazole 750 mg PO/IV TID × 7–10 days', dose: 'Then Paromomycin 500 mg PO TID × 7 days (luminal agent to eradicate intestinal colonization)', duration: '7–10 days tissue + luminal course', note: 'Aspiration only if rupture risk, no response, or superinfection concern' }
+    ],
+    pearls: ['Charcot triad: fever + RUQ pain + jaundice. Add hypotension + AMS = Reynolds pentad → acute suppurative cholangitis → emergent ERCP', 'Tokyo Guidelines 2018: grade severity before choosing intervention timing', 'Klebsiella hepatic abscess in East Asian patients: monomicrobial, associated with cryptogenic gas-forming liver abscess → septic endophthalmitis + CNS metastatic foci — check eyes', 'Ceftriaxone: high biliary excretion (40% of dose in bile) — excellent for biliary infections; always add Metronidazole for anaerobic coverage']
+  },
+
+  {
+    id: 'bowel', group: 'abdomen',
+    name: 'Bowel / Peritoneum', sub: 'IAI · Secondary Peritonitis · C. diff · Colitis',
+    color: '#e09c4f',
+    symptoms: ['fever','abdominal-pain','peritonitis','diarrhea','nausea','leukocytosis'],
+    peek: { pathogens: 'E. coli · Bacteroides · Enterococcus · C. difficile', empiric: 'Ertapenem or Pip-tazo (IAI) · Vancomycin PO (CDI)' },
+    pathogens: [
+      { label: 'Secondary Peritonitis / IAI', tags: ['E. coli (dominant GNR)', 'Bacteroides fragilis (dominant anaerobe)', 'Klebsiella · Enterococcus (healthcare-associated)', 'Candida spp. (immunocomp, recurrent perforation)'] },
+      { label: 'C. difficile Infection', tags: ['Clostridioides difficile (toxin-producing strains — ribotypes 027, 106)', 'Risk: prior ABX (especially clindamycin, FQ, cephalosporins), PPI use, age >65, healthcare exposure'] },
+      { label: 'Infectious Colitis', tags: ['E. coli O157:H7 (STEC — do NOT treat with ABX — HUS risk)', 'Salmonella (non-typhoidal — usually no ABX; treat if bacteremic/immunocomp)', 'Shigella (Azithromycin preferred — FQ resistance rising)', 'Campylobacter (Azithromycin if severe)', 'Yersinia'] },
+      { label: 'SBP (Spontaneous Bacterial Peritonitis)', tags: ['E. coli · Klebsiella · S. pneumoniae (monomicrobial in cirrhosis)', 'PMN ≥250 cells/mm³ in ascitic fluid = treat'] }
+    ],
+    penetration: [
+      { agent: 'Pip-tazo', level: 'excellent', note: 'GNR + anaerobes — preferred for IAI' },
+      { agent: 'Carbapenems (Ertapenem / Meropenem)', level: 'excellent', note: 'ESBL risk; Ertapenem preferred (no Pseudomonas coverage needed for community IAI)' },
+      { agent: 'Metronidazole', level: 'excellent', note: 'Excellent tissue + abscess penetration; oral bioavailability ~100%' },
+      { agent: 'Oral Vancomycin', level: 'excellent', note: 'CDI — intraluminal activity only; not absorbed systemically; do NOT use for systemic infections' },
+      { agent: 'Ceftriaxone + Metronidazole', level: 'excellent', note: 'Adequate for community-acquired mild/moderate IAI' }
+    ],
+    empiric: [
+      { title: 'IAI — Community-Acquired, Mild/Moderate', drug: 'Ertapenem 1 g IV q24h OR Ceftriaxone 2 g IV q24h + Metronidazole 500 mg IV q8h', dose: '', duration: '4 days after source control (STOP-IT trial)', note: 'Source control (drainage/repair) is primary — short ABX course after adequate source control' },
+      { title: 'IAI — Severe / Healthcare-Associated', drug: 'Pip-tazo 4.5 g IV q6h OR Meropenem 1 g IV q8h', dose: 'Add Vancomycin if MRSA/Enterococcal risk (immunocomp, prior ABX, healthcare)', duration: '4–7 days', note: 'Do not extend beyond 4–7 days if source controlled — no benefit and increases resistance' },
+      { title: 'CDI — Non-Severe / Severe (Initial Episode)', drug: 'Fidaxomicin 200 mg PO BID (preferred — lower recurrence vs Vancomycin)', dose: 'OR Vancomycin 125 mg PO QID', duration: '10 days', note: 'Metronidazole no longer first-line per IDSA 2021' },
+      { title: 'CDI — Fulminant', drug: 'Vancomycin 500 mg PO/NG QID + Metronidazole 500 mg IV q8h (if ileus)', dose: '', duration: 'Until clinical stabilization', note: 'Surgical consultation urgently; consider FMT for recurrent CDI' },
+      { title: 'SBP', drug: 'Cefotaxime 2 g IV q8h OR Ceftriaxone 2 g IV q24h + Albumin 1.5 g/kg IV day 1 · 1 g/kg day 3', dose: '', duration: '5 days', note: 'Albumin is not optional — prevents HRS (Sort trial)' }
+    ],
+    pearls: ['STOP-IT trial: 4 days ABX after source control equivalent to 8 days for IAI — do not over-treat', 'STEC (E. coli O157:H7): antibiotics CONTRAINDICATED — increase HUS risk by promoting Shiga toxin release', 'Fidaxomicin reduces CDI recurrence vs Vancomycin — particularly valuable in high-recurrence-risk patients', 'SBP: Albumin infusion reduces HRS and mortality — do not omit; secondary prophylaxis (Norfloxacin or TMP-SMX) after first episode', 'Pip-tazo NOT acceptable for ESBL bacteremia in IAI (MERINO trial) — use carbapenem']
+  },
+
+  {
+    id: 'kidney', group: 'abdomen',
+    name: 'Kidney / Ureter', sub: 'Pyelonephritis · Renal Abscess · CAUTI',
+    color: '#4fc4a3',
+    symptoms: ['fever','flank-pain','dysuria','nausea','CVA-tenderness','hematuria'],
+    peek: { pathogens: 'E. coli (80%) · Klebsiella · Enterococcus · Proteus', empiric: 'Ceftriaxone IV or TMP-SMX/FQ PO' },
+    pathogens: [
+      { label: 'Pyelonephritis / Uncomplicated UTI', tags: ['E. coli (75–85% community-acquired)', 'Klebsiella pneumoniae', 'Proteus mirabilis', 'S. saprophyticus (young women)', 'Enterococcus (structural abnormality, healthcare)'] },
+      { label: 'Complicated UTI / CAUTI', tags: ['E. coli, Klebsiella, Pseudomonas (prolonged catheter)', 'Enterococcus (polymicrobial with GNR)', 'Candida (broad-spectrum ABX, ICU — usually asymptomatic)'] },
+      { label: 'Renal Cortical / Perinephric Abscess', tags: ['S. aureus (hematogenous — cortical abscess)', 'E. coli / Klebsiella (ascending — perinephric)', 'ESBL GNR (healthcare-associated)'] }
+    ],
+    penetration: [
+      { agent: 'Nitrofurantoin', level: 'excellent', note: 'BLADDER ONLY — no kidney parenchyma or systemic levels; do NOT use for pyelonephritis' },
+      { agent: 'Fosfomycin', level: 'excellent', note: 'High urinary concentration — lower UTI only; not for pyelonephritis' },
+      { agent: 'TMP-SMX', level: 'excellent', note: 'High urinary levels AND renal parenchyma penetration — appropriate for pyelonephritis' },
+      { agent: 'Fluoroquinolones', level: 'excellent', note: 'Urinary levels far exceed serum MIC — explains 3-day efficacy for uncomplicated UTI' },
+      { agent: 'Ceftriaxone', level: 'excellent', note: 'Renally excreted — good renal tissue levels; IV first-line for hospitalized pyelonephritis' },
+      { agent: 'Ertapenem', level: 'excellent', note: 'ESBL pyelonephritis — once-daily, renally excreted' },
+      { agent: 'Doxycycline', level: 'poor', note: 'Poor urinary excretion — not appropriate for UTI' },
+      { agent: 'Azithromycin', level: 'poor', note: 'Minimal urinary excretion — not appropriate for UTI' }
+    ],
+    empiric: [
+      { title: 'Uncomplicated Cystitis (women)', drug: 'Nitrofurantoin macrocrystals 100 mg PO BID (CrCl ≥30) × 5 days', dose: 'OR TMP-SMX DS PO BID × 3 days (local resistance <20%) OR Fosfomycin 3 g PO × 1 dose', duration: '3–5 days', note: 'FQ not first-line — collateral damage outweighs benefit for uncomplicated UTI' },
+      { title: 'Pyelonephritis — Outpatient', drug: 'TMP-SMX DS PO BID OR Ciprofloxacin 500 mg PO BID (if local susceptibility ≥90%)', dose: '', duration: '7–14 days', note: 'Send urine culture and follow susceptibilities' },
+      { title: 'Pyelonephritis — Inpatient', drug: 'Ceftriaxone 1–2 g IV q24h OR Ertapenem 1 g IV q24h (ESBL risk)', dose: '', duration: '7 days total (IV + PO transition)', note: 'ESBL risk: prior FQ/cephalosporin use, travel, recurrent UTI, healthcare exposure' },
+      { title: 'CAUTI', drug: 'Ceftriaxone 1 g IV q24h (short-term catheter) OR Cefepime / Pip-tazo (prolonged catheter/Pseudomonas risk)', dose: 'Remove/replace catheter first', duration: '7 days (prompt response) · 10–14 days (delayed response)', note: 'Do NOT treat asymptomatic bacteriuria with catheter' }
+    ],
+    pearls: ['Nitrofurantoin and Fosfomycin are bladder agents ONLY — never use for pyelonephritis (insufficient renal parenchymal levels)', 'ESBL pyelonephritis: Pip-tazo inadequate even if susceptible in vitro (inoculum effect) — use carbapenem', 'Urine culture essential before starting ABX for pyelonephritis — local E. coli FQ resistance often >20%', 'CAUTI: remove or replace catheter before treating — catheter change alone resolves 25% without antibiotics; never treat asymptomatic bacteriuria']
+  },
+
+  {
+    id: 'pelvis', group: 'abdomen',
+    name: 'GYN / Pelvis', sub: 'PID · Tubo-ovarian Abscess · Endometritis',
+    color: '#7fc4a3',
+    symptoms: ['fever','pelvic-pain','vaginal-discharge','dyspareunia','cervical-motion'],
+    peek: { pathogens: 'N. gonorrhoeae · C. trachomatis · Anaerobes · GNR', empiric: 'Ceftriaxone + Doxycycline + Metronidazole' },
+    pathogens: [
+      { label: 'Pelvic Inflammatory Disease (PID)', tags: ['N. gonorrhoeae (co-infection common)', 'C. trachomatis (most common STI cause)', 'Polymicrobial: Bacteroides, GNR, Streptococcal spp. (ascending vaginal flora)'] },
+      { label: 'Tubo-Ovarian Abscess (TOA)', tags: ['Polymicrobial: E. coli, Bacteroides fragilis, Streptococcal spp.', 'Anaerobes dominant in abscess cavity'] },
+      { label: 'Postpartum Endometritis', tags: ['Polymicrobial: GBS, E. coli, Bacteroides, Enterococcus', 'S. aureus (MRSA — severe cases)'] }
+    ],
+    penetration: [
+      { agent: 'Ceftriaxone', level: 'excellent', note: 'Gonococcal coverage — single IM/IV dose' },
+      { agent: 'Doxycycline', level: 'excellent', note: 'Chlamydia and atypicals — high tissue levels; excellent PO bioavailability' },
+      { agent: 'Metronidazole', level: 'excellent', note: 'Essential for anaerobic coverage in TOA and severe PID' },
+      { agent: 'Clindamycin', level: 'excellent', note: 'Alternative to Metronidazole for anaerobes; also active against some GBS' }
+    ],
+    empiric: [
+      { title: 'PID — Outpatient', drug: 'Ceftriaxone 500 mg IM × 1 + Doxycycline 100 mg PO BID × 14 days + Metronidazole 500 mg PO BID × 14 days', dose: '', duration: '14 days', note: '' },
+      { title: 'PID — Inpatient / TOA', drug: 'Cefoxitin 2 g IV q6h + Doxycycline 100 mg IV/PO q12h', dose: 'OR Clindamycin 900 mg IV q8h + Gentamicin 3–5 mg/kg/day', duration: 'IV until improved then oral completion to 14 days total', note: 'TOA >9 cm or no response at 72h: interventional drainage' }
+    ],
+    pearls: ['Always treat both gonorrhea and chlamydia empirically in PID — co-infection common and chlamydia testing insensitive', 'Gonorrhea: no more FQ treatment — high resistance rates; Ceftriaxone is now standard', 'TOA: 75% respond to antibiotics alone; drainage needed for abscesses >9 cm or clinical failure at 72h', 'Fitz-Hugh-Curtis syndrome: perihepatitis from ascending gonococcal/chlamydial infection — RUQ pain + signs of PID']
+  },
+
+  // MUSCULOSKELETAL
+  {
+    id: 'spine', group: 'msk',
+    name: 'Spine / Epidural', sub: 'Vertebral Osteomyelitis · Epidural Abscess',
+    color: '#7fb8e0',
+    symptoms: ['back-pain','fever','focal-neuro','weakness','paralysis','IV-drug-use'],
+    peek: { pathogens: 'S. aureus (most common) · GNR · Mycobacterium TB (Pott)', empiric: 'Vancomycin + Ceftriaxone or Cefepime' },
+    pathogens: [
+      { label: 'Vertebral Osteomyelitis / Discitis', tags: ['S. aureus (most common — hematogenous, IV drug use)', 'Coagulase-negative Staph (post-procedural)', 'GNR: E. coli, Pseudomonas (GU source, IV drug use)', 'Mycobacterium tuberculosis (Pott disease — endemic areas, upper thoracic)'] },
+      { label: 'Spinal Epidural Abscess', tags: ['S. aureus (MSSA/MRSA — >60%)', 'Streptococcal spp.', 'GNR (E. coli, Pseudomonas — GU/IV drug use)', 'Polymicrobial (contiguous spread)'] }
+    ],
+    penetration: [
+      { agent: 'TMP-SMX', level: 'excellent', note: '~50% bone levels — high-bioavailability PO; OVIVA trial validated for bone infections' },
+      { agent: 'Fluoroquinolones', level: 'excellent', note: '30–50% bone penetration; PO switch for susceptible GNR osteomyelitis' },
+      { agent: 'Linezolid', level: 'excellent', note: '~40% bone levels; good for MRSA when Vancomycin not tolerated' },
+      { agent: 'Rifampin', level: 'excellent', note: 'Excellent bone + biofilm penetration — always combine; hardware-associated infection adjunct' },
+      { agent: 'Vancomycin', level: 'adequate', note: '10–20% bone levels — adequate with standard dosing for Gram-positive bone infections' },
+      { agent: 'Nafcillin / Cefazolin', level: 'adequate', note: 'MSSA vertebral OM — beta-lactams adequate with 6-week course' }
+    ],
+    empiric: [
+      { title: 'Vertebral Osteomyelitis (Non-surgical, awaiting culture)', drug: 'Vancomycin + Ceftriaxone 2 g IV q24h (if GNR concern) or Cefepime (Pseudomonas risk)', dose: '', duration: '6 weeks total (IV + high-bioavailability PO transition)', note: 'Hold ABX until bone biopsy obtained if patient stable — do not start before culture' },
+      { title: 'Spinal Epidural Abscess', drug: 'Vancomycin (AUC-guided) + Cefepime 2 g IV q8h', dose: 'Add Metronidazole if contiguous soft tissue source', duration: '6–8 weeks', note: 'NEUROSURGICAL EMERGENCY if progressive neurologic deficit — emergent MRI + surgical decompression' }
+    ],
+    pearls: ['Spinal epidural abscess triad: fever + back pain + neurologic deficit — MRI spine with gadolinium STAT within 1 hour', 'Do NOT start antibiotics before bone biopsy in stable vertebral OM — pre-treatment ABX reduce culture yield to <50%', 'OVIVA trial: high-bioavailability PO agents (TMP-SMX, FQ, Linezolid) non-inferior to IV for bone infections — early PO switch is safe', 'Pott disease (TB spondylitis): insidious onset, anterior vertebral body involvement, paraspinal abscess, gibbus deformity — thoracic most common']
+  },
+
+  {
+    id: 'bone', group: 'msk',
+    name: 'Long Bone', sub: 'Hematogenous & Contiguous Osteomyelitis',
+    color: '#c4a35a',
+    symptoms: ['fever','bone-pain','focal-tenderness','swelling','wound','IV-drug-use'],
+    peek: { pathogens: 'S. aureus (most common) · GNR · Salmonella (sickle cell)', empiric: 'Vancomycin + beta-lactam or FQ depending on source' },
+    pathogens: [
+      { label: 'Hematogenous Osteomyelitis (adults)', tags: ['S. aureus (most common)', 'GNR: E. coli, Pseudomonas (IV drug use, GU source)', 'Salmonella (sickle cell disease — classic association)'] },
+      { label: 'Contiguous / Post-Traumatic', tags: ['S. aureus (predominant)', 'Polymicrobial (open fracture, post-surgical)', 'P. aeruginosa (puncture wound through sneaker — calcaneal OM in children)'] },
+      { label: 'Diabetic Foot Osteomyelitis', tags: ['Polymicrobial: S. aureus + Streptococcal spp. + GNR + anaerobes', 'MRSA (chronic wound, prior ABX)', 'P. aeruginosa (macerated wound, aquatic exposure)'] }
+    ],
+    penetration: [
+      { agent: 'TMP-SMX', level: 'excellent', note: '~50% bone penetration — OVIVA-validated; preferred for MRSA PO step-down' },
+      { agent: 'Fluoroquinolones', level: 'excellent', note: '30–50% bone levels — excellent for GNR osteomyelitis PO step-down (susceptible organisms)' },
+      { agent: 'Linezolid', level: 'excellent', note: '~40% bone levels — MRSA OM when TMP-SMX not tolerated' },
+      { agent: 'Rifampin', level: 'excellent', note: 'Biofilm penetration — hardware/implant OM adjunct; never monotherapy' },
+      { agent: 'Doxycycline', level: 'excellent', note: 'MRSA SSTI and bone PO option; confirm MIC susceptibility' },
+      { agent: 'Vancomycin / IV beta-lactams', level: 'adequate', note: '10–20% bone levels — adequate for initial IV phase; 6-week course compensates' }
+    ],
+    empiric: [
+      { title: 'Hematogenous OM — Empiric (MSSA presumed)', drug: 'Nafcillin 2 g IV q4h OR Cefazolin 2 g IV q8h', dose: 'IV-to-PO: Dicloxacillin 500 mg QID or Cephalexin 500 mg QID', duration: '6 weeks total', note: 'Bone biopsy/culture before ABX if clinically stable' },
+      { title: 'Hematogenous OM — MRSA', drug: 'Vancomycin AUC-guided (IV) → TMP-SMX DS 1–2 tabs PO BID (OVIVA-validated PO step-down)', dose: '', duration: '6 weeks total', note: 'Confirm TMP-SMX MIC susceptibility before step-down' },
+      { title: 'GNR Osteomyelitis', drug: 'Ceftriaxone 2 g IV q24h OR Cefepime (Pseudomonas) IV → Ciprofloxacin 750 mg PO BID (step-down)', dose: '', duration: '6 weeks total', note: 'FQ resistance increasing in E. coli — check susceptibilities before PO step-down' }
+    ],
+    pearls: ['Probe-to-bone test in diabetic foot: sensitivity 66%, specificity 85% for osteomyelitis', 'OVIVA trial: PO high-bioavailability agents non-inferior to IV for bone/joint infections — early PO transition is safe and reduces hospitalization', 'P. aeruginosa puncture wound OM (through sneaker): classic in children — Ciprofloxacin is treatment of choice', 'Salmonella osteomyelitis in sickle cell: Salmonella > S. aureus — this is the classic board question; treat with FQ or Ceftriaxone × 6 weeks']
+  },
+
+  {
+    id: 'joint', group: 'msk',
+    name: 'Joint / Prosthetic', sub: 'Septic Arthritis · PJI',
+    color: '#d4b86a',
+    symptoms: ['joint-swelling','fever','warm-joint','reduced-ROM','joint-pain'],
+    peek: { pathogens: 'S. aureus · N. gonorrhoeae (young adults) · GNR', empiric: 'Vancomycin + Ceftriaxone' },
+    pathogens: [
+      { label: 'Native Joint Septic Arthritis', tags: ['S. aureus (most common non-gonococcal cause in adults)', 'N. gonorrhoeae (most common in sexually active young adults — migratory polyarthritis, tenosynovitis, skin lesions)', 'Streptococcal spp.', 'GNR (IV drug use, elderly, immunocomp)', 'Kingella kingae (children <5 years)'] },
+      { label: 'Prosthetic Joint Infection', tags: ['Early (<3 mo): S. aureus, CoNS (perioperative)', 'Delayed (3–24 mo): CoNS (S. epidermidis — biofilm)', 'Late (>24 mo): S. aureus, Streptococcal spp. (hematogenous seeding)'] }
+    ],
+    penetration: [
+      { agent: 'Fluoroquinolones', level: 'excellent', note: 'Excellent synovial fluid penetration; PO step-down for GNR septic arthritis' },
+      { agent: 'Rifampin', level: 'excellent', note: 'Biofilm penetration for PJI — always combine (DAIR protocol)' },
+      { agent: 'TMP-SMX / Linezolid', level: 'excellent', note: 'Excellent PO options for MRSA joint infections after IV induction' },
+      { agent: 'Beta-lactams / Vancomycin', level: 'adequate', note: 'Adequate synovial penetration; 2–4 week courses standard' },
+      { agent: 'Aminoglycosides', level: 'poor', note: 'Inactivated in low pH synovial fluid; adequate only with IV dosing' }
+    ],
+    empiric: [
+      { title: 'Native Joint Septic Arthritis — Non-Gonococcal', drug: 'Vancomycin (AUC-guided) + Ceftriaxone 2 g IV q24h (GNR coverage)', dose: '', duration: '2–4 weeks', note: 'Drain joint daily (needle aspiration or arthroscopy) — drainage is both diagnostic and therapeutic' },
+      { title: 'Gonococcal Arthritis', drug: 'Ceftriaxone 1 g IV/IM q24h', dose: 'Step-down to Cefixime 400 mg PO BID (if susceptible)', duration: '7 days', note: 'No FQ — gonococcal resistance high; treat for chlamydia co-infection (Doxycycline × 7 days)' },
+      { title: 'PJI — DAIR (Débridement, Antibiotics, Implant Retention)', drug: 'Vancomycin IV then Rifampin 300–600 mg PO BID + fluoroquinolone (Cipro/Levo) for Gram-negative; + Rifampin + TMP-SMX or Doxycycline for MRSA CoNS', dose: '', duration: '3 months (hip/knee) · 6 months (shoulder)', note: 'Rifampin must be added AFTER operative wound closure and after bacteremia cleared' }
+    ],
+    pearls: ['Synovial WBC >50,000 raises concern; >100,000 = highly suggestive of septic arthritis (crystal disease overlaps — do not let synovial crystals reassure)', 'Joint aspiration is mandatory — diagnostic (Gram stain + culture) and therapeutic (reduces pressure, bioburden)', 'S. aureus septic arthritis: obtain echocardiogram — low threshold for evaluating for endocarditis', 'PJI Rifampin: start AFTER wound fully closed and bacteremia cleared — adding Rifampin during active BSI selects resistance in days', 'OVIVA trial: oral step-down for bone/joint infections non-inferior to IV — after clinical stabilization, PO is appropriate']
+  },
+
+  // SKIN & SYSTEMIC
+  {
+    id: 'ssti', group: 'systemic',
+    name: 'Skin / Soft Tissue', sub: 'Cellulitis · Abscess · NF · DFI',
+    color: '#e0c44f',
+    symptoms: ['skin-erythema','warmth','fever','skin-pain','crepitus','purulence','swelling'],
+    peek: { pathogens: 'S. aureus (MSSA/MRSA) · Beta-hemolytic Strep · Polymicrobial (NF)', empiric: 'Cephalexin (non-purulent) · TMP-SMX (purulent/MRSA)' },
+    pathogens: [
+      { label: 'Non-purulent Cellulitis / Erysipelas', tags: ['Beta-hemolytic Streptococci (Group A, B, C, G — predominant)', 'S. aureus (minority of non-purulent)'] },
+      { label: 'Purulent Cellulitis / Abscess / Furuncle', tags: ['S. aureus (MSSA or MRSA — dominant)', 'Community-MRSA (USA300 clone — Panton-Valentine leukocidin)'] },
+      { label: 'Necrotizing Fasciitis', tags: ['Type I (polymicrobial — most common): Streptococcal spp. + GNR + anaerobes', 'Type II (monomicrobial): Group A Streptococcus (GAS) — young, healthy hosts, toxic shock syndrome', 'Type III (Vibrio vulnificus): seawater exposure, liver disease'] },
+      { label: 'Diabetic Foot Infection', tags: ['Mild: S. aureus + beta-hemolytic Strep', 'Moderate/Severe: Polymicrobial (S. aureus, GNR, anaerobes)', 'MRSA (chronic wound, prior ABX)'] }
+    ],
+    penetration: [
+      { agent: 'Cephalexin / Dicloxacillin', level: 'excellent', note: 'Non-purulent cellulitis — beta-hemolytic Strep coverage; adequate PO tissue levels' },
+      { agent: 'TMP-SMX', level: 'excellent', note: 'MRSA SSTI — excellent tissue penetration; high PO bioavailability' },
+      { agent: 'Doxycycline', level: 'excellent', note: 'MRSA SSTI alternative; good tissue levels' },
+      { agent: 'Clindamycin', level: 'excellent', note: 'Excellent tissue penetration; toxin suppression in NF (GAS Eagle effect); check D-test for inducible resistance' },
+      { agent: 'Vancomycin', level: 'adequate', note: 'MRSA SSTI inpatient; adequate tissue levels with proper AUC-guided dosing' },
+      { agent: 'Daptomycin', level: 'excellent', note: 'Excellent SSTI coverage; FDA-approved for complicated SSTI' }
+    ],
+    empiric: [
+      { title: 'Non-purulent Cellulitis', drug: 'Cephalexin 500 mg PO QID OR Dicloxacillin 500 mg PO QID', dose: 'Inpatient/severe: Nafcillin 1–2 g IV q4h (MSSA) OR Vancomycin (MRSA concern)', duration: '5 days (extend if not improving)', note: 'Mark border with skin marker to track progression objectively' },
+      { title: 'Purulent Cellulitis / Abscess', drug: 'Incision and drainage (primary treatment for abscess)', dose: 'TMP-SMX DS 1–2 tabs PO BID OR Doxycycline 100 mg PO BID (MRSA coverage)', duration: '5 days', note: 'I&D alone may be sufficient for small uncomplicated furuncles; ABX recommended if >2 cm or systemic signs' },
+      { title: 'Necrotizing Fasciitis', drug: 'Vancomycin + Pip-tazo 4.5 g IV q6h + Clindamycin 900 mg IV q8h (toxin suppression)', dose: 'Type II (GAS): Penicillin G 4 MU IV q4h + Clindamycin 900 mg IV q8h', duration: 'Until surgical control', note: 'SURGICAL EMERGENCY — immediate wide débridement; antibiotics are adjunctive' }
+    ],
+    pearls: ['Non-purulent cellulitis is predominantly streptococcal — MRSA coverage not routinely required; do not over-broaden', 'Bilateral lower extremity "cellulitis" is rarely infectious — consider stasis dermatitis, venous insufficiency, lipodermatosclerosis', 'Necrotizing fasciitis: pain out of proportion to findings, crepitus, skin bullae, rapid progression — LRINEC score useful but does not rule out', 'Clindamycin added in ALL types of NF — protein synthesis inhibitor suppresses exotoxin production (Eagle effect for GAS)', 'MRSA CA-SSTI: TMP-SMX DS achieves excellent tissue levels (90–100% oral bioavailability) — equivalent to IV Vancomycin for uncomplicated SSTI']
+  },
+
+  {
+    id: 'vascular', group: 'systemic',
+    name: 'Vascular / Endovascular', sub: 'Vascular Graft · CIED · CLABSI',
+    color: '#e07070',
+    symptoms: ['fever','line-site-erythema','new-bacteremia','purulent-drainage','sepsis'],
+    peek: { pathogens: 'S. aureus · CoNS (CIED/lines) · GNR (CLABSI)', empiric: 'Vancomycin ± GNR coverage' },
+    pathogens: [
+      { label: 'Central Line-Associated BSI (CLABSI)', tags: ['CoNS (S. epidermidis — most common, often contaminant vs true infection)', 'S. aureus (most dangerous — always true infection)', 'Candida spp. (TPN, broad-spectrum ABX, immunocomp)', 'GNR (E. coli, Klebsiella, Pseudomonas — gut translocation)'] },
+      { label: 'CIED Infection (Pacemaker, ICD, LVAD)', tags: ['CoNS (S. epidermidis — pocket infection)', 'S. aureus (lead infection, systemic)', 'Streptococcal spp.'] },
+      { label: 'Vascular Graft Infection', tags: ['S. aureus / MRSA (most common, early)', 'CoNS (late — indolent)', 'GNR: E. coli, Pseudomonas (aortic graft)', 'Candida (immunocomp)'] }
+    ],
+    penetration: [
+      { agent: 'Daptomycin (high-dose)', level: 'excellent', note: '≥8–10 mg/kg — bactericidal activity; for MRSA CLABSI/CIED when Vancomycin failing or MIC borderline' },
+      { agent: 'Vancomycin', level: 'adequate', note: 'Standard for MRSA/CoNS line/device infections; AUC-guided' },
+      { agent: 'Rifampin', level: 'excellent', note: 'Biofilm penetration — adjunct for infected hardware/devices; never monotherapy' },
+      { agent: 'Pip-tazo / Cefepime / Carbapenems', level: 'excellent', note: 'GNR CLABSI empiric coverage' }
+    ],
+    empiric: [
+      { title: 'CLABSI — Empiric', drug: 'Vancomycin (AUC-guided) + Cefepime 2 g IV q8h (or Meropenem if MDR risk)', dose: 'Add Echinocandin (Micafungin 100 mg IV q24h) if: TPN, prolonged broad-spectrum ABX, immunocomp, Candida risk', duration: '14 days from first negative blood culture (MSSA/MRSA) · 7–14 days (Gram-negative)', note: 'Remove catheter — reduces duration of bacteremia; TEE for S. aureus CLABSI' },
+      { title: 'CIED Infection', drug: 'Vancomycin AUC-guided', dose: '', duration: '2–6 weeks depending on extent', note: 'Complete system removal required in most cases — antibiotics alone are insufficient for lead/pocket infection' },
+      { title: 'Vascular Graft Infection', drug: 'Vancomycin + Pip-tazo 4.5 g IV q6h', dose: '', duration: 'Long-term suppression or surgical graft removal + reconstruction', note: 'Vascular surgery consultation essential' }
+    ],
+    pearls: ['ALL S. aureus bacteremia from any source requires echocardiography and 14 days minimum IV therapy', 'CoNS from blood culture: single bottle positive = likely contaminant; 2+ bottles positive = treat as true CLABSI', 'CIED infection: complete hardware removal is standard — suppressive antibiotics without removal fail >90% of the time', 'Candida CLABSI: remove catheter immediately + ophthalmology exam + echocardiography + ≥14 days from first negative culture']
+  },
+
+  {
+    id: 'bsi', group: 'systemic',
+    name: 'Bloodstream / Sepsis', sub: 'Bacteremia · Fungemia · Septic Shock',
+    color: '#e06b4f',
+    symptoms: ['fever','hypotension','tachycardia','altered-ms','leukocytosis','lactate-elevated'],
+    peek: { pathogens: 'S. aureus · E. coli · Klebsiella · Candida · Source-dependent', empiric: 'Vancomycin + Pip-tazo or Meropenem (septic shock)' },
+    pathogens: [
+      { label: 'Community-Acquired Sepsis', tags: ['E. coli (GU, biliary source — most common GNR bacteremia)', 'S. aureus (MSSA/MRSA — skin/soft tissue, endovascular source)', 'S. pneumoniae (elderly, immunocomp)', 'Klebsiella pneumoniae'] },
+      { label: 'Healthcare-Associated / Nosocomial Sepsis', tags: ['MRSA (line-related, wound)', 'Pseudomonas aeruginosa', 'Candida spp. (candidemia — TPN, immunocomp)', 'ESBL/CRE GNR (ICU, prior ABX, healthcare exposure)'] },
+      { label: 'Neutropenic Sepsis', tags: ['GNR: Pseudomonas, E. coli, Klebsiella (early, aggressive)', 'Gram-positive (CoNS, Streptococcal spp. — line-related)', 'Fungi: Candida (early), Aspergillus (prolonged neutropenia >7 days)'] }
+    ],
+    penetration: [
+      { agent: 'All IV agents', level: 'excellent', note: 'Bloodstream infections — adequate serum levels with all IV antibiotics; PK/PD optimization is key' },
+      { agent: 'Extended infusion beta-lactams', level: 'excellent', note: 'Pip-tazo 4h infusion, Meropenem 3h infusion — maximize T>MIC for elevated-MIC organisms' }
+    ],
+    empiric: [
+      { title: 'Sepsis — Community-Acquired (Unknown Source)', drug: 'Ceftriaxone 2 g IV q24h + Metronidazole 500 mg IV q8h (if abdominal source possible)', dose: '', duration: 'Source-directed; de-escalate at 48–72h', note: 'Blood cultures × 2 sets BEFORE antibiotics — do not delay ABX >1h in septic shock for cultures' },
+      { title: 'Sepsis — Healthcare-Associated / High Acuity', drug: 'Vancomycin (AUC-guided) + Pip-tazo 4.5 g IV q6h EI', dose: 'OR Vancomycin + Meropenem 1 g IV q8h (ESBL/high MDR risk)', duration: 'Source-directed', note: 'Surviving Sepsis Campaign: antibiotics within 1 hour of septic shock recognition' },
+      { title: 'Septic Shock (Undifferentiated)', drug: 'Vancomycin + Meropenem 1 g IV q8h (broadest empiric coverage)', dose: 'Add Micafungin 100 mg IV q24h if Candida risk (TPN, immunocomp, prior broad-spectrum ABX)', duration: 'Narrow/stop at 48–72h based on cultures', note: 'De-escalation is a therapeutic intervention — failure to de-escalate increases resistance and C. diff' },
+      { title: 'S. aureus Bacteremia', drug: 'MSSA: Nafcillin 2 g IV q4h OR Cefazolin 2 g IV q8h (preferred); MRSA: Vancomycin AUC-guided OR Daptomycin ≥6 mg/kg (non-pulmonary)', dose: '', duration: '≥14 days uncomplicated · ≥42 days complicated/endocarditis', note: 'TEE for all S. aureus bacteremia; repeat blood cultures at 48–72h to confirm clearance' }
+    ],
+    pearls: ['Surviving Sepsis Campaign 2021: antibiotics within 1 hour of septic shock recognition — do not delay for imaging or source identification', 'De-escalate at 48–72h based on culture data — empiric broad-spectrum coverage is a bridge, not the destination', 'S. aureus bacteremia: ALL cases require echocardiography, minimum 14-day IV course, source control, repeat cultures at 72h', 'Candidemia: remove CVC, echocardiography, ophthalmology exam, ≥14 days from first negative culture', 'Procalcitonin-guided de-escalation reduces antibiotic duration by 2–3 days without increased mortality (PRORATA trial)']
+  }
+
+]; // end REGIONS
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SYMPTOM → REGION MAPPING
+// ═══════════════════════════════════════════════════════════════════════════
+const SYMPTOMS = [
+  { id: 'fever',            label: 'Fever / Chills' },
+  { id: 'headache',         label: 'Headache' },
+  { id: 'altered-ms',       label: 'Altered Mental Status' },
+  { id: 'meningismus',      label: 'Neck Stiffness' },
+  { id: 'focal-neuro',      label: 'Focal Neurologic Deficit' },
+  { id: 'seizure',          label: 'Seizure' },
+  { id: 'cough',            label: 'Cough / Sputum' },
+  { id: 'dyspnea',          label: 'Dyspnea' },
+  { id: 'pleuritic-pain',   label: 'Pleuritic Chest Pain' },
+  { id: 'hypoxia',          label: 'Hypoxia' },
+  { id: 'chest-pain',       label: 'Chest Pain' },
+  { id: 'palpitations',     label: 'Palpitations / Murmur' },
+  { id: 'abdominal-pain',   label: 'Abdominal Pain' },
+  { id: 'rUQ-pain',         label: 'RUQ Pain / Jaundice' },
+  { id: 'diarrhea',         label: 'Diarrhea' },
+  { id: 'nausea',           label: 'Nausea / Vomiting' },
+  { id: 'dysuria',          label: 'Dysuria / Frequency' },
+  { id: 'flank-pain',       label: 'Flank Pain / CVA Tenderness' },
+  { id: 'pelvic-pain',      label: 'Pelvic Pain' },
+  { id: 'back-pain',        label: 'Back / Spine Pain' },
+  { id: 'bone-pain',        label: 'Bone Tenderness' },
+  { id: 'joint-swelling',   label: 'Joint Swelling / Hot Joint' },
+  { id: 'skin-erythema',    label: 'Skin Erythema / Swelling' },
+  { id: 'crepitus',         label: 'Crepitus / Skin Bullae' },
+  { id: 'purulence',        label: 'Purulent Discharge / Abscess' },
+  { id: 'neck-swelling',    label: 'Neck Swelling / Trismus' },
+  { id: 'sore-throat',      label: 'Sore Throat' },
+  { id: 'eye-pain',         label: 'Eye Pain / Vision Change' },
+  { id: 'hypotension',      label: 'Hypotension / Shock' },
+  { id: 'leukocytosis',     label: 'Leukocytosis / Leukopenia' },
+  { id: 'new-bacteremia',   label: 'New Bacteremia' },
+  { id: 'IV-drug-use',      label: 'IV Drug Use' },
+  { id: 'peritonitis',      label: 'Peritoneal Signs' },
+  { id: 'sepsis',           label: 'Sepsis Criteria' },
+];
+
+// ═══════════════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════════════
+let currentLayer    = 'pathogens';
+let activeRegion    = null;
+let activeTab       = 'pathogens';
+let selectedSymptoms = new Set();
+
+// ═══════════════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════════════
+function init() {
+  buildSymptomGrid();
+  buildRegionGrid();
+}
+
+function buildSymptomGrid() {
+  const grid = document.getElementById('symptomGrid');
+  grid.innerHTML = SYMPTOMS.map(s => `
+    <label class="symptom-chip" id="chip-${s.id}">
+      <input type="checkbox" value="${s.id}" onchange="toggleSymptom('${s.id}', this.checked)">
+      ${s.label}
+    </label>
+  `).join('');
+}
+
+function buildRegionGrid() {
+  const groups = {
+    head:     document.getElementById('grid-head'),
+    thorax:   document.getElementById('grid-thorax'),
+    abdomen:  document.getElementById('grid-abdomen'),
+    msk:      document.getElementById('grid-msk'),
+    systemic: document.getElementById('grid-systemic'),
+  };
+  REGIONS.forEach(r => {
+    if (!groups[r.group]) return;
+    groups[r.group].insertAdjacentHTML('beforeend', buildTile(r));
+  });
+}
+
+function buildTile(r) {
+  const penSummary = r.penetration ? buildPenSummary(r.penetration) : '';
+  return `
+    <div class="region-tile" id="tile-${r.id}"
+         style="--tile-color:${r.color}"
+         onclick="openDetail('${r.id}')">
+      <div class="tile-header">
+        <div class="tile-dot"></div>
+        <div>
+          <div class="tile-name">${r.name}</div>
+          <div class="tile-sub">${r.sub}</div>
+        </div>
+      </div>
+      <div class="tile-body">
+        <div class="tile-peek">
+          <strong>Pathogens:</strong> ${r.peek.pathogens}<br>
+          <strong>Empiric:</strong> ${r.peek.empiric}
+        </div>
+      </div>
+      <div class="tile-pen" style="padding:8px 14px 12px;">${penSummary}</div>
+    </div>
+  `;
+}
+
+function buildPenSummary(pen) {
+  const ex = pen.filter(p => p.level === 'excellent').slice(0, 2).map(p => p.agent).join(', ');
+  const ad = pen.filter(p => p.level === 'adequate').slice(0, 1).map(p => p.agent).join(', ');
+  const po = pen.filter(p => p.level === 'poor').slice(0, 1).map(p => p.agent).join(', ');
+  let html = '';
+  if (ex) html += `<div class="pen-row"><div class="pen-dot pen-excellent"></div><span style="color:var(--pen-excellent);font-size:11px;">${ex}</span></div>`;
+  if (ad) html += `<div class="pen-row"><div class="pen-dot pen-adequate"></div><span style="color:var(--pen-adequate);font-size:11px;">${ad}</span></div>`;
+  if (po) html += `<div class="pen-row"><div class="pen-dot pen-poor"></div><span style="color:var(--pen-poor);font-size:11px;">${po}</span></div>`;
+  return html;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// LAYER TOGGLE
+// ═══════════════════════════════════════════════════════════════════════════
+function setLayer(layer, btn) {
+  currentLayer = layer;
+  document.querySelectorAll('.layer-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  document.querySelectorAll('.region-tile').forEach(tile => {
+    const body = tile.querySelector('.tile-body');
+    const pen  = tile.querySelector('.tile-pen');
+    if (layer === 'penetration') {
+      body.style.display = 'none';
+      pen.style.display = 'block';
+    } else {
+      body.style.display = '';
+      pen.style.display = 'none';
+    }
+  });
+  // If panel open, switch its tab too
+  if (activeRegion) switchTab(layer === 'empiric' ? 'empiric' : layer, null, true);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CHECKLIST
+// ═══════════════════════════════════════════════════════════════════════════
+function toggleChecklist() {
+  const panel = document.getElementById('checklist-panel');
+  const btn   = document.getElementById('checklistToggle');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+
+function toggleSymptom(id, checked) {
+  const chip = document.getElementById('chip-' + id);
+  chip.classList.toggle('selected', checked);
+  if (checked) selectedSymptoms.add(id);
+  else selectedSymptoms.delete(id);
+}
+
+function applyChecklist() {
+  document.querySelectorAll('.region-tile').forEach(tile => {
+    tile.classList.remove('highlighted');
+  });
+  if (selectedSymptoms.size === 0) return;
+  REGIONS.forEach(r => {
+    const overlap = r.symptoms.filter(s => selectedSymptoms.has(s)).length;
+    if (overlap > 0) {
+      document.getElementById('tile-' + r.id)?.classList.add('highlighted');
+    }
+  });
+  toggleChecklist();
+  // Scroll to first highlighted tile
+  const first = document.querySelector('.region-tile.highlighted');
+  if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function clearChecklist() {
+  selectedSymptoms.clear();
+  document.querySelectorAll('.symptom-chip').forEach(c => {
+    c.classList.remove('selected');
+    c.querySelector('input').checked = false;
+  });
+  document.querySelectorAll('.region-tile').forEach(t => t.classList.remove('highlighted'));
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DETAIL PANEL
+// ═══════════════════════════════════════════════════════════════════════════
+function openDetail(id) {
+  const r = REGIONS.find(x => x.id === id);
+  if (!r) return;
+  activeRegion = id;
+
+  document.getElementById('panelTitle').textContent    = r.name;
+  document.getElementById('panelSubtitle').textContent = r.sub;
+  document.getElementById('panelColorBar').style.background = r.color;
+
+  buildPathogensTab(r);
+  buildPenetrationTab(r);
+  buildEmpiricTab(r);
+  buildPearlsTab(r);
+
+  // Set active tab to match current layer
+  const tabToOpen = currentLayer === 'empiric' ? 'empiric'
+                  : currentLayer === 'penetration' ? 'penetration'
+                  : 'pathogens';
+  switchTab(tabToOpen, null, true);
+
+  document.getElementById('detail-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail(e) {
+  if (e && e.target !== document.getElementById('detail-overlay')) return;
+  document.getElementById('detail-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+  activeRegion = null;
+}
+
+function switchTab(tab, btn, silent) {
+  activeTab = tab;
+  document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel-tab-content').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + tab)?.classList.add('active');
+  if (btn) btn.classList.add('active');
+  else {
+    const tabs = document.querySelectorAll('.panel-tab');
+    const map = { pathogens: 0, penetration: 1, empiric: 2, pearls: 3 };
+    if (tabs[map[tab]]) tabs[map[tab]].classList.add('active');
+  }
+}
+
+function buildPathogensTab(r) {
+  const el = document.getElementById('tab-pathogens');
+  let html = '';
+  r.pathogens.forEach(group => {
+    html += `<div class="panel-section">
+      <div class="panel-section-label">${group.label}</div>
+      <div>${group.tags.map(t => `<span class="pathogen-tag">${t}</span>`).join('')}</div>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+function buildPenetrationTab(r) {
+  const el = document.getElementById('tab-penetration');
+  let html = `<table class="pen-table">
+    <thead><tr><th>Agent</th><th>Level</th><th>Notes</th></tr></thead><tbody>`;
+  r.penetration.forEach(p => {
+    html += `<tr>
+      <td style="font-weight:600;">${p.agent}</td>
+      <td><span class="pen-badge ${p.level}">${p.level.toUpperCase()}</span></td>
+      <td style="color:var(--muted);">${p.note}</td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  el.innerHTML = html;
+}
+
+function buildEmpiricTab(r) {
+  const el = document.getElementById('tab-empiric');
+  let html = '';
+  r.empiric.forEach(reg => {
+    html += `<div class="regimen-card">
+      <div class="regimen-title">${reg.title}</div>
+      <div class="regimen-drug">${reg.drug}</div>
+      ${reg.dose ? `<div class="regimen-dose">${reg.dose}</div>` : ''}
+      <div><span class="duration-badge">${reg.duration}</span></div>
+      ${reg.note ? `<div style="font-size:11px;color:var(--muted);margin-top:8px;">⚡ ${reg.note}</div>` : ''}
+    </div>`;
+  });
+  // Cross-links
+  html += `<div class="crosslink-row">
+    <a href="abx-companion.html" class="crosslink">ABX Companion</a>
+    <a href="id_guide.html" class="crosslink">ID Guide</a>
+    <a href="drug_reference_guide.html" class="crosslink">Drug Reference</a>
+  </div>`;
+  el.innerHTML = html;
+}
+
+function buildPearlsTab(r) {
+  const el = document.getElementById('tab-pearls');
+  let html = '<ul class="pearl-list">';
+  r.pearls.forEach(p => { html += `<li>${p}</li>`; });
+  html += '</ul>';
+  el.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// suiteNav helper (mirrors other suite files)
+// ═══════════════════════════════════════════════════════════════════════════
+(function () {
+  var SUITE = {
+    'index.html':'home','im_guide.html':'imcrg','lab_values.html':'labs',
+    'dx_framework.html':'dxfx','id_guide.html':'id','abx-companion.html':'abxcomp',
+    'drug_reference_guide.html':'drugref','drug_interactions.html':'drugs',
+    'antimicrobial_stewardship_guide.html':'abxsteward',
+    'renal_dosing_reference.html':'renaldose','procedures_guide.html':'procedures',
+    'nephrology_consult.html':'nephroconsult','cardiology_consult.html':'cardioconsult',
+    'rheumatology_consult.html':'rheumconsult','id_consult.html':'idconsult',
+    'endo_consult.html':'endoconsult','neuro_consult.html':'neuroconsult',
+    'inpatient_note.html':'inpatientnote','op_note.html':'opnote',
+  };
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || /^(https?:|mailto:|tel:|#)/.test(href)) return;
+    var parts = href.split('#');
+    var file = parts[0];
+    var anchor = parts[1] || null;
+    var toolId = SUITE[file];
+    if (!toolId) return;
+    if (window.parent !== window && typeof window.parent.switchTool === 'function') {
+      e.preventDefault();
+      window.parent.switchTool(toolId, anchor);
+    }
+  }, true);
+})();
+
+// Init
+init();
+</script>
+</body>
+</html>
