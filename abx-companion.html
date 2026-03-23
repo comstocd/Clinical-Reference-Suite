@@ -709,10 +709,182 @@
         <h2>Overview &amp; Principles</h2>
       </div>
 
-      <div class="chapter-placeholder">
-        <strong>Antibiotic Selection Framework · PK/PD Concepts · IV-to-PO Criteria · Stewardship · Spectrum Summaries</strong>
-        Phase 2 build — interactive IV-to-PO switch tool and spectrum matrix planned.
+
+      <!-- ── ANTIBIOTIC SELECTION FRAMEWORK ── -->
+      <div class="syndrome-card" id="ch1-selection">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:var(--accent)"></span>Antibiotic Selection Framework (Cunha)</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Clinical Approach Hierarchy</div>
+            <table class="dosing-table">
+              <thead><tr><th>Step</th><th>Question</th><th>Clinical Action</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>What is the syndrome / site?</td><td>Identify anatomic focus → drives pathogen probability (Ch 2)</td></tr>
+                <tr><td>2</td><td>What are the likely pathogens?</td><td>Age, immune status, exposure, healthcare vs. community onset</td></tr>
+                <tr><td>3</td><td>What is the drug's spectrum?</td><td>Match spectrum to pathogen — avoid over-broad empiric coverage</td></tr>
+                <tr><td>4</td><td>What are the PK/PD properties?</td><td>Does the drug reach the site at adequate concentrations? (Ch 8)</td></tr>
+                <tr><td>5</td><td>What is the host?</td><td>Renal/hepatic function, allergies, pregnancy, drug interactions</td></tr>
+                <tr><td>6</td><td>De-escalate at 48–72h</td><td>Narrow based on culture data, clinical improvement, procalcitonin</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Antibiotic Spectrum — Quick Reference</div>
+            <table class="dosing-table">
+              <thead><tr><th>Agent / Class</th><th>MSSA</th><th>MRSA</th><th>Pseudo</th><th>ESBL GNR</th><th>Anaerobes</th><th>Atypicals</th></tr></thead>
+              <tbody>
+                <tr><td>Cefazolin</td><td>✓✓</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td></tr>
+                <tr><td>Ceftriaxone</td><td>✓</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td></tr>
+                <tr><td>Cefepime</td><td>✓</td><td>✗</td><td>✓✓</td><td>✗</td><td>✗</td><td>✗</td></tr>
+                <tr><td>Pip-tazo</td><td>✓</td><td>✗</td><td>✓✓</td><td>✗*</td><td>✓✓</td><td>✗</td></tr>
+                <tr><td>Meropenem / Imipenem</td><td>✓</td><td>✗</td><td>✓✓</td><td>✓✓</td><td>✓✓</td><td>✗</td></tr>
+                <tr><td>Ertapenem</td><td>✓</td><td>✗</td><td>✗</td><td>✓✓</td><td>✓✓</td><td>✗</td></tr>
+                <tr><td>Vancomycin</td><td>✓*</td><td>✓✓</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td></tr>
+                <tr><td>Daptomycin</td><td>✓✓</td><td>✓✓</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td></tr>
+                <tr><td>Linezolid</td><td>✓✓</td><td>✓✓</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td></tr>
+                <tr><td>Metronidazole</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓✓</td><td>✗</td></tr>
+                <tr><td>Azithromycin</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td><td>✓✓</td></tr>
+                <tr><td>Levofloxacin / Cipro</td><td>✓</td><td>✗</td><td>✓</td><td>Variable</td><td>✗</td><td>✓✓</td></tr>
+                <tr><td>TMP-SMX</td><td>✓</td><td>✓*</td><td>✗</td><td>Variable</td><td>✗</td><td>✗</td></tr>
+                <tr><td>Doxycycline</td><td>✗</td><td>✓*</td><td>✗</td><td>✗</td><td>✗</td><td>✓✓</td></tr>
+              </tbody>
+            </table>
+            <div style="font-family:var(--font-ui);font-size:11px;color:var(--muted);margin-top:6px;">
+              ✓✓ = preferred · ✓ = active · ✓* = active but not preferred / susceptibility-dependent · ✗ = not active · *Pip-tazo not for ESBL bacteremia (MERINO trial)
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls</div>
+            <ul class="pearl-list">
+              <li><strong>Narrow-spectrum when possible</strong> — broad-spectrum empiric coverage is a bridging strategy, not a destination; always de-escalate</li>
+              <li><strong>Spectrum ≠ potency</strong> — a drug active against a pathogen at the right site is superior to a broader drug with poor penetration</li>
+              <li><strong>Local antibiogram matters</strong> — resistance rates for E. coli TMP-SMX, FQ, and cephalosporins vary dramatically by institution and region; check annually</li>
+              <li><strong>Never use Vancomycin for MSSA</strong> — beta-lactams are superior; Vanc is a fallback, not an upgrade</li>
+            </ul>
+          </div>
+        </div>
       </div>
+
+      <!-- ── PK/PD CONCEPTS ── -->
+      <div class="syndrome-card" id="ch1-pkpd">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:var(--accent)"></span>PK/PD Concepts — Optimizing Antibiotic Dosing</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Pharmacodynamic Targets by Drug Class</div>
+            <table class="dosing-table">
+              <thead><tr><th>PD Type</th><th>Goal</th><th>Drug Classes</th><th>Dosing Strategy</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Time-dependent</strong> (T&gt;MIC)</td><td>Maximize time above MIC (&gt;40–70% of dosing interval)</td><td>Beta-lactams, carbapenems, vancomycin</td><td>Frequent dosing, extended infusions (pip-tazo 4h, meropenem 3h)</td></tr>
+                <tr><td><strong>Concentration-dependent</strong> (Cmax/MIC)</td><td>Maximize peak concentration (&gt;8–10× MIC)</td><td>Aminoglycosides, fluoroquinolones</td><td>High single daily doses; once-daily aminoglycosides</td></tr>
+                <tr><td><strong>AUC-dependent</strong> (AUC/MIC)</td><td>Maximize overall drug exposure</td><td>Vancomycin (AUC/MIC &gt;400), fluoroquinolones</td><td>AUC-guided monitoring; steady-state Bayesian dosing</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Extended / Continuous Infusion Beta-Lactams</div>
+            <div style="font-family:var(--font-ui);font-size:12px;color:var(--text);background:var(--surface2);padding:10px;border-radius:5px;">
+              <strong style="color:var(--accent)">Pip-tazo 4.5 g over 4h q8h</strong> and <strong style="color:var(--accent)">Meropenem 2 g over 3h q8h</strong> achieve superior T&gt;MIC targets for elevated-MIC organisms (Pseudomonas, ESBL producers). Recommended for HAP/VAP and serious GNR infections. Monte Carlo simulations support this strategy; clinical outcome data emerging.
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">CNS Penetration Reference</div>
+            <table class="dosing-table">
+              <thead><tr><th>Agent</th><th>CSF Penetration</th><th>Meningitis Dose</th></tr></thead>
+              <tbody>
+                <tr><td>Ceftriaxone</td><td>Good (inflamed: 17–40%)</td><td>2 g IV q12h</td></tr>
+                <tr><td>Meropenem</td><td>Good (inflamed: 20–40%)</td><td>2 g IV q8h</td></tr>
+                <tr><td>Ampicillin</td><td>Good (inflamed)</td><td>2 g IV q4h</td></tr>
+                <tr><td>Vancomycin</td><td>Variable (5–20%)</td><td>AUC-guided; intrathecal if inadequate</td></tr>
+                <tr><td>Metronidazole</td><td>Excellent (&gt;80%)</td><td>500 mg IV q8h</td></tr>
+                <tr><td>TMP-SMX</td><td>Excellent (25–50%)</td><td>5 mg/kg IV q6–8h</td></tr>
+                <tr><td>Fluoroquinolones</td><td>Good (50–80%)</td><td>Standard doses</td></tr>
+                <tr><td>Aminoglycosides</td><td>Poor (&lt;10%)</td><td>Intrathecal / intraventricular required</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── IV-TO-PO CRITERIA ── -->
+      <div class="syndrome-card" id="ch1-ivpo">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:var(--accent)"></span>IV-to-PO Switch — Criteria &amp; High-Bioavailability Agents</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Standard Switch Criteria (all must be met)</div>
+            <ul class="pearl-list">
+              <li>Tolerating oral intake (no vomiting, functioning GI tract)</li>
+              <li>Clinical improvement — afebrile ≥24h, hemodynamically stable, improving WBC/inflammatory markers</li>
+              <li>Oral agent available with appropriate spectrum and adequate bioavailability for the infection site</li>
+              <li>No CNS infection, endocarditis, or S. aureus bacteremia (exceptions: OVIVA trial data supports PO for bone/joint infections)</li>
+            </ul>
+          </div>
+          <div class="card-section">
+            <div class="section-label">High-Bioavailability PO Agents (≥80% — equivalent to IV)</div>
+            <table class="dosing-table">
+              <thead><tr><th>Agent</th><th>Bioavailability</th><th>Key Uses</th></tr></thead>
+              <tbody>
+                <tr><td>Linezolid</td><td>~100%</td><td>MRSA SSTI, pneumonia, bone/joint</td></tr>
+                <tr><td>TMP-SMX</td><td>90–100%</td><td>MRSA SSTI, UTI, PCP, bone/joint, Nocardia</td></tr>
+                <tr><td>Metronidazole</td><td>~100%</td><td>Anaerobic infections, CDI, protozoa</td></tr>
+                <tr><td>Fluconazole</td><td>~90%</td><td>Candida (non-Krusei/Glabrata)</td></tr>
+                <tr><td>Levofloxacin</td><td>~99%</td><td>CAP, UTI, bone/joint (GNR-susceptible)</td></tr>
+                <tr><td>Ciprofloxacin</td><td>70–80%</td><td>GNR infections, UTI, some GI pathogens</td></tr>
+                <tr><td>Doxycycline</td><td>~93%</td><td>Atypicals, SSTI, tick-borne, Nocardia</td></tr>
+                <tr><td>Clindamycin</td><td>~90%</td><td>Streptococcal SSTI, anaerobes</td></tr>
+                <tr><td>Amoxicillin-clavulanate</td><td>~90%</td><td>CAP step-down, SSTI, DFI, bite wounds</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STEWARDSHIP PRINCIPLES ── -->
+      <div class="syndrome-card" id="ch1-stewardship">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:var(--accent)"></span>Antimicrobial Stewardship — Core Principles</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Key Stewardship Interventions</div>
+            <ul class="pearl-list">
+              <li><strong>Prospective audit and feedback</strong> — ID pharmacist / ID physician review of broad-spectrum antibiotic prescriptions at 48–72h; evidence strongest for reducing inappropriate use</li>
+              <li><strong>Pre-authorization / formulary restriction</strong> — carbapenems, anti-MRSA agents, antifungals requiring approval before dispensing; reduces consumption without adverse outcomes</li>
+              <li><strong>IV-to-PO conversion</strong> — automatic switch protocols for eligible high-bioavailability agents reduce hospital days without increased failure rates</li>
+              <li><strong>Diagnostic stewardship</strong> — avoid ordering urine cultures in asymptomatic patients; use procalcitonin to guide antibiotic duration and de-escalation</li>
+              <li><strong>Duration bundles</strong> — predefined treatment durations for common syndromes (CAP 5d, uncomplicated UTI 3–5d, uncomplicated pyelonephritis 7d, SSTI 5d) reduce unnecessary prolonged courses</li>
+            </ul>
+          </div>
+          <div class="card-section">
+            <div class="section-label">High-Risk Antibiotics Requiring Extra Scrutiny</div>
+            <table class="dosing-table">
+              <thead><tr><th>Agent</th><th>Collateral Damage Concern</th><th>Stewardship Guidance</th></tr></thead>
+              <tbody>
+                <tr><td>Fluoroquinolones</td><td>C. diff, MRSA, tendinopathy, QTc, aortic aneurysm (FDA 2023)</td><td>Reserve for serious infections without alternatives; avoid for uncomplicated UTI, sinusitis, bronchitis</td></tr>
+                <tr><td>Carbapenems</td><td>Select for CRE, Acinetobacter, Stenotrophomonas</td><td>Ertapenem preferred for ESBL (no Pseudomonas coverage); escalate to Meropenem only when needed</td></tr>
+                <tr><td>Pip-tazo + Vancomycin</td><td>AKI synergy — 3–5× higher AKI rate vs. Cefepime + Vancomycin</td><td>Substitute Cefepime when Pseudomonas coverage needed with Vancomycin</td></tr>
+                <tr><td>Broad-spectrum cephalosporins (Cefepime)</td><td>Neurotoxicity (encephalopathy, non-convulsive seizure) — especially in renal failure</td><td>Dose-adjust for CrCl; renal monitoring; consider Meropenem for CNS-sensitive patients</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Procalcitonin-Guided Therapy</div>
+            <div style="font-family:var(--font-ui);font-size:12px;color:var(--text);background:var(--surface2);padding:10px;border-radius:5px;">
+              PCT &lt;0.1 ng/mL: bacterial infection unlikely — withhold antibiotics in low-risk respiratory infections · PCT &lt;0.25 ng/mL: consider stopping · PCT fall &gt;80% from peak: supports de-escalation / discontinuation · PCT-guided protocols reduce antibiotic duration by 2–3 days in CAP and sepsis without increased mortality (PRORATA, PASS trials).
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
 
@@ -2915,22 +3087,601 @@
     ═══════════════════════════════════════════════ -->
     <div id="ch3">
       <div class="chapter-header"><span class="ch-num">CH 3</span><h2>Antibiotic Susceptibility Profiles</h2></div>
-      <div class="chapter-placeholder"><strong>Gram-Positive · Gram-Negative · Anaerobes · Problem Pathogens</strong>CLSI breakpoints + local antibiogram integration — Phase 3 build.</div>
+
+      <!-- ── GRAM-POSITIVES ── -->
+      <div class="syndrome-card" id="ch3-gram-pos">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#e8a87c"></span>Gram-Positive Susceptibility Profiles</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">S. aureus — Treatment Hierarchy</div>
+            <table class="dosing-table">
+              <thead><tr><th>Susceptibility</th><th>Preferred Agent</th><th>Alternative</th><th>Avoid</th></tr></thead>
+              <tbody>
+                <tr><td>MSSA</td><td><a href="drug_reference_guide.html#nafcillin">Nafcillin</a> / <a href="drug_reference_guide.html#cefazolin">Cefazolin</a> (preferred for bacteremia)</td><td>Clindamycin (SSTI), Doxycycline (SSTI)</td><td>Vancomycin — inferior outcomes for MSSA</td></tr>
+                <tr><td>MRSA — serious</td><td><a href="drug_reference_guide.html#vancomycin">Vancomycin</a> AUC-guided <em>or</em> <a href="drug_reference_guide.html#daptomycin">Daptomycin</a> (non-pulmonary)</td><td><a href="drug_reference_guide.html#linezolid">Linezolid</a> (pneumonia), Ceftaroline</td><td>Daptomycin for pneumonia — inactivated by surfactant</td></tr>
+                <tr><td>MRSA — SSTI (mild)</td><td>TMP-SMX DS BID <em>or</em> Doxycycline 100 mg BID</td><td>Clindamycin (check D-test for inducible resistance)</td><td>Cephalexin (no MRSA activity)</td></tr>
+                <tr><td>hVISA / VISA (Vanc MIC ≥2)</td><td>Daptomycin ≥8 mg/kg + beta-lactam synergy <em>or</em> Ceftaroline + Daptomycin</td><td>ID consult mandatory</td><td>Vancomycin monotherapy ineffective</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Streptococcus — Key Patterns</div>
+            <table class="dosing-table">
+              <thead><tr><th>Organism</th><th>Preferred</th><th>PCN Allergy</th><th>Notes</th></tr></thead>
+              <tbody>
+                <tr><td>S. pneumoniae (susceptible)</td><td>Amoxicillin / Penicillin G</td><td>Ceftriaxone (most tolerate cephalosporins)</td><td>Macrolide resistance ~30% — do not use as monotherapy for inpatient CAP</td></tr>
+                <tr><td>S. pneumoniae (PCN-resistant)</td><td>Ceftriaxone 2 g IV q24h <em>or</em> Levofloxacin</td><td>Levofloxacin / Moxifloxacin</td><td>Check MIC; PRSP ≥0.12 µg/mL requires high-dose beta-lactam or respiratory FQ</td></tr>
+                <tr><td>Group A Strep</td><td>Penicillin G / Amoxicillin</td><td>Clindamycin (SSTI) / Azithromycin (pharyngitis)</td><td>Never resistant to Penicillin; add Clindamycin for NF (Eagle effect)</td></tr>
+                <tr><td>Viridans Streptococci (IE)</td><td>Penicillin G + Gentamicin (synergy) or Ceftriaxone</td><td>Vancomycin</td><td>MIC-dependent duration; ID/cards consult required</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Enterococcus</div>
+            <table class="dosing-table">
+              <thead><tr><th>Susceptibility</th><th>Preferred</th><th>Notes</th></tr></thead>
+              <tbody>
+                <tr><td>E. faecalis (Amp-S)</td><td>Ampicillin 2 g IV q4h (bacteremia) <em>or</em> Ampicillin + Gentamicin (IE synergy)</td><td>Cephalosporins are NOT active — a critical pitfall</td></tr>
+                <tr><td>E. faecalis (Amp-R)</td><td>Vancomycin</td><td>Check for high-level aminoglycoside resistance (HLAR)</td></tr>
+                <tr><td>VRE (E. faecium)</td><td>Linezolid 600 mg IV/PO q12h <em>or</em> Daptomycin ≥8–10 mg/kg</td><td>ID consult; check Linezolid susceptibility in prolonged exposures (resistance emerges)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── GRAM-NEGATIVES ── -->
+      <div class="syndrome-card" id="ch3-gram-neg">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#7cb8e8"></span>Gram-Negative Susceptibility Profiles</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Enterobacterales — Resistance Ladder</div>
+            <table class="dosing-table">
+              <thead><tr><th>Phenotype</th><th>Definition</th><th>Preferred Agent</th><th>Avoid</th></tr></thead>
+              <tbody>
+                <tr><td>Wild-type (susceptible)</td><td>Susceptible to most agents</td><td>Ceftriaxone, TMP-SMX, FQ (if susceptible)</td><td>Carbapenems — reserve</td></tr>
+                <tr><td>ESBL-producing</td><td>Resistant to all cephalosporins (including Cefepime, variable)</td><td>Ertapenem (non-Pseudo) <em>or</em> Meropenem (serious); NOT Pip-tazo (MERINO)</td><td>Pip-tazo for bacteremia (MERINO trial: 12.3% vs 3.7% 30d mortality)</td></tr>
+                <tr><td>AmpC hyperproducer</td><td>Inducible derepression — Enterobacter, Citrobacter, Serratia</td><td>Cefepime (stable against AmpC) <em>or</em> Meropenem (serious)</td><td>Ceftriaxone — resistance emerges on therapy for serious infections</td></tr>
+                <tr><td>Carbapenem-resistant (CRE)</td><td>KPC, NDM, OXA-48 mechanisms</td><td>Ceftazidime-avibactam (KPC), Meropenem-vaborbactam, Cefiderocol (NDM/OXA)</td><td>Colistin — last resort; significant nephrotoxicity</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pseudomonas aeruginosa</div>
+            <table class="dosing-table">
+              <thead><tr><th>Clinical Setting</th><th>Preferred</th><th>Serious / MDR</th></tr></thead>
+              <tbody>
+                <tr><td>Susceptible (UTI)</td><td>Ciprofloxacin 400 mg IV / 500 mg PO BID</td><td>—</td></tr>
+                <tr><td>HAP / VAP / bacteremia</td><td>Pip-tazo 4.5 g q6h EI <em>or</em> Cefepime 2 g q8h EI <em>or</em> Meropenem 2 g q8h EI</td><td>Add Tobramycin or Ciprofloxacin for double GNR coverage if high MDR risk</td></tr>
+                <tr><td>XDR / DTR-Pseudomonas</td><td>Ceftolozane-tazobactam (overproduced AmpC) <em>or</em> Cefiderocol (DTR)</td><td>ID consult; combination therapy; check susceptibility before using</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Problem Pathogens — Quick Reference</div>
+            <table class="dosing-table">
+              <thead><tr><th>Organism</th><th>Key Feature</th><th>Agent of Choice</th></tr></thead>
+              <tbody>
+                <tr><td>Acinetobacter baumannii</td><td>Hospital-acquired, extremely drug-resistant, ventilator-associated</td><td>Ampicillin-sulbactam (sulbactam has intrinsic activity) + Meropenem; Cefiderocol or Colistin for XDR</td></tr>
+                <tr><td>Stenotrophomonas maltophilia</td><td>Intrinsically resistant to carbapenems</td><td>TMP-SMX DS IV/PO (drug of choice); Ticarcillin-clavulanate; Minocycline</td></tr>
+                <tr><td>Burkholderia cepacia</td><td>CF-associated; intrinsic resistance to polymyxins</td><td>TMP-SMX + Meropenem combination; Minocycline; ID consult</td></tr>
+                <tr><td>Haemophilus influenzae</td><td>Beta-lactamase positive (~30%)</td><td>Amoxicillin-clavulanate (PO) <em>or</em> Ceftriaxone (IV)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ANAEROBES ── -->
+      <div class="syndrome-card" id="ch3-anaerobes">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#c8a87c"></span>Anaerobe Coverage — Key Agents</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Anaerobe Coverage by Agent</div>
+            <table class="dosing-table">
+              <thead><tr><th>Agent</th><th>B. fragilis</th><th>Fusobacterium / Peptostreptococcus</th><th>C. difficile</th><th>Notes</th></tr></thead>
+              <tbody>
+                <tr><td>Metronidazole</td><td>✓✓</td><td>✓✓</td><td>✓ (CDI therapy)</td><td>Drug of choice for most anaerobic infections; excellent CNS penetration</td></tr>
+                <tr><td>Pip-tazo</td><td>✓✓</td><td>✓✓</td><td>✗</td><td>Broad anaerobe + GNR coverage — preferred for IAI</td></tr>
+                <tr><td>Carbapenems</td><td>✓✓</td><td>✓✓</td><td>✗</td><td>Most reliable B. fragilis coverage; use for high-severity IAI</td></tr>
+                <tr><td>Clindamycin</td><td>Variable (20–30% resistance)</td><td>✓✓</td><td>Triggers CDI — avoid when possible</td><td>Retained for toxin suppression (NF, GAS); high CDI risk limits routine use</td></tr>
+                <tr><td>Amoxicillin-clavulanate</td><td>✓✓</td><td>✓✓</td><td>✗</td><td>Oral drug of choice for aspiration, lung abscess, bite wounds</td></tr>
+                <tr><td>Cephalosporins (most)</td><td>✗</td><td>Variable</td><td>✗</td><td>Poor B. fragilis coverage — always add Metronidazole for abdominal/pelvic coverage</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div id="ch4">
       <div class="chapter-header"><span class="ch-num">CH 4</span><h2>Fungi, Parasites &amp; Unusual Organisms</h2></div>
-      <div class="chapter-placeholder"><strong>Candida · Aspergillus · Crypto · Parasites · Nocardia · Actinomyces</strong>Cross-links to ID Guide fungal section — Phase 3 build.</div>
+
+      <!-- ── CANDIDA ── -->
+      <div class="syndrome-card" id="ch4-candida">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#e8c87c"></span>Candida — Invasive Candidiasis &amp; Candidemia</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Preferred Empiric Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Candidemia (all patients — empiric):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#micafungin">Micafungin</a> 100 mg IV q24h <em>or</em> <a href="drug_reference_guide.html#caspofungin">Caspofungin</a> 70 mg load → 50 mg IV q24h <em>or</em> Anidulafungin 200 mg load → 100 mg IV q24h</div>
+                <div class="dose">Step-down to <a href="drug_reference_guide.html#fluconazole">Fluconazole</a> 400–800 mg PO q24h when: clinically stable, susceptibilities confirm, non-krusei/glabrata species</div>
+              </div>
+              <span class="duration-badge">≥14 d from first negative blood culture</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Species-Specific Guidance</div>
+            <table class="dosing-table">
+              <thead><tr><th>Species</th><th>Fluconazole</th><th>Preferred Agent</th></tr></thead>
+              <tbody>
+                <tr><td>C. albicans, C. tropicalis, C. parapsilosis</td><td>Usually susceptible</td><td>Echinocandin empirically → Fluconazole step-down</td></tr>
+                <tr><td>C. glabrata (now Nakaseomyces)</td><td>Dose-dependent susceptibility / often resistant</td><td>Echinocandin (preferred); Voriconazole if susceptible</td></tr>
+                <tr><td>C. krusei (now Pichia kudriavzevii)</td><td>Intrinsically resistant</td><td>Echinocandin or Voriconazole</td></tr>
+                <tr><td>C. auris</td><td>Often resistant (pan-resistant strains emerging)</td><td>Echinocandin (check MIC); ID consult mandatory; contact precautions</td></tr>
+                <tr><td>C. parapsilosis</td><td>Susceptible</td><td>Fluconazole (echinocandin resistance reported — check MIC)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Remove central venous catheter as soon as feasible in all candidemia — source control is critical and reduces duration of BSI</li>
+              <li>Ophthalmology exam within 7 days — endophthalmitis occurs in 5–10% of candidemia; may require intravitreal antifungal</li>
+              <li>Echocardiography for persistent candidemia (&gt;72h positive cultures after initiation of therapy)</li>
+              <li>Follow-up blood cultures every 24–48h until cleared — minimum 14 days from first negative culture, regardless of clinical improvement</li>
+              <li>β-d-glucan elevated in most invasive fungal infections — useful adjunct but not species-specific; not useful for mucormycosis</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/candidiasis/" target="_blank" class="source-badge src-idsa">IDSA Candida 2016</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#micafungin" class="crosslink">Micafungin</a>
+              <a href="drug_reference_guide.html#fluconazole" class="crosslink">Fluconazole</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ASPERGILLUS ── -->
+      <div class="syndrome-card" id="ch4-aspergillus">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#e8c87c"></span>Aspergillus — Invasive Pulmonary Aspergillosis (IPA)</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Risk Factors &amp; Diagnosis</div>
+            <div class="pathogen-list">
+              <span class="pathogen-tag">Prolonged neutropenia (&gt;10 days) — highest risk</span>
+              <span class="pathogen-tag">Hematopoietic stem cell transplant</span>
+              <span class="pathogen-tag">Solid organ transplant (lung highest)</span>
+              <span class="pathogen-tag">High-dose corticosteroids (&gt;3 weeks)</span>
+              <span class="pathogen-tag">CGD / inherited immunodeficiency</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Preferred Therapy</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#voriconazole">Voriconazole</a> 6 mg/kg IV q12h × 2 doses (load) → 4 mg/kg IV q12h → PO step-down (200 mg PO q12h)
+                <div class="dose">TDM: target trough 1–5.5 µg/mL; &lt;1 = subtherapeutic; &gt;5.5 = neurotoxicity risk</div>
+              </div>
+              <span class="duration-badge">≥6–12 wk (or until immune reconstitution)</span>
+            </div>
+            <div class="therapy-row alternate">
+              <div class="therapy-drug">
+                <strong>Alternative / Voriconazole-intolerant:</strong>
+                <div class="dose">Isavuconazole 372 mg (isavuconazonium) IV/PO q8h × 6 doses → 372 mg q24h (better tolerability, fewer drug interactions)</div>
+                <div class="dose"><em>or</em> Liposomal Amphotericin B 3–5 mg/kg IV q24h (salvage / voriconazole failure)</div>
+              </div>
+              <span class="duration-badge">≥6–12 wk</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Galactomannan assay (serum or BAL) — sensitivity 70–80% in neutropenic IPA; low sensitivity in non-neutropenic/solid organ transplant patients</li>
+              <li>CT chest halo sign (nodule surrounded by ground-glass) — early IPA in neutropenic patients; air-crescent sign = later finding (recovering neutrophils)</li>
+              <li>Voriconazole CYP2C19 polymorphism — extensive metabolizers have lower troughs; Asian populations more likely to be poor metabolizers with toxicity risk; TDM is mandatory</li>
+              <li>Azole-resistant Aspergillus (TR34/L98H mutation in fumigatus) emerging in Europe and Asia — check susceptibility if endemic region or prior azole exposure</li>
+              <li>Combination therapy (Voriconazole + Echinocandin) — not routinely superior; consider for salvage therapy in refractory IPA (IDSA 2016)</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/aspergillosis/" target="_blank" class="source-badge src-idsa">IDSA Aspergillosis 2016</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#voriconazole" class="crosslink">Voriconazole</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CRYPTOCOCCUS ── -->
+      <div class="syndrome-card" id="ch4-crypto">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#e8c87c"></span>Cryptococcus neoformans — Meningitis &amp; Disseminated Disease</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Preferred Therapy by Phase</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Induction (2 weeks):</strong>
+                <div class="dose">Liposomal Amphotericin B 3–4 mg/kg IV q24h + <a href="drug_reference_guide.html#flucytosine">Flucytosine</a> (5-FC) 25 mg/kg PO QID</div>
+              </div>
+              <span class="duration-badge">2 wk</span>
+            </div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Consolidation (8 weeks):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#fluconazole">Fluconazole</a> 400 mg PO q24h</div>
+              </div>
+              <span class="duration-badge">8 wk</span>
+            </div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Maintenance (suppression):</strong>
+                <div class="dose"><a href="drug_reference_guide.html#fluconazole">Fluconazole</a> 200 mg PO q24h until CD4 &gt;200 × 3 months on ART</div>
+              </div>
+              <span class="duration-badge">Until immune reconstitution</span>
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">ICP Management — Critical</div>
+            <div style="font-family:var(--font-ui);font-size:12px;color:var(--text);background:var(--surface2);padding:10px;border-radius:5px;">
+              Elevated ICP (&gt;25 cmH₂O) — major cause of early mortality. Therapeutic LP to reduce opening pressure to ≤20 cmH₂O; daily LPs until pressure controlled. Do NOT use corticosteroids for ICP management (worsens outcomes). Lumbar drain or VP shunt for refractory ICP.
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pearls &amp; Pitfalls</div>
+            <ul class="pearl-list">
+              <li>Serum CrAg (cryptococcal antigen) — sensitivity &gt;99% for disseminated disease; test all HIV patients with CD4 &lt;100 (CrAg screen and pre-emptive treatment)</li>
+              <li>5-FC monitoring: check levels / CBC every 72–96h — bone marrow suppression, GI toxicity; must be dose-adjusted for renal dysfunction</li>
+              <li>Immune reconstitution inflammatory syndrome (IRIS): paradoxical worsening 4–8 weeks after starting ART — manage with corticosteroids (unlike ICP management)</li>
+              <li>Defer ART for 4–6 weeks after starting antifungal therapy to reduce IRIS risk (COAT trial)</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="https://www.idsociety.org/practice-guideline/cryptococcal-disease/" target="_blank" class="source-badge src-idsa">IDSA Crypto 2010/Update</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#fluconazole" class="crosslink">Fluconazole</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── NOCARDIA & ACTINOMYCES ── -->
+      <div class="syndrome-card" id="ch4-nocardia">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#e8c87c"></span>Nocardia &amp; Actinomyces — Unusual Bacteria</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Nocardia spp.</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Mild–Moderate (pulmonary, non-CNS):</strong>
+                <div class="dose">TMP-SMX DS 1–2 tabs PO BID <em>or</em> IV 5–10 mg/kg/day (TMP component)</div>
+              </div>
+              <span class="duration-badge">6 months (immunocomp) / 3 months (immunocomp pulmonary)</span>
+            </div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Severe / CNS / disseminated:</strong>
+                <div class="dose">TMP-SMX + <a href="drug_reference_guide.html#imipenem">Imipenem</a> 500 mg IV q6h + Amikacin 7.5–15 mg/kg IV q24h (triple therapy initially)</div>
+              </div>
+              <span class="duration-badge">12 months CNS; 6 months disseminated</span>
+            </div>
+            <ul class="pearl-list" style="margin-top:8px;">
+              <li>Susceptibility testing required — species-level identification guides therapy (N. farcinica often TMP-SMX resistant)</li>
+              <li>Mimics malignancy / TB on imaging — must culture; modified acid-fast stain positive (weakly)</li>
+              <li>Always image brain in disseminated Nocardia — 40% have CNS involvement even without neurological symptoms</li>
+            </ul>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Actinomyces spp.</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>All forms:</strong>
+                <div class="dose">Penicillin G 18–24 MU/day IV × 2–6 weeks (severe) → Amoxicillin 500 mg PO TID (step-down)</div>
+                <div class="dose"><em>or</em> Amoxicillin from outset for mild disease</div>
+              </div>
+              <span class="duration-badge">6–12 months (to prevent relapse)</span>
+            </div>
+            <ul class="pearl-list" style="margin-top:8px;">
+              <li>Classical presentation: cervicofacial (dental/jaw), thoracic (aspirated oral flora), abdominal (IUD-associated)</li>
+              <li>Sulfur granules (yellow granules in pus) are pathognomonic — culture anaerobic, slow-growing</li>
+              <li>NOT resistant to penicillin — long duration required because of poor penetration into fibrotic tissue and sulfur granules</li>
+              <li>Surgical drainage of abscesses in addition to antibiotics; concurrent organisms (polymicrobial) common</li>
+            </ul>
+          </div>
+          <div class="source-row">
+            <a href="#" class="source-badge src-idsa">IDSA / UpToDate</a>
+            <div class="crosslink-row">
+              <a href="drug_reference_guide.html#trimethoprim-sulfamethoxazole" class="crosslink">TMP-SMX</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div id="ch5">
       <div class="chapter-header"><span class="ch-num">CH 5</span><h2>HIV Infection &amp; Opportunistic Infections</h2></div>
-      <div class="chapter-placeholder"><strong>ART Overview · OI Treatment · OI Prophylaxis thresholds</strong>DHHS OI Guidelines content — Phase 3 build. Cross-links to ID Guide HIV section.</div>
+
+      <div style="font-family:var(--font-ui);font-size:12px;color:var(--muted);margin-bottom:16px;padding:10px;background:var(--surface);border-radius:6px;border:1px solid var(--border);">
+        Cross-reference: detailed HIV management in <a href="id_guide.html#hiv-aids" style="color:var(--accent)">ID Guide — HIV/AIDS section</a>. This chapter covers antibiotic / antifungal OI management; ART selection requires ID/HIV specialist consultation.
+      </div>
+
+      <!-- ── OI PROPHYLAXIS ── -->
+      <div class="syndrome-card" id="ch5-oi-prophylaxis">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#7fe870"></span>OI Prophylaxis Thresholds (DHHS Guidelines)</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Primary Prophylaxis — Start When CD4 Falls Below Threshold</div>
+            <table class="dosing-table">
+              <thead><tr><th>CD4 Threshold</th><th>OI</th><th>Prophylaxis Agent</th><th>Discontinue When</th></tr></thead>
+              <tbody>
+                <tr><td>&lt;200 cells/mm³</td><td>PCP (<em>Pneumocystis jirovecii</em>)</td><td>TMP-SMX DS 1 tab PO daily (preferred) <em>or</em> Dapsone 100 mg PO daily <em>or</em> Atovaquone 1500 mg PO daily</td><td>CD4 &gt;200 × 3 months on ART</td></tr>
+                <tr><td>&lt;100 cells/mm³</td><td>Toxoplasmosis (if IgG positive)</td><td>TMP-SMX DS 1 tab PO daily (covers PCP + Toxo simultaneously)</td><td>CD4 &gt;200 × 3 months on ART</td></tr>
+                <tr><td>&lt;50 cells/mm³</td><td>Mycobacterium avium complex (MAC)</td><td>Azithromycin 1200 mg PO weekly <em>or</em> Clarithromycin 500 mg PO BID</td><td>CD4 &gt;100 × 3 months on ART</td></tr>
+                <tr><td>&lt;100 cells/mm³</td><td>Cryptococcus (endemic areas / CrAg+)</td><td>CrAg screen; if positive → Fluconazole 400–800 mg PO daily × 2 weeks pre-emptive therapy</td><td>After pre-emptive course + CD4 rising</td></tr>
+                <tr><td>&lt;250 cells/mm³ (prior coccidio)</td><td>Coccidioidomycosis (endemic area, serology+)</td><td>Fluconazole 400 mg PO daily</td><td>CD4 &gt;250 × 6 months on ART + no active disease</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Secondary Prophylaxis — After Treated OI</div>
+            <table class="dosing-table">
+              <thead><tr><th>OI</th><th>Maintenance Agent</th><th>Duration</th></tr></thead>
+              <tbody>
+                <tr><td>PCP</td><td>TMP-SMX DS 1 tab PO daily</td><td>Until CD4 &gt;200 × 3 months</td></tr>
+                <tr><td>CNS Toxoplasmosis</td><td>Pyrimethamine + Sulfadiazine + Leucovorin (reduced doses) <em>or</em> TMP-SMX DS BID</td><td>Until CD4 &gt;200 × 6 months</td></tr>
+                <tr><td>Cryptococcal meningitis</td><td>Fluconazole 200 mg PO daily</td><td>Until CD4 &gt;200 × 3 months on ART</td></tr>
+                <tr><td>Disseminated MAC</td><td>Azithromycin 500 mg PO daily + Ethambutol 15 mg/kg/day (±Rifabutin)</td><td>Until CD4 &gt;100 × 6 months + 12 months therapy complete</td></tr>
+                <tr><td>CMV retinitis</td><td>Valganciclovir 900 mg PO daily</td><td>Until CD4 &gt;100–150 × 3–6 months</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="source-row">
+            <a href="https://clinicalinfo.hiv.gov/en/guidelines/hiv-clinical-guidelines-adult-and-adolescent-opportunistic-infections" target="_blank" class="source-badge src-dhhs">DHHS OI Guidelines 2024</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── OI TREATMENT REFERENCE ── -->
+      <div class="syndrome-card" id="ch5-oi-treatment">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#7fe870"></span>OI Treatment Reference — High-Yield Summary</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">OI Treatment by Organism (DHHS 2024)</div>
+            <table class="dosing-table">
+              <thead><tr><th>OI / Pathogen</th><th>Preferred Treatment</th><th>Duration</th><th>Key Pearl</th></tr></thead>
+              <tbody>
+                <tr><td>PCP (<em>P. jirovecii</em>)</td><td>TMP-SMX 15–20 mg/kg/day (TMP) IV/PO ÷ q6–8h + steroids if PaO₂ &lt;70</td><td>21 days</td><td>See Ch 2 PCP card for full details</td></tr>
+                <tr><td>Toxoplasma (CNS)</td><td>Pyrimethamine 200 mg load → 75 mg/day + Sulfadiazine 1 g QID + Leucovorin 10–25 mg/day</td><td>6 weeks acute → maintenance</td><td>TMP-SMX DS 5 mg/kg BID is acceptable alternative</td></tr>
+                <tr><td>Cryptococcal meningitis</td><td>LiposomalAmB 3–4 mg/kg/day + 5-FC 25 mg/kg QID × 2 wk → Fluconazole 400 mg/day × 8 wk</td><td>3-phase (induction/consolidation/maintenance)</td><td>ICP management critical; defer ART 4–6 wk (COAT trial)</td></tr>
+                <tr><td>Disseminated MAC</td><td>Azithromycin 500–600 mg PO daily + Ethambutol 15 mg/kg/day ± Rifabutin</td><td>≥12 months → maintenance</td><td>Start ART within 2 weeks; IRIS expected</td></tr>
+                <tr><td>CMV retinitis</td><td>Valganciclovir 900 mg PO BID × 14–21 days → 900 mg daily (maintenance)</td><td>Induction 14–21d → maintenance</td><td>Ophthalmology exam urgently; other sites: IV Ganciclovir or Foscarnet</td></tr>
+                <tr><td>Histoplasmosis (disseminated)</td><td>LiposomalAmB 3 mg/kg/day × 1–2 wk → Itraconazole 200 mg PO TID × 3 days → 200 mg BID</td><td>≥12 months total</td><td>Serum/urine Histoplasma Ag for diagnosis; TDM for Itraconazole trough &gt;1 µg/mL</td></tr>
+                <tr><td>Coccidioidomycosis</td><td>Fluconazole 400 mg PO daily (non-meningeal) <em>or</em> LiposomalAmB (meningeal/severe)</td><td>Lifelong for meningeal; ≥1 year others</td><td>Fluconazole 800–1200 mg/day for meningitis</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">ART &amp; OI Interaction — When to Start ART</div>
+            <table class="dosing-table">
+              <thead><tr><th>OI</th><th>Timing of ART Initiation</th><th>Rationale</th></tr></thead>
+              <tbody>
+                <tr><td>Most OIs (PCP, MAC, CMV, Toxo)</td><td>Within 2 weeks of OI treatment</td><td>ACTG A5164 — early ART reduces AIDS progression/death</td></tr>
+                <tr><td>Cryptococcal meningitis</td><td>Defer 4–6 weeks</td><td>COAT trial — early ART increases mortality via IRIS</td></tr>
+                <tr><td>TB meningitis</td><td>Defer 4–8 weeks</td><td>CAMELIA/SAPIT — early ART increases CNS IRIS</td></tr>
+                <tr><td>Pulmonary TB</td><td>Within 2–8 weeks (CD4 &lt;50: 2 wk; CD4 &gt;50: 8 wk)</td><td>Balance IRIS risk vs. immunodeficiency severity</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="source-row">
+            <a href="https://clinicalinfo.hiv.gov/en/guidelines/hiv-clinical-guidelines-adult-and-adolescent-opportunistic-infections" target="_blank" class="source-badge src-dhhs">DHHS OI Guidelines 2024</a>
+            <div class="crosslink-row">
+              <a href="id_guide.html#hiv-aids" class="crosslink">ID Guide HIV</a>
+              <a href="#ch5-oi-prophylaxis" class="crosslink">OI Prophylaxis ↑</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div id="ch6">
       <div class="chapter-header"><span class="ch-num">CH 6</span><h2>Prophylaxis &amp; Immunizations</h2></div>
-      <div class="chapter-placeholder"><strong>Surgical Prophylaxis · Endocarditis Prophylaxis · PCP/MAC/Toxo Prophylaxis · ACIP Immunization Schedule</strong>Phase 4 build.</div>
+
+      <!-- ── SURGICAL PROPHYLAXIS ── -->
+      <div class="syndrome-card" id="ch6-surgical-ppx">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#8cd4e8"></span>Surgical Site Infection (SSI) Prophylaxis</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Core Principles</div>
+            <ul class="pearl-list">
+              <li>Administer prophylaxis within 60 minutes before incision (120 minutes for Vancomycin and fluoroquinolones)</li>
+              <li>Cefazolin is the agent of choice for most clean and clean-contaminated procedures</li>
+              <li>Re-dose Cefazolin for procedures &gt;4 hours or blood loss &gt;1.5 L intraoperatively</li>
+              <li>Stop prophylaxis within 24 hours (cardiac surgery: up to 48 hours acceptable)</li>
+              <li>MRSA decolonization (Mupirocin nasal + CHG bathing) pre-operatively for high-risk patients</li>
+            </ul>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Agent by Procedure</div>
+            <table class="dosing-table">
+              <thead><tr><th>Procedure</th><th>Preferred Agent</th><th>MRSA Risk / PCN Allergy</th><th>Dose</th></tr></thead>
+              <tbody>
+                <tr><td>Cardiac / vascular / orthopedic (implant)</td><td><a href="drug_reference_guide.html#cefazolin">Cefazolin</a></td><td>Vancomycin 15–25 mg/kg IV</td><td>Cefazolin: &lt;80 kg → 1 g IV; ≥80 kg → 2 g IV</td></tr>
+                <tr><td>GI / colorectal</td><td>Cefazolin + Metronidazole <em>or</em> Cefoxitin</td><td>Vancomycin + Metronidazole</td><td>Metronidazole 500 mg IV</td></tr>
+                <tr><td>Appendectomy</td><td>Cefoxitin 2 g IV <em>or</em> Cefazolin + Metronidazole</td><td>Vancomycin + Metronidazole or Aztreonam</td><td>Single pre-incision dose</td></tr>
+                <tr><td>Biliary / hepatic</td><td>Cefazolin 2 g IV</td><td>Vancomycin + Aztreonam</td><td>Single dose; high-risk patients (obstructive jaundice, elderly) benefit most</td></tr>
+                <tr><td>Hysterectomy / OB/GYN</td><td>Cefazolin 2 g IV</td><td>Clindamycin + Gentamicin</td><td>Add Azithromycin 500 mg for C-section (reduces endometritis)</td></tr>
+                <tr><td>Urologic (clean, no bacteriuria)</td><td>TMP-SMX DS 1 tab PO <em>or</em> Cefazolin 1 g IV</td><td>Fluoroquinolone (if susceptible)</td><td>Pre-procedure; not needed for clean cystoscopy without instrumentation</td></tr>
+                <tr><td>Neurosurgery (craniotomy / VP shunt)</td><td>Cefazolin 2 g IV</td><td>Vancomycin 15 mg/kg IV</td><td>Re-dose q4h intraoperatively for long cases</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="source-row">
+            <a href="https://www.ashp.org/pharmacy-practice/policy-positions-and-guidelines/browse-by-document-type/guidelines/therapeutic-guidelines-surgical-prophylaxis" target="_blank" class="source-badge src-idsa">ASHP/IDSA/SIS 2013</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ENDOCARDITIS PROPHYLAXIS ── -->
+      <div class="syndrome-card" id="ch6-ie-ppx">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#8cd4e8"></span>Infective Endocarditis Prophylaxis (AHA 2021)</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">High-Risk Cardiac Conditions — Prophylaxis Indicated</div>
+            <ul class="pearl-list">
+              <li>Prosthetic cardiac valve (bioprosthetic or mechanical)</li>
+              <li>Previous infective endocarditis</li>
+              <li>Congenital heart disease: unrepaired cyanotic CHD (including palliative shunts/conduits), completely repaired CHD with prosthetic material within 6 months, repaired CHD with residual defects at or adjacent to prosthetic material</li>
+              <li>Cardiac transplant recipients with valve regurgitation due to structural valve abnormality</li>
+            </ul>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Dental Procedures Requiring Prophylaxis</div>
+            <div style="font-family:var(--font-ui);font-size:12px;color:var(--muted);background:var(--surface2);padding:8px 10px;border-radius:5px;">
+              Prophylaxis recommended for dental procedures involving manipulation of gingival tissue, manipulation of the periapical region of teeth, or perforation of the oral mucosa. NOT required for routine anesthetic injections, dental X-rays, placement of removable appliances, adjustment of orthodontic appliances.
+            </div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Prophylaxis Regimen</div>
+            <table class="dosing-table">
+              <thead><tr><th>Situation</th><th>Agent</th><th>Dose</th></tr></thead>
+              <tbody>
+                <tr><td>Oral (standard)</td><td>Amoxicillin</td><td>2 g PO × 1 dose, 30–60 min before procedure</td></tr>
+                <tr><td>Unable to take PO</td><td>Ampicillin <em>or</em> Cefazolin/Ceftriaxone</td><td>2 g IV/IM <em>or</em> 1 g IV/IM × 1 dose</td></tr>
+                <tr><td>PCN / Ampicillin allergy</td><td>Cephalexin <em>or</em> Clindamycin</td><td>2 g PO <em>or</em> 600 mg PO × 1 dose</td></tr>
+                <tr><td>PCN allergy + unable to take PO</td><td>Cefazolin/Ceftriaxone <em>or</em> Clindamycin</td><td>1 g IV/IM <em>or</em> 600 mg IV × 1 dose</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="source-row">
+            <a href="https://www.ahajournals.org/doi/10.1161/CIR.0000000000000969" target="_blank" class="source-badge src-aha">AHA 2021</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── EXPOSURE PROPHYLAXIS ── -->
+      <div class="syndrome-card" id="ch6-exposure-ppx">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#8cd4e8"></span>Post-Exposure Prophylaxis (PEP) — Meningococcus, HIV, Pertussis, Rabies</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Meningococcal Close Contact Prophylaxis</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <a href="drug_reference_guide.html#rifampin">Rifampin</a> 600 mg PO BID × 2 days (preferred in pregnancy)
+                <div class="dose"><em>or</em> Ciprofloxacin 500 mg PO × 1 dose (preferred — ease of use)</div>
+                <div class="dose"><em>or</em> Ceftriaxone 250 mg IM × 1 dose</div>
+              </div>
+              <span class="duration-badge">Single course</span>
+            </div>
+            <div style="font-family:var(--font-ui);font-size:12px;color:var(--muted);margin-top:6px;">Close contacts: household members, intimate partners, anyone with direct oral secretion exposure within 7 days of illness onset.</div>
+          </div>
+          <div class="card-section">
+            <div class="section-label">HIV Post-Exposure Prophylaxis (PEP)</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                <strong>Preferred regimen (DHHS 2023):</strong>
+                <div class="dose">Tenofovir DF/Emtricitabine (TDF/FTC, Truvada) 1 tab PO daily + Raltegravir 400 mg PO BID <em>or</em> Dolutegravir 50 mg PO daily</div>
+              </div>
+              <span class="duration-badge">28 days — start within 72 hours of exposure</span>
+            </div>
+            <ul class="pearl-list" style="margin-top:8px;">
+              <li>Must start within 72 hours — after 72 hours PEP is no longer effective</li>
+              <li>Complete all 28 days even if source tests HIV-negative (window period considerations)</li>
+              <li>Follow-up HIV testing at baseline, 6 weeks, 3 months</li>
+            </ul>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Pertussis Post-Exposure Prophylaxis</div>
+            <div class="therapy-row preferred">
+              <div class="therapy-drug">
+                Azithromycin 500 mg PO × 1 dose then 250 mg PO daily × 4 days
+                <div class="dose"><em>or</em> Azithromycin 500 mg PO daily × 5 days (alternative)</div>
+                <div class="dose">Infants &lt;1 month: Azithromycin preferred; Erythromycin linked to pyloric stenosis</div>
+              </div>
+              <span class="duration-badge">5 days — start within 21 days of exposure</span>
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://www.cdc.gov/meningococcal/php/labs/index.html" target="_blank" class="source-badge src-cdc">CDC Meningococcal PEP</a>
+            <a href="https://clinicalinfo.hiv.gov/en/guidelines/occupational-exposure-hiv/recommendations-postexposure-prophylaxis" target="_blank" class="source-badge src-dhhs">DHHS HIV PEP 2023</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── KEY IMMUNIZATIONS ── -->
+      <div class="syndrome-card" id="ch6-immunizations">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-title"><span class="sys-pip" style="background:#8cd4e8"></span>Immunizations — High-Yield Adult &amp; Immunocompromised Schedule</div>
+          <div class="card-meta"><span class="expand-icon">▼</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="section-label">Vaccines for Immunocompromised / High-Risk Hospitalized Adults</div>
+            <table class="dosing-table">
+              <thead><tr><th>Vaccine</th><th>Indication</th><th>Notes</th></tr></thead>
+              <tbody>
+                <tr><td>Pneumococcal (PCV20 or PCV15 + PPSV23)</td><td>Age ≥65, asplenia, HIV, immunocomp, chronic lung/heart/renal/liver disease</td><td>PCV20 single dose preferred; if PCV15 used → PPSV23 ≥1 year later</td></tr>
+                <tr><td>Influenza (inactivated — IIV)</td><td>All adults annually; live attenuated (LAIV) NOT for immunocomp</td><td>High-dose or adjuvanted preferred for age ≥65; give regardless of season for hospitalized patients</td></tr>
+                <tr><td>Hepatitis B (Heplisav-B preferred)</td><td>Unvaccinated adults &lt;60 yrs; diabetics; healthcare workers; HIV; CKD/dialysis</td><td>Heplisav-B (2-dose) preferred over Engerix-B (3-dose); higher seroconversion rates in dialysis patients</td></tr>
+                <tr><td>Meningococcal (MenACWY)</td><td>Asplenia, complement deficiency, HIV, college freshmen (dorms), travelers</td><td>Revaccinate q5 years if ongoing risk; MenB separately for N. meningitidis serogroup B coverage</td></tr>
+                <tr><td>Herpes Zoster (Shingrix — RZV)</td><td>Age ≥50, immunocomp ≥18 yrs (ACIP 2022)</td><td>2 doses × 2–6 months apart; preferred over Zostavax; give even if prior zoster episode</td></tr>
+                <tr><td>COVID-19 (updated formulation)</td><td>All adults; priority for immunocomp, age ≥65, nursing home</td><td>Follow current ACIP recommendations for annual updated strain vaccine</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-section">
+            <div class="section-label">Live Vaccines — Contraindicated in Immunocompromised</div>
+            <div style="font-family:var(--font-ui);font-size:12px;color:var(--muted);background:var(--surface2);padding:8px 10px;border-radius:5px;">
+              <strong style="color:var(--text)">Do NOT give to immunocompromised patients:</strong> MMR, Varicella (Varivax), LAIV (FluMist), Yellow fever, Typhoid oral (Ty21a), Smallpox (ACAM2000), BCG, Rotavirus. Wait ≥3 months after stopping immunosuppression before live vaccines.
+            </div>
+          </div>
+          <div class="source-row">
+            <a href="https://www.cdc.gov/vaccines/schedules/hcp/imz/adult.html" target="_blank" class="source-badge src-cdc">ACIP Adult Schedule 2024</a>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div id="ch7">
@@ -3363,7 +4114,27 @@ function filterPearls(query) {
 
     <div id="ch8">
       <div class="chapter-header"><span class="ch-num">CH 8</span><h2>Drug PK Summary Cards</h2></div>
-      <div class="chapter-placeholder"><strong>Redirects to Drug Reference Guide (274 cards) with PK parameters</strong>Cross-linked stubs with Vd, protein binding, CNS penetration, renal dosing — Phase 4 build.</div>
+
+      <div style="font-family:var(--font-ui);font-size:13px;color:var(--text);background:var(--surface);border-radius:8px;padding:20px;border:1px solid var(--border);">
+        <strong style="color:var(--accent);display:block;margin-bottom:12px;">PK Parameters — Drug Reference Guide Integration</strong>
+        Full pharmacokinetic data (Vd, protein binding, half-life, CNS penetration, renal/hepatic dosing adjustments) for all 274 antimicrobials is available in the
+        <a href="drug_reference_guide.html" style="color:var(--accent);font-weight:700;">Drug Reference Guide →</a>
+        <br><br>
+        PK highlights relevant to ABX dosing are integrated into each syndrome card in CH 2 (IV-to-PO switch rows, renal dosing notes) and the PK/PD Concepts section in CH 1.
+        <br><br>
+        <strong style="color:var(--text);">Quick links — high-yield PK agents:</strong>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
+          <a href="drug_reference_guide.html#vancomycin" class="source-badge src-idsa" style="font-size:12px;padding:5px 10px;">Vancomycin (AUC dosing)</a>
+          <a href="drug_reference_guide.html#aminoglycosides" class="source-badge src-idsa" style="font-size:12px;padding:5px 10px;">Aminoglycosides (EID)</a>
+          <a href="drug_reference_guide.html#voriconazole" class="source-badge src-idsa" style="font-size:12px;padding:5px 10px;">Voriconazole (TDM)</a>
+          <a href="drug_reference_guide.html#piperacillin-tazobactam" class="source-badge src-idsa" style="font-size:12px;padding:5px 10px;">Pip-tazo (extended infusion)</a>
+          <a href="drug_reference_guide.html#meropenem" class="source-badge src-idsa" style="font-size:12px;padding:5px 10px;">Meropenem (extended infusion)</a>
+          <a href="drug_reference_guide.html#linezolid" class="source-badge src-idsa" style="font-size:12px;padding:5px 10px;">Linezolid (100% PO bioavail)</a>
+          <a href="drug_reference_guide.html#daptomycin" class="source-badge src-idsa" style="font-size:12px;padding:5px 10px;">Daptomycin (lung inactivation)</a>
+          <a href="drug_reference_guide.html#fluconazole" class="source-badge src-idsa" style="font-size:12px;padding:5px 10px;">Fluconazole (90% PO bioavail)</a>
+        </div>
+      </div>
+
     </div>
 
   </main>
