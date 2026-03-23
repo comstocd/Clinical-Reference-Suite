@@ -1,9 +1,9 @@
 # Clinical Reference Suite
 ### Internal Medicine Point-of-Care Reference — iPad Optimized
 
-**Author:** Dr. Michael Comstock, PGY-3 Internal Medicine  
+**Author:** Dr. David Comstock, PGY-3 Internal Medicine  
 **Institution:** Guthrie Lourdes Hospital  
-**Current Build:** BUILD #30  
+**Current Build:** BUILD #48  
 **Live URL:** https://comstocd.github.io/Clinical-Reference-Suite/
 
 ---
