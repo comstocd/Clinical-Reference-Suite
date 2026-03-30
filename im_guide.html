@@ -530,6 +530,14 @@
 </style>
 </head>
 <body>
+<!-- Back-to-Suite nav chip -->
+<div style="position:fixed;top:8px;right:12px;z-index:9999;">
+  <button onclick="(function(){if(window.parent&&window.parent.switchTool){window.parent.switchTool('home');}else{window.location.href='index.html';}})()"
+    style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:#1e3a5f;color:#93c5fd;border:none;border-radius:20px;font-size:0.75rem;font-weight:600;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,sans-serif;-webkit-tap-highlight-color:transparent;">
+    ← CRS Home
+  </button>
+</div>
+
 
     <div class="container">
         <div class="nav-header">
@@ -537,27 +545,274 @@
             <p>338 Essential Conditions for Hospital Medicine</p>
             <div class="nav-header-links">
                 <a href="#toc" class="back-to-top">↑ Table of Contents</a>
-                <a href="abx-companion.html" class="nav-suite-link abx">💊 ABX Companion</a>
+                <a href="#system-toc" class="back-to-top" style="margin-left:8px;">↑ Browse by System</a>
             </div>
         </div>
 
                 <!-- TABLE OF CONTENTS -->
-        <div id="toc" class="toc">
+        <div id="system-toc" style="background:#fff;border-bottom:2px solid #e1e4e8;padding:20px 22px 24px;margin-bottom:0;">
+  <div style="max-width:600px;margin:0 auto 16px;">
+    <h2 style="color:#24292e;font-size:14pt;margin-bottom:8px;">Browse by Organ System</h2>
+    <div class="os-legend">
+      <span class="os-legend-em">Time-critical emergency</span>
+      <span>— all others by frequency</span>
+    </div>
+  </div>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:20px;">
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">❤️ Cardiology</strong>
+<a href="#acs" class="os-link em">ACS / STEMI</a>
+<a href="#aortic-dissection" class="os-link em">Aortic Dissection</a>
+<a href="#cardiac-tamponade" class="os-link em">Cardiac Tamponade</a>
+<a href="#cardiogenic-shock" class="os-link em">Cardiogenic Shock</a>
+<a href="#vt-vf" class="os-link em">VT / VF</a>
+<a href="#ruptured-aaa" class="os-link em">Ruptured AAA</a>
+<hr class="os-divider">
+<a href="#heart-failure" class="os-link">Heart Failure</a>
+<a href="#afib" class="os-link">Atrial Fibrillation</a>
+<a href="#htn-emergency" class="os-link">HTN Emergency</a>
+<a href="#endocarditis" class="os-link">Endocarditis</a>
+<a href="#svt" class="os-link">SVT</a>
+<a href="#critical-as" class="os-link">Critical AS</a>
+<a href="#acute-mr" class="os-link">Acute MR</a>
+<a href="#pericarditis" class="os-link">Pericarditis</a>
+<a href="#syncope" class="os-link">Syncope</a>
+<a href="#costochondritis" class="os-link">Costochondritis</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🫁 Pulmonology</strong>
+<a href="#acute-respiratory-failure" class="os-link em">Acute Respiratory Failure</a>
+<a href="#ards" class="os-link em">ARDS</a>
+<a href="#massive-hemoptysis" class="os-link em">Massive Hemoptysis</a>
+<a href="#ph-crisis" class="os-link em">PH Crisis</a>
+<a href="#pneumothorax" class="os-link em">Tension Pneumothorax</a>
+<hr class="os-divider">
+<a href="#pe" class="os-link">Pulmonary Embolism</a>
+<a href="#cap" class="os-link">CAP</a>
+<a href="#hap-vap" class="os-link">HAP / VAP</a>
+<a href="#copd" class="os-link">COPD Exacerbation</a>
+<a href="#asthma" class="os-link">Asthma Exacerbation</a>
+<a href="#hypercapnic-failure" class="os-link">Hypercapnic Failure</a>
+<a href="#pleural-effusion" class="os-link">Pleural Effusion</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🫙 GI / Hepatology</strong>
+<a href="#mesenteric-ischemia" class="os-link em">Mesenteric Ischemia</a>
+<a href="#cirrhosis-complications" class="os-link em">Variceal Hemorrhage</a>
+<a href="#acute-liver-failure" class="os-link em">Acute Liver Failure</a>
+<a href="#toxic-megacolon" class="os-link em">Toxic Megacolon</a>
+<a href="#cholangitis" class="os-link em">Cholangitis</a>
+<hr class="os-divider">
+<a href="#ugib" class="os-link">Upper GI Bleed</a>
+<a href="#lower-gi-bleed" class="os-link">Lower GI Bleed</a>
+<a href="#pancreatitis" class="os-link">Acute Pancreatitis</a>
+<a href="#he" class="os-link">Hepatic Encephalopathy</a>
+<a href="#sbp" class="os-link">SBP</a>
+<a href="#cirrhosis-complications" class="os-link">Hepatorenal Syndrome</a>
+<a href="#bowel-obstruction" class="os-link">Bowel Obstruction</a>
+<a href="#appendicitis" class="os-link">Appendicitis</a>
+<a href="#ischemic-colitis" class="os-link">Ischemic Colitis</a>
+<a href="#cdiff" class="os-link">C. diff</a>
+<a href="#cirrhosis" class="os-link">Cirrhosis</a>
+<a href="#ibd" class="os-link">IBD Flare</a>
+<a href="#alcoholic-hepatitis" class="os-link">Alcoholic Hepatitis</a>
+<a href="#diverticulitis" class="os-link">Diverticulitis</a>
+<a href="#cholecystitis" class="os-link">Acute Cholecystitis</a>
+<a href="#choledocholithiasis" class="os-link">Choledocholithiasis</a>
+<a href="#gastroparesis" class="os-link">Gastroparesis</a>
+<a href="#pbc" class="os-link">Primary Biliary Cholangitis</a>
+<a href="#nafld" class="os-link">NAFLD / NASH</a>
+<a href="#gerd" class="os-link">GERD / Esophagitis</a>
+<a href="#barretts" class="os-link">Barrett's Esophagus</a>
+<a href="#esophageal-spasm" class="os-link">Esophageal Spasm</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">💧 Nephrology</strong>
+<a href="#hyperkalemia" class="os-link em">Hyperkalemia (severe)</a>
+<a href="#uremia" class="os-link em">Uremic Emergency</a>
+<hr class="os-divider">
+<a href="#aki" class="os-link">AKI</a>
+<a href="#hyponatremia" class="os-link">Hyponatremia</a>
+<a href="#ckd-complications" class="os-link">CKD Complications</a>
+<a href="#glomerulonephritis" class="os-link">Glomerulonephritis</a>
+<a href="#nephrotic-syndrome" class="os-link">Nephrotic Syndrome</a>
+<a href="#rhabdo" class="os-link">Rhabdomyolysis</a>
+<a href="#uti" class="os-link">UTI / Pyelonephritis</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🦋 Endocrine</strong>
+<a href="#adrenal" class="os-link em">Adrenal Crisis</a>
+<a href="#hyperthyroid" class="os-link em">Thyroid Storm</a>
+<a href="#hypothyroid" class="os-link em">Myxedema Coma</a>
+<a href="#pituitary-apoplexy" class="os-link em">Pituitary Apoplexy</a>
+<a href="#dka" class="os-link em">DKA</a>
+<hr class="os-divider">
+<a href="#hhs" class="os-link">HHS</a>
+<a href="#hypoglycemia" class="os-link">Hypoglycemia</a>
+<a href="#hypercalcemia" class="os-link">Hypercalcemia</a>
+<a href="#hypocalcemia" class="os-link">Hypocalcemia</a>
+<a href="#siadh" class="os-link">SIADH</a>
+<a href="#diabetes-insipidus" class="os-link">Diabetes Insipidus</a>
+<a href="#steroid-hyperglycemia" class="os-link">Steroid Hyperglycemia</a>
+<a href="#periop-glucose" class="os-link">Periop Glucose</a>
+<a href="#cushing" class="os-link">Cushing Syndrome</a>
+<a href="#primary-aldosteronism" class="os-link">Primary Aldosteronism</a>
+<a href="#sick-euthyroid" class="os-link">Sick Euthyroid</a>
+<a href="#prolactinoma" class="os-link">Prolactinoma</a>
+<a href="#acromegaly" class="os-link">Acromegaly</a>
+<a href="#pcos" class="os-link">PCOS</a>
+<a href="#men-syndromes" class="os-link">MEN Syndromes</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🧠 Neurology</strong>
+<a href="#stroke" class="os-link em">Ischemic Stroke</a>
+<a href="#ich" class="os-link em">ICH</a>
+<a href="#sah" class="os-link em">SAH</a>
+<a href="#seizure" class="os-link em">Status Epilepticus</a>
+<a href="#increased-icp" class="os-link em">Increased ICP</a>
+<a href="#meningitis" class="os-link em">Bacterial Meningitis</a>
+<a href="#myasthenic-crisis" class="os-link em">Myasthenic Crisis</a>
+<hr class="os-divider">
+<a href="#encephalitis" class="os-link">Encephalitis</a>
+<a href="#gbs" class="os-link">Guillain-Barré</a>
+<a href="#wernicke" class="os-link">Wernicke Encephalopathy</a>
+<a href="#delirium" class="os-link">Delirium</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🦠 Infectious Disease</strong>
+<a href="#sepsis" class="os-link em">Sepsis / Septic Shock</a>
+<a href="#ssti" class="os-link em">Necrotizing Fasciitis</a>
+<a href="#neutropenic-fever" class="os-link em">Neutropenic Fever</a>
+<a href="#epidural-abscess" class="os-link em">Epidural Abscess</a>
+<hr class="os-divider">
+<a href="#urosepsis" class="os-link">Urosepsis</a>
+<a href="#cellulitis" class="os-link">Cellulitis</a>
+<a href="#osteomyelitis" class="os-link">Osteomyelitis</a>
+<a href="#septic-arthritis" class="os-link">Septic Arthritis</a>
+<a href="#clabsi" class="os-link">CLABSI</a>
+<a href="#brain-abscess" class="os-link">Brain Abscess</a>
+<a href="#empyema" class="os-link">Empyema</a>
+<a href="#diabetic-foot-infection" class="os-link">Diabetic Foot Infection</a>
+<a href="#prosthetic-joint-infection" class="os-link">Prosthetic Joint Infection</a>
+<a href="#cied-infection" class="os-link">CIED Infection</a>
+<a href="#covid" class="os-link">COVID-19</a>
+<a href="#influenza" class="os-link">Influenza</a>
+<a href="#tb" class="os-link">TB</a>
+<a href="#hiv-aids" class="os-link">HIV/AIDS</a>
+<a href="#tick-borne" class="os-link">Tick-borne Illness</a>
+<a href="#pid" class="os-link">PID</a>
+<a href="#lung-abscess" class="os-link">Lung Abscess</a>
+<a href="#herpes-zoster" class="os-link">Herpes Zoster</a>
+<a href="#mononucleosis" class="os-link">Mononucleosis</a>
+<a href="#prostatitis" class="os-link">Prostatitis</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🩸 Heme / Onc</strong>
+<a href="#ttp-hus" class="os-link em">TTP / HUS</a>
+<a href="#dic" class="os-link em">DIC</a>
+<a href="#tls" class="os-link em">Tumor Lysis Syndrome</a>
+<a href="#hit" class="os-link em">HIT</a>
+<hr class="os-divider">
+<a href="#sickle-cell" class="os-link">Sickle Cell Crisis</a>
+<a href="#anticoag-reversal" class="os-link">Anticoag Reversal</a>
+<a href="#thrombocytopenia" class="os-link">Thrombocytopenia</a>
+<a href="#anemia" class="os-link">Anemia</a>
+<a href="#dvt" class="os-link">DVT</a>
+<a href="#transfusion-reactions" class="os-link">Transfusion Reactions</a>
+<a href="#transfusion" class="os-link">Transfusion Medicine</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🦴 Rheumatology</strong>
+<a href="#vasculitis-emergency" class="os-link em">Vasculitis Emergency</a>
+<a href="#sle" class="os-link em">SLE Flare (severe)</a>
+<a href="#adult-still" class="os-link em">Adult Still's Disease</a>
+<hr class="os-divider">
+<a href="#gout" class="os-link">Gout / Pseudogout</a>
+<a href="#rheumatoid-arthritis" class="os-link">Rheumatoid Arthritis</a>
+<a href="#gca" class="os-link">Giant Cell Arteritis</a>
+<a href="#pmr" class="os-link">Polymyalgia Rheumatica</a>
+<a href="#aps" class="os-link">Antiphospholipid Syndrome</a>
+<a href="#lupus-nephritis" class="os-link">Lupus Nephritis</a>
+<a href="#systemic-sclerosis" class="os-link">Systemic Sclerosis</a>
+<a href="#inflammatory-myopathy" class="os-link">Inflammatory Myopathies</a>
+<a href="#spondyloarthropathy" class="os-link">Spondyloarthropathies</a>
+<a href="#sarcoidosis" class="os-link">Sarcoidosis</a>
+<a href="#amyloidosis" class="os-link">Amyloidosis</a>
+<a href="#igg4" class="os-link">IgG4-Related Disease</a>
+<a href="#sjogren" class="os-link">Sjögren's</a>
+<a href="#osteoarthritis" class="os-link">Osteoarthritis</a>
+<a href="#fibromyalgia" class="os-link">Fibromyalgia</a>
+<a href="#drug-induced-lupus" class="os-link">Drug-Induced Lupus</a>
+<a href="#behcet" class="os-link">Behçet's Disease</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🩻 Bone / Orthopedic</strong>
+<a href="#cauda-equina" class="os-link em">Cauda Equina Syndrome</a>
+<a href="#spinal-cord-compression" class="os-link em">Spinal Cord Compression</a>
+<hr class="os-divider">
+<a href="#osteoporosis" class="os-link">Osteoporosis</a>
+<a href="#osteonecrosis" class="os-link">Osteonecrosis (AVN)</a>
+<a href="#paget" class="os-link">Paget's Disease</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">⚗️ Toxicology</strong>
+<a href="#anaphylaxis" class="os-link em">Anaphylaxis</a>
+<a href="#serotonin-syndrome" class="os-link em">Serotonin Syndrome</a>
+<a href="#nms" class="os-link em">NMS</a>
+<a href="#bb-ccb-toxicity" class="os-link em">BB / CCB Toxicity</a>
+<a href="#toxic-alcohol" class="os-link em">Toxic Alcohols</a>
+<a href="#etoh-withdrawal" class="os-link em">Alcohol Withdrawal (severe)</a>
+<hr class="os-divider">
+<a href="#opioid" class="os-link">Opioid Overdose</a>
+<a href="#apap-overdose" class="os-link">Acetaminophen OD</a>
+<a href="#salicylate-toxicity" class="os-link">Salicylate Toxicity</a>
+<a href="#digoxin-toxicity" class="os-link">Digoxin Toxicity</a>
+<a href="#lithium-toxicity" class="os-link">Lithium Toxicity</a>
+<a href="#overdose" class="os-link">Toxidromes</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🛡️ Allergy / Immunology</strong>
+<a href="#hae" class="os-link em">Hereditary Angioedema</a>
+<hr class="os-divider">
+<a href="#chronic-urticaria" class="os-link">Chronic Urticaria</a>
+<a href="#allergic-rhinitis" class="os-link">Allergic Rhinitis</a>
+<a href="#food-allergy" class="os-link">Food Allergy</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🧩 Psychiatry</strong>
+<a href="#mdd" class="os-link">Depression (MDD)</a>
+<a href="#anxiety" class="os-link">Anxiety / Panic / PTSD</a>
+<a href="#bipolar" class="os-link">Bipolar Disorder</a>
+</div>
+<div>
+<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🏥 Geriatrics / Preventive</strong>
+<a href="#geriatric-syndromes" class="os-link">Falls / Beers / Elder Abuse</a>
+<a href="#preventive-care" class="os-link">Cancer Screening</a>
+<a href="#ethics-capacity" class="os-link">Ethics / Capacity</a>
+</div>
+</div>
+
+
+<p style="margin-top: 20px; text-align: center;">
+                <a href="#toc" style="color: #0366d6; text-decoration: none; font-weight: 600;">↑ Back to Numerical Table of Contents</a>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="#system-toc" style="color: #0366d6; text-decoration: none; font-weight: 600;">↑ Back to System-Based ToC</a>
+            </p>
+        </div>
+</div>
+
+<div id="toc" class="toc">
             <h1 class="toc-title">📚 Internal Medicine Clinical Reference Guide (IMCRG)</h1>
             <p class="toc-subtitle">Comprehensive iPad-Optimized Clinical Decision Support</p>
             <p class="toc-subtitle">Version 3.7 • 338 Conditions • <strong id="component-version" style="color: #e74c3c;">BUILD #30</strong></p>
             <p class="toc-subtitle"><em>Tap any condition below to jump to its management protocol.</em></p>
-            <p class="toc-subtitle" style="margin-top: 10px;"><a href="#system-toc" style="color: #0366d6; font-weight: 600;">Or browse by Organ System →</a></p>
+            <p class="toc-subtitle" style="margin-top: 10px;"><a href="#system-toc" style="color: #0366d6; font-weight: 600;">↑ Organ System Browser (above)</a></p>
 
             <div class="toc-search-wrapper">
                 <input type="text" class="toc-search" id="tocSearch" placeholder="Search conditions (e.g., ACS, sepsis, DKA...)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                 <button class="toc-search-clear" id="tocSearchClear" type="button">✕</button>
             </div>
-            <div style="text-align:center;margin:-8px 0 12px;">
-                <a href="pathogen-index.html" style="font-size:11px;color:#4fc4a3;text-decoration:none;font-weight:600;">
-                    🦠 Search by organism instead → Pathogen Index
-                </a>
-            </div>
+            
             <div class="toc-search-results" id="tocSearchResults"></div>
 
             <div class="toc-grid" id="tocGrid">
@@ -2616,253 +2871,7 @@
             </div>
 
             <!-- SYSTEM-BASED TABLE OF CONTENTS -->
-            <div id="system-toc" style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e1e4e8;">
-                <h2 style="color:#24292e;font-size:14pt;margin-bottom:8px;">Browse by Organ System</h2>
-<div class="os-legend">
-  <span class="os-legend-em">Time-critical emergency</span>
-  <span>— all others by frequency</span>
-</div>
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:20px;">
-<div>
-<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">❤️ Cardiology</strong>
-<a href="#acs" class="os-link em">ACS / STEMI</a>
-<a href="#aortic-dissection" class="os-link em">Aortic Dissection</a>
-<a href="#cardiac-tamponade" class="os-link em">Cardiac Tamponade</a>
-<a href="#cardiogenic-shock" class="os-link em">Cardiogenic Shock</a>
-<a href="#vt-vf" class="os-link em">VT / VF</a>
-<a href="#ruptured-aaa" class="os-link em">Ruptured AAA</a>
-<hr class="os-divider">
-<a href="#heart-failure" class="os-link">Heart Failure</a>
-<a href="#afib" class="os-link">Atrial Fibrillation</a>
-<a href="#htn-emergency" class="os-link">HTN Emergency</a>
-<a href="#endocarditis" class="os-link">Endocarditis</a>
-<a href="#svt" class="os-link">SVT</a>
-<a href="#critical-as" class="os-link">Critical AS</a>
-<a href="#acute-mr" class="os-link">Acute MR</a>
-<a href="#pericarditis" class="os-link">Pericarditis</a>
-<a href="#syncope" class="os-link">Syncope</a>
-<a href="#costochondritis" class="os-link">Costochondritis</a>
-</div>
-<div>
-<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🫁 Pulmonology</strong>
-<a href="#acute-respiratory-failure" class="os-link em">Acute Respiratory Failure</a>
-<a href="#ards" class="os-link em">ARDS</a>
-<a href="#massive-hemoptysis" class="os-link em">Massive Hemoptysis</a>
-<a href="#ph-crisis" class="os-link em">PH Crisis</a>
-<a href="#pneumothorax" class="os-link em">Tension Pneumothorax</a>
-<hr class="os-divider">
-<a href="#pe" class="os-link">Pulmonary Embolism</a>
-<a href="#cap" class="os-link">CAP</a>
-<a href="#hap-vap" class="os-link">HAP / VAP</a>
-<a href="#copd" class="os-link">COPD Exacerbation</a>
-<a href="#asthma" class="os-link">Asthma Exacerbation</a>
-<a href="#hypercapnic-failure" class="os-link">Hypercapnic Failure</a>
-<a href="#pleural-effusion" class="os-link">Pleural Effusion</a>
-</div>
-<div>
-<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🫙 GI / Hepatology</strong>
-<a href="#mesenteric-ischemia" class="os-link em">Mesenteric Ischemia</a>
-<a href="#cirrhosis-complications" class="os-link em">Variceal Hemorrhage</a>
-<a href="#acute-liver-failure" class="os-link em">Acute Liver Failure</a>
-<a href="#toxic-megacolon" class="os-link em">Toxic Megacolon</a>
-<a href="#cholangitis" class="os-link em">Cholangitis</a>
-<hr class="os-divider">
-<a href="#ugib" class="os-link">Upper GI Bleed</a>
-<a href="#lower-gi-bleed" class="os-link">Lower GI Bleed</a>
-<a href="#pancreatitis" class="os-link">Acute Pancreatitis</a>
-<a href="#he" class="os-link">Hepatic Encephalopathy</a>
-<a href="#sbp" class="os-link">SBP</a>
-<a href="#cirrhosis-complications" class="os-link">Hepatorenal Syndrome</a>
-<a href="#bowel-obstruction" class="os-link">Bowel Obstruction</a>
-<a href="#appendicitis" class="os-link">Appendicitis</a>
-<a href="#ischemic-colitis" class="os-link">Ischemic Colitis</a>
-<a href="#cdiff" class="os-link">C. diff</a>
-<a href="#cirrhosis" class="os-link">Cirrhosis</a>
-<a href="#ibd" class="os-link">IBD Flare</a>
-<a href="#alcoholic-hepatitis" class="os-link">Alcoholic Hepatitis</a>
-<a href="#diverticulitis" class="os-link">Diverticulitis</a>
-<a href="#cholecystitis" class="os-link">Acute Cholecystitis</a>
-<a href="#choledocholithiasis" class="os-link">Choledocholithiasis</a>
-<a href="#gastroparesis" class="os-link">Gastroparesis</a>
-<a href="#pbc" class="os-link">Primary Biliary Cholangitis</a>
-<a href="#nafld" class="os-link">NAFLD / NASH</a>
-<a href="#gerd" class="os-link">GERD / Esophagitis</a>
-<a href="#barretts" class="os-link">Barrett's Esophagus</a>
-<a href="#esophageal-spasm" class="os-link">Esophageal Spasm</a>
-</div>
-<div>
-<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">💧 Nephrology</strong>
-<a href="#hyperkalemia" class="os-link em">Hyperkalemia (severe)</a>
-<a href="#uremia" class="os-link em">Uremic Emergency</a>
-<hr class="os-divider">
-<a href="#aki" class="os-link">AKI</a>
-<a href="#hyponatremia" class="os-link">Hyponatremia</a>
-<a href="#ckd-complications" class="os-link">CKD Complications</a>
-<a href="#glomerulonephritis" class="os-link">Glomerulonephritis</a>
-<a href="#nephrotic-syndrome" class="os-link">Nephrotic Syndrome</a>
-<a href="#rhabdo" class="os-link">Rhabdomyolysis</a>
-<a href="#uti" class="os-link">UTI / Pyelonephritis</a>
-</div>
-<div>
-<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🦋 Endocrine</strong>
-<a href="#adrenal" class="os-link em">Adrenal Crisis</a>
-<a href="#hyperthyroid" class="os-link em">Thyroid Storm</a>
-<a href="#hypothyroid" class="os-link em">Myxedema Coma</a>
-<a href="#pituitary-apoplexy" class="os-link em">Pituitary Apoplexy</a>
-<a href="#dka" class="os-link em">DKA</a>
-<hr class="os-divider">
-<a href="#hhs" class="os-link">HHS</a>
-<a href="#hypoglycemia" class="os-link">Hypoglycemia</a>
-<a href="#hypercalcemia" class="os-link">Hypercalcemia</a>
-<a href="#hypocalcemia" class="os-link">Hypocalcemia</a>
-<a href="#siadh" class="os-link">SIADH</a>
-<a href="#diabetes-insipidus" class="os-link">Diabetes Insipidus</a>
-<a href="#steroid-hyperglycemia" class="os-link">Steroid Hyperglycemia</a>
-<a href="#periop-glucose" class="os-link">Periop Glucose</a>
-<a href="#cushing" class="os-link">Cushing Syndrome</a>
-<a href="#primary-aldosteronism" class="os-link">Primary Aldosteronism</a>
-<a href="#sick-euthyroid" class="os-link">Sick Euthyroid</a>
-<a href="#prolactinoma" class="os-link">Prolactinoma</a>
-<a href="#acromegaly" class="os-link">Acromegaly</a>
-<a href="#pcos" class="os-link">PCOS</a>
-<a href="#men-syndromes" class="os-link">MEN Syndromes</a>
-</div>
-<div>
-<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🧠 Neurology</strong>
-<a href="#stroke" class="os-link em">Ischemic Stroke</a>
-<a href="#ich" class="os-link em">ICH</a>
-<a href="#sah" class="os-link em">SAH</a>
-<a href="#seizure" class="os-link em">Status Epilepticus</a>
-<a href="#increased-icp" class="os-link em">Increased ICP</a>
-<a href="#meningitis" class="os-link em">Bacterial Meningitis</a>
-<a href="#myasthenic-crisis" class="os-link em">Myasthenic Crisis</a>
-<hr class="os-divider">
-<a href="#encephalitis" class="os-link">Encephalitis</a>
-<a href="#gbs" class="os-link">Guillain-Barré</a>
-<a href="#wernicke" class="os-link">Wernicke Encephalopathy</a>
-<a href="#delirium" class="os-link">Delirium</a>
-</div>
-<div>
-<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🦠 Infectious Disease</strong>
-<a href="#sepsis" class="os-link em">Sepsis / Septic Shock</a>
-<a href="#ssti" class="os-link em">Necrotizing Fasciitis</a>
-<a href="#neutropenic-fever" class="os-link em">Neutropenic Fever</a>
-<a href="#epidural-abscess" class="os-link em">Epidural Abscess</a>
-<hr class="os-divider">
-<a href="#urosepsis" class="os-link">Urosepsis</a>
-<a href="#cellulitis" class="os-link">Cellulitis</a>
-<a href="#osteomyelitis" class="os-link">Osteomyelitis</a>
-<a href="#septic-arthritis" class="os-link">Septic Arthritis</a>
-<a href="#clabsi" class="os-link">CLABSI</a>
-<a href="#brain-abscess" class="os-link">Brain Abscess</a>
-<a href="#empyema" class="os-link">Empyema</a>
-<a href="#diabetic-foot-infection" class="os-link">Diabetic Foot Infection</a>
-<a href="#prosthetic-joint-infection" class="os-link">Prosthetic Joint Infection</a>
-<a href="#cied-infection" class="os-link">CIED Infection</a>
-<a href="#covid" class="os-link">COVID-19</a>
-<a href="#influenza" class="os-link">Influenza</a>
-<a href="#tb" class="os-link">TB</a>
-<a href="#hiv-aids" class="os-link">HIV/AIDS</a>
-<a href="#tick-borne" class="os-link">Tick-borne Illness</a>
-<a href="#pid" class="os-link">PID</a>
-<a href="#lung-abscess" class="os-link">Lung Abscess</a>
-<a href="#herpes-zoster" class="os-link">Herpes Zoster</a>
-<a href="#mononucleosis" class="os-link">Mononucleosis</a>
-<a href="#prostatitis" class="os-link">Prostatitis</a>
-</div>
-<div>
-<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🩸 Heme / Onc</strong>
-<a href="#ttp-hus" class="os-link em">TTP / HUS</a>
-<a href="#dic" class="os-link em">DIC</a>
-<a href="#tls" class="os-link em">Tumor Lysis Syndrome</a>
-<a href="#hit" class="os-link em">HIT</a>
-<hr class="os-divider">
-<a href="#sickle-cell" class="os-link">Sickle Cell Crisis</a>
-<a href="#anticoag-reversal" class="os-link">Anticoag Reversal</a>
-<a href="#thrombocytopenia" class="os-link">Thrombocytopenia</a>
-<a href="#anemia" class="os-link">Anemia</a>
-<a href="#dvt" class="os-link">DVT</a>
-<a href="#transfusion-reactions" class="os-link">Transfusion Reactions</a>
-<a href="#transfusion" class="os-link">Transfusion Medicine</a>
-</div>
-<div>
-<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🦴 Rheumatology</strong>
-<a href="#vasculitis-emergency" class="os-link em">Vasculitis Emergency</a>
-<a href="#sle" class="os-link em">SLE Flare (severe)</a>
-<a href="#adult-still" class="os-link em">Adult Still's Disease</a>
-<hr class="os-divider">
-<a href="#gout" class="os-link">Gout / Pseudogout</a>
-<a href="#rheumatoid-arthritis" class="os-link">Rheumatoid Arthritis</a>
-<a href="#gca" class="os-link">Giant Cell Arteritis</a>
-<a href="#pmr" class="os-link">Polymyalgia Rheumatica</a>
-<a href="#aps" class="os-link">Antiphospholipid Syndrome</a>
-<a href="#lupus-nephritis" class="os-link">Lupus Nephritis</a>
-<a href="#systemic-sclerosis" class="os-link">Systemic Sclerosis</a>
-<a href="#inflammatory-myopathy" class="os-link">Inflammatory Myopathies</a>
-<a href="#spondyloarthropathy" class="os-link">Spondyloarthropathies</a>
-<a href="#sarcoidosis" class="os-link">Sarcoidosis</a>
-<a href="#amyloidosis" class="os-link">Amyloidosis</a>
-<a href="#igg4" class="os-link">IgG4-Related Disease</a>
-<a href="#sjogren" class="os-link">Sjögren's</a>
-<a href="#osteoarthritis" class="os-link">Osteoarthritis</a>
-<a href="#fibromyalgia" class="os-link">Fibromyalgia</a>
-<a href="#drug-induced-lupus" class="os-link">Drug-Induced Lupus</a>
-<a href="#behcet" class="os-link">Behçet's Disease</a>
-</div>
-<div>
-<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🩻 Bone / Orthopedic</strong>
-<a href="#cauda-equina" class="os-link em">Cauda Equina Syndrome</a>
-<a href="#spinal-cord-compression" class="os-link em">Spinal Cord Compression</a>
-<hr class="os-divider">
-<a href="#osteoporosis" class="os-link">Osteoporosis</a>
-<a href="#osteonecrosis" class="os-link">Osteonecrosis (AVN)</a>
-<a href="#paget" class="os-link">Paget's Disease</a>
-</div>
-<div>
-<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">⚗️ Toxicology</strong>
-<a href="#anaphylaxis" class="os-link em">Anaphylaxis</a>
-<a href="#serotonin-syndrome" class="os-link em">Serotonin Syndrome</a>
-<a href="#nms" class="os-link em">NMS</a>
-<a href="#bb-ccb-toxicity" class="os-link em">BB / CCB Toxicity</a>
-<a href="#toxic-alcohol" class="os-link em">Toxic Alcohols</a>
-<a href="#etoh-withdrawal" class="os-link em">Alcohol Withdrawal (severe)</a>
-<hr class="os-divider">
-<a href="#opioid" class="os-link">Opioid Overdose</a>
-<a href="#apap-overdose" class="os-link">Acetaminophen OD</a>
-<a href="#salicylate-toxicity" class="os-link">Salicylate Toxicity</a>
-<a href="#digoxin-toxicity" class="os-link">Digoxin Toxicity</a>
-<a href="#lithium-toxicity" class="os-link">Lithium Toxicity</a>
-<a href="#overdose" class="os-link">Toxidromes</a>
-</div>
-<div>
-<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🛡️ Allergy / Immunology</strong>
-<a href="#hae" class="os-link em">Hereditary Angioedema</a>
-<hr class="os-divider">
-<a href="#chronic-urticaria" class="os-link">Chronic Urticaria</a>
-<a href="#allergic-rhinitis" class="os-link">Allergic Rhinitis</a>
-<a href="#food-allergy" class="os-link">Food Allergy</a>
-</div>
-<div>
-<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🧩 Psychiatry</strong>
-<a href="#mdd" class="os-link">Depression (MDD)</a>
-<a href="#anxiety" class="os-link">Anxiety / Panic / PTSD</a>
-<a href="#bipolar" class="os-link">Bipolar Disorder</a>
-</div>
-<div>
-<strong style="color:#24292e;display:block;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #e1e4e8;">🏥 Geriatrics / Preventive</strong>
-<a href="#geriatric-syndromes" class="os-link">Falls / Beers / Elder Abuse</a>
-<a href="#preventive-care" class="os-link">Cancer Screening</a>
-<a href="#ethics-capacity" class="os-link">Ethics / Capacity</a>
-</div>
-</div>
-
-
-<p style="margin-top: 20px; text-align: center;">
-                <a href="#toc" style="color: #0366d6; text-decoration: none; font-weight: 600;">↑ Back to Numerical Table of Contents</a>
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                <a href="#system-toc" style="color: #0366d6; text-decoration: none; font-weight: 600;">↑ Back to System-Based ToC</a>
-            </p>
-        </div>
+            
 
 <div id="acs" class="condition-page">
             <div class="page-header">
