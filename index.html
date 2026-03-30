@@ -251,6 +251,76 @@
             #homeContent { padding: 16px; }
             .organ-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
         }
+
+        @media (max-width: 768px) {
+            .quick-launch { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* ── Global Search ─────────────────────────────────────── */
+        .home-search-wrap { position: relative; margin-bottom: 18px; }
+        #homeSearch {
+            width: 100%; padding: 12px 46px 12px 18px;
+            border: 2px solid #e2e8f0; border-radius: 10px;
+            font-size: 1rem; background: #fff; color: #1a365d;
+            outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+            -webkit-user-select: text; user-select: text;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        #homeSearch:focus { border-color: #3498db; box-shadow: 0 0 0 3px rgba(52,152,219,0.14); }
+        #homeSearch::placeholder { color: #a0aec0; }
+        .search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 1rem; pointer-events: none; color: #a0aec0; }
+        .search-results {
+            position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+            background: #fff; border: 1px solid #e2e8f0; border-radius: 10px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.13); z-index: 200;
+            max-height: 340px; overflow-y: auto;
+        }
+        .search-results.hidden { display: none; }
+        .search-result-item {
+            padding: 9px 16px; cursor: pointer; border-bottom: 1px solid #f0f4f8;
+            display: flex; align-items: center; gap: 10px; transition: background 0.12s;
+        }
+        .search-result-item:last-child { border-bottom: none; }
+        .search-result-item:hover { background: #f0f7ff; }
+        .sr-label { font-size: 0.88rem; color: #1a365d; font-weight: 500; flex: 1; }
+        .sr-cat { font-size: 0.7rem; color: #fff; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #718096; white-space: nowrap; flex-shrink: 0; }
+        .search-no-results { padding: 14px 16px; color: #718096; font-size: 0.88rem; text-align: center; }
+
+        /* ── Quick Launch ──────────────────────────────────────── */
+        .quick-launch { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 22px; }
+        .ql-btn {
+            background: #fff; border: none; border-radius: 10px;
+            padding: 13px 6px 11px; cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+            display: flex; flex-direction: column; align-items: center; gap: 7px;
+            transition: box-shadow 0.15s, transform 0.1s;
+            touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+            border-top: 3px solid transparent;
+        }
+        .ql-btn:hover { box-shadow: 0 5px 14px rgba(0,0,0,0.13); transform: translateY(-2px); }
+        .ql-btn:active { transform: translateY(0); }
+        .ql-badge { display: inline-flex; align-items: center; justify-content: center; color: #fff; font-family: -apple-system, monospace; font-size: 9px; font-weight: 800; letter-spacing: 0.04em; border-radius: 4px; padding: 3px 7px; min-width: 38px; line-height: 1.2; }
+        .ql-label { font-size: 0.68rem; color: #4a5568; font-weight: 600; text-align: center; line-height: 1.3; }
+
+        /* ── Accordion sections ────────────────────────────────── */
+        .accordion-section { margin-bottom: 12px; }
+        .accordion-toggle {
+            width: 100%; background: #fff; border: 1.5px solid #e2e8f0; border-radius: 10px;
+            padding: 13px 18px; display: flex; align-items: center; gap: 10px;
+            cursor: pointer; font-size: 0.97rem; color: #1a365d; font-weight: 600;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05); transition: background 0.15s, border-color 0.15s;
+            touch-action: manipulation; -webkit-tap-highlight-color: transparent; text-align: left;
+        }
+        .accordion-toggle:hover { background: #f7fafc; border-color: #cbd5e0; }
+        .accordion-toggle.open { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom-color: #f0f4f8; background: #f7fafc; }
+        .acc-label { flex: 1; }
+        .acc-count { font-size: 0.7rem; background: #edf2f7; color: #4a5568; padding: 2px 8px; border-radius: 8px; font-weight: 600; flex-shrink: 0; }
+        .acc-chevron { font-size: 0.7rem; color: #a0aec0; transition: transform 0.25s; flex-shrink: 0; }
+        .accordion-toggle.open .acc-chevron { transform: rotate(180deg); }
+        .accordion-body { border: 1.5px solid #e2e8f0; border-top: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding: 16px; background: #f9fafc; }
+        .accordion-body.hidden { display: none; }
+        .accordion-body .tool-grid { margin-bottom: 0; }
+        .home-footer { margin-top: 24px; padding: 12px 0 8px; border-top: 1px solid #e2e8f0; color: #a0aec0; font-size: 0.75rem; text-align: center; }
     </style>
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -292,180 +362,47 @@
 
     <div id="homeContent">
       <div class="home-inner">
-        <h1 class="home-title">📚 Clinical Reference Suite <span id="home-version" style="font-size:0.45em;color:#e74c3c;font-weight:600;"></span></h1>
+        <h1 class="home-title">&#128218; Clinical Reference Suite <span id="home-version" style="font-size:0.45em;color:#e74c3c;font-weight:600;"></span></h1>
         <p class="home-subtitle">Evidence-based point-of-care references for internal medicine</p>
 
-        <!-- ── REFERENCE GUIDES ── -->
-        <h2 class="section-heading">📖 Reference Guides <span class="badge">5 tools</span></h2>
-        <div class="tool-grid">
-            <div class="tool-card" onclick="switchTool('imcrg')" style="border-top-color:#2d5a87;">
-                <div class="card-header" style="background:linear-gradient(135deg,#1e3a5f,#2d5a87);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">IM</span>IM Clinical Reference Guide</div>
-                <div class="card-body">
-                    <p>338 conditions — evidence-based workups, treatment protocols, and clinical pearls for hospital medicine.</p>
-                    <div class="card-tags"><span class="card-tag">338 Conditions</span><span class="card-tag">Searchable</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('id')" style="border-top-color:#0066cc;">
-                <div class="card-header" style="background:linear-gradient(135deg,#004080,#0066cc);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">ID</span>Infectious Disease Guide</div>
-                <div class="card-body">
-                    <p>Pathogen-specific guidance, empiric therapy by syndrome, antibiotic spectra, and resistance patterns.</p>
-                    <div class="card-tags"><span class="card-tag">Empiric Therapy</span><span class="card-tag">Pathogen Guide</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('abxcomp')" style="border-top-color:#4fc4a3;">
-                <div class="card-header" style="background:linear-gradient(135deg,#0d2b24,#1a4a3a);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">ABX</span>ABX Companion</div>
-                <div class="card-body">
-                    <p>Empiric antibiotic regimens — syndrome-based selection, dosing, stewardship pearls, and resistance considerations.</p>
-                    <div class="card-tags"><span class="card-tag">Empiric Regimens</span><span class="card-tag">Cunha Framework</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('bodyatlas')" style="border-top-color:#4fa3e0;">
-                <div class="card-header" style="background:linear-gradient(135deg,#0d1f35,#1a3a5f);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">ATLAS</span>ID Body Atlas</div>
-                <div class="card-body">
-                    <p>Tap any body region — pathogens, antibiotic tissue penetration, and empiric regimens by anatomic site.</p>
-                    <div class="card-tags"><span class="card-tag">18 Regions</span><span class="card-tag">3 Layers</span><span class="card-tag">Symptom Filter</span></div>
-                </div>
-            </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('audio')" style="border-top-color:#4fa3e0;">
-                <div class="card-header" style="background:linear-gradient(135deg,#0a1520,#1a2a3a);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">AUDIO</span>ID Audio Companion</div>
-                <div class="card-body">
-                    <p>Commute-friendly study — lecture and flashcard modes for all 18 body regions. Offline capable. AI deep-dive on WiFi.</p>
-                    <div class="card-tags"><span class="card-tag">Lecture Mode</span><span class="card-tag">Flashcards</span><span class="card-tag">Offline</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('pathogens')" style="border-top-color:#7fbf7f;">
-                <div class="card-header" style="background:linear-gradient(135deg,#0d1a0d,#1a3a1a);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">PATH</span>Pathogen Index</div>
-                <div class="card-body">
-                    <p>Search by organism — every condition where it appears, with direct links and treatment notes.</p>
-                    <div class="card-tags"><span class="card-tag">32 Pathogens</span><span class="card-tag">Organism-First Search</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('labs')" style="border-top-color:#1976d2;">
-                <div class="card-header" style="background:linear-gradient(135deg,#0d47a1,#1976d2);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">LAB</span>Laboratory Values Reference</div>
-                <div class="card-body">
-                    <p>Normal ranges, critical values, and interpretation for CBC, BMP, LFTs, coagulation, urinalysis, CSF, and more.</p>
-                    <div class="card-tags"><span class="card-tag">134 Tests</span><span class="card-tag">Critical Values</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('dxfx')" style="border-top-color:#00897b;">
-                <div class="card-header" style="background:linear-gradient(135deg,#00695c,#00897b);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">DX</span>Diagnostic Framework</div>
-                <div class="card-body">
-                    <p>Presentation-based diagnostic approaches: chest pain, dyspnea, altered mental status, acid-base, and more.</p>
-                    <div class="card-tags"><span class="card-tag">Presentation-Based</span><span class="card-tag">DDx Trees</span></div>
-                </div>
-            </div>
+        <!-- ── SEARCH ── -->
+        <div class="home-search-wrap">
+            <input type="text" id="homeSearch" placeholder="Search conditions, tools, labs&#8230; (e.g. hyperkalemia, AFib, paracentesis)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+            <span class="search-icon">&#128269;</span>
+            <div id="searchResults" class="search-results hidden"></div>
         </div>
 
-        <!-- ── PRACTICAL TOOLS ── -->
-        <h2 class="section-heading">🛠️ Practical Tools <span class="badge">5 tools</span></h2>
-        <div class="tool-grid">
-            <div class="tool-card" onclick="switchTool('drugref')" style="border-top-color:#9b59b6;">
-                <div class="card-header" style="background:linear-gradient(135deg,#8e44ad,#9b59b6);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">Rx</span>Drug Reference Guide</div>
-                <div class="card-body">
-                    <p>Dosing, mechanisms, adverse effects, black box warnings, clinical pearls, and drug–drug interactions for 280 medications.</p>
-                    <div class="card-tags"><span class="card-tag">274 Medications</span><span class="card-tag">Dosing</span><span class="card-tag">Black Box Warnings</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('drugs')" style="border-top-color:#7c6a9a;">
-                <div class="card-header" style="background:linear-gradient(135deg,#5c4d7d,#7c6a9a);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">DDI</span>Drug Interactions</div>
-                <div class="card-body">
-                    <p>High-yield interactions for warfarin, DOACs, immunosuppressants, CYP450 substrates, QT-prolonging drugs, and serotonin syndrome.</p>
-                    <div class="card-tags"><span class="card-tag">CYP450</span><span class="card-tag">QT Risk</span><span class="card-tag">Warfarin</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('abxsteward')" style="border-top-color:#047857;">
-                <div class="card-header" style="background:linear-gradient(135deg,#059669,#047857);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">STW</span>Antimicrobial Stewardship</div>
-                <div class="card-body">
-                    <p>Empiric therapy by syndrome, evidence-based treatment durations, de-escalation pathways, and IV-to-PO conversion criteria.</p>
-                    <div class="card-tags"><span class="card-tag">Duration Guidance</span><span class="card-tag">De-escalation</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('renaldose')" style="border-top-color:#1d4ed8;">
-                <div class="card-header" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">REN</span>Renal Dosing Reference</div>
-                <div class="card-body">
-                    <p>Drug adjustments by CrCl for antibiotics, antivirals, and cardiac medications. HD supplementation and drugs to avoid in CKD.</p>
-                    <div class="card-tags"><span class="card-tag">CrCl-Based</span><span class="card-tag">HD Dosing</span><span class="card-tag">Avoid in CKD</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('procedures')" style="border-top-color:#3d7a6a;">
-                <div class="card-header" style="background:linear-gradient(135deg,#2d5a4a,#3d7a6a);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">PROC</span>Procedures Guide</div>
-                <div class="card-body">
-                    <p>Bedside procedure guidance for paracentesis, thoracentesis, lumbar puncture, and arthrocentesis with fluid interpretation tables.</p>
-                    <div class="card-tags"><span class="card-tag">Paracentesis</span><span class="card-tag">LP</span><span class="card-tag">Thoracentesis</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── CONSULT NOTE TEMPLATES ── -->
-        <h2 class="section-heading">📝 Specialty Consult Note Templates <span class="badge">6 templates</span></h2>
-        <div class="tool-grid">
-            <div class="tool-card" onclick="switchTool('nephroconsult')" style="border-top-color:#1a5f7a;">
-                <div class="card-header" style="background:linear-gradient(135deg,#1a5f7a,#2d8cb8);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">NEPH</span>Nephrology Consult</div>
-                <div class="card-body">
-                    <p>KDIGO AKI/CKD staging, FENa/FEUrea, AEIOU dialysis criteria. <strong>AI auto-fills impression, differential, workup, medications, and monitoring</strong> from diagnosis. Generates EHR-ready note.</p>
-                    <div class="card-tags"><span class="card-tag">KDIGO</span><span class="card-tag">Dialysis Criteria</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('cardioconsult')" style="border-top-color:#e74c3c;">
-                <div class="card-header" style="background:linear-gradient(135deg,#c0392b,#e74c3c);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">CARD</span>Cardiology Consult</div>
-                <div class="card-body">
-                    <p>HFpEF algorithms (H₂FPEF, HFA-PEFF), echo interpretation, NYHA/ACC-AHA staging, GDMT. <strong>AI auto-fills impression, problem list, and full recommendations</strong> from diagnosis. Generates EHR-ready note.</p>
-                    <div class="card-tags"><span class="card-tag">HFpEF Scores</span><span class="card-tag">GDMT</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('rheumconsult')" style="border-top-color:#7c3aed;">
-                <div class="card-header" style="background:linear-gradient(135deg,#5b21b6,#7c3aed);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">RHEUM</span>Rheumatology Consult</div>
-                <div class="card-body">
-                    <p>Joint pattern recognition, autoantibody interpretation, synovial fluid analysis, ACR/EULAR criteria. <strong>AI auto-fills impression, DMARD plan, monitoring, and workup</strong> from diagnosis. Generates EHR-ready note.</p>
-                    <div class="card-tags"><span class="card-tag">Autoantibodies</span><span class="card-tag">ACR/EULAR</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('idconsult')" style="border-top-color:#059669;">
-                <div class="card-header" style="background:linear-gradient(135deg,#047857,#059669);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">IDc</span>ID Consult</div>
-                <div class="card-body">
-                    <p>Culture review, MDR risk assessment, source control, treatment duration. <strong>AI auto-fills antibiotic regimen with doses/duration, workup, monitoring, and OPAT plan</strong> from diagnosis. Generates EHR-ready note.</p>
-                    <div class="card-tags"><span class="card-tag">MDR Risk</span><span class="card-tag">Source Control</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('endoconsult')" style="border-top-color:#0d6b5e;">
-                <div class="card-header" style="background:linear-gradient(135deg,#074a41,#0d6b5e);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">ENDO</span>Endocrinology Consult</div>
-                <div class="card-body">
-                    <p>Glycemic management, thyroid, adrenal, calcium/bone, pituitary. <strong>AI auto-fills glucose protocol with doses, hormone management, workup, and monitoring</strong> from diagnosis. Generates EHR-ready note.</p>
-                    <div class="card-tags"><span class="card-tag">DKA/HHS</span><span class="card-tag">Thyroid Storm</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('neuroconsult')" style="border-top-color:#2d1b69;">
-                <div class="card-header" style="background:linear-gradient(135deg,#1a0f40,#2d1b69);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">NEURO</span>Neurology Consult</div>
-                <div class="card-body">
-                    <p>NIHSS, tPA/thrombectomy criteria, TOAST, seizure, GBS, myasthenic crisis, CSF patterns. <strong>AI auto-fills acute interventions, antithrombotic plan, AED dosing, and secondary prevention</strong> from diagnosis. Generates EHR-ready note.</p>
-                    <div class="card-tags"><span class="card-tag">NIHSS</span><span class="card-tag">tPA Criteria</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ── CLINICAL NOTE TEMPLATES ── -->
-        <h2 class="section-heading">📋 Clinical Note Templates <span class="badge">2 templates</span></h2>
-        <div class="tool-grid">
-            <div class="tool-card" onclick="switchTool('inpatientnote')" style="border-top-color:#c9a227;">
-                <div class="card-header" style="background:linear-gradient(135deg,#0e1d2e,#1a2940);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">IP</span>Inpatient Note</div>
-                <div class="card-body">
-                    <p>H&amp;P, Progress Note, or Discharge Summary. Cross-specialty emergency screening, problem-based A&amp;P. <strong>AI auto-fills evidence, differential, and management plan</strong> per problem from diagnosis. Medication reconciliation, quality checklists, discharge planning.</p>
-                    <div class="card-tags"><span class="card-tag">H&P / Progress / Discharge</span><span class="card-tag">32 Emergency Conditions</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
-                </div>
-            </div>
-            <div class="tool-card" onclick="switchTool('opnote')" style="border-top-color:#ef8c22;">
-                <div class="card-header" style="background:linear-gradient(135deg,#3e2723,#5c4033);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">OP</span>Outpatient IM Note</div>
-                <div class="card-body">
-                    <p>New patient, follow-up, acute, annual wellness, or chronic management visit. <strong>AI auto-fills supporting data and management plan</strong> per problem. OLDCARTS HPI, 14-system ROS, preventive care tracker, E&amp;M coding.</p>
-                    <div class="card-tags"><span class="card-tag">5 Visit Types</span><span class="card-tag">Preventive Care</span><span class="card-tag">🤖 AI Suggest</span><span class="card-tag">Note Generator</span></div>
-                </div>
-            </div>
+        <!-- ── QUICK LAUNCH ── -->
+        <div class="quick-launch">
+            <button class="ql-btn" onclick="switchTool('imcrg')" style="border-top-color:#2d5a87;">
+                <span class="ql-badge" style="background:#2d5a87;">IM</span>
+                <span class="ql-label">IM Reference</span>
+            </button>
+            <button class="ql-btn" onclick="switchTool('id')" style="border-top-color:#0d47a1;">
+                <span class="ql-badge" style="background:#0d47a1;">ID</span>
+                <span class="ql-label">ID Guide</span>
+            </button>
+            <button class="ql-btn" onclick="switchTool('abxcomp')" style="border-top-color:#1a4a3a;">
+                <span class="ql-badge" style="background:#1a4a3a;">ABX</span>
+                <span class="ql-label">ABX Companion</span>
+            </button>
+            <button class="ql-btn" onclick="switchTool('labs')" style="border-top-color:#1565c0;">
+                <span class="ql-badge" style="background:#1565c0;">LAB</span>
+                <span class="ql-label">Lab Values</span>
+            </button>
+            <button class="ql-btn" onclick="switchTool('drugref')" style="border-top-color:#6a1b9a;">
+                <span class="ql-badge" style="background:#6a1b9a;">Rx</span>
+                <span class="ql-label">Drug Reference</span>
+            </button>
+            <button class="ql-btn" onclick="switchTool('procedures')" style="border-top-color:#1b4332;">
+                <span class="ql-badge" style="background:#1b4332;">PROC</span>
+                <span class="ql-label">Procedures</span>
+            </button>
         </div>
 
         <!-- ── BROWSE BY ORGAN SYSTEM ── -->
         <div class="organ-browser">
-            <h3>🔍 Browse by Organ System / Topic</h3>
+            <h3>&#128269; Browse by Organ System / Topic</h3>
             <p style="font-size:0.8rem;color:#718096;margin:-10px 0 16px 0;">
                 <span style="color:#0366d6;font-weight:600;">Blue</span> = IM Reference &nbsp;|&nbsp;
                 <span style="color:#047857;font-weight:600;">Green</span> = Consult Note &nbsp;|&nbsp;
@@ -473,7 +410,7 @@
             </p>
             <div class="organ-grid">
                 <div class="organ-col">
-                    <h4>❤️ Cardiology</h4>
+                    <h4>&#10084;&#65039; Cardiology</h4>
                     <span class="organ-link" onclick="switchTool('imcrg','acs')">ACS / STEMI / NSTEMI</span>
                     <span class="organ-link" onclick="switchTool('imcrg','heart-failure')">Heart Failure</span>
                     <span class="organ-link" onclick="switchTool('imcrg','afib')">Atrial Fibrillation</span>
@@ -481,114 +418,170 @@
                     <span class="organ-link" onclick="switchTool('imcrg','syncope')">Syncope</span>
                     <span class="organ-link" onclick="switchTool('imcrg','aortic-dissection')">Aortic Dissection</span>
                     <span class="organ-link" onclick="switchTool('imcrg','cardiogenic-shock')">Cardiogenic Shock</span>
-                    <span class="organ-link consult" onclick="switchTool('cardioconsult')">→ Cardiology Consult Note</span>
+                    <span class="organ-link consult" onclick="switchTool('cardioconsult')">&#8594; Cardiology Consult Note</span>
                 </div>
                 <div class="organ-col">
-                    <h4>🫁 Pulmonology</h4>
+                    <h4>&#129393; Pulmonology</h4>
                     <span class="organ-link" onclick="switchTool('imcrg','cap')">CAP / HAP / VAP</span>
                     <span class="organ-link" onclick="switchTool('imcrg','copd')">COPD Exacerbation</span>
                     <span class="organ-link" onclick="switchTool('imcrg','asthma')">Asthma Exacerbation</span>
                     <span class="organ-link" onclick="switchTool('imcrg','pe')">Pulmonary Embolism</span>
                     <span class="organ-link" onclick="switchTool('imcrg','ards')">ARDS</span>
                     <span class="organ-link" onclick="switchTool('imcrg','pleural-effusion')">Pleural Effusion</span>
-                    <span class="organ-link" onclick="switchTool('procedures','thoracentesis')">→ Thoracentesis</span>
+                    <span class="organ-link" onclick="switchTool('procedures','thoracentesis')">&#8594; Thoracentesis</span>
                 </div>
                 <div class="organ-col">
-                    <h4>🫘 Nephrology</h4>
+                    <h4>&#129386; Nephrology</h4>
                     <span class="organ-link" onclick="switchTool('imcrg','aki')">AKI</span>
                     <span class="organ-link" onclick="switchTool('imcrg','hyperkalemia')">Hyperkalemia</span>
                     <span class="organ-link" onclick="switchTool('imcrg','hyponatremia')">Hyponatremia / Hypernatremia</span>
                     <span class="organ-link" onclick="switchTool('imcrg','rhabdo')">Rhabdomyolysis</span>
                     <span class="organ-link" onclick="switchTool('imcrg','ckd-complications')">CKD Complications</span>
-                    <span class="organ-link" onclick="switchTool('renaldose')">→ Renal Drug Dosing</span>
-                    <span class="organ-link consult" onclick="switchTool('nephroconsult')">→ Nephrology Consult Note</span>
+                    <span class="organ-link" onclick="switchTool('renaldose')">&#8594; Renal Drug Dosing</span>
+                    <span class="organ-link consult" onclick="switchTool('nephroconsult')">&#8594; Nephrology Consult Note</span>
                 </div>
                 <div class="organ-col">
-                    <h4>🟤 GI / Hepatology</h4>
+                    <h4>&#129504; GI / Hepatology</h4>
                     <span class="organ-link" onclick="switchTool('imcrg','ugib')">Upper GI Bleed</span>
                     <span class="organ-link" onclick="switchTool('imcrg','lower-gi-bleed')">Lower GI Bleed</span>
                     <span class="organ-link" onclick="switchTool('imcrg','cirrhosis')">Cirrhosis / Ascites</span>
                     <span class="organ-link" onclick="switchTool('imcrg','pancreatitis')">Pancreatitis</span>
                     <span class="organ-link" onclick="switchTool('imcrg','sbp')">SBP</span>
                     <span class="organ-link" onclick="switchTool('imcrg','cholangitis')">Cholangitis</span>
-                    <span class="organ-link" onclick="switchTool('procedures','paracentesis')">→ Paracentesis</span>
+                    <span class="organ-link" onclick="switchTool('procedures','paracentesis')">&#8594; Paracentesis</span>
                 </div>
                 <div class="organ-col">
-                    <h4>🦋 Endocrine</h4>
+                    <h4>&#129419; Endocrine</h4>
                     <span class="organ-link" onclick="switchTool('imcrg','dka')">DKA</span>
                     <span class="organ-link" onclick="switchTool('imcrg','hhs')">HHS</span>
                     <span class="organ-link" onclick="switchTool('imcrg','hyperthyroid')">Thyroid Storm</span>
                     <span class="organ-link" onclick="switchTool('imcrg','hypothyroid')">Myxedema Coma</span>
                     <span class="organ-link" onclick="switchTool('imcrg','adrenal')">Adrenal Crisis</span>
                     <span class="organ-link" onclick="switchTool('imcrg','hypercalcemia')">Hypercalcemia</span>
-                    <span class="organ-link consult" onclick="switchTool('endoconsult')">→ Endocrinology Consult Note</span>
+                    <span class="organ-link consult" onclick="switchTool('endoconsult')">&#8594; Endocrinology Consult Note</span>
                 </div>
                 <div class="organ-col">
-                    <h4>🧠 Neurology</h4>
+                    <h4>&#129504; Neurology</h4>
                     <span class="organ-link" onclick="switchTool('imcrg','stroke')">Ischemic Stroke</span>
                     <span class="organ-link" onclick="switchTool('imcrg','ich')">ICH / SAH</span>
                     <span class="organ-link" onclick="switchTool('imcrg','seizure')">Seizure / Status Epilepticus</span>
                     <span class="organ-link" onclick="switchTool('imcrg','meningitis')">Meningitis / Encephalitis</span>
                     <span class="organ-link" onclick="switchTool('imcrg','delirium')">Delirium</span>
                     <span class="organ-link" onclick="switchTool('imcrg','etoh-withdrawal')">Alcohol Withdrawal</span>
-                    <span class="organ-link consult" onclick="switchTool('neuroconsult')">→ Neurology Consult Note</span>
+                    <span class="organ-link consult" onclick="switchTool('neuroconsult')">&#8594; Neurology Consult Note</span>
                 </div>
                 <div class="organ-col">
-                    <h4>🦠 Infectious Disease</h4>
+                    <h4>&#129440; Infectious Disease</h4>
                     <span class="organ-link" onclick="switchTool('imcrg','sepsis')">Sepsis / Septic Shock</span>
-                    <span class="organ-link" onclick="switchTool('imcrg','cellulitis')">Cellulitis / SSTI</span>
+                    <span class="organ-link" onclick="switchTool('id','high-yield-syndromes')">S. aureus Bacteremia (SAB)</span>
+                    <span class="organ-link" onclick="switchTool('id','high-yield-syndromes')">Endocarditis</span>
+                    <span class="organ-link" onclick="switchTool('id','high-yield-syndromes')">Intra-abdominal Infections</span>
+                    <span class="organ-link" onclick="switchTool('id','high-yield-syndromes')">Fever of Unknown Origin (FUO)</span>
+                    <span class="organ-link" onclick="switchTool('id','high-yield-syndromes')">Complex SSTI / Wound Infections</span>
+                    <span class="organ-link" onclick="switchTool('id','msk-hematogenous-osteo')">Osteomyelitis</span>
+                    <span class="organ-link" onclick="switchTool('id','msk-septic-arthritis')">Septic Arthritis</span>
+                    <span class="organ-link" onclick="switchTool('id','id-pneumonia')">CAP / HAP / VAP</span>
+                    <span class="organ-link" onclick="switchTool('id','id-uti')">UTI / Urosepsis</span>
                     <span class="organ-link" onclick="switchTool('imcrg','neutropenic-fever')">Neutropenic Fever</span>
                     <span class="organ-link" onclick="switchTool('id')">Empiric Antibiotic Selection</span>
                     <span class="organ-link" onclick="switchTool('abxsteward')">Stewardship / Duration</span>
-                    <span class="organ-link" onclick="switchTool('renaldose')">Renal Antibiotic Dosing</span>
-                    <span class="organ-link consult" onclick="switchTool('idconsult')">→ ID Consult Note</span>
+                    <span class="organ-link consult" onclick="switchTool('idconsult')">&#8594; ID Consult Note</span>
                 </div>
                 <div class="organ-col">
-                    <h4>🦴 Rheumatology</h4>
+                    <h4>&#129460; Rheumatology</h4>
                     <span class="organ-link" onclick="switchTool('imcrg','gout')">Gout / Pseudogout</span>
                     <span class="organ-link" onclick="switchTool('imcrg','septic-joint')">Septic Arthritis</span>
                     <span class="organ-link" onclick="switchTool('imcrg','vasculitis')">Vasculitis</span>
                     <span class="organ-link" onclick="switchTool('imcrg','sle')">SLE Flare</span>
-                    <span class="organ-link" onclick="switchTool('procedures','arthrocentesis')">→ Arthrocentesis</span>
-                    <span class="organ-link consult" onclick="switchTool('rheumconsult')">→ Rheumatology Consult Note</span>
+                    <span class="organ-link" onclick="switchTool('procedures','arthrocentesis')">&#8594; Arthrocentesis</span>
+                    <span class="organ-link consult" onclick="switchTool('rheumconsult')">&#8594; Rheumatology Consult Note</span>
                 </div>
                 <div class="organ-col">
-                    <h4>🩸 Heme / Onc</h4>
+                    <h4>&#129688; Heme / Onc</h4>
                     <span class="organ-link" onclick="switchTool('imcrg','dvt')">DVT / VTE</span>
                     <span class="organ-link" onclick="switchTool('imcrg','anemia')">Anemia Workup</span>
                     <span class="organ-link" onclick="switchTool('imcrg','dic')">DIC</span>
                     <span class="organ-link" onclick="switchTool('imcrg','tls')">Tumor Lysis Syndrome</span>
                     <span class="organ-link" onclick="switchTool('imcrg','transfusion')">Transfusion Reactions</span>
                     <span class="organ-link" onclick="switchTool('imcrg','anticoag-reversal')">Anticoagulation Reversal</span>
-                    <span class="organ-link" onclick="switchTool('drugs')">→ Drug Interactions (anticoag)</span>
+                    <span class="organ-link" onclick="switchTool('drugs')">&#8594; Drug Interactions (anticoag)</span>
                 </div>
                 <div class="organ-col">
-                    <h4>☠️ Toxicology</h4>
+                    <h4>&#9760;&#65039; Toxicology</h4>
                     <span class="organ-link" onclick="switchTool('imcrg','overdose')">Toxidromes Overview</span>
                     <span class="organ-link" onclick="switchTool('imcrg','apap-overdose')">Acetaminophen OD</span>
                     <span class="organ-link" onclick="switchTool('imcrg','salicylate-toxicity')">Salicylate Toxicity</span>
                     <span class="organ-link" onclick="switchTool('imcrg','opioid')">Opioid Overdose</span>
                     <span class="organ-link" onclick="switchTool('imcrg','etoh-withdrawal')">Alcohol Withdrawal</span>
-                    <span class="organ-link" onclick="switchTool('drugs')">→ Drug Interactions</span>
+                    <span class="organ-link" onclick="switchTool('drugs')">&#8594; Drug Interactions</span>
                 </div>
                 <div class="organ-col">
-                    <h4>💉 Procedures</h4>
+                    <h4>&#128137; Procedures</h4>
                     <span class="organ-link" onclick="switchTool('procedures','paracentesis')">Paracentesis</span>
                     <span class="organ-link" onclick="switchTool('procedures','thoracentesis')">Thoracentesis</span>
                     <span class="organ-link" onclick="switchTool('procedures','lumbar-puncture')">Lumbar Puncture</span>
                     <span class="organ-link" onclick="switchTool('procedures','arthrocentesis')">Arthrocentesis</span>
-                    <span class="organ-link" onclick="switchTool('labs')">→ CSF / Fluid Interpretation</span>
+                    <span class="organ-link" onclick="switchTool('labs')">&#8594; CSF / Fluid Interpretation</span>
                 </div>
                 <div class="organ-col">
-                    <h4>📋 Clinical Notes</h4>
-                    <span class="organ-link note" onclick="switchTool('inpatientnote')">→ Inpatient H&P / Progress Note</span>
-                    <span class="organ-link note" onclick="switchTool('inpatientnote')">→ Discharge Summary</span>
-                    <span class="organ-link note" onclick="switchTool('opnote')">→ New Patient Visit</span>
-                    <span class="organ-link note" onclick="switchTool('opnote')">→ Annual Wellness Exam</span>
-                    <span class="organ-link note" onclick="switchTool('opnote')">→ Chronic Disease Follow-Up</span>
+                    <h4>&#128203; Clinical Notes</h4>
+                    <span class="organ-link note" onclick="switchTool('inpatientnote')">&#8594; Inpatient H&amp;P / Progress Note</span>
+                    <span class="organ-link note" onclick="switchTool('inpatientnote')">&#8594; Discharge Summary</span>
+                    <span class="organ-link note" onclick="switchTool('opnote')">&#8594; New Patient Visit</span>
+                    <span class="organ-link note" onclick="switchTool('opnote')">&#8594; Annual Wellness Exam</span>
+                    <span class="organ-link note" onclick="switchTool('opnote')">&#8594; Chronic Disease Follow-Up</span>
                 </div>
             </div>
         </div>
+
+        <!-- ── ACCORDION: REFERENCE LIBRARY ── -->
+        <div class="accordion-section">
+            <button class="accordion-toggle" onclick="toggleAccordion('refLibrary')" id="refLibraryBtn" aria-expanded="false">
+                <span class="acc-label">&#128218; Reference Library &amp; Practical Tools</span>
+                <span class="acc-count">13 tools</span>
+                <span class="acc-chevron">&#9660;</span>
+            </button>
+            <div class="accordion-body hidden" id="refLibrary">
+                <div class="tool-grid">
+                    <div class="tool-card" onclick="switchTool('imcrg')" style="border-top-color:#2d5a87;"><div class="card-header" style="background:linear-gradient(135deg,#1e3a5f,#2d5a87);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">IM</span>IM Clinical Reference Guide</div><div class="card-body"><p>338 conditions — evidence-based workups, treatment protocols, and clinical pearls for hospital medicine.</p><div class="card-tags"><span class="card-tag">338 Conditions</span><span class="card-tag">Searchable</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('id')" style="border-top-color:#0066cc;"><div class="card-header" style="background:linear-gradient(135deg,#004080,#0066cc);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">ID</span>Infectious Disease Guide</div><div class="card-body"><p>Pathogen-specific guidance, empiric therapy by syndrome, antibiotic spectra, and resistance patterns.</p><div class="card-tags"><span class="card-tag">Empiric Therapy</span><span class="card-tag">Pathogen Guide</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('abxcomp')" style="border-top-color:#4fc4a3;"><div class="card-header" style="background:linear-gradient(135deg,#0d2b24,#1a4a3a);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">ABX</span>ABX Companion</div><div class="card-body"><p>Empiric antibiotic regimens — syndrome-based selection, dosing, stewardship pearls, and resistance considerations.</p><div class="card-tags"><span class="card-tag">Empiric Regimens</span><span class="card-tag">Cunha Framework</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('bodyatlas')" style="border-top-color:#4fa3e0;"><div class="card-header" style="background:linear-gradient(135deg,#0d1f35,#1a3a5f);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">ATLAS</span>ID Body Atlas</div><div class="card-body"><p>Tap any body region — pathogens, antibiotic tissue penetration, and empiric regimens by anatomic site.</p><div class="card-tags"><span class="card-tag">18 Regions</span><span class="card-tag">3 Layers</span><span class="card-tag">Symptom Filter</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('audio')" style="border-top-color:#4fa3e0;"><div class="card-header" style="background:linear-gradient(135deg,#0a1520,#1a2a3a);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">AUDIO</span>ID Audio Companion</div><div class="card-body"><p>Commute-friendly study — lecture and flashcard modes for all 18 body regions. Offline capable. AI deep-dive on WiFi.</p><div class="card-tags"><span class="card-tag">Lecture Mode</span><span class="card-tag">Flashcards</span><span class="card-tag">Offline</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('pathogens')" style="border-top-color:#7fbf7f;"><div class="card-header" style="background:linear-gradient(135deg,#0d1a0d,#1a3a1a);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">PATH</span>Pathogen Index</div><div class="card-body"><p>Search by organism — every condition where it appears, with direct links and treatment notes.</p><div class="card-tags"><span class="card-tag">32 Pathogens</span><span class="card-tag">Organism-First Search</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('labs')" style="border-top-color:#1976d2;"><div class="card-header" style="background:linear-gradient(135deg,#0d47a1,#1976d2);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">LAB</span>Laboratory Values Reference</div><div class="card-body"><p>Normal ranges, critical values, and interpretation for CBC, BMP, LFTs, coagulation, urinalysis, CSF, and more.</p><div class="card-tags"><span class="card-tag">134 Tests</span><span class="card-tag">Critical Values</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('dxfx')" style="border-top-color:#00897b;"><div class="card-header" style="background:linear-gradient(135deg,#00695c,#00897b);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">DX</span>Diagnostic Framework</div><div class="card-body"><p>Presentation-based diagnostic approaches: chest pain, dyspnea, altered mental status, acid-base, and more.</p><div class="card-tags"><span class="card-tag">Presentation-Based</span><span class="card-tag">DDx Trees</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('drugref')" style="border-top-color:#9b59b6;"><div class="card-header" style="background:linear-gradient(135deg,#8e44ad,#9b59b6);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">Rx</span>Drug Reference Guide</div><div class="card-body"><p>Dosing, mechanisms, adverse effects, black box warnings, clinical pearls, and drug&ndash;drug interactions for 280 medications.</p><div class="card-tags"><span class="card-tag">274 Medications</span><span class="card-tag">Dosing</span><span class="card-tag">Black Box Warnings</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('drugs')" style="border-top-color:#7c6a9a;"><div class="card-header" style="background:linear-gradient(135deg,#5c4d7d,#7c6a9a);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">DDI</span>Drug Interactions</div><div class="card-body"><p>High-yield interactions for warfarin, DOACs, immunosuppressants, CYP450 substrates, QT-prolonging drugs, and serotonin syndrome.</p><div class="card-tags"><span class="card-tag">CYP450</span><span class="card-tag">QT Risk</span><span class="card-tag">Warfarin</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('abxsteward')" style="border-top-color:#047857;"><div class="card-header" style="background:linear-gradient(135deg,#059669,#047857);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">STW</span>Antimicrobial Stewardship</div><div class="card-body"><p>Empiric therapy by syndrome, evidence-based treatment durations, de-escalation pathways, and IV-to-PO conversion criteria.</p><div class="card-tags"><span class="card-tag">Duration Guidance</span><span class="card-tag">De-escalation</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('renaldose')" style="border-top-color:#1d4ed8;"><div class="card-header" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">REN</span>Renal Dosing Reference</div><div class="card-body"><p>Drug adjustments by CrCl for antibiotics, antivirals, and cardiac medications. HD supplementation and drugs to avoid in CKD.</p><div class="card-tags"><span class="card-tag">CrCl-Based</span><span class="card-tag">HD Dosing</span><span class="card-tag">Avoid in CKD</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('procedures')" style="border-top-color:#3d7a6a;"><div class="card-header" style="background:linear-gradient(135deg,#2d5a4a,#3d7a6a);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">PROC</span>Procedures Guide</div><div class="card-body"><p>Bedside procedure guidance for paracentesis, thoracentesis, lumbar puncture, and arthrocentesis with fluid interpretation tables.</p><div class="card-tags"><span class="card-tag">Paracentesis</span><span class="card-tag">LP</span><span class="card-tag">Thoracentesis</span></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── ACCORDION: NOTES & TEMPLATES ── -->
+        <div class="accordion-section">
+            <button class="accordion-toggle" onclick="toggleAccordion('noteTemplates')" id="noteTemplatesBtn" aria-expanded="false">
+                <span class="acc-label">&#128221; Notes &amp; Templates</span>
+                <span class="acc-count">8 templates</span>
+                <span class="acc-chevron">&#9660;</span>
+            </button>
+            <div class="accordion-body hidden" id="noteTemplates">
+                <div class="tool-grid">
+                    <div class="tool-card" onclick="switchTool('nephroconsult')" style="border-top-color:#1a5f7a;"><div class="card-header" style="background:linear-gradient(135deg,#1a5f7a,#2d8cb8);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">NEPH</span>Nephrology Consult</div><div class="card-body"><p>KDIGO AKI/CKD staging, FENa/FEUrea, AEIOU dialysis criteria. <strong>AI auto-fills impression, differential, workup, medications, and monitoring</strong> from diagnosis. Generates EHR-ready note.</p><div class="card-tags"><span class="card-tag">KDIGO</span><span class="card-tag">Dialysis Criteria</span><span class="card-tag">&#129302; AI Suggest</span><span class="card-tag">Note Generator</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('cardioconsult')" style="border-top-color:#e74c3c;"><div class="card-header" style="background:linear-gradient(135deg,#c0392b,#e74c3c);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">CARD</span>Cardiology Consult</div><div class="card-body"><p>HFpEF algorithms (H&#8322;FPEF, HFA-PEFF), echo interpretation, NYHA/ACC-AHA staging, GDMT. <strong>AI auto-fills impression, problem list, and full recommendations</strong> from diagnosis. Generates EHR-ready note.</p><div class="card-tags"><span class="card-tag">HFpEF Scores</span><span class="card-tag">GDMT</span><span class="card-tag">&#129302; AI Suggest</span><span class="card-tag">Note Generator</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('rheumconsult')" style="border-top-color:#7c3aed;"><div class="card-header" style="background:linear-gradient(135deg,#5b21b6,#7c3aed);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">RHEUM</span>Rheumatology Consult</div><div class="card-body"><p>Joint pattern recognition, autoantibody interpretation, synovial fluid analysis, ACR/EULAR criteria. <strong>AI auto-fills impression, DMARD plan, monitoring, and workup</strong> from diagnosis. Generates EHR-ready note.</p><div class="card-tags"><span class="card-tag">Autoantibodies</span><span class="card-tag">ACR/EULAR</span><span class="card-tag">&#129302; AI Suggest</span><span class="card-tag">Note Generator</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('idconsult')" style="border-top-color:#059669;"><div class="card-header" style="background:linear-gradient(135deg,#047857,#059669);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">IDc</span>ID Consult</div><div class="card-body"><p>Culture review, MDR risk assessment, source control, treatment duration. <strong>AI auto-fills antibiotic regimen with doses/duration, workup, monitoring, and OPAT plan</strong> from diagnosis. Generates EHR-ready note.</p><div class="card-tags"><span class="card-tag">MDR Risk</span><span class="card-tag">Source Control</span><span class="card-tag">&#129302; AI Suggest</span><span class="card-tag">Note Generator</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('endoconsult')" style="border-top-color:#0d6b5e;"><div class="card-header" style="background:linear-gradient(135deg,#074a41,#0d6b5e);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">ENDO</span>Endocrinology Consult</div><div class="card-body"><p>Glycemic management, thyroid, adrenal, calcium/bone, pituitary. <strong>AI auto-fills glucose protocol with doses, hormone management, workup, and monitoring</strong> from diagnosis. Generates EHR-ready note.</p><div class="card-tags"><span class="card-tag">DKA/HHS</span><span class="card-tag">Thyroid Storm</span><span class="card-tag">&#129302; AI Suggest</span><span class="card-tag">Note Generator</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('neuroconsult')" style="border-top-color:#2d1b69;"><div class="card-header" style="background:linear-gradient(135deg,#1a0f40,#2d1b69);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">NEURO</span>Neurology Consult</div><div class="card-body"><p>NIHSS, tPA/thrombectomy criteria, TOAST, seizure, GBS, myasthenic crisis, CSF patterns. <strong>AI auto-fills acute interventions, antithrombotic plan, AED dosing, and secondary prevention</strong> from diagnosis. Generates EHR-ready note.</p><div class="card-tags"><span class="card-tag">NIHSS</span><span class="card-tag">tPA Criteria</span><span class="card-tag">&#129302; AI Suggest</span><span class="card-tag">Note Generator</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('inpatientnote')" style="border-top-color:#c9a227;"><div class="card-header" style="background:linear-gradient(135deg,#0e1d2e,#1a2940);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">IP</span>Inpatient Note</div><div class="card-body"><p>H&amp;P, Progress Note, or Discharge Summary. Cross-specialty emergency screening, problem-based A&amp;P. <strong>AI auto-fills evidence, differential, and management plan</strong> per problem from diagnosis.</p><div class="card-tags"><span class="card-tag">H&amp;P / Progress / Discharge</span><span class="card-tag">32 Emergency Conditions</span><span class="card-tag">&#129302; AI Suggest</span><span class="card-tag">Note Generator</span></div></div></div>
+                    <div class="tool-card" onclick="switchTool('opnote')" style="border-top-color:#ef8c22;"><div class="card-header" style="background:linear-gradient(135deg,#3e2723,#5c4033);"><span style="display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.18);color:#fff;font-family:-apple-system,monospace;font-size:10px;font-weight:800;letter-spacing:0.06em;border-radius:4px;padding:2px 7px;margin-right:8px;line-height:1.2;vertical-align:middle;">OP</span>Outpatient IM Note</div><div class="card-body"><p>New patient, follow-up, acute, annual wellness, or chronic management visit. <strong>AI auto-fills supporting data and management plan</strong> per problem. OLDCARTS HPI, 14-system ROS, preventive care tracker, E&amp;M coding.</p><div class="card-tags"><span class="card-tag">5 Visit Types</span><span class="card-tag">Preventive Care</span><span class="card-tag">&#129302; AI Suggest</span><span class="card-tag">Note Generator</span></div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-footer">Clinical Reference Suite &nbsp;&middot;&nbsp; <span id="home-version"></span> &nbsp;&middot;&nbsp; Evidence-based point-of-care references for internal medicine</div>
 
       </div>
     </div>
@@ -732,8 +725,155 @@ document.addEventListener('keydown', e => {
 // ── Init ─────────────────────────────────────────────────────────────────
 document.getElementById('sidebarToggle').addEventListener('touchend', e => { e.preventDefault(); toggleSidebar(); }, { passive:false });
 document.getElementById('sidebarToggle').addEventListener('click', toggleSidebar);
+
+// ── Accordion toggle ─────────────────────────────────────────────────────
+function toggleAccordion(id) {
+    const body = document.getElementById(id);
+    const btn = document.getElementById(id + 'Btn');
+    const isOpen = !body.classList.contains('hidden');
+    body.classList.toggle('hidden', isOpen);
+    if (btn) {
+        btn.classList.toggle('open', !isOpen);
+        btn.setAttribute('aria-expanded', String(!isOpen));
+    }
+}
+
+// ── Home search ───────────────────────────────────────────────────────────
+const SEARCH_INDEX = [
+    // Tools
+    { label: 'IM Clinical Reference Guide', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg') },
+    { label: 'Infectious Disease Guide', cat: 'ID', catColor: '#0d47a1', action: () => switchTool('id') },
+    { label: 'ABX Companion', cat: 'ABX', catColor: '#1a4a3a', action: () => switchTool('abxcomp') },
+    { label: 'Pathogen Index', cat: 'PATH', catColor: '#1a3a1a', action: () => switchTool('pathogens') },
+    { label: 'ID Body Atlas', cat: 'ATLAS', catColor: '#1a3a5f', action: () => switchTool('bodyatlas') },
+    { label: 'Audio Companion', cat: 'AUDIO', catColor: '#1a2a3a', action: () => switchTool('audio') },
+    { label: 'Lab Values Reference', cat: 'LAB', catColor: '#1565c0', action: () => switchTool('labs') },
+    { label: 'Diagnostic Framework', cat: 'DX', catColor: '#00695c', action: () => switchTool('dxfx') },
+    { label: 'Drug Reference Guide', cat: 'Rx', catColor: '#6a1b9a', action: () => switchTool('drugref') },
+    { label: 'Drug Interactions', cat: 'DDI', catColor: '#4a148c', action: () => switchTool('drugs') },
+    { label: 'Antimicrobial Stewardship', cat: 'STW', catColor: '#1b5e20', action: () => switchTool('abxsteward') },
+    { label: 'Renal Dosing Reference', cat: 'REN', catColor: '#0d3b6e', action: () => switchTool('renaldose') },
+    { label: 'Procedures Guide', cat: 'PROC', catColor: '#1b4332', action: () => switchTool('procedures') },
+    { label: 'Nephrology Consult', cat: 'NEPH', catColor: '#1a5f7a', action: () => switchTool('nephroconsult') },
+    { label: 'Cardiology Consult', cat: 'CARD', catColor: '#b71c1c', action: () => switchTool('cardioconsult') },
+    { label: 'Rheumatology Consult', cat: 'RHEUM', catColor: '#4a1486', action: () => switchTool('rheumconsult') },
+    { label: 'ID Consult', cat: 'IDc', catColor: '#064e3b', action: () => switchTool('idconsult') },
+    { label: 'Endocrinology Consult', cat: 'ENDO', catColor: '#065f46', action: () => switchTool('endoconsult') },
+    { label: 'Neurology Consult', cat: 'NEURO', catColor: '#1a0f40', action: () => switchTool('neuroconsult') },
+    { label: 'Inpatient Note (H&P / Progress / Discharge)', cat: 'IP', catColor: '#0e1d2e', action: () => switchTool('inpatientnote') },
+    { label: 'Outpatient IM Note', cat: 'OP', catColor: '#3e2723', action: () => switchTool('opnote') },
+    // IM Conditions
+    { label: 'ACS / STEMI / NSTEMI', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','acs') },
+    { label: 'Heart Failure', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','heart-failure') },
+    { label: 'Atrial Fibrillation / AFib', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','afib') },
+    { label: 'Hypertensive Emergency', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','htn-emergency') },
+    { label: 'Syncope', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','syncope') },
+    { label: 'Aortic Dissection', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','aortic-dissection') },
+    { label: 'Cardiogenic Shock', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','cardiogenic-shock') },
+    { label: 'CAP / HAP / VAP / Pneumonia', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','cap') },
+    { label: 'COPD Exacerbation', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','copd') },
+    { label: 'Asthma Exacerbation', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','asthma') },
+    { label: 'Pulmonary Embolism / PE', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','pe') },
+    { label: 'ARDS', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','ards') },
+    { label: 'Pleural Effusion', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','pleural-effusion') },
+    { label: 'AKI / Acute Kidney Injury', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','aki') },
+    { label: 'Hyperkalemia', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','hyperkalemia') },
+    { label: 'Hyponatremia / Hypernatremia', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','hyponatremia') },
+    { label: 'Rhabdomyolysis', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','rhabdo') },
+    { label: 'CKD Complications', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','ckd-complications') },
+    { label: 'Upper GI Bleed / UGIB', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','ugib') },
+    { label: 'Lower GI Bleed', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','lower-gi-bleed') },
+    { label: 'Cirrhosis / Ascites', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','cirrhosis') },
+    { label: 'Pancreatitis', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','pancreatitis') },
+    { label: 'SBP / Spontaneous Bacterial Peritonitis', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','sbp') },
+    { label: 'Cholangitis', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','cholangitis') },
+    { label: 'DKA / Diabetic Ketoacidosis', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','dka') },
+    { label: 'HHS / Hyperosmolar Hyperglycemic State', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','hhs') },
+    { label: 'Thyroid Storm / Hyperthyroidism', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','hyperthyroid') },
+    { label: 'Myxedema Coma / Hypothyroidism', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','hypothyroid') },
+    { label: 'Adrenal Crisis', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','adrenal') },
+    { label: 'Hypercalcemia', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','hypercalcemia') },
+    { label: 'Ischemic Stroke', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','stroke') },
+    { label: 'ICH / SAH / Intracranial Hemorrhage', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','ich') },
+    { label: 'Seizure / Status Epilepticus', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','seizure') },
+    { label: 'Meningitis / Encephalitis', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','meningitis') },
+    { label: 'Delirium', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','delirium') },
+    { label: 'Alcohol Withdrawal / ETOH', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','etoh-withdrawal') },
+    { label: 'Sepsis / Septic Shock', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','sepsis') },
+    { label: 'Cellulitis / SSTI', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','cellulitis') },
+    { label: 'Neutropenic Fever', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','neutropenic-fever') },
+    { label: 'DVT / VTE', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','dvt') },
+    { label: 'Anemia Workup', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','anemia') },
+    { label: 'DIC / Disseminated Intravascular Coagulation', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','dic') },
+    { label: 'Tumor Lysis Syndrome / TLS', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','tls') },
+    { label: 'Transfusion Reactions', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','transfusion') },
+    { label: 'Anticoagulation Reversal', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','anticoag-reversal') },
+    { label: 'Toxidromes Overview', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','overdose') },
+    { label: 'Acetaminophen Overdose / APAP', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','apap-overdose') },
+    { label: 'Salicylate Toxicity / Aspirin OD', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','salicylate-toxicity') },
+    { label: 'Opioid Overdose', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','opioid') },
+    // New top-10 ID consult conditions
+    { label: 'S. aureus Bacteremia (SAB)', cat: 'ID', catColor: '#0d47a1', action: () => switchTool('id','high-yield-syndromes') },
+    { label: 'Intra-abdominal Infections / Secondary Peritonitis', cat: 'ID', catColor: '#0d47a1', action: () => switchTool('id','high-yield-syndromes') },
+    { label: 'Fever of Unknown Origin (FUO)', cat: 'ID', catColor: '#0d47a1', action: () => switchTool('id','high-yield-syndromes') },
+    { label: 'Complex SSTI / Wound Infections', cat: 'ID', catColor: '#0d47a1', action: () => switchTool('id','high-yield-syndromes') },
+    { label: 'Endocarditis (IE) / Infective Endocarditis', cat: 'ID', catColor: '#0d47a1', action: () => switchTool('id','high-yield-syndromes') },
+    { label: 'Osteomyelitis', cat: 'ID', catColor: '#0d47a1', action: () => switchTool('id','msk-hematogenous-osteo') },
+    { label: 'CLABSI / Central Line Bloodstream Infection', cat: 'ID', catColor: '#0d47a1', action: () => switchTool('id','high-yield-syndromes') },
+    { label: 'CIED Infection / Pacemaker Infection', cat: 'ID', catColor: '#0d47a1', action: () => switchTool('id','high-yield-syndromes') },
+    { label: 'Prosthetic Joint Infection (PJI)', cat: 'ID', catColor: '#0d47a1', action: () => switchTool('id','high-yield-syndromes') },
+    { label: 'Brain Abscess', cat: 'ID', catColor: '#0d47a1', action: () => switchTool('id','high-yield-syndromes') },
+    { label: 'Spinal Epidural Abscess', cat: 'ID', catColor: '#0d47a1', action: () => switchTool('id','high-yield-syndromes') },
+    { label: 'Liver Abscess / Hepatic Abscess', cat: 'ID', catColor: '#0d47a1', action: () => switchTool('id','high-yield-syndromes') },
+    // Existing IM conditions (keep)
+    { label: 'Gout / Pseudogout / Crystal Arthropathy', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','gout') },
+    { label: 'Septic Arthritis', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','septic-joint') },
+    { label: 'Vasculitis', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','vasculitis') },
+    { label: 'SLE / Lupus Flare', cat: 'IM', catColor: '#2d5a87', action: () => switchTool('imcrg','sle') },
+    // Procedures
+    { label: 'Paracentesis', cat: 'PROC', catColor: '#1b4332', action: () => switchTool('procedures','paracentesis') },
+    { label: 'Thoracentesis', cat: 'PROC', catColor: '#1b4332', action: () => switchTool('procedures','thoracentesis') },
+    { label: 'Lumbar Puncture / LP', cat: 'PROC', catColor: '#1b4332', action: () => switchTool('procedures','lumbar-puncture') },
+    { label: 'Arthrocentesis / Joint Aspiration', cat: 'PROC', catColor: '#1b4332', action: () => switchTool('procedures','arthrocentesis') },
+];
+
+function initHomeSearch() {
+    const input = document.getElementById('homeSearch');
+    const resultsEl = document.getElementById('searchResults');
+    if (!input || !resultsEl) return;
+
+    input.addEventListener('input', () => {
+        const q = input.value.trim().toLowerCase();
+        if (q.length < 2) { resultsEl.classList.add('hidden'); return; }
+        const hits = SEARCH_INDEX.filter(item => item.label.toLowerCase().includes(q)).slice(0, 12);
+        if (!hits.length) {
+            resultsEl.innerHTML = '<div class="search-no-results">No results found</div>';
+            resultsEl.classList.remove('hidden');
+            return;
+        }
+        resultsEl.innerHTML = hits.map((item, i) =>
+            `<div class="search-result-item" data-idx="${i}" role="option">
+                <span class="sr-label">${item.label}</span>
+                <span class="sr-cat" style="background:${item.catColor};">${item.cat}</span>
+            </div>`
+        ).join('');
+        resultsEl.classList.remove('hidden');
+        resultsEl.querySelectorAll('.search-result-item').forEach((el, i) => {
+            el.addEventListener('mousedown', e => { e.preventDefault(); hits[i].action(); input.value=''; resultsEl.classList.add('hidden'); });
+            el.addEventListener('touchend', e => { e.preventDefault(); hits[i].action(); input.value=''; resultsEl.classList.add('hidden'); });
+        });
+    });
+    document.addEventListener('click', e => {
+        if (!e.target.closest('.home-search-wrap')) resultsEl.classList.add('hidden');
+    });
+    input.addEventListener('keydown', e => {
+        if (e.key === 'Escape') { resultsEl.classList.add('hidden'); input.blur(); }
+    });
+}
+
 initNav();
 initFrames();
+initHomeSearch();
 if (window.location.hash && window.location.hash.includes(':')) {
     const [toolId, anchor] = window.location.hash.replace('#','').split(':');
     if (toolId && tools.find(t => t.id === toolId)) switchTool(toolId, anchor);
