@@ -2,1348 +2,1260 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Pathogen Index · Clinical Reference Suite</title>
 <style>
-  :root {
-    --bg:      #0e1117;
-    --surface: #161b25;
-    --surface2:#1e2535;
-    --border:  #2a3347;
-    --text:    #e4e8f0;
-    --muted:   #7a8499;
-    --accent:  #4fa3e0;
-    --font:    'Helvetica Neue','Arial',sans-serif;
-  }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  html { scroll-behavior:smooth; }
-  body {
-    background:var(--bg); color:var(--text);
-    font-family:var(--font); font-size:14px; line-height:1.5;
-    min-height:100vh;
-  }
+:root {
+  --blue: #004080;
+  --header-h: 56px;
+  --filter-h: 100px;
+  --bg: #f4f7fb;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --muted: #64748b;
+}
 
-  /* NAV */
-  #topnav {
-    position:sticky; top:0; z-index:100;
-    background:#080a10; border-bottom:1px solid var(--border);
-    display:flex; align-items:center; gap:0; padding:0 12px;
-    height:46px; overflow-x:auto; -webkit-overflow-scrolling:touch; white-space:nowrap;
-  }
-  #topnav .suite-title {
-    font-size:11px; font-weight:700; letter-spacing:.12em;
-    text-transform:uppercase; color:var(--accent); margin-right:16px; flex-shrink:0;
-  }
-  #topnav a {
-    font-size:12px; color:var(--muted); text-decoration:none;
-    padding:0 8px; height:46px; display:inline-flex; align-items:center;
-    border-bottom:2px solid transparent; flex-shrink:0;
-    transition:color .15s,border-color .15s;
-  }
-  #topnav a.active { color:var(--accent); border-bottom-color:var(--accent); }
-  #topnav a:hover { color:var(--text); }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* SEARCH */
-  #search-bar {
-    padding:14px 16px; background:var(--surface);
-    border-bottom:1px solid var(--border); position:sticky; top:46px; z-index:50;
-  }
-  #search-input {
-    width:100%; background:var(--surface2); border:1px solid var(--border);
-    border-radius:8px; padding:10px 14px 10px 36px;
-    color:var(--text); font-family:var(--font); font-size:14px; outline:none;
-    -webkit-appearance:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237a8499' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
-    background-repeat:no-repeat; background-position:12px center;
-  }
-  #search-input:focus { border-color:var(--accent); }
-  #search-input::placeholder { color:var(--muted); }
-  #search-results {
-    font-size:11px; color:var(--muted); margin-top:6px;
-    min-height:16px;
-  }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  -webkit-text-size-adjust: 100%;
+}
 
-  /* GROUP FILTER */
-  #filter-bar {
-    display:flex; gap:6px; padding:10px 16px 0;
-    overflow-x:auto; -webkit-overflow-scrolling:touch; white-space:nowrap;
-    background:var(--surface); border-bottom:1px solid var(--border);
-    padding-bottom:10px;
-  }
-  .filter-chip {
-    display:inline-flex; align-items:center; gap:5px;
-    padding:4px 12px; border-radius:20px;
-    border:1px solid var(--border); background:var(--surface2);
-    font-size:11px; font-weight:600; color:var(--muted);
-    cursor:pointer; flex-shrink:0; transition:all .15s;
-    -webkit-user-select:none; user-select:none;
-  }
-  .filter-chip.active {
-    border-color:var(--accent); color:var(--accent);
-    background:rgba(79,163,224,.1);
-  }
+/* ── Header ── */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
+  background: var(--blue);
+  display: flex; align-items: center; padding: 0 16px; gap: 12px;
+  z-index: 200;
+}
+.header h1 {
+  color: #fff; font-size: 1rem; font-weight: 700;
+  flex: 1;
+}
+.search-wrap {
+  position: relative; flex: 1; max-width: 340px;
+}
+.search-wrap input {
+  width: 100%; padding: 8px 36px 8px 12px;
+  border: none; border-radius: 8px;
+  font-size: 0.85rem; background: rgba(255,255,255,0.15);
+  color: #fff; outline: none;
+}
+.search-wrap input::placeholder { color: rgba(255,255,255,0.6); }
+.search-wrap input:focus { background: rgba(255,255,255,0.25); }
+.search-clear {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: rgba(255,255,255,0.7);
+  font-size: 14px; cursor: pointer; display: none;
+}
+.search-clear.visible { display: block; }
+#result-count {
+  color: rgba(255,255,255,0.7); font-size: 0.75rem; white-space: nowrap;
+}
 
-  /* LAYOUT */
-  #content { padding:16px 16px 60px; max-width:900px; margin:0 auto; }
+/* ── Filter strip ── */
+.filter-strip {
+  position: fixed; top: var(--header-h); left: 0; right: 0;
+  background: #fff; border-bottom: 1px solid var(--border);
+  z-index: 190; padding: 6px 12px 0;
+}
+.filter-row {
+  display: flex; gap: 6px; overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
+  scrollbar-width: none;
+}
+.filter-row::-webkit-scrollbar { display: none; }
+.filter-btn, .site-btn {
+  flex-shrink: 0;
+  padding: 5px 12px; border-radius: 16px;
+  border: 1.5px solid var(--border);
+  background: #f8fafc; color: #475569;
+  font-size: 0.75rem; font-weight: 600;
+  cursor: pointer; white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.12s;
+}
+.filter-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+.site-btn.active { background: #0f766e; border-color: #0f766e; color: #fff; }
 
-  /* GROUP SECTION */
-  .group-section { margin-bottom:24px; }
-  .group-header {
-    display:flex; align-items:center; justify-content:space-between;
-    padding:8px 12px; margin-bottom:8px;
-    background:var(--surface); border-radius:6px;
-  }
-  .group-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; }
-  .group-count { font-size:11px; color:var(--muted); }
+/* ── Main ── */
+main {
+  padding: calc(var(--header-h) + var(--filter-h) + 12px) 12px 40px;
+}
 
-  /* PATHOGEN CARD */
-  .pathogen-card {
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:10px; margin-bottom:8px; overflow:hidden;
-    transition:border-color .15s;
-  }
-  .pathogen-card:hover { border-color:rgba(79,163,224,.3); }
-  .pathogen-card.open { border-color:var(--accent); }
-  .p-header {
-    display:flex; align-items:center; gap:10px;
-    padding:12px 14px; cursor:pointer;
-    -webkit-tap-highlight-color:transparent;
-    -webkit-user-select:none; user-select:none;
-  }
-  .p-dot {
-    width:10px; height:10px; border-radius:50%; flex-shrink:0;
-  }
-  .p-name { font-size:14px; font-weight:700; color:var(--text); flex:1; }
-  .p-count { font-size:11px; color:var(--muted); }
-  .p-chevron {
-    font-size:18px; color:var(--muted); transition:transform .2s;
-    font-weight:300; line-height:1;
-  }
-  .pathogen-card.open .p-chevron { transform:rotate(90deg); }
+/* ── Organism cards ── */
+.org-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.15s;
+}
+.org-card.hidden { display: none; }
+.org-card:active { box-shadow: 0 2px 8px rgba(0,64,128,0.12); }
 
-  /* CONDITIONS LIST */
-  .p-conditions { display:none; border-top:1px solid var(--border); }
-  .pathogen-card.open .p-conditions { display:block; }
+.org-card-header {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 10px;
+  padding: 12px 14px 10px;
+  cursor: pointer;
+  background: #f8fbff;
+  border-bottom: 1px solid var(--border);
+}
+.org-header-left { flex: 1; min-width: 0; }
+.gram-badge {
+  display: inline-block;
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 2px 7px; border-radius: 4px;
+  margin-bottom: 4px;
+}
+.gram-gpos  { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+.gram-gneg  { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.gram-anaerobe { background: #fefce8; color: #854d0e; border: 1px solid #fef08a; }
+.gram-fungus   { background: #f5f3ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+.gram-myco     { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+.gram-virus    { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+.gram-parasite { background: #fdf4ff; color: #86198f; border: 1px solid #f5d0fe; }
 
-  .condition-link {
-    display:block; padding:10px 14px 10px 34px;
-    border-bottom:1px solid var(--border); text-decoration:none;
-    transition:background .15s; position:relative;
-  }
-  .condition-link:last-child { border-bottom:none; }
-  .condition-link:hover { background:var(--surface2); }
-  .condition-link::before {
-    content:'→'; position:absolute; left:14px; top:10px;
-    color:var(--accent); font-size:12px;
-  }
-  .c-title {
-    font-size:13px; font-weight:600; color:var(--text);
-    display:block; line-height:1.3; margin-bottom:2px;
-  }
-  .c-pearl {
-    font-size:11px; color:var(--muted); line-height:1.4;
-    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
-    overflow:hidden;
-  }
+.org-name {
+  font-size: 0.95rem; font-weight: 700; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.org-morph {
+  font-size: 0.72rem; color: var(--muted); display: block; margin-top: 2px;
+  font-style: italic;
+}
+.org-sites {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  justify-content: flex-end; flex-shrink: 0;
+}
+.site-tag {
+  font-size: 0.65rem; font-weight: 600;
+  padding: 2px 7px; border-radius: 10px;
+  background: #e0f2fe; color: #0369a1;
+  border: 1px solid #bae6fd;
+  white-space: nowrap;
+}
 
-  /* HIDDEN for search/filter */
-  .pathogen-card.hidden { display:none; }
-  .group-section.hidden { display:none; }
+/* ── Card body (collapsible) ── */
+.org-card-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.25s ease;
+  padding: 0 14px;
+}
+.org-card.open .org-card-body {
+  max-height: 1000px;
+  padding: 12px 14px 14px;
+}
+.org-card-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 700px) {
+  .org-card-body { grid-template-columns: 1fr; }
+}
 
-  /* NO RESULTS */
-  #no-results {
-    display:none; text-align:center; padding:40px 20px;
-    color:var(--muted); font-size:14px;
-  }
+.org-section-label {
+  font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.09em; color: #94a3b8; margin-bottom: 5px;
+}
+.org-syndromes {
+  padding-left: 14px; font-size: 0.8rem; color: var(--text); line-height: 1.6;
+}
+.org-treatment {
+  font-size: 0.8rem; color: #1e3a5f; font-weight: 500; line-height: 1.5;
+}
+.org-alt {
+  font-size: 0.78rem; color: var(--muted); line-height: 1.5;
+}
+.org-resistance {
+  font-size: 0.78rem; color: #7c3aed; line-height: 1.5;
+}
+.org-pearl {
+  margin-top: 10px;
+  background: #fef3c7; border-left: 3px solid #d97706;
+  padding: 8px 10px; border-radius: 4px;
+  font-size: 0.78rem; color: #92400e; line-height: 1.5;
+}
+
+/* ── Expand chevron ── */
+.org-card-header::after {
+  content: "▸";
+  color: #94a3b8; font-size: 0.8rem; flex-shrink: 0;
+  transition: transform 0.2s;
+  align-self: center;
+}
+.org-card.open .org-card-header::after { transform: rotate(90deg); }
+
+/* ── No results ── */
+#no-results {
+  text-align: center; color: var(--muted);
+  padding: 40px 20px; display: none;
+}
+#no-results.visible { display: block; }
+
+/* ── Count badge ── */
+.count-badge {
+  background: #e0f2fe; color: #0369a1;
+  font-size: 0.7rem; font-weight: 700;
+  padding: 2px 8px; border-radius: 10px;
+  margin-left: 8px;
+}
 </style>
 </head>
 <body>
 
-<nav id="topnav">
-  <span class="suite-title">GL · CRS</span>
-  <a href="index.html">Home</a>
-  <a href="im_guide.html">IM Guide</a>
-  <a href="id_guide.html">ID Guide</a>
-  <a href="abx-companion.html">ABX</a>
-  <a href="body-atlas.html">Body Atlas</a>
-  <a href="pathogen-index.html" class="active">Pathogens</a>
-</nav>
-
-<div id="search-bar">
-  <input type="text" id="search-input"
-    placeholder="Search pathogen or condition — e.g. S. aureus, meningitis, MRSA..."
-    oninput="doSearch(this.value)"
-    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-  <div id="search-results"></div>
+<!-- Back-to-Suite nav chip -->
+<div style="position:fixed;top:8px;right:8px;z-index:8999;">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:5px;
+     background:rgba(30,58,95,0.92);color:#fff;text-decoration:none;
+     padding:5px 11px;border-radius:20px;font-size:0.72rem;font-weight:600;
+     border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(4px);
+     box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:background 0.2s;"
+     title="Back to Clinical Reference Suite"
+     onmouseover="this.style.background='rgba(45,88,132,0.97)'"
+     onmouseout="this.style.background='rgba(30,58,95,0.92)'">
+    📚 Suite
+  </a>
 </div>
 
-<div id="filter-bar">
-  <div class="filter-chip active" data-group="all" onclick="setFilter('all',this)">All</div>
-  <div class="filter-chip" data-group="Gram-Positive" style="--fc:#e05c5c" onclick="setFilter('Gram-Positive',this)">Gram-Positive</div>
-  <div class="filter-chip" data-group="Gram-Negative" style="--fc:#4fa3e0" onclick="setFilter('Gram-Negative',this)">Gram-Negative</div>
-  <div class="filter-chip" data-group="Anaerobes" style="--fc:#c4a35a" onclick="setFilter('Anaerobes',this)">Anaerobes</div>
-  <div class="filter-chip" data-group="Fungi" style="--fc:#e0c44f" onclick="setFilter('Fungi',this)">Fungi</div>
-  <div class="filter-chip" data-group="Mycobacteria/AFB" style="--fc:#7fbf7f" onclick="setFilter('Mycobacteria/AFB',this)">Myco / AFB</div>
-  <div class="filter-chip" data-group="Viruses" style="--fc:#e07890" onclick="setFilter('Viruses',this)">Viruses</div>
-  <div class="filter-chip" data-group="Parasites" style="--fc:#7fbf9f" onclick="setFilter('Parasites',this)">Parasites</div>
+<header class="header">
+  <h1>Pathogen Index</h1>
+  <div class="search-wrap">
+    <input type="text" id="pathSearch"
+      placeholder="Search organism, site, syndrome…"
+      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button class="search-clear" id="searchClear" type="button">✕</button>
+  </div>
+  <span id="result-count"></span>
+</header>
+
+<div class="filter-strip">
+  <div class="filter-row" id="gramRow">
+    <button class="filter-btn active" data-gram="all">All</button><button class="filter-btn" data-gram="gpos">Gram+</button><button class="filter-btn" data-gram="gneg">Gram−</button><button class="filter-btn" data-gram="anaerobe">Anaerobe</button><button class="filter-btn" data-gram="fungus">Fungus</button><button class="filter-btn" data-gram="myco">Myco / AFB</button><button class="filter-btn" data-gram="virus">Virus</button><button class="filter-btn" data-gram="parasite">Parasite</button>
+  </div>
+  <div class="filter-row" id="siteRow">
+    <button class="site-btn active" data-site="all">All Sites</button><button class="site-btn" data-site="blood">Blood / BSI</button><button class="site-btn" data-site="urine">Urine / UTI</button><button class="site-btn" data-site="wound">Wound / Skin</button><button class="site-btn" data-site="respiratory">Respiratory</button><button class="site-btn" data-site="csf">CSF / CNS</button><button class="site-btn" data-site="bone">Bone / Joint</button><button class="site-btn" data-site="gi">GI</button>
+  </div>
 </div>
 
-<div id="content">
-
-  <div class="group-section">
-    <div class="group-header" style="border-left:3px solid #e05c5c;">
-      <span class="group-label" style="color:#e05c5c;">Gram-Positive</span>
-      <span class="group-count">8 pathogens</span>
-    </div>
+<main id="main">
+  <div id="org-list">
     
-      <div class="pathogen-card" id="p-cons--s--epidermidis-">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#e0cc9c"></span>
-          <span class="p-name">CoNS (S. epidermidis)</span>
-          <span class="p-count">4 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#septic-arthritis" class="condition-link">
-      <span class="c-title">Septic Arthritis</span>
-      
-    </a>
-<a href="im_guide.html#epidural-abscess" class="condition-link">
-      <span class="c-title">Spinal Epidural Abscess</span>
-      
-    </a>
-<a href="im_guide.html#clabsi" class="condition-link">
-      <span class="c-title">Catheter-Related Bloodstream Infection (Clabsi)</span>
-      
-    </a>
-<a href="im_guide.html#prosthetic-valve" class="condition-link">
-      <span class="c-title">Prosthetic Valve Dysfunction</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-enterococcus">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#e0ac7c"></span>
-          <span class="p-name">Enterococcus</span>
-          <span class="p-count">2 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#cellulitis" class="condition-link">
-      <span class="c-title">Cellulitis</span>
-      
-    </a>
-<a href="im_guide.html#uti" class="condition-link">
-      <span class="c-title">Urinary Tract Infection / Pyelonephritis</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-group-a-streptococcus">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#e09c6c"></span>
-          <span class="p-name">Group A Streptococcus</span>
-          <span class="p-count">4 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#cellulitis" class="condition-link">
-      <span class="c-title">Cellulitis</span>
-      <div class="c-pearl">May lack fever/leukocytosis despite severe infection Post-Surgical: If within 48 hours, consider Group A Strep (rapidly progressive, very painful).</div>
-    </a>
-<a href="im_guide.html#neutropenic-fever" class="condition-link">
-      <span class="c-title">Neutropenic Fever</span>
-      
-    </a>
-<a href="im_guide.html#ssti" class="condition-link">
-      <span class="c-title">Skin/Soft Tissue Infections (Cellulitis, Necrotizing Fasciitis)</span>
-      <div class="c-pearl">Often post-surgical, perineal (Fournier's gangrene) Type II NF (Monomicrobial, 20-30%): Group A Streptococcus (Strep pyogenes) OR Staphylococcus aureus (includi</div>
-    </a>
-<a href="im_guide.html#diabetic-foot-infection" class="condition-link">
-      <span class="c-title">Diabetic Foot Infection</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-mrsa">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#e05c5c"></span>
-          <span class="p-name">MRSA</span>
-          <span class="p-count">22 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#cap" class="condition-link">
-      <span class="c-title">Community-Acquired Pneumonia (Cap)</span>
-      
-    </a>
-<a href="im_guide.html#cellulitis" class="condition-link">
-      <span class="c-title">Cellulitis</span>
-      
-    </a>
-<a href="im_guide.html#uti" class="condition-link">
-      <span class="c-title">Urinary Tract Infection / Pyelonephritis</span>
-      
-    </a>
-<a href="im_guide.html#neutropenic-fever" class="condition-link">
-      <span class="c-title">Neutropenic Fever</span>
-      
-    </a>
-<a href="im_guide.html#endocarditis" class="condition-link">
-      <span class="c-title">Infective Endocarditis</span>
-      <div class="c-pearl">aureus (MRSA): Vancomycin 15mg/kg IV q12h × 6 weeks.</div>
-    </a>
-<a href="im_guide.html#influenza" class="condition-link">
-      <span class="c-title">Influenza/Severe Viral Pneumonia</span>
-      <div class="c-pearl">Post-influenza MRSA pneumonia is severe (necrotizing, high mortality) Duration: 5-7 days for CAP.</div>
-    </a>
-<a href="im_guide.html#covid" class="condition-link">
-      <span class="c-title">Covid-19 Severe Disease</span>
-      
-    </a>
-<a href="im_guide.html#ssti" class="condition-link">
-      <span class="c-title">Skin/Soft Tissue Infections (Cellulitis, Necrotizing Fasciitis)</span>
-      <div class="c-pearl">Often post-surgical, perineal (Fournier's gangrene) Type II NF (Monomicrobial, 20-30%): Group A Streptococcus (Strep pyogenes) OR Staphylococcus aureus (includi</div>
-    </a>
-<a href="im_guide.html#opportunistic" class="condition-link">
-      <span class="c-title">Opportunistic Infections In Immunocompromised Host</span>
-      
-    </a>
-<a href="im_guide.html#intraabdominal-abscess" class="condition-link">
-      <span class="c-title">Intra-Abdominal Abscess</span>
-      
-    </a>
-<a href="im_guide.html#hap-vap" class="condition-link">
-      <span class="c-title">Hospital-Acquired / Ventilator-Associated Pneumonia (Hap/Vap)</span>
-      <div class="c-pearl">If negative, can discontinue MRSA coverage.</div>
-    </a>
-<a href="im_guide.html#urosepsis" class="condition-link">
-      <span class="c-title">Urosepsis</span>
-      
-    </a>
-<a href="im_guide.html#septic-arthritis" class="condition-link">
-      <span class="c-title">Septic Arthritis</span>
-      
-    </a>
-<a href="im_guide.html#epidural-abscess" class="condition-link">
-      <span class="c-title">Spinal Epidural Abscess</span>
-      
-    </a>
-<a href="im_guide.html#clabsi" class="condition-link">
-      <span class="c-title">Catheter-Related Bloodstream Infection (Clabsi)</span>
-      
-    </a>
-<a href="im_guide.html#diabetic-foot-infection" class="condition-link">
-      <span class="c-title">Diabetic Foot Infection</span>
-      <div class="c-pearl">Antibiotics treat infection MRSA is common in diabetic foot: Especially if prior antibiotics, hospitalization, or chronic wound Wet gangrene = emergency: Rapidl</div>
-    </a>
-<a href="im_guide.html#empyema" class="condition-link">
-      <span class="c-title">Empyema / Parapneumonic Effusion</span>
-      <div class="c-pearl">aureus (including MRSA), gram-negative bacilli, anaerobes Anaerobes: Often from aspiration.</div>
-    </a>
-<a href="im_guide.html#lung-abscess" class="condition-link">
-      <span class="c-title">Lung Abscess</span>
-      
-    </a>
-<a href="im_guide.html#brain-abscess" class="condition-link">
-      <span class="c-title">Brain Abscess</span>
-      
-    </a>
-<a href="im_guide.html#prosthetic-joint-infection" class="condition-link">
-      <span class="c-title">Prosthetic Joint Infection</span>
-      
-    </a>
-<a href="im_guide.html#cied-infection" class="condition-link">
-      <span class="c-title">Cied Infection</span>
-      
-    </a>
-<a href="im_guide.html#vap" class="condition-link">
-      <span class="c-title">Ventilator-Associated Pneumonia (Vap)</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-mssa">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#e07070"></span>
-          <span class="p-name">MSSA</span>
-          <span class="p-count">4 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#cellulitis" class="condition-link">
-      <span class="c-title">Cellulitis</span>
-      
-    </a>
-<a href="im_guide.html#endocarditis" class="condition-link">
-      <span class="c-title">Infective Endocarditis</span>
-      <div class="c-pearl">aureus (MSSA): Nafcillin/oxacillin 2g IV q4h × 4-6 weeks.</div>
-    </a>
-<a href="im_guide.html#ssti" class="condition-link">
-      <span class="c-title">Skin/Soft Tissue Infections (Cellulitis, Necrotizing Fasciitis)</span>
-      
-    </a>
-<a href="im_guide.html#vap" class="condition-link">
-      <span class="c-title">Ventilator-Associated Pneumonia (Vap)</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-s--aureus--mssa-mrsa-">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#e05c5c"></span>
-          <span class="p-name">S. aureus (MSSA/MRSA)</span>
-          <span class="p-count">21 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#cellulitis" class="condition-link">
-      <span class="c-title">Cellulitis</span>
-      
-    </a>
-<a href="im_guide.html#uti" class="condition-link">
-      <span class="c-title">Urinary Tract Infection / Pyelonephritis</span>
-      
-    </a>
-<a href="im_guide.html#meningitis" class="condition-link">
-      <span class="c-title">Bacterial Meningitis</span>
-      
-    </a>
-<a href="im_guide.html#neutropenic-fever" class="condition-link">
-      <span class="c-title">Neutropenic Fever</span>
-      
-    </a>
-<a href="im_guide.html#endocarditis" class="condition-link">
-      <span class="c-title">Infective Endocarditis</span>
-      
-    </a>
-<a href="im_guide.html#cord-compression" class="condition-link">
-      <span class="c-title">Spinal Cord Compression</span>
-      
-    </a>
-<a href="im_guide.html#influenza" class="condition-link">
-      <span class="c-title">Influenza/Severe Viral Pneumonia</span>
-      
-    </a>
-<a href="im_guide.html#covid" class="condition-link">
-      <span class="c-title">Covid-19 Severe Disease</span>
-      
-    </a>
-<a href="im_guide.html#ssti" class="condition-link">
-      <span class="c-title">Skin/Soft Tissue Infections (Cellulitis, Necrotizing Fasciitis)</span>
-      <div class="c-pearl">Often post-surgical, perineal (Fournier's gangrene) Type II NF (Monomicrobial, 20-30%): Group A Streptococcus (Strep pyogenes) OR Staphylococcus aureus (includi</div>
-    </a>
-<a href="im_guide.html#musculoskeletal-chest-pain" class="condition-link">
-      <span class="c-title">Musculoskeletal Chest Pain</span>
-      
-    </a>
-<a href="im_guide.html#osteomyelitis" class="condition-link">
-      <span class="c-title">Osteomyelitis</span>
-      
-    </a>
-<a href="im_guide.html#septic-arthritis" class="condition-link">
-      <span class="c-title">Septic Arthritis</span>
-      
-    </a>
-<a href="im_guide.html#epidural-abscess" class="condition-link">
-      <span class="c-title">Spinal Epidural Abscess</span>
-      
-    </a>
-<a href="im_guide.html#clabsi" class="condition-link">
-      <span class="c-title">Catheter-Related Bloodstream Infection (Clabsi)</span>
-      
-    </a>
-<a href="im_guide.html#empyema" class="condition-link">
-      <span class="c-title">Empyema / Parapneumonic Effusion</span>
-      
-    </a>
-<a href="im_guide.html#lung-abscess" class="condition-link">
-      <span class="c-title">Lung Abscess</span>
-      
-    </a>
-<a href="im_guide.html#prostatitis" class="condition-link">
-      <span class="c-title">Acute Bacterial Prostatitis</span>
-      
-    </a>
-<a href="im_guide.html#prosthetic-joint-infection" class="condition-link">
-      <span class="c-title">Prosthetic Joint Infection</span>
-      
-    </a>
-<a href="im_guide.html#cied-infection" class="condition-link">
-      <span class="c-title">Cied Infection</span>
-      
-    </a>
-<a href="im_guide.html#cystic-fibrosis" class="condition-link">
-      <span class="c-title">Cystic Fibrosis</span>
-      
-    </a>
-<a href="im_guide.html#prosthetic-valve" class="condition-link">
-      <span class="c-title">Prosthetic Valve Dysfunction</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-s--pneumoniae">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#e08c5c"></span>
-          <span class="p-name">S. pneumoniae</span>
-          <span class="p-count">16 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#cap" class="condition-link">
-      <span class="c-title">Community-Acquired Pneumonia (Cap)</span>
-      
-    </a>
-<a href="im_guide.html#copd" class="condition-link">
-      <span class="c-title">Copd Exacerbation</span>
-      
-    </a>
-<a href="im_guide.html#meningitis" class="condition-link">
-      <span class="c-title">Bacterial Meningitis</span>
-      <div class="c-pearl">Needs vancomycin + shunt removal/externalization Hearing screen everyone: 30% get hearing loss with pneumococcal meningitis.</div>
-    </a>
-<a href="im_guide.html#ild" class="condition-link">
-      <span class="c-title">Acute Exacerbation Of Interstitial Lung Disease (Ild)</span>
-      
-    </a>
-<a href="im_guide.html#influenza" class="condition-link">
-      <span class="c-title">Influenza/Severe Viral Pneumonia</span>
-      
-    </a>
-<a href="im_guide.html#opportunistic" class="condition-link">
-      <span class="c-title">Opportunistic Infections In Immunocompromised Host</span>
-      
-    </a>
-<a href="im_guide.html#glomerulonephritis" class="condition-link">
-      <span class="c-title">Acute Glomerulonephritis</span>
-      
-    </a>
-<a href="im_guide.html#musculoskeletal-chest-pain" class="condition-link">
-      <span class="c-title">Musculoskeletal Chest Pain</span>
-      <div class="c-pearl">Patients should receive pneumococcal, H.</div>
-    </a>
-<a href="im_guide.html#nephrotic-syndrome" class="condition-link">
-      <span class="c-title">Nephrotic Syndrome</span>
-      
-    </a>
-<a href="im_guide.html#hap-vap" class="condition-link">
-      <span class="c-title">Hospital-Acquired / Ventilator-Associated Pneumonia (Hap/Vap)</span>
-      
-    </a>
-<a href="im_guide.html#acute-respiratory-failure" class="condition-link">
-      <span class="c-title">Acute Respiratory Failure</span>
-      
-    </a>
-<a href="im_guide.html#septic-arthritis" class="condition-link">
-      <span class="c-title">Septic Arthritis</span>
-      
-    </a>
-<a href="im_guide.html#empyema" class="condition-link">
-      <span class="c-title">Empyema / Parapneumonic Effusion</span>
-      
-    </a>
-<a href="im_guide.html#pmr" class="condition-link">
-      <span class="c-title">Polymyalgia Rheumatica</span>
-      
-    </a>
-<a href="im_guide.html#preventive-care" class="condition-link">
-      <span class="c-title">Preventive Care & Cancer Screening</span>
-      
-    </a>
-<a href="im_guide.html#vap" class="condition-link">
-      <span class="c-title">Ventilator-Associated Pneumonia (Vap)</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-viridans-streptococci">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#e0bc8c"></span>
-          <span class="p-name">Viridans Streptococci</span>
-          <span class="p-count">2 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#endocarditis" class="condition-link">
-      <span class="c-title">Infective Endocarditis</span>
-      <div class="c-pearl">aureus, Streptococcus, gram-negatives) Organism-Specific Therapy: Viridans Streptococcus (most common, ~30%): Penicillin G 4 million units IV q4h OR ceftriaxone</div>
-    </a>
-<a href="im_guide.html#brain-abscess" class="condition-link">
-      <span class="c-title">Brain Abscess</span>
-      <div class="c-pearl">Often multiple abscesses Post-traumatic/Neurosurgical: Penetrating trauma, craniotomy Cryptogenic (25%): No source identified Microbiology: Streptococci: Virida</div>
-    </a>
-        </div>
-      </div>
-  </div>
-  <div class="group-section">
-    <div class="group-header" style="border-left:3px solid #4fa3e0;">
-      <span class="group-label" style="color:#4fa3e0;">Gram-Negative</span>
-      <span class="group-count">8 pathogens</span>
+<div class="org-card" id="org-s-aureus" data-gram="gpos" data-sites="blood wound bone respiratory" data-name="staphylococcus aureus">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gpos">Gram+ Cocci</span>
+      <h3 class="org-name">S. aureus (MSSA)</h3>
+      <span class="org-morph">Gram-positive cocci in clusters</span>
     </div>
-    
-      <div class="pathogen-card" id="p-e--coli">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#4fa3e0"></span>
-          <span class="p-name">E. coli</span>
-          <span class="p-count">16 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#sbp" class="condition-link">
-      <span class="c-title">Spontaneous Bacterial Peritonitis (Sbp)</span>
-      
-    </a>
-<a href="im_guide.html#uti" class="condition-link">
-      <span class="c-title">Urinary Tract Infection / Pyelonephritis</span>
-      
-    </a>
-<a href="im_guide.html#meningitis" class="condition-link">
-      <span class="c-title">Bacterial Meningitis</span>
-      
-    </a>
-<a href="im_guide.html#neutropenic-fever" class="condition-link">
-      <span class="c-title">Neutropenic Fever</span>
-      
-    </a>
-<a href="im_guide.html#ssti" class="condition-link">
-      <span class="c-title">Skin/Soft Tissue Infections (Cellulitis, Necrotizing Fasciitis)</span>
-      
-    </a>
-<a href="im_guide.html#ibd" class="condition-link">
-      <span class="c-title">Inflammatory Bowel Disease (Ibd) Flare</span>
-      
-    </a>
-<a href="im_guide.html#thrombocytopenia" class="condition-link">
-      <span class="c-title">Thrombocytopenia (Itp, Hit, Ttp/Hus)</span>
-      
-    </a>
-<a href="im_guide.html#cholangitis" class="condition-link">
-      <span class="c-title">Acute Cholangitis</span>
-      
-    </a>
-<a href="im_guide.html#intraabdominal-abscess" class="condition-link">
-      <span class="c-title">Intra-Abdominal Abscess</span>
-      
-    </a>
-<a href="im_guide.html#musculoskeletal-chest-pain" class="condition-link">
-      <span class="c-title">Musculoskeletal Chest Pain</span>
-      
-    </a>
-<a href="im_guide.html#ttp-hus" class="condition-link">
-      <span class="c-title">Ttp/Hus (Thrombotic Microangiopathy)</span>
-      
-    </a>
-<a href="im_guide.html#hap-vap" class="condition-link">
-      <span class="c-title">Hospital-Acquired / Ventilator-Associated Pneumonia (Hap/Vap)</span>
-      
-    </a>
-<a href="im_guide.html#urosepsis" class="condition-link">
-      <span class="c-title">Urosepsis</span>
-      
-    </a>
-<a href="im_guide.html#clabsi" class="condition-link">
-      <span class="c-title">Catheter-Related Bloodstream Infection (Clabsi)</span>
-      
-    </a>
-<a href="im_guide.html#prostatitis" class="condition-link">
-      <span class="c-title">Acute Bacterial Prostatitis</span>
-      
-    </a>
-<a href="im_guide.html#prosthetic-joint-infection" class="condition-link">
-      <span class="c-title">Prosthetic Joint Infection</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-esbl-producing-gnr">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#6fe4d0"></span>
-          <span class="p-name">ESBL-producing GNR</span>
-          <span class="p-count">1 condition</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#vap" class="condition-link">
-      <span class="c-title">Ventilator-Associated Pneumonia (Vap)</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-h--influenzae">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#bb9ff8"></span>
-          <span class="p-name">H. influenzae</span>
-          <span class="p-count">6 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#meningitis" class="condition-link">
-      <span class="c-title">Bacterial Meningitis</span>
-      
-    </a>
-<a href="im_guide.html#influenza" class="condition-link">
-      <span class="c-title">Influenza/Severe Viral Pneumonia</span>
-      
-    </a>
-<a href="im_guide.html#opportunistic" class="condition-link">
-      <span class="c-title">Opportunistic Infections In Immunocompromised Host</span>
-      
-    </a>
-<a href="im_guide.html#musculoskeletal-chest-pain" class="condition-link">
-      <span class="c-title">Musculoskeletal Chest Pain</span>
-      
-    </a>
-<a href="im_guide.html#pid" class="condition-link">
-      <span class="c-title">Pelvic Inflammatory Disease</span>
-      
-    </a>
-<a href="im_guide.html#vap" class="condition-link">
-      <span class="c-title">Ventilator-Associated Pneumonia (Vap)</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-klebsiella">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#5fb3f0"></span>
-          <span class="p-name">Klebsiella</span>
-          <span class="p-count">2 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#sbp" class="condition-link">
-      <span class="c-title">Spontaneous Bacterial Peritonitis (Sbp)</span>
-      
-    </a>
-<a href="im_guide.html#uti" class="condition-link">
-      <span class="c-title">Urinary Tract Infection / Pyelonephritis</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-listeria-monocytogenes">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#5fd4c0"></span>
-          <span class="p-name">Listeria monocytogenes</span>
-          <span class="p-count">1 condition</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#opportunistic" class="condition-link">
-      <span class="c-title">Opportunistic Infections In Immunocompromised Host</span>
-      <div class="c-pearl">Preemptive therapy if rising viral load in transplant patients 💡 Listeria not covered by ceftriaxone: Ampicillin is mandatory for Listeria meningitis.</div>
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-n--gonorrhoeae">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#ab8ff8"></span>
-          <span class="p-name">N. gonorrhoeae</span>
-          <span class="p-count">3 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#septic-arthritis" class="condition-link">
-      <span class="c-title">Septic Arthritis</span>
-      
-    </a>
-<a href="im_guide.html#pid" class="condition-link">
-      <span class="c-title">Pelvic Inflammatory Disease</span>
-      
-    </a>
-<a href="im_guide.html#prostatitis" class="condition-link">
-      <span class="c-title">Acute Bacterial Prostatitis</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-n--meningitidis">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#9b7fe8"></span>
-          <span class="p-name">N. meningitidis</span>
-          <span class="p-count">5 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#cellulitis" class="condition-link">
-      <span class="c-title">Cellulitis</span>
-      <div class="c-pearl">Treating these reduces recurrence dramatically Purpura = NOT cellulitis: If non-blanching purpura present, think necrotizing fasciitis, meningococcemia, septic </div>
-    </a>
-<a href="im_guide.html#meningitis" class="condition-link">
-      <span class="c-title">Bacterial Meningitis</span>
-      
-    </a>
-<a href="im_guide.html#opportunistic" class="condition-link">
-      <span class="c-title">Opportunistic Infections In Immunocompromised Host</span>
-      
-    </a>
-<a href="im_guide.html#dic" class="condition-link">
-      <span class="c-title">Disseminated Intravascular Coagulation (Dic)</span>
-      
-    </a>
-<a href="im_guide.html#musculoskeletal-chest-pain" class="condition-link">
-      <span class="c-title">Musculoskeletal Chest Pain</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-pseudomonas-aeruginosa">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#6fc3f0"></span>
-          <span class="p-name">Pseudomonas aeruginosa</span>
-          <span class="p-count">2 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#cystic-fibrosis" class="condition-link">
-      <span class="c-title">Cystic Fibrosis</span>
-      
-    </a>
-<a href="im_guide.html#vap" class="condition-link">
-      <span class="c-title">Ventilator-Associated Pneumonia (Vap)</span>
-      
-    </a>
-        </div>
-      </div>
+    <div class="org-sites"><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="bone">Bone / Joint</span><span class="site-tag" data-site="respiratory">Respiratory</span></div>
   </div>
-  <div class="group-section">
-    <div class="group-header" style="border-left:3px solid #c4a35a;">
-      <span class="group-label" style="color:#c4a35a;">Anaerobes</span>
-      <span class="group-count">3 pathogens</span>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Bacteremia / endocarditis</li><li>Skin & soft tissue (cellulitis, abscess, NecFasc)</li><li>Osteomyelitis / septic arthritis</li><li>CAP (post-influenza necrotizing pneumonia)</li><li>Spinal epidural abscess</li></ul>
     </div>
-    
-      <div class="pathogen-card" id="p-bacteroides-fragilis">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#c4a35a"></span>
-          <span class="p-name">Bacteroides fragilis</span>
-          <span class="p-count">1 condition</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#intraabdominal-abscess" class="condition-link">
-      <span class="c-title">Intra-Abdominal Abscess</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-c--difficile">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#d4b36a"></span>
-          <span class="p-name">C. difficile</span>
-          <span class="p-count">4 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#cellulitis" class="condition-link">
-      <span class="c-title">Cellulitis</span>
-      
-    </a>
-<a href="im_guide.html#uti" class="condition-link">
-      <span class="c-title">Urinary Tract Infection / Pyelonephritis</span>
-      
-    </a>
-<a href="im_guide.html#cdiff" class="condition-link">
-      <span class="c-title">C. Difficile Infection (Cdi)</span>
-      
-    </a>
-<a href="im_guide.html#musculoskeletal-chest-pain" class="condition-link">
-      <span class="c-title">Musculoskeletal Chest Pain</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-oral-anaerobes">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#c4935a"></span>
-          <span class="p-name">Oral Anaerobes</span>
-          <span class="p-count">2 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#lung-abscess" class="condition-link">
-      <span class="c-title">Lung Abscess</span>
-      
-    </a>
-<a href="im_guide.html#brain-abscess" class="condition-link">
-      <span class="c-title">Brain Abscess</span>
-      
-    </a>
-        </div>
-      </div>
-  </div>
-  <div class="group-section">
-    <div class="group-header" style="border-left:3px solid #e0c44f;">
-      <span class="group-label" style="color:#e0c44f;">Fungi</span>
-      <span class="group-count">5 pathogens</span>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Nafcillin/Oxacillin 2g IV q4h OR Cefazolin 2g IV q8h</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Clindamycin (susceptible); Daptomycin (non-pulmonary); Ceftaroline</div>
     </div>
-    
-      <div class="pathogen-card" id="p-aspergillus">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#f0d45f"></span>
-          <span class="p-name">Aspergillus</span>
-          <span class="p-count">2 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#opportunistic" class="condition-link">
-      <span class="c-title">Opportunistic Infections In Immunocompromised Host</span>
-      <div class="c-pearl">Repeat imaging, fungal workup INVASIVE ASPERGILLOSIS: First-line: Voriconazole 6mg/kg IV q12h × 2 doses (loading), then 4mg/kg IV q12h (maintenance).</div>
-    </a>
-<a href="im_guide.html#aspergillosis" class="condition-link">
-      <span class="c-title">Invasive Aspergillosis</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-candida">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#e0c44f"></span>
-          <span class="p-name">Candida</span>
-          <span class="p-count">4 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#covid" class="condition-link">
-      <span class="c-title">Covid-19 Severe Disease</span>
-      
-    </a>
-<a href="im_guide.html#opportunistic" class="condition-link">
-      <span class="c-title">Opportunistic Infections In Immunocompromised Host</span>
-      
-    </a>
-<a href="im_guide.html#cryoglobulinemia" class="condition-link">
-      <span class="c-title">Cryoglobulinemia</span>
-      
-    </a>
-<a href="im_guide.html#invasive-candida" class="condition-link">
-      <span class="c-title">Invasive Candidiasis</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-cryptococcus">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#e0b43f"></span>
-          <span class="p-name">Cryptococcus</span>
-          <span class="p-count">3 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#hiv-aids" class="condition-link">
-      <span class="c-title">Hiv/Aids Complications</span>
-      <div class="c-pearl">Positive in 90% CRYPTOCOCCAL MENINGITIS: Presentation: Subacute headache (weeks), fever, altered mental status, nausea/vomiting.</div>
-    </a>
-<a href="im_guide.html#musculoskeletal-chest-pain" class="condition-link">
-      <span class="c-title">Musculoskeletal Chest Pain</span>
-      
-    </a>
-<a href="im_guide.html#cryptococcus" class="condition-link">
-      <span class="c-title">Cryptococcal Meningitis</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-mucormycosis">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#a0942f"></span>
-          <span class="p-name">Mucormycosis</span>
-          <span class="p-count">4 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#dka" class="condition-link">
-      <span class="c-title">Diabetic Ketoacidosis (Dka)</span>
-      
-    </a>
-<a href="im_guide.html#neutropenic-fever" class="condition-link">
-      <span class="c-title">Neutropenic Fever</span>
-      
-    </a>
-<a href="im_guide.html#ssti" class="condition-link">
-      <span class="c-title">Skin/Soft Tissue Infections (Cellulitis, Necrotizing Fasciitis)</span>
-      
-    </a>
-<a href="im_guide.html#opportunistic" class="condition-link">
-      <span class="c-title">Opportunistic Infections In Immunocompromised Host</span>
-      <div class="c-pearl">Rhinocerebral mucor requires extensive ENT surgery, often multiple procedures 💡 Black necrotic eschar in immunocompromised: Mucormycosis until proven otherwise.</div>
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-pneumocystis--pcp-">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#c0a42f"></span>
-          <span class="p-name">Pneumocystis (PCP)</span>
-          <span class="p-count">4 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#ild" class="condition-link">
-      <span class="c-title">Acute Exacerbation Of Interstitial Lung Disease (Ild)</span>
-      
-    </a>
-<a href="im_guide.html#hiv-aids" class="condition-link">
-      <span class="c-title">Hiv/Aids Complications</span>
-      
-    </a>
-<a href="im_guide.html#opportunistic" class="condition-link">
-      <span class="c-title">Opportunistic Infections In Immunocompromised Host</span>
-      
-    </a>
-<a href="im_guide.html#pcp" class="condition-link">
-      <span class="c-title">Pneumocystis Pneumonia (Pcp)</span>
-      
-    </a>
-        </div>
-      </div>
-  </div>
-  <div class="group-section">
-    <div class="group-header" style="border-left:3px solid #7fbf7f;">
-      <span class="group-label" style="color:#7fbf7f;">Mycobacteria/AFB</span>
-      <span class="group-count">2 pathogens</span>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">MSSA — β-lactam susceptible; de-escalate from vancomycin immediately when confirmed</div>
+      <div class="org-pearl">⚡ Always de-escalate from vancomycin to β-lactam when MSSA confirmed — β-lactam is superior</div>
     </div>
-    
-      <div class="pathogen-card" id="p-m--tuberculosis">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#7fbf7f"></span>
-          <span class="p-name">M. tuberculosis</span>
-          <span class="p-count">6 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#hemoptysis" class="condition-link">
-      <span class="c-title">Hemoptysis (Massive)</span>
-      
-    </a>
-<a href="im_guide.html#covid" class="condition-link">
-      <span class="c-title">Covid-19 Severe Disease</span>
-      
-    </a>
-<a href="im_guide.html#tb" class="condition-link">
-      <span class="c-title">Tuberculosis (Active Disease)</span>
-      <div class="c-pearl">Public health emergency requiring isolation and reporting Latent TB vs Active TB: Latent TB Infection (LTBI): Infected with M.</div>
-    </a>
-<a href="im_guide.html#hiv-aids" class="condition-link">
-      <span class="c-title">Hiv/Aids Complications</span>
-      
-    </a>
-<a href="im_guide.html#massive-hemoptysis" class="condition-link">
-      <span class="c-title">Massive Hemoptysis</span>
-      
-    </a>
-<a href="im_guide.html#chylothorax" class="condition-link">
-      <span class="c-title">Chylothorax</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-mac">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#8fcf8f"></span>
-          <span class="p-name">MAC</span>
-          <span class="p-count">3 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#hiv-aids" class="condition-link">
-      <span class="c-title">Hiv/Aids Complications</span>
-      
-    </a>
-<a href="im_guide.html#musculoskeletal-chest-pain" class="condition-link">
-      <span class="c-title">Musculoskeletal Chest Pain</span>
-      
-    </a>
-<a href="im_guide.html#hp" class="condition-link">
-      <span class="c-title">Hypersensitivity Pneumonitis</span>
-      
-    </a>
-        </div>
-      </div>
   </div>
-  <div class="group-section">
-    <div class="group-header" style="border-left:3px solid #e07890;">
-      <span class="group-label" style="color:#e07890;">Viruses</span>
-      <span class="group-count">4 pathogens</span>
-    </div>
-    
-      <div class="pathogen-card" id="p-cmv">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#e088a0"></span>
-          <span class="p-name">CMV</span>
-          <span class="p-count">4 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#hiv-aids" class="condition-link">
-      <span class="c-title">Hiv/Aids Complications</span>
-      <div class="c-pearl">Negative IgG makes toxoplasmosis less likely Diagnosis: Presumptive based on imaging + CD4 CMV RETINITIS: Presentation: Painless vision loss, floaters, visual f</div>
-    </a>
-<a href="im_guide.html#opportunistic" class="condition-link">
-      <span class="c-title">Opportunistic Infections In Immunocompromised Host</span>
-      <div class="c-pearl">Disease = end-organ involvement (pneumonitis, colitis, retinitis, hepatitis, encephalitis) CMV pneumonitis: Dyspnea, fever, hypoxemia.</div>
-    </a>
-<a href="im_guide.html#ibd" class="condition-link">
-      <span class="c-title">Inflammatory Bowel Disease (Ibd) Flare</span>
-      <div class="c-pearl">Always give prophylactic anticoagulation unless active major bleeding CMV colitis in steroid-refractory UC: Up to 30% of steroid-refractory UC has CMV.</div>
-    </a>
-<a href="im_guide.html#musculoskeletal-chest-pain" class="condition-link">
-      <span class="c-title">Musculoskeletal Chest Pain</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-hiv">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#e0a8c0"></span>
-          <span class="p-name">HIV</span>
-          <span class="p-count">8 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#tb" class="condition-link">
-      <span class="c-title">Tuberculosis (Active Disease)</span>
-      <div class="c-pearl">Ascites: high protein, lymphocyte-predominant, ADA >39 U/L High-Risk Populations: HIV/AIDS (CD4 10-20x increased risk.</div>
-    </a>
-<a href="im_guide.html#hiv-aids" class="condition-link">
-      <span class="c-title">Hiv/Aids Complications</span>
-      <div class="c-pearl">Corticosteroids if severe (prednisone 0.5-1mg/kg/day) DIAGNOSTIC WORKUP Essential Labs: CD4 count: Determines risk of opportunistic infections.</div>
-    </a>
-<a href="im_guide.html#opportunistic" class="condition-link">
-      <span class="c-title">Opportunistic Infections In Immunocompromised Host</span>
-      
-    </a>
-<a href="im_guide.html#drug-induced-thrombocytopenia" class="condition-link">
-      <span class="c-title">Drug-Induced Thrombocytopenia</span>
-      
-    </a>
-<a href="im_guide.html#musculoskeletal-chest-pain" class="condition-link">
-      <span class="c-title">Musculoskeletal Chest Pain</span>
-      
-    </a>
-<a href="im_guide.html#pcp" class="condition-link">
-      <span class="c-title">Pneumocystis Pneumonia (Pcp)</span>
-      
-    </a>
-<a href="im_guide.html#cryptococcus" class="condition-link">
-      <span class="c-title">Cryptococcal Meningitis</span>
-      
-    </a>
-<a href="im_guide.html#acalculous-cholecystitis" class="condition-link">
-      <span class="c-title">Acalculous Cholecystitis</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-hepatitis-b">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#d0b8d0"></span>
-          <span class="p-name">Hepatitis B</span>
-          <span class="p-count">3 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#musculoskeletal-chest-pain" class="condition-link">
-      <span class="c-title">Musculoskeletal Chest Pain</span>
-      <div class="c-pearl">Acute precipitant (HBV reactivation, alcohol binge, hepatotoxin) in patient with chronic liver disease causes acute hepatic injury, systemic inflammation, extra</div>
-    </a>
-<a href="im_guide.html#viral-hepatitis" class="condition-link">
-      <span class="c-title">Viral Hepatitis (Acute)</span>
-      <div class="c-pearl">HBV Reactivation is a Real and Preventable Problem: Always screen for HBsAg and anti-HBc before immunosuppressive therapy (chemo, biologics, high-dose steroids)</div>
-    </a>
-<a href="im_guide.html#acute-liver-failure" class="condition-link">
-      <span class="c-title">Acute Liver Failure</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-influenza">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#e098b0"></span>
-          <span class="p-name">Influenza</span>
-          <span class="p-count">2 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#neutropenic-fever" class="condition-link">
-      <span class="c-title">Neutropenic Fever</span>
-      
-    </a>
-<a href="im_guide.html#influenza" class="condition-link">
-      <span class="c-title">Influenza/Severe Viral Pneumonia</span>
-      <div class="c-pearl">Testing confirms diagnosis and guides treatment/isolation TREATMENT PROTOCOL Antiviral Therapy (CRITICAL): Oseltamivir (Tamiflu): 75mg PO BID × 5 days.</div>
-    </a>
-        </div>
-      </div>
-  </div>
-  <div class="group-section">
-    <div class="group-header" style="border-left:3px solid #7fbf9f;">
-      <span class="group-label" style="color:#7fbf9f;">Parasites</span>
-      <span class="group-count">2 pathogens</span>
-    </div>
-    
-      <div class="pathogen-card" id="p-malaria">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#8fcfaf"></span>
-          <span class="p-name">Malaria</span>
-          <span class="p-count">3 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#anemia" class="condition-link">
-      <span class="c-title">Anemia</span>
-      <div class="c-pearl">Don't transfuse unless life-threatening (can worsen hemolysis) G6PD deficiency: Avoid oxidative triggers (sulfa drugs, dapsone, antimalarials, fava beans).</div>
-    </a>
-<a href="im_guide.html#malaria" class="condition-link">
-      <span class="c-title">Malaria</span>
-      
-    </a>
-<a href="im_guide.html#musculoskeletal-chest-pain" class="condition-link">
-      <span class="c-title">Musculoskeletal Chest Pain</span>
-      
-    </a>
-        </div>
-      </div>
-      <div class="pathogen-card" id="p-toxoplasma">
-        <div class="p-header" onclick="toggleP(this)">
-          <span class="p-dot" style="background:#7fbf9f"></span>
-          <span class="p-name">Toxoplasma</span>
-          <span class="p-count">4 conditions</span>
-          <span class="p-chevron">›</span>
-        </div>
-        <div class="p-conditions">
-          <a href="im_guide.html#hiv-aids" class="condition-link">
-      <span class="c-title">Hiv/Aids Complications</span>
-      <div class="c-pearl">Negative IgG makes toxoplasmosis less likely Diagnosis: Presumptive based on imaging + CD4 CMV RETINITIS: Presentation: Painless vision loss, floaters, visual f</div>
-    </a>
-<a href="im_guide.html#opportunistic" class="condition-link">
-      <span class="c-title">Opportunistic Infections In Immunocompromised Host</span>
-      
-    </a>
-<a href="im_guide.html#musculoskeletal-chest-pain" class="condition-link">
-      <span class="c-title">Musculoskeletal Chest Pain</span>
-      
-    </a>
-<a href="im_guide.html#mononucleosis" class="condition-link">
-      <span class="c-title">Infectious Mononucleosis</span>
-      
-    </a>
-        </div>
-      </div>
-  </div>
-  <div id="no-results">No pathogens or conditions match your search.</div>
 </div>
+
+<div class="org-card" id="org-mrsa" data-gram="gpos" data-sites="blood wound bone respiratory" data-name="mrsa">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gpos">Gram+ Cocci</span>
+      <h3 class="org-name">MRSA</h3>
+      <span class="org-morph">Gram-positive cocci in clusters</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="bone">Bone / Joint</span><span class="site-tag" data-site="respiratory">Respiratory</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Bacteremia / endocarditis</li><li>Skin & soft tissue (MRSA most common cause of purulent SSTI)</li><li>Osteomyelitis / septic arthritis</li><li>HAP / VAP</li><li>Spinal epidural abscess</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Vancomycin 15–20 mg/kg IV q8–12h (AUC-guided, target 400–600)</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Daptomycin 6–10 mg/kg IV q24h (not for pneumonia); Linezolid 600mg IV/PO q12h (bacteriostatic); Ceftaroline 600mg IV q8h</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">mecA → PBP2a; resistant to all β-lactams. Vancomycin preferred. Check for VISA/VRSA if not clearing.</div>
+      <div class="org-pearl">⚡ MRSA nasal swab PCR negative has 95% NPV — can de-escalate MRSA coverage if negative at 48–72h</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-cons" data-gram="gpos" data-sites="blood" data-name="coagulase-negative staphylococci">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gpos">Gram+ Cocci</span>
+      <h3 class="org-name">CoNS (S. epidermidis)</h3>
+      <span class="org-morph">Gram-positive cocci in clusters (smaller colonies than S. aureus)</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="blood">Blood / BSI</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>CLABSI (most common cause)</li><li>Prosthetic valve endocarditis</li><li>VP shunt / EVD infection</li><li>Prosthetic joint infection</li><li>CIED infection</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Vancomycin 15–20 mg/kg IV q8–12h (almost always oxacillin-resistant)</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Daptomycin; Linezolid; Rifampin added for biofilm (device-related)</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Usually oxacillin-resistant in healthcare setting — do not use nafcillin</div>
+      <div class="org-pearl">⚡ Single positive blood culture = likely contaminant. Two+ cultures or clinical context required to treat.</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-strep-pyogenes" data-gram="gpos" data-sites="wound blood respiratory" data-name="streptococcus pyogenes">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gpos">Gram+ Cocci</span>
+      <h3 class="org-name">Group A Strep (GAS)</h3>
+      <span class="org-morph">Gram-positive cocci in chains</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="respiratory">Respiratory</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Necrotizing fasciitis (Type II — monomicrobial)</li><li>Streptococcal toxic shock syndrome</li><li>Cellulitis / erysipelas</li><li>Pharyngitis</li><li>Bacteremia</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Penicillin G 2–4 MU IV q4–6h + Clindamycin 900mg IV q8h</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Ampicillin; Cefazolin; Clindamycin alone (if PCN allergy, check susceptibility)</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Always penicillin-susceptible. Clindamycin added for toxin inhibition (Eagle effect).</div>
+      <div class="org-pearl">⚡ Add clindamycin in all severe GAS infections — inhibits toxin production even if growth-phase resistant</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-strep-pneumo" data-gram="gpos" data-sites="blood csf respiratory" data-name="streptococcus pneumoniae">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gpos">Gram+ Cocci</span>
+      <h3 class="org-name">S. pneumoniae</h3>
+      <span class="org-morph">Gram-positive lancet-shaped diplococci</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="csf">CSF / CNS</span><span class="site-tag" data-site="respiratory">Respiratory</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>CAP (#1 cause of bacterial pneumonia)</li><li>Bacterial meningitis (#1 adult cause)</li><li>Bacteremia / sepsis</li><li>Sinusitis / otitis media</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Ceftriaxone 2g IV q12h (CNS) or q24h (non-CNS) + Vancomycin empirically for CNS</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Penicillin G if susceptible (MIC ≤0.06); Moxifloxacin/Levofloxacin for CAP</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">PBP mutations — check MIC. Ceftriaxone covers most strains. Add vancomycin for CNS until susceptibilities.</div>
+      <div class="org-pearl">⚡ For meningitis: give dexamethasone before/with first antibiotic dose — reduces mortality in pneumococcal meningitis</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-enterococcus" data-gram="gpos" data-sites="urine blood wound" data-name="enterococcus">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gpos">Gram+ Cocci</span>
+      <h3 class="org-name">Enterococcus (E. faecalis/faecium)</h3>
+      <span class="org-morph">Gram-positive cocci in pairs/short chains</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="urine">Urine / UTI</span><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="wound">Wound / Skin</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>UTI / CAUTI (very common)</li><li>Bacteremia / endocarditis</li><li>Intra-abdominal infections</li><li>Wound infections</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">E. faecalis: Ampicillin 2g IV q4h ± Ceftriaxone (synergy for endocarditis); E. faecium: Linezolid or Daptomycin</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">VRE: Linezolid 600mg q12h; Daptomycin 6mg/kg q24h; Tigecycline</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">E. faecium often ampicillin-resistant and VRE. E. faecalis usually ampicillin-susceptible.</div>
+      <div class="org-pearl">⚡ Enterococcus in urine is often colonization — treat only if symptomatic UTI. In blood cultures, always treat.</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-viridans-strep" data-gram="gpos" data-sites="blood" data-name="viridans streptococci">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gpos">Gram+ Cocci</span>
+      <h3 class="org-name">Viridans Streptococci</h3>
+      <span class="org-morph">Gram-positive cocci in chains</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="blood">Blood / BSI</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Infective endocarditis (native valve, especially dental source)</li><li>Bacteremia in neutropenic patients</li><li>Brain abscess (S. anginosus group)</li><li>Subdural empyema</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Penicillin G 12–18 MU/day IV (susceptible); Ceftriaxone 2g IV q24h</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Clindamycin (PCN allergy); Vancomycin</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Usually penicillin-susceptible. Check MIC — reduced susceptibility increasing.</div>
+      <div class="org-pearl">⚡ S. anginosus group (S. milleri) is aggressive — causes abscesses and empyema; source control critical</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-e-coli" data-gram="gneg" data-sites="urine blood wound csf" data-name="escherichia coli">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gneg">Gram− Rods</span>
+      <h3 class="org-name">E. coli</h3>
+      <span class="org-morph">Gram-negative rods</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="urine">Urine / UTI</span><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="csf">CSF / CNS</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>UTI / pyelonephritis (#1 cause)</li><li>Urosepsis</li><li>Intra-abdominal infections</li><li>Biliary infections (cholangitis)</li><li>Neonatal meningitis</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Ceftriaxone 1–2g IV q24h (if susceptible)</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">TMP-SMX PO (if susceptible); Ciprofloxacin (check local resistance); Ertapenem (if ESBL)</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">ESBL-producing E. coli: use carbapenem. Fluoroquinolone resistance high — check susceptibilities.</div>
+      <div class="org-pearl">⚡ ESBL E. coli: avoid cephalosporins even if susceptible in vitro — inducible resistance causes clinical failures</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-klebsiella" data-gram="gneg" data-sites="respiratory urine blood wound" data-name="klebsiella pneumoniae">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gneg">Gram− Rods</span>
+      <h3 class="org-name">Klebsiella</h3>
+      <span class="org-morph">Gram-negative rods (mucoid colonies)</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="respiratory">Respiratory</span><span class="site-tag" data-site="urine">Urine / UTI</span><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="wound">Wound / Skin</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>HAP / VAP</li><li>UTI (especially catheter-associated)</li><li>Liver abscess (hypervirulent hvKP — especially in diabetics from SE Asia)</li><li>Bacteremia</li><li>Intra-abdominal</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Ceftriaxone / Cefepime (if susceptible); Meropenem (if KPC or ESBL)</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Pip-Tazo (non-ESBL); CAZ-AVI for KPC; Aztreonam-avibactam for MBL</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">KPC, ESBL, MBL all possible. Hypervirulent hvKP — endophthalmitis and metastatic abscesses.</div>
+      <div class="org-pearl">⚡ hvKP liver abscess: mandates ophthalmology consult — endophthalmitis in up to 10%</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-pseudomonas" data-gram="gneg" data-sites="respiratory wound urine blood" data-name="pseudomonas aeruginosa">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gneg">Gram− Rods</span>
+      <h3 class="org-name">Pseudomonas</h3>
+      <span class="org-morph">Gram-negative rods (blue-green pigment on culture)</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="respiratory">Respiratory</span><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="urine">Urine / UTI</span><span class="site-tag" data-site="blood">Blood / BSI</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>HAP / VAP (most important cause)</li><li>Bacteremia (high mortality)</li><li>Wound infections (burn, diabetic foot, surgical)</li><li>UTI (catheter-associated)</li><li>Otitis externa / malignant otitis</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Cefepime 2g IV q8h OR Meropenem 1–2g IV q8h OR Pip-Tazo 4.5g IV q6h</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Ciprofloxacin (if susceptible); Aztreonam; Ceftolozane-tazobactam (MDR)</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Multiple mechanisms — always check susceptibilities. Two-drug therapy for bacteremia.</div>
+      <div class="org-pearl">⚡ Pip-Tazo MIC creep — for serious infections use cefepime or carbapenem for more reliable coverage</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-h-influenzae" data-gram="gneg" data-sites="respiratory csf blood" data-name="haemophilus influenzae">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gneg">Gram− Coccobacilli</span>
+      <h3 class="org-name">H. influenzae</h3>
+      <span class="org-morph">Gram-negative coccobacilli (pleomorphic)</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="respiratory">Respiratory</span><span class="site-tag" data-site="csf">CSF / CNS</span><span class="site-tag" data-site="blood">Blood / BSI</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>CAP (non-typeable, especially COPD)</li><li>Meningitis (type b — unvaccinated)</li><li>Epiglottitis (type b — now rare with vaccine)</li><li>Sinusitis / otitis media</li><li>Bacteremia</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Ampicillin-sulbactam 3g IV q6h OR Ceftriaxone 2g IV q24h</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Amoxicillin-clavulanate PO; Azithromycin; Levofloxacin</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">β-lactamase production in ~30% — check. Non-β-lactamase ampicillin resistance (BLNAR) emerging.</div>
+      <div class="org-pearl">⚡ Hib vaccine has made type b meningitis and epiglottitis rare — consider in unvaccinated patients</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-n-meningitidis" data-gram="gneg" data-sites="blood csf" data-name="neisseria meningitidis">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gneg">Gram− Diplococci</span>
+      <h3 class="org-name">N. meningitidis</h3>
+      <span class="org-morph">Gram-negative diplococci (intracellular in CSF)</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="csf">CSF / CNS</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Bacterial meningitis (young adults, crowded settings)</li><li>Meningococcemia / septicemia</li><li>Waterhouse-Friderichsen syndrome (adrenal hemorrhage, DIC)</li><li>Petechial/purpuric rash</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Penicillin G 4 MU IV q4h OR Ceftriaxone 2g IV q12h</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Ampicillin; Meropenem (allergy)</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Usually susceptible. Prophylaxis contacts: Ciprofloxacin 500mg PO × 1 OR Rifampin 600mg PO q12h × 2 days</div>
+      <div class="org-pearl">⚡ Chemoprophylaxis for close contacts within 24h. Treat empirically — do not wait for confirmation in suspected meningococcemia</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-n-gonorrhoeae" data-gram="gneg" data-sites="wound urine blood csf" data-name="neisseria gonorrhoeae">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gneg">Gram− Diplococci</span>
+      <h3 class="org-name">N. gonorrhoeae</h3>
+      <span class="org-morph">Gram-negative diplococci (intracellular in PMNs)</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="urine">Urine / UTI</span><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="csf">CSF / CNS</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Urethritis / cervicitis</li><li>PID</li><li>Disseminated gonococcal infection (DGI — skin lesions, tenosynovitis, septic arthritis)</li><li>Pharyngitis / proctitis</li><li>Ophthalmia neonatorum</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Ceftriaxone 500mg IM × 1 (or 1g if weight >150kg); + Doxycycline 100mg PO BID × 7d if chlamydia not excluded</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">No reliable oral alternatives — ceftriaxone required</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Fluoroquinolone resistance widespread — do not use. Emerging cephalosporin resistance.</div>
+      <div class="org-pearl">⚡ Always treat for chlamydia co-infection empirically unless NAAT definitively negative</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-listeria" data-gram="gpos" data-sites="blood csf" data-name="listeria monocytogenes">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gpos">Gram+ Rods</span>
+      <h3 class="org-name">Listeria</h3>
+      <span class="org-morph">Gram-positive rods (short, may appear coccoid)</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="csf">CSF / CNS</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Meningitis (elderly, pregnant, immunocompromised)</li><li>Bacteremia</li><li>Rhombencephalitis (brainstem — unique to Listeria)</li><li>Neonatal sepsis / meningitis</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Ampicillin 2g IV q4h (± Gentamicin for synergy in severe disease)</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">TMP-SMX IV (PCN allergy); Meropenem</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Intrinsically resistant to cephalosporins — ceftriaxone does NOT cover Listeria</div>
+      <div class="org-pearl">⚡ Add ampicillin to ceftriaxone empirically for meningitis if age >50, pregnant, or immunocompromised</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-esbl-gnr" data-gram="gneg" data-sites="urine blood wound" data-name="esbl-producing enterobacteriaceae">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gneg">Gram− Rods</span>
+      <h3 class="org-name">ESBL GNR</h3>
+      <span class="org-morph">Gram-negative rods</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="urine">Urine / UTI</span><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="wound">Wound / Skin</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>UTI / urosepsis (increasing ESBL prevalence)</li><li>Intra-abdominal infections</li><li>Bacteremia</li><li>HAP</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Meropenem 1g IV q8h OR Ertapenem 1g IV q24h</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Ceftazidime-avibactam; Temocillin (Europe); Fosfomycin IV (UTI)</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">CTX-M ESBL — hydrolysis of all penicillins and cephalosporins. Carbapenems reliable.</div>
+      <div class="org-pearl">⚡ Even if susceptible in vitro to cephalosporins — use carbapenem for serious infections. Do not use pip-tazo for ESBL bacteremia (inoculum effect).</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-cre" data-gram="gneg" data-sites="urine blood wound respiratory" data-name="cre / kpc">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gneg">Gram− Rods</span>
+      <h3 class="org-name">CRE (KPC / NDM / OXA)</h3>
+      <span class="org-morph">Gram-negative rods</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="urine">Urine / UTI</span><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="respiratory">Respiratory</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>HAI in ICU / prolonged hospitalization</li><li>UTI (catheter-associated)</li><li>Bacteremia (high mortality)</li><li>Ventilator-associated pneumonia</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">KPC: Ceftazidime-avibactam 2.5g IV q8h OR Meropenem-vaborbactam; MBL (NDM/VIM): Aztreonam-avibactam OR Cefiderocol</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Colistin (last resort, nephrotoxic); combination therapy; ID consult mandatory</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">KPC ≠ MBL — mechanism matters. CAZ-AVI active vs KPC but NOT MBL. Check mechanism before treating.</div>
+      <div class="org-pearl">⚡ Contact precautions and infection control notification mandatory — report to hospital epidemiology</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-acinetobacter" data-gram="gneg" data-sites="respiratory wound blood" data-name="acinetobacter baumannii">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gneg">Gram− Coccobacilli</span>
+      <h3 class="org-name">Acinetobacter (CRAB)</h3>
+      <span class="org-morph">Gram-negative coccobacilli</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="respiratory">Respiratory</span><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="blood">Blood / BSI</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>VAP (especially in ICU, trauma)</li><li>Wound infections (war wounds)</li><li>Bacteremia</li><li>Meningitis (post-neurosurgery)</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Ampicillin-sulbactam 9g IV q8h (extended infusion) — sulbactam has intrinsic activity</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Cefiderocol; Colistin (nephrotoxic); Sulbactam-durlobactam (newer)</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">OXA-type carbapenemases — often pan-resistant. Environmental survivor.</div>
+      <div class="org-pearl">⚡ Sulbactam component (not ampicillin) provides activity — use high-dose A-S or sulbactam monotherapy</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-stenotrophomonas" data-gram="gneg" data-sites="respiratory blood wound" data-name="stenotrophomonas maltophilia">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-gneg">Gram− Rods</span>
+      <h3 class="org-name">Stenotrophomonas</h3>
+      <span class="org-morph">Gram-negative rods</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="respiratory">Respiratory</span><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="wound">Wound / Skin</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>VAP / respiratory colonization → infection in immunocompromised</li><li>Bacteremia (catheter-related)</li><li>Wound infection</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">TMP-SMX 10–15 mg/kg/day IV divided q6–8h</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Levofloxacin; Minocycline; Cefiderocol</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Intrinsically resistant to carbapenems and most β-lactams. TMP-SMX first-line.</div>
+      <div class="org-pearl">⚡ Do not use carbapenems — intrinsically resistant. Often represents colonization; clinical correlation required.</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-bacteroides" data-gram="anaerobe" data-sites="wound blood" data-name="bacteroides fragilis">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-anaerobe">Anaerobe</span>
+      <h3 class="org-name">Bacteroides fragilis</h3>
+      <span class="org-morph">Gram-negative rod (anaerobe)</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="blood">Blood / BSI</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Intra-abdominal infections (#1 anaerobe in gut)</li><li>Perforated viscus / peritonitis</li><li>Liver abscess</li><li>Pelvic infections</li><li>Wound infections (post-abdominal surgery)</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Metronidazole 500mg IV q8h + cephalosporin/fluoroquinolone OR Pip-Tazo OR Carbapenem</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Ampicillin-sulbactam; Moxifloxacin</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Intrinsically resistant to penicillin alone. Clindamycin resistance rising — check susceptibilities.</div>
+      <div class="org-pearl">⚡ Source control is primary — antibiotics alone fail for intra-abdominal B. fragilis infections</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-c-difficile" data-gram="anaerobe" data-sites="gi" data-name="clostridioides difficile">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-anaerobe">Anaerobe</span>
+      <h3 class="org-name">C. difficile</h3>
+      <span class="org-morph">Gram-positive rod (spore-forming anaerobe)</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="gi">GI</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Antibiotic-associated diarrhea</li><li>Colitis (pseudomembranous)</li><li>Fulminant colitis / toxic megacolon</li><li>Recurrent CDI</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Non-severe: Vancomycin 125mg PO QID × 10d OR Fidaxomicin 200mg PO BID × 10d; Fulminant: Vancomycin 500mg PO/NG QID + Metronidazole IV</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Fidaxomicin preferred for first recurrence; Bezlotoxumab to prevent recurrence; Fecal transplant (recurrent)</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Metronidazole no longer recommended as first-line (inferior outcomes).</div>
+      <div class="org-pearl">⚡ Contact precautions + soap/water handwashing (alcohol gel does NOT kill spores)</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-oral-anaerobes" data-gram="anaerobe" data-sites="respiratory wound blood" data-name="oral anaerobes">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-anaerobe">Anaerobe</span>
+      <h3 class="org-name">Oral Anaerobes (Fusobacterium, Prevotella)</h3>
+      <span class="org-morph">Mixed Gram-negative rods</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="respiratory">Respiratory</span><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="blood">Blood / BSI</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Aspiration pneumonia / lung abscess</li><li>Deep neck space infections</li><li>Lemierre syndrome (Fusobacterium necrophorum → IJV thrombosis)</li><li>Periodontal abscess</li><li>Brain abscess (dental source)</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Ampicillin-sulbactam 3g IV q6h OR Amoxicillin-clavulanate PO</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Pip-Tazo; Clindamycin (increasing resistance); Metronidazole + β-lactam</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Clindamycin resistance rising in oral anaerobes — amoxicillin-clavulanate preferred</div>
+      <div class="org-pearl">⚡ Fusobacterium necrophorum after pharyngitis → think Lemierre syndrome: septic IJV thrombosis + pulmonary emboli</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-candida" data-gram="fungus" data-sites="blood urine wound" data-name="candida species">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-fungus">Fungus</span>
+      <h3 class="org-name">Candida spp.</h3>
+      <span class="org-morph">Yeast (budding) + pseudohyphae on culture</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="urine">Urine / UTI</span><span class="site-tag" data-site="wound">Wound / Skin</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Candidemia (ICU, immunocompromised — 40–60% mortality)</li><li>Invasive candidiasis (hepatosplenic, peritonitis)</li><li>CAUTI (often colonization)</li><li>Esophagitis (HIV/immunocompromised)</li><li>Endophthalmitis</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Caspofungin 70mg load → 50mg IV q24h OR Micafungin 100mg IV q24h; Step-down: Fluconazole 400mg daily (susceptible species)</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Anidulafungin; Liposomal amphotericin (neutropenic/azole-resistant); Rezafungin</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">C. glabrata: reduced fluconazole susceptibility — use echinocandin. C. auris: pan-resistant possible — contact ID + infection control. C. parapsilosis: reduced echinocandin susceptibility.</div>
+      <div class="org-pearl">⚡ Echinocandins have poor ocular penetration — use fluconazole/voriconazole for Candida endophthalmitis</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-aspergillus" data-gram="fungus" data-sites="respiratory blood" data-name="aspergillus">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-fungus">Fungus</span>
+      <h3 class="org-name">Aspergillus</h3>
+      <span class="org-morph">Septate hyphae at 45° angles on histology</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="respiratory">Respiratory</span><span class="site-tag" data-site="blood">Blood / BSI</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Invasive pulmonary aspergillosis (IPA — neutropenic, transplant)</li><li>Tracheobronchitis (lung transplant)</li><li>Cerebral aspergillosis</li><li>Sinusitis</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Voriconazole 6mg/kg IV q12h × 2 doses → 4mg/kg IV q12h (first-line); OR Isavuconazole</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Liposomal amphotericin 3–5mg/kg IV q24h; Combination with echinocandin in severe/refractory</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Azole-resistant Aspergillus increasing (TR34/L98H mutation) — check galactomannan, β-D-glucan; PCR resistance testing</div>
+      <div class="org-pearl">⚡ CT halo sign = early IPA — treat empirically in high-risk host without waiting for confirmation</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-cryptococcus" data-gram="fungus" data-sites="csf blood" data-name="cryptococcus neoformans">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-fungus">Fungus</span>
+      <h3 class="org-name">Cryptococcus</h3>
+      <span class="org-morph">Encapsulated yeast (India ink — clear halo)</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="csf">CSF / CNS</span><span class="site-tag" data-site="blood">Blood / BSI</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Meningitis (HIV/immunocompromised — subacute onset)</li><li>Pulmonary cryptococcosis</li><li>Fungemia (disseminated)</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Induction: Liposomal amphotericin B 3–4mg/kg IV q24h + Flucytosine 25mg/kg PO QID × 2 weeks; Consolidation: Fluconazole 400mg PO × 8 weeks; Maintenance: Fluconazole 200mg PO lifelong (HIV)</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Fluconazole alone for non-CNS pulmonary in low-risk</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Usually susceptible. Check serum/CSF cryptococcal antigen (CrAg) — highly sensitive/specific.</div>
+      <div class="org-pearl">⚡ ICP management critical — serial LPs or CSF drainage for elevated pressure; ICP kills more than the fungus</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-pcp" data-gram="fungus" data-sites="respiratory" data-name="pneumocystis jirovecii">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-fungus">Fungus</span>
+      <h3 class="org-name">PCP (Pneumocystis)</h3>
+      <span class="org-morph">Cysts and trophic forms on BAL (GMS stain)</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="respiratory">Respiratory</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Pneumocystis pneumonia (PCP) — HIV CD4 <200, immunocompromised</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">TMP-SMX 15–20 mg/kg/day IV divided q6–8h × 21 days; Add Prednisone 40mg PO BID × 5d if PaO2 <70 or A-a gradient >35</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Primaquine + Clindamycin; Pentamidine IV (severe); Atovaquone (mild)</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">DHPS mutations may reduce TMP-SMX efficacy — use clinical response to guide</div>
+      <div class="org-pearl">⚡ Steroids reduce mortality in moderate-severe PCP — start within 72h of antibiotics</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-mtb" data-gram="myco" data-sites="respiratory csf bone blood" data-name="mycobacterium tuberculosis">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-myco">Myco / AFB</span>
+      <h3 class="org-name">M. tuberculosis (TB)</h3>
+      <span class="org-morph">Acid-fast bacilli (AFB) on Ziehl-Neelsen stain</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="respiratory">Respiratory</span><span class="site-tag" data-site="csf">CSF / CNS</span><span class="site-tag" data-site="bone">Bone / Joint</span><span class="site-tag" data-site="blood">Blood / BSI</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Pulmonary TB (cavitary, upper lobe)</li><li>TB meningitis</li><li>Miliary TB (disseminated)</li><li>Vertebral osteomyelitis (Pott disease)</li><li>Pericarditis / pleural effusion</li><li>Latent TB (LTBI)</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">RIPE: Rifampin + Isoniazid + Pyrazinamide + Ethambutol × 2 months; then Rifampin + Isoniazid × 4 months</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Drug-resistant TB: fluoroquinolone-based regimens; consult ID/pulmonology</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">MDR-TB: resistant to INH + RIF. XDR-TB: also resistant to fluoroquinolones. Susceptibility testing mandatory.</div>
+      <div class="org-pearl">⚡ Airborne isolation mandatory. LTBI: INH × 9 months OR Rifampin × 4 months OR 3HP (rifapentine + INH weekly × 12 doses)</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-mac" data-gram="myco" data-sites="blood respiratory" data-name="mycobacterium avium complex">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-myco">Myco / AFB</span>
+      <h3 class="org-name">MAC (M. avium)</h3>
+      <span class="org-morph">Acid-fast bacilli</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="respiratory">Respiratory</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Disseminated MAC (HIV CD4 <50)</li><li>Pulmonary MAC (non-HIV, elderly women — Lady Windermere syndrome)</li><li>Lymphadenitis (children)</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Azithromycin 500mg daily + Ethambutol 15mg/kg daily (± Rifabutin for severe); minimum 12 months</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Clarithromycin instead of azithromycin; Amikacin for refractory</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Macrolide resistance = treatment failure. Check susceptibilities if prior macrolide exposure.</div>
+      <div class="org-pearl">⚡ Prophylaxis: Azithromycin 1200mg weekly if CD4 <50 and not on ART (now less common with early ART)</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-influenza" data-gram="virus" data-sites="respiratory" data-name="influenza a/b">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-virus">Virus</span>
+      <h3 class="org-name">Influenza</h3>
+      <span class="org-morph">Orthomyxovirus — diagnosed by rapid antigen or PCR</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="respiratory">Respiratory</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Influenza syndrome (fever, myalgia, cough)</li><li>Influenza pneumonia</li><li>Secondary bacterial pneumonia (S. aureus, S. pneumoniae, S. pyogenes)</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Oseltamivir 75mg PO BID × 5 days (start within 48h); Hospitalized/severe: treat regardless of duration</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Baloxavir 40–80mg PO × 1 dose; Zanamivir inhaled; Peramivir IV</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Oseltamivir resistance (H275Y) possible — use baloxavir if suspected</div>
+      <div class="org-pearl">⚡ Pregnancy is indication for treatment — start empirically without waiting for test result</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-hsv" data-gram="virus" data-sites="csf wound blood" data-name="herpes simplex virus">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-virus">Virus</span>
+      <h3 class="org-name">HSV-1 / HSV-2</h3>
+      <span class="org-morph">Enveloped DNA virus — diagnosed by PCR or DFA</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="csf">CSF / CNS</span><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="blood">Blood / BSI</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>HSV encephalitis (temporal lobe — HSV-1)</li><li>Genital herpes (HSV-2)</li><li>Mucocutaneous lesions (oral, genital, perianal)</li><li>Neonatal HSV (disseminated — high mortality)</li><li>HSV keratitis</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Encephalitis: Acyclovir 10mg/kg IV q8h × 14–21 days; Genital/mucocutaneous: Valacyclovir 1g PO BID × 7–10d</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Famciclovir; Foscarnet (acyclovir-resistant HSV in immunocompromised)</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Acyclovir resistance in immunocompromised (TK mutation) — use foscarnet</div>
+      <div class="org-pearl">⚡ Start acyclovir empirically for suspected HSV encephalitis — do NOT wait for PCR. Untreated mortality 70%.</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-cmv" data-gram="virus" data-sites="blood gi respiratory" data-name="cytomegalovirus">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-virus">Virus</span>
+      <h3 class="org-name">CMV</h3>
+      <span class="org-morph">Enveloped DNA herpesvirus — owl-eye inclusions on histology</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="gi">GI</span><span class="site-tag" data-site="respiratory">Respiratory</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>CMV disease in transplant (colitis, pneumonitis, retinitis, hepatitis)</li><li>CMV mononucleosis (immunocompetent)</li><li>Retinitis (HIV CD4 <50)</li><li>CMV viremia (transplant monitoring)</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Ganciclovir 5mg/kg IV q12h OR Valganciclovir 900mg PO BID (induction); Maintenance: Valganciclovir 900mg PO daily</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Foscarnet (ganciclovir-resistant); Cidofovir; Maribavir (refractory)</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">UL97 mutations → ganciclovir resistance. Monitor CMV PCR weekly.</div>
+      <div class="org-pearl">⚡ CMV retinitis — intravitreal ganciclovir implant + systemic therapy; ophthalmology urgent</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-malaria" data-gram="parasite" data-sites="blood" data-name="plasmodium species">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-parasite">Parasite</span>
+      <h3 class="org-name">Malaria (Plasmodium)</h3>
+      <span class="org-morph">Intraerythrocytic rings on thick/thin smear</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="blood">Blood / BSI</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>Uncomplicated malaria (fever, chills, rigors)</li><li>Severe malaria (P. falciparum — cerebral, ARDS, renal failure, hyperparasitemia)</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">P. falciparum: Artemether-lumefantrine (Coartem) OR Atovaquone-proguanil; Severe: IV Artesunate; P. vivax/ovale: Chloroquine + Primaquine (eradicate hypnozoites)</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">Quinine + doxycycline; Mefloquine</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">P. falciparum chloroquine-resistant worldwide. Artemisinin partial resistance (SE Asia). IV artesunate for severe — superior to quinine.</div>
+      <div class="org-pearl">⚡ Thick and thin smears × 3 at 12–24h intervals if initial negative. Quantify % parasitemia.</div>
+    </div>
+  </div>
+</div>
+
+<div class="org-card" id="org-toxoplasma" data-gram="parasite" data-sites="csf blood" data-name="toxoplasma gondii">
+  <div class="org-card-header">
+    <div class="org-header-left">
+      <span class="gram-badge gram-parasite">Parasite</span>
+      <h3 class="org-name">Toxoplasma</h3>
+      <span class="org-morph">Obligate intracellular parasite — ring-enhancing lesions on MRI</span>
+    </div>
+    <div class="org-sites"><span class="site-tag" data-site="csf">CSF / CNS</span><span class="site-tag" data-site="blood">Blood / BSI</span></div>
+  </div>
+  <div class="org-card-body">
+    <div class="org-col">
+      <div class="org-section-label">Clinical Syndromes</div>
+      <ul class="org-syndromes"><li>CNS toxoplasmosis (HIV CD4 <100 — multiple ring-enhancing lesions)</li><li>Chorioretinitis</li><li>Congenital toxoplasmosis</li></ul>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">First-Line Treatment</div>
+      <div class="org-treatment">Pyrimethamine 200mg PO load → 50–75mg daily + Sulfadiazine 1–1.5g PO QID + Leucovorin 10–25mg daily × 6 weeks</div>
+      <div class="org-section-label" style="margin-top:10px;">Alternatives / Allergy</div>
+      <div class="org-alt">TMP-SMX (alternative); Pyrimethamine + Clindamycin (sulfa allergy)</div>
+    </div>
+    <div class="org-col">
+      <div class="org-section-label">Resistance Patterns</div>
+      <div class="org-resistance">Treat empirically in HIV with CD4 <100 and positive Toxo IgG + compatible imaging — response confirms diagnosis</div>
+      <div class="org-pearl">⚡ Clinical response by day 10–14 confirms diagnosis — if not improving, consider CNS lymphoma and biopsy</div>
+    </div>
+  </div>
+</div>
+  </div>
+  <div id="no-results">No organisms match your filters.</div>
+</main>
 
 <script>
-let activeFilter = 'all';
+(function(){
+  var cards = Array.from(document.querySelectorAll('.org-card'));
+  var searchInput = document.getElementById('pathSearch');
+  var searchClear = document.getElementById('searchClear');
+  var resultCount = document.getElementById('result-count');
+  var noResults = document.getElementById('no-results');
 
-function toggleP(header) {
-  const card = header.closest('.pathogen-card');
-  card.classList.toggle('open');
-}
+  var activeGram = 'all';
+  var activeSite = 'all';
+  var searchQ = '';
 
-function setFilter(group, el) {
-  activeFilter = group;
-  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  applyFilters(document.getElementById('search-input').value);
-}
+  function applyFilters() {
+    var visible = 0;
+    cards.forEach(function(card) {
+      var gram = card.dataset.gram;
+      var sites = card.dataset.sites.split(' ');
+      var name = card.dataset.name;
+      var bodyText = card.textContent.toLowerCase();
 
-function doSearch(q) {
-  applyFilters(q);
-}
+      var gramOk = activeGram === 'all' || gram === activeGram;
+      var siteOk = activeSite === 'all' || sites.indexOf(activeSite) !== -1;
+      var searchOk = !searchQ || bodyText.indexOf(searchQ) !== -1;
 
-function applyFilters(q) {
-  const query = q.toLowerCase().trim();
-  let visibleCount = 0;
-
-  document.querySelectorAll('.group-section').forEach(section => {
-    const groupLabel = section.querySelector('.group-label')?.textContent || '';
-    let sectionVisible = false;
-
-    if (activeFilter !== 'all' && groupLabel !== activeFilter) {
-      section.classList.add('hidden');
-      return;
-    }
-    section.classList.remove('hidden');
-
-    section.querySelectorAll('.pathogen-card').forEach(card => {
-      const pName = card.querySelector('.p-name')?.textContent.toLowerCase() || '';
-      const allText = card.textContent.toLowerCase();
-      const matches = !query || pName.includes(query) || allText.includes(query);
-
-      card.classList.toggle('hidden', !matches);
-      if (matches) { sectionVisible = true; visibleCount++; }
-
-      // If search query matches, auto-open matching cards
-      if (query && matches && pName.includes(query)) {
-        card.classList.add('open');
-      }
-      // If searching by condition name, open cards that contain that condition
-      if (query && matches && !pName.includes(query)) {
-        const condLinks = card.querySelectorAll('.c-title');
-        const condMatch = [...condLinks].some(el => el.textContent.toLowerCase().includes(query));
-        if (condMatch) card.classList.add('open');
+      if (gramOk && siteOk && searchOk) {
+        card.classList.remove('hidden');
+        visible++;
+      } else {
+        card.classList.add('hidden');
+        card.classList.remove('open');
       }
     });
+    noResults.classList.toggle('visible', visible === 0);
+    resultCount.textContent = searchQ || activeGram !== 'all' || activeSite !== 'all'
+      ? (visible + ' of ' + cards.length)
+      : '';
+  }
 
-    // Hide section if no visible pathogens
-    const anyVisible = [...section.querySelectorAll('.pathogen-card')]
-      .some(c => !c.classList.contains('hidden'));
-    section.classList.toggle('hidden', !anyVisible);
+  // Gram filter
+  document.getElementById('gramRow').addEventListener('click', function(e) {
+    var btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    activeGram = btn.dataset.gram;
+    document.querySelectorAll('.filter-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.gram === activeGram);
+    });
+    applyFilters();
   });
 
-  const resultsEl = document.getElementById('search-results');
-  const noResults = document.getElementById('no-results');
-  if (query) {
-    resultsEl.textContent = visibleCount === 0 ? 'No matches' : `${visibleCount} pathogen${visibleCount!==1?'s':''} match`;
-    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
-  } else {
-    resultsEl.textContent = '';
-    noResults.style.display = 'none';
-    // Close all cards when clearing search
-    document.querySelectorAll('.pathogen-card.open').forEach(c => c.classList.remove('open'));
-  }
-}
+  // Site filter
+  document.getElementById('siteRow').addEventListener('click', function(e) {
+    var btn = e.target.closest('.site-btn');
+    if (!btn) return;
+    activeSite = btn.dataset.site;
+    document.querySelectorAll('.site-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.site === activeSite);
+    });
+    applyFilters();
+  });
 
-// suiteNav
-(function(){
-  var SUITE={
-    'index.html':'home','im_guide.html':'imcrg','lab_values.html':'labs',
-    'dx_framework.html':'dxfx','id_guide.html':'id','abx-companion.html':'abxcomp',
-    'body-atlas.html':'bodyatlas','audio-companion.html':'audio',
-    'pathogen-index.html':'pathogens',
-    'drug_reference_guide.html':'drugref','antimicrobial_stewardship_guide.html':'abxsteward',
-  };
-  document.addEventListener('click',function(e){
-    var a=e.target.closest('a[href]');
-    if(!a) return;
-    var href=a.getAttribute('href');
-    if(!href||/^(https?:|mailto:|tel:|#)/.test(href)) return;
-    var parts=href.split('#');
-    var file=parts[0]; var anchor=parts[1]||null;
-    var toolId=SUITE[file];
-    if(!toolId) return;
-    if(window.parent!==window&&typeof window.parent.switchTool==='function'){
+  // Search
+  searchInput.addEventListener('input', function() {
+    searchQ = searchInput.value.trim().toLowerCase();
+    searchClear.classList.toggle('visible', searchQ.length > 0);
+    applyFilters();
+  });
+  searchClear.addEventListener('click', function() {
+    searchInput.value = '';
+    searchQ = '';
+    searchClear.classList.remove('visible');
+    applyFilters();
+    searchInput.focus();
+  });
+
+  // Expand/collapse cards
+  document.getElementById('org-list').addEventListener('click', function(e) {
+    var header = e.target.closest('.org-card-header');
+    if (!header) return;
+    var card = header.closest('.org-card');
+    card.classList.toggle('open');
+  });
+
+  // Suite nav helper
+  (function(){
+    var SUITE = {
+      'index.html':'home','im_guide.html':'imcrg','id_guide.html':'id',
+      'abx-companion.html':'abxcomp','pathogen-index.html':'pathogens',
+      'lab_values.html':'labs','dx_framework.html':'dxfx',
+    };
+    document.addEventListener('click', function(e) {
+      var a = e.target.closest('a[href]');
+      if (!a) return;
+      var href = a.getAttribute('href');
+      if (!href || /^(https?:|mailto:|tel:|#)/.test(href)) return;
+      var file = href.split('#')[0];
+      var anchor = href.split('#')[1] || null;
+      var toolId = SUITE[file];
+      if (!toolId) return;
       e.preventDefault();
-      window.parent.switchTool(toolId,anchor);
-    }
-  },true);
+      if (window.parent && window.parent.switchTool) {
+        window.parent.switchTool(toolId, anchor);
+      } else {
+        window.location.href = href;
+      }
+    });
+  })();
 })();
-
-// Open from URL hash on load
-window.addEventListener('DOMContentLoaded',()=>{
-  if(location.hash){
-    const card=document.getElementById('p-'+location.hash.slice(1));
-    if(card){ card.classList.add('open'); card.scrollIntoView({block:'center'}); }
-  }
-  // Pre-open from search param
-  const q=new URLSearchParams(location.search).get('q');
-  if(q){
-    document.getElementById('search-input').value=q;
-    doSearch(q);
-  }
-});
 </script>
 </body>
 </html>
