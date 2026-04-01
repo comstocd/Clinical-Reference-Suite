@@ -24,7 +24,7 @@ body {
 .header {
   position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
   background: var(--blue);
-  display: flex; align-items: center; padding: 0 16px; gap: 12px; z-index: 200;
+  display: flex; align-items: center; padding: 0 12px; gap: 10px; z-index: 200;
 }
 .header h1 { color: #fff; font-size: 1rem; font-weight: 700; flex: 1; }
 .search-wrap { position: relative; flex: 1; max-width: 360px; }
@@ -135,19 +135,7 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
 </style>
 </head>
 <body>
-<!-- Back-to-Suite nav chip -->
-<div style="position:fixed;top:8px;right:8px;z-index:8999;">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:5px;
-     background:rgba(30,58,95,0.92);color:#fff;text-decoration:none;
-     padding:5px 11px;border-radius:20px;font-size:0.72rem;font-weight:600;
-     border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(4px);
-     box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:background 0.2s;"
-     title="Back to Clinical Reference Suite"
-     onmouseover="this.style.background='rgba(45,88,132,0.97)'"
-     onmouseout="this.style.background='rgba(30,58,95,0.92)'">
-    📚 Suite
-  </a>
-</div>
+
 <header class="header">
   <h1>Pathogen Index <span style="font-size:0.65em;opacity:0.6;font-weight:400;">85 organisms</span></h1>
   <div class="search-wrap">
@@ -157,6 +145,14 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
     <button class="search-clear" id="searchClear" type="button">✕</button>
   </div>
   <span id="result-count"></span>
+<button onclick="(function(){if(window.parent&&window.parent.switchTool){window.parent.switchTool('home');}else{window.location.href='index.html';}})()"
+  style="flex-shrink:0;display:inline-flex;align-items:center;gap:5px;
+  padding:5px 11px;background:rgba(255,255,255,0.15);color:#fff;
+  border:1px solid rgba(255,255,255,0.3);border-radius:20px;
+  font-size:0.72rem;font-weight:600;cursor:pointer;white-space:nowrap;
+  -webkit-tap-highlight-color:transparent;">
+  ← CRS
+</button>
 </header>
 
 <div class="filter-strip">
@@ -192,6 +188,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Always de-escalate from vancomycin to β-lactam when MSSA confirmed — β-lactam is superior</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-sab-btn')}else{window.location.href='id_guide.html#id-sab-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">SAB</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-cssti-btn')}else{window.location.href='id_guide.html#id-cssti-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">SSTI</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-sea-comprehensive-btn')}else{window.location.href='id_guide.html#id-sea-comprehensive-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">SEA</a></div>
 </div>
 
 <div class="org-card" id="org-mrsa" data-gram="gpos" data-sites="blood wound bone respiratory" data-name="mrsa">
@@ -220,6 +218,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ MRSA nasal swab PCR negative has 95% NPV — can de-escalate MRSA coverage if negative at 48–72h</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-sab-btn')}else{window.location.href='id_guide.html#id-sab-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">SAB</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-cssti-btn')}else{window.location.href='id_guide.html#id-cssti-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">SSTI</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-sea-comprehensive-btn')}else{window.location.href='id_guide.html#id-sea-comprehensive-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">SEA</a></div>
 </div>
 
 <div class="org-card" id="org-cons" data-gram="gpos" data-sites="blood" data-name="coagulase-negative staphylococci">
@@ -248,6 +248,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Single positive blood culture = likely contaminant. Two+ cultures or clinical context required to treat.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-clabsi-btn')}else{window.location.href='id_guide.html#id-clabsi-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">CLABSI</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-cied-btn')}else{window.location.href='id_guide.html#id-cied-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">CIED</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-shuntinf-btn')}else{window.location.href='id_guide.html#id-shuntinf-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">VP Shunt</a></div>
 </div>
 
 <div class="org-card" id="org-strep-pyogenes" data-gram="gpos" data-sites="wound blood respiratory" data-name="streptococcus pyogenes">
@@ -276,6 +278,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Add clindamycin in all severe GAS infections — inhibits toxin production even if growth-phase resistant</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-necfasc-btn')}else{window.location.href='id_guide.html#id-necfasc-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">NecFasc</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-cssti-btn')}else{window.location.href='id_guide.html#id-cssti-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">SSTI</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-deepneck-btn')}else{window.location.href='id_guide.html#id-deepneck-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Deep Neck</a></div>
 </div>
 
 <div class="org-card" id="org-strep-pneumo" data-gram="gpos" data-sites="blood csf respiratory" data-name="streptococcus pneumoniae">
@@ -304,6 +308,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ For meningitis: give dexamethasone before/with first antibiotic dose — reduces mortality in pneumococcal meningitis</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-mening-btn')}else{window.location.href='id_guide.html#id-mening-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Meningitis</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">CAP</a></div>
 </div>
 
 <div class="org-card" id="org-enterococcus" data-gram="gpos" data-sites="urine blood wound" data-name="enterococcus">
@@ -332,6 +338,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Enterococcus in urine is often colonization — treat only if symptomatic UTI. In blood cultures, always treat.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-ie-btn')}else{window.location.href='id_guide.html#id-ie-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">IE</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">CAUTI</a></div>
 </div>
 
 <div class="org-card" id="org-viridans-strep" data-gram="gpos" data-sites="blood" data-name="viridans streptococci">
@@ -388,6 +396,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ ESBL E. coli: avoid cephalosporins even if susceptible in vitro — inducible resistance causes clinical failures</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">UTI/Pyelo</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Urosepsis</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-iai-btn')}else{window.location.href='id_guide.html#id-iai-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">IAI</a></div>
 </div>
 
 <div class="org-card" id="org-klebsiella" data-gram="gneg" data-sites="respiratory urine blood wound" data-name="klebsiella pneumoniae">
@@ -416,6 +426,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ hvKP liver abscess: mandates ophthalmology consult — endophthalmitis in up to 10%</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Urosepsis</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">HAP/VAP</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Liver Abscess</a></div>
 </div>
 
 <div class="org-card" id="org-pseudomonas" data-gram="gneg" data-sites="respiratory wound urine blood" data-name="pseudomonas aeruginosa">
@@ -444,6 +456,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Pip-Tazo MIC creep — for serious infections use cefepime or carbapenem for more reliable coverage</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">HAP/VAP</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-dfi-btn')}else{window.location.href='id_guide.html#id-dfi-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Diabetic Foot</a></div>
 </div>
 
 <div class="org-card" id="org-h-influenzae" data-gram="gneg" data-sites="respiratory csf blood" data-name="haemophilus influenzae">
@@ -472,6 +486,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Hib vaccine has made type b meningitis and epiglottitis rare — consider in unvaccinated patients</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-epiglottitis-btn')}else{window.location.href='id_guide.html#id-epiglottitis-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Epiglottitis</a></div>
 </div>
 
 <div class="org-card" id="org-n-meningitidis" data-gram="gneg" data-sites="blood csf" data-name="neisseria meningitidis">
@@ -500,6 +516,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Chemoprophylaxis for close contacts within 24h. Treat empirically — do not wait for confirmation in suspected meningococcemia</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-mening-btn')}else{window.location.href='id_guide.html#id-mening-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Meningitis</a></div>
 </div>
 
 <div class="org-card" id="org-n-gonorrhoeae" data-gram="gneg" data-sites="wound urine blood csf" data-name="neisseria gonorrhoeae">
@@ -528,6 +546,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Always treat for chlamydia co-infection empirically unless NAAT definitively negative</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Gonorrhea</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Septic Arthritis</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">PID</a></div>
 </div>
 
 <div class="org-card" id="org-listeria" data-gram="gpos" data-sites="blood csf" data-name="listeria monocytogenes">
@@ -556,6 +576,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Add ampicillin to ceftriaxone empirically for meningitis if age >50, pregnant, or immunocompromised</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-mening-btn')}else{window.location.href='id_guide.html#id-mening-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Meningitis</a></div>
 </div>
 
 <div class="org-card" id="org-esbl-gnr" data-gram="gneg" data-sites="urine blood wound" data-name="esbl-producing enterobacteriaceae">
@@ -584,6 +606,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Even if susceptible in vitro to cephalosporins — use carbapenem for serious infections. Do not use pip-tazo for ESBL bacteremia (inoculum effect).</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Urosepsis</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-iai-btn')}else{window.location.href='id_guide.html#id-iai-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">IAI</a></div>
 </div>
 
 <div class="org-card" id="org-cre" data-gram="gneg" data-sites="urine blood wound respiratory" data-name="cre / kpc">
@@ -612,6 +636,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Contact precautions and infection control notification mandatory — report to hospital epidemiology</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Urosepsis</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">HAP/VAP</a></div>
 </div>
 
 <div class="org-card" id="org-acinetobacter" data-gram="gneg" data-sites="respiratory wound blood" data-name="acinetobacter baumannii">
@@ -640,6 +666,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Sulbactam component (not ampicillin) provides activity — use high-dose A-S or sulbactam monotherapy</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">HAP/VAP</a></div>
 </div>
 
 <div class="org-card" id="org-stenotrophomonas" data-gram="gneg" data-sites="respiratory blood wound" data-name="stenotrophomonas maltophilia">
@@ -696,6 +724,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Source control is primary — antibiotics alone fail for intra-abdominal B. fragilis infections</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-iai-btn')}else{window.location.href='id_guide.html#id-iai-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">IAI</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-necfasc-btn')}else{window.location.href='id_guide.html#id-necfasc-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">NecFasc</a></div>
 </div>
 
 <div class="org-card" id="org-c-difficile" data-gram="anaerobe" data-sites="gi" data-name="clostridioides difficile">
@@ -724,6 +754,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Contact precautions + soap/water handwashing (alcohol gel does NOT kill spores)</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">C. diff</a></div>
 </div>
 
 <div class="org-card" id="org-oral-anaerobes" data-gram="anaerobe" data-sites="respiratory wound blood" data-name="oral anaerobes">
@@ -780,6 +812,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Echinocandins have poor ocular penetration — use fluconazole/voriconazole for Candida endophthalmitis</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-candidemia-btn')}else{window.location.href='id_guide.html#id-candidemia-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Candidemia</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-endophthalmitis-btn')}else{window.location.href='id_guide.html#id-endophthalmitis-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Endophthalmitis</a></div>
 </div>
 
 <div class="org-card" id="org-aspergillus" data-gram="fungus" data-sites="respiratory blood" data-name="aspergillus">
@@ -808,6 +842,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ CT halo sign = early IPA — treat empirically in high-risk host without waiting for confirmation</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-neutropenia-btn')}else{window.location.href='id_guide.html#id-neutropenia-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Febrile Neutropenia</a></div>
 </div>
 
 <div class="org-card" id="org-cryptococcus" data-gram="fungus" data-sites="csf blood" data-name="cryptococcus neoformans">
@@ -836,6 +872,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ ICP management critical — serial LPs or CSF drainage for elevated pressure; ICP kills more than the fungus</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Crypto Meningitis</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">HIV/OIs</a></div>
 </div>
 
 <div class="org-card" id="org-pcp" data-gram="fungus" data-sites="respiratory" data-name="pneumocystis jirovecii">
@@ -864,6 +902,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Steroids reduce mortality in moderate-severe PCP — start within 72h of antibiotics</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">PCP</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">HIV/OIs</a></div>
 </div>
 
 <div class="org-card" id="org-mtb" data-gram="myco" data-sites="respiratory csf bone blood" data-name="mycobacterium tuberculosis">
@@ -892,6 +932,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Airborne isolation mandatory. LTBI: INH × 9 months OR Rifampin × 4 months OR 3HP (rifapentine + INH weekly × 12 doses)</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">TB Meningitis</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Active TB</a></div>
 </div>
 
 <div class="org-card" id="org-mac" data-gram="myco" data-sites="blood respiratory" data-name="mycobacterium avium complex">
@@ -948,6 +990,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Pregnancy is indication for treatment — start empirically without waiting for test result</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">CAP</a></div>
 </div>
 
 <div class="org-card" id="org-hsv" data-gram="virus" data-sites="csf wound blood" data-name="herpes simplex virus">
@@ -976,6 +1020,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Start acyclovir empirically for suspected HSV encephalitis — do NOT wait for PCR. Untreated mortality 70%.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">HSV Encephalitis</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Viral Meningitis</a></div>
 </div>
 
 <div class="org-card" id="org-cmv" data-gram="virus" data-sites="blood gi respiratory" data-name="cytomegalovirus">
@@ -1004,6 +1050,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ CMV retinitis — intravitreal ganciclovir implant + systemic therapy; ophthalmology urgent</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">CMV</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">HIV/OIs</a></div>
 </div>
 
 <div class="org-card" id="org-malaria" data-gram="parasite" data-sites="blood" data-name="plasmodium species">
@@ -1032,6 +1080,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Thick and thin smears × 3 at 12–24h intervals if initial negative. Quantify % parasitemia.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Malaria</a></div>
 </div>
 
 <div class="org-card" id="org-toxoplasma" data-gram="parasite" data-sites="csf blood" data-name="toxoplasma gondii">
@@ -1060,6 +1110,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Clinical response by day 10–14 confirms diagnosis — if not improving, consider CNS lymphoma and biopsy</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Toxoplasma</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">HIV/OIs</a></div>
 </div>
 
 <div class="org-card" id="org-group-b-strep" data-gram="gpos" data-sites="blood csf urine wound" data-name="streptococcus agalactiae (group b strep)">
@@ -1088,6 +1140,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ GBS prophylaxis in labor (PCN or cefazolin) has dramatically reduced neonatal early-onset disease</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-mening-btn')}else{window.location.href='id_guide.html#id-mening-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Meningitis</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-endometritis-btn')}else{window.location.href='id_guide.html#id-endometritis-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Endometritis</a></div>
 </div>
 
 <div class="org-card" id="org-s-anginosus" data-gram="gpos" data-sites="blood wound csf" data-name="s. anginosus group (s. milleri)">
@@ -1116,6 +1170,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ S. anginosus in a blood culture = find the abscess. Always look for a drainable focus.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-brain-abs-btn')}else{window.location.href='id_guide.html#id-brain-abs-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Brain Abscess</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-deepneck-btn')}else{window.location.href='id_guide.html#id-deepneck-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Deep Neck</a></div>
 </div>
 
 <div class="org-card" id="org-c-perfringens" data-gram="gpos" data-sites="wound blood gi" data-name="clostridium perfringens">
@@ -1144,6 +1200,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Gas in tissue + systemic toxicity + rapid progression = gas gangrene; OR within 1 hour — every minute counts</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-necfasc-btn')}else{window.location.href='id_guide.html#id-necfasc-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">NecFasc</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-iai-btn')}else{window.location.href='id_guide.html#id-iai-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">IAI</a></div>
 </div>
 
 <div class="org-card" id="org-cutibacterium" data-gram="gpos" data-sites="blood bone" data-name="cutibacterium acnes">
@@ -1396,6 +1454,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ V. vulnificus: liver disease + saltwater wound + hemorrhagic bullae = 50% mortality. Treat immediately.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-necfasc-btn')}else{window.location.href='id_guide.html#id-necfasc-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">NecFasc</a></div>
 </div>
 
 <div class="org-card" id="org-pasteurella" data-gram="gneg" data-sites="wound blood respiratory" data-name="pasteurella multocida">
@@ -1424,6 +1484,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Cat bites: Pasteurella presents in hours, not days — unlike staph/strep cellulitis. Amox-clav is essential.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-bites-btn')}else{window.location.href='id_guide.html#id-bites-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Bite Infections</a></div>
 </div>
 
 <div class="org-card" id="org-hacek" data-gram="gneg" data-sites="blood" data-name="hacek organisms">
@@ -1452,6 +1514,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ HACEK IE has best prognosis of all endocarditis — large vegetations, emboli common, but responds to therapy</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-ie-btn')}else{window.location.href='id_guide.html#id-ie-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">IE</a></div>
 </div>
 
 <div class="org-card" id="org-aeromonas" data-gram="gneg" data-sites="wound gi blood" data-name="aeromonas hydrophila">
@@ -1480,6 +1544,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Freshwater wound + necrotizing infection = Aeromonas. Medicinal leeches are a known source.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-necfasc-btn')}else{window.location.href='id_guide.html#id-necfasc-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">NecFasc</a></div>
 </div>
 
 <div class="org-card" id="org-borrelia-lyme" data-gram="spirochete" data-sites="blood csf bone" data-name="borrelia burgdorferi (lyme disease)">
@@ -1508,6 +1574,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ EM rash = treat clinically without waiting for serology. Prophylaxis: doxycycline 200mg × 1 within 72h if tick attached ≥36h</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Lyme</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-mening-btn')}else{window.location.href='id_guide.html#id-mening-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Meningitis</a></div>
 </div>
 
 <div class="org-card" id="org-rmsf" data-gram="atypical" data-sites="blood" data-name="rickettsia rickettsii (rmsf)">
@@ -1536,6 +1604,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Doxycycline is safe in children of all ages for RMSF — severity outweighs dental staining risk. Treat empirically.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">RMSF</a></div>
 </div>
 
 <div class="org-card" id="org-anaplasma" data-gram="atypical" data-sites="blood" data-name="anaplasma phagocytophilum">
@@ -1564,6 +1634,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Co-infection with Lyme and Babesia common — same Ixodes tick. Consider all three in endemic areas.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Anaplasmosis</a></div>
 </div>
 
 <div class="org-card" id="org-ehrlichia" data-gram="atypical" data-sites="blood" data-name="ehrlichia chaffeensis">
@@ -1620,6 +1692,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Asplenic patients: fulminant presentation with high parasitemia — prophylactic doxycycline after any Ixodes bite</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Babesiosis</a></div>
 </div>
 
 <div class="org-card" id="org-powassan" data-gram="virus" data-sites="csf" data-name="powassan virus">
@@ -1676,6 +1750,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Urine Legionella antigen detects serogroup 1 (80–90% of cases) — send on all severe CAP</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Legionella (ID guide)</a></div>
 </div>
 
 <div class="org-card" id="org-mycoplasma" data-gram="atypical" data-sites="respiratory" data-name="mycoplasma pneumoniae">
@@ -1760,6 +1836,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Every patient with Q fever needs echocardiogram — endocarditis may be the presentation or develop years later</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Q Fever</a></div>
 </div>
 
 <div class="org-card" id="org-bartonella" data-gram="atypical" data-sites="blood wound" data-name="bartonella (cat scratch / trench fever)">
@@ -1788,6 +1866,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Culture-negative endocarditis with cat exposure → Bartonella serology (high titers diagnostic)</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-ie-btn')}else{window.location.href='id_guide.html#id-ie-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">IE</a></div>
 </div>
 
 <div class="org-card" id="org-brucella" data-gram="atypical" data-sites="blood bone" data-name="brucella">
@@ -1816,6 +1896,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Lab safety: alert microbiology — aerosolization hazard. Select agent in some jurisdictions.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Vertebral Osteomyelitis</a></div>
 </div>
 
 <div class="org-card" id="org-francisella" data-gram="atypical" data-sites="blood wound respiratory" data-name="francisella tularensis (tularemia)">
@@ -1844,6 +1926,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Rabbit handling + skin ulcer + swollen lymph node = tularemia. Highly infectious — lab biosafety level 3.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">FUO</a></div>
 </div>
 
 <div class="org-card" id="org-treponema" data-gram="spirochete" data-sites="blood csf wound" data-name="treponema pallidum (syphilis)">
@@ -1872,6 +1956,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ RPR + FTA-ABS for diagnosis. CSF-VDRL specific but insensitive for neurosyphilis — treat on clinical suspicion. HIV co-infection worsens course and serology may be atypical.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Syphilis</a></div>
 </div>
 
 <div class="org-card" id="org-leptospira" data-gram="spirochete" data-sites="blood urine" data-name="leptospira (leptospirosis)">
@@ -1984,6 +2070,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Monospot false-negative in first week and in children <4. EBNA IgG negative = confirms recent infection (appears 2–4 months later).</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">FUO</a></div>
 </div>
 
 <div class="org-card" id="org-rsv" data-gram="virus" data-sites="respiratory" data-name="respiratory syncytial virus (rsv)">
@@ -2040,6 +2128,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ WNV IgM in CSF is highly specific for neuroinvasive disease. AFP with WNV = poor recovery.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">WNV Encephalitis</a></div>
 </div>
 
 <div class="org-card" id="org-dengue" data-gram="virus" data-sites="blood" data-name="dengue virus">
@@ -2068,6 +2158,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Thrombocytopenia + normal or low WBC + travel to tropics = dengue until proven otherwise. NSAIDs contraindicated.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Dengue</a></div>
 </div>
 
 <div class="org-card" id="org-chikungunya" data-gram="virus" data-sites="blood" data-name="chikungunya virus">
@@ -2096,6 +2188,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Arthralgia is the dominant feature (vs dengue where myalgia/bone pain dominates). Chronic arthritis common in elderly.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Chikungunya</a></div>
 </div>
 
 <div class="org-card" id="org-zika" data-gram="virus" data-sites="blood" data-name="zika virus">
@@ -2124,6 +2218,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Pregnant women with any Zika exposure: test immediately and serial fetal ultrasounds. Sexual transmission prevention: condoms × 3 months after male illness.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Zika</a></div>
 </div>
 
 <div class="org-card" id="org-hantavirus" data-gram="virus" data-sites="respiratory blood" data-name="hantavirus">
@@ -2208,6 +2304,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Urine Histoplasma antigen most sensitive for disseminated disease. Skin test not useful clinically.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-neutropenia-btn')}else{window.location.href='id_guide.html#id-neutropenia-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Febrile Neutropenia</a></div>
 </div>
 
 <div class="org-card" id="org-coccidioides" data-gram="fungus" data-sites="respiratory csf blood bone" data-name="coccidioides immitis / posadasii">
@@ -2320,6 +2418,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Voriconazole does NOT cover Mucor — Aspergillus coverage ≠ Mucor coverage. Liposomal amphotericin + surgery.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Orbital Cellulitis</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-neutropenia-btn')}else{window.location.href='id_guide.html#id-neutropenia-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Febrile Neutropenia</a></div>
 </div>
 
 <div class="org-card" id="org-candida-auris" data-gram="fungus" data-sites="blood wound" data-name="candida auris">
@@ -2376,6 +2476,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Serology positive in >90% of liver abscess — more useful than stool O&P. Drainage usually NOT needed (responds to metronidazole).</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-amebiasis-btn')}else{window.location.href='id_guide.html#id-amebiasis-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Amebiasis</a><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-splenic-abs-btn')}else{window.location.href='id_guide.html#id-splenic-abs-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Liver Abscess</a></div>
 </div>
 
 <div class="org-card" id="org-giardia" data-gram="parasite" data-sites="gi" data-name="giardia lamblia">
@@ -2460,6 +2562,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Eosinophilia + tropical exposure + starting steroids = screen for Strongyloides first. Hyperinfection has 60–80% mortality.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id','id-neutropenia-btn')}else{window.location.href='id_guide.html#id-neutropenia-btn'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Febrile Neutropenia</a></div>
 </div>
 
 <div class="org-card" id="org-trypanosoma-cruzi" data-gram="parasite" data-sites="blood" data-name="trypanosoma cruzi (chagas)">
@@ -2516,6 +2620,8 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
       <div class="org-pearl">⚡ Warm freshwater + young swimmer + rapidly progressive meningoencephalitis = send CSF for Naegleria immediately. Contact CDC.</div>
     </div>
   </div>
+
+<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;"><span style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;align-self:center;">ID Guide →</span><a onclick="if(window.parent&&window.parent.switchTool){window.parent.switchTool('id')}else{window.location.href='id_guide.html'}" style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:#e0f2fe;color:#0369a1;border-radius:12px;font-size:0.68rem;font-weight:600;cursor:pointer;text-decoration:none;border:1px solid #bae6fd;">Viral Meningitis</a></div>
 </div>
 
 <div class="org-card" id="org-schistosoma" data-gram="parasite" data-sites="blood gi urine" data-name="schistosoma">
