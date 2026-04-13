@@ -533,11 +533,13 @@
   <a class="step-btn" href="#step-syndromes" onclick="smoothScrollTo('step-syndromes');return false;"><span class="step-num-pill">4</span>Syndromes</a>
   <a class="step-btn" href="#step-populations" onclick="smoothScrollTo('step-populations');return false;"><span class="step-num-pill">5</span>Populations</a>
   <a class="step-btn" href="#step-stewardship" onclick="smoothScrollTo('step-stewardship');return false;"><span class="step-num-pill">6</span>Stewardship / Reference</a>
+  <div style="width:1px;background:#e2e8f0;height:28px;margin:0 4px;flex-shrink:0;"></div>
+  <button id="empiricOnlyBtn" class="step-btn" onclick="toggleEmpiricOnly()" style="background:#fff;border-color:#e2e8f0;" title="Show only Empiric Therapy sections across all open panels">⚡ Empiric Only</button>
 </nav>
 
 <header role="banner">
   <img src="mutant-icon.png" alt="logo" onerror="this.style.display='none'">
-  <h1>Antibiotic & Infection Guide <span id="component-version" style="font-size:0.38em;color:rgba(255,255,255,0.5);font-weight:400;vertical-align:middle;">BUILD #49</span></h1>
+  <h1>Antibiotic & Infection Guide <span id="component-version" style="font-size:0.38em;color:rgba(255,255,255,0.5);font-weight:400;vertical-align:middle;">BUILD #52.4</span></h1>
   <div class="search">
     <input id="globalSearch" type="text" placeholder="Search everything — pathogen, drug, syndrome..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
     <button class="search-clear" id="globalSearchClear" type="button">✕</button>
@@ -551,6 +553,63 @@
   ← CRS
 </button>
 </header>
+
+<!-- ── QUICK ACCESS BAR ───────────────────────────────────────────── -->
+<style>
+  .quick-access-bar {
+    position: fixed;
+    top: calc(var(--header-h) + var(--stepnav-h));
+    left: 0; right: 0;
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 6px 14px;
+    display: flex; align-items: center; gap: 6px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    z-index: 1090;
+    font-size: 0.7rem;
+  }
+  .quick-access-bar::-webkit-scrollbar { display: none; }
+  .qa-label {
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: #94a3b8; white-space: nowrap; flex-shrink: 0;
+    margin-right: 2px;
+  }
+  .qa-pill {
+    display: inline-flex; align-items: center;
+    padding: 4px 11px; border-radius: 14px;
+    border: 1.5px solid #e2e8f0; background: #f8fafc;
+    color: #0b2545; font-size: 0.72rem; font-weight: 600;
+    white-space: nowrap; cursor: pointer; flex-shrink: 0;
+    transition: background 0.12s, border-color 0.12s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .qa-pill:hover { background: #dbeafe; border-color: #93c5fd; color: var(--blue); }
+  .qa-pill.em { border-color: #fca5a5; background: #fff1f1; color: #b91c1c; }
+  .qa-pill.em:hover { background: #fee2e2; border-color: #f87171; }
+  :root { --quickaccess-h: 38px; }
+  main { padding-top: calc(var(--header-h) + var(--stepnav-h) + var(--quickaccess-h) + 18px) !important; }
+  section { scroll-margin-top: calc(var(--header-h) + var(--stepnav-h) + var(--quickaccess-h) + 8px); }
+  .anatomy-group { scroll-margin-top: calc(var(--header-h) + var(--stepnav-h) + var(--quickaccess-h) + 8px); }
+  .step-landmark { scroll-margin-top: calc(var(--header-h) + var(--stepnav-h) + var(--quickaccess-h) + 8px); }
+  @media (max-width: 768px) {
+    main { padding: calc(var(--header-h) + var(--stepnav-h) + var(--quickaccess-h) + 10px) 12px 60px !important; }
+  }
+</style>
+<div class="quick-access-bar" id="quickAccessBar">
+  <span class="qa-label">Quick:</span>
+  <button class="qa-pill em" onclick="scrollAndOpen('anat-endovascular','id-sab-btn')">SAB</button>
+  <button class="qa-pill em" onclick="scrollAndOpen('anat-endovascular','id-ie-btn')">Endocarditis</button>
+  <button class="qa-pill em" onclick="scrollAndOpen('anat-endovascular','id-candidemia-btn')">Candidemia</button>
+  <button class="qa-pill em" onclick="scrollAndOpen('anat-endovascular','id-clabsi-btn')">CLABSI</button>
+  <button class="qa-pill em" onclick="scrollAndOpen('anat-cns','id-mening-btn')">Meningitis</button>
+  <button class="qa-pill" onclick="scrollToGroup('anat-respiratory')">CAP/HAP/VAP</button>
+  <button class="qa-pill" onclick="scrollToGroup('anat-gu')">UTI/Urosepsis</button>
+  <button class="qa-pill" onclick="scrollAndOpen('anat-ssti','id-necfasc-btn')">Nec Fasc</button>
+  <button class="qa-pill" onclick="scrollAndOpen('anat-ssti','id-cssti-btn')">SSTI</button>
+  <button class="qa-pill" onclick="scrollToGroup('anat-gi')">C. diff / IAI</button>
+  <button class="qa-pill" onclick="scrollAndOpen('anat-msk','id-sea-comprehensive-btn')">Spinal Epidural</button>
+  <button class="qa-pill" onclick="scrollAndOpen('id-neutropenic','id-neutropenia-btn')">Neutropenic Fever</button>
+</div>
 <div class="id-toc-wrap" id="id-toc">
   <div class="id-toc-search-wrap">
     <input type="text" id="idTocSearch" class="id-toc-search"
@@ -7186,6 +7245,72 @@ function openPanel(btnId) {
   window.addEventListener('scroll', update, {passive:true});
   document.addEventListener('DOMContentLoaded', function(){ setTimeout(update, 100); });
 })();
+
+// ── Empiric Only Mode ────────────────────────────────────────────────────────
+var empiricOnlyActive = false;
+
+function toggleEmpiricOnly() {
+  empiricOnlyActive = !empiricOnlyActive;
+  var btn = document.getElementById('empiricOnlyBtn');
+  if (empiricOnlyActive) {
+    btn.style.background = '#004080';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#004080';
+    applyEmpiricOnly();
+  } else {
+    btn.style.background = '#fff';
+    btn.style.color = '';
+    btn.style.borderColor = '#e2e8f0';
+    removeEmpiricOnly();
+  }
+}
+
+function applyEmpiricOnly() {
+  // Hide all panel child elements that are not empiric therapy sections
+  // Works on open panels: looks for h3/h4 containing "Empiric" and keeps only those blocks
+  document.querySelectorAll('.panel.open, .collapsible.active + .panel').forEach(function(panel) {
+    panel.querySelectorAll(':scope > *').forEach(function(child) {
+      var text = child.textContent || '';
+      var isEmpiric = /empiric|antibiotic|regimen|therapy|treatment/i.test(text.substring(0, 80));
+      // Always show tables (likely dosing tables) and empiric-labeled headings
+      if (child.tagName === 'TABLE' || isEmpiric) {
+        child.removeAttribute('data-eo-hidden');
+      } else {
+        child.setAttribute('data-eo-hidden', '1');
+        child.style.display = 'none';
+      }
+    });
+    // Also target known section headers — keep only empiric subsections
+    panel.querySelectorAll('h3, h4, .subsection-label, strong').forEach(function(hdr) {
+      var text = hdr.textContent.toLowerCase();
+      if (/empiric|antibiotic|regimen|therapy|treatment/.test(text)) {
+        hdr.removeAttribute('data-eo-hidden');
+        hdr.style.display = '';
+      }
+    });
+  });
+  // Also handle anatomy-group expanded sections
+  document.querySelectorAll('.topic-content:not(.hidden)').forEach(function(tc) {
+    tc.querySelectorAll(':scope > *').forEach(function(child) {
+      var text = (child.textContent || '').substring(0, 80);
+      if (/empiric|antibiotic|regimen|therapy|treatment/i.test(text) || child.tagName === 'TABLE') {
+        child.removeAttribute('data-eo-hidden');
+        child.style.display = '';
+      } else {
+        child.setAttribute('data-eo-hidden', '1');
+        child.style.display = 'none';
+      }
+    });
+  });
+}
+
+function removeEmpiricOnly() {
+  document.querySelectorAll('[data-eo-hidden]').forEach(function(el) {
+    el.style.display = '';
+    el.removeAttribute('data-eo-hidden');
+  });
+}
+
 </script>
 </body>
 </html>

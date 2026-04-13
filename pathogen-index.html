@@ -132,6 +132,22 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
 }
 #no-results { text-align: center; color: var(--muted); padding: 40px 20px; display: none; }
 #no-results.visible { display: block; }
+
+  /* ── Resistance badges on card headers ─────────────── */
+  .res-badge {
+    display: inline-flex; align-items: center;
+    font-size: 0.62rem; font-weight: 800; letter-spacing: 0.05em;
+    text-transform: uppercase; padding: 2px 7px; border-radius: 10px;
+    margin-top: 3px; flex-shrink: 0;
+  }
+  .res-mrsa    { background:#fee2e2; color:#991b1b; border:1px solid #fca5a5; }
+  .res-vre     { background:#f3e8ff; color:#6b21a8; border:1px solid #d8b4fe; }
+  .res-esbl    { background:#fef3c7; color:#92400e; border:1px solid #fcd34d; }
+  .res-cre     { background:#fce7f3; color:#9d174d; border:1px solid #f9a8d4; }
+  .res-mdr     { background:#fee2e2; color:#7f1d1d; border:1px solid #fca5a5; }
+  .res-ampc    { background:#e0f2fe; color:#075985; border:1px solid #7dd3fc; }
+  .res-mr      { background:#f3f4f6; color:#374151; border:1px solid #d1d5db; }
+  .res-cdiff   { background:#f0fdf4; color:#166534; border:1px solid #86efac; }
 </style>
 </head>
 <body>
@@ -197,6 +213,7 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
     <div class="org-header-left">
       <span class="gram-badge gram-gpos">Gram+ Cocci</span>
       <h3 class="org-name">MRSA</h3>
+      <span class="res-badge res-mrsa">MRSA</span>
       <span class="org-morph">Gram-positive cocci in clusters</span>
     </div>
     <div class="org-sites"><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="bone">Bone / Joint</span><span class="site-tag" data-site="respiratory">Respiratory</span></div>
@@ -227,6 +244,7 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
     <div class="org-header-left">
       <span class="gram-badge gram-gpos">Gram+ Cocci</span>
       <h3 class="org-name">CoNS (S. epidermidis)</h3>
+      <span class="res-badge res-mr">Methicillin-R</span>
       <span class="org-morph">Gram-positive cocci in clusters (smaller colonies than S. aureus)</span>
     </div>
     <div class="org-sites"><span class="site-tag" data-site="blood">Blood / BSI</span></div>
@@ -317,6 +335,7 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
     <div class="org-header-left">
       <span class="gram-badge gram-gpos">Gram+ Cocci</span>
       <h3 class="org-name">Enterococcus (E. faecalis/faecium)</h3>
+      <span class="res-badge res-vre">VRE risk</span>
       <span class="org-morph">Gram-positive cocci in pairs/short chains</span>
     </div>
     <div class="org-sites"><span class="site-tag" data-site="urine">Urine / UTI</span><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="wound">Wound / Skin</span></div>
@@ -435,6 +454,7 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
     <div class="org-header-left">
       <span class="gram-badge gram-gneg">Gram− Rods</span>
       <h3 class="org-name">Pseudomonas</h3>
+      <span class="res-badge res-mdr">MDR risk</span>
       <span class="org-morph">Gram-negative rods (blue-green pigment on culture)</span>
     </div>
     <div class="org-sites"><span class="site-tag" data-site="respiratory">Respiratory</span><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="urine">Urine / UTI</span><span class="site-tag" data-site="blood">Blood / BSI</span></div>
@@ -585,6 +605,7 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
     <div class="org-header-left">
       <span class="gram-badge gram-gneg">Gram− Rods</span>
       <h3 class="org-name">ESBL GNR</h3>
+      <span class="res-badge res-esbl">ESBL</span>
       <span class="org-morph">Gram-negative rods</span>
     </div>
     <div class="org-sites"><span class="site-tag" data-site="urine">Urine / UTI</span><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="wound">Wound / Skin</span></div>
@@ -615,6 +636,7 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
     <div class="org-header-left">
       <span class="gram-badge gram-gneg">Gram− Rods</span>
       <h3 class="org-name">CRE (KPC / NDM / OXA)</h3>
+      <span class="res-badge res-cre">CRE</span>
       <span class="org-morph">Gram-negative rods</span>
     </div>
     <div class="org-sites"><span class="site-tag" data-site="urine">Urine / UTI</span><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="respiratory">Respiratory</span></div>
@@ -645,6 +667,7 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
     <div class="org-header-left">
       <span class="gram-badge gram-gneg">Gram− Coccobacilli</span>
       <h3 class="org-name">Acinetobacter (CRAB)</h3>
+      <span class="res-badge res-mdr">MDR / CRAB</span>
       <span class="org-morph">Gram-negative coccobacilli</span>
     </div>
     <div class="org-sites"><span class="site-tag" data-site="respiratory">Respiratory</span><span class="site-tag" data-site="wound">Wound / Skin</span><span class="site-tag" data-site="blood">Blood / BSI</span></div>
@@ -675,6 +698,7 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
     <div class="org-header-left">
       <span class="gram-badge gram-gneg">Gram− Rods</span>
       <h3 class="org-name">Stenotrophomonas</h3>
+      <span class="res-badge res-mdr">Intrinsic MDR</span>
       <span class="org-morph">Gram-negative rods</span>
     </div>
     <div class="org-sites"><span class="site-tag" data-site="respiratory">Respiratory</span><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="wound">Wound / Skin</span></div>
@@ -733,6 +757,7 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
     <div class="org-header-left">
       <span class="gram-badge gram-anaerobe">Anaerobe</span>
       <h3 class="org-name">C. difficile</h3>
+      <span class="res-badge res-cdiff">Spore-forming</span>
       <span class="org-morph">Gram-positive rod (spore-forming anaerobe)</span>
     </div>
     <div class="org-sites"><span class="site-tag" data-site="gi">GI</span></div>
@@ -1293,6 +1318,7 @@ main { padding: calc(var(--header-h) + var(--filter-h) + 10px) 12px 40px; }
     <div class="org-header-left">
       <span class="gram-badge gram-gneg">Gram− Rods</span>
       <h3 class="org-name">Enterobacter (SPICE)</h3>
+      <span class="res-badge res-ampc">AmpC / SPICE</span>
       <span class="org-morph">Gram-negative rods</span>
     </div>
     <div class="org-sites"><span class="site-tag" data-site="respiratory">Respiratory</span><span class="site-tag" data-site="urine">Urine / UTI</span><span class="site-tag" data-site="blood">Blood / BSI</span><span class="site-tag" data-site="wound">Wound / Skin</span></div>
