@@ -671,22 +671,13 @@
     </style>
 </head>
 <body>
-<!-- Back-to-Suite nav chip -->
-<div style="position:fixed;top:8px;right:8px;z-index:8999;">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:5px;
-     background:rgba(30,58,95,0.92);color:#fff;text-decoration:none;
-     padding:5px 11px;border-radius:20px;font-size:0.72rem;font-weight:600;
-     border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(4px);
-     box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:background 0.2s;"
-     title="Back to Clinical Reference Suite"
-     onmouseover="this.style.background='rgba(45,88,132,0.97)'"
-     onmouseout="this.style.background='rgba(30,58,95,0.92)'">
-    📚 Suite
-  </a>
-</div>
+
 
 <div class="main-header">
-    <h1>💊 Comprehensive Drug Reference Guide <span id="component-version" style="font-size: 0.5em; color: #8e44ad; font-weight: 600;">BUILD #33</span></h1>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
+        <h1 style="margin:0;">💊 Comprehensive Drug Reference Guide <span id="component-version" style="font-size: 0.5em; color: #8e44ad; font-weight: 600;">BUILD #52.4</span></h1>
+        <button onclick="(function(){if(window.parent&&window.parent.switchTool){window.parent.switchTool('home');}else{window.location.href='index.html';}})()" style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;background:rgba(30,58,95,0.9);color:#93c5fd;border:1px solid rgba(255,255,255,0.2);border-radius:20px;font-size:0.72rem;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;-webkit-tap-highlight-color:transparent;">← CRS</button>
+    </div>
     <p class="subtitle">Clinical Pharmacology for Hospital Medicine • Cross-linked to IMCRG, Nephrology, Rheumatology & ID Guides</p>
     <div class="header-stats">
         <span class="stat-badge">📊 249 Medications</span>
@@ -697,9 +688,10 @@
 </div>
 
 <div class="search-container">
-    <div class="search-wrapper">
+    <div class="search-wrapper" style="position:relative;">
         <input type="text" class="search-input" id="drugSearch" placeholder="Search by drug name, class, or indication..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
         <button class="search-clear" id="searchClear" type="button">✕</button>
+        <div id="drugSearchDropdown" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid #e2e8f0;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.13);z-index:500;max-height:320px;overflow-y:auto;"></div>
     </div>
     <div class="search-results-count" id="searchResults"></div>
 </div>
@@ -18359,66 +18351,96 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchResults = document.getElementById('searchResults');
     const drugCards = document.querySelectorAll('.drug-card');
     const categories = document.querySelectorAll('.drug-category');
-    
+    const dd = document.getElementById('drugSearchDropdown');
+
+    function closeDrugDropdown() {
+        if (dd) { dd.style.display = 'none'; dd.innerHTML = ''; }
+    }
+
     searchInput.addEventListener('input', function() {
         const query = this.value.toLowerCase().trim();
         let visibleCount = 0;
-        
+
         if (query === '') {
-            // Show all
-            drugCards.forEach(card => {
-                card.classList.remove('hidden');
-            });
-            categories.forEach(cat => {
-                cat.style.display = 'block';
-            });
+            drugCards.forEach(card => card.classList.remove('hidden'));
+            categories.forEach(cat => cat.style.display = 'block');
             searchClear.style.display = 'none';
             searchResults.textContent = '';
+            closeDrugDropdown();
             return;
         }
-        
+
         searchClear.style.display = 'flex';
-        
-        // Filter drugs
+
+        // Build dropdown hits
+        const hits = [];
         drugCards.forEach(card => {
             const searchData = card.getAttribute('data-search') || '';
             const drugName = card.querySelector('.drug-name')?.textContent || '';
             const drugBrand = card.querySelector('.drug-brand')?.textContent || '';
             const fullText = (searchData + ' ' + drugName + ' ' + drugBrand).toLowerCase();
-            
             if (fullText.includes(query)) {
+                hits.push({ name: drugName, brand: drugBrand, card });
                 card.classList.remove('hidden');
                 visibleCount++;
             } else {
                 card.classList.add('hidden');
             }
         });
-        
-        // Hide categories with no visible drugs
+
         categories.forEach(cat => {
             const visibleDrugs = cat.querySelectorAll('.drug-card:not(.hidden)');
             if (visibleDrugs.length === 0) {
                 cat.style.display = 'none';
             } else {
                 cat.style.display = 'block';
-                // Expand category if collapsed
                 const header = cat.querySelector('.category-header');
                 const content = cat.querySelector('.category-content');
-                if (content.classList.contains('collapsed')) {
-                    header.classList.remove('collapsed');
+                if (content && content.classList.contains('collapsed')) {
+                    if (header) header.classList.remove('collapsed');
                     content.classList.remove('collapsed');
                 }
             }
         });
-        
+
         searchResults.textContent = `Found ${visibleCount} medications`;
+
+        // Show dropdown
+        if (dd && hits.length > 0) {
+            const shown = hits.slice(0, 12);
+            let html = shown.map(h => {
+                const n = h.name.replace(new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi'), '<strong style="color:#8e44ad;">$1</strong>');
+                const b = h.brand ? `<span style="font-size:11px;color:#94a3b8;margin-left:4px;">${h.brand}</span>` : '';
+                return `<div class="drug-dd-item" style="padding:8px 14px;cursor:pointer;border-bottom:1px solid #f0f4f8;font-size:13px;color:#1a365d;display:flex;align-items:center;gap:4px;transition:background 0.1s;">${n}${b}</div>`;
+            }).join('');
+            if (hits.length > 12) html += `<div style="padding:6px 14px;font-size:11px;color:#94a3b8;">${hits.length - 12} more — keep typing to narrow</div>`;
+            dd.innerHTML = html;
+            dd.style.display = 'block';
+            dd.querySelectorAll('.drug-dd-item').forEach((el, i) => {
+                el.addEventListener('mouseover', () => el.style.background = '#f0f7ff');
+                el.addEventListener('mouseout',  () => el.style.background = '');
+                el.addEventListener('mousedown', ev => {
+                    ev.preventDefault();
+                    closeDrugDropdown();
+                    searchInput.value = '';
+                    searchClear.style.display = 'none';
+                    searchResults.textContent = '';
+                    drugCards.forEach(c => c.classList.remove('hidden'));
+                    categories.forEach(c => c.style.display = 'block');
+                    setTimeout(() => {
+                        shown[i].card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 60);
+                });
+            });
+        } else if (dd) {
+            closeDrugDropdown();
+        }
     });
-    
-    searchClear.addEventListener('click', function() {
-        searchInput.value = '';
-        searchInput.dispatchEvent(new Event('input'));
-        searchInput.focus();
+
+    document.addEventListener('mousedown', e => {
+        if (searchInput && !searchInput.closest('.search-wrapper').contains(e.target)) closeDrugDropdown();
     });
+    searchInput.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDrugDropdown(); searchInput.blur(); } });
 });
 
 // Toggle navigation sections (specialty and category)
