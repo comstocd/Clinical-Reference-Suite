@@ -32,8 +32,29 @@
   }
   header img{height:44px;width:44px;object-fit:contain}
   header h1{font-size:1.05rem;margin:0;font-weight:600}
-  header .search { margin-left:auto; width:420px; max-width:40vw; position: relative; }
+  header .search { flex:1; min-width:0; max-width:340px; margin-left:auto; margin-right:8px; position: relative; }
   header .search input{width:100%;padding:8px;padding-right:35px;border-radius:8px;border:0;font-size:0.95rem}
+  header h1 { font-size:1.05rem; margin:0; font-weight:600; flex-shrink:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .search-dropdown {
+    position:absolute; top:calc(100% + 6px); left:0; right:0;
+    background:#fff; border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,0.18);
+    z-index:2000; max-height:320px; overflow-y:auto;
+    border:1px solid #e2e8f0; display:none;
+  }
+  .search-dropdown.visible { display:block; }
+  .search-dd-item {
+    padding:9px 14px; cursor:pointer; border-bottom:1px solid #f0f4f8;
+    display:flex; align-items:center; gap:8px;
+    font-size:0.85rem; color:#1a365d; font-weight:500;
+    transition:background 0.1s;
+  }
+  .search-dd-item:last-child { border-bottom:none; }
+  .search-dd-item:hover, .search-dd-item.selected { background:#e8f1ff; }
+  .search-dd-count { font-size:0.7rem; color:#94a3b8; padding:6px 14px; border-top:1px solid #f0f4f8; }
+  @media (max-width:600px) {
+    header .search { max-width:160px; }
+    header h1 { font-size:0.85rem; }
+  }
   header .search-clear { position:absolute;right:8px;top:50%;transform:translateY(-50%);background:#ddd;border:none;width:20px;height:20px;border-radius:50%;cursor:pointer;font-size:12px;display:none;align-items:center;justify-content:center; }
   header .search-clear:hover { background:#ccc; }
 
@@ -541,8 +562,9 @@
   <img src="mutant-icon.png" alt="logo" onerror="this.style.display='none'">
   <h1>Antibiotic & Infection Guide <span id="component-version" style="font-size:0.38em;color:rgba(255,255,255,0.5);font-weight:400;vertical-align:middle;">BUILD #52.4</span></h1>
   <div class="search">
-    <input id="globalSearch" type="text" placeholder="Search everything — pathogen, drug, syndrome..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+    <input id="globalSearch" type="text" placeholder="Search syndromes, pathogens, drugs…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
     <button class="search-clear" id="globalSearchClear" type="button">✕</button>
+    <div class="search-dropdown" id="searchDropdown"></div>
   </div>
 <button onclick="(function(){if(window.parent&&window.parent.switchTool){window.parent.switchTool('home');}else{window.location.href='index.html';}})()"
   style="flex-shrink:0;display:inline-flex;align-items:center;gap:5px;
@@ -7129,30 +7151,129 @@ document.addEventListener('DOMContentLoaded', initCollapsibles);
 (function() {
   var inp = document.getElementById('globalSearch');
   var clr = document.getElementById('globalSearchClear');
-  if (!inp) return;
+  var dd  = document.getElementById('searchDropdown');
+  if (!inp || !dd) return;
+
+  // Build index of all collapsible buttons + anatomy group links
+  function buildIndex() {
+    var items = [];
+    document.querySelectorAll('.collapsible').forEach(function(btn) {
+      var label = btn.textContent.trim();
+      var panelText = '';
+      var panel = btn.nextElementSibling;
+      if (panel && panel.classList.contains('panel')) {
+        panelText = panel.textContent.toLowerCase();
+      }
+      items.push({ label: label, btn: btn, panelText: panelText });
+    });
+    return items;
+  }
+
+  var INDEX = null;
+  var selectedIdx = -1;
+
+  function closeDropdown() {
+    dd.classList.remove('visible');
+    dd.innerHTML = '';
+    selectedIdx = -1;
+  }
+
+  function openResult(item) {
+    closeDropdown();
+    inp.value = '';
+    if (clr) clr.style.display = 'none';
+    // Scroll the anatomy group into view first, then open the panel
+    var group = item.btn.closest('.anatomy-group');
+    if (group) {
+      group.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    setTimeout(function() {
+      if (!item.btn.classList.contains('active')) item.btn.click();
+      setTimeout(function() {
+        item.btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 150);
+    }, group ? 350 : 0);
+  }
 
   inp.addEventListener('input', function() {
     var q = inp.value.trim().toLowerCase();
     if (clr) clr.style.display = q ? 'flex' : 'none';
 
-    var colls = document.querySelectorAll('.collapsible');
-    colls.forEach(function(btn) {
-      var text = (btn.textContent || '').toLowerCase();
-      var panel = btn.nextElementSibling;
-      var panelText = panel ? (panel.textContent || '').toLowerCase() : '';
-      var match = !q || text.includes(q) || panelText.includes(q);
-      btn.style.display = match ? '' : 'none';
-      if (panel) panel.style.display = match ? '' : 'none';
+    if (!q || q.length < 2) { closeDropdown(); return; }
+    if (!INDEX) INDEX = buildIndex();
+
+    var hits = INDEX.filter(function(item) {
+      return item.label.toLowerCase().includes(q) || item.panelText.includes(q);
+    }).slice(0, 15);
+
+    if (!hits.length) {
+      dd.innerHTML = '<div class="search-dd-count">No results for "' + q + '"</div>';
+      dd.classList.add('visible');
+      return;
+    }
+
+    var html = '';
+    hits.forEach(function(item, i) {
+      // Highlight matching part of label
+      var label = item.label;
+      var idx = label.toLowerCase().indexOf(q);
+      if (idx >= 0) {
+        label = label.substring(0, idx) +
+          '<strong style="color:#004080;">' + label.substring(idx, idx + q.length) + '</strong>' +
+          label.substring(idx + q.length);
+      }
+      html += '<div class="search-dd-item" data-idx="' + i + '">' + label + '</div>';
     });
+    html += '<div class="search-dd-count">' + hits.length + ' result' + (hits.length > 1 ? 's' : '') + '</div>';
+    dd.innerHTML = html;
+    dd.classList.add('visible');
+    selectedIdx = -1;
+
+    dd.querySelectorAll('.search-dd-item').forEach(function(el, i) {
+      el.addEventListener('mousedown', function(e) { e.preventDefault(); openResult(hits[i]); });
+      el.addEventListener('touchend', function(e) { e.preventDefault(); openResult(hits[i]); });
+    });
+  });
+
+  // Keyboard navigation
+  inp.addEventListener('keydown', function(e) {
+    var items = dd.querySelectorAll('.search-dd-item');
+    if (!items.length) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      selectedIdx = Math.min(selectedIdx + 1, items.length - 1);
+      items.forEach(function(el, i) { el.classList.toggle('selected', i === selectedIdx); });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      selectedIdx = Math.max(selectedIdx - 1, 0);
+      items.forEach(function(el, i) { el.classList.toggle('selected', i === selectedIdx); });
+    } else if (e.key === 'Enter' && selectedIdx >= 0) {
+      e.preventDefault();
+      // Re-build hits to get correct item
+      var q = inp.value.trim().toLowerCase();
+      var hits = INDEX.filter(function(item) {
+        return item.label.toLowerCase().includes(q) || item.panelText.includes(q);
+      }).slice(0, 15);
+      if (hits[selectedIdx]) openResult(hits[selectedIdx]);
+    } else if (e.key === 'Escape') {
+      closeDropdown();
+      inp.blur();
+    }
   });
 
   if (clr) {
     clr.addEventListener('click', function() {
       inp.value = '';
-      inp.dispatchEvent(new Event('input'));
+      closeDropdown();
+      if (clr) clr.style.display = 'none';
       inp.focus();
     });
   }
+
+  // Close on outside click
+  document.addEventListener('mousedown', function(e) {
+    if (!inp.closest('.search').contains(e.target)) closeDropdown();
+  });
 })();
 
 /* ── ID TOC SEARCH (organ grid) ───────────────────────────────────────────── */
