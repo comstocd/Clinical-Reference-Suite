@@ -7697,6 +7697,40 @@ function removeEmpiricOnly() {
   });
 }
 
+/* ── HASH-BASED DEEP-LINK HANDLER ────────────────────────────────────────────
+   When the shell calls switchTool('id', 'id-campylobacter-btn') it sets
+   location.hash = 'id-campylobacter-btn' inside the iframe. This listener
+   catches that and calls scrollAndOpen() to expand the correct panel.
+   ─────────────────────────────────────────────────────────────────────────── */
+(function () {
+  function handleHash() {
+    var hash = (window.location.hash || '').replace('#', '').trim();
+    if (!hash) return;
+    var btn = document.getElementById(hash);
+    if (!btn) return;
+
+    // Find parent anatomy-group (if any) so we can scroll to it first
+    var group = btn.closest ? btn.closest('.anatomy-group') : null;
+    var groupId = group ? group.id : null;
+
+    if (groupId) {
+      scrollAndOpen(groupId, hash);
+    } else {
+      openPanel(hash);
+    }
+  }
+
+  // Run on initial load (shell may have already set hash before this fires)
+  document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(handleHash, 300);
+  });
+
+  // Run on any subsequent hash change (shell sets hash via location.hash = anchor)
+  window.addEventListener('hashchange', function () {
+    setTimeout(handleHash, 100);
+  });
+})();
+
 </script>
 </body>
 </html>
