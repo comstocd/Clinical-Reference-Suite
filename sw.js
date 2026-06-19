@@ -9,8 +9,8 @@
  */
 
 // ── CHANGE THESE TWO LINES EVERY TIME YOU PUSH A CLINICAL UPDATE ─────────────
-const DISPLAY_VERSION = 'BUILD #54.1';           // shown everywhere in the app
-const CACHE_VERSION   = 'crs-v6.5-build54.1';   // must be unique per release
+const DISPLAY_VERSION = 'BUILD #50';           // shown everywhere in the app
+const CACHE_VERSION   = 'crs-v6.5-build50';   // must be unique per release
 // ─────────────────────────────────────────────────────────────────────────────
 
 const CACHE_NAME = `clinical-ref-${CACHE_VERSION}`;
@@ -25,7 +25,6 @@ const PRECACHE_URLS = [
   // Core References
   `${BASE_PATH}/im_guide.html`,
   `${BASE_PATH}/drug_reference_guide.html`,
-  `${BASE_PATH}/Drug_Reference_Guide.html`,
   `${BASE_PATH}/id_guide.html`,
   `${BASE_PATH}/dx_framework.html`,
   `${BASE_PATH}/lab_values.html`,
@@ -46,6 +45,34 @@ const PRECACHE_URLS = [
   `${BASE_PATH}/body-atlas.html`,
   `${BASE_PATH}/audio-companion.html`,
   `${BASE_PATH}/pathogen-index.html`,
+
+  // ABIM Study Guides module
+  `${BASE_PATH}/ABIM%20Study%20Guides/index.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/study_guides_index.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/allergy_immunology_study_guide.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/board_pearls.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/board_pearls_audio.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/cardio_study_guide_audio.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/dermatology_study_guide.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/endocrinology_study_guide_audio.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/general_im_study_guide.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/geriatrics_study_guide.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/gi_study_guide_audio.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/heme_onc_study_guide_audio.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/high_value_care.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/high_value_care_audio.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/id_study_guide_audio.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/nephrology_study_guide.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/nephrology_study_guide_audio.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/neurology_study_guide_audio.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/palliative_care_study_guide.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/perioperative_study_guide.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/psychiatry_study_guide.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/pulmonology_study_guide_audio.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/rheumatology_study_guide_audio.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/womens_health_study_guide.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/albuminuria_ckd_audio.html`,
+  `${BASE_PATH}/ABIM%20Study%20Guides/audio-companion%20(abx).html`,
 ];
 
 // ── INSTALL ──────────────────────────────────────────────────────────────────
